@@ -1,0 +1,25 @@
+{% if page.homepage %}
+  <header class="header">
+    <div class="wrap">
+      <div class="header-content">
+        <div class="header-content__inner">
+          <h1 class="logo logo--large">Andrew <span>Schafer</span></h1>
+
+          <p class="welcome-paragraph">
+            <span class="js-headline"></span>
+          </p>
+        </div><!-- end .header-content__inner -->
+      </div><!-- end .header-content -->
+    </div>
+  </header>
+{% else %}
+  <header class="header-minimal">
+    <div class="wrap">
+      <div class="logo logo--minimal">
+        <a href="/" class="logo logo--minimal">Andrew <span>Schafer</span></a>
+      </div>
+    </div>
+  </header>
+{% endif %}
+
+<div class="main-content">

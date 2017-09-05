@@ -38,10 +38,12 @@ body {
 
 .quickLinkAbout:hover {
   font-weight: bold;
+  font-size: 22px;
 }
 
 .quickLinkContact:hover {
   font-weight: bold;
+  font-size: 22px;
 }
 
 .Categories{
@@ -55,7 +57,3 @@ img {
   height: auto;
   margin-bottom: 1em;
 }
-
-/*.Photography {
-  margin-left: 20%;
-}*/

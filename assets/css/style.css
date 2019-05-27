@@ -104,10 +104,11 @@ ul.social {
     margin-left: auto;
     margin-right: auto;
     width: 35%;
-    border-radius: 10%;
+    border-radius: 50%;
     margin-bottom: 20px;
     margin-top: 30px;
     min-width: 200px;
+    border: black solid 2px;
 }
 
 

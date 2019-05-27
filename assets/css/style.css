@@ -6,11 +6,13 @@
 *:after {
     box-sizing: border-box;
 }
+
 html,
 body {
- height: 100%;
- position: relative;
+    height: 100%;
+    position: relative;
 }
+
 body {
     font-family: 'Josefin Sans', Courier;
     background-blend-mode: multiply;
@@ -25,6 +27,7 @@ p {
 hr {
     border: 1px solid black;
 }
+
 a:visited {
     text-decoration: none;
     color: black;
@@ -74,11 +77,28 @@ Social Icons
 
 .social {
     list-style: none;
-    justify-content: center;
-    display: flex;
     padding: 0px;
+    margin: 30px;
+    
+}
+.social a{
+    color:black;
+}
+ul.social {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
 }
 
+@media screen and (max-width: 560px) {
+    ul.social {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: auto;
+    }
+}
 .profile_img img {
     display: block;
     margin-left: auto;
@@ -90,12 +110,6 @@ Social Icons
     min-width: 200px;
 }
 
-.hide-text {
-    text-indent: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    display: block;
-}
 
 .fab:hover,
 .fas:hover {

@@ -1,18 +1,27 @@
 .home_hero_container {
-    display: flex;
+    /* display: flex;
     justify-content: center;
     align-items: center;
+    width: 80%; */
+    position: relative;
+    text-align: center;
 }
 
 .home_hero_container p {
 
     text-align: center;
-    top: 50%;
+    top: 20%;
     left: 50%;
     color: black;
     padding: 10px;
-    font-size: 22px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    font-size: 4vw;
+    
 
+}
+.home_hero_container img {
+    width: 70%;
 }
 .cursor {
     display: inline-block;

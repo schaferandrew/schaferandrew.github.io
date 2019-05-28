@@ -4,7 +4,6 @@ Credit: https://codepen.io/CarliBotes/pen/JVqVOy?&page=1
 
 
 window.onload = function() {
-    console.log(document.getElementById('message'));
     const mHTML = document.getElementById('message'),
     messages = [
       'developer.',
@@ -15,7 +14,6 @@ window.onload = function() {
       'climber.',
       'human.'
     ];
-    console.log("mHTML: ",mHTML,": ");
     let currentMessage = 0;
     function typeMessage() {
       if (!messages[currentMessage]) {
@@ -34,7 +32,6 @@ window.onload = function() {
           clearInterval(int1);
         } else {
           part += currentStr[currentLetter++];
-          console.log("Part equal: ",part,". The current mHTML.innerHTML is: ",mHTML.innerHTML);
           mHTML.innerHTML = part;
         }
       }, 100);

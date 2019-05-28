@@ -9,13 +9,17 @@ layout: default
   <h1 class="page-heading">{{ page.title }}</h1>
   {%- endif -%}
   <div class="home_hero_container">
-    <img src="/assets/img/hero_mobile.jpg" srcset="assets/img/hero_desktop.jpg 1000w" alt="Valley in Grand Teton National Park">
+    <img src="/assets/img/hero_mobile.jpg" srcset="assets/img/hero_desktop.jpg 1000w"
+      alt="Valley in Grand Teton National Park">
     <p>
       I am a <span id="message"></span>
       <span class="cursor"></span>
     </p>
   </div>
 
+  <!-- Ad unit -->
+
+  <!-- End ad unit-->
   {%- if site.posts.size > 0 -%}
   <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
   <ul class="post-list">

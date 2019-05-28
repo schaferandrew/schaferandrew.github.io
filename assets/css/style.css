@@ -59,7 +59,6 @@ h2 {
 }
 
 
-
 /*
 Social Icons
 */
@@ -135,6 +134,9 @@ footer p {
     color: #808080;
     padding: 20px;
 
+}
+.copyright a {
+    margin: 0 5px;
 }
 
 footer li {

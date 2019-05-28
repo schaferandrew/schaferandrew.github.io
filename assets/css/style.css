@@ -58,7 +58,9 @@ h2 {
     min-height: 100%;
     position: relative;
 }
-
+li.post-item {
+    margin-top: 20px;
+}
 
 /*
 Social Icons

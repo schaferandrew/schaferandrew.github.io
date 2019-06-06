@@ -12,7 +12,7 @@ My career progressed into a role where I was working with a Sitecore implementat
 
 I don't see this website as a vehicle for earning substantial income and it didn't seem to make sense to pay a monthly fee for a portfolio site when there were other options to host it for free. Looking on the site now, maybe there is opportunity for a wider audience to my content, by that certainly wasn't the driving force for this project. What wordpress did really well was help me understand the concepts of a CMS, or in Jekyll's case, a static site generator. Now that I understood the underlying development pattern, I went back to the documentation.
 
-First of all, the documentation on the site is incredibly well maintained and easy to follow. I recommend starting here: [Step by step guide.](https://jekyllrb.com/docs/step-by-step/01-setup/).
+First of all, the documentation on the site is incredibly well maintained and easy to follow. I recommend starting here with their [step by step guide.](https://jekyllrb.com/docs/step-by-step/01-setup/).
 
 It guides you everywhere from setting up ruby and jekyll on your machine to building a base project. Another good resource I found was [Mike Dane](https://www.youtube.com/watch?v=T1itpPvFWHI). His tuturials really helped with my grasp of the basics and using Liquid. Liquid is the programming language you can use within your markup to pull in data from the site. From there I was able to write custom code that could pull select categories. This allowed me to solve the issue wanting more than one type of posts for images, videos, etc. Below is an example of how to do that.
 
@@ -51,4 +51,4 @@ I then created a collection layout that would pull in the correct category from 
 {% endraw %}
 {% endhighlight %}
 
-The best part about this besides being able to fit my needs, is the integration with github pages. I can host the site absolutely free and can easily push up changes and add posts. If you have any questions, please reach out or check out the repository here: [Andrew Schafer's website repo](https://github.com/schaferandrew/schaferandrew.github.io)
+The best part about this besides being able to fit my needs, is the integration with github pages. I can host the site absolutely free and can easily push up changes and add posts. If you have any questions, please reach out or check out the repository here: [Andrew Schafer's website repo](https://github.com/schaferandrew/schaferandrew.github.io).

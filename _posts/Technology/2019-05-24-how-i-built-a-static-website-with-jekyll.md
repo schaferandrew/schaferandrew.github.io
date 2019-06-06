@@ -4,7 +4,7 @@ categories: technology
 title: How I built my website with Jekyll (For Free)
 ---
 
-![Wordpress verus Jekyll logs](/assets/img/technology/2019/2019-05-28-how-i-built-my-website.jpg)
+![Wordpress versus Jekyll logos](/assets/img/technology/2019/2019-05-28-how-i-built-my-website.jpg)
 
 The hardest part of writing this website, believe it or not, was to get started. There are so many options for hosting, content management, and languages. It absolutely can be overwhelming. In the journey of building this, I started with Jekyll two years ago. It went terribly. I got caught up in trying to find the best theme and spent to much effort fighting themes instead of understanding the platform.
 

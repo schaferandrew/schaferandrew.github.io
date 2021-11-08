@@ -1,0 +1,52 @@
+* {
+    box-sizing: border-box;
+  
+    &,
+    &::before,
+    &::after {
+      box-sizing: border-box;
+    }
+  }
+  
+  html {
+    font-size: 100%;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    color: $black;
+    font-family: $fontDefault;
+    font-size: $textNormal;
+    letter-spacing: $letterspaceXsmall;
+    line-height: $lineHeightNormal;
+  }
+  
+  a {
+    color: $colorSecondary;
+  
+    @media screen and (min-width: $medium) {
+      &:hover,
+      &:focus,
+      &:active {
+        color: $gray;
+      }
+    }
+  }
+
+// Site max-width container
+.max-width {
+  max-width: $maxWidth;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+// Content max-width container
+.constrain {
+  max-width: $contentWidth;
+  margin: 0 auto;
+  padding: 0 $gap;
+
+  @media screen and (min-width: $medium) {
+    padding: 0 $gap;
+  }
+}

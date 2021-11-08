@@ -1,0 +1,102 @@
+.base-heading {
+    margin: 0;
+    padding: $gap 0;
+    font-family: $fontDisplay;
+    font-weight: $weightNormal;
+    line-height: $lineHeightNormal;
+  
+    @media screen and (min-width: $medium) {
+      padding: ($gapLarge / 3) 0;
+    }
+  }
+  
+  h1,
+  .h1 {
+    @extend .base-heading;
+    color: $colorPrimary;
+    font-size: $textH1;
+    letter-spacing: $letterspaceWide;
+    line-height: $lineHeightXwide;
+  
+    @media screen and (min-width: $medium) {
+      font-size: $textH1x;
+    }
+  }
+  
+  h2,
+  .h2 {
+    @extend .base-heading;
+    color: $colorPrimary;
+    font-size: $textH2;
+    letter-spacing: $letterspaceMedium;
+    line-height: $lineHeightNormal;
+    text-align: center;
+  
+    @media screen and (min-width: $medium) {
+      font-size: $textH2x;
+    }
+  }
+  
+  h3,
+  .h3 {
+    @extend .base-heading;
+    font-size: $textH3;
+  
+    @media screen and (min-width: $medium) {
+      font-size: $textH3x;
+    }
+  }
+  
+  h4,
+  .h4 {
+    @extend .base-heading;
+    font-size: $textH4;
+  
+    @media screen and (min-width: $medium) {
+      font-size: $textH4x;
+    }
+  }
+  
+  h5,
+  .h5 {
+    @extend .base-heading;
+    font-size: $textH5;
+  
+    @media screen and (min-width: $medium) {
+      font-size: $textH5x;
+    }
+  }
+  
+  h6,
+  .h6 {
+    @extend .base-heading;
+    font-size: $textH6;
+  
+    @media screen and (min-width: $medium) {
+      font-size: $textH6x;
+    }
+  }
+  
+  p {
+    margin: 0;
+    padding: 0;
+    line-height: $lineHeightWide;
+  
+    + p {
+      padding-top: $gap;
+    }
+  
+    + h1,
+    + h2,
+    + h3,
+    + h4,
+    + h5,
+    + h6 {
+      padding-top: ($gap * 2);
+    }
+  }
+  
+  ul + p {
+    padding-top: $gap;
+  }
+  

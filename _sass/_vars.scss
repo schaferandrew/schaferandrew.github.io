@@ -1,0 +1,92 @@
+// Media query breakpoints
+$small: 480px;
+$medium: 768px;
+$large: 980px;
+
+// Fonts
+$fontDisplay: 'Josefin Sans', Courier, Tahoma;
+$fontDefault: 'Open Sans', sans-serif;
+
+// Text sizing
+$textSmall: 14px;
+$textNormal: 16px;
+$textMedium: 18px;
+$textLarge: 20px;
+$textXlarge: 22px;
+$textXXlarge: 26px;
+$textXXXlarge: 28px;
+
+
+$textH1: 31px;
+$textH1x: 48px;
+
+$textH1alt: 31px;
+$textH1altx: 40px;
+
+$textH2: 25px;
+$textH2x: 32px;
+
+$textH3: 24px;
+$textH3x: 24px;
+
+$textH4: 20px;
+$textH4x: 22px;
+
+$textH5: 18px;
+$textH5x: 20px;
+
+$textH6: 16px;
+$textH6x: 18px;
+
+// Line Height
+$lineHeightSmall: 1.14;
+$lineHeightNormal: 1.25;
+$lineHeightWide: 1.36;
+$lineHeightXwide: 1.5;
+
+// Letter Spacing
+$letterspaceXsmall: 0.33px;
+$letterspaceSmall: 0.5px;
+$letterspaceMedium: 1px;
+$letterspaceWide: 1.5px;
+
+// Font Weight
+$weightNormal: 400;
+$weightBold: bold;
+
+// Colors
+$black: #2b2537;
+$white: #fff;
+$gray: #808080;
+$colorPrimary: #006648;
+$colorPrimaryAlt: #0073e6;
+$colorSecondary: #074734;
+$colorSecondaryAlt: #5cadff;
+$colorTertiary: #f7f7f7;
+$colorAccent: #b3365b;
+$transparentWhite: #ffffff50;
+
+// Measurements based on design grid
+$maxWidth: 1400px; // If I choose to give body a border
+$contentWidth: 1172px; // Content width includes content padding
+$dividerLength: 150px;
+$dividerLengthLarge: 300px;
+$heroBannerWidth: 400px;
+
+// Spacing
+// The $gap value is your base value. $gapLarge is merely ($gap * 4), but is given its own variable for more straightforward usage.
+// Example scale usage:
+// 15px = $gap
+// 20px = ($gapLarge / 3)
+// 30px = ($gap * 2) || ($gapLarge / 2)
+// 40px = ($gapLarge / 1.5)
+// 60px = $gapLarge
+
+$gap: 15px;
+$gapLarge: 60px;
+
+// Border radius
+$radiusBtn: 3px;
+
+// Speeds
+$speedFast: 250ms;

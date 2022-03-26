@@ -1,4 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-03T23:02:20-06:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Andrew Schafer</title><subtitle>I'm a recent grad and transplant from Michigan finding ways to be useful and hopefully, entertaining.</subtitle><entry><title type="html">Frontier Ruined my Trip … Wait, Did They?</title><link href="http://localhost:4000/travel/2019/06/08/frontier-ruined-my-trip.html" rel="alternate" type="text/html" title="Frontier Ruined my Trip … Wait, Did They?" /><published>2019-06-08T00:00:00-05:00</published><updated>2019-06-08T00:00:00-05:00</updated><id>http://localhost:4000/travel/2019/06/08/frontier-ruined-my-trip</id><content type="html" xml:base="http://localhost:4000/travel/2019/06/08/frontier-ruined-my-trip.html">&lt;p&gt;Frontier ruined my Trip … Wait, Did They?&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-03-25T22:51:06-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Andrew Schafer</title><subtitle>I'm a recent grad and transplant from Michigan finding ways to be useful and hopefully, entertaining.</subtitle><entry><title type="html">Building the Next Generation of Brand Sites</title><link href="http://localhost:4000/technology/2022/03/25/building-the-next-generation-of-brand-sites.html" rel="alternate" type="text/html" title="Building the Next Generation of Brand Sites" /><published>2022-03-25T00:00:00-05:00</published><updated>2022-03-25T00:00:00-05:00</updated><id>http://localhost:4000/technology/2022/03/25/building-the-next-generation-of-brand-sites</id><content type="html" xml:base="http://localhost:4000/technology/2022/03/25/building-the-next-generation-of-brand-sites.html">&lt;h2 id=&quot;overview&quot;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;As a developer for the Branded Sites team at General Mills, we build and maintain Brand sites for hundreds of brands in our portfolio. Each site has different goals, brand managers, and budgets. We needed a product that we could offer that is modern, fast, reliable, easy to work on and maintain, and delivers a great user experience for everyone.&lt;/p&gt;
+
+&lt;h3 id=&quot;key-deliverables&quot;&gt;Key Deliverables&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Rating and Review Client-Side Component&lt;/li&gt;
+  &lt;li&gt;Server Side API Routes to Submit Ratings&lt;/li&gt;
+  &lt;li&gt;Detached Wordpress CMS Setup&lt;/li&gt;
+  &lt;li&gt;Bazaar Voice Integration&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;technology-used&quot;&gt;Technology Used&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;NextJS&lt;/li&gt;
+  &lt;li&gt;React&lt;/li&gt;
+  &lt;li&gt;GraphQL&lt;/li&gt;
+  &lt;li&gt;Webpack&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;link&quot;&gt;Link&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.cinnamontoastcrunch.com/&quot;&gt;Visit Site&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#why-a-headless-front-end&quot;&gt;Why a Headless Front-End?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#why-nextjs&quot;&gt;Why NextJS?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#my-role-on-the-team&quot;&gt;My Role&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#accessibility&quot;&gt;Accessibility&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#outcome&quot;&gt;Outcome&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;why-a-headless-front-end&quot;&gt;Why a Headless Front-End?&lt;/h2&gt;
+
+&lt;h2 id=&quot;why-nextjs&quot;&gt;Why NextJS?&lt;/h2&gt;
+&lt;h2 id=&quot;my-role-on-the-team&quot;&gt;My Role on the Team&lt;/h2&gt;
+&lt;h3 id=&quot;project-management&quot;&gt;Project Management&lt;/h3&gt;
+&lt;h3 id=&quot;design&quot;&gt;Design&lt;/h3&gt;
+&lt;h3 id=&quot;development&quot;&gt;Development&lt;/h3&gt;
+&lt;h2 id=&quot;accessibility&quot;&gt;Accessibility&lt;/h2&gt;
+&lt;h3 id=&quot;general-approach&quot;&gt;General Approach&lt;/h3&gt;
+&lt;h3 id=&quot;read-more--read-less&quot;&gt;Read More / Read Less&lt;/h3&gt;
+&lt;h3 id=&quot;screen-takeovers&quot;&gt;Screen Takeovers&lt;/h3&gt;
+&lt;h2 id=&quot;outcome&quot;&gt;Outcome&lt;/h2&gt;</content><author><name></name></author><category term="technology" /><summary type="html">Overview As a developer for the Branded Sites team at General Mills, we build and maintain Brand sites for hundreds of brands in our portfolio. Each site has different goals, brand managers, and budgets. We needed a product that we could offer that is modern, fast, reliable, easy to work on and maintain, and delivers a great user experience for everyone.</summary></entry><entry><title type="html">Frontier Ruined my Trip … Wait, Did They?</title><link href="http://localhost:4000/travel/2019/06/08/frontier-ruined-my-trip.html" rel="alternate" type="text/html" title="Frontier Ruined my Trip … Wait, Did They?" /><published>2019-06-08T00:00:00-05:00</published><updated>2019-06-08T00:00:00-05:00</updated><id>http://localhost:4000/travel/2019/06/08/frontier-ruined-my-trip</id><content type="html" xml:base="http://localhost:4000/travel/2019/06/08/frontier-ruined-my-trip.html">&lt;p&gt;Frontier ruined my Trip … Wait, Did They?&lt;/p&gt;
 
 &lt;p&gt;The most common question you endure when you land after a spell of air travel is, “How was the flight”. 99% of the time, “It was fine” pretty much sums it up and it is always met with glowing approvals and anecdotes to past travel horror stories. The flight sticks in people’s mind longer than the sandwich they ordered for lunch in San Francisco or the cute Airbnb in the Poconos.&lt;/p&gt;
 
@@ -55,11 +97,23 @@
 
 &lt;p&gt;The day was wrapped watching the sunset at a spot, it’s secret so no pics, somewhere along the North Shore. It was nice.&lt;/p&gt;
 
-&lt;p&gt;Weekends, well days for that matter, really shouldn’t be underestimated. If you’re not careful, you can make them pretty fun.&lt;/p&gt;</content><author><name></name></author><category term="travel" /><summary type="html"></summary></entry><entry><title type="html">How I built my website with Jekyll (For Free)</title><link href="http://localhost:4000/technology/2019/05/24/how-i-built-a-static-website-with-jekyll.html" rel="alternate" type="text/html" title="How I built my website with Jekyll (For Free)" /><published>2019-05-24T00:00:00-05:00</published><updated>2019-05-24T00:00:00-05:00</updated><id>http://localhost:4000/technology/2019/05/24/how-i-built-a-static-website-with-jekyll</id><content type="html" xml:base="http://localhost:4000/technology/2019/05/24/how-i-built-a-static-website-with-jekyll.html">&lt;p&gt;&lt;img src=&quot;/assets/img/technology/2019/05-28-how-i-built-my-website.jpg&quot; alt=&quot;Wordpress versus Jekyll logos&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Weekends, well days for that matter, really shouldn’t be underestimated. If you’re not careful, you can make them pretty fun.&lt;/p&gt;</content><author><name></name></author><category term="travel" /><summary type="html"></summary></entry><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/jekyll/update/2019/05/25/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2019-05-25T15:33:39-05:00</published><updated>2019-05-25T15:33:39-05:00</updated><id>http://localhost:4000/jekyll/update/2019/05/25/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2019/05/25/welcome-to-jekyll.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+
+&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+
+&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name>Andrew</name></author><category term="jekyll" /><category term="update" /><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry><entry><title type="html">How I built my website with Jekyll (For Free)</title><link href="http://localhost:4000/technology/2019/05/24/how-i-built-a-static-website-with-jekyll.html" rel="alternate" type="text/html" title="How I built my website with Jekyll (For Free)" /><published>2019-05-24T00:00:00-05:00</published><updated>2019-05-24T00:00:00-05:00</updated><id>http://localhost:4000/technology/2019/05/24/how-i-built-a-static-website-with-jekyll</id><content type="html" xml:base="http://localhost:4000/technology/2019/05/24/how-i-built-a-static-website-with-jekyll.html">&lt;p&gt;&lt;img src=&quot;/assets/img/technology/2019/05-28-how-i-built-my-website.jpg&quot; alt=&quot;Wordpress versus Jekyll logos&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The hardest part of writing this website, believe it or not, was to get started. There are so many options for hosting, content management, and languages. It absolutely can be overwhelming. In the journey of building this, I started with Jekyll two years ago. It went terribly. I got caught up in trying to find the best theme and spent to much effort fighting themes instead of understanding the platform.&lt;/p&gt;
 
-&lt;p&gt;My career progressed into a role where I was working with a Sitecore implementation. In my undergrand, we didn’t touch on CMS (content management systems) and it felt unnecessary. Why not just build a backend and link to your own database? Why be stuck to certain rules and pay someone a lot of money for that pleasure? Eventually it became clear that it was all about scale. There isn’t a reason to have a developer code every page that is a little big custom. Having a separate authoring team does have extremely valuable cost savings. In my discovery period in getting familiar with the platform, I build out a proof of concept in Wordpress. Honestly it was fun. I saw how customizable it could be. The benefits of allowing guests to contribute, the thorough documentation,and it was a good skill to add to my quiver. However, it had one major downside: A cost to host.&lt;/p&gt;
+&lt;p&gt;My career progressed into a role where I was working with a Sitecore implementation. In my undergrad, we didn’t touch on CMS (content management systems) and it felt unnecessary. Why not just build a backend and link to your own database? Why be stuck to certain rules and pay someone a lot of money for that pleasure? Eventually it became clear that it was all about scale. There isn’t a reason to have a developer code every page that is a little big custom. Having a separate authoring team does have extremely valuable cost savings. In my discovery period in getting familiar with the platform, I build out a proof of concept in Wordpress. Honestly it was fun. I saw how customizable it could be. The benefits of allowing guests to contribute, the thorough documentation,and it was a good skill to add to my quiver. However, it had one major downside: A cost to host.&lt;/p&gt;
 
 &lt;p&gt;I don’t see this website as a vehicle for earning substantial income and it didn’t seem to make sense to pay a monthly fee for a portfolio site when there were other options to host it for free. Looking on the site now, maybe there is opportunity for a wider audience to my content, by that certainly wasn’t the driving force for this project. What wordpress did really well was help me understand the concepts of a CMS, or in Jekyll’s case, a static site generator. Now that I understood the underlying development pattern, I went back to the documentation.&lt;/p&gt;
 

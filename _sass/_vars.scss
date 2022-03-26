@@ -1,7 +1,10 @@
+@use 'sass:math';
+
 // Media query breakpoints
 $small: 480px;
 $medium: 768px;
-$large: 980px;
+$large: 1096px;
+$xlarge: 1400px;
 
 // Fonts
 $fontDisplay: 'Josefin Sans', Courier, Tahoma;
@@ -58,7 +61,7 @@ $weightBold: bold;
 $black: #2b2537;
 $white: #fff;
 $gray: #808080;
-$colorPrimary: #006648;
+$colorPrimary: #262626;
 $colorPrimaryAlt: #0073e6;
 $colorSecondary: #074734;
 $colorSecondaryAlt: #5cadff;
@@ -68,22 +71,28 @@ $transparentWhite: #ffffff50;
 
 // Measurements based on design grid
 $maxWidth: 1400px; // If I choose to give body a border
-$contentWidth: 1172px; // Content width includes content padding
+$contentWidth: 1024px; // Content width includes content padding
 $dividerLength: 150px;
 $dividerLengthLarge: 300px;
 $heroBannerWidth: 400px;
+$postMaxWidth: 800px;
 
 // Spacing
 // The $gap value is your base value. $gapLarge is merely ($gap * 4), but is given its own variable for more straightforward usage.
 // Example scale usage:
-// 15px = $gap
-// 20px = ($gapLarge / 3)
-// 30px = ($gap * 2) || ($gapLarge / 2)
-// 40px = ($gapLarge / 1.5)
-// 60px = $gapLarge
+// 16px = $gap
+// 32px = ($gap * 2) || ($gapLarge / 2)
+// 64px = $gapLarge
 
-$gap: 15px;
-$gapLarge: 60px;
+$gap: 16px;
+$gapLarge: 64px;
+
+// Division
+$oneThird: 1/3;
+$oneHalf: 1/2;
+$twoThirds: 1.5;
+$oneFifth: 1/5;
+$oneFourth: 1/4;
 
 // Border radius
 $radiusBtn: 3px;

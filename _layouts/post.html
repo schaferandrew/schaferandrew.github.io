@@ -2,39 +2,42 @@
 layout: default
 ---
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-  <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
-    <div class="post-byline">
-      <div class="post-dt">
-        <time class="post-dt-published" datetime="{{ page.date | date_to_xmlschema }}">
-          {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-          <span class="post-dt-label">Published on</span> {{ page.date | date: date_format }}
-        </time>
-      </div>
-      <div class="post-dt">
-        <time class="post-dt-modified" datetime="{{ page.date-modified | date_to_xmlschema }}">
-          {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-          {%- if page.modified-date -%}
-          <span class="post-dt-label">Updated on</span> {{ page.modified-date | date: date_format }}
+  <div class="constrain">
+
+    <header class="post-header">
+      <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+      <div class="post-byline">
+        <div class="post-dt">
+          <time class="post-dt-published" datetime="{{ page.date | date_to_xmlschema }}">
+            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+            <span class="post-dt-label">Published on</span> {{ page.date | date: date_format }}
+          </time>
+        </div>
+        <div class="post-dt">
+          <time class="post-dt-modified" datetime="{{ page.date-modified | date_to_xmlschema }}">
+            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+            {%- if page.modified-date -%}
+            <span class="post-dt-label">Updated on</span> {{ page.modified-date | date: date_format }}
+            {%- endif -%}
+          </time>
+        </div>
+        <div class="post-author">
+          {%- if page.author -%}
+            <span>{{ page.author | escape }}</span>
           {%- endif -%}
-        </time>
-      </div>
-      <div class="post-author">
-        {%- if page.author -%}
-          <span>{{ page.author | escape }}</span>
-        {%- endif -%}
-      </div>
+        </div>
 
+      </div>
+    </header>
+
+    <div class="post-content e-content" itemprop="articleBody">
+        {{ content }}
     </div>
-  </header>
 
-  <div class="post-content e-content" itemprop="articleBody">
-      {{ content }}
+    <!-- {%- if site.disqus.shortname -%}
+      {%- include disqus_comments.html -%}
+    {%- endif -%} -->
+
+    <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
   </div>
-
-  <!-- {%- if site.disqus.shortname -%}
-    {%- include disqus_comments.html -%}
-  {%- endif -%} -->
-
-  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
 </article>

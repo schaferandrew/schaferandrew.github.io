@@ -1,0 +1,37 @@
+.profile-container {
+    @media screen and (min-width: $medium) {
+        display: flex;
+    }
+}
+
+.profile-img {
+    flex: 1 1 25%;
+    padding-top: $gap;
+    padding-bottom: $gapLarge;
+
+    @media screen and (min-width: $small) {
+        padding-top: 2 * $gap;
+    }
+}
+.profile-img img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+    border: black solid 2px;
+
+    @media screen and (max-width: $medium) {
+        width: 75%;
+    }
+}
+
+.profile-description {
+    flex: 1 1 75%;
+    margin: auto;
+    text-align: left;
+
+    @media screen and (min-width: $medium) {
+        padding-left: $gap * 2;
+    }
+}
+

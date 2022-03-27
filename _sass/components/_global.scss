@@ -23,12 +23,14 @@
   
   a {
     color: $colorSecondary;
+    text-decoration: none;
   
     @media screen and (min-width: $medium) {
       &:hover,
       &:focus,
       &:active {
         color: $gray;
+        text-decoration: underline;
       }
     }
   }

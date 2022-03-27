@@ -4,41 +4,34 @@ Footer
 
 footer {
     background: #262626;
-    margin: 0px;
-    padding: 5px;
     color: #f7f7f7;
-    text-align: center;
-    width: 100%;
-}
-
-footer p {
-    text-align: left;
-    color: #808080;
-    padding: 20px;
-
-}
-.copyright a {
-    margin: 0 5px;
-}
-
-footer li {
-    display: inline;
-    padding: 10px;
+    font-size: $textSmall;
     text-align: center;
 }
 
-footer a,
-footer a:visited {
-    color: #f7f7f7;
-    text-decoration: none;
+.footer-container {
+    @media screen and (min-width: $large) {
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
-footer a:hover {
-    color: #808080;
-    text-decoration: none;
+.footer-copyright {
+  color: $lightGray;
+  padding-bottom: $gap * $oneHalf;
+
+  @media screen and (min-width: $large) {
+      padding-bottom: 0;
+  }
 }
 
-div.copyright {
-    text-align: center;
-    font-size: 50%;
+.footer-links {
+    a {
+        color: $white;
+        text-decoration: none;
+
+        &:hover {
+            color: $lightGray;
+        }
+    }
 }

@@ -1,0 +1,21 @@
+.post-content {
+    max-width: $postMaxWidth;
+    margin-right: auto;
+    margin-left: auto;
+}
+.post-content img{
+    width: 100%;
+
+    padding: $gap 0;
+
+    @media screen and (min-width: $large) {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        // width: 65%;
+    }
+}
+
+.post-dt-label {
+    font-weight: lighter;
+}

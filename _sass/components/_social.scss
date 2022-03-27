@@ -1,0 +1,23 @@
+.social-list {
+    display: flex;
+    justify-content: space-evenly;
+
+    padding-left: 0;
+}
+
+.social-item {
+    display: inline;
+    a {
+        text-decoration: none;
+        color: $colorPrimary;
+        
+        &:hover {
+            color: $gray;
+            text-decoration: underline;
+        }
+    }
+}
+
+.social-container {
+    padding-bottom: $gap * 2;
+}

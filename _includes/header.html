@@ -1,8 +1,11 @@
 <header>
     <nav>
-        <h1 class="logo"><a class="site-title" rel="author"
-                href="{{ "/" | relative_url }}">{{ site.title | escape }}</a></h1>
-        <hr>
+        <div class="constrain nav-container">
+            <a class="nav-logo" rel="author" href="{{ '/' | relative_url }}">
+                <div class="nav-title h1">{{ site.title | escape }}</div>
+            </a>
+            <hr>
+        </div>
         <!-- <input type="checkbox" id="nav" class="hidden" />
         <label for="nav" class="nav-open"><i></i><i></i><i></i></label>
         <div class="nav-container">

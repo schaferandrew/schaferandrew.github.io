@@ -16,11 +16,16 @@
 title: Andrew Schafer
 email: schafeandrew@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  I'm a recent grad and transplant from Michigan finding ways to be useful and hopefully, entertaining.
+  I’m a software developer with 6 years of industry experience. While the frameworks I use, the industries I support, and even role descriptions have varied, one thing has been consistent: I thrive delivering consumer-first digital products.
+  I love starting with a user problem, then finding the best way to solve that through technology. Recently, I’ve been working with NextJS and React, as well as custom themes for WordPress using PHP and Advanced Custom Fields.
+  My priorities in the work I deliver are fast, maintainable, modern, accessible, and fun. This is done through good design, smart development patterns, and as much as I don’t love this word: _strict_ scss standards.
+  I will always push for the right tooling for the job to ensure we don’t overbuild, while leaving headroom for growth. I strive for an end result that is a beautiful, user friendly platform to engage with your community in new, thoughtful ways.
+  When I’m not crushing user stories,  I can be found behind a camera wherever I found a cheap plane ticket, volunteering on my local Parks + Placemaking committee board, or trying to read too many books at once.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+github_username:  schaferandrew
+instagram_username: schafer.andrew
+linkedin_username: andrew-schafer-617305107
 
 # Build settings
 markdown: kramdown

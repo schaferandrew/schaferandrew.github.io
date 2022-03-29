@@ -30,6 +30,8 @@
     margin: auto;
     text-align: left;
 
+    font-size: $textLarge;
+
     @media screen and (min-width: $medium) {
         padding-left: $gap * 2;
     }

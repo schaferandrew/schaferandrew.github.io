@@ -1,2 +1,45 @@
-<ul class="social-media-list">
-</ul>
+<div class="social-container">
+    {% if include.title %}
+        <h2>{{ include.title }}</h2>
+    {% endif %}
+
+    <ul class="social-list constrain">
+
+      <li class="social-item">
+        <a class="social-anchor" href="https://github.com/{{site.github_username}}" target="_blank">
+            <img 
+                src="/assets/img/social/github.svg"
+                alt="Check out my github"
+                height="32px"
+            >
+        </a>
+      </li>
+      <li class="social-item">
+        <a class="social-anchor" href="https://www.instagram.com/{{site.instagram_username}}" target="_blank">
+            <img 
+                src="/assets/img/social/instagram.svg"
+                alt="Follow me on instagram"
+                height="32px"
+            >
+        </a>
+      </li>
+      <li class="social-item">
+        <a class="social-anchor" href="https://www.linkedin.com/in/{{site.linkedin_username}}" target="_blank">
+            <img 
+                src="/assets/img/social/linkedin.svg"
+                alt="Connect with me on Linkedin"
+                height="32px"
+            >
+        </a>
+      </li>
+      <li class="social-item">
+        <a class="social-anchor" href="https://www.goodreads.com/user/show/{{site.goodreads_username}}" target="_blank">
+            <img 
+                src="/assets/img/social/goodreads.svg"
+                alt="Read with me on Goodreads"
+                height="32px"
+            >
+        </a>
+      </li>
+    </ul>
+  </div>

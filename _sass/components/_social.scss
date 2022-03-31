@@ -1,6 +1,7 @@
 .social-list {
     display: flex;
     justify-content: space-evenly;
+    max-width: $socialMaxWidth;
 
     padding-left: 0;
 }
@@ -21,3 +22,19 @@
 .social-container {
     padding-bottom: $gap * 2;
 }
+
+.social-anchor {
+    display: block;
+    transition: all $speedFast;
+
+    &:focus-visible {
+        outline-offset: 2px;
+    }
+
+    @media (hover: hover) {
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+}
+  

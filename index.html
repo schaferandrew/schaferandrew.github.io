@@ -37,48 +37,39 @@ title: Home
 
 
   <!-- Get everything but technology, show first 3 -->
-  <!-- {%- if site.posts.size > 0 -%}
-  <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
-  <ul class="post-list">
-    {%- for post in site.posts -%}
-    <li class="post-item">
-      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-      <span class="post-meta">{{ post.date | date: date_format }}</span>
-      <h3>
-        <a class="post-link" href="{{ post.url | relative_url }}">
-          {{ post.title | escape }}
-        </a>
-      </h3>
-      {%- if site.show_excerpts -%}
-      <p>{{ post.excerpt | strip_html | truncatewords:50 }}</p>
-      {%- endif -%}
-    </li>
-    {%- endfor -%}
-  </ul>
-  {%- endif -%} -->
-
-  <h2>Find Me Elsewhere</h2>
-  <!-- Replace with Social Component Use Excerpt -->
-  <!-- Use SVGS instead of text. Don't forget aria-label -->
-  <!-- <div class="social-links">
-    {%- include social.html -%}
-  </div> -->
-  <div class="social-container">
-    <ul class="social-list">
-      {%- if site.email -%}
-      <li class="social-item">
-        <a class="u-email" href="mailto:{{ site.email }}">email</a>
+  {%- if site.posts.size > 0 -%}
+  {% assign count=0 %}
+  <div class="constrain">
+    <h2>Recent Posts</h2>
+    <ul>
+      {%- for post in site.posts -%}
+      {% unless post.categories == "technology" or count >= 4%}
+      <li class="post-item">
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        <div>
+          <span class="post-meta">{{ post.date | date: date_format }}</span>
+          <i class="post-meta-category">{{post.categories}}</i>
+        </div>
+        <h3>
+          <a class="post-link" href="{{ post.url | relative_url }}">
+            {{ post.title | escape }}
+          </a>
+        </h3>
+        {%- if site.show_excerpts -%}
+        <p>{{ post.excerpt | strip_html | truncatewords:50 }}</p>
+        {%- endif -%}
       </li>
-      {%- endif -%}
-      <li class="social-item">
-        <a href="https://github.com/schaferandrew" target="_blank">github</a>
-      </li>
-      <li class="social-item">
-        <a href="https://www.instagram.com/schafer.andrew" target="_blank">instagram</a>
-      </li>
-      <!-- <li><a href="https://www.youtube.com/channel/UCwYee07L-umS8KVhbJp809w" target="_blank">youtube</a></li> -->
+      {% assign counter = counter | plus: 1 %}
+      {% endunless %}
+      {%- endfor -%}
     </ul>
   </div>
+  
+  {%- endif -%}
+
+  {% include social.html
+    title="Find Me Elsewhere"
+  %}
 
 
 </div>

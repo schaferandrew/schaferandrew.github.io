@@ -33,17 +33,17 @@ title: Home
   %}
 
 
-
+  {% assign counter = 0 %}
 
 
   <!-- Get everything but technology, show first 3 -->
   {%- if site.posts.size > 0 -%}
-  {% assign count=0 %}
   <div class="constrain">
     <h2>Recent Posts</h2>
     <ul>
       {%- for post in site.posts -%}
-      {% unless post.categories == "technology" or count >= 4%}
+      {% unless post.categories contains "technology" or counter > 5 %}
+      {% assign counter = counter | plus: 1 %}
       <li class="post-item">
         {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
         <div>
@@ -55,11 +55,10 @@ title: Home
             {{ post.title | escape }}
           </a>
         </h3>
-        {%- if site.show_excerpts -%}
+        <!-- {%- if site.show_excerpts -%}
         <p>{{ post.excerpt | strip_html | truncatewords:50 }}</p>
-        {%- endif -%}
+        {%- endif -%} -->
       </li>
-      {% assign counter = counter | plus: 1 %}
       {% endunless %}
       {%- endfor -%}
     </ul>
@@ -70,6 +69,5 @@ title: Home
   {% include social.html
     title="Find Me Elsewhere"
   %}
-
 
 </div>

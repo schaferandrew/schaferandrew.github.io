@@ -1,0 +1,73 @@
+---
+layout: default-no-nav
+title: Home
+---
+<script src="/assets/js/typewriter.js"></script>
+
+<div class="home">
+  {% include hero.html %}
+
+  {% include cta_2_col.html 
+    title="Development"
+    heading="NextJS Front End Platform"
+    description="At General Mills, our team built a modern headless platform using React to accomodate key brands like Cheerios, Annies, and Cinnamon Toast Crunch"
+    img="technology/2022/next/logo.jpg"
+    flipped=false
+    cta_link="/technology/2022/03/25/building-next-generation-brand-sites.html"
+    cta_text="Read More →"
+    bkg="blue"
+  %}
+
+  {% include cta_2_col.html 
+    heading="WordPress with Salesforce Form Submission"
+    description="I built the new Haagen Dazs Franchise site with modern branding and an application form that integrates with Salesforce."
+    img="technology/2021/wordpress/haagen-dazs.jpg"
+    flipped=true
+    cta_link="/technology/2021/07/20/salesforce-and-wordpress.html"
+    cta_text="Read More →"
+    bkg="blue"
+  %}
+
+  {% include profile.html
+    title="About Me"
+  %}
+
+
+  {% assign counter = 0 %}
+
+
+  <!-- Get everything but technology, show first 3 -->
+  {%- if site.posts.size > 0 -%}
+  <div class="constrain">
+    <h2>Recent Posts</h2>
+    <ul>
+      {%- for post in site.posts -%}
+      {% unless post.categories contains "technology" or counter > 5 %}
+      {% assign counter = counter | plus: 1 %}
+      <li class="post-item">
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        <div>
+          <span class="post-meta">{{ post.date | date: date_format }}</span>
+          <i class="post-meta-category">{{post.categories}}</i>
+        </div>
+        <h3>
+          <a class="post-link" href="{{ post.url | relative_url }}">
+            {{ post.title | escape }}
+          </a>
+        </h3>
+        <!-- {%- if site.show_excerpts -%}
+        <p>{{ post.excerpt | strip_html | truncatewords:50 }}</p>
+        {%- endif -%} -->
+      </li>
+      {% endunless %}
+      {%- endfor -%}
+    </ul>
+  </div>
+  
+  {%- endif -%}
+
+  {% include social.html
+    title="Find Me Elsewhere"
+  %}
+
+</div>

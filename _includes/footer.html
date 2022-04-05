@@ -1,34 +1,14 @@
 <footer>
-    <div>
-        <p>More from {{site.title}}</p>
-    </div>
-    <ul class="contact-list">
-        {%- if site.email -%}
-        <li><a class="u-email" href="mailto:{{ site.email }}">email</a></li>
-        {%- endif -%}
-        <li><a href="https://github.com/schaferandrew" target="_blank">github</a></li>
-        <li><a href="https://www.instagram.com/schafer.andrew" target="_blank">instagram</a></li>
-        <!-- <li><a href="https://www.youtube.com/channel/UCwYee07L-umS8KVhbJp809w" target="_blank">youtube</a></li> -->
-    </ul>
-    </div>
-
-
-
-    <div class="social-links">
-        {%- include social.html -%}
-    </div>
-    <div class="copyright">
-        <p>
+    <div class="footer-container constrain">
+        <div class="footer-copyright">
             ©{{site.time | date: '%Y'}} Andrew Schafer
+        </div>
+        <div class="footer-links">
             <a href="/privacy">privacy policy</a>
             |
             <a href="/about">about</a>
             |
             <a href="/contact">contact me</a>
-        </p>
-
+        </div>
     </div>
-
-
-
 </footer>

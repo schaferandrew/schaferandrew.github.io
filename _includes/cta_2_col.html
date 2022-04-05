@@ -1,0 +1,31 @@
+<section class="cta-2-col-bkg-{{ include.bkg }}">
+    <div class="constrain">
+    {% if include.title %}
+        <h2 class="cta-2-col-title">{{ include.title }}</h2>
+    {% endif %}
+    {% if include.flipped %}
+        <div class="cta-2-col-wrap cta-2-col-flipped">
+    {% else %}
+	    <div class="cta-2-col-wrap ">
+    {% endif %}
+            <div class="cta-2-col-image">
+            {% if include.img %}
+                <img src="/assets/img/{{ include.img }}" />
+            {% else %}
+                <img src="http://placecorgi.com/600/600" />
+            {% endif %}
+            </div>
+            <div class="cta-2-col-text">
+            {% if include.title %}
+                <h3 class="cta-2-col-heading">{{ include.heading }}</h3>
+            {% else %}
+                <h2 class="cta-2-col-heading h3">{{ include.heading }}</h2>
+            {% endif %}
+            <div class="cta-2-col-desc">{{ include.description }}</div>
+            {% if include.cta_link %}
+                <a class="button-{{ include.bkg }}" href="{{ include.cta_link }}">{{ include.cta_text }}</a>
+            {% endif %}
+            </div>
+        </div>
+	</div>
+</section>

@@ -2,13 +2,14 @@
 layout: post
 categories: technology
 title: How I built my website with Jekyll (For Free)
+modified-date: 2022-03-25 15:33:39 -0500
 ---
 
 ![Wordpress versus Jekyll logos](/assets/img/technology/2019/05-28-how-i-built-my-website.jpg)
 
 The hardest part of writing this website, believe it or not, was to get started. There are so many options for hosting, content management, and languages. It absolutely can be overwhelming. In the journey of building this, I started with Jekyll two years ago. It went terribly. I got caught up in trying to find the best theme and spent to much effort fighting themes instead of understanding the platform.
 
-My career progressed into a role where I was working with a Sitecore implementation. In my undergrand, we didn't touch on CMS (content management systems) and it felt unnecessary. Why not just build a backend and link to your own database? Why be stuck to certain rules and pay someone a lot of money for that pleasure? Eventually it became clear that it was all about scale. There isn't a reason to have a developer code every page that is a little big custom. Having a separate authoring team does have extremely valuable cost savings. In my discovery period in getting familiar with the platform, I build out a proof of concept in Wordpress. Honestly it was fun. I saw how customizable it could be. The benefits of allowing guests to contribute, the thorough documentation,and it was a good skill to add to my quiver. However, it had one major downside: A cost to host.
+My career progressed into a role where I was working with a Sitecore implementation. In my undergrad, we didn't touch on CMS (content management systems) and it felt unnecessary. Why not just build a backend and link to your own database? Why be stuck to certain rules and pay someone a lot of money for that pleasure? Eventually it became clear that it was all about scale. There isn't a reason to have a developer code every page that is a little big custom. Having a separate authoring team does have extremely valuable cost savings. In my discovery period in getting familiar with the platform, I build out a proof of concept in Wordpress. Honestly it was fun. I saw how customizable it could be. The benefits of allowing guests to contribute, the thorough documentation,and it was a good skill to add to my quiver. However, it had one major downside: A cost to host.
 
 I don't see this website as a vehicle for earning substantial income and it didn't seem to make sense to pay a monthly fee for a portfolio site when there were other options to host it for free. Looking on the site now, maybe there is opportunity for a wider audience to my content, by that certainly wasn't the driving force for this project. What wordpress did really well was help me understand the concepts of a CMS, or in Jekyll's case, a static site generator. Now that I understood the underlying development pattern, I went back to the documentation.
 

@@ -23,12 +23,14 @@
   
   a {
     color: $colorSecondary;
+    text-decoration: none;
   
     @media screen and (min-width: $medium) {
       &:hover,
       &:focus,
       &:active {
         color: $gray;
+        text-decoration: underline;
       }
     }
   }
@@ -44,9 +46,14 @@
 .constrain {
   max-width: $contentWidth;
   margin: 0 auto;
-  padding: 0 $gap;
+  padding: ($gapLarge * $oneThird) $gap;
 
   @media screen and (min-width: $medium) {
-    padding: 0 $gap;
+    padding: ($gapLarge * $oneHalf) $gap;
   }
+}
+
+// For Code Snippets
+.highlight {
+  overflow: auto;
 }

@@ -1,0 +1,58 @@
+.button-base {
+    display: inline-block;
+    position: relative;
+    padding: ($gapLarge / 5) ($gapLarge / 3);
+  
+    border-radius: $radiusBtn;
+    font-size: $textMedium;
+    font-weight: $weightBold;
+    text-decoration: none;
+    transition: all $speedFast ease;
+}
+  
+.button {
+    @extend .button-base;
+  
+    background-color: $colorPrimary;
+    border: 2px solid $colorPrimary;
+    color: $white;
+  
+    &::before,
+    &::after {
+      background: $white;
+    }
+  
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: $white;
+      border-color: $colorPrimary;
+      color: $colorPrimary;
+    }
+}
+
+.button-blue {
+    @extend .button-base;
+  
+    background-color: $colorSecondary;
+    border: 2px solid $colorSecondary;
+    color: $white;
+  
+    &::before,
+    &::after {
+      background: $white;
+    }
+  
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: $white;
+      border-color: $colorSecondary;
+      color: $colorSecondary;
+    }
+
+    @media screen and (max-width: $medium) {
+        display: block;
+        text-align: center;
+    }
+}

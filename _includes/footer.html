@@ -1,7 +1,8 @@
 <footer>
     <div class="footer-container constrain">
         <div class="footer-copyright">
-            ©{{site.time | date: '%Y'}} Andrew Schafer
+            ©<span id="copyright-year">{{site.time | date: '%Y'}}</span> Andrew Schafer
+            <script>document.getElementById('copyright-year').textContent = new Date().getFullYear();</script>
         </div>
         <div class="footer-links">
             <a href="/privacy">privacy policy</a>

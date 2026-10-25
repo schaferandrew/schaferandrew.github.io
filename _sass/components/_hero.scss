@@ -1,23 +1,27 @@
+.hero-container .constrain {
+    position: relative;
+}
+
 .hero-container img {
+    display: block;
     width: 100%;
 }
 
 .hero-text {
     position: absolute;
-    top: 20%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
 
     text-align: center;
+    white-space: nowrap;
     color: $colorPrimary;
     font-size: $textSmall;
 
     @media screen and (min-width: $medium) {
-        top: 40%;
-
         font-size: $textH1;
     }
-    
+
 }
 .cursor {
     display: inline-block;

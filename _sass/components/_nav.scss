@@ -47,14 +47,14 @@ Mobile: hamburger toggles a dropdown below the title
         display: block;
     }
 
-    @media screen and (min-width: $large) {
+    @media screen and (min-width: $medium) {
         display: flex;
         width: auto;
         padding: 0;
     }
 
     li + li {
-        @media screen and (min-width: $large) {
+        @media screen and (min-width: $medium) {
             margin-left: ($gap * 1.5);
         }
     }
@@ -80,7 +80,7 @@ Mobile: hamburger toggles a dropdown below the title
         color: $colorAccent;
     }
 
-    @media screen and (min-width: $large) {
+    @media screen and (min-width: $medium) {
         padding: 0;
         font-size: $textMedium;
         border-bottom: 2px solid transparent;
@@ -103,7 +103,7 @@ Mobile: hamburger toggles a dropdown below the title
     border: 0;
     cursor: pointer;
 
-    @media screen and (min-width: $large) {
+    @media screen and (min-width: $medium) {
         display: none;
     }
 

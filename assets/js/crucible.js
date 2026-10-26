@@ -667,7 +667,7 @@
     panel.innerHTML = '';
     panel.appendChild(el('p', { class: 'crucible-tooltip-title' }, modelLabel(s.model) + ' · ' + s.harness + ' · ' + t.id + ' · ' + TIER_LABELS[t.tier] +
       (t.status === 'provisional' ? ' (provisional)' : '')));
-    panel.appendChild(el('p', { class: 'crucible-detail-prompt' }, t.summary));
+    promptBlock(t, panel);
     if (!c) {
       panel.appendChild(el('p', {}, 'Not run with ' + s.harness + '.'));
     } else {
@@ -679,6 +679,16 @@
       ].filter(Boolean).join(' · ')));
     }
     panel.hidden = false;
+  }
+
+  // The test's one-line summary, with the full prompt the model was given folded under it
+  function promptBlock(t, into) {
+    into.appendChild(el('p', { class: 'crucible-detail-prompt' }, t.summary));
+    if (!t.prompt || t.prompt === t.summary) return;
+    var details = el('details', { class: 'crucible-output crucible-prompt-full' });
+    details.appendChild(el('summary', {}, 'Full prompt'));
+    details.appendChild(el('pre', {}, t.prompt));
+    into.appendChild(details);
   }
 
   // Everything a run produced and how it was scored: per-criterion scores, checks, hidden tests,
@@ -825,16 +835,28 @@
       areas.forEach(function (area) {
         var tests = orderedTests.filter(function (t) { return t.area === area.id && t.status === 'active'; });
         var cells = tests.map(function (t) { return cell(s.model, s.harness, t.id); }).filter(Boolean);
+        var score = mean(cells.map(countedScore));
+        // No active test run here yet (some areas are all provisional so far): show the
+        // provisional tests' mean instead, dashed like the matrix's provisional cells
+        var provisional = !cells.length;
+        if (provisional) {
+          tests = orderedTests.filter(function (t) { return t.area === area.id && t.status === 'provisional'; });
+          cells = tests.map(function (t) { return cell(s.model, s.harness, t.id); }).filter(Boolean);
+          score = mean(cells.map(function (c) { return c.run.best_score; }));
+        }
         var td = el('td');
         if (!cells.length) {
           td.className = 'is-not-run';
           td.textContent = 'not run';
         } else {
-          var score = mean(cells.map(countedScore));
           if (score === null) td.className = 'is-not-scored';
           else td.setAttribute('style', heatStyle(score));
+          if (provisional) {
+            td.classList.add('is-provisional');
+            td.title = 'Provisional tests only: not in tier scores yet';
+          }
           td.appendChild(el('span', { class: 'crucible-heat-score' }, score === null ? 'not scored' : fmtScore(score)));
-          td.appendChild(el('span', { class: 'crucible-heat-n' }, cells.length + '/' + tests.length + ' tests'));
+          td.appendChild(el('span', { class: 'crucible-heat-n' }, cells.length + '/' + tests.length + (provisional ? ' provisional' : ' tests')));
         }
         row.appendChild(td);
       });
@@ -895,7 +917,7 @@
 
     var detail = el('tr', { class: 'crucible-detail', hidden: '' });
     var detailCell = el('td', { colspan: columns.length });
-    detailCell.appendChild(el('p', { class: 'crucible-detail-prompt' }, t.summary));
+    promptBlock(t, detailCell);
     runDetail(r, detailCell);
     var notes = ['Run ' + r.run_id, (r.status || NONE).toLowerCase(), 'test v' + (r.test_version || '?'), 'tokens in ' + fmtInt(r.tokens_in)];
     if (c.count > 1) notes.push('showing the latest of ' + c.count + ' runs');

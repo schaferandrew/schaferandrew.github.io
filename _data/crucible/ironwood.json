@@ -1,6 +1,6 @@
 {
  "format_version": 2,
- "generated_at": "2026-10-26T21:33:31+00:00",
+ "generated_at": "2026-10-26T22:10:02+00:00",
  "release": {
   "release": "2026.11",
   "created": "2026-10-24",
@@ -42,10 +42,6 @@
     {
      "id": "general",
      "label": "General knowledge"
-    },
-    {
-     "id": "evals",
-     "label": "Evals"
     }
    ]
   },
@@ -80,7 +76,7 @@
  "category_weights": {
   "coding_build": 0.1,
   "coding_debug": 0.1,
-  "coding_repo": 0.1,
+  "coding_repo": 0.15,
   "browser_tool": 0.1,
   "writing": 0.1,
   "everyday": 0.1,
@@ -90,8 +86,7 @@
   "home_maintenance": 0.05,
   "math": 0.05,
   "geography": 0.05,
-  "history": 0.05,
-  "evals": 0.05
+  "history": 0.05
  },
  "tests": [
   {
@@ -105,6 +100,7 @@
    "rubric_version": 1,
    "needs_tools": true,
    "summary": "Create a CLI tool for calculating interest, similar in spirit to a consumer interest calculator such as interest.gov.",
+   "prompt": "Create a CLI tool for calculating interest, similar in spirit to a consumer interest calculator such as interest.gov. Decide what inputs, outputs, and useful features the tool should provide. Make it easy to use and include tests and documentation.",
    "scoring": "judge",
    "rules": []
   },
@@ -119,6 +115,7 @@
    "rubric_version": 3,
    "needs_tools": true,
    "summary": "This is Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, and shared types and validation in packages/shared.",
+   "prompt": "This is Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, and shared types and validation in packages/shared. Read README.md first.\n\nProduct brief: editorial review\n\nWe're adding an editorial step before articles go public. Authors write drafts, send them for review, and editors either approve them or send them back with feedback. The rules that matter:\n\n- The public must never see work that hasn't been approved. Not the article, not that it exists, not anything derived from it.\n- Editors review other people's work. No one approves their own.\n- Feedback is a conversation between the author and the editors. Nobody else should ever see it.\n- Authors need to see where each of their articles stands and why something was sent back.\n- Existing RealWorld clients must keep working. apps/api/test/realworld.contract.test.ts must stay green and unmodified.\n\nThe mobile team has already built against this client contract, so match it exactly:\n- Article JSON gains `status` (\"draft\", \"in_review\" or \"published\") and `reviewComment` (string or null).\n- POST /api/articles accepts an optional \"status\": \"draft\". Without it, articles publish immediately, as today.\n- POST /api/articles/:slug/submit (draft to in_review), POST /api/articles/:slug/approve (in_review to published) and POST /api/articles/:slug/reject with body { \"review\": { \"comment\": \"...\" } } (in_review back to draft). Each returns { article }. Transitions that don't apply are a 422 in the usual error envelope; callers who aren't allowed get 403.\n- GET /api/articles/review-queue: what editors need to review, oldest first, as { articles, articlesCount }.\n- GET /api/user/articles: the signed-in user's own articles of every status, newest first, with an optional ?status= filter.\n- Editors are configured by username: createApp(db, { editors: [\"ada\"] }), and server.ts reads a comma-separated EDITORS environment variable.\n\nOn the web app, editors need a screen to work through the review queue, and authors need to see their articles' status and feedback and submit drafts. Keep it simple: the API rules are what matter.\n\nSome of this brief may conflict with how the app behaves today. Where it does, choose the option that keeps existing clients working and keeps unapproved work private, and explain each call you made. Add tests for the rules, keep every existing test passing, and finish with a summary of what you changed and what you'd flag in code review.",
    "scoring": "checks",
    "rules": []
   },
@@ -133,6 +130,7 @@
    "rubric_version": 2,
    "needs_tools": true,
    "summary": "This is Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, and shared types and validation in packages/shared.",
+   "prompt": "This is Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, and shared types and validation in packages/shared. Read README.md first.\n\nOffset pagination is breaking down: when articles are published or deleted while someone is paging, they see duplicates or miss articles entirely. Migrate the article lists, the feed and comments to cursor pagination, without breaking existing clients.\n\nAPI\n- GET /api/articles (with any of its filters) and GET /api/articles/feed accept `cursor` alongside `limit`. Responses gain `nextCursor`: an opaque string for the next page, or null on the last page. `articlesCount` keeps meaning the total that matches the filters.\n- Paging with cursors must never skip or repeat an article, even when articles are created, deleted or favorited between page requests. Order stays newest first.\n- Cursors are opaque to clients and must not be forgeable into something else: a malformed or tampered cursor is a 422 with the usual error envelope ({ \"errors\": { \"cursor\": [...] } }).\n- A cursor is only valid for the query that produced it. Using it with different filters (tag, author, favorited) or on a different endpoint is a 422.\n- Sending both cursor and offset is a 422.\n- Offset pagination keeps working exactly as before when no cursor is sent: apps/api/test/realworld.contract.test.ts must stay green and unmodified.\n- GET /api/articles/:slug/comments gains the same cursor paging (`limit`, `cursor`, `nextCursor`), newest first. Without limit or cursor it returns every comment, as today.\n\nWeb app\n- Replace numbered pagination with a \"Load more\" button on every article list (home tabs and profile tabs), driven by nextCursor. Loaded articles stay on screen; the button disappears on the last page.\n- Comments on the article page load the same way.\n\nShared types must describe the new response fields. Add tests that prove the no-skip/no-duplicate guarantee under concurrent writes, the validation rules and the new web behavior, and keep every existing test passing. When you're done, summarize what you changed and anything you'd flag in code review.",
    "scoring": "checks",
    "rules": []
   },
@@ -147,6 +145,7 @@
    "rubric_version": 3,
    "needs_tools": true,
    "summary": "You're on call for Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, shared code in packages/shared.",
+   "prompt": "You're on call for Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, shared code in packages/shared. Read README.md first.\n\nSupport escalated this ticket this morning:\n\n  \"Since yesterday's deploy, several users report that articles show as 'favorited' when they never favorited them, and the follow button shows the wrong state on author profiles. Two authors also say edits to their articles don't show up for a while, and one says a deleted article was still readable. It isn't consistent: refreshing sometimes fixes it.\"\n\nThe production logs from the last two days are in incident/logs/ (API access log, application log, deploy log). They're large, so search them rather than reading them end to end. incident/ticket-notes.md has what support collected.\n\nDo all of the following:\n1. Find the root cause (or causes) and confirm each one against the logs.\n2. Fix it properly in the code. Keep the intent of the change that introduced it if that intent is sound, and don't just revert or disable things wholesale. Keep createApp(db, { responseCacheTtlMs }) as the switch that turns caching on: server.ts and the load tests rely on it.\n3. Add regression tests that fail before your fix and pass after it. Keep every existing test passing, including apps/api/test/realworld.contract.test.ts, unmodified.\n4. Write incident/POSTMORTEM.md covering: a timeline with timestamps taken from the logs (deploy, first affected request, first user report), the root cause, how many distinct users were served another user's personalized data (count it from the logs, and say how you counted), impact, the fix, and follow-up actions.",
    "scoring": "checks",
    "rules": [
     "The postmortem's timeline has the deploy (16:42:10), first affected request (16:44:15) and first report (18:06:01) from the logs.",
@@ -164,6 +163,7 @@
    "rubric_version": 2,
    "needs_tools": true,
    "summary": "This is Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, and shared types in packages/shared.",
+   "prompt": "This is Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, and shared types in packages/shared. Read README.md first.\n\nSupport has escalated a problem with contributor invites: invited contributors can't start the work their editors assigned them. incident/support-notes.md has what they collected. The feature's design is in docs/invites.md, and Legal's requirements are in docs/legal-contributor-terms.md.\n\nFind out what's going on and fix it properly:\n- Invited contributors should be able to get to the editor, and regular sign-ups should keep working exactly as they do today.\n- Accounts that are already affected must work after the fix, without anyone editing data by hand.\n- Where the design doc, Legal's requirements and the current behavior disagree, decide what the right behavior is, implement it, and explain your reasoning.\n- Reproduce the problem in a test before you fix it, and add tests that would have caught it. Keep every existing test passing, including apps/api/test/realworld.contract.test.ts, unmodified.\n\nFinish with a short write-up: the root cause, the decisions you made and why, and anything you'd flag in code review.",
    "scoring": "checks",
    "rules": []
   },
@@ -178,6 +178,7 @@
    "rubric_version": 2,
    "needs_tools": true,
    "summary": "This is Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, and shared types in packages/shared.",
+   "prompt": "This is Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, and shared types in packages/shared. Read README.md first.\n\nConduit just failed an external accessibility audit, and we can't sign a public-sector contract until it passes. The auditor's summary is in docs/accessibility-audit.md. Fix every finding in the web app so keyboard and screen reader users can do everything mouse users can.\n\nConstraints:\n- Keep the visual design the same.\n- Keep each component's name, file and props as they are (other teams import them); change their internals freely.\n- Prefer native HTML elements and behavior; where a custom widget is genuinely needed, follow the WAI-ARIA Authoring Practices pattern for it.\n- Don't fix one finding in a way that creates another.\n- axe-core is installed in apps/web. Add tests that would have caught each finding (keyboard interaction and announcements, not only axe), and keep every existing test passing.\n\nFinish with a summary of each finding, what you changed, and anything you couldn't verify without a real screen reader.",
    "scoring": "checks",
    "rules": []
   },
@@ -192,6 +193,7 @@
    "rubric_version": 1,
    "needs_tools": true,
    "summary": "Build a CLI compound-interest calculator.",
+   "prompt": "Build a CLI compound-interest calculator. It must accept principal, annual interest rate, time, compounding frequency, and optional recurring contribution amount and contribution frequency. Support at least years and months for time. Print a readable summary containing principal, total contributions, interest earned, and final balance. Validate invalid, negative, or contradictory inputs. Include automated tests covering ordinary cases, zero interest, monthly compounding, recurring contributions, invalid input, and a known expected-value case. Keep the implementation dependency-light and document the command examples in the README.",
    "scoring": "judge",
    "rules": []
   },
@@ -206,6 +208,7 @@
    "rubric_version": 1,
    "needs_tools": true,
    "summary": "The navbar in this app isn't responsive.",
+   "prompt": "The navbar in this app isn't responsive. Make it work correctly across desktop and mobile widths. Preserve the existing visual identity and navigation destinations. Add or update tests as appropriate.",
    "scoring": "judge",
    "rules": []
   },
@@ -220,6 +223,7 @@
    "rubric_version": 1,
    "needs_tools": true,
    "summary": "Now make the mobile experience explicitly use a hamburger menu.",
+   "prompt": "Now make the mobile experience explicitly use a hamburger menu. On mobile widths, the primary links should be hidden behind the menu and become accessible via a clearly labeled and keyboard-accessible toggle. Keep the desktop experience as normal links. Add tests that verify both states.",
    "scoring": "judge",
    "rules": []
   },
@@ -234,6 +238,7 @@
    "rubric_version": 1,
    "needs_tools": true,
    "summary": "The app is supposed to show the account name and plan for acct_1, but it doesn't work correctly.",
+   "prompt": "The app is supposed to show the account name and plan for acct_1, but it doesn't work correctly. Diagnose the issue and fix it using an idiomatic modern Next.js approach. Preserve the intent of the existing component structure where practical. Add or update tests so the bug is covered.",
    "scoring": "judge",
    "rules": []
   },
@@ -248,6 +253,7 @@
    "rubric_version": 1,
    "needs_tools": true,
    "summary": "Use the provided site skill to log into the application as the designated test user.",
+   "prompt": "Use the provided site skill to log into the application as the designated test user. If login fails, diagnose the reason and use the recovery procedure described by the skill. You may clear cookies or reset the test password programmatically when appropriate. Do not bypass authentication or modify application code. End on the authenticated dashboard and report exactly what happened.",
    "scoring": "judge",
    "rules": []
   },
@@ -262,6 +268,7 @@
    "rubric_version": 1,
    "needs_tools": true,
    "summary": "Repeat the task from a fresh browser state.",
+   "prompt": "Repeat the task from a fresh browser state. This time, do not assume the first login attempt will work. Handle whatever normal failure mode you encounter using the site's documented procedures.",
    "scoring": "judge",
    "rules": []
   },
@@ -276,6 +283,7 @@
    "rubric_version": 1,
    "needs_tools": true,
    "summary": "Open the local application in a real browser and diagnose why the dashboard is intermittently showing a blank state after login.",
+   "prompt": "Open the local application in a real browser and diagnose why the dashboard is intermittently showing a blank state after login. Reproduce the issue, inspect the browser console and network requests, identify the failing request or client-side error, and fix the underlying application code. Verify the fix in the browser and add an automated regression test.",
    "scoring": "judge",
    "rules": []
   },
@@ -290,56 +298,9 @@
    "rubric_version": 1,
    "needs_tools": true,
    "summary": "Teach me Next.js as a practical course for an experienced frontend engineer who already knows React and TypeScript.",
+   "prompt": "Teach me Next.js as a practical course for an experienced frontend engineer who already knows React and TypeScript. Design a course that builds from fundamentals into real application architecture. Include a sequence of lessons, exercises, small projects, checkpoints, and common mistakes. Start with Lesson 1 only. Teach interactively: explain the concept, show a small example, give me a short exercise, and wait for my answer before continuing. Adapt later lessons based on my answers.",
    "scoring": "judge",
    "rules": []
-  },
-  {
-   "id": "EVAL-1",
-   "mode": "chat",
-   "area": "evals",
-   "category": "evals",
-   "tier": "spark",
-   "status": "active",
-   "version": 1,
-   "rubric_version": 1,
-   "needs_tools": false,
-   "summary": "You are an expert evaluator.",
-   "scoring": "checks",
-   "rules": [
-    "The grade is close to the reference grade: full points for an exact match, fewer the farther off it is (a bell curve), none when it is missing."
-   ]
-  },
-  {
-   "id": "EVAL-2",
-   "mode": "chat",
-   "area": "evals",
-   "category": "evals",
-   "tier": "temper",
-   "status": "active",
-   "version": 1,
-   "rubric_version": 1,
-   "needs_tools": false,
-   "summary": "You are an expert evaluator.",
-   "scoring": "checks",
-   "rules": [
-    "The grade is close to the reference grade: full points for an exact match, fewer the farther off it is (a bell curve), none when it is missing."
-   ]
-  },
-  {
-   "id": "EVAL-3",
-   "mode": "chat",
-   "area": "evals",
-   "category": "evals",
-   "tier": "temper",
-   "status": "active",
-   "version": 1,
-   "rubric_version": 1,
-   "needs_tools": false,
-   "summary": "You are an expert evaluator.",
-   "scoring": "checks",
-   "rules": [
-    "The grade is close to the reference grade: full points for an exact match, fewer the farther off it is (a bell curve), none when it is missing."
-   ]
   },
   {
    "id": "GEOG-1",
@@ -352,6 +313,7 @@
    "rubric_version": 1,
    "needs_tools": false,
    "summary": "What is the capital of each of these countries?",
+   "prompt": "What is the capital of each of these countries? Answer with one line per country, in the form `Country: Capital`.\n\nAustralia, Canada, Brazil, Nigeria, Türkiye, Switzerland",
    "scoring": "checks",
    "rules": [
     "Names all six capitals: Canberra, Ottawa, Brasília, Abuja, Ankara, Bern.",
@@ -369,6 +331,7 @@
    "rubric_version": 1,
    "needs_tools": false,
    "summary": "Which of these countries are landlocked (no coastline on the open ocean or a sea connected to it)?",
+   "prompt": "Which of these countries are landlocked (no coastline on the open ocean or a sea connected to it)?\n\nCroatia, Bolivia, Kazakhstan, Eritrea, Austria, Laos, Mozambique, Paraguay, Serbia, Vietnam, Ethiopia, Uzbekistan, Zambia, Hungary, Mongolia\n\nThen say which one of them is doubly landlocked (surrounded only by landlocked countries).\n\nAnswer in exactly three lines:\nLandlocked: <countries, comma-separated>\nNot landlocked: <countries, comma-separated>\nDoubly landlocked: <country>",
    "scoring": "checks",
    "rules": [
     "The Landlocked line lists all 11: Bolivia, Kazakhstan, Austria, Laos, Paraguay, Serbia, Ethiopia, Uzbekistan, Zambia, Hungary, Mongolia.",
@@ -387,6 +350,7 @@
    "rubric_version": 1,
    "needs_tools": false,
    "summary": "Six geography questions, each with a single answer.",
+   "prompt": "Six geography questions, each with a single answer. The obvious answer is wrong for several of them. Give a one-sentence justification for each.\n\n1. Which country is crossed by both the Equator and the Tropic of Capricorn?\n2. Which country has coastline on both the Red Sea and the Persian Gulf?\n3. What is the northernmost capital city of a sovereign state?\n4. Counting overseas territories, which country spans the most time zones?\n5. Which US state is closest to mainland Africa?\n6. Apart from the microstates inside Italy, which is the only landlocked country that borders exactly one other country?\n\nEnd with a section headed ANSWERS, one line per question in the form `1. <answer>`.",
    "scoring": "checks",
    "rules": [
     "Answer 1 is Brazil.",
@@ -408,6 +372,7 @@
    "rubric_version": 1,
    "needs_tools": false,
    "summary": "Put these events in chronological order, oldest first.",
+   "prompt": "Put these events in chronological order, oldest first. One line each, with the year.\n\n- The first Moon landing\n- The signing of Magna Carta\n- The fall of the Berlin Wall\n- The start of the First World War\n- The printing of the Gutenberg Bible\n- The start of the French Revolution",
    "scoring": "checks",
    "rules": [
     "Lists them in order: Magna Carta, Gutenberg Bible, French Revolution, First World War, Moon landing, Berlin Wall.",
@@ -425,6 +390,7 @@
    "rubric_version": 1,
    "needs_tools": false,
    "summary": "Fact-check this paragraph before it goes in a newsletter.",
+   "prompt": "Fact-check this paragraph before it goes in a newsletter. Some of it is wrong and some of it is right.\n\n\"Christopher Columbus first reached the Americas in 1493. In 1215 King Richard sealed Magna Carta at Runnymede. The United States Declaration of Independence was adopted on July 4, 1776. Napoleon was finally defeated at the Battle of Waterloo in 1812. The Titanic sank in April 1912 on its return voyage from New York. Neil Armstrong and Buzz Aldrin landed on the Moon in July 1969. The Berlin Wall fell in November 1991, and Germany reunified the following year.\"\n\nList each error on its own line as `wrong → correct`. Don't flag anything that is accurate.",
    "scoring": "checks",
    "rules": [
     "Corrects Columbus to 1492.",
@@ -446,6 +412,7 @@
    "rubric_version": 1,
    "needs_tools": false,
    "summary": "A letter has turned up, dated June 10, 1863, written by a farmer in Ohio.",
+   "prompt": "A letter has turned up, dated June 10, 1863, written by a farmer in Ohio. It mentions the following. Which of them could the writer NOT have known about or done on that date? Explain each briefly.\n\na) The Emancipation Proclamation taking effect this New Year's Day\nb) The siege of Vicksburg dragging on\nc) News of Lee's defeat at Gettysburg\nd) The telegraph bringing news from Washington\ne) The Monitor's fight with the Merrimack last year\nf) A cousin in Cleveland who telephoned with the news\ng) Fencing the north pasture with barbed wire\nh) Mathew Brady's photographs of the dead at Antietam\ni) Stonewall Jackson's death last month\nj) West Virginia, which joined the Union last month\nk) The draft riots in New York\n\nFinish with one line listing only the anachronisms, as letters in alphabetical order:\nANACHRONISMS: <letters, comma-separated>",
    "scoring": "checks",
    "rules": [
     "The final line includes c (Gettysburg, July), f (telephone, 1876), g (barbed wire, 1874), j (West Virginia, June 20) and k (draft riots, July).",
@@ -460,15 +427,42 @@
    "tier": "spark",
    "status": "active",
    "version": 1,
-   "rubric_version": 2,
+   "rubric_version": 1,
    "needs_tools": false,
    "summary": "What color are firetrucks in the US?",
-   "scoring": "checks",
-   "rules": [
-    "Says US fire trucks are red (lime-yellow or white variants can be mentioned too).",
-    "Red is the first color it names (other colors mentioned afterward as variants are fine).",
-    "Answers in a sentence or two (at most 60 words)."
-   ]
+   "prompt": "What color are firetrucks in the US? Answer in one or two sentences.",
+   "scoring": "judge",
+   "rules": []
+  },
+  {
+   "id": "KNOW-2",
+   "mode": "chat",
+   "area": "general",
+   "category": "everyday",
+   "tier": "temper",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "needs_tools": false,
+   "summary": "Explain the concept of \"enshittification\" to an intelligent adult who has heard the word but doesn't know the theory behind it.",
+   "prompt": "Explain the concept of \"enshittification\" to an intelligent adult who has heard the word but doesn't know the theory behind it. Start with a one-sentence definition, then explain the mechanism in plain English, give two concrete examples, explain what the concept does and does not claim, and briefly discuss criticisms or limitations. Avoid jargon unless you define it.",
+   "scoring": "judge",
+   "rules": []
+  },
+  {
+   "id": "KNOW-3",
+   "mode": "chat",
+   "area": "general",
+   "category": "everyday",
+   "tier": "temper",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "needs_tools": false,
+   "summary": "Explain how a typical photovoltaic solar panel turns sunlight into usable electricity.",
+   "prompt": "Explain how a typical photovoltaic solar panel turns sunlight into usable electricity. Start at the photon level, then move through the semiconductor, DC electricity, inverter, and household/grid use. Explain why panel output changes with sunlight and temperature. Assume I have basic science knowledge. Use one intuitive analogy, but clearly label what the analogy gets wrong.",
+   "scoring": "judge",
+   "rules": []
   },
   {
    "id": "KNOW-4",
@@ -481,6 +475,7 @@
    "rubric_version": 1,
    "needs_tools": false,
    "summary": "Below are this morning's items from my news feeds, all for Tuesday, March 10, for Port Ardmore.",
+   "prompt": "Below are this morning's items from my news feeds, all for Tuesday, March 10, for Port Ardmore. Write me a briefing from them.\n\n- Lead with the most important stories, and cover each story once even when several outlets report it.\n- Keep every figure, name and status exactly as the sources give it. Where sources disagree, say so and attribute each version. Where a later report corrects an earlier one, use the correction.\n- Say which outlet each item comes from, and keep opinion separate from reporting.\n- Leave out anything that isn't from today.\n- Use only these sources; don't add background from elsewhere.\n\n--- Ardmore Ledger, March 10, 7:05 a.m. ---\nCITY COUNCIL APPROVES TRANSIT LEVY. The Port Ardmore City Council voted 7-2 late Monday to approve a $41.6 million transit levy spread over ten years. The money will fund three new bus routes and a rebuild of the Fulton Street station. Council member Ines Varga, who voted no, said the city had not published a cost estimate for households. The levy still needs a second reading on March 24.\n\n--- Lakeshore Public Radio, March 10, 8:20 a.m. ---\nPort Ardmore's council backed the transit levy on a 7-2 vote. Mayor Theo Brandt called it \"the biggest investment in buses this city has made in a generation.\" Collection would begin July 1 if the levy passes its second reading.\n\n--- Statewide Wire, March 10, 6:10 a.m. ---\nWAREHOUSE FIRE ON KETTLE STREET. A fire broke out early Tuesday at a vacant warehouse on Kettle Street in Port Ardmore. Two firefighters were injured, according to an initial report from the scene. The cause is under investigation.\n\n--- Lakeshore Public Radio, March 10, 11:40 a.m. ---\nUPDATE, Kettle Street fire: Fire Chief Ama Mensah said one firefighter was treated for smoke inhalation and released; earlier reports that two firefighters were injured were incorrect. Crews had the fire under control by 9:15 a.m. The cause remains under investigation.\n\n--- Ardmore Ledger, March 10, 9:30 a.m. ---\nRALLY AT CITY HALL. Supporters of a proposed rent stabilization ordinance rallied outside City Hall on Monday evening. Ledger reporters at the scene estimated the crowd at about 300.\n\n--- Lakeshore Public Radio, March 10, 9:45 a.m. ---\nOrganizers of Monday's rent stabilization rally said more than 1,000 people attended. Police estimated the crowd at 400.\n\n--- Statewide Wire, March 10, 10:00 a.m. ---\nTEACHER PAY BILL HEADS TO GOVERNOR. The state legislature passed a bill raising the minimum teacher salary to $48,500, by votes of 39-28 in the Senate and 81-52 in the House. Governor Lena Ruiz is expected to sign it this week, a spokesperson said. The increase would take effect in the fall term.\n\n--- Global Dispatch, March 10, 5:50 a.m. ---\nThe central bank of Veloria raised its benchmark interest rate by 0.25 percentage points to 3.75%, its third increase this year, citing inflation of 4.1%.\n\n--- The Ardmore Bugle, opinion, March 10 ---\nCOLUMN: THE LEVY IS A TAX GRAB. Columnist Rob Haddad argues that the transit levy will cost a typical household $900 a year and that the council rushed the vote. \"Nobody asked the people paying for it,\" he writes.\n\n--- Ardmore Ledger, March 3 ---\nSCHOOL BOARD RESULTS. Delphine Okoro won the open seat on the Port Ardmore school board with 52% of the vote.",
    "scoring": "judge",
    "rules": [
     "Produces a substantive briefing (at least 120 words).",
@@ -493,6 +488,66 @@
    ]
   },
   {
+   "id": "KNOW-5",
+   "mode": "chat",
+   "area": "general",
+   "category": "home_maintenance",
+   "tier": "temper",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "needs_tools": false,
+   "summary": "I opened the cabinet under my kitchen sink and found a slow leak.",
+   "prompt": "I opened the cabinet under my kitchen sink and found a slow leak. The cabinet floor is damp, but I can't tell where the water starts. Walk me through what to do in the next 10 minutes, how to isolate the source without making things worse, what I should photograph/check, and when I should shut off the water and call a plumber. Distinguish a supply-line leak, drain leak, and leak from the faucet body. Assume I am a reasonably handy homeowner but not a plumber.",
+   "scoring": "judge",
+   "rules": []
+  },
+  {
+   "id": "KNOW-6",
+   "mode": "chat",
+   "area": "general",
+   "category": "home_maintenance",
+   "tier": "temper",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "needs_tools": false,
+   "summary": "My toilet has started running continuously.",
+   "prompt": "My toilet has started running continuously. It still flushes normally. Give me a diagnostic sequence that starts with the simplest checks, explains what each observation means, and tells me which parts are commonly adjustable versus replaceable. Include what to do if the shutoff valve is stuck and how to avoid making the problem worse.",
+   "scoring": "judge",
+   "rules": []
+  },
+  {
+   "id": "KNOW-7",
+   "mode": "chat",
+   "area": "general",
+   "category": "home_maintenance",
+   "tier": "temper",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "needs_tools": false,
+   "summary": "One room is much colder near an exterior window during winter.",
+   "prompt": "One room is much colder near an exterior window during winter. Help me determine whether the problem is air leakage, poor glazing, a failed seal, or simply cold surfaces creating a downdraft. Give me inexpensive diagnostic tests I can do today, followed by repairs ranked from temporary/cheap to permanent/expensive. Do not assume the window needs replacement.",
+   "scoring": "judge",
+   "rules": []
+  },
+  {
+   "id": "KNOW-8",
+   "mode": "chat",
+   "area": "general",
+   "category": "home_maintenance",
+   "tier": "temper",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "needs_tools": false,
+   "summary": "My forced-air furnace won't start when the thermostat calls for heat.",
+   "prompt": "My forced-air furnace won't start when the thermostat calls for heat. Before I call someone, give me a safe homeowner-level diagnostic checklist. Include thermostat/power checks, filter considerations, service-switch checks, error-light observations, and a clear boundary for what I should not attempt myself. Explain why each check matters.",
+   "scoring": "judge",
+   "rules": []
+  },
+  {
    "id": "MATH-1",
    "mode": "chat",
    "area": "math",
@@ -503,6 +558,7 @@
    "rubric_version": 1,
    "needs_tools": false,
    "summary": "Two quick calculations.",
+   "prompt": "Two quick calculations. Show your working briefly.\n\n1. A bread recipe for 4 people uses 300 g of flour. How much flour for 10 people?\n2. A jacket costs $84.60 and is 15% off. What is the sale price, to the cent?\n\nEnd with a section headed ANSWERS, one line per question in the form `1. <answer>`.",
    "scoring": "checks",
    "rules": [
     "Answer 1 is 750 g.",
@@ -520,6 +576,7 @@
    "rubric_version": 1,
    "needs_tools": false,
    "summary": "Everyday money and measurement questions.",
+   "prompt": "Everyday money and measurement questions. Show your working, and round only at the end.\n\n1. I put $5,000 in a savings account paying 4% a year, compounded monthly. What is it worth after exactly 3 years, to the cent?\n2. I'm flooring a 1,850 sq ft space. Flooring comes in boxes of 23.5 sq ft and I need 10% extra for waste. How many boxes do I buy?\n3. A 412-mile road trip in a car that gets 34 miles per gallon, with gas at $3.89 a gallon. What does the gas cost, to the cent?\n4. Dinner came to $186.40 including tax; the pre-tax amount was $172.00. We tip 18% on the pre-tax amount and split the total four ways. What does each person pay, to the cent?\n\nEnd with a section headed ANSWERS, one line per question in the form `1. <answer>`.",
    "scoring": "checks",
    "rules": [
     "Answer 1 is $5,636.36 (monthly compounding, 36 periods).",
@@ -539,6 +596,7 @@
    "rubric_version": 1,
    "needs_tools": false,
    "summary": "Five problems, each with a single exact answer.",
+   "prompt": "Five problems, each with a single exact answer. Several have a tempting wrong answer, so check your reasoning before you commit. Give fractions in lowest terms.\n\n1. How many integers from 1 to 10,000 inclusive are divisible by 3 or by 7, but not by 21?\n2. What is the remainder when 7^2026 is divided by 100?\n3. In how many ways can a 2 x 12 board be tiled with 1 x 2 dominoes (placed either way) and 2 x 2 squares?\n4. Three fair six-sided dice are rolled. What is the probability that the largest number shown is exactly 4?\n5. A family has two children. You learn that at least one of them is a boy who was born on a Tuesday. Assuming each child is equally likely to be a boy or a girl and to be born on any day of the week, independently, what is the probability that both children are boys?\n\nEnd with a section headed ANSWERS, one line per question in the form `1. <answer>`.",
    "scoring": "checks",
    "rules": [
     "Answer 1 is 3809.",
@@ -559,6 +617,7 @@
    "rubric_version": 2,
    "needs_tools": false,
    "summary": "You are given a puzzle you have not seen before.",
+   "prompt": "You are given a puzzle you have not seen before. Solve it carefully and explain the reasoning. Before giving the final answer, state any assumptions the puzzle requires. If the wording is ambiguous, identify the ambiguity rather than silently choosing an interpretation.\n\nFour friends — Alice, Bob, Carol, and Dave — sit in a row of four chairs numbered 1 to 4 from left to right. Each friend has a different favorite color: red, blue, green, or yellow. Use these clues to determine who sits in chair 3:\n\n1. Alice sits immediately to the left of the person who likes blue.\n2. Bob does not sit in chair 4.\n3. The person who likes green sits in chair 1.\n4. Carol likes yellow and sits somewhere to the right of the person who likes red.\n5. Dave likes red.\n\nEnd with the full seating, one line per chair in the form `Chair 1: <name>, <color>`, then a last line `ANSWER: <name of the person in chair 3>`.",
    "scoring": "checks",
    "rules": [
     "The last line names Dave as the person in chair 3.",
@@ -578,6 +637,7 @@
    "rubric_version": 1,
    "needs_tools": true,
    "summary": "Give me today's news briefing for Saint Paul, MN.",
+   "prompt": "Give me today's news briefing for Saint Paul, MN. Cover local, state, national, and global news. Prioritize events that happened or materially changed today. For each item, give: what happened, why it matters, and the source. Distinguish reported facts from analysis. Avoid repeating the same story across sections. Give me the five most important stories first, then a short section of other notable developments.",
    "scoring": "judge",
    "rules": []
   },
@@ -592,6 +652,7 @@
    "rubric_version": 1,
    "needs_tools": true,
    "summary": "What is the current weather in Saint Paul, MN right now?",
+   "prompt": "What is the current weather in Saint Paul, MN right now? Find a reliable, machine-readable source yourself — fetch live conditions, then compare today's temperature with the historical average for this date (find historical data yourself as well). Report: current temperature and conditions, the historical average, and whether today is typical or an outlier. Cite the sources you used and briefly explain why you trusted them.\nIf a source fails or blocks you, adapt rather than giving up — but never invent data.",
    "scoring": "judge",
    "rules": []
   },
@@ -606,6 +667,7 @@
    "rubric_version": 1,
    "needs_tools": true,
    "summary": "What is the current weather in Saint Paul, MN right now?",
+   "prompt": "What is the current weather in Saint Paul, MN right now? Fetch it live from a machine-readable JSON API (no key required) — use one of:\n  - Open-Meteo (one call): https://api.open-meteo.com/v1/forecast?latitude=44.9537&longitude=-93.09&current_weather=true&temperature_unit=fahrenheit&timezone=America%2FChicago\n  - NWS latest observation: https://api.weather.gov/stations/KSTP/observations/latest (include a User-Agent header, e.g. curl -A \"crucible-benchmark\")\n\nThen compare today's temperature with the historical average for this date. Use one of:\n  - Open-Meteo archive (whole range in one call — filter rows matching today's month/day across years and average): https://archive-api.open-meteo.com/v1/archive?latitude=44.9537&longitude=-93.09&start_date=2016-09-03&end_date=2025-09-03&daily=temperature_2m_max&temperature_unit=fahrenheit (adjust dates to today's month/day)\n  - NOAA NCEI 1991-2020 daily normals: https://www.ncei.noaa.gov/access/services/data/v1?dataset=normals-daily&stations=USW00014922&startDate=<today>&endDate=<today>&units=standard&format=json\n\nReport: current temperature and conditions, the historical average, and whether today is typical or an outlier. Cite the endpoints you used. Do not scrape HTML weather sites; these JSON endpoints are the sources of truth.",
    "scoring": "judge",
    "rules": []
   },
@@ -620,6 +682,7 @@
    "rubric_version": 1,
    "needs_tools": true,
    "summary": "Find all meeting times during the next seven days that work for both people.",
+   "prompt": "Find all meeting times during the next seven days that work for both people. The meeting must be 60 minutes, must occur between 9:00 AM and 5:00 PM local time, and must not overlap any busy event. Prefer weekdays. Rank the three best options by minimizing gaps between existing meetings and avoiding the first or last available hour of the day. Return valid JSON with an explanation field for each recommendation.\n\nUse the supplied calendar JSON as the source of truth. Do not infer availability outside the specified window.\n\nThe calendar fixture is provided as calendar-fixture.json.",
    "scoring": "judge",
    "rules": []
   },
@@ -634,6 +697,7 @@
    "rubric_version": 1,
    "needs_tools": true,
    "summary": "Create a morning brief.",
+   "prompt": "Create a morning brief. Pull together important emails from yesterday, upcoming calendar events, and important news for me where I live. End with a paragraph in spanish that is relevant to the content of the day to help me keep practicing.",
    "scoring": "judge",
    "rules": []
   },
@@ -648,6 +712,7 @@
    "rubric_version": 1,
    "needs_tools": true,
    "summary": "Produce a morning brief using the supplied sources.",
+   "prompt": "Produce a morning brief using the supplied sources. Include, in this order: weather, outstanding work from yesterday, important emails, today's calendar, and news. For each section, prioritize what actually requires attention today. Do not merely summarize everything. Highlight conflicts, deadlines, unanswered messages, and actions. Separate facts from recommendations. End with a \"Top 3 things to do today\" section.\n\nUse only the supplied/local sources for email, work, and calendar. For news and weather, use live sources if available and cite them. If a source is unavailable, say so instead of inventing information.",
    "scoring": "judge",
    "rules": []
   },
@@ -662,6 +727,7 @@
    "rubric_version": 1,
    "needs_tools": true,
    "summary": "Am I free at 3:30?",
+   "prompt": "Am I free at 3:30?",
    "scoring": "judge",
    "rules": []
   },
@@ -676,6 +742,7 @@
    "rubric_version": 1,
    "needs_tools": true,
    "summary": "I need to meet up with Jamie for an hour sometime this week for work.",
+   "prompt": "I need to meet up with Jamie for an hour sometime this week for work. Find a time that works for both of us.",
    "scoring": "judge",
    "rules": []
   },
@@ -690,6 +757,7 @@
    "rubric_version": 1,
    "needs_tools": true,
    "summary": "Find an hour in the next two weeks for a work meeting with everyone on my team.",
+   "prompt": "Find an hour in the next two weeks for a work meeting with everyone on my team. Give me your top three options.",
    "scoring": "judge",
    "rules": []
   },
@@ -704,6 +772,7 @@
    "rubric_version": 3,
    "needs_tools": false,
    "summary": "Edit the email below.",
+   "prompt": "Edit the email below. First identify grammar/spelling/punctuation errors, then provide a corrected version. Distinguish clearly between objective errors and optional style improvements. Do not change the facts or make the customer sound more apologetic than the original.\n\nSubject: Refund for order 84721\n\nHi Support,\nI am writing because my order arrived three days late, and one of the two items were damaged. I contacted support last week but I havent heard anything back. The box was clearly crush on one side, and the mug inside has a crack through the handle. I would like a refund for the mug, but please let me know if you need pictures of it. Also, your website says refunds are processed in 5-7 business days, which seem to have passed already for my earlier request. Can you tell me what the status is? Thanks for your help.",
    "scoring": "checks",
    "rules": [
     "Produces a substantive answer (at least 60 words).",
@@ -726,6 +795,7 @@
    "rubric_version": 2,
    "needs_tools": false,
    "summary": "Proofread the paragraph below for grammar, spelling, punctuation, and obvious usage problems.",
+   "prompt": "Proofread the paragraph below for grammar, spelling, punctuation, and obvious usage problems. Preserve the author's voice, rhythm, imagery, and intentional fragments. Flag anything that may be intentional rather than silently changing it.\n\nMara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder then she remembered it, all brakes shrieking and people talking to fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.",
    "scoring": "checks",
    "rules": [
     "Produces a substantive answer (at least 40 words).",
@@ -747,6 +817,7 @@
    "rubric_version": 2,
    "needs_tools": false,
    "summary": "Proofread this economics essay for objective language errors.",
+   "prompt": "Proofread this economics essay for objective language errors. Then separately flag claims, terminology, or wording that are potentially unclear, overstated, or technically imprecise. Do not rewrite the author's argument into your own argument.\n\nInflation is when prices go up because the government prints too much money. This is obvious if you think about it: if there's more money chasing the same amount of stuff, each dollar is worth less. The Consumer Price Index (CPI) measures inflation by tracking a basket of goods that the average household buys, and when CPI rises above 2% annually, the Federal Reserve is legally required to raise interest rates. Many economists believe that the natural rate of unemployment is around 4%, which means anyone above that is either lazy or the victim of bad policy. Quantitative easing, which the Fed started after 2008, is basically just printing money to buy treasury bonds, which devalues the currency and inevitably causes hyperinflation. Japan's experience with deflation in the 1990s proves that monetary policy is completely ineffective at stimulating demand. Most importantly, supply-side economics has been definitively debunked by the failed Reagan tax cuts, which increased the deficit without growing the economy at all.",
    "scoring": "checks",
    "rules": [
     "Produces a substantive answer (at least 80 words).",
@@ -766,6 +837,7 @@
    "rubric_version": 2,
    "needs_tools": false,
    "summary": "Give me 20 character names for a contemporary novel.",
+   "prompt": "Give me 20 character names for a contemporary novel. Do not use famous fictional characters, celebrities, or obvious fantasy-generator names. Make the list varied in sound, age, gender, and social background. Add one short sentence describing the feel of each name.",
    "scoring": "checks",
    "rules": [
     "Produces a substantive answer (at least 60 words).",
@@ -786,6 +858,7 @@
    "rubric_version": 2,
    "needs_tools": false,
    "summary": "Generate 20 names for a 34-year-old woman who grew up in a working-class family in the upper Midwest, is highly intelligent, dryly funny, ambitious, and emotionally guarded.",
+   "prompt": "Generate 20 names for a 34-year-old woman who grew up in a working-class family in the upper Midwest, is highly intelligent, dryly funny, ambitious, and emotionally guarded. Her family background is Polish-American. The novel is contemporary literary fiction. Avoid names that feel stereotypical or caricatured for the character's heritage. Briefly explain why the strongest five fit.",
    "scoring": "checks",
    "rules": [
     "Produces a substantive answer (at least 60 words).",
@@ -806,6 +879,7 @@
    "rubric_version": 2,
    "needs_tools": false,
    "summary": "Give me a haiku about rivers.",
+   "prompt": "Give me a haiku about rivers.\nDon't mention water, waves, ripples, wet, or bank.",
    "scoring": "checks",
    "rules": [
     "Never uses water, waves, ripples, wet or bank in any form (riverbank, waterfall, wavy, wetland...).",
@@ -1201,10 +1275,14 @@
    "timed_out": false,
    "elapsed_s": 5.42,
    "score": null,
-   "agent_score": null,
-   "check_score": 10.0,
-   "agent_summary": null,
-   "judge": null,
+   "agent_score": 10.0,
+   "check_score": null,
+   "agent_summary": "Correct and concise.",
+   "judge": {
+    "type": "agent",
+    "model": "claude-opus-5-5",
+    "prompt_version": 1
+   },
    "checks": [
     {
      "id": "says_red",
@@ -1229,26 +1307,7 @@
     }
    ],
    "output": "Firetrucks in the US are traditionally red, although some modern models use lime-yellow or white for increased visibility.",
-   "criteria": [
-    {
-     "criterion": "Correct answer",
-     "max_score": 7,
-     "score": 7,
-     "detail": "1/1 found"
-    },
-    {
-     "criterion": "Red is the answer",
-     "max_score": 2,
-     "score": 2,
-     "detail": "1/1 found"
-    },
-    {
-     "criterion": "Brief",
-     "max_score": 1,
-     "score": 1,
-     "detail": "18 words"
-    }
-   ],
+   "criteria": null,
    "hidden_tests": null,
    "counts": true,
    "hardware": {
@@ -2075,6 +2134,585 @@
    "cost_usd": null
   },
   {
+   "run_id": "lmstudio_mlx-community_muse-glimmer-30b/geography/GEOG-1/20261026_213713",
+   "test_id": "GEOG-1",
+   "test_version": 1,
+   "harness": "direct",
+   "harness_version": null,
+   "model": "lmstudio/mlx-community/muse-glimmer-30b",
+   "reasoning": "default",
+   "reasoning_chars": 1243,
+   "started_at": "2026-10-26T21:37:13.547919+00:00",
+   "status": "COMPLETE",
+   "outcome": "completed",
+   "timed_out": false,
+   "elapsed_s": 31.48,
+   "score": null,
+   "agent_score": null,
+   "check_score": 10.0,
+   "agent_summary": null,
+   "judge": null,
+   "checks": [
+    {
+     "id": "capitals",
+     "type": "required_patterns",
+     "passed": true,
+     "detail": "6/6 found",
+     "rule": "Names all six capitals: Canberra, Ottawa, Brasília, Abuja, Ankara, Bern."
+    },
+    {
+     "id": "no_big_city_traps",
+     "type": "forbidden_patterns",
+     "passed": true,
+     "detail": "none found",
+     "rule": "Never gives the largest city as the capital (Sydney, Toronto, Rio/São Paulo, Lagos, Istanbul, Zürich/Geneva)."
+    }
+   ],
+   "output": "Australia: Canberra\nCanada: Ottawa\nBrazil: Brasília\nNigeria: Abuja\nTürkiye: Ankara\nSwitzerland: Bern",
+   "criteria": [
+    {
+     "criterion": "Capitals",
+     "max_score": 6,
+     "score": 6,
+     "detail": "6/6 found"
+    },
+    {
+     "criterion": "No big-city traps",
+     "max_score": 4,
+     "score": 4,
+     "detail": "none found"
+    }
+   ],
+   "hidden_tests": null,
+   "counts": false,
+   "hardware": {
+    "hostname": "Ironwood",
+    "cpu": "Apple M1 Pro",
+    "gpu": null,
+    "ram_gb": 32.0
+   },
+   "inference": {
+    "provider": "lmstudio",
+    "local": true,
+    "same_machine": true,
+    "served_via": null,
+    "device": "Ironwood",
+    "quantization": "4bit",
+    "context_length": 100383
+   },
+   "tests_passed": null,
+   "tests_failed": null,
+   "tool_calls": null,
+   "tokens_in": 92,
+   "tokens_out": 309,
+   "model_responses": 1,
+   "ttft_s": 3.109,
+   "response_time_avg_s": 31.481,
+   "cost_usd": null
+  },
+  {
+   "run_id": "lmstudio_mlx-community_muse-glimmer-30b/geography/GEOG-2/20261026_213745",
+   "test_id": "GEOG-2",
+   "test_version": 1,
+   "harness": "direct",
+   "harness_version": null,
+   "model": "lmstudio/mlx-community/muse-glimmer-30b",
+   "reasoning": "default",
+   "reasoning_chars": 6138,
+   "started_at": "2026-10-26T21:37:45.431072+00:00",
+   "status": "COMPLETE",
+   "outcome": "completed",
+   "timed_out": false,
+   "elapsed_s": 145.28,
+   "score": null,
+   "agent_score": null,
+   "check_score": 10.0,
+   "agent_summary": null,
+   "judge": null,
+   "checks": [
+    {
+     "id": "landlocked_found",
+     "type": "required_patterns",
+     "passed": true,
+     "detail": "11/11 found",
+     "rule": "The Landlocked line lists all 11: Bolivia, Kazakhstan, Austria, Laos, Paraguay, Serbia, Ethiopia, Uzbekistan, Zambia, Hungary, Mongolia."
+    },
+    {
+     "id": "coastal_not_listed",
+     "type": "forbidden_patterns",
+     "passed": true,
+     "detail": "none found",
+     "rule": "The Landlocked line includes none of Croatia, Eritrea, Mozambique, Vietnam."
+    },
+    {
+     "id": "doubly",
+     "type": "required_patterns",
+     "passed": true,
+     "detail": "1/1 found",
+     "rule": "The doubly landlocked country is Uzbekistan."
+    }
+   ],
+   "output": "Landlocked: Bolivia, Kazakhstan, Austria, Laos, Paraguay, Serbia, Ethiopia, Uzbekistan, Zambia, Hungary, Mongolia\nNot landlocked: Croatia, Eritrea, Mozambique, Vietnam\nDoubly landlocked: Uzbekistan",
+   "criteria": [
+    {
+     "criterion": "All landlocked found",
+     "max_score": 4,
+     "score": 4,
+     "detail": "11/11 found"
+    },
+    {
+     "criterion": "No coastal country listed",
+     "max_score": 3,
+     "score": 3,
+     "detail": "none found"
+    },
+    {
+     "criterion": "Doubly landlocked",
+     "max_score": 3,
+     "score": 3,
+     "detail": "1/1 found"
+    }
+   ],
+   "hidden_tests": null,
+   "counts": false,
+   "hardware": {
+    "hostname": "Ironwood",
+    "cpu": "Apple M1 Pro",
+    "gpu": null,
+    "ram_gb": 32.0
+   },
+   "inference": {
+    "provider": "lmstudio",
+    "local": true,
+    "same_machine": true,
+    "served_via": null,
+    "device": "Ironwood",
+    "quantization": "4bit",
+    "context_length": 100383
+   },
+   "tests_passed": null,
+   "tests_failed": null,
+   "tool_calls": null,
+   "tokens_in": 163,
+   "tokens_out": 1462,
+   "model_responses": 1,
+   "ttft_s": 3.701,
+   "response_time_avg_s": 145.273,
+   "cost_usd": null
+  },
+  {
+   "run_id": "lmstudio_mlx-community_muse-glimmer-30b/geography/GEOG-3/20261026_214011",
+   "test_id": "GEOG-3",
+   "test_version": 1,
+   "harness": "direct",
+   "harness_version": null,
+   "model": "lmstudio/mlx-community/muse-glimmer-30b",
+   "reasoning": "default",
+   "reasoning_chars": 52267,
+   "started_at": "2026-10-26T21:40:11.229329+00:00",
+   "status": "TIMEOUT",
+   "outcome": "timeout",
+   "timed_out": true,
+   "elapsed_s": 1200.11,
+   "score": null,
+   "agent_score": null,
+   "check_score": 0.0,
+   "agent_summary": null,
+   "judge": null,
+   "checks": [
+    {
+     "id": "equator_capricorn",
+     "type": "required_patterns",
+     "passed": false,
+     "detail": "0/1 found; missing: (?im)^\\W*1[.)]\\s*.*\\bbrazil\\b",
+     "rule": "Answer 1 is Brazil."
+    },
+    {
+     "id": "red_sea_gulf",
+     "type": "required_patterns",
+     "passed": false,
+     "detail": "0/1 found; missing: (?im)^\\W*2[.)]\\s*.*\\bsaudi arabia\\b",
+     "rule": "Answer 2 is Saudi Arabia."
+    },
+    {
+     "id": "northern_capital",
+     "type": "required_patterns",
+     "passed": false,
+     "detail": "0/1 found; missing: (?im)^\\W*3[.)]\\s*.*\\breykjav[ií]k\\b",
+     "rule": "Answer 3 is Reykjavík (Nuuk's Greenland isn't sovereign)."
+    },
+    {
+     "id": "time_zones",
+     "type": "required_patterns",
+     "passed": false,
+     "detail": "0/1 found; missing: (?im)^\\W*4[.)]\\s*.*\\bfrance\\b",
+     "rule": "Answer 4 is France."
+    },
+    {
+     "id": "closest_state",
+     "type": "required_patterns",
+     "passed": false,
+     "detail": "0/1 found; missing: (?im)^\\W*5[.)]\\s*.*\\bmaine\\b",
+     "rule": "Answer 5 is Maine."
+    },
+    {
+     "id": "one_neighbor",
+     "type": "required_patterns",
+     "passed": false,
+     "detail": "0/1 found; missing: (?im)^\\W*6[.)]\\s*.*\\blesotho\\b",
+     "rule": "Answer 6 is Lesotho."
+    }
+   ],
+   "output": null,
+   "criteria": [
+    {
+     "criterion": "Equator and Capricorn",
+     "max_score": 1,
+     "score": 0,
+     "detail": "0/1 found; missing: (?im)^\\W*1[.)]\\s*.*\\bbrazil\\b"
+    },
+    {
+     "criterion": "Red Sea and Gulf",
+     "max_score": 1,
+     "score": 0,
+     "detail": "0/1 found; missing: (?im)^\\W*2[.)]\\s*.*\\bsaudi arabia\\b"
+    },
+    {
+     "criterion": "Northernmost capital",
+     "max_score": 1,
+     "score": 0,
+     "detail": "0/1 found; missing: (?im)^\\W*3[.)]\\s*.*\\breykjav[ií]k\\b"
+    },
+    {
+     "criterion": "Most time zones",
+     "max_score": 1,
+     "score": 0,
+     "detail": "0/1 found; missing: (?im)^\\W*4[.)]\\s*.*\\bfrance\\b"
+    },
+    {
+     "criterion": "Closest state",
+     "max_score": 1,
+     "score": 0,
+     "detail": "0/1 found; missing: (?im)^\\W*5[.)]\\s*.*\\bmaine\\b"
+    },
+    {
+     "criterion": "One neighbor",
+     "max_score": 1,
+     "score": 0,
+     "detail": "0/1 found; missing: (?im)^\\W*6[.)]\\s*.*\\blesotho\\b"
+    }
+   ],
+   "hidden_tests": null,
+   "counts": false,
+   "hardware": {
+    "hostname": "Ironwood",
+    "cpu": "Apple M1 Pro",
+    "gpu": null,
+    "ram_gb": 32.0
+   },
+   "inference": {
+    "provider": "lmstudio",
+    "local": true,
+    "same_machine": true,
+    "served_via": null,
+    "device": "Ironwood",
+    "quantization": "4bit",
+    "context_length": 100383
+   },
+   "tests_passed": null,
+   "tests_failed": null,
+   "tool_calls": null,
+   "tokens_in": null,
+   "tokens_out": null,
+   "model_responses": 1,
+   "ttft_s": 4.223,
+   "response_time_avg_s": 1200.1,
+   "cost_usd": null
+  },
+  {
+   "run_id": "lmstudio_mlx-community_muse-glimmer-30b/history/HIST-1/20261026_220011",
+   "test_id": "HIST-1",
+   "test_version": 1,
+   "harness": "direct",
+   "harness_version": null,
+   "model": "lmstudio/mlx-community/muse-glimmer-30b",
+   "reasoning": "default",
+   "reasoning_chars": 2448,
+   "started_at": "2026-10-26T22:00:11.897109+00:00",
+   "status": "COMPLETE",
+   "outcome": "completed",
+   "timed_out": false,
+   "elapsed_s": 72.6,
+   "score": null,
+   "agent_score": null,
+   "check_score": 10.0,
+   "agent_summary": null,
+   "judge": null,
+   "checks": [
+    {
+     "id": "order",
+     "type": "required_patterns",
+     "passed": true,
+     "detail": "1/1 found",
+     "rule": "Lists them in order: Magna Carta, Gutenberg Bible, French Revolution, First World War, Moon landing, Berlin Wall."
+    },
+    {
+     "id": "years",
+     "type": "required_patterns",
+     "passed": true,
+     "detail": "6/6 found",
+     "rule": "Gives the years: 1215, 1450s, 1789, 1914, 1969, 1989."
+    }
+   ],
+   "output": "1215 - The signing of Magna Carta\n1455 - The printing of the Gutenberg Bible\n1789 - The start of the French Revolution\n1914 - The start of the First World War\n1969 - The first Moon landing\n1989 - The fall of the Berlin Wall",
+   "criteria": [
+    {
+     "criterion": "Order",
+     "max_score": 5,
+     "score": 5,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Years",
+     "max_score": 5,
+     "score": 5,
+     "detail": "6/6 found"
+    }
+   ],
+   "hidden_tests": null,
+   "counts": false,
+   "hardware": {
+    "hostname": "Ironwood",
+    "cpu": "Apple M1 Pro",
+    "gpu": null,
+    "ram_gb": 32.0
+   },
+   "inference": {
+    "provider": "lmstudio",
+    "local": true,
+    "same_machine": true,
+    "served_via": null,
+    "device": "Ironwood",
+    "quantization": "4bit",
+    "context_length": 100383
+   },
+   "tests_passed": null,
+   "tests_failed": null,
+   "tool_calls": null,
+   "tokens_in": 119,
+   "tokens_out": 726,
+   "model_responses": 1,
+   "ttft_s": 3.608,
+   "response_time_avg_s": 72.596,
+   "cost_usd": null
+  },
+  {
+   "run_id": "lmstudio_mlx-community_muse-glimmer-30b/history/HIST-2/20261026_220125",
+   "test_id": "HIST-2",
+   "test_version": 1,
+   "harness": "direct",
+   "harness_version": null,
+   "model": "lmstudio/mlx-community/muse-glimmer-30b",
+   "reasoning": "default",
+   "reasoning_chars": 6994,
+   "started_at": "2026-10-26T22:01:25.215671+00:00",
+   "status": "COMPLETE",
+   "outcome": "completed",
+   "timed_out": false,
+   "elapsed_s": 196.84,
+   "score": null,
+   "agent_score": null,
+   "check_score": 5.0,
+   "agent_summary": null,
+   "judge": null,
+   "checks": [
+    {
+     "id": "columbus",
+     "type": "required_patterns",
+     "passed": true,
+     "detail": "1/1 found",
+     "rule": "Corrects Columbus to 1492."
+    },
+    {
+     "id": "king_john",
+     "type": "required_patterns",
+     "passed": true,
+     "detail": "1/1 found",
+     "rule": "Corrects the king to John."
+    },
+    {
+     "id": "waterloo",
+     "type": "required_patterns",
+     "passed": true,
+     "detail": "1/1 found",
+     "rule": "Corrects Waterloo to 1815."
+    },
+    {
+     "id": "maiden_voyage",
+     "type": "required_patterns",
+     "passed": true,
+     "detail": "1/1 found",
+     "rule": "Corrects the Titanic to its maiden voyage (to New York)."
+    },
+    {
+     "id": "berlin_wall",
+     "type": "required_patterns",
+     "passed": true,
+     "detail": "1/1 found",
+     "rule": "Corrects the Berlin Wall to 1989."
+    },
+    {
+     "id": "no_false_flags",
+     "type": "forbidden_patterns",
+     "passed": false,
+     "detail": "found: king richard sealed magna carta at runnymede →",
+     "rule": "Doesn't mark the Declaration (1776), the Moon landing (1969) or Runnymede as errors."
+    }
+   ],
+   "output": "1493 → 1492\nChristopher Columbus first reached the Americas in 1493 → Christopher Columbus first reached the Americas in 1492\n\nKing Richard sealed Magna Carta at Runnymede → King John sealed Magna Carta at Runnymede\n\n1812 → 1815\nNapoleon was finally defeated at the Battle of Waterloo in 1812 → Napoleon was finally defeated at the Battle of Waterloo in 1815\n\nreturn voyage from New York → maiden voyage from Southampton to New York\nThe Titanic sank in April 1912 on its return voyage from New York → The Titanic sank in April 1912 on its maiden voyage from Southampton to New York\n\nNovember 1991 → November 1989\nThe Berlin Wall fell in November 1991 → The Berlin Wall fell in November 1989",
+   "criteria": [
+    {
+     "criterion": "Columbus",
+     "max_score": 1,
+     "score": 1,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "King John",
+     "max_score": 1,
+     "score": 1,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Waterloo",
+     "max_score": 1,
+     "score": 1,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Maiden voyage",
+     "max_score": 1,
+     "score": 1,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Berlin Wall",
+     "max_score": 1,
+     "score": 1,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Nothing accurate flagged",
+     "max_score": 5,
+     "score": 0,
+     "detail": "found: king richard sealed magna carta at runnymede →"
+    }
+   ],
+   "hidden_tests": null,
+   "counts": false,
+   "hardware": {
+    "hostname": "Ironwood",
+    "cpu": "Apple M1 Pro",
+    "gpu": null,
+    "ram_gb": 32.0
+   },
+   "inference": {
+    "provider": "lmstudio",
+    "local": true,
+    "same_machine": true,
+    "served_via": null,
+    "device": "Ironwood",
+    "quantization": "4bit",
+    "context_length": 100383
+   },
+   "tests_passed": null,
+   "tests_failed": null,
+   "tool_calls": null,
+   "tokens_in": 207,
+   "tokens_out": 1850,
+   "model_responses": 1,
+   "ttft_s": 4.245,
+   "response_time_avg_s": 196.815,
+   "cost_usd": null
+  },
+  {
+   "run_id": "lmstudio_mlx-community_muse-glimmer-30b/history/HIST-3/20261026_220442",
+   "test_id": "HIST-3",
+   "test_version": 1,
+   "harness": "direct",
+   "harness_version": null,
+   "model": "lmstudio/mlx-community/muse-glimmer-30b",
+   "reasoning": "default",
+   "reasoning_chars": 9744,
+   "started_at": "2026-10-26T22:04:42.632137+00:00",
+   "status": "COMPLETE",
+   "outcome": "completed",
+   "timed_out": false,
+   "elapsed_s": 309.18,
+   "score": null,
+   "agent_score": null,
+   "check_score": 10.0,
+   "agent_summary": null,
+   "judge": null,
+   "checks": [
+    {
+     "id": "all_found",
+     "type": "required_patterns",
+     "passed": true,
+     "detail": "5/5 found",
+     "rule": "The final line includes c (Gettysburg, July), f (telephone, 1876), g (barbed wire, 1874), j (West Virginia, June 20) and k (draft riots, July)."
+    },
+    {
+     "id": "no_false_flags",
+     "type": "forbidden_patterns",
+     "passed": true,
+     "detail": "none found",
+     "rule": "The final line includes none of a, b, d, e, h, i (all possible by June 10, 1863)."
+    }
+   ],
+   "output": "a) Possible. The Proclamation was issued 1 Jan 1863 and was well known by June.\nb) Possible. The siege began 18 May 1863 and was still on 10 June.\nc) Impossible. The Battle of Gettysburg was 1-3 July 1863, after 10 June.\nd) Possible. Telegraph service was in regular use between Washington and Ohio in 1863.\ne) Possible. The Monitor-Merrimack fight was 8-9 Mar 1862, “last year”.\nf) Impossible. A telephone call is anachronistic; the telephone was not invented until 1876.\ng) Impossible. Barbed wire for fencing was not patented / in use until the 1870s.\nh) Possible. Brady’s Antietam corpses were photographed Oct 1862 and were on public exhibition by spring 1863.\ni) Possible. Stonewall Jackson was mortally wounded 2 May and died 10 May 1863, “last month”.\nj) Impossible. West Virginia was admitted to the Union 20 June 1863, so it had not yet joined on 10 June, and it was not “last month”.\nk) Impossible. The New York City Draft Riots were 13-16 July 1863, in the future.\n\nANACHRONISMS: c,f,g,j,k",
+   "criteria": [
+    {
+     "criterion": "All anachronisms found",
+     "max_score": 5,
+     "score": 5,
+     "detail": "5/5 found"
+    },
+    {
+     "criterion": "Nothing period-correct flagged",
+     "max_score": 5,
+     "score": 5,
+     "detail": "none found"
+    }
+   ],
+   "hidden_tests": null,
+   "counts": false,
+   "hardware": {
+    "hostname": "Ironwood",
+    "cpu": "Apple M1 Pro",
+    "gpu": null,
+    "ram_gb": 32.0
+   },
+   "inference": {
+    "provider": "lmstudio",
+    "local": true,
+    "same_machine": true,
+    "served_via": null,
+    "device": "Ironwood",
+    "quantization": "4bit",
+    "context_length": 100383
+   },
+   "tests_passed": null,
+   "tests_failed": null,
+   "tool_calls": null,
+   "tokens_in": 268,
+   "tokens_out": 2875,
+   "model_responses": 1,
+   "ttft_s": 7.183,
+   "response_time_avg_s": 309.164,
+   "cost_usd": null
+  },
+  {
    "run_id": "lmstudio_mlx-community_muse-glimmer-30b/math/MATH-1/20261026_205752",
    "test_id": "MATH-1",
    "test_version": 1,
@@ -2252,6 +2890,122 @@
    "model_responses": 1,
    "ttft_s": 5.562,
    "response_time_avg_s": 900.029,
+   "cost_usd": null
+  },
+  {
+   "run_id": "lmstudio_mlx-community_muse-glimmer-30b/math/MATH-3/20261026_211712",
+   "test_id": "MATH-3",
+   "test_version": 1,
+   "harness": "direct",
+   "harness_version": null,
+   "model": "lmstudio/mlx-community/muse-glimmer-30b",
+   "reasoning": "default",
+   "reasoning_chars": 29705,
+   "started_at": "2026-10-26T21:17:12.961253+00:00",
+   "status": "TIMEOUT",
+   "outcome": "timeout",
+   "timed_out": true,
+   "elapsed_s": 1200.06,
+   "score": null,
+   "agent_score": null,
+   "check_score": 0.0,
+   "agent_summary": null,
+   "judge": null,
+   "checks": [
+    {
+     "id": "inclusion_exclusion",
+     "type": "required_patterns",
+     "passed": false,
+     "detail": "0/1 found; missing: (?im)^\\W*1[.)]\\s*.*\\b3,?809\\b",
+     "rule": "Answer 1 is 3809."
+    },
+    {
+     "id": "modular",
+     "type": "required_patterns",
+     "passed": false,
+     "detail": "0/1 found; missing: (?im)^\\W*2[.)]\\s*.*\\b49\\b",
+     "rule": "Answer 2 is 49."
+    },
+    {
+     "id": "tiling",
+     "type": "required_patterns",
+     "passed": false,
+     "detail": "0/1 found; missing: (?im)^\\W*3[.)]\\s*.*\\b2,?731\\b",
+     "rule": "Answer 3 is 2731."
+    },
+    {
+     "id": "dice",
+     "type": "required_patterns",
+     "passed": false,
+     "detail": "0/1 found; missing: (?im)^\\W*4[.)]\\s*.*\\b37\\s*/\\s*216\\b",
+     "rule": "Answer 4 is 37/216."
+    },
+    {
+     "id": "tuesday_boy",
+     "type": "required_patterns",
+     "passed": false,
+     "detail": "0/1 found; missing: (?im)^\\W*5[.)]\\s*.*\\b13\\s*/\\s*27\\b",
+     "rule": "Answer 5 is 13/27."
+    }
+   ],
+   "output": null,
+   "criteria": [
+    {
+     "criterion": "Inclusion-exclusion",
+     "max_score": 2,
+     "score": 0,
+     "detail": "0/1 found; missing: (?im)^\\W*1[.)]\\s*.*\\b3,?809\\b"
+    },
+    {
+     "criterion": "Modular power",
+     "max_score": 2,
+     "score": 0,
+     "detail": "0/1 found; missing: (?im)^\\W*2[.)]\\s*.*\\b49\\b"
+    },
+    {
+     "criterion": "Tiling",
+     "max_score": 2,
+     "score": 0,
+     "detail": "0/1 found; missing: (?im)^\\W*3[.)]\\s*.*\\b2,?731\\b"
+    },
+    {
+     "criterion": "Dice",
+     "max_score": 2,
+     "score": 0,
+     "detail": "0/1 found; missing: (?im)^\\W*4[.)]\\s*.*\\b37\\s*/\\s*216\\b"
+    },
+    {
+     "criterion": "Tuesday boy",
+     "max_score": 2,
+     "score": 0,
+     "detail": "0/1 found; missing: (?im)^\\W*5[.)]\\s*.*\\b13\\s*/\\s*27\\b"
+    }
+   ],
+   "hidden_tests": null,
+   "counts": false,
+   "hardware": {
+    "hostname": "Ironwood",
+    "cpu": "Apple M1 Pro",
+    "gpu": null,
+    "ram_gb": 32.0
+   },
+   "inference": {
+    "provider": "lmstudio",
+    "local": true,
+    "same_machine": true,
+    "served_via": null,
+    "device": "Ironwood",
+    "quantization": "4bit",
+    "context_length": 100383
+   },
+   "tests_passed": null,
+   "tests_failed": null,
+   "tool_calls": null,
+   "tokens_in": null,
+   "tokens_out": null,
+   "model_responses": 1,
+   "ttft_s": 6.876,
+   "response_time_avg_s": 1200.064,
    "cost_usd": null
   },
   {
@@ -4394,7 +5148,7 @@
    "elapsed_s": 1.13,
    "score": null,
    "agent_score": null,
-   "check_score": 10.0,
+   "check_score": null,
    "agent_summary": null,
    "judge": null,
    "checks": [
@@ -4421,26 +5175,7 @@
     }
    ],
    "output": "In the United States, firetrucks are predominantly red, a tradition that originated from early 20th-century safety concerns and has since become a cultural symbol. While some departments now use yellow, white, or other colors for better visibility or specific operational needs, red remains the standard color across the country.",
-   "criteria": [
-    {
-     "criterion": "Correct answer",
-     "max_score": 7,
-     "score": 7,
-     "detail": "1/1 found"
-    },
-    {
-     "criterion": "Red is the answer",
-     "max_score": 2,
-     "score": 2,
-     "detail": "1/1 found"
-    },
-    {
-     "criterion": "Brief",
-     "max_score": 1,
-     "score": 1,
-     "detail": "49 words"
-    }
-   ],
+   "criteria": null,
    "hidden_tests": null,
    "counts": true,
    "hardware": {
@@ -4484,7 +5219,7 @@
    "elapsed_s": 13.66,
    "score": null,
    "agent_score": null,
-   "check_score": 10.0,
+   "check_score": null,
    "agent_summary": null,
    "judge": null,
    "checks": [
@@ -4511,26 +5246,7 @@
     }
    ],
    "output": "Most firetrucks in the United States are red, though some departments use white, yellow, or blue for visibility and heat reflection purposes.",
-   "criteria": [
-    {
-     "criterion": "Correct answer",
-     "max_score": 7,
-     "score": 7,
-     "detail": "1/1 found"
-    },
-    {
-     "criterion": "Red is the answer",
-     "max_score": 2,
-     "score": 2,
-     "detail": "1/1 found"
-    },
-    {
-     "criterion": "Brief",
-     "max_score": 1,
-     "score": 1,
-     "detail": "22 words"
-    }
-   ],
+   "criteria": null,
    "hidden_tests": null,
    "counts": true,
    "hardware": null,
@@ -8028,9 +8744,9 @@
    "outcome": "completed",
    "timed_out": false,
    "elapsed_s": 2.81,
-   "score": null,
+   "score": 10.0,
    "agent_score": null,
-   "check_score": 10.0,
+   "check_score": null,
    "agent_summary": null,
    "judge": null,
    "checks": [
@@ -8057,26 +8773,7 @@
     }
    ],
    "output": "In the United States, firetrucks are most commonly painted bright red, though other colors like lime-yellow, white, and even blue or black can be used by different departments.",
-   "criteria": [
-    {
-     "criterion": "Correct answer",
-     "max_score": 7,
-     "score": 7,
-     "detail": "1/1 found"
-    },
-    {
-     "criterion": "Red is the answer",
-     "max_score": 2,
-     "score": 2,
-     "detail": "1/1 found"
-    },
-    {
-     "criterion": "Brief",
-     "max_score": 1,
-     "score": 1,
-     "detail": "28 words"
-    }
-   ],
+   "criteria": null,
    "hidden_tests": null,
    "counts": true,
    "hardware": null,
@@ -9404,10 +10101,13 @@
    "timed_out": false,
    "elapsed_s": 0.96,
    "score": null,
-   "agent_score": null,
-   "check_score": 10.0,
-   "agent_summary": null,
-   "judge": null,
+   "agent_score": 10.0,
+   "check_score": null,
+   "agent_summary": "Correct and concise.",
+   "judge": {
+    "type": "agent",
+    "model": "claude-opus-5-5"
+   },
    "checks": [
     {
      "id": "says_red",
@@ -9432,26 +10132,7 @@
     }
    ],
    "output": "Fire trucks in the US are most commonly red, though many departments also use yellow, white, or other high-visibility colors.",
-   "criteria": [
-    {
-     "criterion": "Correct answer",
-     "max_score": 7,
-     "score": 7,
-     "detail": "1/1 found"
-    },
-    {
-     "criterion": "Red is the answer",
-     "max_score": 2,
-     "score": 2,
-     "detail": "1/1 found"
-    },
-    {
-     "criterion": "Brief",
-     "max_score": 1,
-     "score": 1,
-     "detail": "20 words"
-    }
-   ],
+   "criteria": null,
    "hidden_tests": null,
    "counts": true,
    "hardware": null,
@@ -10550,9 +11231,9 @@
    "outcome": "completed",
    "timed_out": false,
    "elapsed_s": 1.76,
-   "score": null,
+   "score": 10.0,
    "agent_score": null,
-   "check_score": 10.0,
+   "check_score": null,
    "agent_summary": null,
    "judge": null,
    "checks": [
@@ -10579,26 +11260,7 @@
     }
    ],
    "output": "Most firetrucks in the US are red. However, they can also be yellow, white, blue, or other colors depending on the fire department and local preferences.",
-   "criteria": [
-    {
-     "criterion": "Correct answer",
-     "max_score": 7,
-     "score": 7,
-     "detail": "1/1 found"
-    },
-    {
-     "criterion": "Red is the answer",
-     "max_score": 2,
-     "score": 2,
-     "detail": "1/1 found"
-    },
-    {
-     "criterion": "Brief",
-     "max_score": 1,
-     "score": 1,
-     "detail": "26 words"
-    }
-   ],
+   "criteria": null,
    "hidden_tests": null,
    "counts": true,
    "hardware": null,
@@ -10627,9 +11289,9 @@
    "outcome": "completed",
    "timed_out": false,
    "elapsed_s": 5.62,
-   "score": null,
+   "score": 10.0,
    "agent_score": null,
-   "check_score": 10.0,
+   "check_score": null,
    "agent_summary": null,
    "judge": null,
    "checks": [
@@ -10656,26 +11318,7 @@
     }
    ],
    "output": "Firetrucks in the US are traditionally red, which has been the standard color since the early 1900s. However, not all are red—some fire departments use lime-yellow, white, or other colors, as studies have suggested brighter colors may be more visible.",
-   "criteria": [
-    {
-     "criterion": "Correct answer",
-     "max_score": 7,
-     "score": 7,
-     "detail": "1/1 found"
-    },
-    {
-     "criterion": "Red is the answer",
-     "max_score": 2,
-     "score": 2,
-     "detail": "1/1 found"
-    },
-    {
-     "criterion": "Brief",
-     "max_score": 1,
-     "score": 1,
-     "detail": "40 words"
-    }
-   ],
+   "criteria": null,
    "hidden_tests": null,
    "counts": true,
    "hardware": null,
@@ -10704,9 +11347,9 @@
    "outcome": "completed",
    "timed_out": false,
    "elapsed_s": 6.49,
-   "score": null,
+   "score": 10.0,
    "agent_score": null,
-   "check_score": 10.0,
+   "check_score": null,
    "agent_summary": null,
    "judge": null,
    "checks": [
@@ -10733,26 +11376,7 @@
     }
    ],
    "output": "Firetrucks in the US are most commonly red, which has been the traditional color since the early 1900s. However, some fire departments use other colors like yellow, lime-green, white, or black.",
-   "criteria": [
-    {
-     "criterion": "Correct answer",
-     "max_score": 7,
-     "score": 7,
-     "detail": "1/1 found"
-    },
-    {
-     "criterion": "Red is the answer",
-     "max_score": 2,
-     "score": 2,
-     "detail": "1/1 found"
-    },
-    {
-     "criterion": "Brief",
-     "max_score": 1,
-     "score": 1,
-     "detail": "31 words"
-    }
-   ],
+   "criteria": null,
    "hidden_tests": null,
    "counts": true,
    "hardware": null,

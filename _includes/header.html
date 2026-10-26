@@ -1,28 +1,29 @@
 <header>
-    <nav>
-        <div class="constrain nav-container">
-            <div class="nav-row">
-                <a class="nav-logo" rel="author" href="{{ '/' | relative_url }}">
-                    <div class="nav-title h1">{{ site.title | escape }}</div>
-                </a>
-                {%- comment -%} Crucible stays unlinked until it's ready: add it back here when it launches.
-                <ul class="nav-menu">
-                    <li><a href="{{ '/crucible/' | relative_url }}"{% if page.url contains '/crucible/' %} aria-current="page"{% endif %}>crucible</a></li>
-                </ul>
-                {%- endcomment -%}
-            </div>
-            <hr>
-        </div>
-        <!-- <input type="checkbox" id="nav" class="hidden" />
-        <label for="nav" class="nav-open"><i></i><i></i><i></i></label>
-        <div class="nav-container">
-            <ul>
-                <li class="nav-links"><a href="/culture">culture</a></li>
-                <li class="nav-links"><a href="/technology">technology</a></li>
-                <li class="nav-links"><a href="/travel">travel</a></li>
-                <li class="nav-links"><a href="/about">about</a></li>
-                <li class="nav-links"><a href="/contact">contact</a></li>
+    <nav class="constrain nav-container" aria-label="Main">
+        <div class="nav-bar">
+            <a class="nav-logo" rel="author" href="{{ '/' | relative_url }}">
+                <div class="nav-title h1">{{ site.title | escape }}</div>
+            </a>
+            <button class="nav-toggle" type="button" aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle menu">
+                <i></i><i></i><i></i>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
+                {%- assign nav_links = "culture,technology,travel" | split: "," -%}
+                {%- for link in nav_links %}
+                {%- assign link_url = '/' | append: link -%}
+                <li><a class="nav-link" href="{{ link_url | relative_url }}" {% if page.url contains link_url %}aria-current="page"{% endif %}>{{ link }}</a></li>
+                {%- endfor %}
             </ul>
-        </div> -->
+        </div>
+        <hr>
     </nav>
+    <script>
+        (function () {
+            var toggle = document.querySelector('.nav-toggle');
+            toggle.addEventListener('click', function () {
+                var open = toggle.getAttribute('aria-expanded') === 'true';
+                toggle.setAttribute('aria-expanded', String(!open));
+            });
+        })();
+    </script>
 </header>

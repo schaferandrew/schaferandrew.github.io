@@ -36,14 +36,21 @@
 
   // ---- Data shaping -----------------------------------------------------
 
+  // A model plus its reasoning level is one model here, as on Artificial Analysis:
+  // "lmstudio/qwen/qwen3.5-9b#off" reads as "qwen3.5-9b (reasoning off)"
   function modelLabel(model) {
-    var parts = model.split('/');
-    return parts[parts.length - 1];
+    var variant = model.split('#');
+    var parts = variant[0].split('/');
+    return parts[parts.length - 1] + (variant[1] ? ' (reasoning ' + variant[1] + ')' : '');
   }
 
   function isLocal(model) {
     return /^(ollama|lmstudio)\//.test(model);
   }
+
+  data.runs.forEach(function (run) {
+    if (run.reasoning && run.reasoning !== 'default') run.model = run.model + '#' + run.reasoning;
+  });
 
   // Models in order of their first run, so adding a model never reorders the defaults
   var firstRun = {};
@@ -708,6 +715,10 @@
         list.appendChild(li);
       });
       into.appendChild(list);
+    }
+    if (r.reasoning_chars) {
+      into.appendChild(el('p', { class: 'crucible-detail-meta' }, 'Reasoned for ' + r.reasoning_chars.toLocaleString() +
+        ' characters before answering' + (r.reasoning && r.reasoning !== 'default' ? ' (reasoning set to ' + r.reasoning + ')' : '') + '.'));
     }
     if (r.output) {
       var details = el('details', { class: 'crucible-output' });

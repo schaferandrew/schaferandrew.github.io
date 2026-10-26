@@ -28,3 +28,7 @@ Temporary Items
 # Jekyll
 _site
 .sass-cache
+
+# Local bundler install
+.bundle
+vendor

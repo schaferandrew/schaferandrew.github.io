@@ -9,6 +9,9 @@
   }
   
   html {
+    // The site is light-only: pin it so no embedder or forced theme shows a dark backdrop through
+    color-scheme: light;
+    background: #fff;
     font-size: 100%;
     scroll-behavior: smooth;
   }

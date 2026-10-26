@@ -1,0 +1,166 @@
+---
+layout: default
+title: About Crucible
+noindex: true
+permalink: /crucible/about/
+---
+<div class="constrain crucible crucible-about">
+  <p class="crucible-breadcrumb"><a href="/crucible/">← Crucible results</a></p>
+  <h1 class="crucible-title">About Crucible</h1>
+  <div class="crucible-construction" role="note">
+    <strong>Under construction.</strong> Crucible is a work in progress: tests, scoring and results are still
+    changing, and some numbers here come from early or partial runs. Check back soon.
+  </div>
+
+  <p class="crucible-disclaimer">This page was created and written by or with the help of AI.</p>
+
+  <p class="crucible-lede">
+    Crucible is a small benchmark harness for testing models on the work people actually hand them: building and
+    fixing code, editing writing, answering everyday questions, reasoning through a schedule, diagnosing a leak.
+    The aim is to answer a practical question: <em>which model, through which tool, on which hardware, is good
+    enough for this job?</em>
+  </p>
+
+  <h2 class="crucible-heading">How a run works</h2>
+  <ol class="crucible-steps">
+    <li>
+      <strong>Test.</strong> Each test is a YAML file: the prompt, a rubric of weighted criteria, and anything it
+      needs, such as a seeded repo, fixture files or a mock email-and-calendar server.
+    </li>
+    <li>
+      <strong>Harness.</strong> The harness hands the prompt to the model. Chat tests always use
+      <strong>direct</strong>, a single API call with no tools. Agentic tests use a coding agent,
+      <strong>opencode</strong> or <strong>pi</strong>, that can read and write files, run commands and browse. The
+      same model can do very differently depending on the agent, which is why the Agentic results let you switch
+      between them.
+    </li>
+    <li>
+      <strong>Model.</strong> Local models run through LM Studio or Ollama; cloud models run through OpenRouter as a
+      reference point.
+    </li>
+    <li>
+      <strong>Run folder.</strong> Every run writes a folder with the prompt, the full transcript, the files the
+      model produced, and the metrics: time, time to first token, tool calls, tokens and cost.
+    </li>
+    <li>
+      <strong>Score.</strong> Each run is scored 0–10 against its rubric, by a person or by an AI judge (an agent
+      score). Some tests have a critical failure, like wrong interest math or an invented news story, that caps the
+      score.
+    </li>
+    <li>
+      <strong>Export.</strong> Scored runs are flattened into one JSON file that drives the results page.
+    </li>
+  </ol>
+
+  <h2 class="crucible-heading">Sections and areas</h2>
+  <p>
+    Every test is either <strong>Chat</strong> or <strong>Agentic</strong>, and the two are never mixed: not in a run,
+    not in a score. Within each, a test's area is the kind of work it covers, and every test ID is its area's four letters and a number (CODE-11, WRIT-2b).
+  </p>
+  <div class="crucible-scroll">
+    <table class="crucible-tests crucible-suites">
+      <thead>
+        <tr><th scope="col">Area</th><th scope="col">What it means</th><th scope="col">Examples</th></tr>
+      </thead>
+      <tbody>
+        <tr class="crucible-group"><th colspan="3" scope="rowgroup">Chat · one API call, no tools</th></tr>
+        <tr>
+          <th scope="row">Writing <span class="crucible-tag">WRIT</span></th>
+          <td>Can it edit without flattening someone's voice, and write things that sound real?</td>
+          <td>Proofread an email, a literary paragraph and an economics essay; generate believable character names; a haiku with banned words.</td>
+        </tr>
+        <tr>
+          <th scope="row">Math &amp; logic <span class="crucible-tag">MATH</span></th>
+          <td>Does it get the exact answer, including when the obvious one is wrong?</td>
+          <td>Recipe scaling and discounts, compound interest and a split bill, competition-style counting and probability, a logic puzzle.</td>
+        </tr>
+        <tr>
+          <th scope="row">Geography <span class="crucible-tag">GEOG</span></th>
+          <td>Does it know the world beyond the obvious answer?</td>
+          <td>Capitals that aren't the biggest city, which countries are landlocked, trick questions about borders and time zones.</td>
+        </tr>
+        <tr>
+          <th scope="row">History <span class="crucible-tag">HIST</span></th>
+          <td>Are its dates and order right, and can it catch what's wrong?</td>
+          <td>Put events in order, fact-check a paragraph, spot the anachronisms in a letter from 1863.</td>
+        </tr>
+        <tr>
+          <th scope="row">General knowledge <span class="crucible-tag">KNOW</span></th>
+          <td>Does it know things, explain them clearly, and stay faithful to what it's given?</td>
+          <td>Explain enshittification or solar panels, fix a leak or a running toilet, write a news briefing from supplied feeds without changing a figure.</td>
+        </tr>
+        <tr class="crucible-group"><th colspan="3" scope="rowgroup">Agentic · an agent harness with tools and a workspace</th></tr>
+        <tr>
+          <th scope="row">Coding <span class="crucible-tag">CODE</span></th>
+          <td>Can it do software work in a real repo, with real tools?</td>
+          <td>Build an interest-rate CLI, make a navbar responsive, fix a Next.js server/client bug, fix a redirect loop and an accessibility audit in a monorepo.</td>
+        </tr>
+        <tr>
+          <th scope="row">Research <span class="crucible-tag">RSCH</span></th>
+          <td>Can it go and get live information, and report it honestly?</td>
+          <td>Today's local news, the weather against the historical average.</td>
+        </tr>
+        <tr>
+          <th scope="row">Everyday <span class="crucible-tag">TASK</span></th>
+          <td>Can it handle the tasks you'd hand an assistant, using your own data?</td>
+          <td>Find meeting times across two calendars, a morning brief from email, calendar and news.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="crucible-heading">Tiers</h2>
+  <p>Tests are also sorted by how hard they are, so a small model isn't judged on work meant for a frontier one.</p>
+  <ul>
+    <li><strong>Spark</strong>: the basics. Does it load, follow a format, call a tool, read code and make a small correct change? This is a gate: a model that fails Spark isn't ranked.</li>
+    <li><strong>Temper</strong>: real everyday work you'd actually use. This is the headline score.</li>
+    <li><strong>Forge</strong>: long, multi-step work you'd normally need a frontier model for.</li>
+  </ul>
+  <p>Every area is working toward tests at all three tiers; math, geography and history already have one of each.</p>
+
+  <h2 class="crucible-heading">Programmatic checks</h2>
+  <p>
+    Writing, math, geography and history tests are scored with no judge at all: each rule below runs on the model's final answer, passes or
+    fails, and is worth a fixed number of points. Anyone running the same answer through Crucible gets the same
+    score. The answer that was checked is saved with the result, so every score can be audited later. Tests that
+    need judgment (does the code actually work, is the advice safe) use an AI judge instead, with deterministic
+    checks wherever a rule can be stated exactly.
+  </p>
+  {%- comment -%} The test list comes from the newest results bundle in _data/crucible/ {%- endcomment -%}
+  {%- assign latest = nil -%}
+  {%- for pair in site.data.crucible -%}{%- if latest == nil or pair[1].generated_at > latest.generated_at -%}{%- assign latest = pair[1] -%}{%- endif -%}{%- endfor -%}
+  {% for test in latest.tests %}{% if test.rules.size > 0 %}
+  <h3 class="crucible-rules-test">{{ test.id }}{% if test.scoring == "checks" %} <span class="crucible-tag">fully deterministic</span>{% endif %}</h3>
+  <ul class="crucible-rules">
+    {% for rule in test.rules %}<li>{{ rule }}</li>{% endfor %}
+  </ul>
+  {% endif %}{% endfor %}
+
+  <h2 class="crucible-heading">Keeping scores comparable</h2>
+  <p>
+    Every test is versioned. If a prompt or its files change, old runs of it stop counting until they're rerun; if
+    only the rubric changes, the saved outputs are re-scored. Published scores are always on a <em>release</em>, a
+    pinned list of tests and versions, so adding a test never quietly moves anyone's score. New tests start
+    provisional and only count once they've been checked against small, mid-size and frontier models to confirm
+    their tier.
+  </p>
+
+  <h2 class="crucible-heading">Run it yourself</h2>
+  <p>Crucible is open source. You need Python 3.9+, Node.js for the agent harnesses (opencode or pi) and, for local models, LM Studio or Ollama; cloud models run through OpenRouter.</p>
+<pre class="crucible-code"><code>git clone https://github.com/schaferandrew/crucible.git
+cd crucible
+uv sync
+uv run crucible run</code></pre>
+  <p>
+    <code>crucible run</code> asks which model, what to run (everything, Chat, Agentic, an area, a tier or single
+    tests) and, for agentic tests, which harness, then prints the one-line command to repeat it. Without uv:
+    <code>python3 -m venv .venv</code>, activate it, <code>pip install -e .</code>.
+  </p>
+  <p><a href="https://github.com/schaferandrew/crucible">schaferandrew/crucible on GitHub</a> has the full setup for each harness and provider.</p>
+
+  <h2 class="crucible-heading">Share your results</h2>
+  <div class="crucible-draft">
+    Coming soon. Once the results format is standardized, you'll be able to submit your own runs, from your models
+    on your hardware, to appear alongside these.
+  </div>
+</div>

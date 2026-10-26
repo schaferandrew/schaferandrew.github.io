@@ -19,6 +19,41 @@ reference: https://codepen.io/andreasstorm/pen/lriga
 .nav-container {
     padding-bottom: 0;
 }
+
+.nav-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: ($gap / 2) $gap;
+}
+
+.nav-menu {
+    display: flex;
+    gap: $gap * 1.5;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    a {
+        color: $colorPrimary;
+        font-family: $fontDisplay;
+        font-size: $textLarge;
+        letter-spacing: $letterspaceMedium;
+        text-decoration: none;
+
+        &:hover,
+        &:focus-visible {
+            color: $gray;
+            text-decoration: underline;
+        }
+
+        &[aria-current="page"] {
+            text-decoration: underline;
+            text-underline-offset: 6px;
+        }
+    }
+}
 // * {
 //     box-sizing: border-box;
 // }

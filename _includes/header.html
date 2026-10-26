@@ -1,9 +1,16 @@
 <header>
     <nav>
         <div class="constrain nav-container">
-            <a class="nav-logo" rel="author" href="{{ '/' | relative_url }}">
-                <div class="nav-title h1">{{ site.title | escape }}</div>
-            </a>
+            <div class="nav-row">
+                <a class="nav-logo" rel="author" href="{{ '/' | relative_url }}">
+                    <div class="nav-title h1">{{ site.title | escape }}</div>
+                </a>
+                {%- comment -%} Crucible stays unlinked until it's ready: add it back here when it launches.
+                <ul class="nav-menu">
+                    <li><a href="{{ '/crucible/' | relative_url }}"{% if page.url contains '/crucible/' %} aria-current="page"{% endif %}>crucible</a></li>
+                </ul>
+                {%- endcomment -%}
+            </div>
             <hr>
         </div>
         <!-- <input type="checkbox" id="nav" class="hidden" />

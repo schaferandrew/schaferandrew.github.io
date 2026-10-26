@@ -1,0 +1,108 @@
+---
+layout: default
+title: Crucible
+noindex: true
+permalink: /crucible/
+---
+<div class="constrain crucible">
+  <h1 class="crucible-title">Crucible</h1>
+  <div class="crucible-construction" role="note">
+    <strong>Under construction.</strong> Crucible is a work in progress: tests, scoring and results are still
+    changing, and some numbers here come from early or partial runs. Check back soon.
+  </div>
+
+  <div class="crucible-intro">
+    <!-- TODO(Andrew): intro paragraph, written by Andrew. -->
+    <p class="crucible-draft">Intro paragraph coming soon.</p>
+
+    <p class="crucible-disclaimer">Everything below was created and written by or with the help of AI.</p>
+
+    <p>
+      Crucible runs the same real-world prompts in two separate sections that are never ranked together.
+      <strong>Chat</strong> tests (writing, math, geography, history, general knowledge) are a single API call with
+      no tools. <strong>Agentic</strong> tests (coding, research and everyday tasks) run in an agent harness,
+      <strong>opencode</strong> or <strong>pi</strong>, that can edit files, run commands and browse. Each run is
+      scored 0–10 against the test's rubric. Tests come in
+      three tiers: <strong>Spark</strong> (the basics, pass or fail), <strong>Temper</strong> (everyday work, the
+      headline score) and <strong>Forge</strong> (long, multi-step work you'd normally need a frontier model for).
+      <a href="/crucible/about/">How Crucible works, and how to run it yourself →</a>
+    </p>
+  </div>
+
+  <section class="crucible-results" aria-label="Results">
+    <div class="crucible-mode-tabs" role="tablist" aria-label="Section" id="mode-tabs"></div>
+    <ul class="crucible-takeaways" id="crucible-takeaways"></ul>
+
+    <h2 class="crucible-heading">Leaderboard</h2>
+    <p class="crucible-sub">
+      Ranked by Temper score (0–10). Spark is a pass/fail gate on the basics; Forge is scored separately and never
+      blended in. A hatched bar means fewer than 75% of that tier's tests were scored. Select a column to sort.
+      In Agentic, <strong>Best per model</strong> ranks each model with the harness it does best with (the "via"
+      tag); pick a single harness below to compare everyone on the same one.
+    </p>
+    <div class="crucible-scroll">
+      <table class="crucible-leaderboard" id="crucible-leaderboard"></table>
+    </div>
+
+    <div class="crucible-toolbar">
+      <span class="crucible-toolbar-label" id="harness-label">Harness</span>
+      <div class="crucible-segmented" role="radiogroup" aria-labelledby="harness-label" id="harness-toggle"></div>
+      <span class="crucible-toolbar-note" id="harness-fixed"></span>
+      <span class="crucible-toolbar-label" id="where-label">Models</span>
+      <div class="crucible-segmented" role="radiogroup" aria-labelledby="where-label" id="where-toggle"></div>
+      <div class="crucible-segmented" role="radiogroup" aria-label="Which models" id="progress-toggle"></div>
+    </div>
+    <p class="crucible-sub crucible-progress-note" id="progress-note"></p>
+
+    <p class="crucible-caveat">
+      <strong>How scores are made.</strong> Writing, math, geography and history tests are scored by programmatic checks: fixed rules applied
+      to the model's answer, the same way every time (listed on the <a href="/crucible/about/">About</a> page).
+      Other tests are scored by an AI judge (Claude) against the test's rubric, with hidden acceptance tests for
+      Forge. Judge scores are a rough signal, not a precise eval, so treat differences of a point or two as noise.
+    </p>
+
+    <h2 class="crucible-heading">Quality vs <span id="scatter-measure-label">time</span></h2>
+    <div class="crucible-toolbar crucible-toolbar-tight">
+      <div class="crucible-segmented" role="radiogroup" aria-label="Plot Temper score against" id="scatter-toggle"></div>
+    </div>
+    <p class="crucible-sub" id="scatter-sub"></p>
+    <div class="crucible-chart-wrap">
+      <div class="crucible-chart" id="crucible-scatter"></div>
+      <div class="crucible-tooltip" id="crucible-tooltip" hidden></div>
+    </div>
+
+    <h2 class="crucible-heading">Every model on every test</h2>
+    <p class="crucible-sub">
+      Score per test, grouped by tier. Rows keep the leaderboard's order. Cells with a green corner are scored
+      entirely by programmatic checks (no judge); select any cell for its checks or the judge's note. Dashed cells
+      are provisional tests that don't count toward tier scores yet.
+    </p>
+    <div class="crucible-scroll">
+      <table class="crucible-matrix" id="crucible-matrix"></table>
+    </div>
+    <div class="crucible-cell-detail" id="crucible-cell-detail" hidden></div>
+
+    <h2 class="crucible-heading">Model × area</h2>
+    <p class="crucible-sub">Mean score (0–10) for each area in this section, across all tiers.</p>
+    <div class="crucible-scroll">
+      <table class="crucible-heatmap" id="crucible-heatmap"></table>
+    </div>
+
+    <h2 class="crucible-heading">One model in detail</h2>
+    <div class="crucible-toolbar crucible-toolbar-tight">
+      <label class="crucible-toolbar-label" for="detail-model">Model</label>
+      <select class="crucible-select" id="detail-model"></select>
+    </div>
+    <p class="crucible-sub">Latest run per test, grouped by area. Each collapsed area shows its mean score, how many
+      of its tests ran, and one square per test, easiest tier first (a thick outline is Forge). Open an area for its
+      tests, then select a test for its checks or the judge's summary.</p>
+    <div class="crucible-scroll">
+      <table class="crucible-tests" id="crucible-tests"></table>
+    </div>
+
+    <p class="crucible-footnote" id="crucible-footnote"></p>
+  </section>
+</div>
+
+<script id="crucible-data" type="application/json">{{ site.data.crucible | jsonify }}</script>
+<script src="/assets/js/crucible.js?v={{ site.time | date: '%s' }}"></script>

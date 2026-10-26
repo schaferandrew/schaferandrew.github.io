@@ -273,10 +273,10 @@
     runsFor(model).forEach(function (r) {
       if (!r.inference || !r.inference.local) return;
       var hw = r.hardware || {};
-      // Served over LM Link: the model ran on another machine, not the one that ran crucible
-      var where = r.inference.served_via
-        ? 'remote via ' + r.inference.served_via + (r.inference.remote_host ? ' (' + r.inference.remote_host + ')' : '')
-        : (hw.hostname && hw.cpu ? hw.hostname + ' (' + hw.cpu + (hw.ram_gb ? ', ' + hw.ram_gb + ' GB' : '') + ')' : null);
+      // hardware is the machine that ran the model; over LM Link that's not the one that ran crucible
+      var specs = [hw.gpu || hw.cpu, hw.ram_gb ? hw.ram_gb + ' GB' : null].filter(Boolean).join(', ');
+      var where = hw.hostname ? hw.hostname + (specs ? ' (' + specs + ')' : '') : null;
+      if (r.inference.served_via) where = (where || 'remote') + ' via ' + r.inference.served_via;
       var label = [r.inference.quantization, where].filter(Boolean).join(' · ');
       if (label) counts[label] = (counts[label] || 0) + 1;
     });

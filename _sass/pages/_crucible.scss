@@ -1,0 +1,1124 @@
+// Crucible page: brief intro and the results views
+
+$crucibleBorder: #e3e3e8;
+$crucibleMuted: #8a8794;
+$crucibleNotRun: #f1f1f3;
+$crucibleBlue: #1856a3;
+
+.crucible {
+  .crucible-title {
+    text-align: left;
+  }
+
+  .crucible-heading {
+    padding-bottom: ($gap / 2);
+    text-align: left;
+    font-size: $textH4;
+
+    @media screen and (min-width: $medium) {
+      font-size: $textH4x;
+    }
+  }
+
+  .crucible-sub,
+  .crucible-footnote {
+    margin-top: 0;
+    color: $gray;
+    font-size: $textSmall;
+  }
+
+  .crucible-footnote {
+    margin-top: $gap * 1.5;
+  }
+}
+
+// Intro
+
+.crucible-intro {
+  max-width: $postMaxWidth;
+  margin-bottom: $gap;
+  line-height: $lineHeightXwide;
+}
+
+.crucible-draft {
+  padding: $gap;
+  border: 1px dashed $lightGray;
+  color: $crucibleMuted;
+  font-style: italic;
+}
+
+.crucible-disclaimer {
+  padding: ($gap * 0.75) $gap;
+  background: $colorTertiary;
+  border-left: 3px solid $colorAccent;
+  font-size: $textSmall;
+}
+
+// Harness toggle
+
+.crucible-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $gap / 2 $gap;
+  margin-bottom: $gap;
+}
+
+// Chat and Agentic are separate sections, chosen with these tabs at the top of the results
+.crucible-mode-tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: $gap / 2;
+  margin-bottom: $gap * 1.5;
+}
+
+.crucible-mode-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: ($gap * 0.75) $gap;
+  text-align: left;
+  background: #fff;
+  border: 2px solid $crucibleNotRun;
+  border-radius: 8px;
+  color: $colorPrimary;
+  cursor: pointer;
+  transition: border-color $speedFast ease;
+
+  &[aria-selected='true'] {
+    border-color: $colorSecondary;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $colorSecondary;
+    outline-offset: 2px;
+  }
+}
+
+.crucible-mode-name {
+  font-size: $textMedium;
+  font-weight: $weightBold;
+}
+
+.crucible-mode-blurb {
+  color: $gray;
+  font-size: $textSmall;
+}
+
+.crucible-toolbar-note {
+  color: $gray;
+  font-size: $textSmall;
+}
+
+.crucible-toolbar-label {
+  color: $gray;
+  font-size: $textSmall;
+  font-weight: $weightBold;
+  text-transform: uppercase;
+  letter-spacing: $letterspaceMedium;
+}
+
+.crucible-segmented {
+  display: inline-flex;
+  padding: 3px;
+  background: $crucibleNotRun;
+  border-radius: 6px;
+}
+
+.crucible-segment {
+  padding: 6px 14px;
+  background: none;
+  border: 0;
+  border-radius: 4px;
+  color: $colorPrimary;
+  font-size: $textSmall;
+  font-weight: $weightBold;
+  cursor: pointer;
+  transition: background $speedFast ease;
+
+  &[aria-checked='true'] {
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  }
+
+  &.is-empty {
+    color: $crucibleMuted;
+    font-weight: $weightNormal;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $colorSecondary;
+  }
+}
+
+.crucible-caveat {
+  margin: 0 0 ($gap * 1.5);
+  padding: ($gap * 0.75) $gap;
+  background: #fff8ec;
+  border-left: 3px solid $colorWriting;
+  font-size: $textSmall;
+  line-height: $lineHeightWide;
+}
+
+// Model legend, chart and tooltip
+
+.crucible-legend {
+  display: flex;
+  margin-top: $gap;
+  flex-wrap: wrap;
+  gap: ($gap / 2) ($gap * 1.5);
+  margin-bottom: $gap / 2;
+}
+
+.crucible-legend-item {
+  font-size: $textSmall;
+}
+
+.crucible-legend-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.crucible-legend-hw {
+  color: $gray;
+  font-size: 12px;
+}
+
+.crucible-tier-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: ($gap / 2) ($gap * 1.5);
+  margin-top: $gap / 2;
+}
+
+.crucible-tier-stat-label {
+  color: $gray;
+  font-size: 12px;
+  font-weight: $weightBold;
+  text-transform: uppercase;
+  letter-spacing: $letterspaceMedium;
+}
+
+.crucible-tier-stat-value {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.crucible-tier-score {
+  font-family: $fontDisplay;
+  font-size: $textXlarge;
+  font-variant-numeric: tabular-nums;
+}
+
+.crucible-tier-stat.is-headline .crucible-tier-score {
+  font-size: $textH1;
+}
+
+.crucible-tier-stat-n {
+  color: $gray;
+  font-size: 12px;
+
+  &.is-partial {
+    color: $colorAccent;
+  }
+}
+
+.crucible-verdict {
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: $weightBold;
+
+  &.is-pass {
+    background: #e6f4ea;
+    color: #1e6b34;
+  }
+
+  &.is-fail {
+    background: #fdecef;
+    color: $colorAccent;
+  }
+
+  &.is-partial {
+    background: $crucibleNotRun;
+    color: $gray;
+  }
+}
+
+.crucible-legend-score {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.crucible-legend-value {
+  font-family: $fontDisplay;
+  font-size: $textXXXlarge;
+  font-variant-numeric: tabular-nums;
+}
+
+.crucible-legend-swatch {
+  display: inline-block;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin-right: 2px;
+  border-radius: 50%;
+}
+
+.crucible-legend-name {
+  font-weight: $weightBold;
+}
+
+.crucible-legend-stat {
+  color: $gray;
+}
+
+.crucible-chart-wrap {
+  position: relative;
+}
+
+.crucible-chart {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.crucible-chart-svg {
+  display: block;
+  font-family: $fontDefault;
+
+  .crucible-grid {
+    stroke: $crucibleBorder;
+    stroke-width: 1;
+  }
+
+  .crucible-baseline {
+    stroke: $lightGray;
+    stroke-width: 1;
+  }
+
+  .crucible-axis-label,
+  .crucible-tick {
+    fill: $gray;
+    font-size: 11px;
+  }
+
+  .crucible-tick.is-muted {
+    fill: $lightGray;
+  }
+
+  .crucible-suite-rule {
+    stroke: $lightGray;
+    stroke-width: 1;
+  }
+
+  .crucible-suite-label {
+    fill: $colorPrimary;
+    font-size: 12px;
+    font-weight: $weightBold;
+  }
+
+  .crucible-band {
+    fill: $colorTertiary;
+  }
+
+  .crucible-suite-mean {
+    stroke-width: 2;
+    stroke-dasharray: 4 3;
+    opacity: 0.7;
+  }
+
+  .crucible-suite-mean-label {
+    fill: $gray;
+    font-size: 11px;
+  }
+
+  .crucible-stem {
+    stroke-width: 2;
+    stroke-linecap: round;
+    opacity: 0.45;
+  }
+
+  .crucible-dot {
+    stroke-width: 2;
+  }
+
+  .crucible-hit {
+    fill: transparent;
+  }
+}
+
+.crucible-tooltip {
+  position: absolute;
+  z-index: 2;
+  width: 260px;
+  padding: ($gap * 0.75);
+  background: #fff;
+  border: 1px solid $crucibleBorder;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  font-size: 13px;
+  line-height: $lineHeightWide;
+  pointer-events: none;
+}
+
+.crucible-tooltip-title {
+  font-weight: $weightBold;
+}
+
+.crucible-tooltip-prompt,
+.crucible-tooltip-note {
+  margin: 2px 0 6px;
+  color: $gray;
+}
+
+.crucible-tooltip-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.crucible-toolbar {
+  margin-top: $gap;
+}
+
+// Tables
+
+.crucible-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.crucible-heatmap,
+.crucible-tests {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $textSmall;
+  font-variant-numeric: tabular-nums;
+
+  th,
+  td {
+    padding: ($gap / 2) ($gap * 0.75);
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  thead th {
+    color: $gray;
+    font-weight: $weightBold;
+    border-bottom: 1px solid $crucibleBorder;
+  }
+}
+
+.crucible-heatmap {
+  td {
+    min-width: 92px;
+    border: 2px solid #fff;
+    border-radius: 4px;
+  }
+
+  tbody th {
+    font-weight: $weightBold;
+  }
+}
+
+.crucible-heat-score {
+  display: block;
+  font-size: $textLarge;
+  font-weight: $weightBold;
+}
+
+.crucible-heat-n {
+  display: block;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.crucible-tag {
+  margin-left: $gap / 2;
+  padding: 1px 6px;
+  background: $crucibleNotRun;
+  border-radius: 10px;
+  color: $gray;
+  font-size: 11px;
+  font-weight: $weightNormal;
+}
+
+.is-not-run,
+.crucible-heatmap td.is-not-run {
+  background: $crucibleNotRun;
+  color: $crucibleMuted;
+}
+
+.crucible-heatmap td.is-not-scored {
+  background: $colorTertiary;
+  color: $gray;
+
+  .crucible-heat-score {
+    font-size: $textSmall;
+    font-weight: $weightNormal;
+  }
+}
+
+.crucible-tests {
+  tbody th {
+    font-weight: $weightNormal;
+  }
+
+  td:nth-child(n + 3) {
+    text-align: right;
+  }
+
+  thead th:nth-child(n + 3) {
+    text-align: right;
+  }
+}
+
+.crucible-group th {
+  padding-top: $gap * 1.25;
+  border-bottom: 1px solid $colorPrimary;
+  color: $colorPrimary;
+  font-family: $fontDisplay;
+  font-size: $textMedium;
+  font-weight: $weightNormal;
+}
+
+.crucible-row {
+  border-bottom: 1px solid $crucibleBorder;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background: $colorTertiary;
+    outline: none;
+  }
+
+  &.is-not-run {
+    cursor: default;
+  }
+}
+
+.crucible-test-id {
+  display: inline-block;
+  width: 3em;
+  font-weight: $weightBold;
+}
+
+.crucible-test-summary {
+  display: none;
+
+  @media screen and (min-width: $medium) {
+    display: inline-block;
+  }
+
+  max-width: 34ch;
+  overflow: hidden;
+  color: $gray;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+}
+
+.crucible-not-run {
+  color: $crucibleMuted;
+  font-style: italic;
+}
+
+.crucible-score-cell {
+  min-width: 140px;
+}
+
+.crucible-score-num {
+  display: inline-block;
+  width: 2.5em;
+  font-weight: $weightBold;
+}
+
+.crucible-bar {
+  display: inline-block;
+  width: 80px;
+  height: 8px;
+  background: $crucibleNotRun;
+  border-radius: 4px;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.crucible-bar.is-uncounted .crucible-bar-fill {
+  opacity: 0.35;
+}
+
+.crucible-bar-fill {
+  display: block;
+  height: 100%;
+  background: $crucibleBlue;
+  border-radius: 4px;
+  transition: width $speedFast ease;
+}
+
+.crucible-flag {
+  margin-left: $gap / 2;
+  padding: 1px 6px;
+  background: #fdecef;
+  border-radius: 10px;
+  color: $colorAccent;
+  font-size: 11px;
+}
+
+.crucible-detail td {
+  padding: 0 ($gap * 0.75) $gap;
+  white-space: normal;
+  background: $colorTertiary;
+  border-bottom: 1px solid $crucibleBorder;
+
+  p {
+    max-width: $postMaxWidth;
+    margin: ($gap / 2) 0 0;
+  }
+}
+
+.crucible-detail-prompt {
+  font-style: italic;
+}
+
+.crucible-detail-meta {
+  color: $crucibleMuted;
+  font-size: 12px;
+}
+
+// Brief highlight on cells that moved a lot when the harness changed
+.is-moved {
+  animation: crucible-moved 1.2s ease-out;
+}
+
+@keyframes crucible-moved {
+  0% {
+    box-shadow: inset 0 0 0 2px $colorWriting;
+  }
+  100% {
+    box-shadow: inset 0 0 0 2px transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-moved {
+    animation: none;
+  }
+}
+
+// About page
+
+.crucible-about {
+  max-width: $postMaxWidth + $gap * 2;
+  line-height: $lineHeightXwide;
+
+  .crucible-heading {
+    margin-top: $gap;
+  }
+}
+
+.crucible-breadcrumb {
+  margin: 0;
+  font-size: $textSmall;
+}
+
+.crucible-lede {
+  font-size: $textMedium;
+}
+
+.crucible-steps li {
+  margin-bottom: $gap / 2;
+}
+
+.crucible-suites {
+  td,
+  th {
+    white-space: normal;
+    vertical-align: top;
+  }
+
+  td:nth-child(n + 3),
+  thead th:nth-child(n + 3) {
+    text-align: left;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid $crucibleBorder;
+  }
+
+  tbody th {
+    white-space: nowrap;
+    font-weight: $weightBold;
+  }
+}
+
+.crucible-code {
+  overflow-x: auto;
+  padding: $gap;
+  background: $colorTertiary;
+  border-radius: 6px;
+  font-size: $textSmall;
+  line-height: $lineHeightWide;
+}
+
+// Results dashboard: takeaways, leaderboard, scatter, model × test matrix
+
+.crucible-takeaways {
+  margin: 0 0 ($gap * 1.5);
+  padding: $gap ($gap * 1.25);
+  background: $colorTertiary;
+  border-radius: 6px;
+  list-style: none;
+  line-height: $lineHeightWide;
+
+  li + li {
+    margin-top: $gap / 2;
+  }
+
+  li::before {
+    content: "→ ";
+    color: $gray;
+  }
+}
+
+.crucible-toolbar-tight {
+  margin: 0 0 ($gap / 2);
+}
+
+.crucible-select {
+  padding: 6px 10px;
+  border: 1px solid $crucibleBorder;
+  border-radius: 6px;
+  background: #fff;
+  font-size: $textSmall;
+}
+
+.crucible-leaderboard {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $textSmall;
+  font-variant-numeric: tabular-nums;
+
+  th,
+  td {
+    padding: ($gap / 2) ($gap * 0.75);
+    border-bottom: 1px solid $crucibleBorder;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  thead th {
+    color: $gray;
+    font-weight: $weightBold;
+  }
+
+  tbody th {
+    font-weight: $weightNormal;
+  }
+
+  tr.is-not-run {
+    color: $crucibleMuted;
+  }
+}
+
+.crucible-sort {
+  padding: 0;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  font-weight: $weightBold;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    color: $colorPrimary;
+    text-decoration: underline;
+  }
+}
+
+.crucible-lb-rank {
+  width: 2em;
+  color: $gray;
+}
+
+.crucible-lb-num {
+  text-align: right !important;
+}
+
+.crucible-lb-note {
+  display: block;
+  color: $colorAccent;
+  font-size: 11px;
+}
+
+.crucible-lb-bar-cell {
+  min-width: 220px;
+}
+
+.crucible-lb-bar {
+  display: inline-block;
+  width: 140px;
+  height: 10px;
+  margin-right: 8px;
+  overflow: hidden;
+  background: $crucibleNotRun;
+  border-radius: 5px;
+  vertical-align: middle;
+
+  // Partial coverage: hatch the fill so it never reads as a complete score
+  &.is-partial .crucible-lb-fill {
+    background-image: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0 3px, transparent 3px 7px);
+  }
+}
+
+.crucible-lb-fill {
+  display: block;
+  height: 100%;
+  background-color: #eb6834;
+  border-radius: 5px;
+
+  &.is-local {
+    background-color: #2a78d6;
+  }
+}
+
+.crucible-lb-score {
+  font-weight: $weightBold;
+}
+
+.crucible-tag.is-local {
+  background: #e6effa;
+  color: #1856a3;
+}
+
+.crucible-chart-svg {
+  .crucible-quadrant {
+    fill: #eef6ee;
+  }
+
+  .crucible-frontier {
+    fill: none;
+    stroke: $gray;
+    stroke-width: 1.5;
+    stroke-dasharray: 5 4;
+  }
+
+  .crucible-point-label {
+    fill: $colorPrimary;
+    font-size: 11px;
+  }
+
+  .crucible-axis-title {
+    fill: $gray;
+    font-size: 12px;
+  }
+
+  .crucible-dot.is-uncounted {
+    stroke-width: 2;
+  }
+}
+
+.crucible-matrix {
+  border-collapse: separate;
+  border-spacing: 2px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+
+  th {
+    padding: 4px 6px;
+    color: $gray;
+    font-weight: $weightBold;
+    white-space: nowrap;
+  }
+
+  tbody th {
+    color: $colorPrimary;
+    text-align: left;
+  }
+
+  .crucible-matrix-tier {
+    border-bottom: 1px solid $colorPrimary;
+    color: $colorPrimary;
+    font-family: $fontDisplay;
+    font-size: $textSmall;
+    text-align: left;
+  }
+
+  .is-tier-start {
+    padding-left: 10px;
+  }
+}
+
+.crucible-matrix-id {
+  min-width: 30px;
+  font-weight: $weightNormal !important;
+  text-align: center;
+}
+
+.crucible-matrix-cell {
+  padding: 0;
+  text-align: center;
+
+  button {
+    width: 30px;
+    height: 26px;
+    padding: 0;
+    background: $crucibleNotRun;
+    border: 0;
+    border-radius: 3px;
+    font: inherit;
+    font-weight: $weightBold;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid $colorSecondary;
+      outline-offset: 1px;
+    }
+
+    &.is-timeout {
+      box-shadow: inset 0 0 0 2px $colorAccent;
+    }
+  }
+
+  &.is-provisional button {
+    outline: 1px dashed $gray;
+    outline-offset: -3px;
+  }
+
+  &.is-empty {
+    color: $lightGray;
+  }
+}
+
+.crucible-cell-detail {
+  max-width: $postMaxWidth;
+  margin-top: $gap;
+  padding: ($gap * 0.75) $gap;
+  border: 1px solid $crucibleBorder;
+  border-radius: 6px;
+  font-size: $textSmall;
+
+  p {
+    margin: 0 0 ($gap / 2);
+  }
+}
+
+.crucible-harness-tag {
+  background: #fff;
+  border: 1px solid $crucibleBorder;
+}
+
+.crucible-matrix-harness {
+  display: block;
+  color: $crucibleMuted;
+  font-size: 10px;
+  font-weight: $weightNormal;
+}
+
+.crucible-checks {
+  margin: ($gap / 2) 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+
+  li {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .is-fail {
+    color: $colorAccent;
+  }
+}
+
+.crucible-check-mark {
+  flex: none;
+  width: 1.2em;
+  font-weight: $weightBold;
+}
+
+.crucible-check-detail {
+  color: $crucibleMuted;
+}
+
+.crucible-matrix-cell button.is-checked {
+  background-image: linear-gradient(225deg, #1e6b34 0 5px, transparent 5px);
+}
+
+.crucible-rules-test {
+  margin: $gap 0 0;
+  font-size: $textMedium;
+}
+
+.crucible-rules {
+  margin: ($gap / 4) 0 0;
+  font-size: $textSmall;
+}
+
+.crucible-construction {
+  margin: 0 0 $gap;
+  padding: ($gap * 0.75) $gap;
+  background: #fff8ec;
+  border: 1px dashed $colorWriting;
+  border-radius: 6px;
+  font-size: $textSmall;
+}
+
+// Detail table: one collapsible group per area
+.crucible-area-row th {
+  padding: 0;
+}
+
+.crucible-area-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px $gap / 2;
+  width: 100%;
+  padding: 10px 12px;
+  background: none;
+  border: 0;
+  color: $colorPrimary;
+  font-family: inherit;
+  font-size: $textSmall;
+  text-align: left;
+  text-transform: none;
+  letter-spacing: normal;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $colorSecondary;
+    outline-offset: -2px;
+  }
+}
+
+.crucible-area-caret {
+  width: 1em;
+  color: $gray;
+}
+
+.crucible-area-name {
+  font-size: 16px;
+  font-weight: $weightBold;
+}
+
+.crucible-area-score {
+  min-width: 2.6em;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: $crucibleNotRun;
+  font-size: $textSmall;
+  font-weight: $weightBold;
+  text-align: center;
+}
+
+.crucible-area-count {
+  color: $gray;
+  font-size: $textSmall;
+}
+
+.crucible-area-strip {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-left: $gap / 2;
+}
+
+.crucible-area-sq {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: $crucibleNotRun;
+  // Tier shows as the square's outline weight: easy thin, hard thick
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+
+  &.is-forge {
+    box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.35);
+  }
+
+  &.is-empty {
+    background: none;
+    box-shadow: inset 0 0 0 1px $crucibleMuted;
+  }
+}
+
+.crucible-tier-tag {
+  margin-right: 6px;
+}
+
+// Run detail: what was scored, the hidden tests, and the model's output
+.crucible-detail-label {
+  margin: ($gap * 0.75) 0 4px;
+  color: $gray;
+  font-size: $textSmall;
+  font-weight: $weightBold;
+  text-transform: uppercase;
+  letter-spacing: $letterspaceMedium;
+}
+
+.crucible-criteria {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: $textSmall;
+
+  li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 2px 0;
+  }
+
+  .crucible-criterion-score {
+    min-width: 3.4em;
+    font-weight: $weightBold;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .is-pass .crucible-criterion-score { color: #1a7f37; }
+  .is-partial .crucible-criterion-score { color: #9a6700; }
+  .is-fail .crucible-criterion-score { color: #cf222e; }
+}
+
+.crucible-check-group {
+  margin-top: 6px;
+  color: $gray;
+  font-weight: $weightBold;
+  list-style: none;
+}
+
+.crucible-output {
+  margin-top: $gap * 0.75;
+
+  summary {
+    cursor: pointer;
+    font-size: $textSmall;
+    font-weight: $weightBold;
+  }
+
+  pre {
+    max-height: 360px;
+    overflow: auto;
+    margin: 6px 0 0;
+    padding: 10px 12px;
+    background: #f6f8fa;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}
+
+.crucible-progress-note {
+  margin-top: -$gap / 2;
+}

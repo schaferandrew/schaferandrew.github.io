@@ -330,13 +330,24 @@
   };
 
   // Models matching the filter, ranked by the current sort; unrun and unscored rows sink
+  // In progress is hidden by default, but when no model has finished a section yet (say new
+  // tests just went active), an empty leaderboard helps no one: show everyone, and say why
+  function noneFinished() {
+    return !allModels.some(function (m) {
+      return modeInfo().harnesses.some(function (h) { return runCount(m, h) > 0; }) &&
+        sectionProgress(m).share >= IN_PROGRESS_BELOW;
+    });
+  }
+
+  function showingInProgress() { return showInProgress || noneFinished(); }
+
   function rankedStats() {
     var list = allModels
       .filter(function (m) { return where === 'all' || (where === 'local') === isLocal(m); })
       // Only models with a run in this section's tests
       .filter(function (m) { return modeInfo().harnesses.some(function (h) { return runCount(m, h) > 0; }); })
       .map(stats)
-      .filter(function (s) { return showInProgress || !s.inProgress; });
+      .filter(function (s) { return showingInProgress() || !s.inProgress; });
     var value = SORT_VALUES[sort.key];
     var tierKey = ['spark', 'temper', 'forge'].indexOf(sort.key) !== -1;
     return list.sort(function (a, b) {
@@ -405,8 +416,10 @@
     segmented('progress-toggle', [
       { value: false, label: 'Finished' },
       { value: true, label: 'Include in progress' + (hidden ? ' (' + hidden + ')' : ''), empty: !hidden, emptyTitle: 'Every model has finished this section' }
-    ], showInProgress, function (v) { showInProgress = v; render(); });
-    document.getElementById('progress-note').textContent = showInProgress && hidden
+    ], showingInProgress(), function (v) { showInProgress = v; render(); });
+    document.getElementById('progress-note').textContent = noneFinished() && hidden
+      ? 'No model has finished 75% of this section\'s tests yet, so everyone is shown, marked * and unranked.'
+      : showInProgress && hidden
       ? '* In progress: fewer than 75% of this section\'s tests done. Listed last and not ranked.'
       : (hidden ? hidden + ' model' + (hidden === 1 ? '' : 's') + ' with fewer than 75% of this section\'s tests done ' + (hidden === 1 ? 'is' : 'are') + ' hidden.' : '');
     segmented('scatter-toggle', [

@@ -33,7 +33,10 @@ permalink: /crucible/
     <div class="crucible-mode-tabs" role="tablist" aria-label="Section" id="mode-tabs"></div>
     <ul class="crucible-takeaways" id="crucible-takeaways"></ul>
 
-    <h2 class="crucible-heading">Leaderboard</h2>
+    <div class="crucible-heading-row">
+      <h2 class="crucible-heading">Leaderboard</h2>
+      <div class="crucible-segmented" role="radiogroup" aria-label="Which models" id="progress-toggle"></div>
+    </div>
     <p class="crucible-sub">
       Ranked by Temper score (0–10). Spark is a pass/fail gate on the basics; Forge is scored separately and never
       blended in. A hatched bar means fewer than 75% of that tier's tests were scored. Select a column to sort.
@@ -50,7 +53,6 @@ permalink: /crucible/
       <span class="crucible-toolbar-note" id="harness-fixed"></span>
       <span class="crucible-toolbar-label" id="where-label">Models</span>
       <div class="crucible-segmented" role="radiogroup" aria-labelledby="where-label" id="where-toggle"></div>
-      <div class="crucible-segmented" role="radiogroup" aria-label="Which models" id="progress-toggle"></div>
     </div>
     <p class="crucible-sub crucible-progress-note" id="progress-note"></p>
 
@@ -83,7 +85,8 @@ permalink: /crucible/
     <div class="crucible-cell-detail" id="crucible-cell-detail" hidden></div>
 
     <h2 class="crucible-heading">Model × area</h2>
-    <p class="crucible-sub">Mean score (0–10) for each area in this section, across all tiers.</p>
+    <p class="crucible-sub">Mean score (0–10) for each area in this section, across all tiers. Where a model has
+      run none of an area's active tests yet, a dashed cell shows its provisional tests instead.</p>
     <div class="crucible-scroll">
       <table class="crucible-heatmap" id="crucible-heatmap"></table>
     </div>

@@ -56,6 +56,19 @@ $crucibleBlue: #1856a3;
 
 // Harness toggle
 
+// A section heading with its control beside it (the leaderboard's Finished / In progress toggle)
+.crucible-heading-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $gap / 2 $gap;
+  padding-bottom: ($gap / 2);
+
+  .crucible-heading {
+    padding-bottom: 0;
+  }
+}
+
 .crucible-toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -452,6 +465,11 @@ $crucibleBlue: #1856a3;
 .crucible-heatmap td.is-not-run {
   background: $crucibleNotRun;
   color: $crucibleMuted;
+}
+
+.crucible-heatmap td.is-provisional {
+  outline: 1px dashed $gray;
+  outline-offset: -4px;
 }
 
 .crucible-heatmap td.is-not-scored {
@@ -1117,6 +1135,10 @@ $crucibleBlue: #1856a3;
     white-space: pre-wrap;
     word-break: break-word;
   }
+}
+
+.crucible-prompt-full {
+  margin: 0 0 ($gap * 0.75);
 }
 
 .crucible-progress-note {

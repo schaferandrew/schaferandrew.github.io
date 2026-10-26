@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans">
   <link rel="stylesheet" href="/assets/css/styles.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"><!-- Begin Jekyll SEO tag v2.7.1 -->
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"><!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Andrew Schafer | I’m a software developer with 6 years of industry experience. While the frameworks I use, the industries I support, and even role descriptions have varied, one thing has been consistent: I thrive delivering consumer-first digital products. I love starting with a user problem, then finding the best way to solve that through technology. Recently, I’ve been working with NextJS and React, as well as custom themes for WordPress using PHP and Advanced Custom Fields. My priorities in the work I deliver are fast, maintainable, modern, accessible, and fun. This is done through good design, smart development patterns, and as much as I don’t love this word: strict scss standards. I will always push for the right tooling for the job to ensure we don’t overbuild, while leaving headroom for growth. I strive for an end result that is a beautiful, user friendly platform to engage with your community in new, thoughtful ways. When I’m not crushing user stories, I can be found behind a camera wherever I found a cheap plane ticket, volunteering on my local Parks + Placemaking committee board, or trying to read too many books at once.</title>
 <meta name="generator" content="Jekyll v3.8.7" />
 <meta property="og:title" content="Andrew Schafer" />
@@ -18,32 +18,37 @@
 <link rel="canonical" href="http://localhost:4000/404.html" />
 <meta property="og:url" content="http://localhost:4000/404.html" />
 <meta property="og:site_name" content="Andrew Schafer" />
+<meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Andrew Schafer" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/404.html","headline":"Andrew Schafer","description":"I’m a software developer with 6 years of industry experience. While the frameworks I use, the industries I support, and even role descriptions have varied, one thing has been consistent: I thrive delivering consumer-first digital products. I love starting with a user problem, then finding the best way to solve that through technology. Recently, I’ve been working with NextJS and React, as well as custom themes for WordPress using PHP and Advanced Custom Fields. My priorities in the work I deliver are fast, maintainable, modern, accessible, and fun. This is done through good design, smart development patterns, and as much as I don’t love this word: strict scss standards. I will always push for the right tooling for the job to ensure we don’t overbuild, while leaving headroom for growth. I strive for an end result that is a beautiful, user friendly platform to engage with your community in new, thoughtful ways. When I’m not crushing user stories, I can be found behind a camera wherever I found a cheap plane ticket, volunteering on my local Parks + Placemaking committee board, or trying to read too many books at once.","@type":"WebPage","@context":"https://schema.org"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"I’m a software developer with 6 years of industry experience. While the frameworks I use, the industries I support, and even role descriptions have varied, one thing has been consistent: I thrive delivering consumer-first digital products. I love starting with a user problem, then finding the best way to solve that through technology. Recently, I’ve been working with NextJS and React, as well as custom themes for WordPress using PHP and Advanced Custom Fields. My priorities in the work I deliver are fast, maintainable, modern, accessible, and fun. This is done through good design, smart development patterns, and as much as I don’t love this word: strict scss standards. I will always push for the right tooling for the job to ensure we don’t overbuild, while leaving headroom for growth. I strive for an end result that is a beautiful, user friendly platform to engage with your community in new, thoughtful ways. When I’m not crushing user stories, I can be found behind a camera wherever I found a cheap plane ticket, volunteering on my local Parks + Placemaking committee board, or trying to read too many books at once.","headline":"Andrew Schafer","url":"http://localhost:4000/404.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Andrew Schafer" /></head><body><header>
-    <nav>
-        <div class="constrain nav-container">
+    <nav class="constrain nav-container" aria-label="Main">
+        <div class="nav-bar">
             <a class="nav-logo" rel="author" href="/">
                 <div class="nav-title h1">Andrew Schafer</div>
             </a>
-            <hr>
-        </div>
-        <!-- <input type="checkbox" id="nav" class="hidden" />
-        <label for="nav" class="nav-open"><i></i><i></i><i></i></label>
-        <div class="nav-container">
-            <ul>
-                <li class="nav-links"><a href="/culture">culture</a></li>
-                <li class="nav-links"><a href="/technology">technology</a></li>
-                <li class="nav-links"><a href="/travel">travel</a></li>
-                <li class="nav-links"><a href="/about">about</a></li>
-                <li class="nav-links"><a href="/contact">contact</a></li>
+            <button class="nav-toggle" type="button" aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle menu">
+                <i></i><i></i><i></i>
+            </button>
+            <ul class="nav-menu" id="nav-menu"><li><a class="nav-link" href="/culture" >culture</a></li><li><a class="nav-link" href="/technology" >technology</a></li><li><a class="nav-link" href="/travel" >travel</a></li>
             </ul>
-        </div> -->
+        </div>
+        <hr>
     </nav>
-</header><main class="page-content" aria-label="Content">
+    <script>
+        (function () {
+            var toggle = document.querySelector('.nav-toggle');
+            toggle.addEventListener('click', function () {
+                var open = toggle.getAttribute('aria-expanded') === 'true';
+                toggle.setAttribute('aria-expanded', String(!open));
+            });
+        })();
+    </script>
+</header>
+<main class="page-content" aria-label="Content">
     <div class="max-width">
       <style type="text/css" media="screen">
   .container {
@@ -70,7 +75,8 @@
   </main><footer>
     <div class="footer-container constrain">
         <div class="footer-copyright">
-            ©2022 Andrew Schafer
+            ©<span id="copyright-year">2026</span> Andrew Schafer
+            <script>document.getElementById('copyright-year').textContent = new Date().getFullYear();</script>
         </div>
         <div class="footer-links">
             <a href="/privacy">privacy policy</a>

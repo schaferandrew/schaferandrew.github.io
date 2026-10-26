@@ -1,6 +1,6 @@
 {
  "format_version": 2,
- "generated_at": "2026-10-26T22:10:02+00:00",
+ "generated_at": "2026-10-26T22:31:16+00:00",
  "release": {
   "release": "2026.11",
   "created": "2026-10-24",
@@ -42,6 +42,10 @@
     {
      "id": "general",
      "label": "General knowledge"
+    },
+    {
+     "id": "evals",
+     "label": "Evals"
     }
    ]
   },
@@ -76,7 +80,7 @@
  "category_weights": {
   "coding_build": 0.1,
   "coding_debug": 0.1,
-  "coding_repo": 0.15,
+  "coding_repo": 0.1,
   "browser_tool": 0.1,
   "writing": 0.1,
   "everyday": 0.1,
@@ -86,7 +90,8 @@
   "home_maintenance": 0.05,
   "math": 0.05,
   "geography": 0.05,
-  "history": 0.05
+  "history": 0.05,
+  "evals": 0.05
  },
  "tests": [
   {
@@ -303,6 +308,57 @@
    "rules": []
   },
   {
+   "id": "EVAL-1",
+   "mode": "chat",
+   "area": "evals",
+   "category": "evals",
+   "tier": "spark",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "needs_tools": false,
+   "summary": "You are an expert evaluator.",
+   "prompt": "You are an expert evaluator. Below is a task that was given to an AI agent, the criteria its response must be judged against, and the response the agent produced. Judge the response strictly against the criteria: do not reward confidence, length or polish the criteria do not ask for, and do not penalise things they do not mention. The criteria list the points available; your grade is the total the response earns out of 10 (half points allowed).\n\nGo through the criteria one by one with your reasoning, then end your reply with exactly one final line in this format:\nGRADE: <number from 0 to 10>\n\n## TASK GIVEN TO THE AGENT\nWrite a Python function `is_palindrome(s)` that returns True if the string reads the same forwards and backwards, ignoring case and any non-alphanumeric characters. Show two example calls.\n\n## CRITERIA\n- Correctness (5): the function returns the right answer for all inputs.\n- Ignores case and non-alphanumeric characters (2): both are handled.\n- Examples (2): two example calls are shown with correct results.\n- Concise (1): the response gets to the point without unneeded preamble or padding.\n\n## AGENT RESPONSE\nGreat question! Palindromes are a classic programming exercise, and there are many ways to approach them. Before diving in, it is worth recalling that a palindrome is a sequence that reads the same in both directions, such as \"level\" or \"racecar\". Many people solve this by reversing the string, and that is the approach I will take here, after first cleaning the input so that case and punctuation do not matter.\n\n```python\ndef is_palindrome(s):\n    cleaned = [c.lower() for c in s if c.isalnum()]\n    return cleaned == cleaned[::-1]\n\nprint(is_palindrome(\"A man, a plan, a canal: Panama\"))  # True\nprint(is_palindrome(\"Hello, world\"))                    # False\n```\n\nThe function lowercases every alphanumeric character, drops everything else, and compares the result with its reverse.",
+   "scoring": "checks",
+   "rules": [
+    "The grade is close to the reference grade: full points for an exact match, fewer the farther off it is (a bell curve), none when it is missing."
+   ]
+  },
+  {
+   "id": "EVAL-2",
+   "mode": "chat",
+   "area": "evals",
+   "category": "evals",
+   "tier": "temper",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "needs_tools": false,
+   "summary": "You are an expert evaluator.",
+   "prompt": "You are an expert evaluator. Below is a task that was given to an AI agent, the criteria its response must be judged against, and the response the agent produced. Judge the response strictly against the criteria: do not reward confidence, length or polish the criteria do not ask for, and do not penalise things they do not mention. The criteria list the points available; your grade is the total the response earns out of 10 (half points allowed).\n\nGo through the criteria one by one with your reasoning, then end your reply with exactly one final line in this format:\nGRADE: <number from 0 to 10>\n\n## TASK GIVEN TO THE AGENT\nSummarize the following passage in exactly two sentences.\n\n\"The Millbrook library board voted on Tuesday to extend weekend opening hours from 5 p.m. to 8 p.m., starting in March. The change follows a survey in which 62% of residents said evening access was their top request. Funding will come from a $40,000 grant, which covers only the first year; the board said it will revisit the schedule next winter if no new money is found. Two board members opposed the vote, citing staffing shortages.\"\n\n## CRITERIA\n- Accuracy (4): every claim in the summary is supported by the passage, with no invented details.\n- Exactly two sentences (3): the summary is exactly two sentences long.\n- Key points (3): it captures the hours extension, the funding limit, and the resident survey.\n\n## AGENT RESPONSE\nThe Millbrook library board voted to extend weekend hours to 8 p.m. starting in March, following a survey where 62% of residents asked for evening access. The change is funded by a $40,000 grant that covers one year, and the board will revisit it next winter if no further money is found. Two board members opposed the decision over staffing concerns.",
+   "scoring": "checks",
+   "rules": [
+    "The grade is close to the reference grade: full points for an exact match, fewer the farther off it is (a bell curve), none when it is missing."
+   ]
+  },
+  {
+   "id": "EVAL-3",
+   "mode": "chat",
+   "area": "evals",
+   "category": "evals",
+   "tier": "temper",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "needs_tools": false,
+   "summary": "You are an expert evaluator.",
+   "prompt": "You are an expert evaluator. Below is a task that was given to an AI agent, the criteria its response must be judged against, and the response the agent produced. Judge the response strictly against the criteria: do not reward confidence, length or polish the criteria do not ask for, and do not penalise things they do not mention. The criteria list the points available; your grade is the total the response earns out of 10 (half points allowed).\n\nGo through the criteria one by one with your reasoning, then end your reply with exactly one final line in this format:\nGRADE: <number from 0 to 10>\n\n## TASK GIVEN TO THE AGENT\nWhat is the time complexity of binary search, and why?\n\n## CRITERIA\n- Correct complexity (4): states O(log n).\n- Explanation (3): explains that each step halves the remaining search range.\n- Precondition (2): states that the input must already be sorted.\n- Clarity (1): the answer is clear and well organised.\n\n## AGENT RESPONSE\nBinary search has a time complexity of O(n log n). This is because the algorithm first sorts the array, which takes O(n log n) time, and then repeatedly checks the middle element to locate the target. Since the sort dominates, the total complexity is O(n log n). Binary search therefore works on any array, sorted or not, which makes it a very flexible choice.\n\nIn summary: binary search = O(n log n), works on any input.",
+   "scoring": "checks",
+   "rules": [
+    "The grade is close to the reference grade: full points for an exact match, fewer the farther off it is (a bell curve), none when it is missing."
+   ]
+  },
+  {
    "id": "GEOG-1",
    "mode": "chat",
    "area": "geography",
@@ -427,42 +483,16 @@
    "tier": "spark",
    "status": "active",
    "version": 1,
-   "rubric_version": 1,
+   "rubric_version": 2,
    "needs_tools": false,
    "summary": "What color are firetrucks in the US?",
    "prompt": "What color are firetrucks in the US? Answer in one or two sentences.",
-   "scoring": "judge",
-   "rules": []
-  },
-  {
-   "id": "KNOW-2",
-   "mode": "chat",
-   "area": "general",
-   "category": "everyday",
-   "tier": "temper",
-   "status": "active",
-   "version": 1,
-   "rubric_version": 1,
-   "needs_tools": false,
-   "summary": "Explain the concept of \"enshittification\" to an intelligent adult who has heard the word but doesn't know the theory behind it.",
-   "prompt": "Explain the concept of \"enshittification\" to an intelligent adult who has heard the word but doesn't know the theory behind it. Start with a one-sentence definition, then explain the mechanism in plain English, give two concrete examples, explain what the concept does and does not claim, and briefly discuss criticisms or limitations. Avoid jargon unless you define it.",
-   "scoring": "judge",
-   "rules": []
-  },
-  {
-   "id": "KNOW-3",
-   "mode": "chat",
-   "area": "general",
-   "category": "everyday",
-   "tier": "temper",
-   "status": "active",
-   "version": 1,
-   "rubric_version": 1,
-   "needs_tools": false,
-   "summary": "Explain how a typical photovoltaic solar panel turns sunlight into usable electricity.",
-   "prompt": "Explain how a typical photovoltaic solar panel turns sunlight into usable electricity. Start at the photon level, then move through the semiconductor, DC electricity, inverter, and household/grid use. Explain why panel output changes with sunlight and temperature. Assume I have basic science knowledge. Use one intuitive analogy, but clearly label what the analogy gets wrong.",
-   "scoring": "judge",
-   "rules": []
+   "scoring": "checks",
+   "rules": [
+    "Says US fire trucks are red (lime-yellow or white variants can be mentioned too).",
+    "Red is the first color it names (other colors mentioned afterward as variants are fine).",
+    "Answers in a sentence or two (at most 60 words)."
+   ]
   },
   {
    "id": "KNOW-4",
@@ -486,66 +516,6 @@
     "Leaves out the week-old school board item.",
     "Names the outlet behind the items (at least four of the five outlets)."
    ]
-  },
-  {
-   "id": "KNOW-5",
-   "mode": "chat",
-   "area": "general",
-   "category": "home_maintenance",
-   "tier": "temper",
-   "status": "active",
-   "version": 1,
-   "rubric_version": 1,
-   "needs_tools": false,
-   "summary": "I opened the cabinet under my kitchen sink and found a slow leak.",
-   "prompt": "I opened the cabinet under my kitchen sink and found a slow leak. The cabinet floor is damp, but I can't tell where the water starts. Walk me through what to do in the next 10 minutes, how to isolate the source without making things worse, what I should photograph/check, and when I should shut off the water and call a plumber. Distinguish a supply-line leak, drain leak, and leak from the faucet body. Assume I am a reasonably handy homeowner but not a plumber.",
-   "scoring": "judge",
-   "rules": []
-  },
-  {
-   "id": "KNOW-6",
-   "mode": "chat",
-   "area": "general",
-   "category": "home_maintenance",
-   "tier": "temper",
-   "status": "active",
-   "version": 1,
-   "rubric_version": 1,
-   "needs_tools": false,
-   "summary": "My toilet has started running continuously.",
-   "prompt": "My toilet has started running continuously. It still flushes normally. Give me a diagnostic sequence that starts with the simplest checks, explains what each observation means, and tells me which parts are commonly adjustable versus replaceable. Include what to do if the shutoff valve is stuck and how to avoid making the problem worse.",
-   "scoring": "judge",
-   "rules": []
-  },
-  {
-   "id": "KNOW-7",
-   "mode": "chat",
-   "area": "general",
-   "category": "home_maintenance",
-   "tier": "temper",
-   "status": "active",
-   "version": 1,
-   "rubric_version": 1,
-   "needs_tools": false,
-   "summary": "One room is much colder near an exterior window during winter.",
-   "prompt": "One room is much colder near an exterior window during winter. Help me determine whether the problem is air leakage, poor glazing, a failed seal, or simply cold surfaces creating a downdraft. Give me inexpensive diagnostic tests I can do today, followed by repairs ranked from temporary/cheap to permanent/expensive. Do not assume the window needs replacement.",
-   "scoring": "judge",
-   "rules": []
-  },
-  {
-   "id": "KNOW-8",
-   "mode": "chat",
-   "area": "general",
-   "category": "home_maintenance",
-   "tier": "temper",
-   "status": "active",
-   "version": 1,
-   "rubric_version": 1,
-   "needs_tools": false,
-   "summary": "My forced-air furnace won't start when the thermostat calls for heat.",
-   "prompt": "My forced-air furnace won't start when the thermostat calls for heat. Before I call someone, give me a safe homeowner-level diagnostic checklist. Include thermostat/power checks, filter considerations, service-switch checks, error-light observations, and a clear boundary for what I should not attempt myself. Explain why each check matters.",
-   "scoring": "judge",
-   "rules": []
   },
   {
    "id": "MATH-1",
@@ -1275,14 +1245,10 @@
    "timed_out": false,
    "elapsed_s": 5.42,
    "score": null,
-   "agent_score": 10.0,
-   "check_score": null,
-   "agent_summary": "Correct and concise.",
-   "judge": {
-    "type": "agent",
-    "model": "claude-opus-5-5",
-    "prompt_version": 1
-   },
+   "agent_score": null,
+   "check_score": 10.0,
+   "agent_summary": null,
+   "judge": null,
    "checks": [
     {
      "id": "says_red",
@@ -1307,7 +1273,26 @@
     }
    ],
    "output": "Firetrucks in the US are traditionally red, although some modern models use lime-yellow or white for increased visibility.",
-   "criteria": null,
+   "criteria": [
+    {
+     "criterion": "Correct answer",
+     "max_score": 7,
+     "score": 7,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Red is the answer",
+     "max_score": 2,
+     "score": 2,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Brief",
+     "max_score": 1,
+     "score": 1,
+     "detail": "18 words"
+    }
+   ],
    "hidden_tests": null,
    "counts": true,
    "hardware": {
@@ -2713,6 +2698,154 @@
    "cost_usd": null
   },
   {
+   "run_id": "lmstudio_mlx-community_muse-glimmer-30b/everyday/KNOW-1/20261026_220952",
+   "test_id": "KNOW-1",
+   "test_version": 1,
+   "harness": "direct",
+   "harness_version": null,
+   "model": "lmstudio/mlx-community/muse-glimmer-30b",
+   "reasoning": "default",
+   "reasoning_chars": 1398,
+   "started_at": "2026-10-26T22:09:52.444424+00:00",
+   "status": "COMPLETE",
+   "outcome": "completed",
+   "timed_out": false,
+   "elapsed_s": 37.32,
+   "score": null,
+   "agent_score": null,
+   "check_score": null,
+   "agent_summary": null,
+   "judge": null,
+   "checks": null,
+   "output": "Most U.S. fire trucks are traditionally red, though many departments now use other colors like white, yellow or black.",
+   "criteria": null,
+   "hidden_tests": null,
+   "counts": true,
+   "hardware": {
+    "hostname": "Ironwood",
+    "cpu": "Apple M1 Pro",
+    "gpu": null,
+    "ram_gb": 32.0
+   },
+   "inference": {
+    "provider": "lmstudio",
+    "local": true,
+    "same_machine": true,
+    "served_via": null,
+    "device": "Ironwood",
+    "quantization": "4bit",
+    "context_length": 100383
+   },
+   "tests_passed": null,
+   "tests_failed": null,
+   "tool_calls": null,
+   "tokens_in": 73,
+   "tokens_out": 332,
+   "model_responses": 1,
+   "ttft_s": 3.629,
+   "response_time_avg_s": 37.32,
+   "cost_usd": null
+  },
+  {
+   "run_id": "lmstudio_mlx-community_muse-glimmer-30b/everyday/KNOW-4/20261026_221628",
+   "test_id": "KNOW-4",
+   "test_version": 1,
+   "harness": "direct",
+   "harness_version": null,
+   "model": "lmstudio/mlx-community/muse-glimmer-30b",
+   "reasoning": "default",
+   "reasoning_chars": 11360,
+   "started_at": "2026-10-26T22:16:28.320222+00:00",
+   "status": "COMPLETE",
+   "outcome": "completed",
+   "timed_out": false,
+   "elapsed_s": 337.55,
+   "score": null,
+   "agent_score": null,
+   "check_score": null,
+   "agent_summary": null,
+   "judge": null,
+   "checks": [
+    {
+     "id": "answered",
+     "type": "non_empty",
+     "passed": true,
+     "detail": "427 words",
+     "rule": "Produces a substantive briefing (at least 120 words)."
+    },
+    {
+     "id": "figures_exact",
+     "type": "required_patterns",
+     "passed": false,
+     "detail": "3/5 found; missing: 3\\.75, 0\\.25",
+     "rule": "Keeps the key figures exactly: $41.6 million, the 7-2 vote, $48,500, 3.75% and 0.25 points."
+    },
+    {
+     "id": "no_invented_figures",
+     "type": "grounded_numbers",
+     "passed": true,
+     "detail": "every figure is in the sources",
+     "rule": "Every number in the briefing appears in the sources (whole numbers under 11 aside), so no figure was invented or altered."
+    },
+    {
+     "id": "correction_used",
+     "type": "required_patterns",
+     "passed": true,
+     "detail": "1/1 found",
+     "rule": "Reports the corrected injury count (one firefighter treated), not the initial two."
+    },
+    {
+     "id": "bill_not_signed",
+     "type": "forbidden_patterns",
+     "passed": true,
+     "detail": "none found",
+     "rule": "Doesn't say the teacher pay bill was signed; the governor is only expected to sign it."
+    },
+    {
+     "id": "stale_left_out",
+     "type": "forbidden_patterns",
+     "passed": false,
+     "detail": "found: school board",
+     "rule": "Leaves out the week-old school board item."
+    },
+    {
+     "id": "outlets_named",
+     "type": "required_patterns",
+     "passed": true,
+     "detail": "4/5 found",
+     "rule": "Names the outlet behind the items (at least four of the five outlets)."
+    }
+   ],
+   "output": "**Port Ardmore briefing — Tuesday, March 10**\n\n**Transit levy approved by City Council**\n* Ardmore Ledger, March 10, 7:05 a.m.: The Port Ardmore City Council voted 7-2 late Monday to approve a $41.6 million transit levy spread over ten years. The money will fund three new bus routes and a rebuild of the Fulton Street station. Council member Ines Varga, who voted no, said the city had not published a cost estimate for households. The levy still needs a second reading on March 24.\n* Lakeshore Public Radio, March 10, 8:20 a.m.: Port Ardmore's council backed the transit levy on a 7-2 vote. Mayor Theo Brandt called it \"the biggest investment in buses this city has made in a generation.\" Collection would begin July 1 if the levy passes its second reading.\n\n**Kettle Street warehouse fire**\n* Statewide Wire, March 10, 6:10 a.m.: A fire broke out early Tuesday at a vacant warehouse on Kettle Street in Port Ardmore. An initial report from the scene said two firefighters were injured. The cause is under investigation.\n* Lakeshore Public Radio, March 10, 11:40 a.m., update: Fire Chief Ama Mensah said one firefighter was treated for smoke inhalation and released; earlier reports that two firefighters were injured were incorrect. Crews had the fire under control by 9:15 a.m. The cause remains under investigation.\n\n**Rent stabilization rally, Monday evening**\nSupporters of a proposed rent stabilization ordinance rallied outside City Hall on Monday evening.\n* Ardmore Ledger, March 10, 9:30 a.m.: Ledger reporters at the scene estimated the crowd at about 300.\n* Lakeshore Public Radio, March 10, 9:45 a.m.: Organizers of Monday's rent stabilization rally said more than 1,000 people attended. Police estimated the crowd at 400.\nCrowd size is reported differently by the three sources.\n\n**State teacher pay bill**\n* Statewide Wire, March 10, 10:00 a.m.: The state legislature passed a bill raising the minimum teacher salary to $48,500, by votes of 39-28 in the Senate and 81-52 in the House. Governor Lena Ruiz is expected to sign it this week, a spokesperson said. The increase would take effect in the fall term.\n\n**Opinion, separate from reporting**\n* The Ardmore Bugle, opinion, March 10: Columnist Rob Haddad argues that the transit levy will cost a typical household $900 a year and that the council rushed the vote. \"Nobody asked the people paying for it,\" he writes.\n\n*Note: Ardmore Ledger, March 3, SCHOOL BOARD RESULTS, is from March 3 and is omitted per the today-only request.*\n\nItems dated March 10 are used as provided. No additional background has been added.",
+   "criteria": null,
+   "hidden_tests": null,
+   "counts": false,
+   "hardware": {
+    "hostname": "Ironwood",
+    "cpu": "Apple M1 Pro",
+    "gpu": null,
+    "ram_gb": 32.0
+   },
+   "inference": {
+    "provider": "lmstudio",
+    "local": true,
+    "same_machine": true,
+    "served_via": null,
+    "device": "Ironwood",
+    "quantization": "4bit",
+    "context_length": 100383
+   },
+   "tests_passed": null,
+   "tests_failed": null,
+   "tool_calls": null,
+   "tokens_in": 848,
+   "tokens_out": 3089,
+   "model_responses": 1,
+   "ttft_s": 17.706,
+   "response_time_avg_s": 337.535,
+   "cost_usd": null
+  },
+  {
    "run_id": "lmstudio_mlx-community_muse-glimmer-30b/math/MATH-1/20261026_205752",
    "test_id": "MATH-1",
    "test_version": 1,
@@ -3980,6 +4113,396 @@
    "cost_usd": 0
   },
   {
+   "run_id": "lmstudio_qwen_qwen3.5-9b/evals/EVAL-1/20261026_222830",
+   "test_id": "EVAL-1",
+   "test_version": 1,
+   "harness": "direct",
+   "harness_version": null,
+   "model": "lmstudio/qwen/qwen3.5-9b",
+   "reasoning": "default",
+   "reasoning_chars": 15745,
+   "started_at": "2026-10-26T22:28:30.193407+00:00",
+   "status": "COMPLETE",
+   "outcome": "completed",
+   "timed_out": false,
+   "elapsed_s": 42.19,
+   "score": null,
+   "agent_score": null,
+   "check_score": 10.0,
+   "agent_summary": null,
+   "judge": null,
+   "checks": [
+    {
+     "id": "grade",
+     "type": "grade_closeness",
+     "passed": true,
+     "detail": "graded 9, reference 9 (off by 0)",
+     "rule": "The grade is close to the reference grade: full points for an exact match, fewer the farther off it is (a bell curve), none when it is missing.",
+     "share": 1.0
+    }
+   ],
+   "output": "**Correctness (5):** The function logic `cleaned == cleaned[::-1]` correctly determines if a string is a palindrome after cleaning. It handles standard edge cases like empty strings (returns True) and single characters (returns True). The logic is sound for all valid string inputs. **Score: 5/5.**\n\n**Ignores case and non-alphanumeric characters (2):** The implementation uses `c.lower()` to handle case insensitivity and `if c.isalnum()` to filter out non-alphanumeric characters. Both requirements are explicitly met in the code. **Score: 2/2.**\n\n**Examples (2):** Two example calls are provided (`\"A man, a plan, a canal: Panama\"` and `\"Hello, world\"`). The expected results (`True` and `False`) are correct based on the logic. **Score: 2/2.**\n\n**Concise (1):** The response includes significant conversational filler (\"Great question!\", \"Before diving in...\", \"Many people solve this...\") and an explanatory sentence after the code. These constitute unneeded preamble and padding, violating the criterion to get to the point without such additions. **Score: 0/1.**\n\nGRADE: 9",
+   "criteria": [
+    {
+     "criterion": "Grade accuracy",
+     "max_score": 10,
+     "score": 10.0,
+     "detail": "graded 9, reference 9 (off by 0)"
+    }
+   ],
+   "hidden_tests": null,
+   "counts": true,
+   "hardware": {
+    "hostname": "Whitehall",
+    "cpu": "AMD Ryzen 7 7700",
+    "gpu": "NVIDIA RTX 5070 Ti 16GB",
+    "ram_gb": 32.0
+   },
+   "inference": {
+    "provider": "lmstudio",
+    "local": true,
+    "same_machine": false,
+    "served_via": "LM Link",
+    "device": "Whitehall",
+    "quantization": "Q4_K_M",
+    "context_length": 100096
+   },
+   "tests_passed": null,
+   "tests_failed": null,
+   "tool_calls": null,
+   "tokens_in": 447,
+   "tokens_out": 4280,
+   "model_responses": 1,
+   "ttft_s": 0.389,
+   "response_time_avg_s": 42.18,
+   "cost_usd": null
+  },
+  {
+   "run_id": "lmstudio_qwen_qwen3.5-9b@reasoning-off/evals/EVAL-1/20261026_223044",
+   "test_id": "EVAL-1",
+   "test_version": 1,
+   "harness": "direct",
+   "harness_version": null,
+   "model": "lmstudio/qwen/qwen3.5-9b",
+   "reasoning": "off",
+   "reasoning_chars": 0,
+   "started_at": "2026-10-26T22:30:44.313959+00:00",
+   "status": "COMPLETE",
+   "outcome": "completed",
+   "timed_out": false,
+   "elapsed_s": 10.02,
+   "score": null,
+   "agent_score": null,
+   "check_score": 10.0,
+   "agent_summary": null,
+   "judge": null,
+   "checks": [
+    {
+     "id": "grade",
+     "type": "grade_closeness",
+     "passed": true,
+     "detail": "graded 9, reference 9 (off by 0)",
+     "rule": "The grade is close to the reference grade: full points for an exact match, fewer the farther off it is (a bell curve), none when it is missing.",
+     "share": 1.0
+    }
+   ],
+   "output": "**Correctness (5):** The agent provides a Python function that correctly implements the logic to check for palindromes by cleaning the string (lowercasing and removing non-alphanumeric characters) and comparing it to its reverse. The examples provided (`\"A man, a plan, a canal: Panama\"` returning `True` and `\"Hello, world\"` returning `False`) are factually correct.\n*Score: 5/5*\n\n**Ignores case and non-alphanumeric characters (2):** The code explicitly uses `.lower()` to handle case insensitivity and the condition `if c.isalnum()` to filter out non-alphanumeric characters. The explanation confirms this behavior.\n*Score: 2/2*\n\n**Examples (2):** The response includes exactly two example calls using the `print` function with comments indicating the expected output, matching the task requirements perfectly.\n*Score: 2/2*\n\n**Concise (1):** The response begins with a lengthy introduction (\"Great question!\", \"Palindromes are a classic...\", \"Many people solve this...\") and an explanation of the approach before presenting the code. While not excessively long, it contains significant unneeded preamble compared to a direct answer. However, since the criteria state \"do not penalise things they do not mention\" (implying we only check if specific negative constraints are met) and the response *does* get to the point eventually, I will evaluate based on whether it violates a strict conciseness rule. The prompt asks for a function and examples; the agent provides them but wraps them in conversational filler. Given the explicit instruction \"do not reward confidence, length or polish\", this padding is a negative factor against the \"Concise\" criterion. However, without a specific word count limit or a strict definition of \"unneeded preamble\" beyond general verbosity, and considering the response is still relatively short overall, I will be lenient but deduct slightly for the intro fluff which violates the spirit of \"getting to the point\". Actually, looking at the instruction \"do not penalise things they do not mention\", this usually applies to missing items. But the criterion is \"Concise: the response gets to the point without unneeded preamble or padding.\" The agent *did* include unneeded preamble. Therefore, it loses points here.\n*Score: 0/1* (The intro paragraph is clearly unneeded padding).\n\nWait, let me re-read the instruction regarding penalties: \"do not penalise things they do not mention\". This means if the agent didn't mention a specific edge case or optimization, I shouldn't deduct points for that. However, the criterion explicitly asks for conciseness (\"without unneeded preamble\"). The agent *did* include unneeded preamble. So I must penalize based on the criteria provided, not based on external expectations of brevity unless specified. The preamble is \"unneeded\".\nLet's reconsider the score. Is it a 0 or a partial? Usually, if a criterion is binary (Concise vs Not Concise), and there is clear padding, it might be a 0. But often in these evaluations, if the core task is done well, a small intro is tolerated. However, the instruction says \"do not reward confidence\". The agent starts with \"Great question!\" which is confident/fluff.\nLet's look at the strictness. \"without unneeded preamble or padding\". The text \"Great question! Palindromes are a classic...\" is definitely padding.\nScore: 0/1 seems harsh but accurate to the criteria text. Let's try to be fair: maybe 0.5? No, half points allowed usually implies strict adherence. If it fails conciseness, it gets 0.\nActually, let's look at the \"Correctness\" again. The code is correct. Examples are correct. Logic is correct.\nThe only issue is the fluff.\nLet's assign 0 to Concise because of the explicit instruction in the criteria \"without unneeded preamble\".\n\nTotal: 5 + 2 + 2 + 0 = 9.\n\nWait, let me double check the \"do not penalise things they do not mention\" rule. Does that apply to the *content* of the response or the *evaluation*? It means if the agent didn't explain time complexity, I can't deduct points for that. But here the agent *did* include something (preamble) that violates a positive constraint (\"without unneeded preamble\"). So I can penalize for the presence of the preamble.\n\nLet's refine the Concise score. Is it a total failure? It's not terrible, just chatty. But \"Great question!\" is very informal padding.\nI will give it 0 for Concise to be strict on the \"without unneeded preamble\" rule.\n\nTotal Score: 9.\n\nGRADE: 9",
+   "criteria": [
+    {
+     "criterion": "Grade accuracy",
+     "max_score": 10,
+     "score": 10.0,
+     "detail": "graded 9, reference 9 (off by 0)"
+    }
+   ],
+   "hidden_tests": null,
+   "counts": true,
+   "hardware": {
+    "hostname": "Whitehall",
+    "cpu": "AMD Ryzen 7 7700",
+    "gpu": "NVIDIA RTX 5070 Ti 16GB",
+    "ram_gb": 32.0
+   },
+   "inference": {
+    "provider": "lmstudio",
+    "local": true,
+    "same_machine": false,
+    "served_via": "LM Link",
+    "device": "Whitehall",
+    "quantization": "Q4_K_M",
+    "context_length": 100096
+   },
+   "tests_passed": null,
+   "tests_failed": null,
+   "tool_calls": null,
+   "tokens_in": 449,
+   "tokens_out": 1015,
+   "model_responses": 1,
+   "ttft_s": 0.454,
+   "response_time_avg_s": 10.022,
+   "cost_usd": null
+  },
+  {
+   "run_id": "lmstudio_qwen_qwen3.5-9b/evals/EVAL-2/20261026_222913",
+   "test_id": "EVAL-2",
+   "test_version": 1,
+   "harness": "direct",
+   "harness_version": null,
+   "model": "lmstudio/qwen/qwen3.5-9b",
+   "reasoning": "default",
+   "reasoning_chars": 19838,
+   "started_at": "2026-10-26T22:29:13.306445+00:00",
+   "status": "COMPLETE",
+   "outcome": "completed",
+   "timed_out": false,
+   "elapsed_s": 51.56,
+   "score": null,
+   "agent_score": null,
+   "check_score": 10.0,
+   "agent_summary": null,
+   "judge": null,
+   "checks": [
+    {
+     "id": "grade",
+     "type": "grade_closeness",
+     "passed": true,
+     "detail": "graded 7, reference 7 (off by 0)",
+     "rule": "The grade is close to the reference grade: full points for an exact match, fewer the farther off it is (a bell curve), none when it is missing.",
+     "share": 1.0
+    }
+   ],
+   "output": "**Accuracy (4/4):** The agent's response contains only claims that are directly supported by the source passage. For example, it correctly states the grant amount ($40,000), the duration of coverage (one year), the survey percentage (62%), and the opposition details (two members, staffing). It omits minor details like \"Tuesday\" or the start time \"5 p.m.\", but this is summarization, not invention. No invented details are present.\n\n**Exactly two sentences (0/3):** The task explicitly required a summary of \"exactly two sentences.\" The agent's response contains three distinct sentences, as evidenced by the three terminal periods ending the thoughts (\"access.\", \"found.\", and \"concerns.\"). This is a clear failure to meet the structural constraint.\n\n**Key points (3/3):** The summary successfully captures all three required key points: the hours extension (weekend hours to 8 p.m.), the funding limit ($40,000 grant covering one year), and the resident survey (62% requested evening access).\n\nGRADE: 7",
+   "criteria": [
+    {
+     "criterion": "Grade accuracy",
+     "max_score": 10,
+     "score": 10.0,
+     "detail": "graded 7, reference 7 (off by 0)"
+    }
+   ],
+   "hidden_tests": null,
+   "counts": true,
+   "hardware": {
+    "hostname": "Whitehall",
+    "cpu": "AMD Ryzen 7 7700",
+    "gpu": "NVIDIA RTX 5070 Ti 16GB",
+    "ram_gb": 32.0
+   },
+   "inference": {
+    "provider": "lmstudio",
+    "local": true,
+    "same_machine": false,
+    "served_via": "LM Link",
+    "device": "Whitehall",
+    "quantization": "Q4_K_M",
+    "context_length": 100096
+   },
+   "tests_passed": null,
+   "tests_failed": null,
+   "tool_calls": null,
+   "tokens_in": 411,
+   "tokens_out": 5232,
+   "model_responses": 1,
+   "ttft_s": 0.195,
+   "response_time_avg_s": 51.556,
+   "cost_usd": null
+  },
+  {
+   "run_id": "lmstudio_qwen_qwen3.5-9b@reasoning-off/evals/EVAL-2/20261026_223055",
+   "test_id": "EVAL-2",
+   "test_version": 1,
+   "harness": "direct",
+   "harness_version": null,
+   "model": "lmstudio/qwen/qwen3.5-9b",
+   "reasoning": "off",
+   "reasoning_chars": 0,
+   "started_at": "2026-10-26T22:30:55.297842+00:00",
+   "status": "COMPLETE",
+   "outcome": "completed",
+   "timed_out": false,
+   "elapsed_s": 5.2,
+   "score": null,
+   "agent_score": null,
+   "check_score": 10.0,
+   "agent_summary": null,
+   "judge": null,
+   "checks": [
+    {
+     "id": "grade",
+     "type": "grade_closeness",
+     "passed": true,
+     "detail": "graded 7, reference 7 (off by 0)",
+     "rule": "The grade is close to the reference grade: full points for an exact match, fewer the farther off it is (a bell curve), none when it is missing.",
+     "share": 1.0
+    }
+   ],
+   "output": "**Criterion 1: Accuracy (4 points)**\nThe agent's summary accurately reflects every claim made in the original passage without inventing details. It correctly states the vote to extend hours, the specific time change (5 p.m. to 8 p.m.), the start date (March), the survey results (62% support), the funding amount ($40,000), the duration of the grant (one year), the condition for future review (next winter if no new money), and the opposition reason (staffing shortages).\n*Score: 4/4*\n\n**Criterion 2: Exactly two sentences (3 points)**\nThe agent's response consists of exactly two sentences. The first sentence ends after \"...evening access.\" The second sentence ends after \"...money is found.\" Wait, looking closely at the agent's response: \"Two board members opposed the decision over staffing concerns.\" is a third sentence.\nSentence 1: \"The Millbrook library board voted to extend weekend hours to 8 p.m. starting in March, following a survey where 62% of residents asked for evening access.\"\nSentence 2: \"The change is funded by a $40,000 grant that covers one year, and the board will revisit it next winter if no further money is found.\"\nSentence 3: \"Two board members opposed the decision over staffing concerns.\"\nThe response contains three sentences, violating the constraint.\n*Score: 0/3*\n\n**Criterion 3: Key points (3 points)**\nThe summary captures the hours extension, the funding limit, and the resident survey. However, it also includes the opposition vote. While including extra information isn't penalized by the criteria (\"do not penalise things they do not mention\"), the failure to meet the sentence count constraint means the structure is wrong. Regarding content coverage:\n- Hours extension: Included.\n- Funding limit: Included.\n- Resident survey: Included.\nSince the content requirements are met, but the structural requirement failed, this score remains based on content presence. However, usually, if a constraint like \"exactly two sentences\" is violated, the response fails the task fundamentally. But strictly evaluating against the specific criteria list provided:\n- Accuracy: Met.\n- Exactly two sentences: Failed (3 sentences).\n- Key points: Met (all three required points are present).\n*Score: 3/3*\n\n**Total Calculation:**\nAccuracy: 4\nSentence Count: 0\nKey Points: 3\nTotal: 7\n\nGRADE: 7",
+   "criteria": [
+    {
+     "criterion": "Grade accuracy",
+     "max_score": 10,
+     "score": 10.0,
+     "detail": "graded 7, reference 7 (off by 0)"
+    }
+   ],
+   "hidden_tests": null,
+   "counts": true,
+   "hardware": {
+    "hostname": "Whitehall",
+    "cpu": "AMD Ryzen 7 7700",
+    "gpu": "NVIDIA RTX 5070 Ti 16GB",
+    "ram_gb": 32.0
+   },
+   "inference": {
+    "provider": "lmstudio",
+    "local": true,
+    "same_machine": false,
+    "served_via": "LM Link",
+    "device": "Whitehall",
+    "quantization": "Q4_K_M",
+    "context_length": 100096
+   },
+   "tests_passed": null,
+   "tests_failed": null,
+   "tool_calls": null,
+   "tokens_in": 413,
+   "tokens_out": 534,
+   "model_responses": 1,
+   "ttft_s": 0.196,
+   "response_time_avg_s": 5.201,
+   "cost_usd": null
+  },
+  {
+   "run_id": "lmstudio_qwen_qwen3.5-9b/evals/EVAL-3/20261026_223005",
+   "test_id": "EVAL-3",
+   "test_version": 1,
+   "harness": "direct",
+   "harness_version": null,
+   "model": "lmstudio/qwen/qwen3.5-9b",
+   "reasoning": "default",
+   "reasoning_chars": 6940,
+   "started_at": "2026-10-26T22:30:05.806020+00:00",
+   "status": "COMPLETE",
+   "outcome": "completed",
+   "timed_out": false,
+   "elapsed_s": 19.72,
+   "score": null,
+   "agent_score": null,
+   "check_score": 10.0,
+   "agent_summary": null,
+   "judge": null,
+   "checks": [
+    {
+     "id": "grade",
+     "type": "grade_closeness",
+     "passed": true,
+     "detail": "graded 1, reference 1 (off by 0)",
+     "rule": "The grade is close to the reference grade: full points for an exact match, fewer the farther off it is (a bell curve), none when it is missing.",
+     "share": 1.0
+    }
+   ],
+   "output": "**Criterion 1: Correct complexity (4)**\n- **Requirement:** The response must state O(log n).\n- **Agent Response:** States \"O(n log n)\".\n- **Reasoning:** The agent incorrectly identifies the time complexity as O(n log n), which is characteristic of sorting algorithms, not binary search. Binary search is O(log n).\n- **Score:** 0/4\n\n**Criterion 2: Explanation (3)**\n- **Requirement:** Explains that each step halves the remaining search range.\n- **Agent Response:** Attributes complexity to sorting (\"algorithm first sorts the array\") and checking the middle element, but does not mention halving the search range.\n- **Reasoning:** The explanation provided is factually incorrect (binary search does not sort) and fails to explain the logarithmic nature via range reduction.\n- **Score:** 0/3\n\n**Criterion 3: Precondition (2)**\n- **Requirement:** States that the input must already be sorted.\n- **Agent Response:** Claims \"Binary search therefore works on any array, sorted or not\".\n- **Reasoning:** This directly contradicts the requirement and is factually incorrect; binary search requires a sorted input to function correctly.\n- **Score:** 0/2\n\n**Criterion 4: Clarity (1)**\n- **Requirement:** The answer is clear and well organised.\n- **Agent Response:** The text is grammatically correct, structured in paragraphs, and easy to read.\n- **Reasoning:** Despite the factual errors, the organization and readability of the text meet the definition of clarity.\n- **Score:** 1/1\n\n**Total Score:** 0 + 0 + 0 + 1 = 1\n\nGRADE: 1",
+   "criteria": [
+    {
+     "criterion": "Grade accuracy",
+     "max_score": 10,
+     "score": 10.0,
+     "detail": "graded 1, reference 1 (off by 0)"
+    }
+   ],
+   "hidden_tests": null,
+   "counts": true,
+   "hardware": {
+    "hostname": "Whitehall",
+    "cpu": "AMD Ryzen 7 7700",
+    "gpu": "NVIDIA RTX 5070 Ti 16GB",
+    "ram_gb": 32.0
+   },
+   "inference": {
+    "provider": "lmstudio",
+    "local": true,
+    "same_machine": false,
+    "served_via": "LM Link",
+    "device": "Whitehall",
+    "quantization": "Q4_K_M",
+    "context_length": 100096
+   },
+   "tests_passed": null,
+   "tests_failed": null,
+   "tool_calls": null,
+   "tokens_in": 326,
+   "tokens_out": 2041,
+   "model_responses": 1,
+   "ttft_s": 0.205,
+   "response_time_avg_s": 19.711,
+   "cost_usd": null
+  },
+  {
+   "run_id": "lmstudio_qwen_qwen3.5-9b@reasoning-off/evals/EVAL-3/20261026_223101",
+   "test_id": "EVAL-3",
+   "test_version": 1,
+   "harness": "direct",
+   "harness_version": null,
+   "model": "lmstudio/qwen/qwen3.5-9b",
+   "reasoning": "off",
+   "reasoning_chars": 0,
+   "started_at": "2026-10-26T22:31:01.494367+00:00",
+   "status": "COMPLETE",
+   "outcome": "completed",
+   "timed_out": false,
+   "elapsed_s": 9.03,
+   "score": null,
+   "agent_score": null,
+   "check_score": 8.95,
+   "agent_summary": null,
+   "judge": null,
+   "checks": [
+    {
+     "id": "grade",
+     "type": "grade_closeness",
+     "passed": false,
+     "detail": "graded 0, reference 1 (off by 1)",
+     "rule": "The grade is close to the reference grade: full points for an exact match, fewer the farther off it is (a bell curve), none when it is missing.",
+     "share": 0.8948
+    }
+   ],
+   "output": "Let's evaluate the agent's response against the provided criteria step by step:\n\n1.  **Correct complexity (4 points):**\n    *   **Criteria:** The response must state the time complexity is $O(\\log n)$.\n    *   **Agent Response:** The agent states \"Binary search has a time complexity of O(n log n).\" It further claims this is because it sorts the array.\n    *   **Analysis:** This is factually incorrect. Binary Search assumes the input is already sorted and runs in $O(\\log n)$. Sorting takes $O(n \\log n)$, but that is not part of the binary search algorithm itself. The agent confused Binary Search with algorithms like Merge Sort or Quick Sort (which sort).\n    *   **Score:** 0/4.\n\n2.  **Explanation (3 points):**\n    *   **Criteria:** The response must explain that each step halves the remaining search range.\n    *   **Agent Response:** The agent explains that it \"repeatedly checks the middle element,\" but attributes the complexity to the sorting step ($O(n \\log n)$), not the halving mechanism. It fails to explicitly state that the range is halved at each step, which is the core reason for the logarithmic complexity.\n    *   **Score:** 0/3.\n\n3.  **Precondition (2 points):**\n    *   **Criteria:** The response must state that the input must already be sorted.\n    *   **Agent Response:** The agent explicitly states, \"Binary search therefore works on any array, sorted or not.\" This is the exact opposite of the required precondition.\n    *   **Score:** 0/2.\n\n4.  **Clarity (1 point):**\n    *   **Criteria:** The answer should be clear and well organised.\n    *   **Agent Response:** While the text is grammatically clear and organized, the content is fundamentally wrong. However, strictly judging \"clarity\" as readability/structure rather than factual accuracy, the response is structured well (statement, reasoning, summary). But since the core information is hallucinated, does it count as \"clear\"? Usually, clarity in this context implies the explanation makes sense. The explanation here makes no sense because it describes a different algorithm. However, looking strictly at the prompt's instruction to not penalize things they don't mention, if the criteria just asks for \"well organised\", the text is organized. But given the total failure on factual points, usually clarity is compromised by nonsense. Let's look closer: The agent presents a confident, well-structured argument that is completely false. Is it \"clear\"? Yes, it is clear what they are saying, even if wrong. However, in evaluation tasks, if the content is hallucinated to the point of describing a different algorithm, the \"clarity\" of the *answer* regarding the specific question is effectively zero because the answer provided doesn't match the question's reality. But strictly adhering to the rubric: \"Clarity (1): the answer is clear and well organised.\" The text is organized. I will award 0 here because a response that claims binary search sorts itself is not a clear explanation of binary search; it is a clear explanation of a different concept, failing the implicit requirement of answering the prompt correctly. Actually, let's be strict: The criteria asks if the answer *is* clear and well organized. It is readable. But usually, in these rubrics, if the logic is flawed, clarity regarding the topic is lost. Let's stick to the most objective measure: The response fails every other criterion so severely that a partial credit for organization is negligible. However, to be precise: The text is formatted clearly. But since it answers the wrong question (describing sorting instead of searching), it fails the intent of clarity. I will give 0/1 because the \"answer\" provided is not a clear answer to the specific question asked; it's a clear answer to a different question.\n\n    *   **Refined Clarity Score:** 0/1. The response is well-organized, but it fails to provide a clear answer to the specific question asked (it answers a different question). A clear answer must address the prompt correctly.\n\n**Total Score Calculation:**\n*   Correct complexity: 0\n*   Explanation: 0\n*   Precondition: 0\n*   Clarity: 0\n\nTotal: 0/10.\n\nGRADE: 0",
+   "criteria": [
+    {
+     "criterion": "Grade accuracy",
+     "max_score": 10,
+     "score": 8.95,
+     "detail": "graded 0, reference 1 (off by 1)"
+    }
+   ],
+   "hidden_tests": null,
+   "counts": true,
+   "hardware": {
+    "hostname": "Whitehall",
+    "cpu": "AMD Ryzen 7 7700",
+    "gpu": "NVIDIA RTX 5070 Ti 16GB",
+    "ram_gb": 32.0
+   },
+   "inference": {
+    "provider": "lmstudio",
+    "local": true,
+    "same_machine": false,
+    "served_via": "LM Link",
+    "device": "Whitehall",
+    "quantization": "Q4_K_M",
+    "context_length": 100096
+   },
+   "tests_passed": null,
+   "tests_failed": null,
+   "tool_calls": null,
+   "tokens_in": 328,
+   "tokens_out": 931,
+   "model_responses": 1,
+   "ttft_s": 0.197,
+   "response_time_avg_s": 9.023,
+   "cost_usd": null
+  },
+  {
    "run_id": "lmstudio_qwen_qwen3.5-9b/geography/GEOG-1/20261026_155133",
    "test_id": "GEOG-1",
    "test_version": 1,
@@ -5148,7 +5671,7 @@
    "elapsed_s": 1.13,
    "score": null,
    "agent_score": null,
-   "check_score": null,
+   "check_score": 10.0,
    "agent_summary": null,
    "judge": null,
    "checks": [
@@ -5175,7 +5698,26 @@
     }
    ],
    "output": "In the United States, firetrucks are predominantly red, a tradition that originated from early 20th-century safety concerns and has since become a cultural symbol. While some departments now use yellow, white, or other colors for better visibility or specific operational needs, red remains the standard color across the country.",
-   "criteria": null,
+   "criteria": [
+    {
+     "criterion": "Correct answer",
+     "max_score": 7,
+     "score": 7,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Red is the answer",
+     "max_score": 2,
+     "score": 2,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Brief",
+     "max_score": 1,
+     "score": 1,
+     "detail": "49 words"
+    }
+   ],
    "hidden_tests": null,
    "counts": true,
    "hardware": {
@@ -5219,7 +5761,7 @@
    "elapsed_s": 13.66,
    "score": null,
    "agent_score": null,
-   "check_score": null,
+   "check_score": 10.0,
    "agent_summary": null,
    "judge": null,
    "checks": [
@@ -5246,7 +5788,26 @@
     }
    ],
    "output": "Most firetrucks in the United States are red, though some departments use white, yellow, or blue for visibility and heat reflection purposes.",
-   "criteria": null,
+   "criteria": [
+    {
+     "criterion": "Correct answer",
+     "max_score": 7,
+     "score": 7,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Red is the answer",
+     "max_score": 2,
+     "score": 2,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Brief",
+     "max_score": 1,
+     "score": 1,
+     "detail": "22 words"
+    }
+   ],
    "hidden_tests": null,
    "counts": true,
    "hardware": null,
@@ -8744,9 +9305,9 @@
    "outcome": "completed",
    "timed_out": false,
    "elapsed_s": 2.81,
-   "score": 10.0,
+   "score": null,
    "agent_score": null,
-   "check_score": null,
+   "check_score": 10.0,
    "agent_summary": null,
    "judge": null,
    "checks": [
@@ -8773,7 +9334,26 @@
     }
    ],
    "output": "In the United States, firetrucks are most commonly painted bright red, though other colors like lime-yellow, white, and even blue or black can be used by different departments.",
-   "criteria": null,
+   "criteria": [
+    {
+     "criterion": "Correct answer",
+     "max_score": 7,
+     "score": 7,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Red is the answer",
+     "max_score": 2,
+     "score": 2,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Brief",
+     "max_score": 1,
+     "score": 1,
+     "detail": "28 words"
+    }
+   ],
    "hidden_tests": null,
    "counts": true,
    "hardware": null,
@@ -10101,13 +10681,10 @@
    "timed_out": false,
    "elapsed_s": 0.96,
    "score": null,
-   "agent_score": 10.0,
-   "check_score": null,
-   "agent_summary": "Correct and concise.",
-   "judge": {
-    "type": "agent",
-    "model": "claude-opus-5-5"
-   },
+   "agent_score": null,
+   "check_score": 10.0,
+   "agent_summary": null,
+   "judge": null,
    "checks": [
     {
      "id": "says_red",
@@ -10132,7 +10709,26 @@
     }
    ],
    "output": "Fire trucks in the US are most commonly red, though many departments also use yellow, white, or other high-visibility colors.",
-   "criteria": null,
+   "criteria": [
+    {
+     "criterion": "Correct answer",
+     "max_score": 7,
+     "score": 7,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Red is the answer",
+     "max_score": 2,
+     "score": 2,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Brief",
+     "max_score": 1,
+     "score": 1,
+     "detail": "20 words"
+    }
+   ],
    "hidden_tests": null,
    "counts": true,
    "hardware": null,
@@ -11231,9 +11827,9 @@
    "outcome": "completed",
    "timed_out": false,
    "elapsed_s": 1.76,
-   "score": 10.0,
+   "score": null,
    "agent_score": null,
-   "check_score": null,
+   "check_score": 10.0,
    "agent_summary": null,
    "judge": null,
    "checks": [
@@ -11260,7 +11856,26 @@
     }
    ],
    "output": "Most firetrucks in the US are red. However, they can also be yellow, white, blue, or other colors depending on the fire department and local preferences.",
-   "criteria": null,
+   "criteria": [
+    {
+     "criterion": "Correct answer",
+     "max_score": 7,
+     "score": 7,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Red is the answer",
+     "max_score": 2,
+     "score": 2,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Brief",
+     "max_score": 1,
+     "score": 1,
+     "detail": "26 words"
+    }
+   ],
    "hidden_tests": null,
    "counts": true,
    "hardware": null,
@@ -11289,9 +11904,9 @@
    "outcome": "completed",
    "timed_out": false,
    "elapsed_s": 5.62,
-   "score": 10.0,
+   "score": null,
    "agent_score": null,
-   "check_score": null,
+   "check_score": 10.0,
    "agent_summary": null,
    "judge": null,
    "checks": [
@@ -11318,7 +11933,26 @@
     }
    ],
    "output": "Firetrucks in the US are traditionally red, which has been the standard color since the early 1900s. However, not all are red—some fire departments use lime-yellow, white, or other colors, as studies have suggested brighter colors may be more visible.",
-   "criteria": null,
+   "criteria": [
+    {
+     "criterion": "Correct answer",
+     "max_score": 7,
+     "score": 7,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Red is the answer",
+     "max_score": 2,
+     "score": 2,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Brief",
+     "max_score": 1,
+     "score": 1,
+     "detail": "40 words"
+    }
+   ],
    "hidden_tests": null,
    "counts": true,
    "hardware": null,
@@ -11347,9 +11981,9 @@
    "outcome": "completed",
    "timed_out": false,
    "elapsed_s": 6.49,
-   "score": 10.0,
+   "score": null,
    "agent_score": null,
-   "check_score": null,
+   "check_score": 10.0,
    "agent_summary": null,
    "judge": null,
    "checks": [
@@ -11376,7 +12010,26 @@
     }
    ],
    "output": "Firetrucks in the US are most commonly red, which has been the traditional color since the early 1900s. However, some fire departments use other colors like yellow, lime-green, white, or black.",
-   "criteria": null,
+   "criteria": [
+    {
+     "criterion": "Correct answer",
+     "max_score": 7,
+     "score": 7,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Red is the answer",
+     "max_score": 2,
+     "score": 2,
+     "detail": "1/1 found"
+    },
+    {
+     "criterion": "Brief",
+     "max_score": 1,
+     "score": 1,
+     "detail": "31 words"
+    }
+   ],
    "hidden_tests": null,
    "counts": true,
    "hardware": null,

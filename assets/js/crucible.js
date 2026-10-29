@@ -801,8 +801,14 @@
           return;
         }
         var headline = card.appendChild(el('div', { class: 'crucible-lb-card-score' }));
-        tierCellContent(s, HEADLINE, headline);
-        if (!headline.firstChild) headline.textContent = NONE;
+        headline.appendChild(el('span', { class: 'crucible-lb-card-label' }, HEADLINE.label));
+        var bit = el('span', { class: 'crucible-lb-card-bit' });
+        tierCellContent(s, HEADLINE, bit);
+        if (!bit.firstChild) bit.textContent = NONE;
+        // A partial headline score says so in words, not only by its hatched bar
+        var note = bit.querySelector('.crucible-lb-note');
+        if (note) note.textContent = 'partial · ' + note.textContent;
+        while (bit.firstChild) headline.appendChild(bit.firstChild);
         var parts = [];
         TIERS.forEach(function (t) {
           if (t.id === HEAD) return;
@@ -1316,7 +1322,7 @@
       button.appendChild(el('span', { class: 'crucible-area-caret', 'aria-hidden': 'true' }, open ? '▾' : '▸'));
       button.appendChild(el('span', { class: 'crucible-area-name' }, area.label));
       button.appendChild(el('span', { class: 'crucible-tag' }, String(tests[0].id).split('-')[0]));
-      var chip = el('span', { class: 'crucible-area-score' }, avg === null ? NONE : fmtScore(avg));
+      var chip = el('span', { class: 'crucible-area-score' }, avg === null ? NONE : (isNarrow() ? 'mean ' : '') + fmtScore(avg));
       if (avg !== null) chip.setAttribute('style', heatStyle(avg));
       button.appendChild(chip);
       button.appendChild(el('span', { class: 'crucible-area-count' }, ran + '/' + tests.length + ' run'));

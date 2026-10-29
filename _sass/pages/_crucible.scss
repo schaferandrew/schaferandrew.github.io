@@ -1224,6 +1224,17 @@ $crucibleBlue: #1856a3;
   }
 }
 
+.crucible-lb-card-label {
+  flex: 0 0 auto;
+  color: $gray;
+  font-weight: $weightBold;
+}
+
+.crucible-lb-card-score .crucible-lb-note {
+  display: inline;
+  white-space: nowrap;
+}
+
 .crucible-lb-card-line {
   color: $gray;
 }

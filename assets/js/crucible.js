@@ -766,6 +766,25 @@
       render();
     }
 
+    // A tier's score as a bar with its marking, for any tier: provisional and partial say so in words
+    function tierBarInto(s, t, into) {
+      var result = s.tier[t.id], prov = s.provisional[t.id];
+      var counted = result && result.score !== null;
+      var score = counted ? result.score : prov && prov.score !== null ? prov.score : null;
+      if (score === null) { into.appendChild(el('span', {}, NONE)); return; }
+      var partial = counted && result.partial;
+      var bar = el('span', { class: 'crucible-lb-bar' + (partial || !counted ? ' is-partial' : '') });
+      var fill = el('span', { class: 'crucible-lb-fill' + (s.local ? ' is-local' : '') });
+      fill.style.width = (score * 10) + '%';
+      bar.appendChild(fill);
+      into.appendChild(bar);
+      into.appendChild(el('span', { class: 'crucible-lb-score' }, fmtScore(score)));
+      var verdict = s.verdict[t.id];
+      if (verdict) into.appendChild(el('span', { class: 'crucible-verdict is-' + verdict }, verdict === 'pass' ? '✓ Pass' : verdict === 'fail' ? '✕ Fail' : 'Partial'));
+      if (partial) into.appendChild(el('span', { class: 'crucible-lb-note' }, 'partial · ' + result.scored + '/' + result.total));
+      else if (!counted) into.appendChild(el('span', { class: 'crucible-lb-note' }, 'provisional'));
+    }
+
     // Below 640 px the table is hidden and each model is a card: rank, name, the headline score
     // as a bar, one line with the other tiers, time and cost, and the hardware underneath
     function renderLeaderboardCards(list) {
@@ -800,25 +819,26 @@
           ol.appendChild(card);
           return;
         }
+        // The bar follows the sort: the tier sorted by, else the headline tier
+        var barTier = tierSeen[sort.key] === true ? tierById(sort.key) : HEADLINE;
         var headline = card.appendChild(el('div', { class: 'crucible-lb-card-score' }));
-        headline.appendChild(el('span', { class: 'crucible-lb-card-label' }, HEADLINE.label));
-        var bit = el('span', { class: 'crucible-lb-card-bit' });
-        tierCellContent(s, HEADLINE, bit);
-        if (!bit.firstChild) bit.textContent = NONE;
-        // A partial headline score says so in words, not only by its hatched bar
-        var note = bit.querySelector('.crucible-lb-note');
-        if (note) note.textContent = 'partial · ' + note.textContent;
-        while (bit.firstChild) headline.appendChild(bit.firstChild);
+        headline.appendChild(el('span', { class: 'crucible-lb-card-label' }, barTier.label));
+        tierBarInto(s, barTier, headline);
         var parts = [];
         TIERS.forEach(function (t) {
-          if (t.id === HEAD) return;
+          if (t.id === barTier.id) return;
           var holder = el('span');
           tierCellContent(s, t, holder);
           var text = Array.prototype.map.call(holder.children, function (c) { return c.textContent; }).join(' ');
           if (text) parts.push(t.label + ' ' + text);
         });
-        parts.push(fmtSeconds(s.time) + '/task', costLabel(s) + '/task');
-        card.appendChild(el('p', { class: 'crucible-lb-card-line' }, parts.join(' · ')));
+        var time = fmtSeconds(s.time) + '/task', cost = costLabel(s) + '/task';
+        var line = card.appendChild(el('p', { class: 'crucible-lb-card-line' }));
+        // Time and cost have no 0-10 bar, so the sorted one leads the line, in bold
+        if (sort.key === 'time') line.appendChild(el('strong', {}, 'Time ' + time));
+        else if (sort.key === 'cost') line.appendChild(el('strong', {}, 'Cost ' + cost));
+        var rest = parts.concat(sort.key === 'time' ? [cost] : sort.key === 'cost' ? [time] : [time, cost]);
+        line.appendChild(document.createTextNode((line.firstChild ? ' · ' : '') + rest.join(' · ')));
         if (s.hardware) card.appendChild(el('p', { class: 'crucible-legend-hw' }, s.hardware));
         ol.appendChild(card);
       });

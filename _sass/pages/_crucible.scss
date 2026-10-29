@@ -520,9 +520,10 @@ $crucibleBlue: #1856a3;
   }
 }
 
+// Task names are full names now, not four-letter codes: let them take their own width, with the
+// tags after them and the summary on its own line underneath
 .crucible-test-id {
-  display: inline-block;
-  width: 3em;
+  margin-right: 0.4em;
   font-weight: $weightBold;
 }
 
@@ -530,14 +531,17 @@ $crucibleBlue: #1856a3;
   display: none;
 
   @media screen and (min-width: $medium) {
-    display: inline-block;
+    display: block;
   }
 
-  max-width: 34ch;
+  max-width: 48ch;
+  margin-top: 2px;
   overflow: hidden;
   color: $gray;
+  font-size: $textSmall;
+  font-weight: normal;
   text-overflow: ellipsis;
-  vertical-align: bottom;
+  white-space: nowrap;
 }
 
 .crucible-not-run {

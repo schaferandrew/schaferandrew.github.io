@@ -1,0 +1,68 @@
+# Fallbacks for the Crucible pages (crucible.html, crucible-about.html, assets/js/crucible.js).
+# A results bundle's own catalog (modes, areas, tiers, scoring_policy) always wins; this file only
+# fills what an older bundle (format 2) doesn't carry. Keyed by ID, so an ID missing here simply
+# renders generically (its label is the ID, capitalized). Never add a task, area or tier here that
+# a bundle doesn't also list: new ones belong in the bundle.
+scoring_policy:
+  coverage_min: 0.75
+  in_progress_below: 0.75
+
+modes:
+  chat:
+    label: Chat
+    blurb: One API call, no tools
+    order: 1
+  agentic:
+    label: Agentic
+    blurb: An agent harness with tools and a workspace
+    order: 2
+
+tiers:
+  spark:
+    label: Spark
+    blurb: the basics
+    order: 1
+    role: gate
+    gate: {mean: 8, min: 5}
+    detail: "the basics. Does it load, follow a format, call a tool, read code and make a small correct change? This is a gate: a model that fails Spark isn't ranked."
+  temper:
+    label: Temper
+    blurb: everyday work
+    order: 2
+    role: headline
+    detail: "real everyday work you'd actually use. This is the headline score."
+  forge:
+    label: Forge
+    blurb: frontier-level work
+    order: 3
+    role: stretch
+    detail: "long, multi-step work you'd normally need a frontier model for."
+
+areas:
+  writing:
+    blurb: Can it edit without flattening someone's voice, and write things that sound real?
+    examples: Proofread an email, a literary paragraph and an economics essay; generate believable character names; a haiku with banned words.
+  math:
+    blurb: Does it get the exact answer, including when the obvious one is wrong?
+    examples: Recipe scaling and discounts, compound interest and a split bill, competition-style counting and probability, a logic puzzle.
+  geography:
+    blurb: Does it know the world beyond the obvious answer?
+    examples: Capitals that aren't the biggest city, which countries are landlocked, trick questions about borders and time zones.
+  history:
+    blurb: Are its dates and order right, and can it catch what's wrong?
+    examples: Put events in order, fact-check a paragraph, spot the anachronisms in a letter from 1863.
+  general:
+    blurb: Does it know things, explain them clearly, and stay faithful to what it's given?
+    examples: Explain solar panels, write a news briefing from supplied feeds without changing a figure.
+  evals:
+    blurb: Can it grade someone else's work the way an expert evaluator would?
+    examples: Grade a piece of work against a rubric and land close to the reference grade.
+  coding:
+    blurb: Can it do software work in a real repo, with real tools?
+    examples: Build an interest-rate CLI, make a navbar responsive, fix a Next.js server/client bug, fix a redirect loop and an accessibility audit in a monorepo.
+  research:
+    blurb: Can it go and get live information, and report it honestly?
+    examples: Today's local news, the weather against the historical average.
+  everyday:
+    blurb: Can it handle the tasks you'd hand an assistant, using your own data?
+    examples: Find meeting times across two calendars, a morning brief from email, calendar and news.

@@ -17,19 +17,31 @@ permalink: /crucible/
 
     <p class="crucible-disclaimer">Everything below was created and written by or with the help of AI.</p>
 
+    {%- include crucible-catalog.html -%}
     <p>
-      Crucible runs the same real-world prompts in two separate sections that are never ranked together.
-      <strong>Chat</strong> tests (writing, math, geography, history, general knowledge) are a single API call with
-      no tools. <strong>Agentic</strong> tests (coding, research and everyday tasks) run in an agent harness,
-      <strong>opencode</strong> or <strong>pi</strong>, that can edit files, run commands and browse. Each run is
-      scored 0–10 against the test's rubric. Tests come in
-      three tiers: <strong>Spark</strong> (the basics, pass or fail), <strong>Temper</strong> (everyday work, the
-      headline score) and <strong>Forge</strong> (long, multi-step work you'd normally need a frontier model for).
+      Crucible runs the same real-world prompts in {{ cr_modes.size | default: 2 }} separate sections that are never ranked together.
+      {%- for m in cr_modes %}
+      {%- assign mfb = cr_fb.modes[m.id] %}
+      {%- assign mareas = m.areas | default: cr_latest.areas %}
+      {%- assign area_labels = "" | split: "" %}
+      {%- for a in mareas %}{% if a.mode == nil or a.mode == m.id %}{% assign lab = a.label | downcase %}{% assign area_labels = area_labels | push: lab %}{% endif %}{% endfor %}
+      <strong>{{ m.label | default: mfb.label | default: m.id }}</strong> tests ({{ area_labels | join: ", " }}):
+      {{ m.blurb | default: mfb.blurb }}{% if m.harnesses.size > 1 %}, harness: {{ m.harnesses | join: " or " }}{% endif %}.
+      {%- endfor %}
+      Each run is scored 0–10 against the test's rubric. Tests come in tiers:
+      {%- for t in cr_tiers %}
+      {%- if t.id %}{% assign tid = t.id %}{% else %}{% assign tid = t %}{% endif %}
+      {%- assign tfb = cr_fb.tiers[tid] %}
+      {%- assign role = t.role | default: tfb.role %}
+      <strong>{{ t.label | default: tfb.label | default: tid }}</strong> ({{ t.blurb | default: tfb.blurb }}{% if role == "gate" %}, pass or fail{% elsif role == "headline" %}, the headline score{% endif %}){% unless forloop.last %},{% endunless %}
+      {%- endfor %}.
       <a href="/crucible/about/">How Crucible works, and how to run it yourself →</a>
     </p>
   </div>
 
-  <section class="crucible-results" aria-label="Results">
+  <p class="crucible-status" id="crucible-status" role="status">Loading results…</p>
+
+  <section class="crucible-results" aria-label="Results" id="crucible-results" hidden>
     <div class="crucible-mode-tabs" role="tablist" aria-label="Section" id="mode-tabs"></div>
     <ul class="crucible-takeaways" id="crucible-takeaways"></ul>
 
@@ -37,15 +49,11 @@ permalink: /crucible/
       <h2 class="crucible-heading">Leaderboard</h2>
       <div class="crucible-segmented" role="radiogroup" aria-label="Which models" id="progress-toggle"></div>
     </div>
-    <p class="crucible-sub">
-      Ranked by Temper score (0–10). Spark is a pass/fail gate on the basics; Forge is scored separately and never
-      blended in. A hatched bar means fewer than 75% of that tier's tests were scored. Select a column to sort.
-      In Agentic, <strong>Best per model</strong> ranks each model with the harness it does best with (the "via"
-      tag); pick a single harness below to compare everyone on the same one.
-    </p>
-    <div class="crucible-scroll">
+    <p class="crucible-sub" id="leaderboard-sub"></p>
+    <div class="crucible-scroll crucible-lb-wide">
       <table class="crucible-leaderboard" id="crucible-leaderboard"></table>
     </div>
+    <div class="crucible-lb-narrow" id="crucible-lb-narrow"></div>
 
     <div class="crucible-toolbar">
       <span class="crucible-toolbar-label" id="harness-label">Harness</span>
@@ -56,16 +64,11 @@ permalink: /crucible/
     </div>
     <p class="crucible-sub crucible-progress-note" id="progress-note"></p>
 
-    <p class="crucible-caveat">
-      <strong>How scores are made.</strong> Writing, math, geography and history tests are scored by programmatic checks: fixed rules applied
-      to the model's answer, the same way every time (listed on the <a href="/crucible/about/">About</a> page).
-      Other tests are scored by an AI judge (Claude) against the test's rubric, with hidden acceptance tests for
-      Forge. Judge scores are a rough signal, not a precise eval, so treat differences of a point or two as noise.
-    </p>
+    <p class="crucible-caveat" id="crucible-caveat" hidden></p>
 
     <h2 class="crucible-heading">Quality vs <span id="scatter-measure-label">time</span></h2>
     <div class="crucible-toolbar crucible-toolbar-tight">
-      <div class="crucible-segmented" role="radiogroup" aria-label="Plot Temper score against" id="scatter-toggle"></div>
+      <div class="crucible-segmented" role="radiogroup" aria-label="Plot the headline score against" id="scatter-toggle"></div>
     </div>
     <p class="crucible-sub" id="scatter-sub"></p>
     <div class="crucible-chart-wrap">
@@ -74,22 +77,24 @@ permalink: /crucible/
     </div>
 
     <h2 class="crucible-heading">Every model on every test</h2>
-    <p class="crucible-sub">
+    <p class="crucible-sub" id="matrix-sub">
       Score per test, grouped by tier. Rows keep the leaderboard's order. Cells with a green corner are scored
       entirely by programmatic checks (no judge); select any cell for its checks or the judge's note. Dashed cells
       are provisional tests that don't count toward tier scores yet.
     </p>
-    <div class="crucible-scroll">
+    <div class="crucible-scroll crucible-matrix-wide">
       <table class="crucible-matrix" id="crucible-matrix"></table>
     </div>
+    <div class="crucible-matrix-narrow" id="crucible-matrix-narrow"></div>
     <div class="crucible-cell-detail" id="crucible-cell-detail" hidden></div>
 
     <h2 class="crucible-heading">Model × area</h2>
     <p class="crucible-sub">Mean score (0–10) for each area in this section, across all tiers. Where a model has
       run none of an area's active tests yet, a dashed cell shows its provisional tests instead.</p>
-    <div class="crucible-scroll">
+    <div class="crucible-scroll crucible-heatmap-wide">
       <table class="crucible-heatmap" id="crucible-heatmap"></table>
     </div>
+    <div class="crucible-heatmap-narrow" id="crucible-heatmap-narrow"></div>
 
     <h2 class="crucible-heading">One model in detail</h2>
     <div class="crucible-toolbar crucible-toolbar-tight">
@@ -97,15 +102,15 @@ permalink: /crucible/
       <select class="crucible-select" id="detail-model"></select>
     </div>
     <p class="crucible-sub">Latest run per test, grouped by area. Each collapsed area shows its mean score, how many
-      of its tests ran, and one square per test, easiest tier first (a thick outline is Forge). Open an area for its
+      of its tests ran, and one square per test, easiest tier first<span id="detail-outline-note"></span>. Open an area for its
       tests, then select a test for its checks or the judge's summary.</p>
     <div class="crucible-scroll">
       <table class="crucible-tests" id="crucible-tests"></table>
     </div>
+    <p class="crucible-sub" id="crucible-other-runs" hidden></p>
 
     <p class="crucible-footnote" id="crucible-footnote"></p>
   </section>
 </div>
 
-<script id="crucible-data" type="application/json">{{ site.data.crucible | jsonify }}</script>
-<script src="/assets/js/crucible.js?v={{ site.time | date: '%s' }}"></script>
+<script src="/assets/js/crucible.js?v={{ site.time | date: '%s' }}" data-src="/crucible/data.json?v={{ site.time | date: '%s' }}"></script>

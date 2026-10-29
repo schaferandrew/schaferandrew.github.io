@@ -111,7 +111,7 @@ permalink: /crucible/about/
   {%- comment -%} The test list comes from the newest results bundle in _data/crucible/ {%- endcomment -%}
   {% for test in cr_tasks %}{% if test.rules.size > 0 %}
   {%- assign method = test.scoring.method | default: test.scoring %}
-  <h3 class="crucible-rules-test">{{ test.id }}{% if method == "checks" %} <span class="crucible-tag">fully deterministic</span>{% endif %}</h3>
+  <h3 class="crucible-rules-test" title="{{ test.id }}">{{ test.name | default: test.id }}{% if method == "checks" %} <span class="crucible-tag">fully deterministic</span>{% endif %}{% if test.name and test.name != test.id %} <small class="crucible-task-id">{{ test.id }}</small>{% endif %}</h3>
   <ul class="crucible-rules">
     {% for rule in test.rules %}<li>{{ rule }}</li>{% endfor %}
   </ul>

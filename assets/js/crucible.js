@@ -126,6 +126,13 @@
     TIERS.sort(function (a, b) { return a.order - b.order || a.pos - b.pos; });
     function tierById(id) { return TIERS.filter(function (t) { return t.id === id; })[0] || tierInfo(id, {}, 1000); }
     function tierLabel(id) { return tierById(id).label; }
+    // A task reads by its name; the ID (CODE-14) is only the fallback and the secondary text
+    var taskById = {};
+    data.tests.forEach(function (t) { taskById[t.id] = t; });
+    function taskName(t) { return (t && t.name) || (t && t.id) || ''; }
+    function taskNameOf(id) { return taskName(taskById[id] || { id: id }); }
+    // 'Name (ID)' for a title attribute or aria-label; just the ID when there is no name
+    function taskFull(t) { return t.name && t.name !== t.id ? t.name + ' (' + t.id + ')' : t.id; }
     function tierRole(id) { return tierById(id).role || 'none'; }
     var HEADLINE = TIERS.filter(function (t) { return t.role === 'headline'; })[0] ||
       TIERS.filter(function (t) { return t.role !== 'gate'; })[0] || TIERS[0];
@@ -625,28 +632,13 @@
         }
       }
       var stretch = STRETCH[0];
-      var best = stretch && list.filter(function (s) { return tierValue(s, stretch.id) !== null; })
-        .sort(function (a, b) { return tierValue(b, stretch.id) - tierValue(a, stretch.id); })[0];
-      if (best) {
-        var counted = best.tier[stretch.id] && best.tier[stretch.id].score !== null;
-        lines.push(modelLabel(best.model) + ' scores highest on the ' + stretch.label + ' tests (' + fmtScore(tierValue(best, stretch.id)) +
-          (counted ? '' : ', provisional') + ').');
-      }
+      // Counted scores only: a provisional score never headlines a sentence
+      var countedOf = function (s) { var r = s.tier[stretch.id]; return r && r.score !== null && !r.partial ? r.score : null; };
+      var best = stretch && list.filter(function (s) { return countedOf(s) !== null; })
+        .sort(function (a, b) { return countedOf(b) - countedOf(a); })[0];
+      if (best) lines.push(modelLabel(best.model) + ' scores highest on the ' + stretch.label + ' tests (' + fmtScore(countedOf(best)) + ').');
       if (!lines.length) lines.push('No scored runs with ' + harnessPhrase() + ' for these models yet.');
       lines.forEach(function (line) { ul.appendChild(el('li', {}, line)); });
-    }
-
-    function tierCell(result, extra) {
-      var td = el('td', { class: 'crucible-lb-num' });
-      if (!result || result.score === null) {
-        td.textContent = NONE;
-        return td;
-      }
-      td.appendChild(el('span', {}, fmtScore(result.score)));
-      if (result.partial || extra) {
-        td.appendChild(el('span', { class: 'crucible-lb-note' }, extra || result.scored + '/' + result.total));
-      }
-      return td;
     }
 
     // The sentence under the leaderboard heading, from the catalog's tiers and policy
@@ -668,31 +660,33 @@
       document.getElementById('detail-outline-note').textContent = stretch ? ' (a thick outline is ' + stretch.label + ')' : '';
     }
 
-    // How a score reads: the gate's verdict, a bar for the headline, a number for the rest
+    // Every tier reads the same: a 0-10 score, the bar, and 'n/m tasks'. The gate result (pass or
+    // fail) and 'partial' or 'provisional' are small markers on that cell, not a different cell.
     function tierCellContent(s, t, into) {
-      var result = s.tier[t.id];
-      if (gateOf(t.id)) {
-        var v = s.verdict[t.id];
-        if (!v) { into.textContent = NONE; return; }
-        into.appendChild(el('span', { class: 'crucible-verdict is-' + v }, v === 'pass' ? '✓ Pass' : v === 'fail' ? '✕ Fail' : 'Partial'));
-      } else if (t.id === HEAD) {
-        if (result.score === null) { into.textContent = NONE; return; }
-        var bar = el('span', { class: 'crucible-lb-bar' + (result.partial ? ' is-partial' : '') });
-        var fill = el('span', { class: 'crucible-lb-fill' + (s.local ? ' is-local' : '') });
-        fill.style.width = (result.score * 10) + '%';
-        bar.appendChild(fill);
-        into.appendChild(bar);
-        into.appendChild(el('span', { class: 'crucible-lb-score' }, fmtScore(result.score)));
-        if (result.partial) into.appendChild(el('span', { class: 'crucible-lb-note' }, result.scored + '/' + result.total));
-      } else if (result && result.score !== null) {
-        into.appendChild(el('span', {}, fmtScore(result.score)));
-        if (result.partial) into.appendChild(el('span', { class: 'crucible-lb-note' }, result.scored + '/' + result.total));
-      } else if (s.provisional[t.id] && s.provisional[t.id].score !== null) {
-        into.appendChild(el('span', {}, fmtScore(s.provisional[t.id].score)));
-        into.appendChild(el('span', { class: 'crucible-lb-note' }, 'provisional'));
-      } else {
-        into.textContent = NONE;
+      var result = s.tier[t.id], prov = s.provisional[t.id];
+      var counted = result && result.score !== null;
+      var score = counted ? result.score : prov && prov.score !== null ? prov.score : null;
+      if (score === null) { into.appendChild(el('span', { class: 'crucible-lb-none' }, NONE)); return; }
+      var partial = counted && result.partial;
+      var provisional = !counted;
+      var scored = counted ? result.scored : prov.scored, total = counted ? result.total : prov.total;
+      var cellEl = el('span', { class: 'crucible-tier-cell' + (provisional ? ' is-provisional' : '') });
+      var bar = el('span', { class: 'crucible-lb-bar' + (partial ? ' is-partial' : '') + (provisional ? ' is-provisional' : '') });
+      var fill = el('span', { class: 'crucible-lb-fill' + (s.local ? ' is-local' : '') });
+      fill.style.width = (score * 10) + '%';
+      bar.appendChild(fill);
+      cellEl.appendChild(bar);
+      cellEl.appendChild(el('span', { class: 'crucible-lb-score' }, fmtScore(score)));
+      cellEl.appendChild(el('span', { class: 'crucible-lb-count' }, scored + '/' + total + ' tasks'));
+      var markers = el('span', { class: 'crucible-lb-markers' });
+      var verdict = s.verdict[t.id];
+      if (verdict === 'pass' || verdict === 'fail') {
+        markers.appendChild(el('span', { class: 'crucible-verdict is-' + verdict, title: t.label + ' gate: ' + verdict }, verdict === 'pass' ? '✓ pass' : '✕ fail'));
       }
+      if (partial) markers.appendChild(el('span', { class: 'crucible-lb-note', title: 'Fewer than ' + pct(COVERAGE_MIN) + ' of this tier\'s tasks were scored' }, 'partial'));
+      else if (provisional) markers.appendChild(el('span', { class: 'crucible-lb-note', title: 'Provisional tasks don\'t count toward rankings' }, 'provisional'));
+      if (markers.firstChild) cellEl.appendChild(markers);
+      into.appendChild(cellEl);
     }
 
     function rankLabel(s, rank) {
@@ -747,7 +741,7 @@
         }
 
         TIERS.forEach(function (t) {
-          var td = el('td', { class: t.id === HEAD ? 'crucible-lb-bar-cell' : gateOf(t.id) ? '' : 'crucible-lb-num' });
+          var td = el('td', { class: 'crucible-lb-bar-cell' });
           tierCellContent(s, t, td);
           row.appendChild(td);
         });
@@ -764,25 +758,6 @@
       var natural = ['time', 'cost', 'model'].indexOf(key) === -1 ? -1 : 1;
       sort = { key: key, dir: sort.key === key ? -sort.dir : natural };
       render();
-    }
-
-    // A tier's score as a bar with its marking, for any tier: provisional and partial say so in words
-    function tierBarInto(s, t, into) {
-      var result = s.tier[t.id], prov = s.provisional[t.id];
-      var counted = result && result.score !== null;
-      var score = counted ? result.score : prov && prov.score !== null ? prov.score : null;
-      if (score === null) { into.appendChild(el('span', {}, NONE)); return; }
-      var partial = counted && result.partial;
-      var bar = el('span', { class: 'crucible-lb-bar' + (partial || !counted ? ' is-partial' : '') });
-      var fill = el('span', { class: 'crucible-lb-fill' + (s.local ? ' is-local' : '') });
-      fill.style.width = (score * 10) + '%';
-      bar.appendChild(fill);
-      into.appendChild(bar);
-      into.appendChild(el('span', { class: 'crucible-lb-score' }, fmtScore(score)));
-      var verdict = s.verdict[t.id];
-      if (verdict) into.appendChild(el('span', { class: 'crucible-verdict is-' + verdict }, verdict === 'pass' ? '✓ Pass' : verdict === 'fail' ? '✕ Fail' : 'Partial'));
-      if (partial) into.appendChild(el('span', { class: 'crucible-lb-note' }, 'partial · ' + result.scored + '/' + result.total));
-      else if (!counted) into.appendChild(el('span', { class: 'crucible-lb-note' }, 'provisional'));
     }
 
     // Below 640 px the table is hidden and each model is a card: rank, name, the headline score
@@ -819,19 +794,14 @@
           ol.appendChild(card);
           return;
         }
-        // The bar follows the sort: the tier sorted by, else the headline tier
-        var barTier = tierSeen[sort.key] === true ? tierById(sort.key) : HEADLINE;
-        var headline = card.appendChild(el('div', { class: 'crucible-lb-card-score' }));
-        headline.appendChild(el('span', { class: 'crucible-lb-card-label' }, barTier.label));
-        tierBarInto(s, barTier, headline);
-        var parts = [];
-        TIERS.forEach(function (t) {
-          if (t.id === barTier.id) return;
-          var holder = el('span');
-          tierCellContent(s, t, holder);
-          var text = Array.prototype.map.call(holder.children, function (c) { return c.textContent; }).join(' ');
-          if (text) parts.push(t.label + ' ' + text);
+        // Every tier gets the same row, the sorted one first
+        var tierList = TIERS.slice().sort(function (x, y) { return (y.id === sort.key) - (x.id === sort.key); });
+        tierList.forEach(function (t) {
+          var row = card.appendChild(el('div', { class: 'crucible-lb-card-score' + (t.id === sort.key ? ' is-sorted' : '') }));
+          row.appendChild(el('span', { class: 'crucible-lb-card-label' }, t.label));
+          tierCellContent(s, t, row);
         });
+        var parts = [];
         var time = fmtSeconds(s.time) + '/task', cost = costLabel(s) + '/task';
         var line = card.appendChild(el('p', { class: 'crucible-lb-card-line' }));
         // Time and cost have no 0-10 bar, so the sorted one leads the line, in bold
@@ -958,8 +928,9 @@
     function showCellDetail(s, t, c) {
       var panel = document.getElementById('crucible-cell-detail');
       panel.innerHTML = '';
-      panel.appendChild(el('p', { class: 'crucible-tooltip-title' }, modelLabel(s.model) + ' · ' + s.harness + ' · ' + t.id + ' · ' + tierLabel(t.tier) +
+      var dTitle = panel.appendChild(el('p', { class: 'crucible-tooltip-title' }, modelLabel(s.model) + ' · ' + s.harness + ' · ' + taskName(t) + ' · ' + tierLabel(t.tier) +
         (t.status === 'provisional' ? ' (provisional)' : '')));
+      if (t.name && t.name !== t.id) dTitle.appendChild(el('small', { class: 'crucible-task-id' }, ' ' + t.id));
       promptBlock(t, panel);
       if (!c) {
         panel.appendChild(el('p', {}, 'Not run with ' + s.harness + '.'));
@@ -976,7 +947,7 @@
 
     // The test's one-line summary, with the full prompt the model was given folded under it
     function promptBlock(t, into) {
-      into.appendChild(el('p', { class: 'crucible-detail-prompt' }, t.summary || t.name || t.id));
+      into.appendChild(el('p', { class: 'crucible-detail-prompt' }, t.summary || taskName(t)));
       if (!t.prompt || t.prompt === t.summary) return;
       var details = el('details', { class: 'crucible-output crucible-prompt-full' });
       details.appendChild(el('summary', {}, 'Full prompt'));
@@ -1076,7 +1047,9 @@
       idRow.appendChild(el('th', { scope: 'col' }, 'Model'));
       orderedTests.forEach(function (t, i) {
         var newTier = i && t.tier !== orderedTests[i - 1].tier;
-        idRow.appendChild(el('th', { scope: 'col', class: 'crucible-matrix-id' + (newTier ? ' is-tier-start' : ''), title: t.summary }, t.id));
+        var th = el('th', { scope: 'col', class: 'crucible-matrix-id' + (newTier ? ' is-tier-start' : ''), title: taskFull(t) + (t.summary ? ': ' + t.summary : '') });
+        th.appendChild(el('span', { class: 'crucible-matrix-name' }, taskName(t)));
+        idRow.appendChild(th);
       });
       var head = table.appendChild(el('thead'));
       head.appendChild(tierRow);
@@ -1096,7 +1069,7 @@
             (t.status === 'provisional' ? ' is-provisional' : '') + (c ? '' : ' is-empty');
           var td = el('td', { class: cls });
           if (c) {
-            var button = el('button', { type: 'button', 'aria-label': modelLabel(s.model) + ' ' + t.id + ': ' + fmtScore(score) }, score === null ? '?' : Math.round(score).toString());
+            var button = el('button', { type: 'button', 'aria-label': modelLabel(s.model) + ' ' + taskName(t) + ': ' + fmtScore(score) }, score === null ? '?' : Math.round(score).toString());
             if (score !== null) button.setAttribute('style', heatStyle(score));
             if (c.run.timed_out) button.classList.add('is-timeout');
             if (c.run.score_source === 'checks') button.classList.add('is-checked');
@@ -1144,12 +1117,12 @@
           li.appendChild(el('p', { class: 'crucible-card-group' }, tierLabel(tier)));
           orderedTests.filter(function (t) { return t.tier === tier; }).forEach(function (t) {
             var c = cell(s.model, s.harness, t.id);
-            var label = el('span', { class: 'crucible-kv-label', title: t.summary || '' }, t.id);
+            var label = el('span', { class: 'crucible-kv-label', title: taskFull(t) + (t.summary ? ': ' + t.summary : '') }, taskName(t));
             if (t.status === 'provisional') label.appendChild(el('span', { class: 'crucible-tag' }, 'provisional'));
             var value;
             if (c) {
               var score = c.run.best_score;
-              value = el('button', { type: 'button', class: 'crucible-card-score', 'aria-label': modelLabel(s.model) + ' ' + t.id + ': ' + fmtScore(score) }, score === null ? '?' : fmtScore(score));
+              value = el('button', { type: 'button', class: 'crucible-card-score', 'aria-label': modelLabel(s.model) + ' ' + taskName(t) + ': ' + fmtScore(score) }, score === null ? '?' : fmtScore(score));
               if (score !== null) value.setAttribute('style', heatStyle(score));
               if (c.run.timed_out) value.classList.add('is-timeout');
               if (c.run.score_source === 'checks') value.classList.add('is-checked');
@@ -1261,7 +1234,8 @@
       var c = cell(m, harnessFor(m), t.id);
       var row = el('tr', { class: 'crucible-row' + (c ? '' : ' is-not-run') });
       var name = el('th', { scope: 'row' });
-      name.appendChild(el('span', { class: 'crucible-test-id' }, t.id));
+      name.title = taskFull(t);
+      name.appendChild(el('span', { class: 'crucible-test-id' }, taskName(t)));
       name.appendChild(el('span', { class: 'crucible-tag crucible-tier-tag is-' + t.tier }, tierLabel(t.tier)));
       name.appendChild(el('span', { class: 'crucible-test-summary', title: t.summary }, t.summary));
       if (t.status === 'provisional') name.appendChild(el('span', { class: 'crucible-tag' }, 'provisional'));
@@ -1331,7 +1305,7 @@
       var idsList = [];
       other.forEach(function (r) { if (idsList.indexOf(r.test_id) === -1) idsList.push(r.test_id); });
       p.textContent = 'Other runs: ' + other.length + ' run' + (other.length === 1 ? '' : 's') + ' of tests this page doesn\'t list (' +
-        idsList.slice(0, 8).join(', ') + (idsList.length > 8 ? ', …' : '') + '). They aren\'t counted in any score.';
+        idsList.slice(0, 8).map(taskNameOf).join(', ') + (idsList.length > 8 ? ', …' : '') + '). They aren\'t counted in any score.';
     }
 
     // The collapsible area header: its mean, how many tests ran, and one square per test
@@ -1349,7 +1323,7 @@
       var strip = el('span', { class: 'crucible-area-strip', 'aria-hidden': 'true' });
       tests.forEach(function (t, k) {
         var c = cells[k], score = c ? c.run.best_score : null;
-        var sq = el('span', { class: 'crucible-area-sq is-role-' + tierRole(t.tier) + (c ? '' : ' is-empty'), title: t.id + ' · ' + tierLabel(t.tier) + ' · ' + (c ? fmtScore(score) : 'not run') });
+        var sq = el('span', { class: 'crucible-area-sq is-role-' + tierRole(t.tier) + (c ? '' : ' is-empty'), title: taskName(t) + ' · ' + tierLabel(t.tier) + ' · ' + (c ? fmtScore(score) : 'not run') });
         if (score !== null) sq.setAttribute('style', heatStyle(score));
         strip.appendChild(sq);
       });
@@ -1363,10 +1337,10 @@
       var c = cell(m, harnessFor(m), t.id);
       var li = ul.appendChild(el('li', { class: 'crucible-card crucible-test-card' + (c ? '' : ' is-not-run') }));
       var title = li.appendChild(el('div', { class: 'crucible-card-title' }));
-      title.appendChild(el('span', { class: 'crucible-test-id' }, t.id));
+      title.appendChild(el('span', { class: 'crucible-test-id', title: taskFull(t) }, taskName(t)));
       title.appendChild(el('span', { class: 'crucible-tag crucible-tier-tag is-' + t.tier }, tierLabel(t.tier)));
       if (t.status === 'provisional') title.appendChild(el('span', { class: 'crucible-tag' }, 'provisional'));
-      li.appendChild(el('p', { class: 'crucible-test-summary' }, t.summary || t.name || ''));
+      li.appendChild(el('p', { class: 'crucible-test-summary' }, t.summary || taskName(t)));
       if (!c) { li.appendChild(el('p', { class: 'crucible-not-run' }, 'not run')); return; }
       var r = c.run;
       var score = el('span', { class: 'crucible-kv-value' });

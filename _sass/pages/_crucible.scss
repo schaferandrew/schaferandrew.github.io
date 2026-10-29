@@ -728,6 +728,15 @@ $crucibleBlue: #1856a3;
     white-space: nowrap;
   }
 
+  tbody th {
+    max-width: 340px;
+    white-space: normal;
+  }
+
+  .crucible-lb-bar {
+    width: 100px;
+  }
+
   thead th {
     color: $gray;
     font-weight: $weightBold;
@@ -767,14 +776,44 @@ $crucibleBlue: #1856a3;
   text-align: right !important;
 }
 
+.crucible-tier-cell {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 8px;
+  font-variant-numeric: tabular-nums;
+
+  &.is-provisional .crucible-lb-bar {
+    border: 1px dashed $gray;
+    background: transparent;
+  }
+}
+
+.crucible-lb-count {
+  color: $gray;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.crucible-lb-markers {
+  display: inline-flex;
+  gap: 4px;
+
+  .crucible-verdict {
+    padding: 0 6px;
+    font-size: 11px;
+  }
+}
+
 .crucible-lb-note {
-  display: block;
+  display: inline;
   color: $colorAccent;
   font-size: 11px;
 }
 
 .crucible-lb-bar-cell {
-  min-width: 220px;
+  min-width: 190px;
+  text-align: left;
 }
 
 .crucible-lb-bar {
@@ -873,8 +912,30 @@ $crucibleBlue: #1856a3;
 
 .crucible-matrix-id {
   min-width: 30px;
+  height: 12.5em;
+  padding: 4px 2px !important;
   font-weight: $weightNormal !important;
+  font-size: 12px;
+  line-height: 1.15;
+  vertical-align: bottom;
   text-align: center;
+}
+
+// Task names run bottom-to-top so 45 columns stay 30 px wide; the full name is the title
+.crucible-matrix-name {
+  display: inline-block;
+  max-height: 12em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.crucible-task-id {
+  color: $gray;
+  font-size: 0.75em;
+  font-weight: $weightNormal;
 }
 
 .crucible-matrix-cell {
@@ -1225,7 +1286,7 @@ $crucibleBlue: #1856a3;
 }
 
 .crucible-lb-card-label {
-  flex: 0 0 auto;
+  flex: 0 0 4.5em;
   color: $gray;
   font-weight: $weightBold;
 }
@@ -1233,6 +1294,15 @@ $crucibleBlue: #1856a3;
 .crucible-lb-card-score .crucible-lb-note {
   display: inline;
   white-space: nowrap;
+}
+
+.crucible-lb-card-score .crucible-tier-cell {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.crucible-lb-card-score.is-sorted .crucible-lb-card-label {
+  color: inherit;
 }
 
 .crucible-lb-card-line {

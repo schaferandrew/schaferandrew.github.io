@@ -1228,37 +1228,100 @@ $crucibleBlue: #1856a3;
   color: $gray;
 }
 
-.crucible-narrow-list {
+.crucible-cards {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.crucible-narrow-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: $gap / 2;
-  padding: 8px 0;
+.crucible-card {
+  padding: ($gap * 0.75) 0;
   border-bottom: 1px solid $crucibleBorder;
   font-size: $textSmall;
   font-variant-numeric: tabular-nums;
 
-  button {
-    min-width: 3em;
-    padding: 6px 10px;
-    border: 1px solid $crucibleBorder;
-    border-radius: 6px;
-    font: inherit;
-    font-weight: $weightBold;
-    cursor: pointer;
+  &.is-not-run {
+    color: $crucibleMuted;
   }
+
+  p {
+    margin: 4px 0 0;
+  }
+}
+
+.crucible-card-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 6px;
+  font-weight: $weightBold;
+}
+
+.crucible-card-group {
+  margin: $gap / 2 0 2px !important;
+  color: $gray;
+  font-size: 11px;
+  font-weight: $weightBold;
+  letter-spacing: $letterspaceMedium;
+  text-transform: uppercase;
+}
+
+.crucible-kv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $gap / 2;
+  padding: 3px 0;
+
+  &.is-provisional .crucible-card-score {
+    border-style: dashed;
+  }
+}
+
+.crucible-kv-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+  min-width: 0;
+  color: $gray;
+}
+
+.crucible-kv-value {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-align: right;
+}
+
+.crucible-card-score {
+  min-width: 3em;
+  padding: 4px 10px;
+  border: 1px solid $crucibleBorder;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: $weightBold;
+  cursor: pointer;
+}
+
+.crucible-card-more {
+  margin-top: $gap / 2;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: $colorSecondary;
+  font: inherit;
+  cursor: pointer;
+}
+
+.crucible-area-narrow .crucible-area-toggle {
+  width: 100%;
 }
 
 .crucible-narrow-cell {
   display: flex;
   flex-direction: column;
-  min-width: 6em;
+  min-width: 7em;
   padding: 4px 10px;
   border-radius: 6px;
   text-align: center;

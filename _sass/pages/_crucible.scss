@@ -1160,12 +1160,6 @@ $crucibleBlue: #1856a3;
 // Narrow screens. Each wide table keeps its place at 640 px and up; below it, the leaderboard
 // becomes cards and the task matrix and area heatmap show one task or one model at a time.
 
-.crucible-lb-narrow,
-.crucible-matrix-narrow,
-.crucible-heatmap-narrow {
-  display: none;
-}
-
 .crucible-lb-sortbar {
   display: flex;
   align-items: center;
@@ -1275,18 +1269,6 @@ $crucibleBlue: #1856a3;
 }
 
 @media screen and (max-width: 639px) {
-  .crucible-lb-wide,
-  .crucible-matrix-wide,
-  .crucible-heatmap-wide {
-    display: none;
-  }
-
-  .crucible-lb-narrow,
-  .crucible-matrix-narrow,
-  .crucible-heatmap-narrow {
-    display: block;
-  }
-
   .crucible-heading-row {
     flex-wrap: wrap;
   }

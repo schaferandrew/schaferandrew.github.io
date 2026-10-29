@@ -248,6 +248,19 @@
       return values.length % 2 ? values[mid] : (values[mid - 1] + values[mid]) / 2;
     }
 
+    // One layout at a time, chosen here rather than by CSS so a stale stylesheet can't show both:
+    // below 640 px the leaderboard is cards and the matrix and heatmap show one task or model
+    var narrowQuery = window.matchMedia ? window.matchMedia('(max-width: 639px)') : null;
+    function isNarrow() { return !!(narrowQuery && narrowQuery.matches); }
+    function applyLayout() {
+      var narrow = isNarrow();
+      ['crucible-lb', 'crucible-matrix', 'crucible-heatmap'].forEach(function (name) {
+        var wide = document.querySelector('.' + name + '-wide'), box = document.getElementById(name + '-narrow');
+        if (wide) wide.hidden = narrow;
+        if (box) box.hidden = !narrow;
+      });
+    }
+
     function modeFromHash() {
       var wanted = location.hash.replace('#', '');
       return MODES.some(function (m) { return m.id === wanted; }) ? wanted : (MODES[0] ? MODES[0].id : '');
@@ -690,6 +703,8 @@
       renderLeaderboardNote();
       var table = document.getElementById('crucible-leaderboard');
       table.innerHTML = '';
+      if (isNarrow()) { renderLeaderboardCards(list); return; }
+      document.getElementById('crucible-lb-narrow').innerHTML = '';
       var columns = [{ key: null, label: '#' }, { key: 'model', label: 'Model' }]
         .concat(TIERS.map(function (t) { return { key: t.id, label: t.label }; }))
         .concat([{ key: 'time', label: 'Time / task' }, { key: 'cost', label: 'Cost / task' }]);
@@ -740,7 +755,6 @@
         row.appendChild(el('td', { class: 'crucible-lb-num' }, costLabel(s)));
         body.appendChild(row);
       });
-      renderLeaderboardCards(list);
     }
 
     function costLabel(s) { return s.local ? '$0 · local' : fmtUsd(s.cost); }
@@ -769,7 +783,7 @@
       bar.appendChild(select);
       box.appendChild(bar);
 
-      var ol = box.appendChild(el('ol', { class: 'crucible-lb-cards' }));
+      var ol = box.appendChild(el('ul', { class: 'crucible-lb-cards' }));
       var rank = 0;
       list.forEach(function (s) {
         var label = rankLabel(s, rank + 1);
@@ -1023,6 +1037,8 @@
       table.innerHTML = '';
       document.getElementById('crucible-cell-detail').hidden = true;
       var rows = list.filter(function (s) { return s.ran; });
+      if (isNarrow()) { table.innerHTML = ''; renderMatrixNarrow(rows); return; }
+      document.getElementById('crucible-matrix-narrow').innerHTML = '';
 
       var tierRow = el('tr');
       tierRow.appendChild(el('th', { scope: 'col' }));
@@ -1068,7 +1084,6 @@
         body.appendChild(row);
       });
       if (!rows.length) body.appendChild(el('tr')).appendChild(el('td', { class: 'crucible-not-run' }, 'No runs with ' + harnessPhrase() + ' yet.'));
-      renderMatrixNarrow(rows);
     }
 
     // Below 640 px the matrix is one task at a time: pick a task, see every model's score on it
@@ -1149,12 +1164,12 @@
       var head = el('tr');
       head.appendChild(el('th', { scope: 'col' }, 'Model'));
       var areas = modeInfo().areas.filter(function (a) { return orderedTests.some(function (t) { return t.area === a.id; }); });
-      areas.forEach(function (a) { head.appendChild(el('th', { scope: 'col' }, a.label)); });
+      (isNarrow() ? [] : areas).forEach(function (a) { head.appendChild(el('th', { scope: 'col' }, a.label)); });
       table.appendChild(el('thead')).appendChild(head);
 
       var body = table.appendChild(el('tbody'));
       var ran = list.filter(function (s) { return s.ran; });
-      ran.forEach(function (s) {
+      (isNarrow() ? [] : ran).forEach(function (s) {
         var row = el('tr');
         var th = el('th', { scope: 'row' });
         th.appendChild(el('span', {}, modelLabel(s.model)));
@@ -1171,7 +1186,7 @@
       // Below 640 px: pick a model, areas run down the page
       var box = document.getElementById('crucible-heatmap-narrow');
       box.innerHTML = '';
-      if (!ran.length) return;
+      if (!ran.length || !isNarrow()) return;
       if (!ran.some(function (s) { return s.model === heatModel; })) heatModel = ran[0].model;
       var pick = box.appendChild(el('div', { class: 'crucible-toolbar crucible-toolbar-tight' }));
       pick.appendChild(el('label', { class: 'crucible-toolbar-label', for: 'heat-model' }, 'Model'));
@@ -1377,6 +1392,7 @@
 
     function render() {
       bestCache = {};
+      applyLayout();
       selectMode();
       var list = rankedStats();
       renderControls();
@@ -1400,10 +1416,22 @@
       if (wanted !== mode) { mode = wanted; harness = 'best'; render(); }
     });
 
+    // Crossing 640 px swaps the layouts
+    var shownNarrow = isNarrow();
+    function relayout() {
+      if (isNarrow() === shownNarrow) return;
+      shownNarrow = isNarrow();
+      render();
+    }
+    if (narrowQuery) {
+      if (narrowQuery.addEventListener) narrowQuery.addEventListener('change', relayout);
+      else if (narrowQuery.addListener) narrowQuery.addListener(relayout);
+    }
+
     var resizeTimer;
     window.addEventListener('resize', function () {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(function () { renderScatter(rankedStats()); }, 150);
+      resizeTimer = setTimeout(function () { relayout(); renderScatter(rankedStats()); }, 150);
     });
 
     var release = data.release && data.release.release ? 'Release ' + data.release.release + '. ' : '';

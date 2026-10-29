@@ -1059,7 +1059,7 @@ $crucibleBlue: #1856a3;
   // Tier shows as the square's outline weight: easy thin, hard thick
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
 
-  &.is-forge {
+  &.is-role-stretch {
     box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.35);
   }
 
@@ -1143,4 +1143,159 @@ $crucibleBlue: #1856a3;
 
 .crucible-progress-note {
   margin-top: -$gap / 2;
+}
+
+// Loading and error states
+
+.crucible-status {
+  margin: $gap 0;
+  color: $gray;
+  font-size: $textSmall;
+}
+
+.crucible-retry {
+  margin-left: 4px;
+}
+
+// Narrow screens. Each wide table keeps its place at 640 px and up; below it, the leaderboard
+// becomes cards and the task matrix and area heatmap show one task or one model at a time.
+
+.crucible-lb-narrow,
+.crucible-matrix-narrow,
+.crucible-heatmap-narrow {
+  display: none;
+}
+
+.crucible-lb-sortbar {
+  display: flex;
+  align-items: center;
+  gap: $gap / 2;
+  margin-bottom: $gap / 2;
+  color: $gray;
+  font-size: $textSmall;
+  font-weight: $weightBold;
+}
+
+.crucible-lb-cards {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.crucible-lb-card {
+  padding: ($gap * 0.75) 0;
+  border-bottom: 1px solid $crucibleBorder;
+  font-size: $textSmall;
+  font-variant-numeric: tabular-nums;
+
+  &.is-not-run {
+    color: $crucibleMuted;
+  }
+
+  p {
+    margin: 4px 0 0 2em;
+  }
+}
+
+.crucible-lb-card-top {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+
+  .crucible-lb-rank {
+    flex: 0 0 2em;
+    width: auto;
+  }
+}
+
+.crucible-lb-card-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 6px;
+  min-width: 0;
+}
+
+.crucible-lb-card-score {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 0 2em;
+
+  .crucible-lb-bar {
+    flex: 1 1 auto;
+    width: auto;
+    max-width: 220px;
+    margin-right: 0;
+  }
+}
+
+.crucible-lb-card-line {
+  color: $gray;
+}
+
+.crucible-narrow-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.crucible-narrow-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $gap / 2;
+  padding: 8px 0;
+  border-bottom: 1px solid $crucibleBorder;
+  font-size: $textSmall;
+  font-variant-numeric: tabular-nums;
+
+  button {
+    min-width: 3em;
+    padding: 6px 10px;
+    border: 1px solid $crucibleBorder;
+    border-radius: 6px;
+    font: inherit;
+    font-weight: $weightBold;
+    cursor: pointer;
+  }
+}
+
+.crucible-narrow-cell {
+  display: flex;
+  flex-direction: column;
+  min-width: 6em;
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-align: center;
+
+  &.is-not-run {
+    color: $crucibleMuted;
+  }
+}
+
+@media screen and (max-width: 639px) {
+  .crucible-lb-wide,
+  .crucible-matrix-wide,
+  .crucible-heatmap-wide {
+    display: none;
+  }
+
+  .crucible-lb-narrow,
+  .crucible-matrix-narrow,
+  .crucible-heatmap-narrow {
+    display: block;
+  }
+
+  .crucible-heading-row {
+    flex-wrap: wrap;
+  }
+
+  .crucible-toolbar {
+    flex-wrap: wrap;
+  }
+
+  .crucible-segmented {
+    flex-wrap: wrap;
+  }
 }

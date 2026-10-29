@@ -1,0 +1,6 @@
+---
+layout: null
+permalink: /crucible/data.json
+sitemap: false
+---
+{"bundles": {{ site.data.crucible | jsonify }}, "fallbacks": {{ site.data.crucible_fallbacks | jsonify }}}

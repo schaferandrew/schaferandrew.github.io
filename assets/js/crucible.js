@@ -254,7 +254,7 @@
     function isNarrow() { return !!(narrowQuery && narrowQuery.matches); }
     function applyLayout() {
       var narrow = isNarrow();
-      ['crucible-lb', 'crucible-matrix', 'crucible-heatmap'].forEach(function (name) {
+      ['crucible-lb', 'crucible-matrix', 'crucible-heatmap', 'crucible-tests'].forEach(function (name) {
         var wide = document.querySelector('.' + name + '-wide'), box = document.getElementById(name + '-narrow');
         if (wide) wide.hidden = narrow;
         if (box) box.hidden = !narrow;
@@ -766,6 +766,25 @@
       render();
     }
 
+    // A tier's score as a bar with its marking, for any tier: provisional and partial say so in words
+    function tierBarInto(s, t, into) {
+      var result = s.tier[t.id], prov = s.provisional[t.id];
+      var counted = result && result.score !== null;
+      var score = counted ? result.score : prov && prov.score !== null ? prov.score : null;
+      if (score === null) { into.appendChild(el('span', {}, NONE)); return; }
+      var partial = counted && result.partial;
+      var bar = el('span', { class: 'crucible-lb-bar' + (partial || !counted ? ' is-partial' : '') });
+      var fill = el('span', { class: 'crucible-lb-fill' + (s.local ? ' is-local' : '') });
+      fill.style.width = (score * 10) + '%';
+      bar.appendChild(fill);
+      into.appendChild(bar);
+      into.appendChild(el('span', { class: 'crucible-lb-score' }, fmtScore(score)));
+      var verdict = s.verdict[t.id];
+      if (verdict) into.appendChild(el('span', { class: 'crucible-verdict is-' + verdict }, verdict === 'pass' ? '✓ Pass' : verdict === 'fail' ? '✕ Fail' : 'Partial'));
+      if (partial) into.appendChild(el('span', { class: 'crucible-lb-note' }, 'partial · ' + result.scored + '/' + result.total));
+      else if (!counted) into.appendChild(el('span', { class: 'crucible-lb-note' }, 'provisional'));
+    }
+
     // Below 640 px the table is hidden and each model is a card: rank, name, the headline score
     // as a bar, one line with the other tiers, time and cost, and the hardware underneath
     function renderLeaderboardCards(list) {
@@ -800,19 +819,26 @@
           ol.appendChild(card);
           return;
         }
+        // The bar follows the sort: the tier sorted by, else the headline tier
+        var barTier = tierSeen[sort.key] === true ? tierById(sort.key) : HEADLINE;
         var headline = card.appendChild(el('div', { class: 'crucible-lb-card-score' }));
-        tierCellContent(s, HEADLINE, headline);
-        if (!headline.firstChild) headline.textContent = NONE;
+        headline.appendChild(el('span', { class: 'crucible-lb-card-label' }, barTier.label));
+        tierBarInto(s, barTier, headline);
         var parts = [];
         TIERS.forEach(function (t) {
-          if (t.id === HEAD) return;
+          if (t.id === barTier.id) return;
           var holder = el('span');
           tierCellContent(s, t, holder);
           var text = Array.prototype.map.call(holder.children, function (c) { return c.textContent; }).join(' ');
           if (text) parts.push(t.label + ' ' + text);
         });
-        parts.push(fmtSeconds(s.time) + '/task', costLabel(s) + '/task');
-        card.appendChild(el('p', { class: 'crucible-lb-card-line' }, parts.join(' · ')));
+        var time = fmtSeconds(s.time) + '/task', cost = costLabel(s) + '/task';
+        var line = card.appendChild(el('p', { class: 'crucible-lb-card-line' }));
+        // Time and cost have no 0-10 bar, so the sorted one leads the line, in bold
+        if (sort.key === 'time') line.appendChild(el('strong', {}, 'Time ' + time));
+        else if (sort.key === 'cost') line.appendChild(el('strong', {}, 'Cost ' + cost));
+        var rest = parts.concat(sort.key === 'time' ? [cost] : sort.key === 'cost' ? [time] : [time, cost]);
+        line.appendChild(document.createTextNode((line.firstChild ? ' · ' : '') + rest.join(' · ')));
         if (s.hardware) card.appendChild(el('p', { class: 'crucible-legend-hw' }, s.hardware));
         ol.appendChild(card);
       });
@@ -1086,43 +1112,57 @@
       if (!rows.length) body.appendChild(el('tr')).appendChild(el('td', { class: 'crucible-not-run' }, 'No runs with ' + harnessPhrase() + ' yet.'));
     }
 
-    // Below 640 px the matrix is one task at a time: pick a task, see every model's score on it
-    var narrowTask = null;
+    // Below 640 px each table row becomes a card of label and value pairs
+    function modelCard(s, ul) {
+      var li = ul.appendChild(el('li', { class: 'crucible-card' }));
+      var title = li.appendChild(el('div', { class: 'crucible-card-title' }));
+      title.appendChild(el('span', { class: 'crucible-legend-name' }, modelLabel(s.model)));
+      title.appendChild(el('span', { class: 'crucible-tag' + (s.local ? ' is-local' : '') }, s.local ? 'local' : 'cloud'));
+      if (showsHarnessTag() && s.harness) title.appendChild(el('span', { class: 'crucible-tag crucible-harness-tag' }, s.harness));
+      return li;
+    }
+
+    function kvRow(parent, label, value, extraClass) {
+      var row = parent.appendChild(el('div', { class: 'crucible-kv' + (extraClass ? ' ' + extraClass : '') }));
+      row.appendChild(typeof label === 'string' ? el('span', { class: 'crucible-kv-label' }, label) : label);
+      row.appendChild(typeof value === 'string' ? el('span', { class: 'crucible-kv-value' }, value) : value);
+      return row;
+    }
+
+    // The matrix, one card per model: every task's score, grouped by tier
     function renderMatrixNarrow(rows) {
       var box = document.getElementById('crucible-matrix-narrow');
       box.innerHTML = '';
-      if (!orderedTests.length) return;
-      if (!orderedTests.some(function (t) { return t.id === narrowTask; })) narrowTask = orderedTests[0].id;
-      var task = orderedTests.filter(function (t) { return t.id === narrowTask; })[0];
-      var pick = box.appendChild(el('div', { class: 'crucible-toolbar crucible-toolbar-tight' }));
-      pick.appendChild(el('label', { class: 'crucible-toolbar-label', for: 'matrix-task' }, 'Test'));
-      var select = pick.appendChild(el('select', { class: 'crucible-select', id: 'matrix-task' }));
-      tiers.forEach(function (tier) {
-        var group = select.appendChild(el('optgroup', { label: tierLabel(tier) }));
-        orderedTests.filter(function (t) { return t.tier === tier; }).forEach(function (t) {
-          var opt = el('option', { value: t.id }, t.id + (t.status === 'provisional' ? ' (provisional)' : ''));
-          if (t.id === narrowTask) opt.selected = true;
-          group.appendChild(opt);
-        });
-      });
-      select.addEventListener('change', function () { narrowTask = select.value; renderMatrixNarrow(rows); });
-      box.appendChild(el('p', { class: 'crucible-sub' }, task.summary || task.name || task.id));
-      var ul = box.appendChild(el('ul', { class: 'crucible-narrow-list' }));
+      if (!rows.length) {
+        box.appendChild(el('p', { class: 'crucible-not-run' }, 'No runs with ' + harnessPhrase() + ' yet.'));
+        return;
+      }
+      var ul = box.appendChild(el('ul', { class: 'crucible-cards' }));
       rows.forEach(function (s) {
-        var c = cell(s.model, s.harness, task.id);
-        var score = c ? c.run.best_score : null;
-        var li = el('li', { class: 'crucible-narrow-row' + (c ? '' : ' is-empty') });
-        li.appendChild(el('span', { class: 'crucible-narrow-name' }, modelLabel(s.model) + (showsHarnessTag() ? ' · ' + s.harness : '')));
-        if (c) {
-          var button = el('button', { type: 'button', 'aria-label': modelLabel(s.model) + ' ' + task.id + ': ' + fmtScore(score) }, score === null ? '?' : fmtScore(score));
-          if (score !== null) button.setAttribute('style', heatStyle(score));
-          if (c.run.timed_out) button.classList.add('is-timeout');
-          button.addEventListener('click', function () { showCellDetail(s, task, c); });
-          li.appendChild(button);
-        } else {
-          li.appendChild(el('span', { class: 'crucible-not-run' }, 'not run'));
-        }
-        ul.appendChild(li);
+        var li = modelCard(s, ul);
+        tiers.forEach(function (tier) {
+          li.appendChild(el('p', { class: 'crucible-card-group' }, tierLabel(tier)));
+          orderedTests.filter(function (t) { return t.tier === tier; }).forEach(function (t) {
+            var c = cell(s.model, s.harness, t.id);
+            var label = el('span', { class: 'crucible-kv-label', title: t.summary || '' }, t.id);
+            if (t.status === 'provisional') label.appendChild(el('span', { class: 'crucible-tag' }, 'provisional'));
+            var value;
+            if (c) {
+              var score = c.run.best_score;
+              value = el('button', { type: 'button', class: 'crucible-card-score', 'aria-label': modelLabel(s.model) + ' ' + t.id + ': ' + fmtScore(score) }, score === null ? '?' : fmtScore(score));
+              if (score !== null) value.setAttribute('style', heatStyle(score));
+              if (c.run.timed_out) value.classList.add('is-timeout');
+              if (c.run.score_source === 'checks') value.classList.add('is-checked');
+              value.addEventListener('click', function () {
+                showCellDetail(s, t, c);
+                document.getElementById('crucible-cell-detail').scrollIntoView({ block: 'start' });
+              });
+            } else {
+              value = el('span', { class: 'crucible-not-run' }, 'not run');
+            }
+            kvRow(li, label, value, t.status === 'provisional' ? 'is-provisional' : '');
+          });
+        });
       });
     }
 
@@ -1157,7 +1197,6 @@
       td.appendChild(el('span', { class: 'crucible-heat-n' }, r.cells.length + '/' + r.tests.length + (r.provisional ? ' provisional' : ' tests')));
     }
 
-    var heatModel = null;
     function renderHeatmap(list) {
       var table = document.getElementById('crucible-heatmap');
       table.innerHTML = '';
@@ -1183,29 +1222,18 @@
         body.appendChild(row);
       });
 
-      // Below 640 px: pick a model, areas run down the page
+      // Below 640 px: one card per model, each area's mean and how many of its tests ran
       var box = document.getElementById('crucible-heatmap-narrow');
       box.innerHTML = '';
       if (!ran.length || !isNarrow()) return;
-      if (!ran.some(function (s) { return s.model === heatModel; })) heatModel = ran[0].model;
-      var pick = box.appendChild(el('div', { class: 'crucible-toolbar crucible-toolbar-tight' }));
-      pick.appendChild(el('label', { class: 'crucible-toolbar-label', for: 'heat-model' }, 'Model'));
-      var select = pick.appendChild(el('select', { class: 'crucible-select', id: 'heat-model' }));
+      var ul = box.appendChild(el('ul', { class: 'crucible-cards' }));
       ran.forEach(function (s) {
-        var opt = el('option', { value: s.model }, modelLabel(s.model) + (s.local ? ' (local)' : ''));
-        if (s.model === heatModel) opt.selected = true;
-        select.appendChild(opt);
-      });
-      select.addEventListener('change', function () { heatModel = select.value; renderHeatmap(list); });
-      var chosen = ran.filter(function (s) { return s.model === heatModel; })[0];
-      var ul = box.appendChild(el('ul', { class: 'crucible-narrow-list' }));
-      areas.forEach(function (area) {
-        var li = el('li', { class: 'crucible-narrow-row' });
-        li.appendChild(el('span', { class: 'crucible-narrow-name' }, area.label));
-        var td = el('span', { class: 'crucible-narrow-cell' });
-        areaCellInto(td, areaResult(chosen, area));
-        li.appendChild(td);
-        ul.appendChild(li);
+        var li = modelCard(s, ul);
+        areas.forEach(function (area) {
+          var holder = el('span', { class: 'crucible-narrow-cell' });
+          areaCellInto(holder, areaResult(s, area));
+          kvRow(li, area.label, holder);
+        });
       });
     }
 
@@ -1306,12 +1334,97 @@
         idsList.slice(0, 8).join(', ') + (idsList.length > 8 ? ', …' : '') + '). They aren\'t counted in any score.';
     }
 
+    // The collapsible area header: its mean, how many tests ran, and one square per test
+    function areaToggle(area, tests, cells, key, open) {
+      var ran = cells.filter(Boolean).length;
+      var avg = mean(cells.map(function (c) { return c ? c.run.best_score : null; }));
+      var button = el('button', { type: 'button', class: 'crucible-area-toggle', 'aria-expanded': open });
+      button.appendChild(el('span', { class: 'crucible-area-caret', 'aria-hidden': 'true' }, open ? '▾' : '▸'));
+      button.appendChild(el('span', { class: 'crucible-area-name' }, area.label));
+      button.appendChild(el('span', { class: 'crucible-tag' }, String(tests[0].id).split('-')[0]));
+      var chip = el('span', { class: 'crucible-area-score' }, avg === null ? NONE : (isNarrow() ? 'mean ' : '') + fmtScore(avg));
+      if (avg !== null) chip.setAttribute('style', heatStyle(avg));
+      button.appendChild(chip);
+      button.appendChild(el('span', { class: 'crucible-area-count' }, ran + '/' + tests.length + ' run'));
+      var strip = el('span', { class: 'crucible-area-strip', 'aria-hidden': 'true' });
+      tests.forEach(function (t, k) {
+        var c = cells[k], score = c ? c.run.best_score : null;
+        var sq = el('span', { class: 'crucible-area-sq is-role-' + tierRole(t.tier) + (c ? '' : ' is-empty'), title: t.id + ' · ' + tierLabel(t.tier) + ' · ' + (c ? fmtScore(score) : 'not run') });
+        if (score !== null) sq.setAttribute('style', heatStyle(score));
+        strip.appendChild(sq);
+      });
+      button.appendChild(strip);
+      button.addEventListener('click', function () { openAreas[key] = !open; renderTests(); });
+      return button;
+    }
+
+    // Below 640 px a test is a card: its numbers as label and value pairs, tap for its detail
+    function testCard(m, t, ul) {
+      var c = cell(m, harnessFor(m), t.id);
+      var li = ul.appendChild(el('li', { class: 'crucible-card crucible-test-card' + (c ? '' : ' is-not-run') }));
+      var title = li.appendChild(el('div', { class: 'crucible-card-title' }));
+      title.appendChild(el('span', { class: 'crucible-test-id' }, t.id));
+      title.appendChild(el('span', { class: 'crucible-tag crucible-tier-tag is-' + t.tier }, tierLabel(t.tier)));
+      if (t.status === 'provisional') title.appendChild(el('span', { class: 'crucible-tag' }, 'provisional'));
+      li.appendChild(el('p', { class: 'crucible-test-summary' }, t.summary || t.name || ''));
+      if (!c) { li.appendChild(el('p', { class: 'crucible-not-run' }, 'not run')); return; }
+      var r = c.run;
+      var score = el('span', { class: 'crucible-kv-value' });
+      score.appendChild(el('span', { class: 'crucible-score-num' }, fmtScore(r.best_score)));
+      var bar = score.appendChild(el('span', { class: 'crucible-bar' + (r.counts ? '' : ' is-uncounted') }));
+      var fill = bar.appendChild(el('span', { class: 'crucible-bar-fill' }));
+      fill.style.width = (r.best_score === null ? 0 : r.best_score * 10) + '%';
+      kvRow(li, 'Score', score);
+      var time = el('span', { class: 'crucible-kv-value' }, fmtSeconds(r.elapsed_s));
+      if (r.timed_out || r.status !== 'COMPLETE') time.appendChild(el('span', { class: 'crucible-flag' }, r.timed_out ? 'timed out' : (r.status || '').toLowerCase()));
+      kvRow(li, 'Time', time);
+      if (modeHasToolCalls()) kvRow(li, 'Tool calls', fmtInt(r.tool_calls));
+      kvRow(li, 'Tokens out', fmtInt(r.tokens_out));
+      kvRow(li, 'Cost', isLocal(m) ? '$0' : fmtUsd(r.cost_usd));
+      kvRow(li, 'Runs', String(c.count));
+      var detail = li.appendChild(el('div', { class: 'crucible-detail', hidden: '' }));
+      promptBlock(t, detail);
+      runDetail(r, detail);
+      var notes = ['Run ' + r.run_id, (r.status || NONE).toLowerCase(), 'test v' + (r.test_version || '?'), 'tokens in ' + fmtInt(r.tokens_in)];
+      if (c.count > 1) notes.push('showing the latest of ' + c.count + ' runs');
+      if (!r.counts) notes.push(t.status === 'provisional' ? 'provisional test, not in tier scores' : 'older test version, not in tier scores');
+      detail.appendChild(el('p', { class: 'crucible-detail-meta' }, notes.join(' · ')));
+      var more = li.appendChild(el('button', { type: 'button', class: 'crucible-card-more', 'aria-expanded': 'false' }, 'Show checks and output'));
+      more.addEventListener('click', function () {
+        var open = detail.hidden;
+        detail.hidden = !open;
+        more.setAttribute('aria-expanded', open);
+        more.textContent = open ? 'Hide checks and output' : 'Show checks and output';
+      });
+    }
+
+    function renderTestsNarrow(m) {
+      var box = document.getElementById('crucible-tests-narrow');
+      box.innerHTML = '';
+      modeInfo().areas.forEach(function (area) {
+        var tests = orderedTests.filter(function (t) { return t.area === area.id; });
+        if (!tests.length) return;
+        tests.sort(function (a, b) { return tiers.indexOf(a.tier) - tiers.indexOf(b.tier); });
+        var cells = tests.map(function (t) { return cell(m, harnessFor(m), t.id); });
+        var key = mode + ':' + area.id;
+        var open = !!openAreas[key];
+        var group = box.appendChild(el('div', { class: 'crucible-area-narrow' + (open ? ' is-open' : '') }));
+        group.appendChild(areaToggle(area, tests, cells, key, open));
+        if (open) {
+          var ul = group.appendChild(el('ul', { class: 'crucible-cards' }));
+          tests.forEach(function (t) { testCard(m, t, ul); });
+        }
+      });
+    }
+
     function renderTests() {
       var table = document.getElementById('crucible-tests');
       table.innerHTML = '';
       renderOtherRuns();
       if (!detailModel) return;
       var m = detailModel;
+      if (isNarrow()) { renderTestsNarrow(m); return; }
+      document.getElementById('crucible-tests-narrow').innerHTML = '';
       var columns = ['Test', 'Score', 'Time'].concat(modeHasToolCalls() ? ['Tool calls'] : [], ['Tokens out', 'Cost', 'Runs']);
       var head = el('tr');
       columns.forEach(function (c) { head.appendChild(el('th', { scope: 'col' }, c)); });
@@ -1322,32 +1435,13 @@
         if (!tests.length) return;
         tests.sort(function (a, b) { return tiers.indexOf(a.tier) - tiers.indexOf(b.tier); });
         var cells = tests.map(function (t) { return cell(m, harnessFor(m), t.id); });
-        var ran = cells.filter(Boolean).length;
-        var avg = mean(cells.map(function (c) { return c ? c.run.best_score : null; }));
         var key = mode + ':' + area.id;
         var open = !!openAreas[key];
 
         var body = table.appendChild(el('tbody', { class: 'crucible-area' + (open ? ' is-open' : '') }));
         var groupRow = el('tr', { class: 'crucible-group crucible-area-row' });
         var th = el('th', { colspan: columns.length, scope: 'rowgroup' });
-        var button = el('button', { type: 'button', class: 'crucible-area-toggle', 'aria-expanded': open });
-        button.appendChild(el('span', { class: 'crucible-area-caret', 'aria-hidden': 'true' }, open ? '▾' : '▸'));
-        button.appendChild(el('span', { class: 'crucible-area-name' }, area.label));
-        button.appendChild(el('span', { class: 'crucible-tag' }, String(tests[0].id).split('-')[0]));
-        var chip = el('span', { class: 'crucible-area-score' }, avg === null ? NONE : fmtScore(avg));
-        if (avg !== null) chip.setAttribute('style', heatStyle(avg));
-        button.appendChild(chip);
-        button.appendChild(el('span', { class: 'crucible-area-count' }, ran + '/' + tests.length + ' run'));
-        var strip = el('span', { class: 'crucible-area-strip', 'aria-hidden': 'true' });
-        tests.forEach(function (t, k) {
-          var c = cells[k], score = c ? c.run.best_score : null;
-          var sq = el('span', { class: 'crucible-area-sq is-role-' + tierRole(t.tier) + (c ? '' : ' is-empty'), title: t.id + ' · ' + tierLabel(t.tier) + ' · ' + (c ? fmtScore(score) : 'not run') });
-          if (score !== null) sq.setAttribute('style', heatStyle(score));
-          strip.appendChild(sq);
-        });
-        button.appendChild(strip);
-        button.addEventListener('click', function () { openAreas[key] = !open; renderTests(); });
-        th.appendChild(button);
+        th.appendChild(areaToggle(area, tests, cells, key, open));
         groupRow.appendChild(th);
         body.appendChild(groupRow);
         if (open) tests.forEach(function (t) { testRow(m, t, columns, body); });

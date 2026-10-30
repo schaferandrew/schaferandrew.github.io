@@ -1,0 +1,493 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "183efbb8-c6f2-4174-a542-9cb084584053",
+ "rubric_version": 4,
+ "rubric_hash": "c9a169ab0763f926",
+ "method": "hidden_tests",
+ "scored_at": "2026-10-30T07:51:14.789312+00:00",
+ "crucible_version": "3.4.1",
+ "raw": {
+  "passed": 55,
+  "total": 55,
+  "unit": "tests"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "cursor paging > walks every article once, newest first, ending with nextCursor null",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "walks every article once, newest first, ending with nextCursor null",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > ends with a null nextCursor when the last page is exactly full",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "ends with a null nextCursor when the last page is exactly full",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > is total even when createdAt ties",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "is total even when createdAt ties",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > never skips or repeats when articles are created between pages",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "never skips or repeats when articles are created between pages",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > never skips or repeats when an article already read is deleted between pages",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "never skips or repeats when an article already read is deleted between pages",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > never skips or repeats when articles not yet read are deleted between pages",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "never skips or repeats when articles not yet read are deleted between pages",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > never skips or repeats with creates and deletes between every page",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "never skips or repeats with creates and deletes between every page",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > never skips or repeats when an article is favorited between pages",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "never skips or repeats when an article is favorited between pages",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > is stable when the page size changes between requests",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "is stable when the page size changes between requests",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > pages a tag filter",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "pages a tag filter",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > pages an author filter",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "pages an author filter",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > pages the favorited filter",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "pages the favorited filter",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > pages the feed",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "pages the feed",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > keeps the feed stable while the followed author publishes and deletes",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "keeps the feed stable while the followed author publishes and deletes",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > keeps articlesCount as the filtered total on every page",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "keeps articlesCount as the filtered total on every page",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > shows the viewer's favorited flag on a cursor page",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "shows the viewer's favorited flag on a cursor page",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging: comments > pages comments newest first, once each, ending with nextCursor null",
+   "type": "hidden_test",
+   "group": "cursor paging: comments",
+   "label": "pages comments newest first, once each, ending with nextCursor null",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging: comments > never skips or repeats when comments are added between pages",
+   "type": "hidden_test",
+   "group": "cursor paging: comments",
+   "label": "never skips or repeats when comments are added between pages",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging: comments > never skips or repeats when comments are deleted between pages",
+   "type": "hidden_test",
+   "group": "cursor paging: comments",
+   "label": "never skips or repeats when comments are deleted between pages",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging: comments > is total even when comments share a createdAt",
+   "type": "hidden_test",
+   "group": "cursor paging: comments",
+   "label": "is total even when comments share a createdAt",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging: comments > returns nextCursor as a string with a limit smaller than the comment count",
+   "type": "hidden_test",
+   "group": "cursor paging: comments",
+   "label": "returns nextCursor as a string with a limit smaller than the comment count",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation > rejects a malformed cursor with the usual error envelope",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects a malformed cursor with the usual error envelope",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation > rejects a cursor with its end altered",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects a cursor with its end altered",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation > rejects a cursor with its middle altered",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects a cursor with its middle altered",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation > rejects a cursor whose position was edited",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects a cursor whose position was edited",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation > rejects a truncated cursor",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects a truncated cursor",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation > rejects a cursor made for a filter when it is used without one",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects a cursor made for a filter when it is used without one",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation > rejects a cursor used with a different tag",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects a cursor used with a different tag",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation > rejects an unfiltered cursor used with a filter",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects an unfiltered cursor used with a filter",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation > rejects a cursor used with a different author",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects a cursor used with a different author",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation > rejects a list cursor on the feed, and a feed cursor on the list",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects a list cursor on the feed, and a feed cursor on the list",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation > rejects an article cursor on comments, and a comment cursor on articles",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects an article cursor on comments, and a comment cursor on articles",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation > rejects cursor together with offset",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects cursor together with offset",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation > rejects cursor together with offset=0, and on the feed",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects cursor together with offset=0, and on the feed",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation > still requires sign-in for the feed when a cursor is sent",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "still requires sign-in for the feed when a cursor is sent",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "backward compatibility > offset paging is unchanged",
+   "type": "hidden_test",
+   "group": "backward compatibility",
+   "label": "offset paging is unchanged",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "backward compatibility > offset paging works with filters and the feed",
+   "type": "hidden_test",
+   "group": "backward compatibility",
+   "label": "offset paging works with filters and the feed",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "backward compatibility > offset past the end returns an empty page with the total",
+   "type": "hidden_test",
+   "group": "backward compatibility",
+   "label": "offset past the end returns an empty page with the total",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "backward compatibility > a request without limit, offset or cursor still returns the newest articles first",
+   "type": "hidden_test",
+   "group": "backward compatibility",
+   "label": "a request without limit, offset or cursor still returns the newest articles first",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "backward compatibility > a bad limit or offset is still a 422 in the old envelope",
+   "type": "hidden_test",
+   "group": "backward compatibility",
+   "label": "a bad limit or offset is still a 422 in the old envelope",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "backward compatibility > an offset client can still walk the whole list, a cursor client in between changes nothing",
+   "type": "hidden_test",
+   "group": "backward compatibility",
+   "label": "an offset client can still walk the whole list, a cursor client in between changes nothing",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "backward compatibility > unpaged comments return everything, newest first",
+   "type": "hidden_test",
+   "group": "backward compatibility",
+   "label": "unpaged comments return everything, newest first",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "backward compatibility > a comments limit alone returns the newest page",
+   "type": "hidden_test",
+   "group": "backward compatibility",
+   "label": "a comments limit alone returns the newest page",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "backward compatibility > comments keep their shape",
+   "type": "hidden_test",
+   "group": "backward compatibility",
+   "label": "comments keep their shape",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "web: load more > the home page loads more articles and keeps the loaded ones on screen",
+   "type": "hidden_test",
+   "group": "web: load more",
+   "label": "the home page loads more articles and keeps the loaded ones on screen",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "web: load more > the home page asks for the next page with the cursor it was given, not an offset",
+   "type": "hidden_test",
+   "group": "web: load more",
+   "label": "the home page asks for the next page with the cursor it was given, not an offset",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "web: load more > the Load more button is gone on the last page",
+   "type": "hidden_test",
+   "group": "web: load more",
+   "label": "the Load more button is gone on the last page",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "web: load more > there is no Load more button when everything fits on one page",
+   "type": "hidden_test",
+   "group": "web: load more",
+   "label": "there is no Load more button when everything fits on one page",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "web: load more > numbered pagination is gone",
+   "type": "hidden_test",
+   "group": "web: load more",
+   "label": "numbered pagination is gone",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "web: load more > the signed-in feed loads more the same way",
+   "type": "hidden_test",
+   "group": "web: load more",
+   "label": "the signed-in feed loads more the same way",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "web: load more > the profile's articles load more, keeping the author filter",
+   "type": "hidden_test",
+   "group": "web: load more",
+   "label": "the profile's articles load more, keeping the author filter",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "web: load more > the profile's favorited tab loads more, keeping the favorited filter",
+   "type": "hidden_test",
+   "group": "web: load more",
+   "label": "the profile's favorited tab loads more, keeping the favorited filter",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "web: load more > comments on the article page load more and stay on screen",
+   "type": "hidden_test",
+   "group": "web: load more",
+   "label": "comments on the article page load more and stay on screen",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "web: load more > the comments' Load more button is gone on the last page",
+   "type": "hidden_test",
+   "group": "web: load more",
+   "label": "the comments' Load more button is gone on the last page",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "regression > your new tests fail on the seeded code and pass on your fix",
+   "type": "hidden_test",
+   "group": "regression",
+   "label": "your new tests fail on the seeded code and pass on your fix",
+   "passed": true,
+   "detail": null
+  }
+ ],
+ "groups": [
+  {
+   "id": "Cursor correctness",
+   "passed": 3.82,
+   "total": 3.82,
+   "detail": "21/21 hidden tests pass"
+  },
+  {
+   "id": "Validation and safety",
+   "passed": 2.55,
+   "total": 2.55,
+   "detail": "14/14 hidden tests pass"
+  },
+  {
+   "id": "Backward compatibility",
+   "passed": 1.64,
+   "total": 1.64,
+   "detail": "9/9 hidden tests pass"
+  },
+  {
+   "id": "Web app",
+   "passed": 1.82,
+   "total": 1.82,
+   "detail": "10/10 hidden tests pass"
+  },
+  {
+   "id": "Regression tests",
+   "passed": 0.18,
+   "total": 0.18,
+   "detail": "1/1 hidden tests pass"
+  }
+ ]
+}

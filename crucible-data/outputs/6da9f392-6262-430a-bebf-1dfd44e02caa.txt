@@ -1,0 +1,13 @@
+The task is complete. Here's a summary:
+
+**slots.json** has been created with:
+- **85 valid slots** across the full window (Mon 2026-08-31 through Mon 2026-09-07, 09:00–17:00 CT, weekends included)
+- **Top 3 picks** based on the criteria:
+
+| Rank | Slot | Why |
+|------|------|-----|
+| 1 | `2026-08-31T15:30` | Back-to-back after Jamie's sales call (ends 15:30), minimal 30min gap to end-of-day, weekday, avoids first/last hour |
+| 2 | `2026-08-31T11:00` | Back-to-back after Alex's standup (ends 11:00), 60min gap before Alex's 13:00 design review, weekday, avoids first/last hour |
+| 3 | `2026-09-04T15:00` | Back-to-back after Alex's project review (ends 15:00) on Friday, 60min gap to end-of-day, weekday, avoids first/last hour |
+
+All three picks are on weekdays, immediately adjacent to existing meetings (minimizing gaps), and avoid the first hour (09:00–10:00) and last hour (16:00–17:00).

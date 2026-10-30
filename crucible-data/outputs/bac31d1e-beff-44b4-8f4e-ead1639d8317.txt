@@ -1,0 +1,46 @@
+All 14 tests pass. Here's the complete summary:
+
+---
+
+## Diagnosis & Fix Summary
+
+### Root Cause
+The dashboard intermittently showed blank after login because:
+
+1. **Server-side**: Sessions have a 30-second TTL (`sessionTtlSeconds: 30` in `accounts.json`). When `/api/dashboard` was requested with an expired/stale/missing session, the server returned **HTTP 200** with `{user: null, dashboardMessage: ""}` — masking the auth failure as success.
+
+2. **Client-side**: The `loadDashboard()` function in `dashboard.html` treated a null `data.user` by clearing the page content to empty strings (`''`) and stayed on the dashboard page with no redirect and no error message.
+
+So whenever a user loaded the dashboard more than 30 seconds after logging in, they'd get a completely blank page with no indication of what happened.
+
+### Fix (3 files changed)
+
+**`server.js`** — The `/api/dashboard` route now returns **HTTP 401** with `{error: 'expired_session'}` (or `no_session`/`stale_session`) when the session is invalid, so the client can unambiguously detect auth failure:
+
+```js
+return res.status(401).json({ error: data.error, user: null, dashboardMessage: '' });
+```
+
+**`public/dashboard.html`** — When `res.ok` is false or `data.user` is null, the page redirects to `/login.html?reason=...` instead of going blank:
+
+```js
+if (res.ok && data && data.user) { /* render */ } else {
+    const reason = (data && data.error) || (res.status === 401 ? 'expired_session' : 'session_required');
+    window.location.assign('/login.html?reason=' + encodeURIComponent(reason));
+}
+```
+
+**`public/login.html`** — Shows a contextual message when redirected with `?reason=expired_session` ("Your session has expired. Please log in again.") or other reasons.
+
+### Automated Regression Tests (14 total across 2 files)
+
+**`server.test.js`** — 2 new tests:
+- *expired session → 401*: logs in, fast-forwards session expiry via the exported `app.sessions` map (no 30s wait), asserts 401 with `expired_session` error
+- *no session → 401*: asserts `no_session` error
+
+**`client.test.js`** — 5 new jsdom-powered tests:
+- Dashboard renders correctly with valid session
+- Dashboard redirects to login with `reason=expired_session` on 401
+- Dashboard redirects to login when response has null user (defensive)
+- Login page shows "Your session has expired" message when `reason=expired_session`
+- Login page shows no error when arriving normally

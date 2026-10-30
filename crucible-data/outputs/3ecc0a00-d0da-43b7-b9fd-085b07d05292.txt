@@ -1,0 +1,25 @@
+Here's a summary of the diagnosis and fix:
+
+---
+
+## Diagnosis
+
+The `app/page.tsx` component had three interrelated bugs:
+
+1. **Server/client boundary violation** — The component used React hooks (`useState`, `useEffect`) but **lacked a `'use client'` directive**. In the Next.js App Router, exported functions from `page.tsx` are Server Components by default. Server Components cannot use React hooks — they run at request time on the server and must either be plain Server Components or be explicitly marked `'use client'`.
+
+2. **TypeScript narrowing to `never`** — `React.useState(null)` types `account` as `null`. After `if (!account)`, TypeScript narrowed the else-branch type to `never`, causing `account.name` / `account.plan` to be type errors (visible in the build failure).
+
+3. **Anti-pattern: page calling its own API** — The component made an HTTP `fetch` to `/api/account`, creating an unnecessary client→server round-trip for data the server already had. This couples the page to an API handler and wastes latency.
+
+## Fix (idiomatic modern Next.js approach)
+
+Converted the page to a **Server Component** that reads data directly from a shared data layer, avoiding hooks, client-side fetch, and the server-data-boundary violation entirely:
+
+| File | Change |
+|------|--------|
+| **`lib/accounts.ts`** *(new)* | Shared `getAccount()` function — single source of truth for account data, used by both the page and the API route |
+| **`app/page.tsx`** | Server Component: imports `getAccount`, reads `acct_1` directly, no hooks or `fetch` needed |
+| **`app/api/account/route.ts`** | Updated to import `getAccount` from the shared module instead of duplicating the data |
+| **`app/page.test.tsx`** | Tests the page Server Component via `renderToStaticMarkup` (covers the bug — the old code would have rendered "Loading..." forever) |
+| **`app/api/account/route.test.ts`** *(new)* | API route tests moved to proper location next to the route handler; includes the existing two tests plus a new test for missing `id` parameter |

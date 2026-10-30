@@ -1,0 +1,29 @@
+Everything passes. Here's a summary of what was wrong and what I changed:
+
+## What was wrong
+
+**`app/contact/LeadForm.tsx`**
+1. **Build failure**: No `"use client"` directive. Next.js treats the file as a Server Component, and when statically generating `/contact` it tries to serialize the `onChange`/`onSubmit` handler functions as props across the server boundary → `Error: Event handlers cannot be passed to Client Component props`, which hung the build until it timed out.
+2. **Couldn't type**: Form state lived in a module-level `const values = {...}` object. `onChange` mutated it directly without going through React state, so React never re-rendered — the inputs stayed blank no matter what you typed.
+3. **No validation**: the form POSTed whatever was in `values` with no required-field checks, no error messages, no ARIA attributes, and no success state. It also had no `noValidate`, so browsers would show their own popups.
+
+**`app/api/leads/route.ts`**
+4. Trusted the body blindly — always saved and returned 201, never validated or normalized anything, never returned 422, and saved un-trimmed/canonical data.
+
+## What I changed
+
+**`app/contact/LeadForm.tsx`** (default export kept) — now a `"use client"` component:
+- Per-field `useState` so every keystroke renders; `noValidate` to suppress browser popups.
+- Validation on submit: name, email, message required (spaces-only counts as empty). Each problem field renders `<div id="lead-{field}-error">`, gets `aria-invalid="true"` and `aria-describedby` pointing at its error; focus jumps to the first invalid field; everything typed is preserved; nothing is sent.
+- On success: POSTs trimmed `{name, email, company, message}` JSON to `/api/leads`; `#lead-success` replaces the form only on a 201. On 422 the API's field errors are displayed; on network failure a general message shows and the form stays.
+- Tab order is the natural DOM order (name → email → company → message → submit) and Enter in a field submits.
+
+**`app/api/leads/route.ts`** — the authority, works for any client:
+- Parses JSON (422 on bad body), trims every field, treats missing company as `""`.
+- Requires name/email/message; validates email via `normalizeEmail`; returns 422 with `{ errors: { <field>: <message> } }` and saves nothing on any problem; otherwise saves the canonical lead and returns 201 `{ lead }`.
+
+**`lib/email.ts` (new)** — `normalizeEmail()`. Accepts surrounding spaces, capitals, `+tag`, dots in the local part, subdomains, domain hyphens, long/new TLDs. Returns a trimmed, lowercased canonical address only if valid: exactly one `@`, no spaces, nothing empty around a dot, domain labels of letters/digits/inner hyphens, TLD ≥ 2 letters.
+
+**Tests (new)** — `lib/email.test.ts` (accept/reject cases) and `app/contact/LeadForm.test.tsx` (typing, tab order, required validation, ARIA/focus, keep-typed-values, API-accept success, API-reject keeps form, Enter submits, nothing sent on errors).
+
+**Verified**: `npm test` → 13/13 pass; `npm run build` → success with `/contact` prerendered statically and `contact.html` containing `lead-form`, `lead-name`, `lead-email`, `lead-company`, `lead-message`, and `lead-submit`. No dependencies added; only `app/` and `lib/` were touched.

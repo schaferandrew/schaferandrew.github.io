@@ -1,0 +1,81 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "43aaf3c5-7f1d-4dd2-9538-0511a45f272f",
+ "run_path": "openrouter_deepseek_deepseek-v4-flash/interest-calculator-cli/20261030_065502",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T06:55:02.186857+00:00",
+ "ended_at": "2026-10-30T07:09:20.006095+00:00",
+ "elapsed_s": 857.62,
+ "task": {
+  "id": "interest-calculator-cli",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "89de4378a797689c",
+  "rubric_hash": "f45237ead95e5fe5",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/deepseek/deepseek-v4-flash",
+  "base": "deepseek/deepseek-v4-flash",
+  "publisher": "deepseek",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek/deepseek-v4-flash|deepseek|api|-",
+  "display": "deepseek-v4-flash"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 37,
+  "tokens_in": 1740735,
+  "tokens_out": 50987,
+  "model_responses": 37,
+  "ttft_s": 0.709,
+  "ttft_avg_s": 2.265,
+  "response_time_avg_s": 22.942,
+  "cost_usd": 0.106695,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/43aaf3c5-7f1d-4dd2-9538-0511a45f272f.txt",
+ "provenance": {
+  "crucible_version": "3.4.1",
+  "crucible_commit": "f618abf",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:daba81d62cc35f02a1a172e6cf781f7ca7afb18fc97fc96c63e11e01765fc8bf",
+  "submitter": null,
+  "verification": null
+ }
+}

@@ -1,0 +1,31 @@
+All 32 tests pass across both workspaces. Here's a summary of what was done:
+
+---
+
+## Summary
+
+### Root cause found
+
+The `responseCache` middleware introduced in v1.8.0 cached responses keyed **only by URL**, ignoring the requesting user's identity. Since routes personalise `favorited` and `following` booleans per viewer, one user's personalised response would be served to any other user hitting the same URL within the 60-second TTL.
+
+**Evidence from the logs:**
+- Deploy at **16:42:10**, cache active immediately (first store at 16:42:10.634)
+- First cache HIT causing cross-user data leak at **16:43:31** (anonymous gets `user2364`'s personalized article list)
+- **481 distinct signed-in users** received another user's cached response
+- Reports from `maria_k` (16:48:48), `devon`, `priya.writes`, `tomasz` match cache HIT timestamps
+
+### Fix applied
+
+**`apps/api/src/middleware/responseCache.ts`**: Cache key now includes the viewer identity, scoped as `u=<userId>:<url>`. The user ID is resolved upfront from the JWT (before per-route auth middleware runs) via `verifyToken`. Also fixed `res.setHeader` → `res.set` (Express 4 API).
+
+### Regression tests added
+
+**`apps/api/test/responseCache.test.ts`**: 4 new tests:
+1. Different auth users get separate cache entries for the same article
+2. Follow state not leaked between users on profiles
+3. Same user still gets cache HITs on repeated requests
+4. Anonymous and authenticated users get separate cache entries
+
+### Postmortem
+
+**`incident/POSTMORTEM.md`**: Complete timeline, root cause, user impact count (481), and follow-up actions.

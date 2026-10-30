@@ -1,0 +1,22 @@
+All done. Everything passes: **44 tests** (33 API + 11 web), both typechecks clean, and `realworld.contract.test.ts` is unmodified.
+
+## Summary
+
+**Shared types (`packages/shared/src/types.ts`)** — `ArticlesResponse` and `CommentsResponse` gain `nextCursor: string | null`; `ArticleListQuery` gains `cursor?: string`; new `CommentsQuery` (`limit?`, `cursor?`).
+
+**API — cursor engine (`apps/api/src/cursor.ts`, new)** — Cursors are keyset-based and unforgeable: `base64url(json).base64url(hmac-sha256)` with a server secret. The payload pins the version, the endpoint kind, a canonical fingerprint of the query (tag/author/favorited for articles, viewer id for feed, slug for comments), and the anchor sort key (`createdAt` ms + `id`). Any malformed/tampered cursor, or a valid cursor reused against a different filter/endpoint/viewer, gets a `422 { errors: { cursor: [...] } }`.
+
+**API — paging (`routes/pagination.ts`, routes, services, repositories)** — `cursor` is accepted alongside `limit`; `cursor + offset` → 422. The repositories filter strictly "after" the anchor in `(createdAt DESC, id DESC)` order, so creates, deletes and favorite changes between page requests can neither repeat nor silently skip a row; `articlesCount` stays the total matching the filters. `nextCursor` is non-null whenever another page exists (including offset-mode responses, which keep identical data but gain the additive field) and null on the last page. `GET /articles/:slug/comments` pages by `limit`/`cursor` with `nextCursor`, newest first, and still returns every comment when neither is sent.
+
+**Web app** — `ArticleList` dropped numbered pagination for a `nextCursor`-driven **Load more** button on home and profile tabs: pages append (deduped by slug), shown articles stay on screen, the button disappears on the last page, and state resets on tab change. `api.comments` now takes `{ limit, cursor }` and returns the envelope; the article page loads the first page of comments and continues via **Load more comments**. The unused `Pagination` component was removed.
+
+**Tests** — `apps/api/test/cursor-pagination.test.ts` (14 tests) proves no-skip/no-repeat under concurrent creates/deletes and favorite changes mid-walk (including a direct mid-walk insert), feed paging with cursor-to-viewer binding, every validation rule (malformed, tampered payload & signature, cross-filter/cross-endpoint reuse, cursor+offset), offset behavior, and comment paging under concurrent comment writes. Web tests were reworked for Load more and `ArticlePage.test.tsx` adds comment paging + posting coverage. Contract suite stays green and untouched.
+
+**Things I'd flag in review**
+- `CURSOR_SECRET` falls back to a well-known dev constant — fine for this in-memory codebase, but production must set it via env; rotating it invalidates outstanding cursors (they fail closed with 422).
+- Keyset semantics: an article published mid-walk with a newer sort key than your anchor won't appear in that walk (it sits at the top of any fresh query). That's the intended fix for offset shifting, not a skip of pre-existing rows.
+- The cursor doesn't pin `limit`, so clients may change page size mid-walk (deliberate flexibility; easy to tighten).
+- The in-memory store filters-then-slices each request (O(n)); a SQL port would push the keyset predicate into the query.
+- (Harness note: this workspace's filesystem briefly had two identically-named sibling directories; I verified all changes landed in the git-tracked tree my shell resolves to, and cleaned up nothing outside it.)
+
+One housekeeping note: I also deleted `apps/web/src/components/Pagination.tsx` since it became dead code; if you'd rather keep it around for other views, it can be restored untouched.

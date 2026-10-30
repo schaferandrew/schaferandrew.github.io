@@ -6,3 +6,19 @@
 # With one suite visible the selector isn't drawn; the suite line still is. Remove an ID to bring
 # that suite back. Nothing is deleted: the catalogs and runs stay in _data/crucible/.
 hidden_suites: [v1, v2]
+
+# energy: what a local run costs, since nobody bills it. A local run's cost is its time x its
+# machine's power draw x the price per kWh: an estimate of the electricity used, not the hardware.
+# watts is the whole machine's draw at the wall while it serves a model, keyed by hardware key (the
+# run record's hardware.key). A machine missing here has no local cost (shown as a dash).
+#   m1-pro-32gb (Ironwood): M1 Pro package ~25 W under llama.cpp GPU load, plus the rest of the machine
+#   m5-pro-48gb (Duskfall): M5 Pro GPU up to ~38 W, ~70 W sustained CPU+GPU stress (Notebookcheck);
+#     inference is GPU- and memory-bound, so below the stress figure
+#   rtx-5070-ti-16gb (Whitehall): measured by the owner
+# usd_per_kwh: US residential average, EIA Short-Term Energy Outlook 2026 forecast (18.3 cents)
+energy:
+  usd_per_kwh: 0.183
+  watts:
+    m1-pro-32gb: 40
+    m5-pro-48gb: 60
+    rtx-5070-ti-16gb: 350

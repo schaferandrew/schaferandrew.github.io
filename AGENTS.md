@@ -29,6 +29,9 @@ served by GitHub Pages at www.schaferandrew.com).
   selectable: they're left out of the suite selector, and a `#…&suite=<id>` link falls back to the
   current visible suite. With one suite visible the selector isn't drawn, but the suite line is.
   Remove an ID to bring that suite back; its catalog and runs stay in `_data/crucible/`.
+  `energy` prices local runs, which nobody bills: a local run's cost is its time × `watts[hardware
+  key]` × `usd_per_kwh`, shown with ≈ as an electricity estimate. Add a machine's watts when it starts
+  serving models; without it, its local cost shows as a dash and it's left off the cost chart.
 - Publishing results: run `crucible publish` in the Crucible repo, then commit and push only
   `_data/crucible/` and `crucible-data/` here.
 - The page is data-driven. Never hard-code a task, area, mode, tier, label, blurb or threshold in

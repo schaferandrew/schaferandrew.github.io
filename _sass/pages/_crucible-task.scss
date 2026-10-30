@@ -287,11 +287,18 @@
     color: $gray;
   }
 
+  // Tight cells, and the setup label wraps, so the whole table fits at 1400 px without scrolling
+  th,
+  td {
+    padding-right: $gap / 2;
+    padding-left: $gap / 2;
+  }
+
   .crucible-task-setup {
-    max-width: 320px;
-    overflow: hidden;
+    min-width: 170px;
+    max-width: 260px;
     color: $gray;
-    text-overflow: ellipsis;
+    white-space: normal;
 
     .crucible-tag {
       margin-left: 0;

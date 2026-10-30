@@ -303,34 +303,6 @@
   }
 }
 
-.crucible-task-maker {
-  .crucible-task-inferred {
-    margin-left: 4px;
-    color: $crucibleMuted;
-    font-size: 11px;
-    font-style: italic;
-  }
-
-  .crucible-task-unknown {
-    color: $crucibleMuted;
-  }
-}
-
-.crucible-task-score {
-  min-width: 44px;
-  padding: 3px 8px;
-  border: 0;
-  border-radius: 3px;
-  font: inherit;
-  font-weight: $weightBold;
-  cursor: pointer;
-
-  &:focus-visible {
-    outline: 2px solid $colorSecondary;
-    outline-offset: 1px;
-  }
-}
-
 .crucible-task-checkhead {
   padding: 4px 2px !important;
   vertical-align: bottom;

@@ -3,12 +3,11 @@
 // The hash is the state: #<slug>,<slug>[&mode=<id>][&suite=<id>].
 (function () {
   var C = window.CrucibleCore;
-  var NONE = C.NONE, MAX = C.MAX_COMPARE;
-  var el = C.el, svg = C.svg, fmtScore = C.fmtScore, fmtSeconds = C.fmtSeconds, fmtCost = C.fmtCost, fmtInt = C.fmtInt;
+  var MAX = C.MAX_COMPARE;
+  var el = C.el, svg = C.svg, fmtScore = C.fmtScore, fmtSeconds = C.fmtSeconds, fmtCost = C.fmtCost;
   var mean = C.mean, median = C.median, num = C.num, taskName = C.taskName, heatStyle = C.heatStyle;
   var script = document.currentScript;
-  // Series colors; C.COLORS only has the local/cloud pair. Kept apart from heat blues and the cloud orange tag.
-  var SERIES = ['#1856a3', '#eb6834', '#2f8a4a', '#8a4fbf'];
+  var SERIES = C.SERIES;
   var TIE = 1e-9;
 
   function start(D) {
@@ -63,9 +62,7 @@
     // ---- Hash ---------------------------------------------------------------
 
     function hashFor(slugs, extra) {
-      var p = { mode: ctx.explicitMode ? ctx.mode : null, suite: route.params.suite || null };
-      Object.keys(extra || {}).forEach(function (k) { p[k] = extra[k]; });
-      return C.buildHash(slugs.join(','), p);
+      return C.hashFor(slugs.join(','), Object.assign({ mode: ctx.explicitMode ? ctx.mode : null }, extra || {}));
     }
     function go(slugs, extra) { location.hash = hashFor(slugs, extra); }
     function slugs() { return ctx.chosen.map(function (s) { return s.cfg.slug; }); }
@@ -73,31 +70,13 @@
     // ---- Setup identity -------------------------------------------------------
 
     function dot(color) { return el('span', { class: 'cmp-dot', style: 'background:' + color, 'aria-hidden': 'true' }); }
-    function makerNode(cfg) {
-      var info = D.makerInfo(cfg), box = el('span', { class: 'cmp-maker' });
-      if (!info.id) { box.appendChild(el('span', { class: 'cmp-unknown' }, D.makerLabel(null))); return box; }
-      box.appendChild(el('a', { href: C.publisherUrl(info.id) }, D.makerLabel(info.id)));
-      if (info.inferred) {
-        var why = 'Inferred from the model name: the runs didn\'t record who made it.';
-        box.appendChild(el('span', { class: 'cmp-inferred', title: why, 'aria-label': why }, '*'));
-      }
-      return box;
-    }
-    function modelNode(cfg) {
-      var box = el('span', { class: 'cmp-model' });
-      box.appendChild(el('a', { href: D.modelUrl(cfg) }, C.shortName(cfg.base)));
-      if (cfg.level !== 'default') box.appendChild(document.createTextNode(' (reasoning ' + cfg.level + ')'));
-      return box;
-    }
     // maker / model, then the setup line and the local/cloud tag
     function identity(cfg, color, opts) {
       opts = opts || {};
       var box = el('span', { class: 'cmp-id' });
       var line = box.appendChild(el('span', { class: 'cmp-id-name' }));
       if (color) line.appendChild(dot(color));
-      line.appendChild(makerNode(cfg));
-      line.appendChild(el('span', { class: 'cmp-sep', 'aria-hidden': 'true' }, '/'));
-      line.appendChild(modelNode(cfg));
+      line.appendChild(D.modelRef(cfg));
       line.appendChild(C.whereTag(cfg));
       if (!opts.short) box.appendChild(el('span', { class: 'crucible-config-line' }, configLabel(cfg)));
       return box;
@@ -108,24 +87,7 @@
 
     // ---- Controls ---------------------------------------------------------------
 
-    function renderSuite() {
-      var SUITES = D.SUITES, S = ctx.S;
-      document.getElementById('suite-select').hidden = SUITES.length < 2;
-      document.getElementById('suite-select-label').hidden = SUITES.length < 2;
-      C.fillSelect(document.getElementById('suite-select'), SUITES.map(function (c) {
-        return { value: D.suiteId(c), label: C.suiteName(c) + (c.suite.status === 'current' ? ' (current)' : '') };
-      }), S.id);
-      var line = document.getElementById('suite-line');
-      line.innerHTML = '';
-      var active = S.tasks.filter(function (t) { return t.status === 'active'; }).length;
-      var parts = [C.suiteName(S.cat) + (S.cat.suite.version ? ' (version ' + S.cat.suite.version + ')' : ''), active + ' scored tasks'];
-      if (S.cat.suite.cut_at) parts.push('cut ' + C.fmtDate(S.cat.suite.cut_at));
-      line.appendChild(document.createTextNode(parts.join(' · ')));
-      var note = document.getElementById('suite-note');
-      note.textContent = S.cat.suite.status === 'current' || S.cat === D.CURRENT ? ''
-        : 'A past suite: its own tasks, tiers and weights, and only the runs that count in it.';
-      note.hidden = !note.textContent;
-    }
+    function renderSuite() { D.renderSuiteBar(ctx.S); }
 
     function renderPicker() {
       var pick = document.getElementById('cmp-pick');
@@ -209,7 +171,6 @@
       table.innerHTML = '';
       box.innerHTML = '';
       var bestMean = C.bestOf(nums.rows.map(function (r) { return r.mean; }));
-      function costTitle(s) { return D.costTitle ? D.costTitle(s) : ''; }
 
       if (C.isNarrow()) {
         var ul = box.appendChild(el('ul', { class: 'crucible-cards cmp-cards' }));
@@ -248,7 +209,7 @@
         tr.appendChild(el('td', { class: 'cmp-num' }, r.top + ' of ' + n));
         tr.appendChild(el('td', { class: 'cmp-num' }, fmtSeconds(r.median)));
         tr.appendChild(el('td', { class: 'cmp-num' }, fmtSeconds(r.total)));
-        tr.appendChild(el('td', { class: 'cmp-num', title: costTitle(s) }, fmtCost(r.cost, s.local)));
+        tr.appendChild(el('td', { class: 'cmp-num', title: D.costTitle(s) }, fmtCost(r.cost, s.local)));
       });
     }
 
@@ -361,30 +322,6 @@
 
     // ---- Where they differ -------------------------------------------------------------------
 
-    function renderItems(full, into) {
-      into.innerHTML = '';
-      if (!full) { into.appendChild(el('p', { class: 'crucible-detail-meta' }, 'No per-check results published for this score.')); return; }
-      var ul = el('ul', { class: 'crucible-checks' }), items = full.items || [];
-      if (items.length) {
-        var last = null;
-        items.forEach(function (it) {
-          if (it.group && it.group !== last) { ul.appendChild(el('li', { class: 'crucible-check-group' }, it.group)); last = it.group; }
-          var li = ul.appendChild(el('li', { class: it.passed ? 'is-pass' : 'is-fail' }));
-          li.appendChild(el('span', { class: 'crucible-check-mark', 'aria-label': it.passed ? 'passed' : 'failed' }, it.passed ? '✓' : '✕'));
-          var text = li.appendChild(el('span', {}, (it.label || it.id || '') + ' '));
-          if (it.detail) text.appendChild(el('span', { class: 'crucible-check-detail' }, '(' + it.detail + ')'));
-        });
-      } else {
-        (full.groups || []).forEach(function (g) {
-          var li = ul.appendChild(el('li', { class: g.passed === g.total ? 'is-pass' : g.passed ? 'is-partial' : 'is-fail' }));
-          li.appendChild(el('span', { class: 'crucible-check-mark' }, fmtInt(g.passed) + '/' + fmtInt(g.total)));
-          li.appendChild(el('span', {}, ' ' + (g.id || '') + (g.detail ? ' (' + g.detail + ')' : '')));
-        });
-      }
-      if (!ul.firstChild) { into.appendChild(el('p', { class: 'crucible-detail-meta' }, 'No per-check results published for this score.')); return; }
-      into.appendChild(ul);
-    }
-
     // Each setup's checks on one task, side by side, from its newest counted run
     function fillChecks(host, t) {
       host.innerHTML = '';
@@ -408,7 +345,7 @@
       });
       if (loads.length) {
         D.loadDetails().then(function (index) {
-          loads.forEach(function (l) { renderItems(index[C.scoreKey(l.info.uuid, l.info.rec.rubric_version, l.info.rec.method)], l.body); });
+          loads.forEach(function (l) { D.renderItems(index[C.scoreKey(l.info.uuid, l.info.rec.rubric_version, l.info.rec.method)], l.body); });
         }, function () {
           loads.forEach(function (l) { l.body.innerHTML = ''; l.body.appendChild(el('p', { class: 'crucible-detail-meta' }, 'Couldn’t load the checks.')); });
         });
@@ -595,6 +532,7 @@
         s.color = colorOf[s.cfg.slug];
       });
 
+      C.breadcrumb(document.getElementById('cmp-crumbs'), ['Compare setups']);
       document.title = ctx.chosen.length > 1 ? 'Compare ' + ctx.chosen.map(function (s) { return shortLabel(s.cfg); }).join(' vs ') : 'Compare setups';
       renderSuite();
       renderChips();

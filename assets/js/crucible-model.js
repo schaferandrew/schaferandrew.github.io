@@ -4,7 +4,7 @@
 (function () {
   var C = window.CrucibleCore;
   var el = C.el, svg = C.svg, NONE = C.NONE;
-  var fmtScore = C.fmtScore, fmtSeconds = C.fmtSeconds, fmtInt = C.fmtInt, fmtCost = C.fmtCost;
+  var fmtScore = C.fmtScore, fmtSeconds = C.fmtSeconds, fmtCost = C.fmtCost;
   var script = document.currentScript;
 
   C.boot({ script: script, ready: function (D) {
@@ -25,33 +25,11 @@
     function dimText(d, v) { return d.id === 'reasoning' ? C.cap(v) : v; }
 
     function go(params, base) {
-      var r = route || { id: null, params: {} };
-      var merged = { setup: r.params.setup, mode: r.params.mode, suite: r.params.suite };
-      Object.keys(params).forEach(function (k) { merged[k] = params[k]; });
-      location.hash = C.buildHash(base !== undefined ? base : r.id, merged);
+      location.hash = C.hashFor(base !== undefined ? base : (route && route.id), params, ['setup', 'mode', 'suite']);
     }
 
     // ---- Suite bar ----
 
-    function renderSuite(S) {
-      var select = $('suite-select');
-      select.hidden = SUITES.length < 2;
-      $('suite-select-label').hidden = SUITES.length < 2;
-      C.fillSelect(select, SUITES.map(function (c) {
-        return { value: C.suiteId(c), label: C.suiteName(c) + (c.suite.status === 'current' ? ' (current)' : '') };
-      }), S.id);
-      var line = $('suite-line');
-      line.innerHTML = '';
-      var suite = S.cat.suite;
-      var active = S.tasks.filter(function (t) { return t.status === 'active'; }).length;
-      var parts = [S.name + (suite.version ? ' (version ' + suite.version + ')' : ''), active + ' scored tasks'];
-      if (suite.cut_at) parts.push('cut ' + C.fmtDate(suite.cut_at));
-      line.appendChild(document.createTextNode(parts.join(' · ')));
-      var note = $('suite-note');
-      note.textContent = suite.status === 'current' || S.cat === D.CURRENT ? ''
-        : 'A past suite: its own tasks, tiers and weights, and only the runs that count in it.';
-      note.hidden = !note.textContent;
-    }
     $('suite-select').addEventListener('change', function (e) { go({ suite: e.target.value, setup: null, mode: null }); });
 
     // ---- Index of models ----
@@ -60,8 +38,7 @@
       var box = $('model-index');
       box.innerHTML = '';
       $('model-title').textContent = 'Models';
-      $('model-breadcrumb').innerHTML = '';
-      $('model-breadcrumb').appendChild(el('a', { href: C.BASE }, '← Crucible results'));
+      C.breadcrumb($('model-breadcrumb'), ['Models']);
       if (unknownKey) {
         box.appendChild(el('p', { class: 'crucible-status' }, 'No model “' + unknownKey + '” has results on Crucible. Pick one below.'));
       } else {
@@ -122,26 +99,16 @@
       });
       var allCfgs = Object.keys(D.CONFIGS).map(function (k) { return D.CONFIGS[k]; }).filter(function (c) { return bases.indexOf(c.base) !== -1; });
       var base0 = bases[0];
-      var info = D.makerInfo(base0), maker = info.id;
 
       // Header
       $('model-title').textContent = D.modelLabel(base0);
-      var crumbs = $('model-breadcrumb');
-      crumbs.innerHTML = '';
-      crumbs.appendChild(el('a', { href: C.BASE }, 'Crucible'));
-      crumbs.appendChild(document.createTextNode(' › '));
-      if (maker) crumbs.appendChild(el('a', { href: C.publisherUrl(maker) }, D.makerLabel(maker)));
-      else crumbs.appendChild(document.createTextNode(D.makerLabel(null)));
-      crumbs.appendChild(document.createTextNode(' › '));
-      crumbs.appendChild(el('a', { href: C.BASE + 'model/' + C.buildHash(null, { suite: params.suite }) }, 'Models'));
-      crumbs.appendChild(document.createTextNode(' › ' + D.modelLabel(base0)));
+      var maker = D.makerOf(base0);
+      C.breadcrumb($('model-breadcrumb'), [{ href: C.BASE + 'model/' + C.buildHash(null, { suite: params.suite }), text: 'Models' },
+        maker ? { href: C.publisherUrl(maker), text: D.makerLabel(maker) } : D.makerLabel(null), D.modelLabel(base0)]);
 
       var meta = $('model-meta');
       meta.innerHTML = '';
-      var by = meta.appendChild(el('span', {}, 'By '));
-      if (maker) by.appendChild(el('a', { href: C.publisherUrl(maker) }, D.makerLabel(maker)));
-      else by.appendChild(document.createTextNode(D.makerLabel(null)));
-      if (info.inferred && maker) by.appendChild(el('span', { class: 'cm-inferred', title: 'Taken from the model name; the runs didn’t record who made it.' }, ' inferred'));
+      meta.appendChild(el('span', {}, 'By ')).appendChild(D.makerNode(base0, { unknown: true }));
       var locals = allCfgs.filter(function (c) { return c.local; }).length;
       meta.appendChild(el('span', {}, locals === allCfgs.length ? 'Local' : locals ? 'Local and cloud' : 'Cloud'));
       meta.appendChild(el('span', {}, allCfgs.length + ' setup' + (allCfgs.length === 1 ? '' : 's')));
@@ -255,23 +222,12 @@
           tile(box, t.label, res.score !== null ? fmtScore(res.score) : NONE, res.scored + ' of ' + res.total + ' tasks' + (res.partial ? ' (partial)' : ''));
         }
       });
-      var behind = !C.meets(s.progress.share, S.COVERAGE_MIN);
-      tile(box, 'Coverage', s.progress.done + ' of ' + s.progress.total, behind ? 'in progress: under ' + C.pct(S.COVERAGE_MIN) + ' of the tasks' : C.pct(s.progress.share) + ' of the tasks');
+      tile(box, 'Coverage', s.progress.done + ' of ' + s.progress.total, s.inProgress ? 'in progress: under ' + C.pct(S.IN_PROGRESS_BELOW) + ' of the tasks' : C.pct(s.progress.share) + ' of the tasks');
       tile(box, 'Median time per task', fmtSeconds(s.time), s.cost !== null && s.cost !== undefined ? (s.local ? 'electricity ' : 'cost ') + D.costLabel(s) + ' per run' : 'cost not recorded', D.costTitle(s));
     }
 
     // ---- Every setup ----
 
-    function covNode(s, S) {
-      var low = !C.meets(s.progress.share, S.COVERAGE_MIN);
-      var w = el('span', { class: 'cm-cov' });
-      w.appendChild(el('span', {}, s.progress.done + '/' + s.progress.total));
-      var bar = w.appendChild(el('span', { class: 'cm-cov-bar' }));
-      var fill = bar.appendChild(el('span', { class: 'cm-cov-fill' + (low ? ' is-low' : '') }));
-      fill.style.width = Math.round(s.progress.share * 100) + '%';
-      if (low) w.appendChild(el('span', { class: 'cm-note' }, 'in progress'));
-      return w;
-    }
     function varyingDims(list) {
       return DIMS.filter(function (d) {
         var seen = {};
@@ -308,11 +264,12 @@
         return td;
       }
       list.forEach(function (s) {
-        var tr = body.appendChild(el('tr', { class: 'crucible-row' + (s === sel ? ' is-selected' : ''), 'aria-selected': s === sel }));
+        var tr = body.appendChild(el('tr', { class: 'crucible-row' + (s === sel ? ' is-selected' : ''), 'aria-selected': s === sel, tabindex: '0' }));
         var pick = function () { go({ setup: s.cfg.slug, mode: V.mode }); };
         tr.addEventListener('click', pick);
+        tr.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target === tr) { e.preventDefault(); pick(); } });
         tr.appendChild(el('td')).appendChild(tick(s));
-        tr.appendChild(el('td')).appendChild(covNode(s, S));
+        tr.appendChild(el('td')).appendChild(C.coverageBar(s, S));
         if (dims.length) dims.forEach(function (d) { tr.appendChild(el('td', {}, setLabel(s, d))); });
         else tr.appendChild(el('td', {}, D.configLabel(s.cfg)));
         V.TIERS.forEach(function (t) { S.tierCell(s, t, tr.appendChild(el('td'))); });
@@ -327,7 +284,7 @@
         b.addEventListener('click', function () { go({ setup: s.cfg.slug, mode: V.mode }); });
         if (s === sel) title.appendChild(el('span', { class: 'crucible-tag' }, 'selected'));
         var cov = li.appendChild(el('div', { class: 'cm-card-cov' }));
-        cov.appendChild(covNode(s, S));
+        cov.appendChild(C.coverageBar(s, S));
         V.TIERS.forEach(function (t) {
           var v = el('span', { class: 'crucible-kv-value' });
           S.tierCell(s, t, v);
@@ -400,7 +357,7 @@
       var d = cur.dim, aText = dimText(d, dimVal(d, sel.cfg)), bText = dimText(d, dimVal(d, cur.s.cfg));
       $('cm-ab-heading').textContent = 'A/B: ' + d.label.toLowerCase() + ' ' + aText + ' or ' + bText;
       $('cm-ab-sub').textContent = 'The same setup but for its ' + d.label.toLowerCase() + ', on the ' + cur.shared.length + ' task' + (cur.shared.length === 1 ? '' : 's') + ' both ran. Score per task, 0–10.';
-      var cA = '#1856a3', cB = '#eb6834';
+      var cA = C.SERIES[0], cB = C.SERIES[1];
       var box = $('cm-db');
       box.innerHTML = '';
       var W = 300, pad = 8, x = function (v) { return pad + v / 10 * (W - 2 * pad); };
@@ -562,7 +519,7 @@
     function render(r) {
       route = r;
       var S = D.suite(r.params.suite || null);
-      renderSuite(S);
+      D.renderSuiteBar(S);
       results.hidden = false;
       var key = r.id;
       var bases = key ? D.basesOf(key) : [];

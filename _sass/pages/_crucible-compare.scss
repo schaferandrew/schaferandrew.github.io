@@ -33,29 +33,6 @@
     }
   }
 
-  .cmp-maker {
-    color: $gray;
-    font-size: 0.9em;
-  }
-
-  .cmp-unknown {
-    font-style: italic;
-  }
-
-  .cmp-inferred {
-    margin-left: 1px;
-    color: $gray;
-    cursor: help;
-  }
-
-  .cmp-sep {
-    color: $gray;
-  }
-
-  .cmp-model {
-    font-weight: $weightBold;
-  }
-
   .cmp-chip {
     flex-wrap: nowrap;
     align-items: center;

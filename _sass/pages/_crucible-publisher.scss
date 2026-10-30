@@ -16,25 +16,6 @@
   border-left: 3px solid $colorAccent;
 }
 
-.crucible-inferred {
-  margin-left: $gap / 2;
-  color: $crucibleMuted;
-  font-size: 11px;
-  font-style: italic;
-  cursor: help;
-  text-decoration: underline dotted;
-}
-
-.crucible-pill {
-  padding: 1px 6px;
-  background: #fff3ea;
-  border-radius: 10px;
-  color: #a4421b;
-  font-size: 11px;
-  white-space: nowrap;
-  cursor: help;
-}
-
 .crucible-pub-model,
 .crucible-pub-maker {
   font-weight: $weightBold;
@@ -78,18 +59,6 @@
     padding: 0;
     border: 0;
   }
-}
-
-.crucible-pub-cov {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 2px 6px;
-}
-
-.crucible-pub-cov-n {
-  min-width: 3em;
-  font-weight: $weightBold;
 }
 
 .crucible-pub-button {

@@ -253,9 +253,61 @@
   function compareUrl(slugs, suite) { return pageUrl('compare', slugs.join(','), suite); }
   function publisherUrl(maker, suite) { return pageUrl('publisher', maker, suite); }
 
+  // The hash for `id`, keeping the current hash's `keep` parameters (default: the suite), then `over`
+  function hashFor(id, over, keep) {
+    var cur = parseHash().params, p = {};
+    (keep || ['suite']).forEach(function (k) { if (cur[k] !== undefined) p[k] = cur[k]; });
+    Object.keys(over || {}).forEach(function (k) { p[k] = over[k]; });
+    return buildHash(id, p);
+  }
+  // A page's breadcrumb: 'Crucible › …', each part a { href, text } link or plain text. The
+  // Crucible link keeps the suite being looked at.
+  function breadcrumb(into, parts) {
+    into.innerHTML = '';
+    [{ href: C.BASE + buildHash(null, { suite: suiteParam() }), text: 'Crucible' }].concat(parts || []).forEach(function (p, i) {
+      if (i) into.appendChild(document.createTextNode(' › '));
+      if (typeof p === 'string') into.appendChild(document.createTextNode(p));
+      else into.appendChild(el('a', { href: p.href }, p.text));
+    });
+  }
+
   [['parseHash', parseHash], ['buildHash', buildHash], ['onRoute', onRoute], ['taskUrl', taskUrl],
-    ['modelUrl', modelUrl], ['compareUrl', compareUrl], ['publisherUrl', publisherUrl]
+    ['modelUrl', modelUrl], ['compareUrl', compareUrl], ['publisherUrl', publisherUrl], ['hashFor', hashFor],
+    ['breadcrumb', breadcrumb]
   ].forEach(function (p) { C[p[0]] = p[1]; });
+
+  // ---- Shared pieces ------------------------------------------------------
+
+  // Series colours for two to four things drawn side by side (compare, A/B, harnesses); apart from
+  // the heat blues' light end and readable on white. Index past the end wraps.
+  C.SERIES = ['#1856a3', '#eb6834', '#2f8a4a', '#8a4fbf'];
+  C.seriesColor = function (i) { return C.SERIES[i % C.SERIES.length]; };
+  C.INFERRED_TITLE = 'Inferred from the model name: the runs didn\'t record who made the model.';
+  C.inferredMark = function () { return el('span', { class: 'crucible-inferred', title: C.INFERRED_TITLE }, 'inferred'); };
+  // A heat-coloured score button: value 0-10 (null shows as uncounted), its accessible label, and
+  // opts { text, n (repeats, shown as ×n), cls }
+  C.scoreButton = function (value, label, opts) {
+    opts = opts || {};
+    var counted = value !== null && value !== undefined;
+    var b = el('button', { type: 'button', class: 'crucible-score-button' + (opts.cls ? ' ' + opts.cls : '') + (counted ? '' : ' is-uncounted'), 'aria-label': label },
+      opts.text !== undefined ? opts.text : fmtScore(value));
+    if (counted) b.setAttribute('style', heatStyle(value));
+    if (opts.n > 1) b.appendChild(el('sup', { class: 'crucible-repeat-n' }, '×' + opts.n));
+    return b;
+  };
+  // A setup's coverage: counted tasks of the section's scored tasks, a bar, and an "in progress"
+  // pill below the suite's in_progress_below (s: V.stats(cfg))
+  C.coverageBar = function (s, S) {
+    var w = el('span', { class: 'crucible-cov' });
+    w.appendChild(el('span', { class: 'crucible-cov-n' }, s.progress.done + '/' + s.progress.total));
+    var bar = w.appendChild(el('span', { class: 'crucible-cov-bar' }));
+    bar.appendChild(el('span', { class: 'crucible-cov-fill' + (s.inProgress ? ' is-low' : '') })).style.width = Math.round(s.progress.share * 100) + '%';
+    if (s.inProgress) w.appendChild(C.inProgressPill(S));
+    return w;
+  };
+  C.inProgressPill = function (S) {
+    return el('span', { class: 'crucible-pill', title: 'Fewer than ' + pct(S.IN_PROGRESS_BELOW) + ' of this section\'s scored tasks have a counted run, so the score may still move' }, 'in progress');
+  };
 
   // ---- Records ------------------------------------------------------------
 
@@ -1063,6 +1115,12 @@
       harness: 'a harness this suite doesn\'t score for this section: doesn\'t count'
     };
 
+    // A small flag naming why a run doesn't count, its full reason as the title
+    D.stateFlag = function (state) {
+      var text = state === 'provisional' ? 'provisional' : state === 'older' ? 'older task version' : state === 'invalid' ? 'invalid' : 'not counted';
+      return el('span', { class: 'crucible-flag', title: STATE_TEXT[state] || '' }, text);
+    };
+
     function promptBlock(t, into) {
       into.appendChild(el('p', { class: 'crucible-detail-prompt' }, t.summary || taskName(t)));
       if (!t.prompt || t.prompt === t.summary) return;
@@ -1175,7 +1233,7 @@
         var summary = details.appendChild(el('summary'));
         summary.appendChild(el('span', { class: 'crucible-run-score' }, fmtScore(info.score)));
         summary.appendChild(document.createTextNode(' ' + fmtDate(info.run.started_at) + ' · ' + fmtSeconds(num(info.run.elapsed_s, null))));
-        if (info.state !== 'counted') summary.appendChild(el('span', { class: 'crucible-flag' }, info.state === 'provisional' ? 'provisional' : info.state === 'older' ? 'older task version' : info.state === 'invalid' ? 'invalid' : 'not counted'));
+        if (info.state !== 'counted') summary.appendChild(D.stateFlag(info.state));
         var body = details.appendChild(el('div', { class: 'crucible-run-body' }));
         var filled = false;
         details.addEventListener('toggle', function () {
@@ -1187,7 +1245,31 @@
       });
     }
 
+    // A score record's per-check items grouped by check group (else by item): { values: group ->
+    // share passed 0..1, order, titles }. index is D.loadDetails()'s; null when nothing's published.
+    var groupCache = {};
+    function runGroups(index, info) {
+      if (!index || !info || !info.rec) return null;
+      var key = scoreKey(info.uuid, info.rec.rubric_version, info.rec.method);
+      if (groupCache[key] !== undefined) return groupCache[key];
+      var rec = index[key];
+      if (!rec || !rec.items || !rec.items.length) return (groupCache[key] = null);
+      var sums = {}, order = [], titles = {};
+      rec.items.forEach(function (it) {
+        var k = String(it.group || it.label || it.id || '');
+        if (!k) return;
+        var v = typeof it.share === 'number' ? it.share : it.passed ? 1 : 0;
+        if (!sums[k]) { sums[k] = []; order.push(k); titles[k] = it.label || k; }
+        sums[k].push(v);
+      });
+      var out = { values: {}, order: order, titles: titles };
+      order.forEach(function (k) { out.values[k] = mean(sums[k]); });
+      return (groupCache[key] = out);
+    }
+
     D.promptBlock = promptBlock;
+    D.renderItems = renderItems;
+    D.runGroups = runGroups;
     D.scoreSentence = scoreSentence;
     D.runBody = runBody;
     D.runList = runList;
@@ -1208,25 +1290,86 @@
       var value = cellValue(c);
       var a = value && value.agg;
       var text = a ? (narrowCell ? fmtScore(a.mean) : Math.round(a.mean).toString()) : NONE;
-      var b = el('button', { type: 'button', class: narrowCell ? 'crucible-card-score' : '',
-        'aria-label': s.label + ' ' + taskName(t) + ': ' + (a ? fmtScore(a.mean) + ', ' + fmtRepeat(a) : 'doesn\'t count in this suite') });
-      b.textContent = text;
+      var b = C.scoreButton(a ? a.mean : null, s.label + ' ' + taskName(t) + ': ' + (a ? fmtScore(a.mean) + ', ' + fmtRepeat(a) : 'doesn\'t count in this suite'),
+        { text: text, n: a ? a.n : 0, cls: narrowCell ? 'crucible-card-score' : '' });
       b.title = a ? fmtScore(a.mean) + ' · ' + fmtRepeat(a) : (STATE_TEXT[c.all[0].state] || '');
-      if (a) b.setAttribute('style', heatStyle(a.mean));
-      else b.classList.add('is-uncounted');
-      if (a && a.n > 1) b.appendChild(el('sup', { class: 'crucible-repeat-n' }, '×' + a.n));
       if (c.all.some(function (i) { return i.run.outcome && i.run.outcome.timed_out; })) b.classList.add('is-timeout');
       return b;
     };
 
-    // A card headed by a row's model name, where tag and setup
+    // ---- Names that link: maker, model, 'maker / model' ----------------------
+
+    // The maker of x (a run, setup, row or base) linked to its publisher page, with the inferred
+    // marker when it was taken from the model name. opts: { sep: text after it, unknown: show
+    // "unknown maker" when nothing says (else null) }
+    D.makerNode = function (x, opts) {
+      opts = opts || {};
+      var info = makerInfo(x);
+      if (!info.id && !opts.unknown) return null;
+      var span = el('span', { class: 'crucible-maker' });
+      if (info.id) span.appendChild(el('a', { href: publisherUrl(info.id), class: 'crucible-maker-link' }, makerLabel(info.id)));
+      else span.appendChild(el('span', { class: 'crucible-maker-unknown' }, makerLabel(null)));
+      if (info.id && info.inferred) span.appendChild(C.inferredMark());
+      if (opts.sep) span.appendChild(document.createTextNode(opts.sep));
+      return span;
+    };
+    // A row's (or setup's) model name, linked to its model page; never breaks inside the slug
+    function labelOf(x) { return x.label || rowLabel(x.cfg || x); }
+    D.modelLink = function (x, suffix) {
+      var a = el('a', { href: D.modelUrl(x.cfg || x), class: 'crucible-model-link' });
+      a.appendChild(nameNode(labelOf(x), suffix));
+      return a;
+    };
+    // 'maker / model': nothing before the model when no maker is known
+    D.modelRef = function (x, suffix) {
+      var span = el('span', { class: 'crucible-model-ref' });
+      var maker = D.makerNode(x.cfg || x, { sep: ' / ' });
+      if (maker) span.appendChild(maker);
+      span.appendChild(D.modelLink(x, suffix));
+      return span;
+    };
+    // A card headed by a row's maker / model, where tag and setup
     D.modelCard = function (s, ul) {
       var li = ul.appendChild(el('li', { class: 'crucible-card' }));
       var title = li.appendChild(el('div', { class: 'crucible-card-title' }));
-      title.appendChild(nameNode(s.label));
+      title.appendChild(D.modelRef(s));
       title.appendChild(whereTag(s.cfg));
       li.appendChild(el('p', { class: 'crucible-config-line' }, configLabel(s.cfg)));
       return li;
+    };
+
+    // ---- Suite bar -----------------------------------------------------------
+
+    // Fills a page's suite bar (#suite-select, #suite-select-label, #suite-line, #suite-note) for S:
+    // the selector only when two or more suites are visible; the line always
+    D.renderSuiteBar = function (S) {
+      var select = document.getElementById('suite-select'), label = document.getElementById('suite-select-label');
+      if (select) {
+        select.hidden = SUITES.length < 2;
+        if (label) label.hidden = SUITES.length < 2;
+        fillSelect(select, SUITES.map(function (c) {
+          return { value: suiteId(c), label: suiteName(c) + (c.suite.status === 'current' ? ' (current)' : '') };
+        }), S.id);
+      }
+      var line = document.getElementById('suite-line');
+      if (line) {
+        line.innerHTML = '';
+        var cat = S.cat, suite = cat.suite;
+        var active = S.tasks.filter(function (t) { return t.status === 'active'; }).length;
+        var parts = [suiteName(cat) + (suite.version ? ' (version ' + suite.version + ')' : ''), active + ' scored tasks'];
+        if (suite.cut_at) parts.push('cut ' + fmtDate(suite.cut_at));
+        line.appendChild(document.createTextNode(parts.join(' · ')));
+        if (suite.changelog_url && /^(https?:|\/)/i.test(suite.changelog_url)) {
+          line.appendChild(document.createTextNode(' · '));
+          line.appendChild(el('a', { href: suite.changelog_url, rel: 'noopener' }, 'What changed'));
+        }
+      }
+      var note = document.getElementById('suite-note');
+      if (note) {
+        note.textContent = S.cat.suite.status === 'current' || S.cat === D.CURRENT ? ''
+          : 'A past suite: its own tasks, tiers and weights, and only the runs that count in it (a run counts in every suite that pins its task at the version it ran).';
+        note.hidden = !note.textContent;
+      }
     };
 
     D.costLabel = function (s) { return fmtCost(s.cost, s.local); };

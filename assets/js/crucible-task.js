@@ -15,12 +15,7 @@
 
   function isProv(t) { return t.status !== 'active' && t.status !== 'retired'; }
   function showProv() { return route.params.provisional === '1'; }
-  function suiteParam() { return route.params.suite || null; }
-  function hashFor(id, over) {
-    var p = { suite: suiteParam(), provisional: showProv() ? '1' : null };
-    Object.keys(over || {}).forEach(function (k) { p[k] = over[k]; });
-    return C.buildHash(id, p);
-  }
+  function hashFor(id, over) { return C.hashFor(id, over, ['suite', 'provisional']); }
   function taskHref(id) { return C.BASE + 'task/' + hashFor(id); }
   function link(href, text, cls) { return el('a', { href: href, class: cls || '' }, text); }
   function areaLabel(t) {
@@ -38,25 +33,12 @@
     return v >= 10000 ? Math.round(v / 1000) + 'k' : v >= 1000 ? (v / 1000).toFixed(1) + 'k' : String(Math.round(v));
   }
   function costText(e) { return C.fmtCost(e.cost, e.cfg.local); }
-  function scoreButton(e, text) {
-    var b = el('button', { type: 'button', class: 'crucible-task-score', 'aria-label': e.label + ' ' + fmtScore(e.mean) + ', open its runs' }, text || fmtScore(e.mean));
-    b.setAttribute('style', C.heatStyle(e.mean));
-    return b;
+  function scoreButton(e) {
+    return C.scoreButton(e.mean, e.label + ' ' + fmtScore(e.mean) + ', open its runs', { cls: 'crucible-task-score', n: e.runs.length });
   }
-  function makerNode(cfg) {
-    var info = D.makerInfo(cfg), span = el('span', { class: 'crucible-task-maker' });
-    if (info.id) span.appendChild(link(C.publisherUrl(info.id), D.makerLabel(info.id)));
-    else span.appendChild(el('span', { class: 'crucible-task-unknown' }, D.makerLabel(null)));
-    if (info.inferred) {
-      span.appendChild(el('span', { class: 'crucible-task-inferred', title: 'Taken from the model name because the run didn\'t record its maker' }, 'inferred'));
-    }
-    return span;
-  }
-  function modelLink(cfg) {
-    var a = link(D.modelUrl(cfg), D.rowLabel(cfg).replace(/ \(reasoning.*$/, ''));
-    a.className = 'crucible-slug';
-    return a;
-  }
+  function makerNode(cfg) { return D.makerNode(cfg, { unknown: true }); }
+  // The model's name alone: the setup column names the reasoning level
+  function modelLink(cfg) { return D.modelLink({ cfg: cfg, label: C.shortName(cfg.base) }); }
 
   // ---- Numbers --------------------------------------------------------------
 
@@ -89,25 +71,8 @@
     return out;
   }
 
-  // Per-check results of one run: group -> value 0..1 (a score record's items, grouped)
-  var runGroupCache = {};
-  function runGroups(info) {
-    if (!detailsIndex || !info.rec) return null;
-    if (runGroupCache[info.uuid]) return runGroupCache[info.uuid];
-    var rec = detailsIndex[C.scoreKey(info.uuid, info.rec.rubric_version, info.rec.method)];
-    if (!rec || !rec.items || !rec.items.length) return null;
-    var sums = {}, order = [], titles = {};
-    rec.items.forEach(function (it) {
-      var key = String(it.group || it.label || it.id || '');
-      if (!key) return;
-      var v = typeof it.share === 'number' ? it.share : it.passed ? 1 : 0;
-      if (!sums[key]) { sums[key] = []; order.push(key); titles[key] = it.label || key; }
-      sums[key].push(v);
-    });
-    var out = { values: {}, order: order, titles: titles };
-    order.forEach(function (k) { out.values[k] = mean(sums[k]); });
-    return (runGroupCache[info.uuid] = out);
-  }
+  // Per-check results of one run, grouped (core's D.runGroups); null until details.json loads
+  function runGroups(info) { return D.runGroups(detailsIndex, info); }
   function checkStats() {
     var by = {}, order = [];
     entries.forEach(function (e) {
@@ -149,22 +114,7 @@
   function note(text, cls) { return el('p', { class: 'crucible-sub crucible-task-note ' + (cls || '') }, text); }
 
   function renderSuite() {
-    var SUITES = D.SUITES, sel = document.getElementById('suite-select');
-    sel.hidden = SUITES.length < 2;
-    document.getElementById('suite-select-label').hidden = SUITES.length < 2;
-    C.fillSelect(sel, SUITES.map(function (c) {
-      return { value: D.suiteId(c), label: D.suiteName(c) + (c.suite.status === 'current' ? ' (current)' : '') };
-    }), S.id);
-    var line = document.getElementById('suite-line');
-    line.innerHTML = '';
-    var cat = S.cat, suite = cat.suite;
-    var active = S.tasks.filter(function (t) { return t.status === 'active'; }).length;
-    var parts = [D.suiteName(cat) + (suite.version ? ' (version ' + suite.version + ')' : ''), active + ' scored tasks'];
-    if (suite.cut_at) parts.push('cut ' + C.fmtDate(suite.cut_at));
-    line.appendChild(document.createTextNode(parts.join(' · ')));
-    var n = document.getElementById('suite-note');
-    n.textContent = suite.status === 'current' || cat === D.CURRENT ? '' : 'A past suite: its own tasks and tiers, and only the runs that count in it.';
-    n.hidden = !n.textContent;
+    D.renderSuiteBar(S);
     var box = document.getElementById('provisional-toggle');
     box.checked = showProv();
     var hiddenProv = S.tasks.filter(isProv).length;
@@ -177,7 +127,7 @@
   function renderIndex() {
     document.getElementById('task-title').textContent = 'Crucible tasks';
     document.title = 'Crucible tasks';
-    document.getElementById('task-crumb').textContent = '';
+    C.breadcrumb(document.getElementById('task-crumbs'), ['Tasks']);
     var shown = S.tasks.filter(function (t) { return t.status === 'active' || (isProv(t) && showProv()); });
     if (!shown.length) { body.appendChild(note('This suite has no tasks to list.')); return; }
     body.appendChild(note('Every task of ' + S.name + ', by section and area. Select one for what it asks, how it is scored and how the models did.'));
@@ -250,10 +200,7 @@
     var m = S.modeInfo(t.mode);
     document.getElementById('task-title').textContent = C.taskName(t);
     document.title = C.taskName(t) + ' · Crucible';
-    var crumb = document.getElementById('task-crumb');
-    crumb.innerHTML = '';
-    crumb.appendChild(document.createTextNode(' · '));
-    crumb.appendChild(link(C.BASE + 'task/' + hashFor(null), 'All tasks'));
+    C.breadcrumb(document.getElementById('task-crumbs'), [{ href: C.BASE + 'task/' + hashFor(null), text: 'Tasks' }, C.taskName(t)]);
 
     var head = el('header', { class: 'crucible-task-head' });
     var pills = head.appendChild(el('div', { class: 'crucible-task-pills' }));
@@ -471,7 +418,6 @@
       setup.appendChild(document.createTextNode(' ' + (e.cfg.level !== 'default' ? 'reasoning ' + e.cfg.level + ' · ' : '') + D.configLabel(e.cfg)));
       var sc = row.appendChild(el('td', { class: 'is-num' })), sb = scoreButton(e);
       sc.appendChild(sb);
-      if (e.runs.length > 1) sb.appendChild(el('sup', { class: 'crucible-repeat-n' }, '×' + e.runs.length));
       cols.forEach(function (k) { row.appendChild(el('td', { class: 'crucible-task-checkcell' })).appendChild(checkSquare(e, k)); });
       row.appendChild(el('td', { class: 'is-num' }, fmtSeconds(e.time)));
       row.appendChild(el('td', { class: 'is-num' }, fmtTokens(e.tokens)));
@@ -597,7 +543,6 @@
   // ---- 8 Harness comparison -------------------------------------------------
 
   var SHAPES = ['circle', 'square', 'diamond', 'triangle'];
-  var HCOLORS = ['#1856a3', '#b3365b', '#2f8f5b', '#c98a0a', '#6b5b95'];
   function marker(shape, cx, cy, r, color) {
     var a = { fill: color, stroke: '#fff', 'stroke-width': 2 };
     if (shape === 'square') return svg('rect', Object.assign({ x: cx - r, y: cy - r, width: 2 * r, height: 2 * r }, a));
@@ -628,7 +573,7 @@
       var row = tb.appendChild(el('tr'));
       var th = row.appendChild(el('th', { scope: 'row' }));
       var sw = th.appendChild(el('span', { class: 'crucible-task-hsw' }));
-      sw.style.background = HCOLORS[hs.indexOf(r.id) % HCOLORS.length];
+      sw.style.background = C.seriesColor(hs.indexOf(r.id));
       th.appendChild(document.createTextNode(harnessLabel(r.id)));
       [String(r.list.length), fmtScore(r.mean), fmtScore(r.best), fmtSeconds(r.time)].forEach(function (v) { row.appendChild(el('td', { class: 'is-num' }, v)); });
     });
@@ -648,7 +593,7 @@
     if (!pairs.length) { wrap.appendChild(note('No model ran this task on more than one harness at the same setup, so there is nothing to compare yet.')); return; }
     var perModel = {};
     pairs.forEach(function (g) { var k = g[0].model; perModel[k] = (perModel[k] || 0) + 1; });
-    legend(wrap, hs.filter(function (h) { return rows.some(function (r) { return r.id === h; }); }).map(function (h) { return [harnessLabel(h), HCOLORS[hs.indexOf(h) % HCOLORS.length]]; }));
+    legend(wrap, hs.filter(function (h) { return rows.some(function (r) { return r.id === h; }); }).map(function (h) { return [harnessLabel(h), C.seriesColor(hs.indexOf(h))]; }));
     var chart = wrap.appendChild(el('div', { class: 'crucible-chart' }));
     pairs.sort(function (a, b) {
       return Math.max.apply(null, b.map(function (e) { return e.mean; })) - Math.max.apply(null, a.map(function (e) { return e.mean; }));
@@ -677,7 +622,7 @@
         var vals = byH.map(function (e) { return e.mean; });
         root.appendChild(svg('line', { x1: x(Math.min.apply(null, vals)), x2: x(Math.max.apply(null, vals)), y1: dy, y2: dy, stroke: '#9a97a3', 'stroke-width': 3, 'stroke-linecap': 'round' }));
         byH.forEach(function (e) {
-          var hi = hs.indexOf(e.cfg.harness), mk = marker(SHAPES[hi % SHAPES.length], x(e.mean), dy, 6, HCOLORS[hi % HCOLORS.length]);
+          var hi = hs.indexOf(e.cfg.harness), mk = marker(SHAPES[hi % SHAPES.length], x(e.mean), dy, 6, C.seriesColor(hi));
           mk.appendChild(svg('title', {}, name + ' on ' + harnessLabel(e.cfg.harness) + ': ' + fmtScore(e.mean) + ' · ' + fmtSeconds(e.time)));
           root.appendChild(mk);
         });
@@ -738,7 +683,7 @@
     if (detailsState === 'ready') return;
     detailsState = 'loading';
     D.loadDetails().then(function (index) {
-      detailsIndex = index; detailsState = 'ready'; runGroupCache = {};
+      detailsIndex = index; detailsState = 'ready';
       if (task !== t) return;
       renderChecks(checks);
       renderPerformers(perf);
@@ -756,7 +701,7 @@
     redraws = [];
     state.openCfg = null;
     body.innerHTML = '';
-    document.getElementById('task-crumb').textContent = '';
+    C.breadcrumb(document.getElementById('task-crumbs'), [{ href: C.BASE + 'task/' + hashFor(null), text: 'Tasks' }]);
     renderSuite();
     document.getElementById('crucible-results').hidden = false;
     if (!route.id) { renderIndex(); return; }

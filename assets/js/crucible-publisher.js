@@ -5,16 +5,15 @@
 (function () {
   var C = window.CrucibleCore;
   var NONE = C.NONE, COLORS = C.COLORS, MAX_COMPARE = C.MAX_COMPARE;
-  var el = C.el, svg = C.svg, pct = C.pct, fmtScore = C.fmtScore, fmtSeconds = C.fmtSeconds, fmtDate = C.fmtDate;
-  var fillSelect = C.fillSelect, segmented = C.segmented, whereTag = C.whereTag, isNarrow = C.isNarrow;
+  var el = C.el, svg = C.svg, pct = C.pct, fmtScore = C.fmtScore, fmtSeconds = C.fmtSeconds;
+  var segmented = C.segmented, whereTag = C.whereTag, isNarrow = C.isNarrow;
   var script = document.currentScript;
-  var INFERRED_TITLE = 'Inferred from the model name: these runs didn\'t record who made the model.';
 
   function byId(id) { return document.getElementById(id); }
   function link(href, text, cls) { var a = el('a', { href: href }, text); if (cls) a.className = cls; return a; }
 
   function start(D) {
-    var SUITES = D.SUITES, suiteId = D.suiteId, suiteName = D.suiteName, rowLabel = D.rowLabel, configLabel = D.configLabel;
+    var suiteId = D.suiteId, suiteName = D.suiteName, configLabel = D.configLabel;
     var current = { maker: null, mode: null, suite: null };
     var S = null, V = null;
 
@@ -73,7 +72,7 @@
 
     // ---- Small pieces ----------------------------------------------------------
 
-    function inferredMark() { return el('span', { class: 'crucible-inferred', title: INFERRED_TITLE }, 'inferred'); }
+    var inferredMark = C.inferredMark;
     function makerLink(id) { return link(C.publisherUrl(id), D.makerLabel(id), 'crucible-pub-maker'); }
     function modelLink(model, cls) {
       return link(D.modelUrl(model.bases[0]), model.name, cls || 'crucible-pub-model');
@@ -82,47 +81,15 @@
       var lead = s.cfg.level !== 'default' ? 'reasoning ' + s.cfg.level + ' · ' : '';
       return lead + configLabel(s.cfg);
     }
-    function coverage(s, into) {
-      var wrap = into.appendChild(el('span', { class: 'crucible-pub-cov' }));
-      wrap.appendChild(el('span', { class: 'crucible-pub-cov-n' }, s.progress.done + '/' + s.progress.total));
-      var bar = wrap.appendChild(el('span', { class: 'crucible-lb-bar' + (s.inProgress ? ' is-partial' : '') }));
-      var fill = bar.appendChild(el('span', { class: 'crucible-lb-fill' + (s.local ? ' is-local' : '') }));
-      fill.style.width = (s.progress.share * 100) + '%';
-      if (s.inProgress) {
-        wrap.appendChild(el('span', { class: 'crucible-pill', title: 'Fewer than ' + pct(S.COVERAGE_MIN) + ' of this section\'s scored tasks have a counted run, so the score may still move' }, 'in progress'));
-      }
-      return wrap;
-    }
+    function coverage(s, into) { return into.appendChild(C.coverageBar(s, S)); }
     function viewButton(model) { return link(D.modelUrl(model.bases[0]), 'View model →', 'crucible-pub-button'); }
 
     // ---- Suite bar and chrome -----------------------------------------------------
 
-    function renderSuite() {
-      var select = byId('suite-select');
-      select.hidden = SUITES.length < 2;
-      byId('suite-select-label').hidden = SUITES.length < 2;
-      fillSelect(select, SUITES.map(function (c) {
-        return { value: suiteId(c), label: suiteName(c) + (c.suite.status === 'current' ? ' (current)' : '') };
-      }), suiteId(S.cat));
-      var suite = S.cat.suite;
-      var active = S.tasks.filter(function (t) { return t.status === 'active'; }).length;
-      var parts = [suiteName(S.cat) + (suite.version ? ' (version ' + suite.version + ')' : ''), active + ' scored tasks'];
-      if (suite.cut_at) parts.push('cut ' + fmtDate(suite.cut_at));
-      byId('suite-line').textContent = parts.join(' · ');
-    }
-    function hashFor(id, mode) {
-      var cur = C.parseHash().params.suite || null;
-      return C.buildHash(id, { mode: mode || null, suite: cur });
-    }
+    function renderSuite() { D.renderSuiteBar(S); }
+    function hashFor(id, mode) { return C.hashFor(id, { mode: mode || null }); }
     function crumbs(maker) {
-      var box = byId('pub-crumbs');
-      box.innerHTML = '';
-      box.appendChild(link(C.BASE + C.buildHash(null, { suite: C.parseHash().params.suite || null }), 'Crucible'));
-      box.appendChild(document.createTextNode(' › '));
-      if (maker) {
-        box.appendChild(link(C.publisherUrl(null), 'Publishers'));
-        box.appendChild(document.createTextNode(' › ' + D.makerLabel(maker)));
-      } else box.appendChild(document.createTextNode('Publishers'));
+      C.breadcrumb(byId('pub-crumbs'), maker ? [{ href: C.publisherUrl(null), text: 'Publishers' }, D.makerLabel(maker)] : ['Publishers']);
     }
     function message(text) {
       var m = byId('pub-message');
@@ -144,7 +111,7 @@
       var inferred = models.filter(function (m) { return m.inferred; }).length;
       if (inferred) {
         var tag = meta.appendChild(inferredMark());
-        tag.title = INFERRED_TITLE + (inferred < models.length ? ' (' + inferred + ' of ' + models.length + ' models)' : '');
+        tag.title = C.INFERRED_TITLE + (inferred < models.length ? ' (' + inferred + ' of ' + models.length + ' models)' : '');
       }
       meta.hidden = false;
       message('');
@@ -267,6 +234,7 @@
       wrap.hidden = !list.length;
       if (!list.length) return;
       var H = V.head();
+      byId('pub-chart-heading').textContent = H.label + ' score per model';
       byId('pub-chart-sub').textContent = H.label + ' score of each model\'s best setup, 0 to 10. Labels read score · tasks run / tasks in the section.';
       var legend = byId('pub-legend');
       legend.innerHTML = '';

@@ -1822,3 +1822,84 @@ ol.crucible-scatter-key {
     justify-content: space-between;
   }
 }
+
+// Shared by the detail pages: the inferred-maker marker, the in-progress pill, a setup's coverage
+// bar, the heat-coloured score button and an unknown maker
+
+.crucible-inferred {
+  margin-left: 4px;
+  color: $crucibleMuted;
+  font-size: 11px;
+  font-style: italic;
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+.crucible-maker-unknown {
+  color: $crucibleMuted;
+  font-style: italic;
+}
+
+.crucible-pill {
+  padding: 1px 6px;
+  background: #fff3ea;
+  border-radius: 10px;
+  color: #a4421b;
+  font-size: 11px;
+  white-space: nowrap;
+  cursor: help;
+}
+
+.crucible-cov {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 6px;
+  white-space: nowrap;
+}
+
+.crucible-cov-n {
+  min-width: 3em;
+  font-weight: $weightBold;
+}
+
+.crucible-cov-bar {
+  display: inline-block;
+  width: 64px;
+  height: 8px;
+  overflow: hidden;
+  background: $crucibleNotRun;
+  border-radius: 4px;
+}
+
+.crucible-cov-fill {
+  display: block;
+  height: 100%;
+  background: $colorSecondary;
+
+  &.is-low {
+    background: $crucibleMuted;
+  }
+}
+
+.crucible-score-button {
+  min-width: 44px;
+  padding: 3px 8px;
+  background: $crucibleNotRun;
+  border: 0;
+  border-radius: 3px;
+  font: inherit;
+  font-weight: $weightBold;
+  cursor: pointer;
+
+  &.is-uncounted {
+    background: #fff;
+    border: 1px solid $crucibleMuted;
+    color: $crucibleMuted;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $colorSecondary;
+    outline-offset: 1px;
+  }
+}

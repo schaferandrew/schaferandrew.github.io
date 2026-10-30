@@ -6,15 +6,15 @@
 (function () {
   var C = window.CrucibleCore;
   var NONE = C.NONE, COLORS = C.COLORS, MAX_COMPARE = C.MAX_COMPARE;
-  var num = C.num, cap = C.cap, pct = C.pct, mean = C.mean, median = C.median, fmtRepeat = C.fmtRepeat;
-  var fmtScore = C.fmtScore, fmtSeconds = C.fmtSeconds, fmtUsd = C.fmtUsd, fmtCost = C.fmtCost, fmtInt = C.fmtInt, fmtDate = C.fmtDate;
-  var heatStyle = C.heatStyle, el = C.el, svg = C.svg, nameNode = C.nameNode, whereTag = C.whereTag, taskName = C.taskName;
-  var segmented = C.segmented, fillSelect = C.fillSelect, kvRow = C.kvRow, scoreBar = C.scoreBar, isNarrow = C.isNarrow;
+  var cap = C.cap, pct = C.pct, median = C.median;
+  var fmtScore = C.fmtScore, fmtSeconds = C.fmtSeconds, fmtUsd = C.fmtUsd, fmtDate = C.fmtDate;
+  var heatStyle = C.heatStyle, el = C.el, svg = C.svg, whereTag = C.whereTag, taskName = C.taskName;
+  var segmented = C.segmented, fillSelect = C.fillSelect, kvRow = C.kvRow, isNarrow = C.isNarrow;
   var script = document.currentScript;
   var resultsEl = document.getElementById('crucible-results');
 
   function start(D) {
-    var store = D.store, SUITES = D.SUITES, CURRENT = D.CURRENT, suiteId = D.suiteId, suiteName = D.suiteName;
+    var store = D.store, CURRENT = D.CURRENT, suiteId = D.suiteId, suiteName = D.suiteName;
     var FB_METHODS = D.FB.scoring_methods || {};
     var configLabel = D.configLabel, hwValue = D.hwValue;
 
@@ -51,45 +51,11 @@
       useSuite(h.suite && D.catalogById(h.suite) ? h.suite : state.suite);
     }
     function writeHash() {
-      var parts = [encodeURIComponent(state.mode)];
-      if (state.suite !== suiteId(CURRENT)) parts.push('suite=' + encodeURIComponent(state.suite));
-      var hash = '#' + parts.join('&');
+      var hash = C.buildHash(state.mode, { suite: state.suite !== suiteId(CURRENT) ? state.suite : null });
       if (location.hash !== hash && history.replaceState) history.replaceState(null, '', hash);
     }
 
-    // A model as 'maker / model': the maker (muted, with the inferred marker) links to its publisher
-    // page, the model to its model page. Nothing before the model when no maker is known.
-    var INFERRED_TITLE = 'Inferred from the model name: these runs didn\'t record who made the model.';
-    function makerNode(x) {
-      var info = D.makerInfo(x);
-      if (!info.id) return null;
-      var span = el('span', { class: 'crucible-maker' });
-      span.appendChild(el('a', { href: C.publisherUrl(info.id), class: 'crucible-maker-link' }, D.makerLabel(info.id)));
-      if (info.inferred) span.appendChild(el('span', { class: 'crucible-inferred', title: INFERRED_TITLE }, 'inferred'));
-      span.appendChild(document.createTextNode(' / '));
-      return span;
-    }
-    function modelLink(s, suffix) {
-      var a = el('a', { href: D.modelUrl(s), class: 'crucible-model-link' });
-      a.appendChild(nameNode(s.label, suffix));
-      return a;
-    }
-    function modelRef(s, suffix) {
-      var span = el('span', { class: 'crucible-model-ref' });
-      var maker = makerNode(s);
-      if (maker) span.appendChild(maker);
-      span.appendChild(modelLink(s, suffix));
-      return span;
-    }
-    // The shared model card with the linked name
-    function modelCard(s, ul) {
-      var li = ul.appendChild(el('li', { class: 'crucible-card' }));
-      var title = li.appendChild(el('div', { class: 'crucible-card-title' }));
-      title.appendChild(modelRef(s));
-      title.appendChild(whereTag(s.cfg));
-      li.appendChild(el('p', { class: 'crucible-config-line' }, configLabel(s.cfg)));
-      return li;
-    }
+    var modelRef = D.modelRef, modelLink = D.modelLink, modelCard = D.modelCard;
 
     function modeInfo() { return V.info; }
     function tierLabel(id) { return S.tierLabel(id); }
@@ -137,29 +103,7 @@
     // ---- Controls ---------------------------------------------------------
 
     // Suite selector, newest first, and the suite line: version, task counts, cut date, changelog
-    function renderSuite() {
-      // One visible suite: no selector, just the suite line
-      document.getElementById('suite-select').hidden = SUITES.length < 2;
-      document.getElementById('suite-select-label').hidden = SUITES.length < 2;
-      fillSelect(document.getElementById('suite-select'), SUITES.map(function (c) {
-        return { value: suiteId(c), label: suiteName(c) + (c.suite.status === 'current' ? ' (current)' : '') };
-      }), state.suite);
-      var line = document.getElementById('suite-line');
-      line.innerHTML = '';
-      var cat = S.cat, suite = cat.suite;
-      var active = S.tasks.filter(function (t) { return t.status === 'active'; }).length;
-      var parts = [suiteName(cat) + (suite.version ? ' (version ' + suite.version + ')' : ''), active + ' scored tasks'];
-      if (suite.cut_at) parts.push('cut ' + fmtDate(suite.cut_at));
-      line.appendChild(document.createTextNode(parts.join(' · ')));
-      if (suite.changelog_url) {
-        line.appendChild(document.createTextNode(' · '));
-        line.appendChild(el('a', { href: suite.changelog_url, rel: 'noopener' }, 'What changed'));
-      }
-      var note = document.getElementById('suite-note');
-      note.textContent = suite.status === 'current' || cat === CURRENT ? ''
-        : 'A past suite: its own tasks, tiers and weights, and only the runs that count in it (a run counts in every suite that pins its task at the version it ran).';
-      note.hidden = !note.textContent;
-    }
+    function renderSuite() { D.renderSuiteBar(S); }
 
     function renderControls(rows) {
       var tabs = document.getElementById('mode-tabs');
@@ -618,7 +562,6 @@
 
     // ---- Matrix -----------------------------------------------------------
 
-    var promptBlock = D.promptBlock, runList = D.runList;
     function showCellDetail(s, t, c) { D.showCellDetail(document.getElementById('crucible-cell-detail'), S, s, t, c); }
     var matrixButton = D.cellButton;
 

@@ -404,22 +404,29 @@
       $('cm-ab-summary').textContent = text + '.';
     }
 
-    // ---- Tasks (compact copy of the main page's renderTasks: should move to core) ----
+    // ---- Tasks ----
 
+    // An area's toggle: the mean of its counted task scores and how many of its tasks have a counted
+    // run, the same numbers as "By area"; runs that don't count are named as such, never counted
     function areaToggle(S, area, tasks, cfg, key, open, rerender) {
-      var values = tasks.map(function (t) { return D.cellValue(S.cellOf(cfg, t.id)); });
-      var ran = tasks.filter(function (t) { return S.cellOf(cfg, t.id); }).length;
-      var avg = C.mean(values.map(function (v) { return v && v.agg ? v.agg.mean : null; }));
+      var means = tasks.map(function (t) { return S.countedMean(cfg, t.id); });
+      var counted = means.filter(function (v) { return v !== null; }).length;
+      var uncounted = tasks.filter(function (t, i) { var c = S.cellOf(cfg, t.id); return means[i] === null && c && c.all.length; }).length;
+      var avg = C.mean(means);
       var button = el('button', { type: 'button', class: 'crucible-area-toggle', 'aria-expanded': open });
       button.appendChild(el('span', { class: 'crucible-area-caret', 'aria-hidden': 'true' }, open ? '▾' : '▸'));
       button.appendChild(el('span', { class: 'crucible-area-name' }, area.label));
       var chip = el('span', { class: 'crucible-area-score' }, avg === null ? NONE : (C.isNarrow() ? 'mean ' : '') + fmtScore(avg));
       if (avg !== null) chip.setAttribute('style', C.heatStyle(avg));
       button.appendChild(chip);
-      button.appendChild(el('span', { class: 'crucible-area-count' }, ran + '/' + tasks.length + ' run'));
+      button.appendChild(el('span', { class: 'crucible-area-count' }, counted + ' of ' + tasks.length + ' counted' +
+        (uncounted ? ' · ' + uncounted + ' ran but don’t count' : '')));
       button.addEventListener('click', function () { openAreas[key] = !open; rerender(); });
       return button;
     }
+
+    // Runs behind a cell, naming the ones that don't count
+    function runsText(n) { return n.counted === n.runs ? String(n.runs) : n.counted + ' of ' + n.runs + ' counted'; }
 
     function renderTasks(S, V, s) {
       var table = $('cm-tasks'), narrow = $('cm-tasks-narrow');
@@ -452,10 +459,13 @@
             if (!c) { li.appendChild(el('p', { class: 'crucible-not-run' }, 'not run')); return; }
             var b = D.cellButton(sObj, t, c, true);
             b.addEventListener('click', function () { open(t, c); });
-            C.kvRow(li, 'Score', b);
+            var sv = el('span', { class: 'crucible-kv-value' });
+            sv.appendChild(b);
+            if (!n.counted) sv.appendChild(D.stateFlag(c.all[0].state));
+            C.kvRow(li, 'Score', sv);
             C.kvRow(li, 'Time', fmtSeconds(n.time));
             C.kvRow(li, 'Cost', fmtCost(n.cost, s.local));
-            C.kvRow(li, 'Runs', String(n.runs));
+            C.kvRow(li, 'Runs', runsText(n));
           });
         });
         return;
@@ -483,10 +493,11 @@
           var sc = row.appendChild(el('td', { class: 'crucible-score-cell' }));
           sc.appendChild(b);
           if (n.value && n.value.agg) sc.appendChild(el('span', { class: 'crucible-repeat' }, ' ' + fmtScore(n.value.agg.mean) + ' · ' + C.fmtRepeat(n.value.agg)));
+          else if (!n.counted) sc.appendChild(D.stateFlag(c.all[0].state));
           var tc = row.appendChild(el('td', {}, fmtSeconds(n.time)));
           if (n.timedOut) tc.appendChild(el('span', { class: 'crucible-flag' }, 'timed out'));
           row.appendChild(el('td', {}, fmtCost(n.cost, s.local)));
-          row.appendChild(el('td', {}, String(n.runs)));
+          row.appendChild(el('td', {}, runsText(n)));
         });
       });
     }

@@ -38,6 +38,10 @@ $crucibleBlue: #1856a3;
   max-width: $postMaxWidth;
   margin-bottom: $gap;
   line-height: $lineHeightXwide;
+
+  > p:first-of-type {
+    margin-bottom: $gap;
+  }
 }
 
 .crucible-draft {

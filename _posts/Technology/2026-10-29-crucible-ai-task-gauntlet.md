@@ -8,6 +8,10 @@ Crucible is an AI task gauntlet to analyze whether local models are capable of r
 
 I am giddy with excitement to introduce **Crucible**. This is my AI workflow gauntlet to help me test models, along with a harness to help me be as efficient as possible with token usage. The local and open-weight world is getting scary good — I'm hopeful this is a tool that helps you see just how capable it is.
 
+![Chat Leaderboard](/assets/img/technology/2026/crucible/chat-leaderboard.png)
+
+*Chat leaderboard — local models competing head-to-head with cloud models.*
+
 ## Why is this necessary?
 
 A developer in 2026 is spoiled by an enterprise subscription to Cursor, Codex, or Claude Code. The nearly limitless tokens and polished tool interface begin to create a stark difference between personal projects and company workflows.
@@ -56,9 +60,5 @@ I've already seen tangible benefits from this workflow:
 I invite you to take a look at the results, play around with the dashboard, and filter by hardware closest to yours before testing out the models. Give Crucible a shot, run it yourself, and then be bold — try giving it real tasks in the harness of your choice!
 
 Reach out with questions. I hope soon to build the infrastructure to allow community-provided test results, but for now, I'd love to hear what your local models can do.
-
-![Chat Leaderboard](/assets/img/technology/2026/crucible/chat-leaderboard.png)
-
-*Chat leaderboard — local models competing head-to-head with cloud models.*
 
 [Check out the Crucible dashboard](/crucible/)

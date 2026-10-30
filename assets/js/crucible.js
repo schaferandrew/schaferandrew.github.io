@@ -54,6 +54,8 @@
   function ids(list) {
     return (list || []).map(function (h) { return typeof h === 'string' ? h : h && h.id; }).filter(Boolean);
   }
+  // A share meets a threshold at exactly the threshold (6 of 8 meets 0.75), whatever the float rounding
+  function meets(share, min) { return share + 1e-9 >= min; }
   function pct(v) { return Math.round(v * 100) + '%'; }
   function scoreKey(uuid, rubric, method) { return uuid + '|' + rubric + '|' + method; }
   function newer(node) { return typeof node.format_version === 'number' && node.format_version > SUPPORTED_FORMAT; }
@@ -208,9 +210,10 @@
     function slugify(s) { return String(s).toLowerCase().replace(/[^a-z0-9.]+/g, '-').replace(/^-+|-+$/g, ''); }
 
     // The identity fields a configuration is made of, from the run record. null means "not
-    // recorded" (older and migrated runs often lack the publisher, the resolved reasoning level, the
-    // upstream provider or the hardware key), never a different setup.
-    var FIELDS = ['publisher', 'format', 'quant', 'reasoning', 'provider', 'upstream', 'hwKey', 'device'];
+    // recorded" (older and migrated runs often lack the publisher, the resolved reasoning level or
+    // the hardware key), never a different setup. OpenRouter's upstream provider is per-request
+    // routing, not a setup anyone chose, so it never splits one (a run's detail names it).
+    var FIELDS = ['publisher', 'format', 'quant', 'reasoning', 'provider', 'hwKey', 'device'];
     function identityOf(r) {
       var m = r.model || {}, e = r.endpoint || {}, hw = r.hardware || null;
       var vk = m.variant_key ? String(m.variant_key).split('|') : [];
@@ -230,7 +233,6 @@
         reasoning: explicit ? requested : resolved,
         reqDefault: !explicit,
         provider: local ? null : known(e.provider),
-        upstream: local ? null : known(e.upstream && (e.upstream.name || e.upstream.provider)),
         hwKey: local ? known(hw && hw.key) : null,
         // The machine that served the weights (an LM Link peer, or this machine's label)
         device: local ? known(e.device || (hw && hw.label)) : null,
@@ -285,10 +287,10 @@
           cfg = CONFIGS[finalKey] = {
             key: finalKey, rowKey: id.base + '#' + level, base: id.base, level: level, where: id.where, local: id.local,
             harness: id.harness, quant: id.quantLabel || id.quant, publisher: id.publisherLabel || id.publisher,
-            hwKey: id.hwKey, provider: id.provider, upstream: id.upstream, servedVia: {}, devices: {}, merged: 0
+            hwKey: id.hwKey, provider: id.provider, servedVia: {}, devices: {}, merged: 0
           };
           var slug = [shortName(id.base), level !== 'default' ? 'reasoning-' + level : '', id.local ? id.quant : '',
-            id.local ? id.hwKey || id.device || 'local' : (id.provider || 'cloud') + (id.upstream ? '-' + id.upstream : ''), id.harness]
+            id.local ? id.hwKey || id.device || 'local' : id.provider || 'cloud', id.harness]
             .filter(Boolean).map(slugify).join('~');
           var unique = slug, i = 2;
           while (SLUGS[unique]) unique = slug + '~' + (i++);
@@ -319,7 +321,7 @@
     function configLabel(cfg) {
       var parts = cfg.local
         ? [(cfg.publisher ? cfg.publisher + ' ' : '') + (cfg.quant || 'quant not recorded'), hardwareText(cfg)]
-        : ['via ' + (cfg.provider || 'cloud') + (cfg.upstream ? ' (' + cfg.upstream + ')' : '')];
+        : ['via ' + (cfg.provider || 'cloud')];
       return parts.concat([cfg.harness]).join(' · ');
     }
     // A model's name never breaks inside its slug ("qwen3.6-35b-a3b"): only before "(reasoning …)"
@@ -624,7 +626,7 @@
         scored: scores.length, total: n,
         min: scores.length ? Math.min.apply(null, scores) : null
       };
-      result.partial = result.score !== null && result.coverage < S.COVERAGE_MIN;
+      result.partial = result.score !== null && !meets(result.coverage, S.COVERAGE_MIN);
       return result;
     }
 
@@ -677,7 +679,7 @@
       return (statsCache[cfg.key] = {
         cfg: cfg, local: cfg.local, ran: ran, tier: tier, verdict: verdict, provisional: provisionalOf,
         head: tier[S.HEAD], time: timeOf(runs), cost: costOf(cfg, runs), runs: runs.length,
-        progress: progress, inProgress: progress.share < S.IN_PROGRESS_BELOW
+        progress: progress, inProgress: !meets(progress.share, S.IN_PROGRESS_BELOW)
       });
     }
 
@@ -685,8 +687,8 @@
     // highest headline score; only when none does, the one with the most scored tasks. A near-empty
     // setup never beats a covered one. Never stitched per task: every number is one setup's.
     function betterConfig(a, b) {
-      var ca = a.head.score !== null && a.head.coverage >= S.COVERAGE_MIN;
-      var cb = b.head.score !== null && b.head.coverage >= S.COVERAGE_MIN;
+      var ca = a.head.score !== null && meets(a.head.coverage, S.COVERAGE_MIN);
+      var cb = b.head.score !== null && meets(b.head.coverage, S.COVERAGE_MIN);
       if (ca !== cb) return ca ? -1 : 1;
       if (ca) {
         if (a.head.score !== b.head.score) return b.head.score - a.head.score;
@@ -1374,6 +1376,7 @@
         'time ' + fmtSeconds(num(r.elapsed_s, null)), met.tool_calls !== null && met.tool_calls !== undefined ? 'tool calls ' + fmtInt(met.tool_calls) : null,
         'tokens in ' + fmtInt(met.tokens_in), 'out ' + fmtInt(met.tokens_out),
         info.cfg.local ? 'not billed (local)' : 'cost ' + fmtUsd(met.cost_usd),
+        r.endpoint && r.endpoint.upstream && (r.endpoint.upstream.name || r.endpoint.upstream.provider) ? 'routed to ' + (r.endpoint.upstream.name || r.endpoint.upstream.provider) : null,
         'task v' + ((r.task || {}).version === null || (r.task || {}).version === undefined ? '?' : r.task.version),
         r.provenance && r.provenance.crucible_version ? 'Crucible ' + r.provenance.crucible_version : null,
         'run ' + info.uuid.slice(0, 8)

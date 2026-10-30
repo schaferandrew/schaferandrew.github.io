@@ -44,11 +44,11 @@
   "resolved_model": null
  },
  "hardware": {
-  "key": null,
-  "class": null,
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
   "accelerators": [],
-  "system_memory_gb": null,
-  "cpu": null,
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
   "offload": null,
   "label": "Duskfall"
  },
@@ -82,7 +82,7 @@
   "machine_id": "m_f554f42a74a5",
   "machine_label": "Ironwood",
   "source": "crucible-run",
-  "content_hash": "sha256:39e1c9eb6a4583675be67f12cac81163c7133f24565af23d5409bd8fce65aef3",
+  "content_hash": "sha256:4430978c9edffc57c772293a5adb448c4df083d75cfa014312abefef7b2cf605",
   "submitter": null,
   "verification": null
  }

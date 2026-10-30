@@ -132,6 +132,16 @@
     // hide every suite, all of them stay visible
     var DISPLAY = payload.display || {};
     var hiddenSuites = (DISPLAY.hidden_suites || []).map(String);
+    // A local run isn't billed: its cost is the electricity it used, its time x its machine's watts
+    // (display settings, by hardware key) x the price per kWh. None when the machine has no watts listed
+    var ENERGY = DISPLAY.energy || {};
+    function wattsOf(hwKey) { var w = num((ENERGY.watts || {})[hwKey], null); return w && w > 0 ? w : null; }
+    function isLocalRun(run) { return !!(run.endpoint && run.endpoint.where === 'local'); }
+    function runCost(run) {
+      if (!isLocalRun(run)) return num((run.metrics || {}).cost_usd, null);
+      var w = wattsOf(run.hardware && run.hardware.key), t = num(run.elapsed_s, null), price = num(ENERGY.usd_per_kwh, null);
+      return w && t !== null && price !== null ? w * t / 3600000 * price : null;
+    }
     var SUITES = store.catalogs.filter(function (c) { return hiddenSuites.indexOf(suiteId(c)) === -1; });
     if (!SUITES.length) SUITES = store.catalogs;
     function suiteName(c) { var id = suiteId(c); return 'Suite ' + (/^v/i.test(id) ? id : 'v' + id); }
@@ -149,8 +159,11 @@
     function fmtUsd(v) {
       if (v === null || v === undefined) return NONE;
       if (v === 0) return '$0';
-      return v < 0.01 ? '<$0.01' : '$' + v.toFixed(v < 1 ? 3 : 2);
+      if (v < 0.0001) return '<$0.0001';
+      return '$' + (v < 0.01 ? v.toPrecision(2) : v.toFixed(v < 1 ? 3 : 2));
     }
+    // A local cost is an electricity estimate, marked as such; a cloud cost is what the provider billed
+    function fmtCost(v, local) { return (local && v !== null && v !== undefined ? '≈' : '') + fmtUsd(v); }
     function fmtInt(v) { return v === null || v === undefined ? NONE : v.toLocaleString(); }
     function fmtDate(v) { return v ? String(v).slice(0, 10) : NONE; }
 
@@ -663,10 +676,7 @@
       return out;
     }
     function timeOf(runs) { return median(runs.map(function (i) { return num(i.run.elapsed_s, null); })); }
-    function costOf(cfg, runs) {
-      if (cfg.local) return null;
-      return mean(runs.map(function (i) { return num((i.run.metrics || {}).cost_usd, null); }));
-    }
+    function costOf(cfg, runs) { return mean(runs.map(function (i) { return runCost(i.run); })); }
 
     var statsCache = {};
     function stats(cfg) {
@@ -998,8 +1008,13 @@
     function rankLabel(s, rank) {
       return s.ran && !s.inProgress && s.head.score !== null && !s.head.partial ? String(rank) : '';
     }
-    function costLabel(s) { return s.local ? NONE + ' local' : fmtUsd(s.cost); }
-    function costTitle(s) { return s.local ? 'Local runs aren\'t billed' : 'Average API cost per counted run'; }
+    function costLabel(s) { return fmtCost(s.cost, s.local); }
+    function costTitle(s) {
+      if (!s.local) return 'Average API cost per counted run';
+      var w = wattsOf(s.cfg.hwKey);
+      return w ? 'Estimated electricity per counted run: ' + w + ' W at $' + num(ENERGY.usd_per_kwh, 0) + '/kWh for the run\'s time. Not the hardware\'s cost.'
+        : 'Local runs aren\'t billed, and this hardware has no power figure';
+    }
 
     function compareButton(cfg) {
       var on = state.compare.indexOf(cfg.slug) !== -1;
@@ -1126,7 +1141,7 @@
           row.appendChild(el('span', { class: 'crucible-lb-card-label' }, t.label));
           tierCellContent(s, t, row);
         });
-        var time = fmtSeconds(s.time) + '/task', cost = (s.local ? 'not billed (local)' : fmtUsd(s.cost) + '/task');
+        var time = fmtSeconds(s.time) + '/task', cost = costLabel(s) + '/task';
         var line = card.appendChild(el('p', { class: 'crucible-lb-card-line' }));
         if (state.sort.key === 'time') line.appendChild(el('strong', {}, 'Time ' + time));
         else if (state.sort.key === 'cost') line.appendChild(el('strong', {}, 'Cost ' + cost));
@@ -1170,11 +1185,11 @@
       function xOf(s) { return measure === 'time' ? s.time : s.cost; }
 
       var points = list.filter(function (s) { var x = xOf(s); return s.head && s.head.score !== null && x !== null && x > 0; });
-      var skippedLocal = measure === 'cost' && list.some(function (s) { return s.local && s.head.score !== null; });
+      var skippedLocal = measure === 'cost' && list.some(function (s) { return s.local && s.head.score !== null && s.cost === null; });
       document.getElementById('scatter-sub').textContent = measure === 'time'
         ? H.label + ' score against median time per task, for each row\'s best setup. Up and to the left is better: the shaded corner is faster and better than the median, and the line joins models nothing else beats on both.'
-        : H.label + ' score against average API cost per task. Up and to the left is better.' +
-          (skippedLocal ? ' Local models aren\'t billed and are left off.' : '');
+        : H.label + ' score against average cost per task: the API bill for cloud models, the estimated electricity for local ones. Up and to the left is better.' +
+          (skippedLocal ? ' Local setups on hardware with no power figure are left off.' : '');
       // The legend sits above the plot, never over the points
       var legend = document.getElementById('crucible-scatter-legend');
       legend.innerHTML = '';
@@ -1247,7 +1262,9 @@
         if (narrow) {
           root.appendChild(svg('text', { class: 'crucible-point-label crucible-point-num', x: px + 8, y: py - 7 }, String(byScore.indexOf(s) + 1)));
         } else if (labelAll || frontier.indexOf(s) !== -1) {
-          root.appendChild(svg('text', { class: 'crucible-point-label', x: px + 9, y: py - 8 }, s.label));
+          // A label that would run past the plot's right edge sits to the left of its point
+          var flip = px + 9 + s.label.length * 7 > width;
+          root.appendChild(svg('text', { class: 'crucible-point-label', x: flip ? px - 9 : px + 9, y: py - 8, 'text-anchor': flip ? 'end' : 'start' }, s.label));
         }
         var hit = svg('circle', { class: 'crucible-hit', cx: px, cy: py, r: 14 });
         hit.addEventListener('mouseenter', function () {
@@ -1255,7 +1272,7 @@
           tooltip.appendChild(el('div', { class: 'crucible-tooltip-title' }, s.label + ' · ' + s.cfg.where));
           tooltip.appendChild(el('div', { class: 'crucible-tooltip-note' }, configLabel(s.cfg)));
           tooltip.appendChild(el('div', {}, H.label + ' ' + fmtScore(s.head.score) + (s.head.partial ? ' (partial)' : '')));
-          tooltip.appendChild(el('div', {}, 'Time per task ' + fmtSeconds(s.time) + ' · cost ' + (s.local ? 'not billed' : fmtUsd(s.cost))));
+          tooltip.appendChild(el('div', {}, 'Time per task ' + fmtSeconds(s.time) + ' · cost ' + costLabel(s)));
           tooltip.hidden = false;
           var left = px + 14;
           if (left + tooltip.offsetWidth > container.clientWidth) left = px - 14 - tooltip.offsetWidth;
@@ -1272,7 +1289,7 @@
           var sw = li.appendChild(el('span', { class: 'crucible-scatter-swatch', 'aria-hidden': 'true' }));
           sw.style.background = s.local ? COLORS.local : COLORS.cloud;
           li.appendChild(el('strong', {}, (i + 1) + ' '));
-          li.appendChild(document.createTextNode(s.label + ' · ' + fmtScore(s.head.score) + (s.head.partial ? ' (partial)' : '') + ' · ' + (measure === 'time' ? fmtSeconds(s.time) : fmtUsd(s.cost))));
+          li.appendChild(document.createTextNode(s.label + ' · ' + fmtScore(s.head.score) + (s.head.partial ? ' (partial)' : '') + ' · ' + (measure === 'time' ? fmtSeconds(s.time) : costLabel(s))));
         });
       }
     }
@@ -1394,7 +1411,7 @@
         'ran ' + fmtDate(r.started_at), (out.status || NONE).replace(/_/g, ' ') + (out.timed_out ? ' (timed out)' : ''),
         'time ' + fmtSeconds(num(r.elapsed_s, null)), met.tool_calls !== null && met.tool_calls !== undefined ? 'tool calls ' + fmtInt(met.tool_calls) : null,
         'tokens in ' + fmtInt(met.tokens_in), 'out ' + fmtInt(met.tokens_out),
-        info.cfg.local ? 'not billed (local)' : 'cost ' + fmtUsd(met.cost_usd),
+        (info.cfg.local ? 'electricity ' : 'cost ') + fmtCost(runCost(r), info.cfg.local),
         r.endpoint && r.endpoint.upstream && (r.endpoint.upstream.name || r.endpoint.upstream.provider) ? 'routed to ' + (r.endpoint.upstream.name || r.endpoint.upstream.provider) : null,
         'task v' + ((r.task || {}).version === null || (r.task || {}).version === undefined ? '?' : r.task.version),
         r.provenance && r.provenance.crucible_version ? 'Crucible ' + r.provenance.crucible_version : null,
@@ -1640,7 +1657,7 @@
       var met = function (f) { return shown.map(function (i) { return num((i.run.metrics || {})[f], null); }); };
       return {
         value: cellValue(c), time: median(shown.map(function (i) { return num(i.run.elapsed_s, null); })),
-        tools: median(met('tool_calls')), tokens: median(met('tokens_out')), cost: mean(met('cost_usd')),
+        tools: median(met('tool_calls')), tokens: median(met('tokens_out')), cost: mean(shown.map(function (i) { return runCost(i.run); })),
         timedOut: shown.some(function (i) { return i.run.outcome && i.run.outcome.timed_out; }), runs: c ? c.all.length : 0, counted: counted.length
       };
     }
@@ -1684,7 +1701,7 @@
       if (n.timedOut) timeCell.appendChild(el('span', { class: 'crucible-flag' }, 'timed out'));
       if (toolCalls) row.appendChild(el('td', {}, fmtInt(n.tools)));
       row.appendChild(el('td', {}, fmtInt(n.tokens)));
-      row.appendChild(el('td', {}, s.local ? 'not billed' : fmtUsd(n.cost)));
+      row.appendChild(el('td', {}, fmtCost(n.cost, s.local)));
       row.appendChild(el('td', {}, String(n.runs)));
 
       var detail = el('tr', { class: 'crucible-detail', hidden: '' });
@@ -1760,7 +1777,7 @@
       kvRow(li, 'Time', time);
       if (toolCalls) kvRow(li, 'Tool calls', fmtInt(n.tools));
       kvRow(li, 'Tokens out', fmtInt(n.tokens));
-      kvRow(li, 'Cost', s.local ? 'not billed' : fmtUsd(n.cost));
+      kvRow(li, 'Cost', fmtCost(n.cost, s.local));
       kvRow(li, 'Runs', String(n.runs));
       var detail = li.appendChild(el('div', { class: 'crucible-detail', hidden: '' }));
       var filled = false;
@@ -1909,7 +1926,7 @@
           var li = modelCard(s, ul);
           tierRowsData.forEach(function (r) { kvRow(li, r.tier.label + ' (shared)', fmtScore(r.scores[k].score)); });
           kvRow(li, 'Time / task', fmtSeconds(extra[k].time));
-          kvRow(li, 'Cost / task', s.local ? 'not billed (local)' : fmtUsd(extra[k].cost));
+          kvRow(li, 'Cost / task', fmtCost(extra[k].cost, s.local));
         });
         sharedTasks.forEach(function (t) {
           var li = ul.appendChild(el('li', { class: 'crucible-card' }));
@@ -1952,7 +1969,7 @@
       });
       numRow('Time / task (median)', extra.map(function (x) { return el('td', { class: 'crucible-compare-num' }, fmtSeconds(x.time)); }), 'crucible-compare-tier');
       numRow('Cost / task', extra.map(function (x, k) {
-        return el('td', { class: 'crucible-compare-num', title: costTitle(chosen[k]) }, chosen[k].local ? 'not billed (local)' : fmtUsd(x.cost));
+        return el('td', { class: 'crucible-compare-num', title: costTitle(chosen[k]) }, fmtCost(x.cost, chosen[k].local));
       }), 'crucible-compare-tier');
       var lastTier = null;
       sharedTasks.forEach(function (t) {
@@ -2022,7 +2039,8 @@
       var cat = S.cat;
       document.getElementById('crucible-footnote').textContent = suiteName(cat) +
         (cat.suite.cut_at ? ', cut ' + fmtDate(cat.suite.cut_at) : '') + (cat.crucible_version ? '; catalog published by Crucible ' + cat.crucible_version : '') + '. ' +
-        NONE + ' means the harness didn\'t report that number. Cost per task is the provider\'s billed cost where reported; local runs aren\'t billed. ' +
+        NONE + ' means the harness didn\'t report that number. Cost per task is the provider\'s billed cost where reported; for local runs (marked ≈) it\'s the electricity used, ' +
+        'estimated from the run\'s time, the machine\'s power draw and the average US price per kWh, and leaves out the hardware itself. ' +
         'Token counts aren\'t comparable across harnesses. Time and cost are each setup\'s own: local time depends on the hardware named.';
     }
 

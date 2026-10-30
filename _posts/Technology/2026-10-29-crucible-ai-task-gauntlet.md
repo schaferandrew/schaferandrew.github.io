@@ -8,6 +8,10 @@ Crucible is an AI task gauntlet to analyze whether local models are capable of r
 
 I am giddy with excitement to introduce **Crucible**. This is my AI workflow gauntlet to help me test models, along with a harness to help me be as efficient as possible with token usage. The local and open-weight world is getting scary good — I'm hopeful this is a tool that helps you see just how capable it is.
 
+![Crucible Chat Leaderboard](/assets/img/technology/2026/crucible/chat-leaderboard.png)
+
+*Chat leaderboard — local models competing head-to-head with cloud models.*
+
 ## Why is this necessary?
 
 A developer in 2026 is spoiled by an enterprise subscription to Cursor, Codex, or Claude Code. The nearly limitless tokens and polished tool interface begin to create a stark difference between personal projects and company workflows.
@@ -26,6 +30,10 @@ The tasks are split into three tiers: Spark, Temper, and Forge.
 
 **Forge**: This is aspirational, however, I will not be surprised when these are all accomplished by smaller models as we continue to optimize performance by the harness and models themselves. For now, it's tasks I'd have to turn to flagship models to run. Large planning tasks, complicated bugs to uncover, and large rewrites.
 
+![Quality vs Time](/assets/img/technology/2026/crucible/chat-quality-vs-time.png)
+
+*Quality vs time — models ranked by score against median latency. Up and to the left is better.*
+
 ### What this has helped me do
 
 I've already seen tangible benefits from this workflow:
@@ -43,10 +51,18 @@ I've already seen tangible benefits from this workflow:
 
 **Architecture**: The harness was built to stay "clean" and support multiple agent interfaces natively — direct, OpenCode, Pi, and the door left open for future agents — while remaining provider-flexible.
 
+![Agentic Leaderboard](/assets/img/technology/2026/crucible/agentic-leaderboard.png)
+
+*Agentic leaderboard — models evaluated on coding, research, and everyday tasks with an agent harness.*
+
 ### What can you do?
 
 I invite you to take a look at the results, play around with the dashboard, and filter by hardware closest to yours before testing out the models. Give Crucible a shot, run it yourself, and then be bold — try giving it real tasks in the harness of your choice!
 
 Reach out with questions. I hope soon to build the infrastructure to allow community-provided test results, but for now, I'd love to hear what your local models can do.
+
+![Crucible Mobile](/assets/img/technology/2026/crucible/mobile-leaderboard.jpg)
+
+*Mobile view — the dashboard works on any device.*
 
 [Check out the Crucible dashboard](/crucible/)

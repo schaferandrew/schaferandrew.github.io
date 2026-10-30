@@ -565,12 +565,9 @@
     function modeHead() { return MODE_TIERS.filter(function (t) { return t.id === S.HEAD; })[0] || MODE_TIERS.filter(function (t) { return t.role !== 'gate'; })[0] || MODE_TIERS[0]; }
     function modeStretch() { return MODE_TIERS.filter(function (t) { return t.id !== S.HEAD && t.role !== 'gate'; }); }
 
-    // Harnesses in this mode: the catalog's, then any other a run used (shown, never counted)
-    function modeHarnesses() {
-      var list = modeInfo().harnesses.slice();
-      modeConfigsAll().forEach(function (cfg) { if (list.indexOf(cfg.harness) === -1) list.push(cfg.harness); });
-      return list;
-    }
+    // Harnesses in this mode: only the catalog's. A run through any other harness never counts,
+    // so it isn't offered as a filter; the model detail still lists the run as not counted
+    function modeHarnesses() { return modeInfo().harnesses.slice(); }
 
     function cellOf(cfg, taskId) { return ((S.cells[cfg.key] || {})[taskId]) || null; }
     // A cell's value: the mean of its counted runs; for a provisional task, its runs' mean

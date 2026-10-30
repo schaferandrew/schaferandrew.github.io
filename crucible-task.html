@@ -1,0 +1,32 @@
+---
+layout: default
+title: Crucible task
+noindex: true
+permalink: /crucible/task/
+---
+<div class="constrain crucible crucible-task">
+  <p class="crucible-breadcrumb"><a href="/crucible/">← Crucible results</a><span id="task-crumb"></span></p>
+  <h1 class="crucible-title" id="task-title">Crucible tasks</h1>
+  <p class="crucible-status" id="crucible-status" role="status">Loading results…</p>
+
+  <section id="crucible-results" hidden>
+    <div class="crucible-suite-bar">
+      <label class="crucible-toolbar-label" for="suite-select" id="suite-select-label">Suite</label>
+      <select class="crucible-select" id="suite-select"></select>
+      <span class="crucible-suite-line" id="suite-line"></span>
+    </div>
+    <p class="crucible-sub crucible-suite-note" id="suite-note" hidden></p>
+    <div class="crucible-toolbar crucible-toolbar-tight">
+      <label class="crucible-task-toggle" for="provisional-toggle">
+        <input type="checkbox" id="provisional-toggle">
+        <span>Show provisional tasks</span>
+      </label>
+      <span class="crucible-toolbar-note" id="provisional-note"></span>
+    </div>
+
+    <div id="task-body"></div>
+  </section>
+</div>
+
+<script src="/assets/js/crucible-core.js?v={{ site.time | date: '%s' }}"></script>
+<script src="/assets/js/crucible-task.js?v={{ site.time | date: '%s' }}" data-src="/crucible/data.json?v={{ site.time | date: '%s' }}" data-details="/crucible/details.json?v={{ site.time | date: '%s' }}" data-outputs="/crucible-data/"></script>

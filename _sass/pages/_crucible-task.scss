@@ -1,1 +1,435 @@
 // Crucible task page (crucible-task.html, assets/js/crucible-task.js)
+
+.crucible-task {
+  .crucible-task-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: $textSmall;
+    cursor: pointer;
+  }
+
+  .crucible-task-section,
+  .crucible-task-block {
+    margin-top: $gap * 1.5;
+  }
+
+  .crucible-task-big {
+    font-size: $textMedium;
+    color: $colorPrimary;
+  }
+
+  .crucible-task-count {
+    color: $gray;
+    font-size: $textSmall;
+    font-weight: $weightNormal;
+  }
+
+  .crucible-task-area {
+    margin: $gap 0 4px;
+    color: $gray;
+    font-size: 12px;
+    letter-spacing: $letterspaceMedium;
+    text-transform: uppercase;
+  }
+
+  .crucible-task-action {
+    margin: 0 0 $gap;
+  }
+}
+
+// Header
+.crucible-task-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  .crucible-tag {
+    margin-left: 0;
+    font-size: 12px;
+  }
+}
+
+.crucible-task-tier {
+  background: #e6effa;
+  color: $crucibleBlue;
+}
+
+.crucible-task-prov {
+  background: #fff4d6;
+  color: #7a5200;
+}
+
+.crucible-task-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px $gap;
+  margin: 8px 0 0;
+  padding: 0;
+  color: $gray;
+  font-size: $textSmall;
+  list-style: none;
+}
+
+.crucible-task-provnote {
+  margin: $gap 0 0;
+  padding: ($gap / 2) ($gap * 0.75);
+  background: #fff4d6;
+  border-left: 3px solid #c98a0a;
+  font-size: $textSmall;
+}
+
+// Index
+.crucible-task-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.crucible-task-item {
+  padding: 8px 0;
+  border-bottom: 1px solid $crucibleBorder;
+}
+
+.crucible-task-item-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+
+  .crucible-tag {
+    margin-left: 0;
+  }
+}
+
+.crucible-task-link {
+  font-weight: $weightBold;
+}
+
+.crucible-task-summary {
+  margin: 2px 0 0;
+  overflow: hidden;
+  color: $gray;
+  font-size: $textSmall;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @media screen and (max-width: 639px) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    white-space: normal;
+  }
+}
+
+// Tiles
+.crucible-task-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $gap / 2;
+  margin-top: $gap;
+
+  @media screen and (max-width: 639px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.crucible-task-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  padding: ($gap * 0.75);
+  border: 1px solid $crucibleBorder;
+  border-radius: 6px;
+}
+
+.crucible-task-tile-k {
+  color: $gray;
+  font-size: 12px;
+}
+
+.crucible-task-tile-v {
+  font-size: 26px;
+  font-weight: $weightBold;
+  line-height: 1.2;
+
+  small {
+    color: $gray;
+    font-size: 14px;
+    font-weight: $weightNormal;
+  }
+}
+
+.crucible-task-tile-d {
+  color: $gray;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+// Prompt and rules
+.crucible-task-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 $gap * 2;
+
+  @media screen and (max-width: 639px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.crucible-task-block {
+  min-width: 0;
+}
+
+.crucible-task-prompt {
+  margin: 0 0 6px;
+  padding: ($gap * 0.75);
+  background: #f8f9fc;
+  border: 1px solid $crucibleBorder;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+
+  &.is-collapsed {
+    max-height: 19em;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(#000 80%, transparent);
+    mask-image: linear-gradient(#000 80%, transparent);
+  }
+}
+
+.crucible-task-label {
+  margin: $gap / 2 0 2px;
+  color: $gray;
+  font-size: 12px;
+  font-weight: $weightBold;
+  letter-spacing: $letterspaceMedium;
+  text-transform: uppercase;
+}
+
+.crucible-task-rules {
+  margin: 0;
+  padding-left: 1.2em;
+  font-size: $textSmall;
+
+  li {
+    margin-bottom: 4px;
+  }
+}
+
+.crucible-task-pts {
+  color: $gray;
+  white-space: nowrap;
+}
+
+// Per-check bars
+.crucible-task-bars {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.crucible-task-bar-row {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) minmax(80px, 2fr) 3.5em 7em;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: $textSmall;
+
+  @media screen and (max-width: 639px) {
+    grid-template-columns: 1fr 3em;
+    gap: 2px 8px;
+
+    .crucible-task-bar-name {
+      grid-column: 1 / -1;
+    }
+
+    .crucible-task-bar-n {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+.crucible-task-bar-pct {
+  font-weight: $weightBold;
+  text-align: right;
+}
+
+.crucible-task-bar-n {
+  color: $gray;
+  font-size: 12px;
+}
+
+.crucible-task-bar {
+  width: auto;
+}
+
+// Performers
+.crucible-task-perf {
+  td:nth-child(3),
+  td:nth-child(4),
+  th:nth-child(3),
+  th:nth-child(4) {
+    text-align: left !important;
+  }
+
+  th.is-num,
+  td.is-num {
+    text-align: right !important;
+  }
+
+  td.is-rank {
+    color: $gray;
+  }
+
+  .crucible-task-setup {
+    max-width: 320px;
+    overflow: hidden;
+    color: $gray;
+    text-overflow: ellipsis;
+
+    .crucible-tag {
+      margin-left: 0;
+    }
+  }
+
+  .crucible-row.is-open {
+    background: $colorTertiary;
+  }
+}
+
+.crucible-task-maker {
+  .crucible-task-inferred {
+    margin-left: 4px;
+    color: $crucibleMuted;
+    font-size: 11px;
+    font-style: italic;
+  }
+
+  .crucible-task-unknown {
+    color: $crucibleMuted;
+  }
+}
+
+.crucible-task-score {
+  min-width: 44px;
+  padding: 3px 8px;
+  border: 0;
+  border-radius: 3px;
+  font: inherit;
+  font-weight: $weightBold;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid $colorSecondary;
+    outline-offset: 1px;
+  }
+}
+
+.crucible-task-checkhead {
+  padding: 4px 2px !important;
+  vertical-align: bottom;
+
+  span {
+    display: block;
+    max-height: 10em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transform: rotate(180deg);
+    writing-mode: vertical-rl;
+  }
+}
+
+.crucible-task-checkcell {
+  padding: 2px !important;
+  text-align: center !important;
+}
+
+.crucible-task-sq {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  background: $crucibleNotRun;
+  color: #fff;
+  font-size: 12px;
+  font-weight: $weightBold;
+  line-height: 20px;
+  text-align: center;
+
+  &.is-pass {
+    background: #2f8f5b;
+  }
+
+  &.is-fail {
+    background: $colorAccent;
+  }
+
+  &.is-partial {
+    background: #c98a0a;
+  }
+}
+
+.crucible-task-cards {
+  .crucible-card.is-open {
+    background: $colorTertiary;
+  }
+
+  .crucible-task-rank {
+    color: $gray;
+    font-weight: $weightNormal;
+  }
+}
+
+.crucible-task-card-score {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.crucible-task-squares {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 8px;
+}
+
+.crucible-task-card-nums {
+  color: $gray;
+}
+
+.crucible-task-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px $gap;
+  margin-top: $gap / 2;
+
+  .crucible-task-compare {
+    font-size: $textSmall;
+  }
+}
+
+// Harness comparison
+.crucible-task-harness {
+  max-width: 560px;
+
+  th.is-num,
+  td.is-num {
+    text-align: right !important;
+  }
+}
+
+.crucible-task-hsw {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+  border-radius: 50%;
+}

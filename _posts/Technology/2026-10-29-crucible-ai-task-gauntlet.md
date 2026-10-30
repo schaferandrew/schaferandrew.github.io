@@ -4,8 +4,6 @@ categories: technology
 title: Crucible — An AI Task Gauntlet for Local Models
 ---
 
-Crucible is an AI task gauntlet to analyze whether local models are capable of real work. Can they write code for personal projects, keep working when internet is unavailable, or accomplish tasks involving personal data we don't want to share with cloud providers for training? The tasks are divided into chat and agentic sections and are categorized into three categories of difficulty. Play around, I think you'll be surprised by the performance of these small models.
-
 I am giddy with excitement to introduce **Crucible**. This is my AI workflow gauntlet to help me test models, along with a harness to help me be as efficient as possible with token usage. The local and open-weight world is getting scary good — I'm hopeful this is a tool that helps you see just how capable it is.
 
 ![Chat Leaderboard](/assets/img/technology/2026/crucible/chat-leaderboard.png)

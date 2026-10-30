@@ -1,0 +1,84 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "a9320173-b31d-4239-9c40-79b4275a3d49",
+ "run_path": "openrouter_deepseek_deepseek-v4-flash/order-historical-events/20261030_064511",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T06:45:11.053136+00:00",
+ "ended_at": "2026-10-30T06:45:23.512131+00:00",
+ "elapsed_s": 12.45,
+ "task": {
+  "id": "order-historical-events",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "172ee5b11307dd30",
+  "rubric_hash": "f66e11cca0e3815d",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/deepseek/deepseek-v4-flash",
+  "base": "deepseek/deepseek-v4-flash",
+  "publisher": "deepseek",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek/deepseek-v4-flash|deepseek|api|-",
+  "display": "deepseek-v4-flash"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "DeepInfra",
+   "quant": null
+  },
+  "resolved_model": "deepseek/deepseek-v4-flash"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 127,
+  "tokens_out": 204,
+  "model_responses": 1,
+  "ttft_s": 0.449,
+  "ttft_avg_s": 0.449,
+  "response_time_avg_s": 3.426,
+  "cost_usd": 0.0,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 0
+ },
+ "output_ref": "outputs/a9320173-b31d-4239-9c40-79b4275a3d49.txt",
+ "provenance": {
+  "crucible_version": "3.4.1",
+  "crucible_commit": "f618abf",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:7fc7443b70df9e791be53d455fecf50ad89248e70bf0d570f7b198f295aee722",
+  "submitter": null,
+  "verification": null
+ }
+}

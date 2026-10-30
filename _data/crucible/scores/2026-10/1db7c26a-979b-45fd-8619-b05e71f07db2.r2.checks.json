@@ -1,0 +1,231 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "1db7c26a-979b-45fd-8619-b05e71f07db2",
+ "rubric_version": 2,
+ "rubric_hash": "7f63c4216de11a95",
+ "method": "checks",
+ "scored_at": "2026-10-30T06:47:04.125817+00:00",
+ "crucible_version": "3.4.1",
+ "raw": {
+  "passed": 13.0,
+  "total": 22,
+  "unit": "points"
+ },
+ "score": 5.91,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "sources_once",
+   "type": "cited_paragraphs",
+   "group": "Each source cited once, stories merged",
+   "label": "Cites each of the nine sources from today exactly once: S1, S2 and S9 together in one paragraph (the levy), S3 and S4 together (the fire), S5 and S6 together (the rally), and S7 and S8 each in a paragraph of their own; one item per source.",
+   "passed": false,
+   "detail": "0/9 items; failed: s1 (paragraph also cites S3, S4, S5, S6, S7, S8), s2 (paragraph also cites S3, S4, S5, S6, S7, S8), s3 (paragraph also cites S1, S2, S5, S6, S7, S8, S9), s4 (paragraph also cites S1, S2, S5, S6, S7, S8, S9), s5 (paragraph also cites S1, S2, S3, S4, S7, S8, S9), s6 (paragraph also cites S1, S2, S3, S4, S7, S8, S9)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "s1",
+     "label": "S1 cited once, with S2, in the levy paragraph",
+     "passed": false,
+     "detail": "paragraph also cites S3, S4, S5, S6, S7, S8"
+    },
+    {
+     "id": "s2",
+     "label": "S2 cited once, with S1, in the levy paragraph",
+     "passed": false,
+     "detail": "paragraph also cites S3, S4, S5, S6, S7, S8"
+    },
+    {
+     "id": "s3",
+     "label": "S3 cited once, with S4, in the fire paragraph",
+     "passed": false,
+     "detail": "paragraph also cites S1, S2, S5, S6, S7, S8, S9"
+    },
+    {
+     "id": "s4",
+     "label": "S4 cited once, with S3, in the fire paragraph",
+     "passed": false,
+     "detail": "paragraph also cites S1, S2, S5, S6, S7, S8, S9"
+    },
+    {
+     "id": "s5",
+     "label": "S5 cited once, with S6, in the rally paragraph",
+     "passed": false,
+     "detail": "paragraph also cites S1, S2, S3, S4, S7, S8, S9"
+    },
+    {
+     "id": "s6",
+     "label": "S6 cited once, with S5, in the rally paragraph",
+     "passed": false,
+     "detail": "paragraph also cites S1, S2, S3, S4, S7, S8, S9"
+    },
+    {
+     "id": "s7",
+     "label": "S7 cited once, in the teacher pay paragraph",
+     "passed": false,
+     "detail": "paragraph also cites S1, S2, S3, S4, S5, S6, S8, S9"
+    },
+    {
+     "id": "s8",
+     "label": "S8 cited once, in the interest rate paragraph",
+     "passed": false,
+     "detail": "paragraph also cites S1, S2, S3, S4, S5, S6, S7, S9"
+    },
+    {
+     "id": "s9",
+     "label": "S9 cited once, in the levy paragraph",
+     "passed": false,
+     "detail": "paragraph also cites S3, S4, S5, S6, S7, S8"
+    }
+   ]
+  },
+  {
+   "id": "stale_left_out",
+   "type": "cited_paragraphs",
+   "group": "Stale item left out",
+   "label": "Leaves out the week-old school board item: S10 is not cited, and neither Okoro nor \"school board\" appears.",
+   "passed": true,
+   "detail": "2/2 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "s10",
+     "label": "S10 (the March 3 school board item) not cited",
+     "passed": true,
+     "detail": "not cited"
+    },
+    {
+     "id": "names",
+     "label": "Okoro and the school board not mentioned",
+     "passed": true,
+     "detail": "none found"
+    }
+   ]
+  },
+  {
+   "id": "opinion_marked",
+   "type": "cited_paragraphs",
+   "group": "Opinion marked",
+   "label": "Marks the Bugle column as opinion in its citation, as in [S9 opinion].",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "s9_opinion",
+     "label": "S9 cited as opinion",
+     "passed": true,
+     "detail": "cited once"
+    }
+   ]
+  },
+  {
+   "id": "story_facts",
+   "type": "cited_paragraphs",
+   "group": "Story facts exact",
+   "label": "In the paragraph found by its citations: the levy has $41.6 million and the 7-2 vote; the fire has the corrected count of one firefighter; the rally gives all three estimates, each attributed (about 300 to the Ledger or its reporters, more than 1,000 to organizers, 400 to police); the teacher pay bill is \"expected to sign\" and not signed; the rate story has 3.75% and 0.25. One item per fact.",
+   "passed": true,
+   "detail": "9/9 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "levy_amount",
+     "label": "Levy paragraph: $41.6 million",
+     "passed": true,
+     "detail": "found"
+    },
+    {
+     "id": "levy_vote",
+     "label": "Levy paragraph: the 7-2 vote",
+     "passed": true,
+     "detail": "found"
+    },
+    {
+     "id": "fire_corrected",
+     "label": "Fire paragraph: one firefighter (the correction)",
+     "passed": true,
+     "detail": "found"
+    },
+    {
+     "id": "rally_ledger",
+     "label": "Rally paragraph: about 300, attributed to the Ledger",
+     "passed": true,
+     "detail": "found"
+    },
+    {
+     "id": "rally_organizers",
+     "label": "Rally paragraph: more than 1,000, attributed to organizers",
+     "passed": true,
+     "detail": "found"
+    },
+    {
+     "id": "rally_police",
+     "label": "Rally paragraph: 400, attributed to police",
+     "passed": true,
+     "detail": "found"
+    },
+    {
+     "id": "bill_status",
+     "label": "Teacher pay paragraph: expected to sign, not signed",
+     "passed": true,
+     "detail": "found"
+    },
+    {
+     "id": "rate_level",
+     "label": "Rate paragraph: 3.75%",
+     "passed": true,
+     "detail": "found"
+    },
+    {
+     "id": "rate_rise",
+     "label": "Rate paragraph: 0.25 points",
+     "passed": true,
+     "detail": "found"
+    }
+   ]
+  },
+  {
+   "id": "no_invented_figures",
+   "type": "grounded_numbers",
+   "group": "Nothing invented",
+   "label": "Every number in the briefing appears in the sources (whole numbers under 11 aside), so no figure was invented or altered.",
+   "passed": true,
+   "detail": "every figure is in the sources"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Each source cited once, stories merged",
+   "passed": 0.0,
+   "total": 9,
+   "detail": "0/9 items; failed: s1 (paragraph also cites S3, S4, S5, S6, S7, S8), s2 (paragraph also cites S3, S4, S5, S6, S7, S8), s3 (paragraph also cites S1, S2, S5, S6, S7, S8, S9), s4 (paragraph also cites S1, S2, S5, S6, S7, S8, S9), s5 (paragraph also cites S1, S2, S3, S4, S7, S8, S9), s6 (paragraph also cites S1, S2, S3, S4, S7, S8, S9)"
+  },
+  {
+   "id": "Stale item left out",
+   "passed": 2.0,
+   "total": 2,
+   "detail": "2/2 items"
+  },
+  {
+   "id": "Opinion marked",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "1/1 items"
+  },
+  {
+   "id": "Story facts exact",
+   "passed": 9.0,
+   "total": 9,
+   "detail": "9/9 items"
+  },
+  {
+   "id": "Nothing invented",
+   "passed": 1,
+   "total": 1,
+   "detail": "every figure is in the sources"
+  }
+ ]
+}

@@ -5,16 +5,16 @@
  "rubric_version": 3,
  "rubric_hash": "ba79097d3d49ec8d",
  "method": "hidden_tests",
- "scored_at": "2026-10-30T06:32:16.931391+00:00",
- "crucible_version": "3.4.0",
+ "scored_at": "2026-10-30T06:37:36.547524+00:00",
+ "crucible_version": "3.4.1",
  "raw": {
-  "passed": 7.96,
-  "total": 10.01,
-  "unit": "points"
+  "passed": 31,
+  "total": 39,
+  "unit": "tests"
  },
- "score": 5,
+ "score": 7.95,
  "scale": 10,
- "capped_at": 5,
+ "capped_at": null,
  "passed": false,
  "items": [
   {

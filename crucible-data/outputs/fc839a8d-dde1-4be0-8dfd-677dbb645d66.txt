@@ -1,0 +1,29 @@
+ERRORS:  
+1: Inflation is when prices go up because the government prints too much money.  
+2: none  
+3: The prices in the basket are weighted by how much households spend on each item.  
+4: none  
+5: none  
+6: A central bank can lose its credibility if it keeps missing its inflation target.  
+7: none  
+8: none  
+9: none  
+10: none  
+11: none  
+12: Raising interest rates makes loans more expensive than they were before.  
+13: none  
+14: none  
+15: none  
+16: none  
+17: none  
+18: none  
+
+FLAGS:  
+1: imprecise  
+4: misleading  
+6: imprecise  
+8: overstated  
+11: misleading  
+12: imprecise  
+14: overstated  
+18: overstated

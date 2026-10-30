@@ -5,8 +5,8 @@
  "rubric_version": 3,
  "rubric_hash": "ba79097d3d49ec8d",
  "method": "hidden_tests",
- "scored_at": "2026-10-30T06:29:21.272250+00:00",
- "crucible_version": "3.4.0",
+ "scored_at": "2026-10-30T06:37:25.894147+00:00",
+ "crucible_version": "3.4.1",
  "raw": {
   "passed": 25,
   "total": 39,

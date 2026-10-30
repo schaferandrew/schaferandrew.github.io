@@ -1,0 +1,20 @@
+Here is the proofread version of your paragraph. I have corrected grammar and spelling errors while strictly preserving your voice, rhythm, imagery, and intentional fragments (such as "Still—" and "Not waiting for her, exactly").
+
+### **Corrected Text**
+
+> Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder than she remembered it, all brakes shrieking and people talking too fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+---
+
+### **Changes Made & Notes**
+
+1.  **"then" $\rightarrow$ "than"**:
+    *   *Reason*: This is a grammatical correction. "Than" is used for comparisons ("louder than"), whereas "then" refers to time or sequence.
+2.  **"to fast" $\rightarrow$ "too fast"**:
+    *   *Reason*: This is a spelling/usage correction. "Too" means "excessively," which fits the context of noise and chaos. "To" is incorrect here.
+3.  **Preserved Intentional Fragments**:
+    *   **"Still—"**: Kept with the em-dash to maintain the pause and the shift in tone you intended.
+    *   **"Not waiting for her, exactly."**: Kept as a fragment. This creates a specific rhythm of hesitation and realism that fits the narrative voice.
+    *   **"And she didn't know..."**: Kept starting with "And" to preserve the conversational, stream-of-consciousness flow.
+
+No other changes were made to spelling, punctuation, or word choice, as the original text was otherwise sound.

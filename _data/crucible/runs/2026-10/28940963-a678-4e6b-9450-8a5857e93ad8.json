@@ -1,0 +1,84 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "28940963-a678-4e6b-9450-8a5857e93ad8",
+ "run_path": "openrouter_openai_gpt-6-luna/names-for-one-character/20261030_031136",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T03:11:36.071704+00:00",
+ "ended_at": "2026-10-30T03:11:57.668743+00:00",
+ "elapsed_s": 21.58,
+ "task": {
+  "id": "names-for-one-character",
+  "version": 2,
+  "rubric_version": 4,
+  "content_hash": "56a5c060f36cc57f",
+  "rubric_hash": "a5437ba617323fd5",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/openai/gpt-6-luna",
+  "base": "openai/gpt-6-luna",
+  "publisher": "openai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "openai/gpt-6-luna|openai|api|-",
+  "display": "gpt-6-luna"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "OpenAI",
+   "quant": null
+  },
+  "resolved_model": "openai/gpt-6-luna"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 168,
+  "tokens_out": 1827,
+  "model_responses": 1,
+  "ttft_s": 12.21,
+  "ttft_avg_s": 12.21,
+  "response_time_avg_s": 19.375,
+  "cost_usd": 0.000629,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 521
+ },
+ "output_ref": "outputs/28940963-a678-4e6b-9450-8a5857e93ad8.txt",
+ "provenance": {
+  "crucible_version": "3.3.0",
+  "crucible_commit": "34a6f5d",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:a41e1ba6a1c7bf6072ee290932b6810f4ccb3728bdcc66018e5de04d0abaf24f",
+  "submitter": null,
+  "verification": null
+ }
+}

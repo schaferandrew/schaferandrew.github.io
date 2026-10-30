@@ -1,0 +1,22 @@
+The task is complete. I have implemented a CLI compound-interest calculator with the following features:
+- **Core Functionality**: Supports principal, annual interest rate, time (years and months), compounding frequency, and recurring contributions (amount and frequency).
+- **Robustness**: Includes input validation for negative values and contradictory inputs (e.g., non-zero contribution with zero frequency).
+- **Mathematical Model**: Uses a monthly simulation approach that accurately handles various compounding and contribution frequencies by calculating the equivalent monthly growth factor.
+- **Automated Testing**: A comprehensive test suite in `test_calculator.py` covers ordinary cases, zero interest, monthly compounding, recurring contributions, invalid inputs, and known expected values.
+- **Documentation**: A `README.md` provides clear installation instructions, argument details, and practical usage examples.
+- **Lightweight Implementation**: The solution is dependency-light, requiring only the standard Python library.
+
+### Files Created:
+- `calculator.py`: The core logic and CLI entry point.
+- `test_calculator.py`: The unit test suite.
+- `README.md`: Documentation and usage guide.
+
+To run the calculator:
+```bash
+python3 calculator.py --principal 1000 --rate 0.05 --years 5 --compounding 12 --contrib_amount 100 --contrib_freq 12
+```
+
+To run the tests:
+```bash
+python3 test_calculator.py
+```

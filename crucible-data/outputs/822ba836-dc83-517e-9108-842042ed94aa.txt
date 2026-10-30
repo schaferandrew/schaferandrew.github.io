@@ -1,0 +1,37 @@
+I have created a CLI tool for calculating interest, including simple interest, compound interest, and amortized loan payments. 
+
+The tool features:
+- **Simple Interest Calculation**: Basic principal, rate, and time.
+- **Compound Interest Calculation**: Supports specifying the number of compounding periods per year.
+- **Amortized Loan Calculation**: Calculates periodic payments and provides an optional full amortization schedule.
+
+### Project Structure
+- `interest_calc/`: The core logic and CLI entry point.
+- `tests/`: Unit tests for the calculator logic.
+- `README.md`: Documentation on how to use the tool.
+- `pyproject.toml`: Project configuration for installation and dependencies.
+
+### Installation & Usage
+
+1. **Prerequisites**: Python 3.7+ and `pytest` (for running tests).
+2. **Running the tool**:
+   - **Simple Interest**:
+     ```bash
+     python3 interest_calc/cli.py simple --principal 1000 --rate 0.05 --time 2
+     ```
+   - **Compound Interest**:
+     ```bash
+     python3 interest_calc/cli.py compound --principal 1000 --rate 0.05 --time 2 --periods 12
+     ```
+   - **Amortized Loan (with schedule)**:
+     ```bash
+     python3 interest_calc/cli.py amortized --principal 10000 --rate 0.05 --years 5 --schedule
+     ```
+
+### Running Tests
+To ensure the correctness of the calculations, run the following command from the project root:
+```bash
+PYTHONPATH=. pytest tests/test_calculator.py
+```
+
+All tests passed successfully.

@@ -1,0 +1,6 @@
+- **Correct complexity (4):** The criterion requires stating O(log n). The agent incorrectly states O(n log n), falsely attributing the complexity to a sorting step. This is factually incorrect for binary search. (0/4)
+- **Explanation (3):** The criterion requires explaining that each step halves the remaining search range. The agent fails to mention halving the range, instead incorrectly claiming the algorithm sorts the array first and only "checks the middle element." (0/3)
+- **Precondition (2):** The criterion requires stating that the input must already be sorted. The agent explicitly contradicts this by stating it "works on any array, sorted or not." (0/2)
+- **Clarity (1):** The criterion requires the answer to be clear and well organised. The response is structurally clear, follows a logical flow, and includes a concise summary. (1/1)
+
+GRADE: 1

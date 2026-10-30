@@ -3,4 +3,22 @@ layout: null
 permalink: /crucible/data.json
 sitemap: false
 ---
-{"bundles": {{ site.data.crucible | jsonify }}, "fallbacks": {{ site.data.crucible_fallbacks | jsonify }}}
+{%- comment -%}
+  Bundle format 3, slimmed for the page: every catalog, run and status record as published, and
+  each score record without its per-item results (those are in /crucible/details.json, fetched
+  when a run is opened). Keys are folder and file names; the page reads the records, not the keys.
+{%- endcomment -%}
+{%- assign cr = site.data.crucible -%}
+{%- assign n = 0 -%}
+{"format": 3, "catalogs": {{ cr.catalog | jsonify }}, "runs": {{ cr.runs | jsonify }}, "status": {{ cr.status | jsonify }}, "scores": [
+{%- for month in cr.scores -%}
+  {%- if month[1].record -%}{%- assign recs = "" | split: "" | push: month[1] -%}{%- else -%}{%- assign recs = month[1] -%}{%- endif -%}
+  {%- for pair in recs -%}
+    {%- if pair[1] -%}{%- assign s = pair[1] -%}{%- else -%}{%- assign s = pair -%}{%- endif -%}
+    {%- if s.record == "score" -%}
+      {%- if n > 0 -%},{%- endif -%}{%- assign n = n | plus: 1 -%}
+      {"record": "score", "format_version": {{ s.format_version | jsonify }}, "run_uuid": {{ s.run_uuid | jsonify }}, "rubric_version": {{ s.rubric_version | jsonify }}, "method": {{ s.method | jsonify }}, "score": {{ s.score | jsonify }}, "scale": {{ s.scale | jsonify }}, "capped_at": {{ s.capped_at | jsonify }}, "passed": {{ s.passed | jsonify }}, "raw": {{ s.raw | jsonify }}, "scored_at": {{ s.scored_at | jsonify }}}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}
+], "fallbacks": {{ site.data.crucible_fallbacks | jsonify }}}

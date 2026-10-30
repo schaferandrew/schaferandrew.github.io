@@ -1,0 +1,35 @@
+Here's a summary of the diagnosis and fix:
+
+## Root Cause
+
+The dashboard intermittently shows a **blank state** because of a 30-second session TTL mismatch:
+
+1. **Server** (`server.js`): `getDashboardData()` checks `session.expiresAt < Date.now()`. When the session expires, it returns `{ user: null, dashboardMessage: '' }` with HTTP 200.
+
+2. **Client** (`dashboard.html` — the bug): The `loadDashboard()` function checked `if (data.user)` and when `user` was `null`, it **cleared the display** (`textContent = ''`) instead of redirecting to login.
+
+3. **Result**: After 30 seconds post-login, the dashboard shows a blank page with no user info and no message.
+
+## Fix Applied
+
+**File**: `public/dashboard.html`
+
+Changed the `else` branch in `loadDashboard()` from:
+```js
+// Before (bug): clears display → blank page
+document.getElementById('user').textContent = '';
+document.getElementById('message').textContent = '';
+```
+To:
+```js
+// After (fix): redirects to login
+window.location.href = '/login.html';
+```
+
+## Regression Tests Added
+
+**File**: `dashboard.test.js` — 2 new tests:
+1. **Client-side test**: Verifies `dashboard.html` contains the redirect-to-login logic
+2. **Server-side test**: Logs in, waits 31 seconds for session expiry, verifies server returns `{ user: null, dashboardMessage: '' }`
+
+All **9 tests pass** (7 original + 2 new).

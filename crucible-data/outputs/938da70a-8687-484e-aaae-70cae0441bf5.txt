@@ -1,0 +1,8 @@
+Implemented the cache fix and added the incident postmortem.
+
+- Scoped the production cache to the shared tag index; article and profile responses are mutable or viewer-specific and unsafe in a process-local cache.
+- Hardened cache handling for future personalized paths with user-aware keys, auth-safe feed handling, and mutation invalidation.
+- Added regression tests for favorites, edits, deletions, follow state, feeds, and tag caching.
+- Wrote `incident/POSTMORTEM.md`. It reports **367 distinct signed-in recipients**, counted by matching cache hits to their storing users in the logs.
+
+Validation: `npm test` passed, including the unchanged RealWorld contract suite; API TypeScript check passed. `npm run build` is not defined in this repository.

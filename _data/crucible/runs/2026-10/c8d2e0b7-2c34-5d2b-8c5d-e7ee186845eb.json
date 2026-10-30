@@ -1,0 +1,94 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "c8d2e0b7-2c34-5d2b-8c5d-e7ee186845eb",
+ "run_path": "lmstudio_google_gemma-4-26b-a4b-qat/geography-trick-questions/20261027_164654",
+ "legacy_run_id": "lmstudio_google_gemma-4-26b-a4b-qat/geography/GEOG-3/20261027_164654",
+ "started_at": "2026-10-27T16:46:54.009282+00:00",
+ "ended_at": "2026-10-27T17:06:54.032711+00:00",
+ "elapsed_s": 1200.02,
+ "task": {
+  "id": "geography-trick-questions",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "5a1af1208cb9b9a5",
+  "rubric_hash": "5944fb9d7568cdce",
+  "alias": "GEOG-3"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/google/gemma-4-26b-a4b-qat",
+  "base": "google/gemma-4-26b-a4b-qat",
+  "publisher": null,
+  "artifact": null,
+  "format": null,
+  "quant": "Q4_0",
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": 109056,
+  "variant_key": "google/gemma-4-26b-a4b-qat|-|-|q4_0",
+  "display": "gemma-4-26b-a4b-qat · Q4_0"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Whitehall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "rtx-5070-ti-16gb",
+  "class": "discrete_gpu",
+  "accelerators": [
+   {
+    "name": "NVIDIA RTX 5070 Ti 16GB",
+    "memory_gb": 16,
+    "count": 1
+   }
+  ],
+  "system_memory_gb": 32.0,
+  "cpu": "AMD Ryzen 7 7700",
+  "offload": null,
+  "label": "Whitehall"
+ },
+ "outcome": {
+  "status": "timeout",
+  "harness_status": "TIMEOUT",
+  "returncode": 1,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": 1,
+  "ttft_s": 1.016,
+  "ttft_avg_s": 1.016,
+  "response_time_avg_s": 1200.016,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": null,
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:a07756e9b26a5cf22bd34c436f0427342cc77ddaaffc83fd479e410bf4281168",
+  "submitter": null,
+  "verification": null
+ }
+}

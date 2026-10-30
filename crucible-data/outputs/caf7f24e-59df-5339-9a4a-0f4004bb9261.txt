@@ -1,0 +1,37 @@
+
+
+I've read the essay in `prompt.txt`. Here's the proofread, in the two requested categories. I'm only flagging issues in the author's text — I'm not substituting my own argument.
+
+## Part 1 — Objective language errors
+
+1. **Capitalization:** "treasury bonds" → **Treasury** bonds. "Treasury" refers to the U.S. Treasury (a proper noun) and should be capitalized.
+2. **"Inflation is when prices go up…"** — This is an anacoluthon (an "X is when Y" construction: a noun equated to a clause). It's informal/usage rather than a spelling or agreement error, but most style guides flag it.
+3. No spelling errors, and subject–verb agreement and punctuation (colons, commas) are otherwise clean.
+
+## Part 2 — Claims / terminology / wording that are unclear, overstated, or technically imprecise
+
+1. **"Inflation is when prices go up because the government prints too much money."**
+   *Technically imprecise / oversimplified.* Inflation is a sustained rise in the *overall* price level, not any price rise, and it can arise from demand-pull, cost-push, supply shocks, or expectations — not only money printing. This sentence presents one (monetarist) causal theory as the definition itself.
+
+2. **"if there's more money chasing the same amount of stuff, each dollar is worth less."**
+   *Oversimplified mechanism.* It assumes fixed output and stable money velocity; in the short run both can change, so more money does not translate one-for-one into higher prices.
+
+3. **"the Federal Reserve is legally required to raise interest rates."**
+   *Factually wrong / overstated.* No statute requires the Fed to raise rates when CPI exceeds 2%. The Fed has a 2% inflation *target*, but rate decisions are at FOMC discretion under its dual mandate.
+
+4. **"the natural rate of unemployment is around 4%, which means anyone above that is either lazy or the victim of bad policy."**
+   *False inference / false dilemma.* The natural rate (NAIRU) is the unemployment rate consistent with stable inflation, composed of frictional and structural unemployment. It does not imply people unemployed above it are "lazy." *Also imprecise:* "anyone above that" conflates a *rate* with a *person* (should be "unemployment above that rate").
+
+5. **"Quantitative easing … is basically just printing money to buy treasury bonds."**
+   *Oversimplified / imprecise.* QE is the Fed purchasing securities (Treasuries and agency MBS) with newly created reserves — a calibrated, reversible operation, not literally "printing money."
+
+6. **"…which devalues the currency and inevitably causes hyperinflation."**
+   *Overstated / unsupported.* "Inevitably causes hyperinflation" is a false certainty; post-2008 QE did not produce hyperinflation in the U.S. "Inevitably" turns a contingent, debated outcome into a given.
+
+7. **"Japan's experience with deflation in the 1990s proves that monetary policy is completely ineffective at stimulating demand."**
+   *Overstated / overgeneralized.* A single case doesn't "prove" policy is "completely ineffective." Japan's stagnation is attributed to a mix of factors (balance-sheet recession, liquidity trap, structural issues), and its experience only partly overlaps its own QE. "Proves" and "completely ineffective" are both overreaches.
+
+8. **"supply-side economics has been definitively debunked by the failed Reagan tax cuts, which increased the deficit without growing the economy at all."**
+   *Overstated:* "definitively debunked" overstates the consensus — supply-side economics remains a contested, active school, not a settled refutation. *Factually wrong:* "without growing the economy at all" is false; the U.S. economy did grow during and after the 1980s cuts (despite the 1981–82 recession). *Value-laden:* "the failed Reagan tax cuts" presumes the conclusion ("failed") as a given.
+
+The two items in Part 1 are the only objective language errors; everything in Part 2 is a substantive precision/accuracy flag on the author's claims.

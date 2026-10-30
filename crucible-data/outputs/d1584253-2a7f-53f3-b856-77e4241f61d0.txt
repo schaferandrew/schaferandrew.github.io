@@ -1,0 +1,22 @@
+I'll create a Python CLI tool for calculating interest with simple and compound interest options.
+Created a Python CLI tool `interest-calc` with:
+
+**Files:**
+- `interest_calc/` - Package with calculations.py, cli.py, __init__.py, __main__.py
+- `tests.py` - 16 unit tests
+- `README.md` - Documentation
+- `setup.py` - Package setup
+
+**Features:**
+- `simple` - Calculate simple interest: `I = P × r × t`
+- `compound` - Calculate compound interest: `A = P(1 + r/n)^(nt)`
+- `apy` - Calculate Annual Percentage Yield
+- JSON output with `-o json`
+- Compound frequencies: annually, semi-annually, quarterly, monthly, daily
+
+**Usage:**
+```bash
+interest-calc simple -p 1000 -r 5 -t 3
+interest-calc compound -p 1000 -r 5 -t 3 -n 12
+interest-calc apy -r 5 -n 12
+```

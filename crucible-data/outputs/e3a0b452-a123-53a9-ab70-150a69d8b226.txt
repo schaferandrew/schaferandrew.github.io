@@ -1,0 +1,11 @@
+**1. Flour Calculation**
+First, determine the amount of flour needed per person: $300 \text{ g} / 4 \text{ people} = 75 \text{ g/person}$.
+Then, multiply by the number of people for the new batch: $75 \text{ g/person} \times 10 \text{ people} = 750 \text{ g}$.
+
+**2. Jacket Sale Price Calculation**
+Calculate the discount amount: $\$84.60 \times 0.15 = \$12.69$.
+Subtract the discount from the original price: $\$84.60 - \$12.69 = \$71.91$.
+
+ANSWERS
+1. 750 g
+2. $71.91

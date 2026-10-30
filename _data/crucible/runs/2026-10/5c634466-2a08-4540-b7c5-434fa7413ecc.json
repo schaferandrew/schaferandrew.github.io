@@ -1,0 +1,81 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "5c634466-2a08-4540-b7c5-434fa7413ecc",
+ "run_path": "openrouter_openai_gpt-6-luna/nextjs-server-data-boundary/20261030_031335",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T03:13:40.486050+00:00",
+ "ended_at": "2026-10-30T03:14:27.842592+00:00",
+ "elapsed_s": 47.13,
+ "task": {
+  "id": "nextjs-server-data-boundary",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "f5196c62d3613d53",
+  "rubric_hash": "071f25e0acdbacbf",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/openai/gpt-6-luna",
+  "base": "openai/gpt-6-luna",
+  "publisher": "openai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "openai/gpt-6-luna|openai|api|-",
+  "display": "gpt-6-luna"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 18,
+  "tokens_in": 39886,
+  "tokens_out": 2447,
+  "model_responses": 11,
+  "ttft_s": 1.732,
+  "ttft_avg_s": 2.331,
+  "response_time_avg_s": 3.372,
+  "cost_usd": 0.001832,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/5c634466-2a08-4540-b7c5-434fa7413ecc.txt",
+ "provenance": {
+  "crucible_version": "3.3.0",
+  "crucible_commit": "34a6f5d",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:87a7cf2057ac1f7b271b469af478fb0e0f68b7a7e8eb5fd648d8d7ed48e9954c",
+  "submitter": null,
+  "verification": null
+ }
+}

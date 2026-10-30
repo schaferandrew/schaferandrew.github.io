@@ -1,0 +1,80 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "8bafe741-c61d-50b9-8578-6514d408138d",
+ "run_path": "openrouter_anthropic_claude-sonnet-5.5/interest-cli-open-ended/20261025_061939",
+ "legacy_run_id": "openrouter_anthropic_claude-sonnet-5.5/coding_build/CODE-1/20261025_061939",
+ "started_at": "2026-10-25T06:19:39.597172+00:00",
+ "ended_at": "2026-10-25T06:23:14.839831+00:00",
+ "elapsed_s": 215.24,
+ "task": {
+  "id": "interest-cli-open-ended",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "3b9f318817e376d9",
+  "rubric_hash": "b4526238202a2890",
+  "alias": "CODE-1"
+ },
+ "harness": {
+  "id": "opencode",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/anthropic/claude-sonnet-5.5",
+  "base": "anthropic/claude-sonnet-5.5",
+  "publisher": "anthropic",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "anthropic/claude-sonnet-5.5|anthropic|api|-",
+  "display": "claude-sonnet-5.5"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": null,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": null,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": "outputs/8bafe741-c61d-50b9-8578-6514d408138d.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:5b1b341582a2aef6d6f3dba70cc1acbdd69a54de7efd87bcf7739a40558ddd24",
+  "submitter": null,
+  "verification": null
+ }
+}

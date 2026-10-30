@@ -1,0 +1,1 @@
+Implemented the fix by converting the page into an async server component that fetches account data directly via a helper function, removed the client‑side state/`useEffect` logic, and added a simple `getAccount` utility. Updated the test to render the async component correctly with `act`. All tests now verify that the account name and plan are rendered as expected.

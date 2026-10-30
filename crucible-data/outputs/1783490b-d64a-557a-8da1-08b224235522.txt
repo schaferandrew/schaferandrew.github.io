@@ -1,0 +1,75 @@
+
+
+All 51 tests pass. Here's a comprehensive summary:
+
+---
+
+## Summary of Changes
+
+### New Files (3)
+| File | Purpose |
+|---|---|
+| `apps/api/src/routes/review.ts` | New route handler for review endpoints |
+| `apps/api/test/editorial.test.ts` | 25 new tests covering all editorial review functionality |
+| `apps/web/src/pages/ReviewQueuePage.tsx` | New page for editors to work through the review queue |
+
+### Modified Files (13)
+
+**Database/Schema Layer:**
+- `packages/shared/src/types.ts` — Added `status` (`draft`/`in_review`/`published`) and `reviewComment` to `Article` interface
+- `apps/api/src/db.ts` — Added `status` + `reviewComment` fields to `ArticleRow`, `editors` Set to `Db`
+
+**Types/Validation:**
+- `packages/shared/src/validation.ts` — Added optional `status` field to `createArticleSchema`; added `submitArticleSchema`, `approveArticleSchema`, `rejectArticleSchema`
+
+**API Routes (4 new endpoints):**
+- `apps/api/src/routes/articles.ts` — Added `GET /api/user/articles` with optional `?status=` filter
+- `apps/api/src/routes/users.ts` — Moved user/articles to the users router so it mounts at `/api/user/articles` as the brief specifies
+- `apps/api/src/routes/review.ts` — New: `GET /api/articles/review-queue`, `POST /api/articles/:slug/submit`, `POST /api/articles/:slug/approve`, `POST /api/articles/:slug/reject`
+
+**API Services:**
+- `apps/api/src/services/articles.ts` — Added `submitArticle`, `approveArticle`, `rejectArticle`, `listUserArticles`, `listReviewQueue` functions; `createArticle` now accepts optional `status` (defaults to `published`); added `findUserById` import
+- `apps/api/src/services/presenters.ts` — Added `status` and `reviewComment` to `presentArticle` output
+
+**Repository:**
+- `apps/api/src/repositories/articles.ts` — Added `status?: ArticleStatus` to `ArticleFilter`; `listArticles` now filters by status
+
+**App/Server:**
+- `apps/api/src/app.ts` — Accepts optional `Config` interface; registers `reviewRouter` before `articlesRouter` so `/articles/review-queue` isn't captured as a slug
+- `apps/api/src/server.ts` — Reads comma-separated `EDITORS` env var, populates `db.editors`
+
+**Web App:**
+- `apps/web/src/api/client.ts` — Added `userArticles`, `submitArticle`, `approveArticle`, `rejectArticle`, `reviewQueue` methods
+- `apps/web/src/App.tsx` — Added `/review` route and "Review" nav link
+- `apps/web/src/pages/EditorPage.tsx` — Shows article status, review feedback, and "Submit for Review" button for drafts
+- `apps/web/src/pages/ArticlePage.tsx` — Shows status badge and reviewer feedback
+
+### Key Design Decisions
+
+1. **Privacy-first by default**: Public `/api/articles` and `/api/articles/feed` only return `status: "published"` articles. Draft and in-review articles are invisible to the public (matching "the public must never see work that hasn't been approved").
+
+2. **Default publish immediately**: Articles without `status` specified are published immediately, as before — existing RealWorld clients see no change.
+
+3. **Editors configured by username**: `EDITORS=ada,grace` in the env var, or `createApp(db, { editors: ["ada"] })`. The DB stores a `Set<string>` of editor usernames.
+
+4. **Self-approval forbidden**: Both `approve` and `reject` reject 403 if the editor's user ID matches the article author.
+
+5. **No breaking changes to existing contract**: `realworld.contract.test.ts` is unmodified and green. The only new JSON fields on `Article` are `status` and `reviewComment` — extra fields are allowed by the RealWorld spec.
+
+### Test Results
+
+| Suite | Tests | Status |
+|---|---|---|
+| `realworld.contract.test.ts` | 19 | ✅ (unchanged) |
+| `editorial.test.ts` | 25 | ✅ (new) |
+| `ArticleList.test.tsx` | 4 | ✅ (unchanged) |
+| `FavoriteButton.test.tsx` | 3 | ✅ (unchanged) |
+| **Total** | **51** | **All passing** |
+
+### Items to Flag in Code Review
+
+1. **`editors` on DB vs app config**: Currently `db.editors` is set server-side. Tests use `withEditors(ctx, [...])`. For production clarity, consider passing editors through `createApp` config and having it copy into the DB, rather than mutating the DB directly in `server.ts`.
+
+2. **No pagination on `/api/articles/review-queue`**: The brief doesn't specify pagination for the review queue, but for large review queues this could become slow. Adding `limit`/`offset` support would be a good follow-up.
+
+3. **Review comment trim**: The `rejectArticleSchema` allows empty/whitespace-only comments via `optional()` — a separate `min(1)` on `comment` could prevent truly blank feedback, though the route currently falls back to `null` for missing review objects.

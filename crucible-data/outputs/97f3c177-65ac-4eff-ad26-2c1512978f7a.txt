@@ -1,0 +1,11 @@
+Implemented the editorial review workflow.
+
+- Added `draft`, `in_review`, and `published` statuses plus author/editor-only `reviewComment` visibility.
+- Added submission, approval, rejection, review-queue, and signed-in user article endpoints. Editors are configured through `createApp(db, { editors })` or the `EDITORS` environment variable.
+- Kept public article lists, feeds, tags, comments, and favorites limited to published articles. Private article lookups return 404 to other viewers; draft slugs are opaque so private titles do not reserve public slugs.
+- Added simple web screens for the review queue and authors’ article statuses, feedback, and draft submission.
+- Preserved immediate publishing when `POST /api/articles` omits `status`. Left `apps/api/test/realworld.contract.test.ts` unmodified.
+
+**Verification:** `npm run typecheck` and `npm test` pass, including the RealWorld contract suite and new editorial workflow tests.
+
+**Code-review flag:** Editor roles are matched by username, but usernames can be registered or changed. In production, editor identities should be provisioned or reserved (or roles tied to immutable user IDs) so a user cannot claim a configured editor name.

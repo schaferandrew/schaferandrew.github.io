@@ -1,0 +1,23 @@
+**Objective errors - grammar / spelling / punctuation**
+
+1. **Subject-verb agreement:** *one of the two items were damaged* → *one of the two items was damaged*. "One" is singular.
+2. **Missing apostrophe:** *I havent heard* → *I haven't heard*.
+3. **Wrong verb form:** *The box was clearly crush on one side* → *The box was clearly crushed on one side*. Past participle needed after "was".
+4. **Subject-verb agreement:** *which seem to have passed* → *which seems to have passed*. The relative pronoun refers to the singular time frame "5-7 business days".
+
+**Optional style improvements - not errors**
+
+* Line break / paragraphing after the greeting for readability: `Hi Support,` on its own line.
+* Salutation formality: *Hi Support,* is acceptable; *Hello Support Team,* or *Dear Support Team,* is a more conventional business style.
+* Comma before coordinating conjunction: *last week but I haven't* could be *last week, but I haven't* for clarity. This is stylistic.
+* Consistency of contraction: *I am writing* vs *I'm writing* is a tone choice.
+
+**Corrected version with objective errors fixed**
+
+Subject: Refund for order 84721
+
+Hi Support,
+
+I am writing because my order arrived three days late, and one of the two items was damaged. I contacted support last week but I haven't heard anything back. The box was clearly crushed on one side, and the mug inside has a crack through the handle. I would like a refund for the mug, but please let me know if you need pictures of it. Also, your website says refunds are processed in 5-7 business days, which seems to have passed already for my earlier request. Can you tell me what the status is? Thanks for your help.
+
+*Facts and tone are unchanged from the original.*

@@ -1,0 +1,81 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "f9cc76f5-d2a6-444c-81ea-b839731c6bd2",
+ "run_path": "openrouter_openai_gpt-6-luna/morning-brief-spanish/20261030_035246",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T03:52:46.533624+00:00",
+ "ended_at": "2026-10-30T03:52:53.895328+00:00",
+ "elapsed_s": 7.14,
+ "task": {
+  "id": "morning-brief-spanish",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "a6695597fb3c2428",
+  "rubric_hash": "dc93915590f6e118",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/openai/gpt-6-luna",
+  "base": "openai/gpt-6-luna",
+  "publisher": "openai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "openai/gpt-6-luna|openai|api|-",
+  "display": "gpt-6-luna"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 3,
+  "tokens_in": 4339,
+  "tokens_out": 528,
+  "model_responses": 2,
+  "ttft_s": 1.317,
+  "ttft_avg_s": 1.544,
+  "response_time_avg_s": 3.317,
+  "cost_usd": 0.000485,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/f9cc76f5-d2a6-444c-81ea-b839731c6bd2.txt",
+ "provenance": {
+  "crucible_version": "3.3.0",
+  "crucible_commit": "34a6f5d",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:66bb21c7ae4f47e1c7f8d54943608ac17e154808252f523c80a7c96f9ef12c2e",
+  "submitter": null,
+  "verification": null
+ }
+}

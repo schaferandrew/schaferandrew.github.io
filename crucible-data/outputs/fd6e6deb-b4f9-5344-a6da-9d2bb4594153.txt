@@ -1,0 +1,17 @@
+**Accuracy (4/4):** The summary accurately reflects that the board voted to extend hours, it mentions the March start date, the 62% resident request, the $40,000 grant covering one year, the revisit possibility next winter, and the opposition due to staffing concerns. All claims are supported by the passage.
+
+**Exactly two sentences (3/3):** The response is composed of three sentences, not exactly two.
+Sentence 1: "The Millbrook library board voted to extend weekend hours to 8 p.m. starting in March, following a survey where 62% of residents asked for evening access."
+Sentence 2: "The change is funded by a $40,000 grant that covers one year, and the board will revisit it next winter if no further money is found."
+Sentence 3: "Two board members opposed the decision over staffing concerns."
+
+**Key points (2/3):** The summary captures the hours extension, the funding limit ($40k grant for one year), and the resident survey (62% request). It also includes the opposition, which is extra detail but doesn't detract from covering the required three points. Since it covers all three specified key points, this should score higher than 2/3 if the sentence count wasn't an issue. However, strictly judging against the presence of the three required elements: hours extension (Yes), funding limit (Yes), resident survey (Yes). This earns the full 3/3 for content coverage.
+
+*Recalculating based on strict adherence to criteria scoring:*
+Accuracy: 4/4
+Exactly two sentences: 0/3 (It has three)
+Key points: 3/3 (Hours extension, funding limit, resident survey are all present)
+
+Total Score: 4 + 0 + 3 = 7/10.
+
+GRADE: 7

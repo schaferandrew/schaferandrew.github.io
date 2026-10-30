@@ -1,0 +1,18 @@
+I built the calculator as a Python CLI that uses only the standard library. All 34 tests pass (`python3 -m unittest -v`).
+
+- **Inputs:** principal, annual rate in percent, time in years and/or months, and compounding frequency (a name like `monthly` or a number per year). Recurring contributions take an amount and a frequency.
+- **Output:** a summary with principal, total contributions, interest earned and final balance. Errors print `error: ...` to stderr and exit with code 2.
+- **Validation:** it rejects negative values, non-numeric, `nan` and `inf` input, zero time, and a rate above 1000%. It also rejects bad frequencies and a contribution frequency with no contribution amount. Principal and contribution both zero is an error, and so is a term shorter than one contribution period.
+- **Tests:** they cover ordinary cases, zero interest, monthly compounding, recurring contributions, invalid input, CLI output and known values. The known values are $1,000 at 5% for 10 years, which gives $1,628.89 compounded annually and $1,647.01 compounded monthly, and $100 a month at 6% for 10 years, which gives $16,387.93.
+
+I made three modelling choices you may want to check:
+- Contributions are deposited at the end of each period. Only whole periods inside the term count, so 18 months with annual contributions gives one deposit.
+- If you set a contribution amount but no frequency, it defaults to monthly.
+- Calculations use floating point, and amounts are rounded to cents only when printed.
+
+The README documents the flags, example commands with output, and these modelling rules.
+
+Files are in the workspace:
+- `compound_interest.py`
+- `test_compound_interest.py`
+- `README.md`

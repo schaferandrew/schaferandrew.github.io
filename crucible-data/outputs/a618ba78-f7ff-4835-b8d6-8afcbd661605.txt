@@ -1,0 +1,3 @@
+Landlocked: Bolivia, Kazakhstan, Austria, Laos, Paraguay, Serbia, Ethiopia, Uzbekistan, Zambia, Hungary, Mongolia
+Not landlocked: Croatia, Slovenia, Eritrea, Jordan, Mozambique, Bosnia and Herzegovina, Vietnam, Togo, Iraq, DR Congo, Belgium
+Doubly landlocked: Uzbekistan

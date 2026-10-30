@@ -1,0 +1,14 @@
+Created a CLI compound interest calculator with all required features:
+
+**Files created:**
+- `compound_interest.py` - Main CLI tool
+- `test_compound_interest.py` - 18 unit tests (all passing)
+- `README.md` - Documentation with command examples
+
+**Features:**
+- Supports years (`5y`) and months (`120m`) for time input
+- Monthly compounding (`-rf 12`) with recurring contributions
+- Validates negative/invalid inputs
+- Prints summary: Principal, Total Contributions, Interest Earned, Final Balance
+- Zero interest handling
+- Known expected-value case: $1,000 at 5% for 10 years = $1,628.89

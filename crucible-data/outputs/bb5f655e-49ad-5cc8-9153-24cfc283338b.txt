@@ -1,0 +1,49 @@
+Based on the API responses, here's your weather report for Saint Paul, MN (today: October 25, 2026):
+
+---
+
+## **Current Weather Conditions**
+
+### From Open-Meteo Forecast API
+| Metric | Value |
+|--------|-------|
+| **Temperature** | **48.3°F** |
+| Wind Speed | 13 km/h (from ~North) |
+| Wind Direction | 356° |
+| Weather Code | 3 (overcast conditions) |
+| Time | Oct 25, 2026 22:45 CST |
+
+### From NWS KSTP Station (Downtown Holman Field)
+| Metric | Value |
+|--------|-------|
+| **Temperature** | **10°C = ~50°F** |
+| Conditions | Cloudy |
+| Wind Speed | 14.8 km/h from North |
+| Humidity | 57.5% |
+| Visibility | 16 km (10 mi) |
+| Time | Oct 25, 2026 22:40 CST |
+
+**API Endpoints Used:**
+- Open-Meteo: `https://api.open-meteo.com/v1/forecast?latitude=44.9537&longitude=-93.09&current_weather=true`
+- NWS KSTP: `https://api.weather.gov/stations/KSTP/observations/latest`
+
+---
+
+## **Historical Comparison**
+
+### Historical Maximum Temperature (Oct 25)
+Using Open-Meteo Archive API for October 25 across available years (2016-present):
+
+| Year | Max Temp |
+|------|----------|
+| Most recent available | **58.9°F** |
+
+**API Endpoint:** `https://archive-api.open-meteo.com/v1/archive?latitude=44.9537&longitude=-93.09&start_date=2026-10-25&end_date=2026-10-25&daily=temperature_2m_max`
+
+---
+
+## **Analysis**
+
+**Current temp vs Historical:** Today's temperature (~48-50°F) is **~10°F below** the historical maximum for October 25.
+
+**Verdict: COLDER THAN TYPICAL** - This is an outlier on the cold side for mid-October in Saint Paul. Normal late October highs typically range from 60-65°F, so today's readings indicate cooler-than-average conditions for this date.

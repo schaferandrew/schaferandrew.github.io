@@ -1,0 +1,78 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "6743bf87-e006-5ec3-8e6f-55162f91ae35",
+ "run_path": "openrouter_qwen_qwen3.8-27b/seating-logic-puzzle/20261024_172235",
+ "legacy_run_id": "openrouter_qwen_qwen3.8-27b/reasoning/MATH-4/20261024_172235",
+ "started_at": "2026-10-24T17:22:35.890812+00:00",
+ "ended_at": "2026-10-24T17:23:07.489938+00:00",
+ "elapsed_s": 31.6,
+ "task": {
+  "id": "seating-logic-puzzle",
+  "version": 1,
+  "rubric_version": null,
+  "content_hash": null,
+  "rubric_hash": null,
+  "alias": "MATH-4"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/qwen/qwen3.8-27b",
+  "base": "qwen/qwen3.8-27b",
+  "publisher": "qwen",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "qwen/qwen3.8-27b|qwen|api|-",
+  "display": "qwen3.8-27b"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 228,
+  "tokens_out": 5134,
+  "model_responses": 1,
+  "ttft_s": 0.588,
+  "ttft_avg_s": 0.588,
+  "response_time_avg_s": 31.597
+ },
+ "output_ref": "outputs/6743bf87-e006-5ec3-8e6f-55162f91ae35.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": null,
+  "machine_label": null,
+  "source": "crucible-migrate",
+  "content_hash": "sha256:88c15e090f8ec69cf50b39b6a80935986a0b7f1e7fed57b991f4b7ceac077d54",
+  "submitter": null,
+  "verification": null
+ }
+}

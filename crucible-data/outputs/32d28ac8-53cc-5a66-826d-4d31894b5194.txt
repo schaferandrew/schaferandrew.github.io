@@ -1,0 +1,3 @@
+The navbar responsiveness issue has been fixed by adding a media query to `styles.css`. On small screens (max-width: 600px), the navbar now stacks vertically, ensuring all navigation links are visible and accessible on mobile devices while maintaining the original visual identity.
+
+The task is complete.

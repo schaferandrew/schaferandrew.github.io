@@ -1,0 +1,18 @@
+
+
+**Answer: Dave sits in chair 3.**
+
+**Assumptions**
+- "Immediately to the left" means the adjacent seat one number lower; chairs 1→4 run left→right.
+- "Somewhere to the right" means any seat with a higher number (not necessarily adjacent).
+
+**Reasoning**
+1. Dave = red (clue 5); Carol = yellow (clue 4); so the green chair (chair 1, clue 3) is occupied by Alice or Bob.
+2. Carol must sit to the right of Dave (red) (clues 4–5).
+3. Alice is immediately left of blue (clue 1), so Alice is in chair 1, 2, or 3.
+   - **Alice in 2** → chair 3 = blue. Chair 1 must be Bob (only one left who can be green). Then Dave/Carol take chairs 3/4 with Dave left of Carol, forcing Dave = chair 3 = red ≠ blue. Contradiction.
+   - **Alice in 3** → chair 4 = blue. Chair 1 must be Bob. Dave/Carol take 2/4; Carol must be right of Dave → Carol in 4, but chair 4 = blue ≠ yellow. Contradiction.
+   - **Alice in 1** → Alice = green, chair 2 = blue (Bob, since Dave/Carol are red/yellow; Bob ≠ chair 4 ✓). Dave in 3 (red), Carol in 4 (yellow), Carol right of Dave ✓.
+4. Unique solution: 1 = Alice (green), 2 = Bob (blue), 3 = Dave (red), 4 = Carol (yellow).
+
+**Ambiguity note:** If "somewhere to the right" were read as *immediately* right, the only candidate placement (Dave 3, Carol 4) still holds, so the answer is unchanged under either reading.

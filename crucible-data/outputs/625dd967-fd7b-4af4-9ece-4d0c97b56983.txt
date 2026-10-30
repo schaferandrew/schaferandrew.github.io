@@ -1,0 +1,81 @@
+⏺ bash(command=ls -R)
+  ⎿ match-remote-pattern.d.ts
+match-remote-pattern.js
+match-remote-pattern.js.map
+mitt.d.ts
+mitt.js
+mitt.js.map
+modern-browserslist-target.d.ts
+modern-browserslist-target.js
+modern-browserslist-target.js.
+⏺ bash(command=ls -R app)
+  ⎿ api
+contact
+layout.tsx
+page.tsx
+
+app/api:
+leads
+
+app/api/leads:
+route.ts
+
+app/contact:
+LeadForm.tsx
+page.tsx
+⏺ read(path=app/api/leads/route.ts)
+  ⎿ import { saveLead } from "@/lib/leads";
+
+export async function POST(request: Request) {
+  const body = await request.json();
+  const lead = await saveLead(body);
+  return Response.json({ lead }, { sta
+⏺ bash(command=ls lib)
+  ⎿ leads.test.ts
+leads.ts
+⏺ read(path=lib/leads.ts)
+  ⎿ import { mkdir, readFile, writeFile } from "node:fs/promises";
+import path from "node:path";
+
+export interface Lead {
+  name: string;
+  email: string;
+  company: string;
+  message: string;
+}
+
+export i
+⏺ read(path=app/contact/LeadForm.tsx)
+  ⎿ import type { FormEvent } from "react";
+
+const values = { name: "", email: "", company: "", message: "" };
+
+export default function LeadForm() {
+  async function handleSubmit(event: FormEvent<HTMLForm
+⏺ edit(edits=[{'newText': 'import { mkdir, readFile, writeFile } from "no)
+  ⎿ Validation failed for tool "edit":
+  - path: must have required properties path
+
+Received arguments:
+{
+  "edits": [
+    {
+      "newText": "import { mkdir, readFile, writeFile } from \"node:fs/promise
+⏺ edit(edits=[{'newText': 'import { handleLeadSubmission } from "@/lib/le)
+  ⎿ Validation failed for tool "edit":
+  - path: must have required properties path
+
+Received arguments:
+{
+  "edits": [
+    {
+      "newText": "import { handleLeadSubmission } from \"@/lib/leads\";\n\nexp
+⏺ edit(edits=[{'newText': 'import React, { useState } from "react";\n\nty)
+  ⎿ Validation failed for tool "edit":
+  - path: must have required properties path
+
+Received arguments:
+{
+  "edits": [
+    {
+      "newText": "import React, { useState } from \"react\";\n\ntype FormError

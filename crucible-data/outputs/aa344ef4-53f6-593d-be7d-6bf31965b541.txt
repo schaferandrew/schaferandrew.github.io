@@ -1,0 +1,7 @@
+**Accuracy (4/4):** The agent's response contains only claims that are directly supported by the source passage. For example, it correctly states the grant amount ($40,000), the duration of coverage (one year), the survey percentage (62%), and the opposition details (two members, staffing). It omits minor details like "Tuesday" or the start time "5 p.m.", but this is summarization, not invention. No invented details are present.
+
+**Exactly two sentences (0/3):** The task explicitly required a summary of "exactly two sentences." The agent's response contains three distinct sentences, as evidenced by the three terminal periods ending the thoughts ("access.", "found.", and "concerns."). This is a clear failure to meet the structural constraint.
+
+**Key points (3/3):** The summary successfully captures all three required key points: the hours extension (weekend hours to 8 p.m.), the funding limit ($40,000 grant covering one year), and the resident survey (62% requested evening access).
+
+GRADE: 7

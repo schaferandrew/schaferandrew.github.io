@@ -1,0 +1,98 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "ff96bbc1-0a95-4c37-aa58-0a91f0b21d7c",
+ "rubric_version": 2,
+ "rubric_hash": "84fe475354719203",
+ "method": "checks",
+ "scored_at": "2026-10-30T06:32:32.330955+00:00",
+ "crucible_version": "3.4.0",
+ "raw": {
+  "passed": 4.0,
+  "total": 4,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "options_valid",
+   "type": "time_options",
+   "group": "Valid options",
+   "label": "Every OPTIONS line is a 60-minute start that is free for both people inside weekday 9-5 and after now (computed from the dataset), with no repeats. Any other option caps the score at 4.",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "valid",
+     "label": "Every option is a time both are free, in business hours",
+     "passed": true,
+     "detail": "all valid"
+    }
+   ]
+  },
+  {
+   "id": "options_count",
+   "type": "time_options",
+   "group": "Two or three options",
+   "label": "The OPTIONS block has two or three lines.",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "count",
+     "label": "Two or three options",
+     "passed": true,
+     "detail": "3 options (want 2 to 3)"
+    }
+   ]
+  },
+  {
+   "id": "options_handling",
+   "type": "time_options",
+   "group": "Reads event status and time",
+   "label": "At least one valid option is Thursday 13:00 or on Friday (it needs Alex's declined and transparent events read as not blocking), and no option is before Monday 8:30 AM.",
+   "passed": true,
+   "detail": "2/2 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "status",
+     "label": "Offers a time that depends on a declined or transparent event",
+     "passed": true,
+     "detail": "matched 2026-09-04 10:30 CDT"
+    },
+    {
+     "id": "not_past",
+     "label": "No option before now",
+     "passed": true,
+     "detail": "none found"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Valid options",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "1/1 items"
+  },
+  {
+   "id": "Two or three options",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "1/1 items"
+  },
+  {
+   "id": "Reads event status and time",
+   "passed": 2.0,
+   "total": 2,
+   "detail": "2/2 items"
+  }
+ ]
+}

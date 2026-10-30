@@ -1,0 +1,81 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "d920c37b-a845-4a6b-ba7f-36b722e0db33",
+ "run_path": "openrouter_openai_gpt-6-luna/login-recovery/20261030_031253",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T03:12:54.609737+00:00",
+ "ended_at": "2026-10-30T03:13:34.792902+00:00",
+ "elapsed_s": 39.95,
+ "task": {
+  "id": "login-recovery",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "9e2054ec754b41ca",
+  "rubric_hash": "13b36751db77b664",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/openai/gpt-6-luna",
+  "base": "openai/gpt-6-luna",
+  "publisher": "openai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "openai/gpt-6-luna|openai|api|-",
+  "display": "gpt-6-luna"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 17,
+  "tokens_in": 157631,
+  "tokens_out": 1604,
+  "model_responses": 12,
+  "ttft_s": 2.445,
+  "ttft_avg_s": 2.369,
+  "response_time_avg_s": 3.143,
+  "cost_usd": 0.003731,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/d920c37b-a845-4a6b-ba7f-36b722e0db33.txt",
+ "provenance": {
+  "crucible_version": "3.3.0",
+  "crucible_commit": "34a6f5d",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:8150ccfb97ded5440e126c3adfbbbde7a1b643059d8199767b4b6c533e20fbf9",
+  "submitter": null,
+  "verification": null
+ }
+}

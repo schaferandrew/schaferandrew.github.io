@@ -1,0 +1,2 @@
+Good - so the top-scoring slots are indeed at the edges (9:00 or 16:00). Let me update the script to use optimal scoring within each block and see what the actual top 3 options are:
+

@@ -1,0 +1,10 @@
+Based on my analysis of the calendars for everyone on your team (19 total members, including myself), I searched for a contiguous one-hour block available to all attendees within the next two weeks (through September 14, 2026).
+
+The team schedules are very tight in the first week. Most initial options cluster around Tuesday, September 10th, after all conflicting commitments from the previous week have cleared. All times are in the local time zone for most attendees, which is America/Chicago.
+
+I have identified three viable options starting in the middle of the next two weeks, assuming afternoon availability is acceptable for this group.
+
+OPTIONS:
+2026-09-10 13:30 America/Chicago
+2026-09-11 13:30 America/Chicago
+2026-09-14 13:30 America/Chicago

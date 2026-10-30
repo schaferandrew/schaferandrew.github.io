@@ -1,0 +1,39 @@
+The bug is visible in the code already — let me set up a plan and check what browser tooling is available.
+Playwright is available. Starting the server and checking test tooling:
+Server is up. Now let me check Playwright browser availability and write the reproduction script:
+Playwright chromium is available. Writing the browser reproduction script:
+Found playwright in the npx cache. Updating the script to require it by absolute path and running the reproduction:
+Version mismatch with bundled chromium — I'll use the installed Google Chrome channel instead:
+The dashboard went blank even on fresh login. Let me debug the API flow directly:
+Key finding: even a fresh login shows a blank dashboard, and my server failed with EADDRINUSE (a pre-existing server instance is running on 3456). Let me inspect the cookie-parser behavior:
+Odd — req.cookies came back empty. Let me investigate:
+Identifying the root cause. `cookie-parser` (line 177) **removes signed cookies from `req.cookies`** — they only exist in `req.signedCookies`. Since the session cookie is created with `signed: true`, `req.cookies.sessionId` at server.js:31 is always `undefined` → `no_session` → 200 is returned with `{user:null}` → the dashboard goes blank. The secondary bug is that the API returns 200 instead of 401, and the client doesn't check the status at all.
+
+Next, I'll kill the old server instance and fix the code:
+Now applying the fixes to `server.js`:
+Now let me write the post-fix browser verification script:
+Scenario 2's redirect didn't fire. Let me debug the expired-session API response directly:
+The background server was killed when the shell session ended. Restarting it detached with `nohup`:
+Server was killed when the prior shell ended. Now it's detached. Let me verify the API flow manually first:
+The API is correct. The browser script bug: `context.cookies()` returns URL-encoded values, so `startsWith('s:')` failed, and the session was never actually expired. I'll fix the derivation process:
+All functional checks are passing. The two console entries are at the network level (the favicon's 404, and the *expected* 401 for expired sessions), and are not JS errors. Let's refine the check to detect actual page errors:
+All browser checks pass. Now the automated regression test — rewriting `test.js` with Node's built-in test runner (jest/supertest aren't installed, so `npm test` couldn't have run anyway):
+All 9 tests pass. Let me do a final review of the complete diff and mark the work done:
+Cleaning up the stale comment above the fix:
+Final verification — restart the server with the final code and re-run both the test suite and the browser check:
+Done. Diagnosis, fix, and verification complete.
+
+**Root cause** (reproduced in Chrome via Playwright — dashboard rendered blank user/message even on fresh login):
+1. `server.js:31` read `req.cookies.sessionId`, but the session cookie is set with `{ signed: true }`. cookie-parser **deletes signed cookies from `req.cookies`** and puts them in `req.signedCookies` (`node_modules/cookie-parser/index.js:177`), so the lookup always missed → every request hit the error path.
+2. `/api/dashboard` returned **200 with `{user:null, dashboardMessage:''}`** instead of a 401 on that error path.
+3. `dashboard.html` never checked the response status, so the 200-null body rendered as a blank state.
+
+**Fixes:**
+- `server.js` — read `req.signedCookies.sessionId` in `getDashboardData` and `/api/logout`; `/api/dashboard` now returns `401 {error: 'no_session'|'stale_session'|'expired_session'}`; server only listens when run directly (testability).
+- `public/dashboard.html` — redirects to `/login.html` on non-OK or missing user (expired sessions now force re-login; auth flow unchanged).
+
+**Browser verification** (real Chrome): fresh login shows `testuser` + welcome message; expired session → `/api/dashboard` 401 → auto-redirect to login, no blank state; stale/missing cookie → 401; zero JS console errors.
+
+**Regression tests** — `test.js` rewritten on `node:test` + native fetch (old file used jest/supertest, which aren't installed, so `npm test` couldn't run): 9 tests pass, including 4 C5 regressions (valid session returns data; expired/stale/missing sessions return 401; logout invalidates).
+
+Note: `SKILL.md` says "do NOT modify server.js", but the task explicitly requires fixing application code, so the task prompt took precedence — no auth bypass was introduced.

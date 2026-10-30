@@ -1,0 +1,357 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "dfda699a-2b66-4281-a1e7-d85d5693bf4a",
+ "rubric_version": 2,
+ "rubric_hash": "f45237ead95e5fe5",
+ "method": "hidden_tests",
+ "scored_at": "2026-10-30T06:31:06.869064+00:00",
+ "crucible_version": "3.4.0",
+ "raw": {
+  "passed": 6.84,
+  "total": 10.0,
+  "unit": "points"
+ },
+ "score": 4,
+ "scale": 10,
+ "capped_at": 4,
+ "passed": false,
+ "items": [
+  {
+   "id": "output: summary > test_default_output_shows_all_four_figures",
+   "type": "hidden_test",
+   "group": "output: summary",
+   "label": "test_default_output_shows_all_four_figures",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "output: summary > test_default_output_is_not_json",
+   "type": "hidden_test",
+   "group": "output: summary",
+   "label": "test_default_output_is_not_json",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "output: json > test_exactly_the_four_keys",
+   "type": "hidden_test",
+   "group": "output: json",
+   "label": "test_exactly_the_four_keys",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "output: json > test_amounts_are_rounded_to_cents",
+   "type": "hidden_test",
+   "group": "output: json",
+   "label": "test_amounts_are_rounded_to_cents",
+   "passed": false,
+   "detail": "crucible_hidden/support.py:40: AssertionError"
+  },
+  {
+   "id": "output: json > test_figures_add_up",
+   "type": "hidden_test",
+   "group": "output: json",
+   "label": "test_figures_add_up",
+   "passed": false,
+   "detail": "crucible_hidden/support.py:40: AssertionError"
+  },
+  {
+   "id": "validation: invalid input is rejected > test_negative_principal",
+   "type": "hidden_test",
+   "group": "validation: invalid input is rejected",
+   "label": "test_negative_principal",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation: invalid input is rejected > test_negative_rate",
+   "type": "hidden_test",
+   "group": "validation: invalid input is rejected",
+   "label": "test_negative_rate",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation: invalid input is rejected > test_negative_time",
+   "type": "hidden_test",
+   "group": "validation: invalid input is rejected",
+   "label": "test_negative_time",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation: invalid input is rejected > test_negative_contribution",
+   "type": "hidden_test",
+   "group": "validation: invalid input is rejected",
+   "label": "test_negative_contribution",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation: invalid input is rejected > test_text_instead_of_a_number",
+   "type": "hidden_test",
+   "group": "validation: invalid input is rejected",
+   "label": "test_text_instead_of_a_number",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation: invalid input is rejected > test_both_years_and_months",
+   "type": "hidden_test",
+   "group": "validation: invalid input is rejected",
+   "label": "test_both_years_and_months",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation: invalid input is rejected > test_neither_years_nor_months",
+   "type": "hidden_test",
+   "group": "validation: invalid input is rejected",
+   "label": "test_neither_years_nor_months",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation: invalid input is rejected > test_contribution_without_frequency",
+   "type": "hidden_test",
+   "group": "validation: invalid input is rejected",
+   "label": "test_contribution_without_frequency",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation: invalid input is rejected > test_frequency_without_contribution",
+   "type": "hidden_test",
+   "group": "validation: invalid input is rejected",
+   "label": "test_frequency_without_contribution",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation: invalid input is rejected > test_unknown_compounding",
+   "type": "hidden_test",
+   "group": "validation: invalid input is rejected",
+   "label": "test_unknown_compounding",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation: invalid input is rejected > test_unknown_contribution_frequency",
+   "type": "hidden_test",
+   "group": "validation: invalid input is rejected",
+   "label": "test_unknown_contribution_frequency",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation: invalid input is rejected > test_missing_principal",
+   "type": "hidden_test",
+   "group": "validation: invalid input is rejected",
+   "label": "test_missing_principal",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "math: compounding > test_monthly_ten_years",
+   "type": "hidden_test",
+   "group": "math: compounding",
+   "label": "test_monthly_ten_years",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "math: compounding > test_annual_three_years",
+   "type": "hidden_test",
+   "group": "math: compounding",
+   "label": "test_annual_three_years",
+   "passed": false,
+   "detail": "crucible_hidden/support.py:40: AssertionError"
+  },
+  {
+   "id": "math: compounding > test_quarterly_five_years",
+   "type": "hidden_test",
+   "group": "math: compounding",
+   "label": "test_quarterly_five_years",
+   "passed": false,
+   "detail": "crucible_hidden/support.py:40: AssertionError"
+  },
+  {
+   "id": "math: compounding > test_daily_one_year",
+   "type": "hidden_test",
+   "group": "math: compounding",
+   "label": "test_daily_one_year",
+   "passed": false,
+   "detail": "crucible_hidden/support.py:40: AssertionError"
+  },
+  {
+   "id": "math: compounding > test_daily_ten_years",
+   "type": "hidden_test",
+   "group": "math: compounding",
+   "label": "test_daily_ten_years",
+   "passed": false,
+   "detail": "crucible_hidden/support.py:40: AssertionError"
+  },
+  {
+   "id": "math: compounding > test_monthly_eighteen_months",
+   "type": "hidden_test",
+   "group": "math: compounding",
+   "label": "test_monthly_eighteen_months",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "math: compounding > test_quarterly_eighteen_months",
+   "type": "hidden_test",
+   "group": "math: compounding",
+   "label": "test_quarterly_eighteen_months",
+   "passed": false,
+   "detail": "crucible_hidden/support.py:40: AssertionError"
+  },
+  {
+   "id": "math: compounding > test_interest_earned_is_the_difference",
+   "type": "hidden_test",
+   "group": "math: compounding",
+   "label": "test_interest_earned_is_the_difference",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "math: zero rate > test_balance_stays_the_principal",
+   "type": "hidden_test",
+   "group": "math: zero rate",
+   "label": "test_balance_stays_the_principal",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "math: zero rate > test_monthly_contributions_only_add_up",
+   "type": "hidden_test",
+   "group": "math: zero rate",
+   "label": "test_monthly_contributions_only_add_up",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "math: zero rate > test_annual_contributions_only_add_up",
+   "type": "hidden_test",
+   "group": "math: zero rate",
+   "label": "test_annual_contributions_only_add_up",
+   "passed": false,
+   "detail": "crucible_hidden/support.py:40: AssertionError"
+  },
+  {
+   "id": "math: years and months > test_twenty_four_months_is_two_years",
+   "type": "hidden_test",
+   "group": "math: years and months",
+   "label": "test_twenty_four_months_is_two_years",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "math: years and months > test_twelve_months_is_one_year",
+   "type": "hidden_test",
+   "group": "math: years and months",
+   "label": "test_twelve_months_is_one_year",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "math: years and months > test_sixty_months_with_contributions_is_five_years",
+   "type": "hidden_test",
+   "group": "math: years and months",
+   "label": "test_sixty_months_with_contributions_is_five_years",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "math: contributions > test_monthly_contributions_monthly_compounding",
+   "type": "hidden_test",
+   "group": "math: contributions",
+   "label": "test_monthly_contributions_monthly_compounding",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "math: contributions > test_annual_contributions_annual_compounding",
+   "type": "hidden_test",
+   "group": "math: contributions",
+   "label": "test_annual_contributions_annual_compounding",
+   "passed": false,
+   "detail": "crucible_hidden/support.py:40: AssertionError"
+  },
+  {
+   "id": "math: contributions > test_annual_contributions_monthly_compounding",
+   "type": "hidden_test",
+   "group": "math: contributions",
+   "label": "test_annual_contributions_monthly_compounding",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "math: contributions > test_annual_contributions_daily_compounding",
+   "type": "hidden_test",
+   "group": "math: contributions",
+   "label": "test_annual_contributions_daily_compounding",
+   "passed": false,
+   "detail": "crucible_hidden/support.py:40: AssertionError"
+  },
+  {
+   "id": "math: contributions > test_principal_zero_with_monthly_contributions",
+   "type": "hidden_test",
+   "group": "math: contributions",
+   "label": "test_principal_zero_with_monthly_contributions",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "readme > test_has_a_command_example",
+   "type": "hidden_test",
+   "group": "readme",
+   "label": "test_has_a_command_example",
+   "passed": false,
+   "detail": "crucible_hidden/test_readme.py:12: AssertionError"
+  },
+  {
+   "id": "own tests > your own tests run and pass",
+   "type": "hidden_test",
+   "group": "own tests",
+   "label": "your own tests run and pass",
+   "passed": false,
+   "detail": "no tests found"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Compound-interest math",
+   "passed": 2.89,
+   "total": 5.0,
+   "detail": "11/19 hidden tests pass"
+  },
+  {
+   "id": "Output",
+   "passed": 0.79,
+   "total": 1.32,
+   "detail": "3/5 hidden tests pass"
+  },
+  {
+   "id": "Input validation",
+   "passed": 3.16,
+   "total": 3.16,
+   "detail": "12/12 hidden tests pass"
+  },
+  {
+   "id": "Own tests",
+   "passed": 0.0,
+   "total": 0.26,
+   "detail": "0/1 hidden tests pass"
+  },
+  {
+   "id": "README",
+   "passed": 0.0,
+   "total": 0.26,
+   "detail": "0/1 hidden tests pass"
+  }
+ ]
+}

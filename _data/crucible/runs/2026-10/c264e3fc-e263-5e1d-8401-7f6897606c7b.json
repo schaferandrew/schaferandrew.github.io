@@ -1,0 +1,94 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "c264e3fc-e263-5e1d-8401-7f6897606c7b",
+ "run_path": "lmstudio_qwen_qwen3.5-9b/live-weather-open-ended/20261026_035908",
+ "legacy_run_id": "lmstudio_qwen_qwen3.5-9b/everyday/RSCH-2/20261026_035908",
+ "started_at": "2026-10-26T03:59:08.488131+00:00",
+ "ended_at": "2026-10-26T04:00:00.255055+00:00",
+ "elapsed_s": 51.77,
+ "task": {
+  "id": "live-weather-open-ended",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "754205c797e0d802",
+  "rubric_hash": "ae34f3fe94b7fe66",
+  "alias": "RSCH-2"
+ },
+ "harness": {
+  "id": "opencode",
+  "version": "opencode v2.1.4"
+ },
+ "model": {
+  "id": "lmstudio/qwen/qwen3.5-9b",
+  "base": "qwen/qwen3.5-9b",
+  "publisher": null,
+  "artifact": null,
+  "format": null,
+  "quant": "Q4_K_M",
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": 100096,
+  "variant_key": "qwen/qwen3.5-9b|-|-|q4_k_m",
+  "display": "qwen3.5-9b · Q4_K_M"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Whitehall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "rtx-5070-ti-16gb",
+  "class": "discrete_gpu",
+  "accelerators": [
+   {
+    "name": "NVIDIA RTX 5070 Ti 16GB",
+    "memory_gb": 16,
+    "count": 1
+   }
+  ],
+  "system_memory_gb": 32.0,
+  "cpu": "AMD Ryzen 7 7700",
+  "offload": null,
+  "label": "Whitehall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 11,
+  "tokens_in": 250340,
+  "tokens_out": 2143,
+  "model_responses": 12,
+  "ttft_s": 1.99,
+  "ttft_avg_s": 3.737,
+  "response_time_avg_s": 4.226,
+  "cost_usd": 0,
+  "cost_source": "opencode_estimate"
+ },
+ "output_ref": "outputs/c264e3fc-e263-5e1d-8401-7f6897606c7b.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:b07850e9328ea4d4e78eb6b5dfb73660842ec866797d9799e8e65991338d044c",
+  "submitter": null,
+  "verification": null
+ }
+}

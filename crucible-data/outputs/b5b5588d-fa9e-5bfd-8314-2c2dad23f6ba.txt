@@ -1,0 +1,21 @@
+The benchmark task is complete.
+
+I have implemented the CLI compound-interest calculator using a modular approach, fulfilling all requirements:
+
+1.  **`calculator.py`**: Contains the core simulation logic for compound interest, handling principals, rates, time conversions (years/months), compounding frequency, and iterative contributions. It includes robust input validation.
+2.  **`test_calculator.py`**: Contains automated unit tests covering ordinary cases, zero interest rate scenarios, recurring contributions, and invalid input checks.
+3.  **`main.py`**: Provides the runnable Command Line Interface, accepting all specified inputs and printing a readable summary upon successful calculation.
+4.  **`README.md`**: Documents the tool, explains command usage, and provides examples for quick start.
+
+You can run the application using `main.py` or execute the tests using `test_calculator.py`.
+
+### To Run the CLI:
+```bash
+# Example: $1000 initial principal, 5% rate, over 10 years, compounded monthly
+python main.py 1000 --rate 5.0 --time-years 10
+```
+
+### To Run Tests:
+```bash
+python test_calculator.py
+```

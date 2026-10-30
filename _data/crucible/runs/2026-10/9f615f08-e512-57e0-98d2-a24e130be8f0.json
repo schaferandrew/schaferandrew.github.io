@@ -1,0 +1,80 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "9f615f08-e512-57e0-98d2-a24e130be8f0",
+ "run_path": "openrouter_openai_gpt-6-luna/names-for-one-character/20261027_192950",
+ "legacy_run_id": "openrouter_openai_gpt-6-luna/writing/WRIT-2b/20261027_192950",
+ "started_at": "2026-10-27T19:29:50.694016+00:00",
+ "ended_at": "2026-10-27T19:30:02.141140+00:00",
+ "elapsed_s": 11.45,
+ "task": {
+  "id": "names-for-one-character",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "1910aa6ceae57f5f",
+  "rubric_hash": "70e05ca5984d3fd8",
+  "alias": "WRIT-2b"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/openai/gpt-6-luna",
+  "base": "openai/gpt-6-luna",
+  "publisher": "openai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "openai/gpt-6-luna|openai|api|-",
+  "display": "gpt-6-luna"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 83,
+  "tokens_out": 717,
+  "model_responses": 1,
+  "ttft_s": 3.698,
+  "ttft_avg_s": 3.698,
+  "response_time_avg_s": 9.141,
+  "cost_usd": 0.001373,
+  "cost_source": "openrouter_billed"
+ },
+ "output_ref": "outputs/9f615f08-e512-57e0-98d2-a24e130be8f0.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:c8cf692876450147ee7e4b94c554ec6e5126d722b3d0296ba89a53db114ae3bd",
+  "submitter": null,
+  "verification": null
+ }
+}

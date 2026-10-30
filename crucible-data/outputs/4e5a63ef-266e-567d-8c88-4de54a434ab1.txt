@@ -1,0 +1,30 @@
+⏺ read(path=server.ts, offset=1, limit=200)
+  ⎿ ENOENT: no such file or directory, access '/Users/schafer/.crucible/workspaces/lmstudio_openai_gpt-oss-20b_coding_debug_CODE-13_20261027_192930/server.ts'
+⏺ bash(command=ls -R)
+  ⎿ package.json
+README.md
+src
+
+./node_modules/send/node_modules/debug/node_modules:
+ms
+
+./node_modules/send/node_modules/debug/node_modules/ms:
+index.js
+license.md
+package.json
+readme.md
+
+./node_modules/
+⏺ bash(command=ls incident)
+  ⎿ logs
+ticket-notes.md
+⏺ bash(command=grep -R "responseCacheTtlMs" -n ..)
+  ⎿ ../lmstudio_openai_gpt-oss-20b_coding_debug_CODE-13_20261027_192930/CHANGELOG.md:5:- perf: cache hot read endpoints (GET /articles, /articles/:slug, /profiles/:username, /tags) for 60s in production (
+⏺ bash(command=grep -R "cache" -n apps/api/src | head)
+  ⎿ apps/api/src/middleware/responseCache.ts:14:  /** request paths (relative to /api) whose GET responses may be cached */
+apps/api/src/middleware/responseCache.ts:23:  return function cache(req: Request
+⏺ read(path=apps/api/src/middleware/responseCache.ts, offset=1, limit=200)
+  ⎿ import type { NextFunction, Request, Response } from "express";
+
+// PERF-212: hot read endpoints were dominating p95 latency under the launch-week traffic spike.
+// Cache successful GET responses in m

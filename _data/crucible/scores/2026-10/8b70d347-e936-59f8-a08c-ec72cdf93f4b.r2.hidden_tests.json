@@ -1,0 +1,139 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "8b70d347-e936-59f8-a08c-ec72cdf93f4b",
+ "rubric_version": 2,
+ "rubric_hash": "dab69ebda5432bad",
+ "method": "hidden_tests",
+ "scored_at": "2026-10-26T17:13:53.349988+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 10,
+  "total": 10,
+  "unit": "tests"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "cursor paging > walks every article once, newest first, ending with nextCursor null",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "walks every article once, newest first, ending with nextCursor null",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > is total even when createdAt ties",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "is total even when createdAt ties",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > never skips or repeats when articles are created and deleted between pages",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "never skips or repeats when articles are created and deleted between pages",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > works with filters and the feed",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "works with filters and the feed",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "cursor paging > keeps articlesCount as the filtered total",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "keeps articlesCount as the filtered total",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation > rejects malformed and tampered cursors",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects malformed and tampered cursors",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation > rejects a cursor used with different filters or another endpoint",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects a cursor used with different filters or another endpoint",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "validation > rejects cursor together with offset",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects cursor together with offset",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "backward compatibility > offset paging is unchanged",
+   "type": "hidden_test",
+   "group": "backward compatibility",
+   "label": "offset paging is unchanged",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "backward compatibility > unpaged comments return everything",
+   "type": "hidden_test",
+   "group": "backward compatibility",
+   "label": "unpaged comments return everything",
+   "passed": true,
+   "detail": null
+  }
+ ],
+ "groups": [
+  {
+   "id": "Cursor correctness",
+   "passed": 3.0,
+   "total": 3,
+   "detail": "5/5 hidden tests pass"
+  },
+  {
+   "id": "Validation and safety",
+   "passed": 2.0,
+   "total": 2,
+   "detail": "3/3 hidden tests pass"
+  },
+  {
+   "id": "Backward compatibility",
+   "passed": 2.0,
+   "total": 2,
+   "detail": "2/2 hidden tests pass"
+  },
+  {
+   "id": "Regression tests",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "pass on the fix and catch the bug on the seeded code"
+  },
+  {
+   "id": "Existing tests still pass",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "the repo's own tests pass"
+  },
+  {
+   "id": "Contract suite untouched",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "contract suite untouched"
+  }
+ ]
+}

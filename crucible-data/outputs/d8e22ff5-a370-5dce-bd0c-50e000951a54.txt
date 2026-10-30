@@ -1,0 +1,13 @@
+⏺ bash(command=ls -F)
+  ⎿ calendar-fixture.json
+prompt.txt
+⏺ read(path=prompt.txt)
+  ⎿ Find all meeting times during the next seven days that work for both people. The meeting must be 60 minutes, must occur between 9:00 AM and 5:00 PM local time, and must not overlap any busy event. Pre
+⏺ read(path=calendar-fixture.json)
+  ⎿ {
+  "timezone": "America/Chicago",
+  "window": {"start": "2026-08-31T09:00:00-05:00", "end": "2026-09-07T17:00:00-05:00"},
+  "meeting": {"duration_minutes": 60},
+  "people": {
+    "alex": {
+      "nam

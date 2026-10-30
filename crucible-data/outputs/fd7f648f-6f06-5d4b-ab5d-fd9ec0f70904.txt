@@ -1,0 +1,5 @@
+**Current weather in Saint Paul, MN (as of ~7:10 PM CDT Sep 2, 2026):** 86°F (30°C), Clear, low wind. Source: NWS observation at KSTP (Downtown Holman Field) — `api.weather.gov/stations/KSTP/observations/latest`
+
+**Historical normal for September 2 (1991–2020):** Average temperature 68°F (normal high 78°F, normal low 59°F). Source: NWS Twin Cities Climate Report CDUS43 KMPX — `forecast.weather.gov/product.php?site=NWS&product=CLI&issuedby=MSP`
+
+**Comparison:** Today's observed high was 88°F, low 66°F, and average **77°F** — which is **9°F above the historical average of 68°F**. This is a significant outlier; September 2, 2026 is running well above the climatological normal and is more typical of midsummer than early September.

@@ -1,0 +1,39 @@
+**Calculations**
+
+1. **Flour amount for 10 people**
+
+   The recipe uses \(300\text{ g}\) of flour for \(4\) people.
+
+   \[
+   \frac{300\text{ g}}{4} = 75\text{ g per person}
+   \]
+
+   For \(10\) people:
+
+   \[
+   75\text{ g/person} \times 10 = 750\text{ g}
+   \]
+
+2. **Sale price of the jacket**
+
+   Original price: \$84.60  
+   Discount: \(15\%\)
+
+   Discount amount:
+
+   \[
+   0.15 \times 84.60 = 12.69
+   \]
+
+   Sale price:
+
+   \[
+   84.60 - 12.69 = 71.91
+   \]
+
+---
+
+**ANSWERS**
+
+1. 750 g  
+2. $71.91

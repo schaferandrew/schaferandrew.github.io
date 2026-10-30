@@ -1,0 +1,94 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "14d6bc05-9469-54aa-a065-afb5269326a6",
+ "run_path": "lmstudio_google_gemma-4-12b-qat@reasoning-off/geography-trick-questions/20261027_031942",
+ "legacy_run_id": "lmstudio_google_gemma-4-12b-qat@reasoning-off/geography/GEOG-3/20261027_031942",
+ "started_at": "2026-10-27T03:19:42.848232+00:00",
+ "ended_at": "2026-10-27T03:19:46.303657+00:00",
+ "elapsed_s": 3.46,
+ "task": {
+  "id": "geography-trick-questions",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "5a1af1208cb9b9a5",
+  "rubric_hash": "5944fb9d7568cdce",
+  "alias": "GEOG-3"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/google/gemma-4-12b-qat",
+  "base": "google/gemma-4-12b-qat",
+  "publisher": null,
+  "artifact": null,
+  "format": null,
+  "quant": "Q4_0",
+  "reasoning": {
+   "requested": "off",
+   "resolved": null
+  },
+  "context_loaded": 8192,
+  "variant_key": "google/gemma-4-12b-qat|-|-|q4_0",
+  "display": "gemma-4-12b-qat · Q4_0"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Whitehall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "rtx-5070-ti-16gb",
+  "class": "discrete_gpu",
+  "accelerators": [
+   {
+    "name": "NVIDIA RTX 5070 Ti 16GB",
+    "memory_gb": 16,
+    "count": 1
+   }
+  ],
+  "system_memory_gb": 32.0,
+  "cpu": "AMD Ryzen 7 7700",
+  "offload": null,
+  "label": "Whitehall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 167,
+  "tokens_out": 290,
+  "model_responses": 1,
+  "ttft_s": 0.153,
+  "ttft_avg_s": 0.153,
+  "response_time_avg_s": 3.451,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": "outputs/14d6bc05-9469-54aa-a065-afb5269326a6.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:c46992aec08ea14f4a3a4d72073f04b438b4ae21ec0da5cdfa9f93c04bd8ab11",
+  "submitter": null,
+  "verification": null
+ }
+}

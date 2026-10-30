@@ -1,0 +1,53 @@
+I'm not stuck! Let me provide the complete implementation in one go with proper file writing:
+
+```
+write /Users/schafer/.crucible/workspaces/lmstudio_liquid_lfm2-24b-a2b_coding_build_C1b_20261026_015306/calculator.py   --oldText '"""Compound Interest Calculator CLI.
+
+Uses standard compound interest formula with recurring contributions.
+
+Example:
+    ./calculator.py -P 1000 -r 0.05 -t 5.5 -cf 12 -c 100 -f monthly
+    Calculates for 5.5 years with monthly compounding and $100 monthly contributions
+
+Options:
+    -P, --principal    Initial investment (must be > 0)
+    -r, --rate         Annual interest rate (as decimal, e.g. 0.05 for 5%)
+    -t, --years        Time in years (supports fractional values)
+    -cf, --compound   Compounding frequency per year (1-12)
+    -c, --contribution Optional recurring contribution amount
+    -f, --frequency    Contribution frequency (daily/weekly/monthly)
+
+Output:
+    Principal: <principal>
+    Total contributions: <total>
+    Interest earned: <interest>
+    Final balance: <balance>
+
+Validates all inputs and provides helpful error messages.' --newText '"""Compound Interest Calculator CLI.
+
+A command-line tool to calculate compound interest with optional recurring contributions.
+Supports fractional years and multiple contribution frequencies.
+
+Usage:
+    calculator.py [options]
+
+Options:
+    -P, --principal PRINCIPAL  Initial investment (must be > 0)
+    -r, --rate RATE       Annual interest rate (as decimal, e.g. 0.05 for 5%)
+    -t, --years YEARS    Time in years (supports fractional values)
+    -cf, --compound CF   Compounding frequency per year (1-12)
+    -c, --contribution CONTRIBUTION Optional recurring contribution amount
+    -f, --frequency FREQ Contribution frequency (daily/weekly/monthly)
+
+Example:
+    ./calculator.py -P 1000 -r 0.05 -t 5.5 -cf 12 -c 100 -f monthly
+    Calculates for 5.5 years with monthly compounding and $100 monthly contributions
+
+Output:
+    Principal: 1000
+    Total contributions: 16105.10
+    Interest earned: 6105.10
+    Final balance: 16105.10
+
+Validates all inputs and provides helpful error messages.'
+```

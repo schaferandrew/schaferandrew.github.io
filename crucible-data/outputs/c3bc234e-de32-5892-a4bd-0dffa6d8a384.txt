@@ -1,0 +1,16 @@
+Here is the proofread version of your paragraph. I have corrected the clear grammatical errors while preserving your stylistic choices.
+
+### Corrected Text
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder **than** she remembered it, all brakes shrieking and people talking **too** fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+***
+
+### Notes & Flags
+
+**Changes Made:**
+*   **than vs. then:** Changed "louder then" to "louder than" (used for comparisons).
+*   **too vs. to:** Changed "talking to fast" to "talking too fast" (used to indicate degree/excess).
+
+**Flags (Potential Intentional Stylistic Choices):**
+*   **"Not waiting for her, exactly."** and **"Still—she was back."**: These are sentence fragments. I have left them as is, as they appear to be intentional for rhythmic effect and character voice.
+*   **"...whether to laugh, or leave."**: I have left the comma before "or leave" in the text. In formal grammar, a comma is typically not used before "or" in a simple two-item list. However, in fiction, this is a common way to indicate a rhythmic pause or a "beat" for dramatic emphasis. If you did not intend for the reader to pause there, you may want to remove it.

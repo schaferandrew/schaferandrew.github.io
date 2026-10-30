@@ -1,0 +1,32 @@
+On mobile widths the primary links are now hidden behind a hamburger toggle, and on desktop they show as normal links. I added 8 browser tests covering both states, and all of them pass when run with `npx playwright test`.
+
+**`index.html`**
+- There's a new `<button class="nav-toggle">` with `aria-controls="primary-nav"` and `aria-expanded`.
+- Its label reads "Open main menu" when the menu is closed and "Close main menu" when it's open.
+- The `<nav>` is labelled "Primary" so screen readers can identify it.
+
+**`styles.css`**
+- **Desktop:** the toggle is hidden and the links stay in their usual row.
+- **Mobile (≤768px):**
+  - The toggle shows as a 44px three-bar icon that turns into an X when open.
+  - The links stack vertically and stay hidden until the menu is opened.
+  - The toggle and links show a visible outline when focused by keyboard.
+- If JavaScript doesn't load, mobile users see the links directly and no toggle.
+
+**`script.js`**
+- Clicking the toggle (or pressing Enter or Space on it) opens and closes the menu. Opening it moves focus to the first link.
+- Escape closes the menu and puts focus back on the toggle.
+- Clicking anywhere outside the navbar closes the menu.
+- Moving between mobile and desktop widths resets the menu to closed, so it never keeps a stale open state.
+
+**Tests (`tests/navbar.spec.js`)** run in a real Chromium browser at actual desktop and mobile screen sizes:
+- **Desktop:** the toggle is hidden, all four links are visible on one row, and Tab goes straight to "Home".
+- **Mobile:**
+  - The links start hidden behind a labelled, closed toggle.
+  - Clicking opens and closes the menu, and the label and `aria-expanded` update to match.
+  - The full keyboard flow works: Tab to the toggle, Enter to open, Tab through links, Escape to close, Space to reopen.
+  - Clicking outside closes the menu.
+  - With JavaScript off, the links stay visible.
+- **Resizing:** an open mobile menu resets correctly when the window is widened to desktop and narrowed again.
+
+I also added `package.json`, `playwright.config.js` and `.gitignore` for the Playwright test setup. To run the tests: `npm install && npm test`.

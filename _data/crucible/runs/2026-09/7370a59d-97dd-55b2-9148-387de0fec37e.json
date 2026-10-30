@@ -1,0 +1,72 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "7370a59d-97dd-55b2-9148-387de0fec37e",
+ "run_path": "openrouter_moonshotai_kimi-k2.6/interest-cli-open-ended/20260902_205511",
+ "legacy_run_id": "openrouter_moonshotai_kimi-k2.6/coding_build/CODE-1/20260902_205511",
+ "started_at": "2026-09-02T20:55:11.006061+00:00",
+ "ended_at": "2026-09-02T21:00:47.527840+00:00",
+ "elapsed_s": 336.52,
+ "task": {
+  "id": "interest-cli-open-ended",
+  "version": 1,
+  "rubric_version": null,
+  "content_hash": null,
+  "rubric_hash": null,
+  "alias": "CODE-1"
+ },
+ "harness": {
+  "id": "opencode",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/moonshotai/kimi-k2.6",
+  "base": "moonshotai/kimi-k2.6",
+  "publisher": "moonshotai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "moonshotai/kimi-k2.6|moonshotai|api|-",
+  "display": "kimi-k2.6"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": null,
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 16
+ },
+ "output_ref": "outputs/7370a59d-97dd-55b2-9148-387de0fec37e.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": null,
+  "machine_label": null,
+  "source": "crucible-migrate",
+  "content_hash": "sha256:eba249f8562303a03794b9c24d6830bf57916bf031eaa046b2bae50d6270a237",
+  "submitter": null,
+  "verification": null
+ }
+}

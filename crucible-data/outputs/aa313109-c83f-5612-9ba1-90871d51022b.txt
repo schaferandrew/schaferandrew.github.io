@@ -1,0 +1,20 @@
+Here is a light copy-edit that keeps your voice, rhythm and intentional fragments:
+
+**Revised paragraph**
+
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder **than** she remembered it, all brakes shrieking and people talking **too fast**. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh **or** leave.
+
+**Changes made**
+
+* **then → than** : comparative, not temporal. *louder than she remembered it*
+* **talking to fast → talking too fast** : *too* is the adverb needed for degree, not the preposition *to*
+* **whether to laugh, or leave → whether to laugh or leave** : the comma before *or* is unnecessary in a standard *whether...or* construction. Removed for clarity.
+
+**Flagged as likely intentional — left as is**
+
+* Sentence-initial **And** in “And she didn't know whether to laugh or leave.” — stylistic, kept.
+* Fragment **“Not waiting for her, exactly.”** — intentional fragment for rhythm/voice, kept.
+* **Still—she was back.** The dash is used without spaces. If you meant an em dash, the typographically correct form is Still—she was back. Kept your punctuation as-is; change to an em dash or spaced en dash only if you want a style normalization.
+* The overall fragmentary, conversational cadence and imagery are preserved.
+
+Let me know if you want the dash standardized or the comma before *or* kept for rhythmic effect.

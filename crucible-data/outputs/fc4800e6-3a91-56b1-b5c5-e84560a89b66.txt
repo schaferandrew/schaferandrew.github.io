@@ -1,0 +1,12 @@
+**Assumptions:** Each person sits in exactly one chair, and the four different favorite colors are assigned one-to-one to the four people. “Immediately to the left” means in the adjacent chair.
+
+Dave likes red, while chair 1 is occupied by the person who likes green, so Dave cannot sit in chair 1. Carol must sit to the right of Dave, so Dave cannot sit in chair 4 either. Thus Dave must be in chair 2 or 3.
+
+- If Dave is in chair 2, Carol can be in chair 3 or 4. If Carol is in chair 3, Alice would need to be in chair 3 to sit immediately left of the blue-lover in chair 4, which is impossible. If Carol is in chair 4, the blue-lover must be in chair 3, so Alice would need to be in chair 2—but Dave is there. Thus Dave cannot be in chair 2.
+- Therefore Dave is in chair 3. Carol must be in chair 4. With chair 1 green, chair 3 red, and chair 4 yellow, chair 2 is blue. Alice must sit immediately to the left of the blue-lover, so Alice is in chair 1.
+
+Chair 1: Alice, green  
+Chair 2: Bob, blue  
+Chair 3: Dave, red  
+Chair 4: Carol, yellow  
+ANSWER: Dave

@@ -1,0 +1,23 @@
+Reasoning:
+- Sentence 3 contains a subject-verb agreement error: "prices" is plural and requires the plural verb "are."
+- Sentence 6 uses the contraction "it's" (it is) where the possessive pronoun "its" is required.
+- Sentence 12 uses "then" (referring to time) instead of "than" (used for comparisons).
+- Sentence 1 defines inflation narrowly as caused solely by government money printing, ignoring other drivers (demand-pull, cost-push, expectations, etc.), making the terminology imprecise.
+- Sentence 4 incorrectly states a legal mandate for the Federal Reserve; the Fed operates under a dual mandate (maximum employment and price stability) and has no legal requirement to raise rates at a specific inflation threshold, making the claim misleading.
+- Sentence 8 presents a false dichotomy regarding unemployment causes, ignoring frictional, structural, and cyclical factors, which is misleading.
+- Sentence 11 claims QE "inevitably" causes hyperinflation, which contradicts historical evidence and monetary theory, making the claim overstated.
+- Sentence 14 asserts monetary policy is "completely ineffective" based on Japan's experience, which overstates the case (monetary policy can be constrained in liquidity traps but is not universally ineffective).
+- Sentence 18 claims supply-side economics was "definitively debunked" and that the economy did not grow at all during the 1980s, which overstates both the academic consensus and historical GDP data.
+
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: imprecise
+4: misleading
+8: misleading
+11: overstated
+14: overstated
+18: overstated

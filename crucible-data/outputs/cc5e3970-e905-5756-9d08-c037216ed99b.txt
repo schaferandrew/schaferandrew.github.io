@@ -1,0 +1,42 @@
+1. **Savings Account**
+Formula: $A = P(1 + r/n)^{nt}$
+$P = 5,000$
+$r = 0.04$
+$n = 12$ (monthly)
+$t = 3$
+$A = 5,000(1 + 0.04/12)^{12 \times 3}$
+$A = 5,000(1 + 0.0033333333)^{36}$
+$A = 5,000(1.0033333333)^{36}$
+$A = 5,000(1.127271884)$
+$A = 5,636.35942$
+Rounded: $5,636.36
+
+2. **Flooring**
+Area = 1,850 sq ft
+Waste = 1,850 $\times$ 0.10 = 185 sq ft
+Total area needed = 1,850 + 185 = 2,035 sq ft
+Boxes = 2,035 / 23.5
+Boxes = 86.5957...
+Since you cannot buy a partial box, you must round up to the nearest whole box.
+Total boxes = 87
+
+3. **Road Trip**
+Gallons needed = 412 / 34
+Gallons needed = 12.117647...
+Total cost = 12.117647... $\times$ 3.89
+Total cost = 47.13647...
+Rounded: $47.14
+
+4. **Dinner**
+Pre-tax amount = $172.00
+Tip = 172.00 $\times$ 0.18 = 30.96
+Total bill = 186.40 (tax included) + 30.96 (tip)
+Total bill = 217.36
+Split = 217.36 / 4
+Split = 54.34
+
+ANSWERS
+1. $5,636.36
+2. 87
+3. $47.14
+4. $54.34

@@ -1,0 +1,78 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "337f813c-287d-5837-bbc1-7c1c0f1a3608",
+ "run_path": "openrouter_qwen_qwen3.8-27b/weather-vs-normal/20261024_174353",
+ "legacy_run_id": "openrouter_qwen_qwen3.8-27b/everyday/RSCH-2b/20261024_174353",
+ "started_at": "2026-10-24T17:43:53.131257+00:00",
+ "ended_at": "2026-10-24T17:44:20.670873+00:00",
+ "elapsed_s": 27.54,
+ "task": {
+  "id": "weather-vs-normal",
+  "version": 1,
+  "rubric_version": null,
+  "content_hash": null,
+  "rubric_hash": null,
+  "alias": "RSCH-2b"
+ },
+ "harness": {
+  "id": "opencode",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/qwen/qwen3.8-27b",
+  "base": "qwen/qwen3.8-27b",
+  "publisher": "qwen",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "qwen/qwen3.8-27b|qwen|api|-",
+  "display": "qwen3.8-27b"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 4,
+  "tokens_in": 59142,
+  "tokens_out": 3013,
+  "model_responses": 3,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": 8.568
+ },
+ "output_ref": "outputs/337f813c-287d-5837-bbc1-7c1c0f1a3608.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": null,
+  "machine_label": null,
+  "source": "crucible-migrate",
+  "content_hash": "sha256:92e75869bc2b8e6da7cd3e315603312c6bd5ac4cd8c1ab32314f012b5ce48dcd",
+  "submitter": null,
+  "verification": null
+ }
+}

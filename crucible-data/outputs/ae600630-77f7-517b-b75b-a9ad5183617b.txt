@@ -1,0 +1,200 @@
+Here is a step-by-step solution for each problem.
+
+---
+
+### Problem 1: Divisibility Count
+
+We need to find the number of integers $N$ such that $1 \le N \le 10000$, and ($N$ is divisible by 3 OR $N$ is divisible by 7) AND ($N$ is NOT divisible by 21).
+
+Let $A$ be the set of numbers divisible by 3, and $B$ be the set of numbers divisible by 7. We are looking for $|(A \cup B) \setminus (A \cap B)|$.
+Since divisibility by 21 is equivalent to being divisible by both 3 and 7 ($A \cap B$), we are looking for $|(A \cup B) \setminus (A \cap B)|$, which is the size of the symmetric difference, $|A \Delta B|$.
+
+This count is equal to (those divisible by 3 only) + (those divisible by 7 only).
+Alternatively, it is $|A| + |B| - 2|A \cap B|$.
+
+Total numbers up to 10000:
+* $|A| = \lfloor 10000/3 \rfloor = 3333$
+* $|B| = \lfloor 10000/7 \rfloor = 1428$
+* $|A \cap B| = \lfloor 10000/21 \rfloor = 476$
+
+The number divisible by 3 or 7 is $|A \cup B| = |A| + |B| - |A \cap B| = 3333 + 1428 - 476 = 4751 - 476 = 4275$.
+
+We want those divisible by 3 or 7, but *not* by 21. This means we must exclude those divisible by both (i.e., multiples of 21).
+The count is $|A \cup B| - |A \cap B| = 4275 - 476 = 3799$.
+
+Alternatively, we want (multiples of 3 only) + (multiples of 7 only):
+* Multiples of 3 only: $|A| - |A \cap B| = 3333 - 476 = 2857$.
+* Multiples of 7 only: $|B| - |A \cap B| = 1428 - 476 = 952$.
+Total: $2857 + 952 = 3809$.
+
+Wait, there is a discrepancy. Let's re-read the requirement: "divisible by 3 or by 7, but not by 21".
+If a number is divisible by 3 and 7, it *is* divisible by 21.
+The set we want is $(A \cup B) \setminus (A \cap B)$. This is exactly the symmetric difference, $A \Delta B$.
+
+Let's recheck the calculation for $|A \cup B|$:
+$|A \cup B| = |A| + |B| - |A \cap B| = 3333 + 1428 - 476 = 4275$. (This is correct: total divisible by 3 or 7).
+We must exclude those divisible by 21, which is $|A \cap B| = 476$.
+Result: $4275 - 476 = 3799$.
+
+Let's recheck the alternative calculation:
+Multiples of 3 only (divisible by 3, not 7): $|A| - |A \cap B| = 3333 - 476 = 2857$.
+Multiples of 7 only (divisible by 7, not 3): $|B| - |A \cap B| = 1428 - 476 = 952$.
+Total: $2857 + 952 = 3809$.
+
+Why the difference between 3799 and 3809?
+If a number is divisible by 3, it contributes to $|A|$. If it is also divisible by 7, it contributes to $|A \cap B|$.
+If we count those divisible by 3 only, we exclude all multiples of 21. This is correct: $3333 - 476 = 2857$.
+If we count those divisible by 7 only, we exclude all multiples of 21. This is correct: $1428 - 476 = 952$.
+The sum must be correct: $2857 + 952 = 3809$.
+
+Let's check the initial calculation again:
+$|A \cup B| = 3333 + 1428 - 476 = 4761 - 476 = 4285$.
+Ah, $3333 + 1428 = 4761$.
+$4761 - 476 = 4285$.
+
+If $|A \cup B| = 4285$, and we subtract those divisible by 21 ($|A \cap B|=476$), the result is $4285 - 476 = 3809$.
+
+The answer is 3809.
+
+---
+
+### Problem 2: Modular Arithmetic
+
+We need to find $7^{2026} \pmod{100}$.
+We look for the cycle length of powers of 7 modulo 100. $\phi(100) = 100(1 - 1/2)(1 - 1/5) = 100 \cdot (1/2) \cdot (4/5) = 40$. The cycle length must divide 40.
+
+$7^1 \equiv 7 \pmod{100}$
+$7^2 = 49 \pmod{100}$
+$7^3 = 343 \equiv 43 \pmod{100}$
+$7^4 = 7 \times 43 = 301 \equiv 1 \pmod{100}$.
+
+The cycle length is 4. We divide the exponent by 4:
+$2026 \div 4$. Since $2024 = 4 \times 506$, we have $2026 = 4 \times 506 + 2$.
+$7^{2026} = 7^{4 \times 506 + 2} = (7^4)^{506} \cdot 7^2 \pmod{100}$
+$7^{2026} \equiv 1^{506} \cdot 49 \pmod{100}$
+$7^{2026} \equiv 49 \pmod{100}$.
+
+The remainder is 49.
+
+---
+
+### Problem 3: Tiling Recurrence Relation
+
+Let $a_n$ be the number of ways to tile a $2 \times n$ board using $1 \times 2$ dominoes and $2 \times 2$ squares.
+
+Consider the rightmost column(s) of the $2 \times n$ board:
+1. Place one vertical $1 \times 2$ domino covering the last column ($n$). Remaining board is $2 \times (n-1)$. Ways: $a_{n-1}$.
+2. Place two horizontal $1 \times 2$ dominoes covering the last two columns ($n-1, n$). Remaining board is $2 \times (n-2)$. Ways: $a_{n-2}$.
+3. Place one $2 \times 2$ square covering the last two columns ($n-1, n$). Remaining board is $2 \times (n-2)$. Ways: $a_{n-2}$.
+
+The recurrence relation is $a_n = a_{n-1} + 2a_{n-2}$.
+
+We need the initial conditions:
+$a_1$: $2 \times 1$. Only one way (one vertical domino). $a_1 = 1$.
+$a_2$: $2 \times 2$. Ways: (two vertical dominoes), (two horizontal dominoes), (one $2 \times 2$ square). $a_2 = 3$.
+
+Check the recurrence for $n=3$:
+$a_3 = a_2 + 2a_1 = 3 + 2(1) = 5$.
+$a_3$: $2 \times 3$. Tilings: VVV, HHV (where H is a pair of horizontal dominoes), VHH, $2\times 3$ cannot be tiled by one square.
+Wait, let's list $a_3$:
+1. V on the right $\rightarrow a_2$ ways (3 ways)
+2. HH on the right $\rightarrow a_1$ way (1 way)
+3. Square on the right $\rightarrow a_1$ way (1 way)
+Total: $3 + 1 + 1 = 5$. This matches.
+
+We need $a_{12}$.
+$a_0$: Base case, $2 \times 0$, one way (empty tiling). $a_0 = 1$.
+$a_1 = 1$
+$a_2 = 3$
+$a_3 = 5$
+$a_4 = a_3 + 2a_2 = 5 + 2(3) = 11$
+$a_5 = 11 + 2(5) = 21$
+$a_6 = 21 + 2(11) = 43$
+$a_7 = 43 + 2(21) = 85$
+$a_8 = 85 + 2(43) = 171$
+$a_9 = 171 + 2(85) = 171 + 170 = 341$
+$a_{10} = 341 + 2(171) = 341 + 342 = 683$
+$a_{11} = 683 + 2(341) = 683 + 682 = 1365$
+$a_{12} = 1365 + 2(683) = 1365 + 1366 = 2731$.
+
+The number of ways is 2731. (Since the answer must be an integer, no fraction needed).
+
+---
+
+### Problem 4: Probability of Maximum Value
+
+Three fair six-sided dice are rolled. Total outcomes $= 6^3 = 216$.
+We want the probability that the largest number shown is exactly 4. This means all three dice must show a value from $\{1, 2, 3, 4\}$, AND at least one die must show a 4.
+
+Let $S$ be the set of outcomes where $\max(D_1, D_2, D_3) = 4$.
+The outcomes must be chosen from $\{1, 2, 3, 4\}^3$, excluding those where the maximum is $\le 3$.
+
+Total outcomes where all rolls are $\le 4$: $4^3 = 64$.
+Total outcomes where all rolls are $\le 3$: $3^3 = 27$.
+
+The number of outcomes where the maximum is exactly 4 is $N(S) = (\text{outcomes } \le 4) - (\text{outcomes } \le 3) = 64 - 27 = 37$.
+
+The probability is $P(S) = \frac{37}{216}$.
+Since 37 is prime and $216 = 2^3 \cdot 3^3$, the fraction is in lowest terms.
+
+---
+
+### Problem 5: Conditional Probability (Boy/Girl, Tuesday)
+
+Let $C_1$ and $C_2$ be the two children.
+Possible outcomes for gender (B/G): {BB, BG, GB, GG}. Each has probability 1/4.
+Possible outcomes for birth day (T=Tuesday, N=Not Tuesday): Since the problem specifies "born on a Tuesday," we must consider this condition.
+
+Let $T_i$ be the event that child $i$ was born on Tuesday.
+Let $B_i$ be the event that child $i$ is a boy.
+
+The sample space for each child has $2 \text{ genders} \times 7 \text{ days} = 14$ possibilities, each equally likely (probability $1/14$).
+
+The condition given is $E$: "At least one of them is a boy who was born on a Tuesday."
+Let $E_i$ be the event that child $i$ is (Boy AND Born Tuesday).
+$E = E_1 \cup E_2$.
+
+We want to find $P(\text{Both Boys} | E) = P(B_1 B_2 | E)$.
+
+Let's simplify the structure. The condition $E$ restricts our sample space to those outcomes where at least one child matches the description (Boy, Tuesday).
+
+Consider a single child $i$. The probability of being $(B_i \text{ and } T_i)$ is $P(E_i) = P(\text{Boy}) \times P(\text{Tuesday}) = (1/2) \times (1/7) = 1/14$.
+
+The probability of $E$ is $P(E) = P(\text{at least one } E_i)$.
+$P(E) = 1 - P(\text{neither is } E_i)$.
+$P(\text{not } E_i) = 1 - 1/14 = 13/14$.
+Since the children are independent:
+$P(E) = 1 - (13/14)^2 = 1 - 169/196 = (196 - 169)/196 = 27/196$.
+
+We want $P(B_1 B_2 | E) = \frac{P((B_1 B_2) \cap E)}{P(E)}$.
+
+If both are boys ($B_1 B_2$), then $E$ occurs if at least one of them is also born on Tuesday.
+Let $X = B_1 B_2$. We need $P(X \cap E)$.
+$X \cap E$: Both are boys, AND (at least one is born Tuesday).
+If both are boys, the possibilities for their birth days are $7 \times 7 = 49$ equally likely combinations.
+The complement is that neither was born Tuesday (i.e., both were born on one of the 6 non-Tuesdays). There are $6 \times 6 = 36$ such combinations.
+So, the number of ways for $X \cap E$ is $49 - 36 = 13$.
+The probability of this specific combination (Both Boys AND E) is $P(X \cap E) = P(\text{Both Boys}) \times P(\text{E } | \text{ Both Boys})$.
+$P(\text{Both Boys}) = 1/4$.
+If both are boys, $P(E | \text{Both Boys}) = 1 - P(\text{Neither is Tuesday } | \text{ Both Boys}) = 1 - (6/7)^2 = 1 - 36/49 = 13/49$.
+$P(X \cap E) = (1/4) \times (13/49) = 13/196$.
+
+Finally, the conditional probability:
+$P(B_1 B_2 | E) = \frac{13/196}{27/196} = \frac{13}{27}$.
+
+---
+### Summary of Answers
+
+1. 3809
+2. 49
+3. 2731
+4. $37/216$
+5. $13/27$
+
+---
+ANSWERS
+1. 3809
+2. 49
+3. 2731
+4. 37/216
+5. 13/27

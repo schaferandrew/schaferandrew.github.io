@@ -1,0 +1,93 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "f7aac5bd-b4ef-5f9b-9f16-61125f0c2532",
+ "rubric_version": 2,
+ "rubric_hash": "70e05ca5984d3fd8",
+ "method": "checks",
+ "scored_at": "2026-10-26T17:13:05.442817+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 2,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 2.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "answered",
+   "type": "non_empty",
+   "group": "Answered",
+   "label": "Produces a substantive answer (at least 60 words).",
+   "passed": false,
+   "detail": "0 words (want at least 60)"
+  },
+  {
+   "id": "twenty_names",
+   "type": "list_items",
+   "group": "Twenty names",
+   "label": "Lists at least 20 names as list items.",
+   "passed": false,
+   "detail": "0 items (want at least 20)"
+  },
+  {
+   "id": "distinct_names",
+   "type": "list_items",
+   "group": "Distinct",
+   "label": "No name appears twice in the list of 20 (a later recap of favorites is fine).",
+   "passed": true,
+   "detail": "0 items"
+  },
+  {
+   "id": "explains_top_five",
+   "type": "required_patterns",
+   "group": "Explains the top five",
+   "label": "Explains the strongest five (names a 'top/strongest five' section).",
+   "passed": false,
+   "detail": "0/1 found; missing: \\b(top|strongest|best)\\s*(5|five)\\b"
+  },
+  {
+   "id": "no_caricature",
+   "type": "forbidden_patterns",
+   "group": "No caricature",
+   "label": "Uses no famous names and no food or caricature words as names (blocklist).",
+   "passed": false,
+   "detail": "no answer to check"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Answered",
+   "passed": 0,
+   "total": 1,
+   "detail": "0 words (want at least 60)"
+  },
+  {
+   "id": "Twenty names",
+   "passed": 0,
+   "total": 3,
+   "detail": "0 items (want at least 20)"
+  },
+  {
+   "id": "Distinct",
+   "passed": 2,
+   "total": 2,
+   "detail": "0 items"
+  },
+  {
+   "id": "Explains the top five",
+   "passed": 0,
+   "total": 2,
+   "detail": "0/1 found; missing: \\b(top|strongest|best)\\s*(5|five)\\b"
+  },
+  {
+   "id": "No caricature",
+   "passed": 0,
+   "total": 2,
+   "detail": "no answer to check"
+  }
+ ]
+}

@@ -1,0 +1,79 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "e1125282-6e3c-5fd8-bf2a-d761d87e38d2",
+ "rubric_version": 2,
+ "rubric_hash": "0fefa4c8e6e7b983",
+ "method": "checks",
+ "scored_at": "2026-10-26T17:13:53.462065+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 10,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "answered",
+   "type": "non_empty",
+   "group": "Answered",
+   "label": "Produces a substantive answer (at least 80 words).",
+   "passed": true,
+   "detail": "1804 words"
+  },
+  {
+   "id": "fixes_treasury",
+   "type": "required_patterns",
+   "group": "Fixes the language error",
+   "label": "Capitalizes 'Treasury' in 'Treasury bonds' (case-sensitive).",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "separate_flags",
+   "type": "required_patterns",
+   "group": "Flags claims separately",
+   "label": "Has a separate part flagging claims as overstated, imprecise, unclear or misleading.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "names_overstatements",
+   "type": "required_patterns",
+   "group": "Finds the overstatements",
+   "label": "Discusses at least 3 of the planted overstatements (legally required, lazy, hyperinflation, debunked/Reagan, 'Inflation is when', completely ineffective).",
+   "passed": true,
+   "detail": "6/6 found"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Answered",
+   "passed": 1,
+   "total": 1,
+   "detail": "1804 words"
+  },
+  {
+   "id": "Fixes the language error",
+   "passed": 3,
+   "total": 3,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Flags claims separately",
+   "passed": 3,
+   "total": 3,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Finds the overstatements",
+   "passed": 3,
+   "total": 3,
+   "detail": "6/6 found"
+  }
+ ]
+}

@@ -1,0 +1,35 @@
+**Assumptions required**
+
+* Each friend has exactly one favorite color and each of the four colors red, blue, green, yellow is used once.
+* Chair numbers increase left to right and “immediately to the left of” means the direct neighbour on the left, i.e. position +1.
+* “Somewhere to the right of” means strictly to the right, not necessarily immediate.
+
+Solution
+
+Dave likes red by 5.  
+The green person is in chair 1 by 3, so chair 1 cannot be Dave who is red and cannot be Carol who likes yellow by 4.
+
+* Chair 1 = green. The only remaining candidates are Alice or Bob.
+If Chair 1 were Bob green, Alice would have to be left of the blue person. Alice could then be in chair 2 or 3, so the blue person would be in chair 3 or 4. The remaining persons for chairs 2-4 would be Alice, Carol, Dave with colors red, yellow, blue. Alice cannot be red or yellow and cannot be blue because she is left of the blue person, leaving no colour for Alice. So Chair 1 ≠ Bob.
+
+Hence:
+Chair 1 = Alice, green
+
+1. Alice sits immediately left of the person who likes blue → the blue person is in chair 2.
+The blue person cannot be Alice, Dave or Carol, so the blue person is Bob.
+
+Chair 2 = Bob, blue
+
+Dave is red and Carol is yellow and Carol sits to the right of the red person by 4.
+Bob is not in chair 4 by 2, so Dave and Carol occupy chairs 3 and 4 with Dave left of Carol.
+
+Chair 3 = Dave, red
+Chair 4 = Carol, yellow
+
+All clues are satisfied.
+
+Chair 1: Alice, green
+Chair 2: Bob, blue
+Chair 3: Dave, red
+Chair 4: Carol, yellow
+ANSWER: Dave

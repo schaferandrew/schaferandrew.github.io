@@ -1,0 +1,100 @@
+
+
+# Next.js for Experienced React Devs — Course Overview
+
+**Arc (10 lessons, 2 project gates):**
+
+| # | Topic | Checkpoint |
+|---|-------|-----------|
+| 1 | The rendering model: Server vs Client Components | *today* |
+| 2 | Routing: layouts, dynamic segments, `loading`/`error` states | Q&A |
+| 3 | Data fetching & caching: full route cache, revalidation, ISR | Q&A |
+| 4 | Mutations: forms & Server Actions | Q&A |
+| 5 | Client state: hydration, URL-as-state, React Query/SWR | Q&A |
+| 6 | **Project 1: Team Directory** (SSR list + live filter + add/edit via Server Actions) | project review |
+| 7 | Middleware, intercepting routes, Suspense/streaming | Q&A |
+| 8 | Performance: images, fonts, bundle analysis, Core Web Vitals | Q&A |
+| 9 | Auth, sessions, security, env vars | Q&A |
+| 10 | **Final project: small SaaS dashboard**, deployed + common-mistakes retro | project review |
+
+Since you know React and TS, we skip component basics and go straight to what actually changes: **where your code runs**.
+
+---
+
+# Lesson 1 — Where Your Code Runs
+
+## The concept
+
+In the App Router, every component is one of two kinds:
+
+- **Server Component (default)** — renders on the server only. Supports `async/await`, can hit the DB directly, can import secrets. Ships *zero* JS. No hooks, no `window`, no event handlers.
+- **Client Component** — marked with `"use client"`. Runs on the server *and* the client; ships JS; uses `useState`, `useEffect`, handlers.
+
+`"use client"` is a **boundary marker**, not a file toggle: that file and everything it imports become client components. Boundaries should sit as *deep* in the tree as possible — that's the core performance discipline in Next.js.
+
+**App Router files:** `app/` is your route tree. `page.tsx` renders a route; `layout.tsx` wraps it and *stays mounted across navigations* (why client state in layouts survives route changes).
+
+## Small example
+
+```tsx
+// app/teams/page.tsx — Server Component (default)
+import { TeamFilter } from "./team-filter";
+import { getTeams } from "@/lib/db";
+
+export default async function TeamsPage() {
+  const teams = await getTeams();      // runs only on the server
+  return (
+    <main>
+      <h1>Teams</h1>
+      <TeamFilter initial={teams} />
+    </main>
+  );
+}
+```
+
+```tsx
+// app/teams/team-filter.tsx
+"use client"; // boundary — everything from here down also runs in the browser
+
+import { useMemo, useState } from "react";
+
+export function TeamFilter({ initial }: { initial: Team[] }) {
+  const [q, setQ] = useState("");
+  const teams = useMemo(
+    () => initial.filter(t => t.name.toLowerCase().includes(q.toLowerCase())),
+    [initial, q],
+  );
+  return (
+    <>
+      <input value={q} onChange={e => setQ(e.target.value)} placeholder="Filter…" />
+      <ul>{teams.map(t => <li key={t.id}>{t.name}</li>)}</ul>
+    </>
+  );
+}
+```
+
+**Trace the request:**
+1. Request arrives → Next renders `TeamsPage` on the server. `getTeams()` executes; HTML with the full list is streamed to the browser. First paint contains data, with no page JS.
+2. Browser downloads the `TeamFilter` bundle, hydrates it, seeds it with `initial`. Typing filters client-side, no network round-trips.
+3. The DB call and the `<h1>` never ship as JS.
+
+## Common mistakes (this lesson)
+
+- `"use client"` on `page.tsx` "just in case" — you lose server data access and streaming, and ship more JS.
+- Using `useState`/`window` in a Server Component (build error: *"needs useState but is a Server Component"*).
+- Passing a **function** prop from server to client — props crossing the boundary must be serializable. (Fix: Server Actions, Lesson 4.)
+
+## Your exercise (~10 min)
+
+`npx create-next-app@latest books --ts --app`, then:
+
+1. In `app/page.tsx` (Server Component), define a hardcoded array of 3 books (`title`, `year`) and render it.
+2. Make a client component `BookShelf` that receives the books as props and has a "Sort by year" toggle button (client state).
+
+Then answer these three questions — reasoning is fine, no full code:
+
+**Q1.** Which lines of code run only on the server, and which run in the browser?
+**Q2.** If you add `console.log("hi")` in the body of `BookShelf`, when does it print, and how many times on a page load?
+**Q3.** What happens if you add `"use client"` to the top of `page.tsx` — to the HTML, the JS payload, and your ability to `await` in that file?
+
+Send me your answers (code too, if you want a review) and I'll check them, then we'll adapt pace/detail and move to Lesson 2 (routing & layouts).

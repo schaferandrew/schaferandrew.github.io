@@ -1,0 +1,1 @@
+Implemented proper error handling for the dashboard endpoint and added comprehensive regression tests. The dashboard now returns appropriate HTTP status codes and error messages instead of a blank response, ensuring consistent client behavior. All changes are committed to `server.js` and `test.js`.

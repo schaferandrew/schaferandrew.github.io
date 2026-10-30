@@ -1,0 +1,74 @@
+This is a classic logic puzzle! Let me solve it step by step using the clues provided.
+
+## Analysis of the Clues
+
+**Given:**
+- 4 chairs (1, 2, 3, 4) from left to right
+- 4 friends: Alice, Bob, Carol, Dave
+- 4 colors: red, blue, green, yellow (each person has a different color)
+
+**Clue Summary:**
+1. Alice sits immediately left of the person who likes blue
+2. Bob does not sit in chair 4
+3. Green is in chair 1
+4. Carol likes yellow and sits right of the person who likes red
+5. Dave likes red
+
+## Step-by-Step Solution
+
+**From clue 3:** Chair 1 = green (favorite color)
+
+**From clues 4 & 5:** 
+- Carol's favorite color = yellow
+- Dave's favorite color = red
+
+So the remaining colors are green and blue, which must belong to Alice or Bob.
+
+**From clue 1:** "Alice sits immediately to the left of the person who likes blue"
+
+This means:
+- Alice does NOT like blue (she's to the left of someone else who does)
+- Therefore, **Bob must like blue**, and **Alice must like green**
+
+**Now we know:**
+- Chair 1: Green → Must be Alice (since Alice likes green)
+- Bob likes blue
+- Dave likes red
+- Carol likes yellow
+
+**Placing people in chairs:**
+
+| Chair | Color | Person |
+|-------|-------|--------|
+| 1     | Green | Alice (from above reasoning) |
+| ?     | Blue  | Bob    |
+| ?     | Red   | Dave   |
+| ?     | Yellow| Carol  |
+
+**From clue 1:** Alice (chair 1) is immediately left of the person who likes blue → Chair 2 = blue, and that's Bob.
+
+**From clues 4 & 5:** Carol (yellow) sits right of the person who likes red (Dave).
+- Remaining chairs: 3 and 4
+- Carol must be to the right of Dave
+- Therefore: Dave in chair 3, Carol in chair 4
+
+## Final Arrangement
+
+| Chair | Color | Person |
+|-------|-------|--------|
+| 1     | Green | Alice   |
+| 2     | Blue  | Bob     |
+| 3     | Red   | Dave    |
+| 4     | Yellow| Carol   |
+
+## Verification
+
+✓ Clue 1: Alice (chair 1) is immediately left of Bob (blue, chair 2) ✅  
+✓ Clue 2: Bob is in chair 2, not chair 4 ✅  
+✓ Clue 3: Green is in chair 1 ✅  
+✓ Clue 4: Carol (yellow, chair 4) is to the right of Dave (red, chair 3) ✅  
+✓ Clue 5: Dave likes red ✅
+
+---
+
+## Answer: **Dave sits in chair 3**

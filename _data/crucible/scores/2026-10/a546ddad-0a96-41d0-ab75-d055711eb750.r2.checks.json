@@ -1,0 +1,121 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "a546ddad-0a96-41d0-ab75-d055711eb750",
+ "rubric_version": 2,
+ "rubric_hash": "28b2d02d8b0aedf0",
+ "method": "checks",
+ "scored_at": "2026-10-30T06:30:36.052315+00:00",
+ "crucible_version": "3.4.0",
+ "raw": {
+  "passed": 1.0,
+  "total": 5,
+  "unit": "points"
+ },
+ "score": 2.0,
+ "scale": 10,
+ "capped_at": 4,
+ "passed": false,
+ "items": [
+  {
+   "id": "options_valid",
+   "type": "time_options",
+   "group": "Valid options",
+   "label": "Every OPTIONS line is a 60-minute start free for all 16 Platform calendars inside each person's 9-5 weekday (computed from the dataset), with no repeats. Any other option caps the score at 4.",
+   "passed": false,
+   "detail": "no OPTIONS: block",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "valid",
+     "label": "Every option is a time all 16 are free, in their business hours",
+     "passed": false,
+     "detail": "no answer block"
+    }
+   ]
+  },
+  {
+   "id": "options_count",
+   "type": "time_options",
+   "group": "Exactly three options",
+   "label": "The OPTIONS block has exactly three lines.",
+   "passed": false,
+   "detail": "no OPTIONS: block",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "count",
+     "label": "Exactly three options",
+     "passed": false,
+     "detail": "no answer block"
+    }
+   ]
+  },
+  {
+   "id": "constraints",
+   "type": "time_options",
+   "group": "Handles the constraints",
+   "label": "No option falls on Labor Day (9/7) or on 9/10-9/11, and none ends after 16:00 Central (Marcus works 9-5 in New York).",
+   "passed": false,
+   "detail": "no OPTIONS: block",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "days",
+     "label": "None on Labor Day or while Priya is out",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "close",
+     "label": "None ends after 4 PM Central",
+     "passed": false,
+     "detail": "no answer block"
+    }
+   ]
+  },
+  {
+   "id": "team",
+   "type": "tool_calls",
+   "group": "Identifies the team",
+   "label": "The run's get_freebusy calls (read from the session) named all 15 Platform calendars other than the user's own.",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "freebusy",
+     "label": "get_freebusy covered the 15 other Platform calendars",
+     "passed": true,
+     "detail": "15/15 calendars"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Valid options",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no OPTIONS: block"
+  },
+  {
+   "id": "Exactly three options",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no OPTIONS: block"
+  },
+  {
+   "id": "Handles the constraints",
+   "passed": 0.0,
+   "total": 2,
+   "detail": "no OPTIONS: block"
+  },
+  {
+   "id": "Identifies the team",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "1/1 items"
+  }
+ ]
+}

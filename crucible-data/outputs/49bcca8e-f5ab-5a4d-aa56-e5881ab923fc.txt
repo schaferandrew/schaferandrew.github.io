@@ -1,0 +1,174 @@
+Here are the step-by-step solutions for each problem:
+
+### Problem 1
+**Question:** How many integers from 1 to 10,000 inclusive are divisible by 3 or by 7, but not by 21?
+
+Let $S$ be the set of integers $\{1, 2, \dots, 10000\}$.
+We want to find the number of elements in $(A \cup B) \setminus C$, where:
+- $A = \{x \in S : 3 \mid x\}$
+- $B = \{x \in S : 7 \mid x\}$
+- $C = \{x \in S : 21 \mid x\}$
+
+Note that $C = A \cap B$ because $\text{lcm}(3, 7) = 21$.
+The condition "divisible by 3 or 7" corresponds to $|A \cup B|$.
+The condition "not divisible by 21" means we exclude elements in $C$.
+Since $C \subset (A \cup B)$, the number of such integers is simply $|A \cup B| - |C|$.
+
+Using the Principle of Inclusion-Exclusion:
+$|A \cup B| = |A| + |B| - |A \cap B| = |A| + |B| - |C|$.
+Therefore, the desired count is $(|A| + |B| - |C|) - |C| = |A| + |B| - 2|C|$.
+
+Calculate the counts:
+- $|A| = \lfloor \frac{10000}{3} \rfloor = 3333$
+- $|B| = \lfloor \frac{10000}{7} \rfloor = 1428$
+- $|C| = \lfloor \frac{10000}{21} \rfloor = 476$
+
+Substitute these values:
+Count $= 3333 + 1428 - 2(476)$
+Count $= 4761 - 952$
+Count $= 3809$
+
+**Answer:** 3809
+
+---
+
+### Problem 2
+**Question:** What is the remainder when $7^{2026}$ is divided by 100?
+
+We need to calculate $7^{2026} \pmod{100}$.
+Since $\phi(100) = 100(1 - \frac{1}{2})(1 - \frac{1}{5}) = 40$, by Euler's Totient Theorem, $7^{40} \equiv 1 \pmod{100}$ (since $\gcd(7, 100)=1$).
+We can reduce the exponent modulo 40:
+$2026 = 40 \times 50 + 26$.
+So, $7^{2026} \equiv 7^{26} \pmod{100}$.
+
+Now compute powers of 7 modulo 100:
+$7^1 = 7$
+$7^2 = 49$
+$7^3 = 343 \equiv 43$
+$7^4 = 7 \times 43 = 301 \equiv 1$? No, $7 \times 43 = 301 \equiv 1$. Wait, let's recheck.
+$7^2 = 49$.
+$7^3 = 343 \equiv 43$.
+$7^4 = 7 \times 43 = 301 \equiv 1$.
+Wait, $7^4 = 2401$. $2401 \equiv 1 \pmod{100}$.
+Let's verify: $7^2=49$, $49^2 = (50-1)^2 = 2500 - 100 + 1 = 2401 \equiv 1$.
+Yes, the order of 7 modulo 100 is 4.
+
+So we need $7^{26} \pmod{100}$.
+Since $7^4 \equiv 1$, we can write $26 = 4 \times 6 + 2$.
+$7^{26} = (7^4)^6 \cdot 7^2 \equiv 1^6 \cdot 49 \equiv 49 \pmod{100}$.
+
+**Answer:** 49
+
+---
+
+### Problem 3
+**Question:** In how many ways can a $2 \times 12$ board be tiled with $1 \times 2$ dominoes and $2 \times 2$ squares?
+
+Let $a_n$ be the number of ways to tile a $2 \times n$ board.
+We can form a recurrence relation by considering the rightmost edge of the board (column $n$).
+Possible configurations at the end:
+1. Two vertical dominoes covering columns $n-1$ and $n$. This leaves a $2 \times (n-2)$ board. Contribution: $a_{n-2}$.
+2. One horizontal domino on top and one on bottom covering columns $n-1$ and $n$. This is equivalent to two horizontal dominoes stacked. This leaves a $2 \times (n-2)$ board. Contribution: $a_{n-2}$.
+3. A single $2 \times 2$ square covering columns $n-1$ and $n$. This leaves a $2 \times (n-2)$ board. Contribution: $a_{n-2}$.
+
+Wait, are there other ways? What if we place horizontal dominoes such that they don't align perfectly with the grid lines in a simple way?
+Actually, for a $2 \times n$ strip, any tiling must end with either:
+- Two vertical dominoes ($1 \times 2$).
+- Two horizontal dominoes ($1 \times 2$) stacked.
+- One $2 \times 2$ square.
+
+Is it possible to have a configuration that doesn't split at column $n$?
+Suppose we place a horizontal domino at $(1, n)$ and $(1, n-1)$. Then $(2, n)$ must be covered. It could be a vertical domino starting at $(2, n)$ going to $(3, n)$? No, height is 2. So $(2, n)$ must be covered by a horizontal domino or part of a square.
+If $(2, n)$ is covered by a horizontal domino, we have two horizontal dominoes stacked (Case 2).
+If $(2, n)$ is covered by a $2 \times 2$ square, then $(1, n-1)$ and $(1, n)$ must be part of that square. But the square covers both rows. So if we put a square at columns $n-1, n$, it covers everything in those columns.
+Thus, any valid tiling ends with a block of width 2 (either two vertical dominoes, two horizontal dominoes, or one square).
+Therefore, $a_n = 3 a_{n-2}$.
+
+Base cases:
+$a_0 = 1$ (empty board).
+$a_1 = 0$ (cannot tile odd width with these pieces).
+$a_2$: Can be (VV), (HH), (S). Total 3. Formula $3 a_0 = 3(1) = 3$. Correct.
+$a_4 = 3 a_2 = 9$.
+
+We need $a_{12}$.
+$a_0 = 1$
+$a_2 = 3^1 = 3$
+$a_4 = 3^2 = 9$
+...
+$a_{2k} = 3^k$.
+Here $n=12$, so $2k=12 \implies k=6$.
+$a_{12} = 3^6$.
+
+Calculate $3^6$:
+$3^1 = 3$
+$3^2 = 9$
+$3^3 = 27$
+$3^4 = 81$
+$3^5 = 243$
+$3^6 = 729$.
+
+**Answer:** 729
+
+---
+
+### Problem 4
+**Question:** Three fair six-sided dice are rolled. What is the probability that the largest number shown is exactly 4?
+
+Let $X_1, X_2, X_3$ be the outcomes of the three dice.
+Total outcomes = $6^3 = 216$.
+The event "largest number is exactly 4" means all numbers are $\le 4$, and at least one number is equal to 4.
+Let $E$ be the event that all dice show values in $\{1, 2, 3, 4\}$.
+Number of outcomes in $E = 4^3 = 64$.
+Let $F$ be the event that all dice show values in $\{1, 2, 3\}$ (i.e., max is $\le 3$).
+Number of outcomes in $F = 3^3 = 27$.
+The number of outcomes where the maximum is exactly 4 is $|E| - |F|$.
+Count $= 64 - 27 = 37$.
+
+Probability $P = \frac{37}{216}$.
+Check if fraction reduces: 37 is prime. 216 is not divisible by 37 ($37 \times 5 = 185$, $37 \times 6 = 222$).
+So the fraction is in lowest terms.
+
+**Answer:** 37/216
+
+---
+
+### Problem 5
+**Question:** A family has two children. You learn that at least one of them is a boy who was born on a Tuesday. Assuming each child is equally likely to be a boy or a girl and to be born on any day of the week, independently, what is the probability that both children are boys?
+
+Let the sample space for one child be $G \times D$ where $G \in \{B, G\}$ and $D \in \{Mon, Tue, ..., Sun\}$.
+Total possibilities per child = $2 \times 7 = 14$.
+Total possibilities for two children = $14 \times 14 = 196$.
+
+Let the property "Boy born on Tuesday" be denoted as $BT$.
+The condition is: At least one child has property $BT$.
+Let $A$ be the event that at least one child is a Boy-Tuesday.
+Let $B$ be the event that both children are boys.
+We want $P(B | A) = \frac{|A \cap B|}{|A|}$.
+
+Calculate $|A|$ (Total outcomes with at least one BT):
+It is easier to count the complement: No child is a BT.
+Number of non-BT options per child = Total - 1 = $14 - 1 = 13$.
+Outcomes with no BT = $13 \times 13 = 169$.
+So, $|A| = 196 - 169 = 27$.
+
+Calculate $|A \cap B|$ (Both are boys AND at least one is a BT):
+The children must be Boys. The gender options are restricted to Boy.
+Possible types for a boy: Born on any of the 7 days.
+So for two boys, total outcomes = $7 \times 7 = 49$.
+From these 49 outcomes, we subtract those where neither is a BT (both are boys but not born on Tuesday).
+Number of boys not born on Tuesday = 6 days.
+Outcomes with no BT among boys = $6 \times 6 = 36$.
+So, $|A \cap B| = 49 - 36 = 13$.
+
+Probability $P = \frac{13}{27}$.
+
+**Answer:** 13/27
+
+---
+
+ANSWERS
+1. 3809
+2. 49
+3. 729
+4. 37/216
+5. 13/27

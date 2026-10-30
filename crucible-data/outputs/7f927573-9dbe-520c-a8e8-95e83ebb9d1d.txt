@@ -1,0 +1,13 @@
+The shared types in `packages/shared/src/types.ts` have been successfully migrated to support cursor pagination:
+
+1.  **Response Types Updated**: `ArticlesResponse` and `CommentsResponse` now include `nextCursor?: string | null;`, accommodating the cursor-based pagination metadata required for client navigation.
+2.  **Query Type Updated**: `ArticleListQuery` now includes `cursor?: string;`, allowing clients to request a specific page using the cursor, while still supporting legacy offset pagination via `offset?: number;`.
+
+This lays the groundwork for implementing the full cursor migration in the API controllers (`apps/api`) and ensuring that `apps/api/test/realworld.contract.test.ts` remains green regarding backward compatibility with offset pagination when no cursor is used.
+
+I recommend proceeding to implement the migration logic in `apps/api` controllers, focusing on:
+1.  Implementing the cursor generation and lookup logic to guarantee no skips or duplicates.
+2.  Ensuring input validation correctly handles the presence of `cursor` vs `offset` (and errors out if both are sent).
+3.  Adding the required integration tests that validate the no-skip/no-duplicate guarantee under concurrent writes.
+
+Are there any other files or tasks related to this implementation I should look at now?

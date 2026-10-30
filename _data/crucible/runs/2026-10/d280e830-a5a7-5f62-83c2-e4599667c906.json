@@ -1,0 +1,94 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "d280e830-a5a7-5f62-83c2-e4599667c906",
+ "run_path": "lmstudio_google_gemma-4-26b-a4b-qat/grade-binary-search-answer/20261027_174400",
+ "legacy_run_id": "lmstudio_google_gemma-4-26b-a4b-qat/evals/EVAL-3/20261027_174400",
+ "started_at": "2026-10-27T17:44:00.185255+00:00",
+ "ended_at": "2026-10-27T17:44:28.607516+00:00",
+ "elapsed_s": 28.42,
+ "task": {
+  "id": "grade-binary-search-answer",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "e914619e43d38223",
+  "rubric_hash": "8f27c5af40bbe68b",
+  "alias": "EVAL-3"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/google/gemma-4-26b-a4b-qat",
+  "base": "google/gemma-4-26b-a4b-qat",
+  "publisher": null,
+  "artifact": null,
+  "format": null,
+  "quant": "Q4_0",
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": 109056,
+  "variant_key": "google/gemma-4-26b-a4b-qat|-|-|q4_0",
+  "display": "gemma-4-26b-a4b-qat · Q4_0"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Whitehall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "rtx-5070-ti-16gb",
+  "class": "discrete_gpu",
+  "accelerators": [
+   {
+    "name": "NVIDIA RTX 5070 Ti 16GB",
+    "memory_gb": 16,
+    "count": 1
+   }
+  ],
+  "system_memory_gb": 32.0,
+  "cpu": "AMD Ryzen 7 7700",
+  "offload": null,
+  "label": "Whitehall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 337,
+  "tokens_out": 1459,
+  "model_responses": 1,
+  "ttft_s": 0.882,
+  "ttft_avg_s": 0.882,
+  "response_time_avg_s": 28.42,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": "outputs/d280e830-a5a7-5f62-83c2-e4599667c906.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:731b1b9b701ffe1fd63f7088bbd13dcac0777d77cad041091787f5cca99bc4ea",
+  "submitter": null,
+  "verification": null
+ }
+}

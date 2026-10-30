@@ -1,0 +1,9 @@
+**Current Weather (Open-Meteo forecast API):** 86.9°F, clear skies (weather code 0), wind 16 km/h from the south, as of 1:00 PM CDT on Sep 3, 2026.
+
+**Historical Average (Open-Meteo archive API, 2016–2025):** Average daily max temp for Sep 3 is **77.3°F** (range: 66.7°F–97.3°F across 10 years).
+
+**Verdict:** Today's 86.9°F is **9.6°F above the historical average** — a notable outlier on the warm side, though not as extreme as 2023's 97.3°F.
+
+**Endpoints used:**
+- Current: `https://api.open-meteo.com/v1/forecast?latitude=44.9537&longitude=-93.09&current_weather=true&temperature_unit=fahrenheit&timezone=America%2FChicago`
+- Archive: `https://archive-api.open-meteo.com/v1/archive?latitude=44.9537&longitude=-93.09&start_date=2016-09-03&end_date=2025-09-03&daily=temperature_2m_max&temperature_unit=fahrenheit`

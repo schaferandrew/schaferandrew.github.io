@@ -7,12 +7,12 @@ permalink: /crucible/
 <div class="constrain crucible">
   <h1 class="crucible-title">Crucible</h1>
   <div class="crucible-construction" role="note">
-    <strong>Under construction.</strong> Crucible is a work in progress: tests, scoring and results are still
+    <strong>Under construction.</strong> Crucible is a work in progress: tasks, scoring and results are still
     changing, and some numbers here come from early or partial runs. Check back soon.
   </div>
 
   <div class="crucible-intro">
-    <p>Crucible is an AI task gauntlet to analyze whether local models are capable of real work. Can they write code for personal projects? Keep working when the internet is unavailable? Accomplish tasks involving personal data we don't want to share with cloud providers for training? The tasks are divided into chat and agentic sections and are categorized into three tiers of difficulty. Play around, I think you'll be surprised by the performance of these small models.</p>
+    <p>Crucible is an AI task gauntlet to analyze whether local models are capable of real work. Can they write code for personal projects? Keep working when the internet is unavailable? Accomplish tasks involving personal data we don't want to share with cloud providers for training? The tasks are divided into chat and agentic sections and sorted into tiers of difficulty. Play around, I think you'll be surprised by the performance of these small models.</p>
 
     <p class="crucible-disclaimer">Everything below was created and written by or with the help of AI.</p>
 
@@ -24,15 +24,16 @@ permalink: /crucible/
       {%- assign mareas = m.areas | default: cr_latest.areas %}
       {%- assign area_labels = "" | split: "" %}
       {%- for a in mareas %}{% if a.mode == nil or a.mode == m.id %}{% assign lab = a.label | downcase %}{% assign area_labels = area_labels | push: lab %}{% endif %}{% endfor %}
-      <strong>{{ m.label | default: mfb.label | default: m.id }}</strong> tests ({{ area_labels | join: ", " }}):
+      <strong>{{ m.label | default: mfb.label | default: m.id }}</strong> tasks ({{ area_labels | join: ", " }}):
       {{ m.blurb | default: mfb.blurb }}{% if m.harnesses.size > 1 %}, harness: {{ m.harnesses | join: " or " }}{% endif %}.
       {%- endfor %}
-      Each run is scored 0–10 against the test's rubric. Tests come in tiers:
+      Each run is scored 0–10 by automatic checks or hidden tests. Tasks come in tiers:
       {%- for t in cr_tiers %}
       {%- if t.id %}{% assign tid = t.id %}{% else %}{% assign tid = t %}{% endif %}
       {%- assign tfb = cr_fb.tiers[tid] %}
       {%- assign role = t.role | default: tfb.role %}
-      <strong>{{ t.label | default: tfb.label | default: tid }}</strong> ({{ t.blurb | default: tfb.blurb }}{% if role == "gate" %}, pass or fail{% elsif role == "headline" %}, the headline score{% endif %}){% unless forloop.last %},{% endunless %}
+      {%- assign tblurb = t.blurb | default: tfb.blurb %}
+      <strong>{{ t.label | default: tfb.label | default: tid }}</strong> ({{ tblurb }}{% if role == "gate" %}{% unless tblurb contains "gate" %}, pass or fail{% endunless %}{% elsif role == "headline" %}{% unless tblurb contains "headline" %}, the headline score{% endunless %}{% endif %}){% unless forloop.last %},{% endunless %}
       {%- endfor %}.
       <a href="/crucible/about/">How Crucible works, and how to run it yourself →</a>
     </p>
@@ -41,6 +42,12 @@ permalink: /crucible/
   <p class="crucible-status" id="crucible-status" role="status">Loading results…</p>
 
   <section class="crucible-results" aria-label="Results" id="crucible-results" hidden>
+    <div class="crucible-suite-bar">
+      <label class="crucible-toolbar-label" for="suite-select">Suite</label>
+      <select class="crucible-select" id="suite-select"></select>
+      <span class="crucible-suite-line" id="suite-line"></span>
+    </div>
+    <p class="crucible-sub crucible-suite-note" id="suite-note" hidden></p>
     <div class="crucible-mode-tabs" role="tablist" aria-label="Section" id="mode-tabs"></div>
     <ul class="crucible-takeaways" id="crucible-takeaways"></ul>
 
@@ -60,6 +67,8 @@ permalink: /crucible/
       <span class="crucible-toolbar-note" id="harness-fixed"></span>
       <span class="crucible-toolbar-label" id="where-label">Models</span>
       <div class="crucible-segmented" role="radiogroup" aria-labelledby="where-label" id="where-toggle"></div>
+      <label class="crucible-toolbar-label" for="hw-select">Hardware</label>
+      <select class="crucible-select" id="hw-select"></select>
     </div>
     <p class="crucible-sub crucible-progress-note" id="progress-note"></p>
 
@@ -70,16 +79,19 @@ permalink: /crucible/
       <div class="crucible-segmented" role="radiogroup" aria-label="Plot the headline score against" id="scatter-toggle"></div>
     </div>
     <p class="crucible-sub" id="scatter-sub"></p>
+    <div class="crucible-scatter-legend" id="crucible-scatter-legend" hidden></div>
     <div class="crucible-chart-wrap">
       <div class="crucible-chart" id="crucible-scatter"></div>
       <div class="crucible-tooltip" id="crucible-tooltip" hidden></div>
     </div>
+    <ol class="crucible-scatter-key" id="crucible-scatter-key" hidden></ol>
 
-    <h2 class="crucible-heading">Every model on every test</h2>
+    <h2 class="crucible-heading">Every model on every task</h2>
     <p class="crucible-sub" id="matrix-sub">
-      Score per test, grouped by tier. Rows keep the leaderboard's order. Cells with a green corner are scored
-      entirely by programmatic checks (no judge); select any cell for its checks or the judge's note. Dashed cells
-      are provisional tests that don't count toward tier scores yet.
+      Score per task, grouped by tier, for each model's best setup; rows keep the leaderboard's order. A score is the
+      mean of that setup's runs (×n marks repeats). Select any cell for its runs, checks and output. Dashed cells are
+      provisional tasks that don't count toward tier scores yet; an empty outlined cell has runs that don't count in this
+      suite (an older task version, or a run marked invalid).
     </p>
     <div class="crucible-scroll crucible-matrix-wide">
       <table class="crucible-matrix" id="crucible-matrix"></table>
@@ -88,8 +100,8 @@ permalink: /crucible/
     <div class="crucible-cell-detail" id="crucible-cell-detail" hidden></div>
 
     <h2 class="crucible-heading">Model × area</h2>
-    <p class="crucible-sub">Mean score (0–10) for each area in this section, across all tiers. Where a model has
-      run none of an area's active tests yet, a dashed cell shows its provisional tests instead.</p>
+    <p class="crucible-sub">Mean score (0–10) for each area in this section, across all tiers, for each model's best
+      setup. Where a model has no scored task in an area yet, a dashed cell shows its provisional tasks instead.</p>
     <div class="crucible-scroll crucible-heatmap-wide">
       <table class="crucible-heatmap" id="crucible-heatmap"></table>
     </div>
@@ -99,18 +111,35 @@ permalink: /crucible/
     <div class="crucible-toolbar crucible-toolbar-tight">
       <label class="crucible-toolbar-label" for="detail-model">Model</label>
       <select class="crucible-select" id="detail-model"></select>
+      <label class="crucible-toolbar-label" for="detail-config">Setup</label>
+      <select class="crucible-select" id="detail-config"></select>
     </div>
-    <p class="crucible-sub">Latest run per test, grouped by area. Each collapsed area shows its mean score, how many
-      of its tests ran, and one square per test, easiest tier first<span id="detail-outline-note"></span>. Open an area for its
-      tests, then select a test for its checks or the judge's summary.</p>
+    <p class="crucible-sub">Every task for one setup, grouped by area; a score is the mean of its runs, with n and the range.
+      Each collapsed area shows its mean score, how many of its tasks ran, and one square per task, easiest tier
+      first<span id="detail-outline-note"></span>. Open an area for its tasks, then select a task for every run, its checks and the model's output.</p>
     <div class="crucible-scroll crucible-tests-wide">
       <table class="crucible-tests" id="crucible-tests"></table>
     </div>
     <div class="crucible-tests-narrow" id="crucible-tests-narrow" hidden></div>
     <p class="crucible-sub" id="crucible-other-runs" hidden></p>
 
+    <div class="crucible-heading-row">
+      <h2 class="crucible-heading" id="compare">Compare setups</h2>
+      <button type="button" class="crucible-link-button" id="compare-link" hidden>Copy link</button>
+    </div>
+    <p class="crucible-sub" id="compare-sub"></p>
+    <div class="crucible-toolbar crucible-toolbar-tight">
+      <label class="crucible-toolbar-label" for="compare-pick">Add</label>
+      <select class="crucible-select crucible-compare-pick" id="compare-pick"></select>
+    </div>
+    <ul class="crucible-compare-chips" id="compare-chips"></ul>
+    <div class="crucible-scroll crucible-compare-wide">
+      <table class="crucible-tests crucible-compare" id="crucible-compare"></table>
+    </div>
+    <div class="crucible-compare-narrow" id="crucible-compare-narrow" hidden></div>
+
     <p class="crucible-footnote" id="crucible-footnote"></p>
   </section>
 </div>
 
-<script src="/assets/js/crucible.js?v={{ site.time | date: '%s' }}" data-src="/crucible/data.json?v={{ site.time | date: '%s' }}"></script>
+<script src="/assets/js/crucible.js?v={{ site.time | date: '%s' }}" data-src="/crucible/data.json?v={{ site.time | date: '%s' }}" data-details="/crucible/details.json?v={{ site.time | date: '%s' }}" data-outputs="/crucible-data/"></script>

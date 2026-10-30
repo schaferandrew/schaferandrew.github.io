@@ -1,0 +1,6 @@
+1. Flour: \(300 \div 4 \times 10 = 750\) g.
+2. Sale price: \(\$84.60 \times 0.85 = \$71.91\).
+
+## ANSWERS
+1. 750 g
+2. $71.91

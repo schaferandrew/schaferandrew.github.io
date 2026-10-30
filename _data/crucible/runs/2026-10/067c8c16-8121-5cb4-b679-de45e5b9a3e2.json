@@ -1,0 +1,91 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "067c8c16-8121-5cb4-b679-de45e5b9a3e2",
+ "run_path": "lmstudio_google_gemma-4-26b-a4b-qat/seating-logic-puzzle/20261027_041302",
+ "legacy_run_id": "lmstudio_google_gemma-4-26b-a4b-qat/reasoning/MATH-4/20261027_041302",
+ "started_at": "2026-10-27T04:13:02.621577+00:00",
+ "ended_at": "2026-10-27T04:21:13.691054+00:00",
+ "elapsed_s": 491.07,
+ "task": {
+  "id": "seating-logic-puzzle",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "d205d3bad1048689",
+  "rubric_hash": "ef4c3db9d4f7ff0a",
+  "alias": "MATH-4"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/google/gemma-4-26b-a4b-qat",
+  "base": "google/gemma-4-26b-a4b-qat",
+  "publisher": null,
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "google/gemma-4-26b-a4b-qat|-|-|-",
+  "display": "gemma-4-26b-a4b-qat"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m1-pro-32gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 32.0,
+  "cpu": "Apple M1 Pro",
+  "offload": null,
+  "label": "Ironwood"
+ },
+ "outcome": {
+  "status": "harness_error",
+  "harness_status": "ERROR (exit 1)",
+  "returncode": 1,
+  "timed_out": false,
+  "invalid": {
+   "reason": "Harness error: the agent exited before the model produced anything.",
+   "marked_at": "2026-10-27T04:21:14.066558+00:00"
+  },
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": null,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": null,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": null,
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:e1bab449434f05dc1c47fa84d4b47195f55be89399fd3fa6bf831ab9a8ba8d3d",
+  "submitter": null,
+  "verification": null
+ }
+}

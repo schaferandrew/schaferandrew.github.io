@@ -1,0 +1,10 @@
+Done. The `slots.json` file has been written with:
+
+- **85 valid slots** across all 8 days (Mon 08/31 through Mon 09/07), including weekends
+- **Top 3 picks** — all weekdays, mid-day, filling gaps between existing meetings:
+
+| Rank | Slot | Why |
+|------|------|-----|
+| 1 | `2026-08-31T12:00` | Tight 2-hour gap between Alex's Team standup (10:00-11:00) and Design review (13:00-14:00) |
+| 2 | `2026-09-02T12:00` | 2.5-hour gap between Alex's Planning (09:30-10:30) and Jamie's Budget meeting (13:00-14:00) |
+| 3 | `2026-09-03T12:00` | Between Alex's Interview (11:00-12:00) and Jamie's Review (15:00-16:00) |

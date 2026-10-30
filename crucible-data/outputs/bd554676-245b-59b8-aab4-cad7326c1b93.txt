@@ -1,0 +1,5 @@
+Fixed the contact form’s build and input issues by making it a controlled client component that still renders on the server. Added required-field and email validation, accessible inline errors, keyboard submission, and success/error handling without losing entered values.
+
+The API now validates and trims submitted fields, canonicalizes valid email addresses, defaults a missing company to an empty string, and returns 422 without saving invalid leads. Added validation tests.
+
+Checks passed: `npm test` and `npm run build`.

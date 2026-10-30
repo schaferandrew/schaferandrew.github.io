@@ -1,0 +1,92 @@
+**1. Savings Account Value**
+
+This is a compound interest problem using the formula: $A = P(1 + r/n)^{(nt)}$
+
+*   $P$ (Principal) = $\$5,000$
+*   $r$ (Annual rate) = $4\% = 0.04$
+*   $n$ (Compounding periods per year) = $12$ (monthly)
+*   $t$ (Time in years) = $3$
+
+**Working:**
+1. Calculate the total number of compounding periods ($nt$): $3 \times 12 = 36$
+2. Calculate the monthly interest rate ($r/n$): $0.04 / 12$
+3. Substitute into the formula:
+$$A = 5000 \left(1 + \frac{0.04}{12}\right)^{36}$$
+$$A = 5000 (1 + 0.003333...)^{36}$$
+$$A = 5000 (1.003333...)^{36}$$
+$$A = 5000 \times 1.13309845...$$
+$$A = 5665.4922...$$
+
+Rounding to the cent: $\$5,665.49$
+
+**2. Flooring Boxes Needed**
+
+First, calculate the total area needed including waste. Then, determine how many boxes cover that area.
+
+*   Required area = $1,850$ sq ft
+*   Waste allowance = $10\%$
+
+**Working:**
+1. Calculate the total area needed (including waste):
+$$\text{Total Area} = 1,850 \times (1 + 0.10)$$
+$$\text{Total Area} = 1,850 \times 1.10$$
+$$\text{Total Area} = 2,035 \text{ sq ft}$$
+
+2. Calculate the number of boxes:
+$$\text{Number of Boxes} = \frac{\text{Total Area}}{\text{Box Size}}$$
+$$\text{Number of Boxes} = \frac{2,035}{23.5}$$
+$$\text{Number of Boxes} = 87$$
+
+You need exactly 87 boxes.
+
+**3. Gas Cost Calculation**
+
+First, determine the total gallons needed for the trip. Then, calculate the cost based on the price per gallon.
+
+*   Distance = $412$ miles
+*   Efficiency = $34$ miles/gallon
+*   Price = $\$3.89$/gallon
+
+**Working:**
+1. Calculate the total gallons required:
+$$\text{Gallons} = \frac{\text{Distance}}{\text{MPG}}$$
+$$\text{Gallons} = \frac{412}{34}$$
+$$\text{Gallons} \approx 12.117647...$$
+
+2. Calculate the total cost:
+$$\text{Cost} = \text{Gallons} \times \text{Price per gallon}$$
+$$\text{Cost} = \frac{412}{34} \times 3.89$$
+$$\text{Cost} = 12.117647... \times 3.89$$
+$$\text{Cost} = 47.1265...$$
+
+Rounding to the cent: $\$47.13$
+
+**4. Tipping and Splitting Bill**
+
+First, calculate the tip amount based on the pre-tax total. Then, find the grand total and divide it equally among four people.
+
+*   Pre-tax amount = $\$172.00$
+*   Tip percentage = $18\%$
+
+**Working:**
+1. Calculate the tip amount:
+$$\text{Tip} = 172.00 \times 0.18$$
+$$\text{Tip} = \$30.96$$
+
+2. Calculate the grand total:
+$$\text{Grand Total} = \text{Pre-tax amount} + \text{Tip}$$
+$$\text{Grand Total} = 172.00 + 30.96$$
+$$\text{Grand Total} = \$202.96$$
+
+3. Calculate each person's share:
+$$\text{Share per Person} = \frac{\text{Grand Total}}{4}$$
+$$\text{Share per Person} = \frac{202.96}{4}$$
+$$\text{Share per Person} = \$50.74$$
+
+***
+
+# ANSWERS
+1. $\$5,665.49$
+2. 87 boxes
+3. $\$47.13$
+4. $\$50.74$

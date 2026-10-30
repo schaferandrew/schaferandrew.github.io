@@ -1,0 +1,88 @@
+Here are the step-by-step calculations for each scenario, keeping full precision until the final rounding step as requested.
+
+### 1. Savings Account Growth
+**Goal:** Calculate the future value of a deposit with monthly compounding interest.
+
+*   **Principal ($P$):** $\$5,000$
+*   **Annual Interest Rate ($r$):** $4\% = 0.04$
+*   **Compounding Frequency ($n$):** Monthly ($12$ times per year)
+*   **Time ($t$):** $3$ years
+
+**Formula:**
+$$A = P \left(1 + \frac{r}{n}\right)^{nt}$$
+
+**Working:**
+1.  Calculate the periodic rate: $\frac{0.04}{12} = 0.0033333...$
+2.  Calculate the total number of periods: $12 \times 3 = 36$
+3.  Add 1 to the periodic rate: $1 + 0.0033333... = 1.0033333...$
+4.  Raise to the power of 36: $(1.0033333...)^{36} \approx 1.12727189$
+5.  Multiply by principal: $5,000 \times 1.12727189 = 5,636.35945...$
+
+**Rounding:**
+Round to the nearest cent: **$\$5,636.36$**
+
+***
+
+### 2. Flooring Boxes Required
+**Goal:** Determine the number of boxes needed including waste allowance.
+
+*   **Area to cover:** $1,850$ sq ft
+*   **Waste factor:** $10\%$ (Total required area = $185\%$ of original)
+*   **Coverage per box:** $23.5$ sq ft
+
+**Working:**
+1.  Calculate total area needed including waste:
+    $$1,850 \times 1.10 = 2,035 \text{ sq ft}$$
+2.  Divide total area by coverage per box to find exact boxes needed:
+    $$\frac{2,035}{23.5} \approx 86.59574...$$
+3.  Since you cannot buy partial boxes, round up to the next whole number:
+    $$87 \text{ boxes}$$
+
+**Answer:** **87 boxes**
+
+***
+
+### 3. Road Trip Gas Cost
+**Goal:** Calculate total fuel cost based on distance and efficiency.
+
+*   **Distance:** $412$ miles
+*   **Fuel Efficiency:** $34$ mpg
+*   **Gas Price:** $\$3.89$ / gallon
+
+**Working:**
+1.  Calculate gallons needed:
+    $$\frac{412}{34} \approx 12.117647... \text{ gallons}$$
+2.  Multiply gallons by price per gallon:
+    $$12.117647... \times 3.89 \approx 47.137647...$$
+
+**Rounding:**
+Round to the nearest cent: **$\$47.14$**
+
+***
+
+### 4. Dinner Bill Split
+**Goal:** Calculate the individual share of a meal including tip, split four ways.
+
+*   **Pre-tax amount:** $\$172.00$
+*   **Tip rate:** $18\%$ (calculated on pre-tax)
+*   **Split:** 4 people
+
+**Working:**
+1.  Calculate the tip amount:
+    $$172.00 \times 0.18 = 30.96$$
+2.  Calculate the total bill (Pre-tax + Tip):
+    $$172.00 + 30.96 = 202.96$$
+    *(Note: The problem states the final amount including tax was $\$186.40$, but explicitly asks to tip on the pre-tax amount and implies splitting that total. We use the sum of Pre-tax + Tip as the split base).*
+3.  Divide by 4 people:
+    $$\frac{202.96}{4} = 50.74$$
+
+**Rounding:**
+The result is exact to the cent. **$\$50.74$** per person.
+
+***
+
+ANSWERS
+1. $5,636.36
+2. 87 boxes
+3. $47.14
+4. $50.74

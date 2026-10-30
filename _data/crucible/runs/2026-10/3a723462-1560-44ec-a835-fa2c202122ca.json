@@ -1,0 +1,81 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "3a723462-1560-44ec-a835-fa2c202122ca",
+ "run_path": "openrouter_openai_gpt-6-luna/invite-signup-loop/20261030_033830",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T03:38:39.120604+00:00",
+ "ended_at": "2026-10-30T03:42:05.540396+00:00",
+ "elapsed_s": 206.18,
+ "task": {
+  "id": "invite-signup-loop",
+  "version": 2,
+  "rubric_version": 3,
+  "content_hash": "c6414d81d51c4642",
+  "rubric_hash": "534a86d7de9cff6b",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/openai/gpt-6-luna",
+  "base": "openai/gpt-6-luna",
+  "publisher": "openai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "openai/gpt-6-luna|openai|api|-",
+  "display": "gpt-6-luna"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 62,
+  "tokens_in": 900051,
+  "tokens_out": 15541,
+  "model_responses": 31,
+  "ttft_s": 1.443,
+  "ttft_avg_s": 3.652,
+  "response_time_avg_s": 6.102,
+  "cost_usd": 0.020144,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/3a723462-1560-44ec-a835-fa2c202122ca.txt",
+ "provenance": {
+  "crucible_version": "3.3.0",
+  "crucible_commit": "34a6f5d",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:fbeae3e2a36aae0fca72968b80ebcc9c7a0e0805751b995b5b7bcdbff00f2466",
+  "submitter": null,
+  "verification": null
+ }
+}

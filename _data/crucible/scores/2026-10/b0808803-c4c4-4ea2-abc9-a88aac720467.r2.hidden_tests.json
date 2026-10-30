@@ -1,0 +1,151 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "b0808803-c4c4-4ea2-abc9-a88aac720467",
+ "rubric_version": 2,
+ "rubric_hash": "c99e9bf61025cb59",
+ "method": "hidden_tests",
+ "scored_at": "2026-10-30T06:30:30.470917+00:00",
+ "crucible_version": "3.4.0",
+ "raw": {
+  "passed": 4,
+  "total": 13,
+  "unit": "tests"
+ },
+ "score": 3.08,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "api: expired sessions get 401 > a session older than its 30 second lifetime gets 401, not 200 with blank data",
+   "type": "hidden_test",
+   "group": "api: expired sessions get 401",
+   "label": "a session older than its 30 second lifetime gets 401, not 200 with blank data",
+   "passed": false,
+   "detail": "AssertionError: expected 200 to be 401 // Object.is equality"
+  },
+  {
+   "id": "api: expired sessions get 401 > a long-expired session stays rejected on every request",
+   "type": "hidden_test",
+   "group": "api: expired sessions get 401",
+   "label": "a long-expired session stays rejected on every request",
+   "passed": false,
+   "detail": "AssertionError: expected 200 to be 401 // Object.is equality"
+  },
+  {
+   "id": "api: expired sessions get 401 > the cookie of a logged-out session gets 401",
+   "type": "hidden_test",
+   "group": "api: expired sessions get 401",
+   "label": "the cookie of a logged-out session gets 401",
+   "passed": false,
+   "detail": "AssertionError: expected 200 to be 401 // Object.is equality"
+  },
+  {
+   "id": "api: expired sessions get 401 > a request without a session gets 401",
+   "type": "hidden_test",
+   "group": "api: expired sessions get 401",
+   "label": "a request without a session gets 401",
+   "passed": false,
+   "detail": "AssertionError: expected 200 to be 401 // Object.is equality"
+  },
+  {
+   "id": "ui: a login prompt instead of a blank dashboard > an expired session is sent to log in",
+   "type": "hidden_test",
+   "group": "ui: a login prompt instead of a blank dashboard",
+   "label": "an expired session is sent to log in",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "ui: a login prompt instead of a blank dashboard > a logged-out session is sent to log in",
+   "type": "hidden_test",
+   "group": "ui: a login prompt instead of a blank dashboard",
+   "label": "a logged-out session is sent to log in",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "ui: a login prompt instead of a blank dashboard > a visitor without a session is sent to log in",
+   "type": "hidden_test",
+   "group": "ui: a login prompt instead of a blank dashboard",
+   "label": "a visitor without a session is sent to log in",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "normal sessions: still work until they expire > a fresh session gets its dashboard, and is rejected only once it has expired",
+   "type": "hidden_test",
+   "group": "normal sessions: still work until they expire",
+   "label": "a fresh session gets its dashboard, and is rejected only once it has expired",
+   "passed": false,
+   "detail": "AssertionError: expected 200 to be 401 // Object.is equality"
+  },
+  {
+   "id": "normal sessions: still work until they expire > logging in again after expiry gives a working session",
+   "type": "hidden_test",
+   "group": "normal sessions: still work until they expire",
+   "label": "logging in again after expiry gives a working session",
+   "passed": false,
+   "detail": "AssertionError: expected 200 to be 401 // Object.is equality"
+  },
+  {
+   "id": "normal sessions: still work until they expire > each session expires on its own clock",
+   "type": "hidden_test",
+   "group": "normal sessions: still work until they expire",
+   "label": "each session expires on its own clock",
+   "passed": false,
+   "detail": "AssertionError: expected 200 to be 401 // Object.is equality"
+  },
+  {
+   "id": "normal sessions: still work until they expire > logging out ends the session",
+   "type": "hidden_test",
+   "group": "normal sessions: still work until they expire",
+   "label": "logging out ends the session",
+   "passed": false,
+   "detail": "AssertionError: expected 200 to be 401 // Object.is equality"
+  },
+  {
+   "id": "normal sessions: still work until they expire > the dashboard page shows the user while the session lasts, then a login prompt",
+   "type": "hidden_test",
+   "group": "normal sessions: still work until they expire",
+   "label": "the dashboard page shows the user while the session lasts, then a login prompt",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "regression > your new tests fail on the seeded code and pass on your fix",
+   "type": "hidden_test",
+   "group": "regression",
+   "label": "your new tests fail on the seeded code and pass on your fix",
+   "passed": false,
+   "detail": "pass on the seeded code too, so they don't catch the bug"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Expired sessions are rejected",
+   "passed": 0.0,
+   "total": 3.08,
+   "detail": "0/4 hidden tests pass"
+  },
+  {
+   "id": "Login prompt, not a blank page",
+   "passed": 2.31,
+   "total": 2.31,
+   "detail": "3/3 hidden tests pass"
+  },
+  {
+   "id": "Normal sessions still work",
+   "passed": 0.77,
+   "total": 3.85,
+   "detail": "1/5 hidden tests pass"
+  },
+  {
+   "id": "Regression tests",
+   "passed": 0.0,
+   "total": 0.77,
+   "detail": "0/1 hidden tests pass"
+  }
+ ]
+}

@@ -1,0 +1,5 @@
+- Accuracy: The agent's summary is entirely accurate. Every claim made (the extension to 8 p.m. in March, the 62% survey result, the $40,000 grant covering one year, the plan to revisit the schedule, and the opposition due to staffing) is directly supported by the text. (4/4)
+- Exactly two sentences: The agent provided three sentences instead of the requested two. Therefore, it failed this constraint. (0/3)
+- Key points: The agent successfully included the hours extension, the funding limit (one year), and the resident survey. (3/3)
+
+GRADE: 7/10

@@ -1,0 +1,54 @@
+To solve this puzzle, we will deduce the seating arrangement and favorite colors step-by-step based on the provided clues.
+
+### Assumptions
+1.  **Layout:** The chairs are arranged in a single row numbered 1 to 4 from left to right. "Left" corresponds to lower chair numbers, and "Right" corresponds to higher chair numbers.
+2.  **Adjacency:** "Immediately to the left" means if Person A is at position $i$, the person they are immediately to the left of (Person B) is at position $i+1$. Conversely, if Person A sits immediately to the left of Person B, then $Position(A) = Position(B) - 1$.
+3.  **Uniqueness:** Each friend has exactly one favorite color, and each chair is occupied by exactly one friend. The colors (red, blue, green, yellow) are distinct for each person.
+
+### Step-by-Step Reasoning
+
+**Step 1: Identify fixed attributes from clues.**
+*   From **Clue 5**, we know **Dave likes red**.
+*   From **Clue 4**, we know **Carol likes yellow**.
+*   From **Clue 3**, the person in **Chair 1 likes green**.
+
+**Step 2: Determine who likes Green and Blue.**
+We have four people (Alice, Bob, Carol, Dave) and four colors (Red, Yellow, Green, Blue).
+*   We already know Dave likes Red and Carol likes Yellow.
+*   This leaves Alice and Bob as the candidates for the remaining colors: Green and Blue.
+*   From **Clue 1**, "Alice sits immediately to the left of the person who likes blue."
+    *   This implies that there is a specific person who likes blue, and Alice is adjacent to them on their left.
+    *   Therefore, Alice cannot be the person who likes blue (she would have to sit to the left of herself).
+*   Since Alice does not like Blue, she must like **Green**.
+*   Consequently, Bob must like **Blue**.
+
+**Step 3: Determine the seating positions.**
+*   From **Clue 3**, the person who likes Green sits in Chair 1. Since we determined Alice likes Green, **Alice sits in Chair 1**.
+*   From **Clue 1**, Alice (at Chair 1) sits immediately to the left of the person who likes Blue. This means the person in **Chair 2** must like Blue.
+    *   Since Bob is the one who likes Blue, **Bob sits in Chair 2**.
+
+**Step 4: Place the remaining people.**
+*   We have placed Alice (Chair 1) and Bob (Chair 2). The remaining chairs are 3 and 4.
+*   The remaining people are Dave (who likes Red) and Carol (who likes Yellow).
+*   From **Clue 4**, "Carol ... sits somewhere to the right of the person who likes red."
+    *   The person who likes red is Dave.
+    *   So, $Position(\text{Carol}) > Position(\text{Dave})$.
+*   Since only chairs 3 and 4 are available, for Carol to be to the right of Dave, **Dave must sit in Chair 3** and **Carol must sit in Chair 4**.
+
+**Step 5: Verify against all clues.**
+1.  *Alice sits immediately to the left of the person who likes blue.* (Alice is at 1, Bob is at 2 and likes Blue). **Satisfied.**
+2.  *Bob does not sit in chair 4.* (Bob is at 2). **Satisfied.**
+3.  *The person who likes green sits in chair 1.* (Alice is at 1 and likes Green). **Satisfied.**
+4.  *Carol likes yellow and sits somewhere to the right of the person who likes red.* (Carol is at 4, Dave is at 3 and likes Red; $4 > 3$). **Satisfied.**
+5.  *Dave likes red.* (Dave is at 3). **Satisfied.**
+
+### Conclusion
+Based on the deduction, the arrangement from left to right is:
+1.  Alice (Green)
+2.  Bob (Blue)
+3.  **Dave** (Red)
+4.  Carol (Yellow)
+
+The person who sits in chair 3 is Dave.
+
+**Answer:** Dave

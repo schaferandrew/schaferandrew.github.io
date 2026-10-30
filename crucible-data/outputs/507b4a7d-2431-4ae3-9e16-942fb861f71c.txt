@@ -1,0 +1,7 @@
+**Accuracy (4):** The summary accurately reflects all information in the source text. Every claim made (the hours extension, the survey results, the grant amount and its one-year limit, the winter review condition, and the board opposition) is directly supported by the passage with no invented or distorted details. (4/4)
+
+**Exactly two sentences (3):** The response contains three distinct sentences, clearly violating the strict length constraint. (0/3)
+
+**Key points (3):** The summary successfully captures all three required elements: the extension of weekend hours, the one-year funding limit, and the resident survey results. (3/3)
+
+GRADE: 7

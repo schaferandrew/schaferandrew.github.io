@@ -1,0 +1,80 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "b56fa31f-f954-5d1b-88c9-a3c12a0f89fd",
+ "run_path": "openrouter_poolside_laguna-xs-2.1/interest-calculator-cli/20261025_062048",
+ "legacy_run_id": "openrouter_poolside_laguna-xs-2.1/coding_build/CODE-1b/20261025_062048",
+ "started_at": "2026-10-25T06:20:48.445400+00:00",
+ "ended_at": "2026-10-25T06:21:47.619011+00:00",
+ "elapsed_s": 59.17,
+ "task": {
+  "id": "interest-calculator-cli",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "0988983917902a9b",
+  "rubric_hash": "b4526238202a2890",
+  "alias": "CODE-1b"
+ },
+ "harness": {
+  "id": "opencode",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/poolside/laguna-xs-2.1",
+  "base": "poolside/laguna-xs-2.1",
+  "publisher": "poolside",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "poolside/laguna-xs-2.1|poolside|api|-",
+  "display": "laguna-xs-2.1"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": null,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": null,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": "outputs/b56fa31f-f954-5d1b-88c9-a3c12a0f89fd.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:66f8a10aa60a5d489c445d0acf491dfd007e239c857e793ff9a8bfe9da8e366b",
+  "submitter": null,
+  "verification": null
+ }
+}

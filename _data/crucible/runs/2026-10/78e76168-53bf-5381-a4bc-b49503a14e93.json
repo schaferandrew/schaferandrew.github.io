@@ -1,0 +1,88 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "78e76168-53bf-5381-a4bc-b49503a14e93",
+ "run_path": "lmstudio_qwen_qwen3.5-9b/seating-logic-puzzle/20261026_165210",
+ "legacy_run_id": "lmstudio_qwen_qwen3.5-9b/reasoning/MATH-4/20261026_165210",
+ "started_at": "2026-10-26T16:52:10.296728+00:00",
+ "ended_at": "2026-10-26T16:54:05.886698+00:00",
+ "elapsed_s": 115.59,
+ "task": {
+  "id": "seating-logic-puzzle",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "d205d3bad1048689",
+  "rubric_hash": "ef4c3db9d4f7ff0a",
+  "alias": "MATH-4"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/qwen/qwen3.5-9b",
+  "base": "qwen/qwen3.5-9b",
+  "publisher": null,
+  "artifact": null,
+  "format": null,
+  "quant": "Q4_K_M",
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": 100096,
+  "variant_key": "qwen/qwen3.5-9b|-|-|q4_k_m",
+  "display": "qwen3.5-9b · Q4_K_M"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": null,
+  "class": null,
+  "accelerators": [],
+  "system_memory_gb": null,
+  "cpu": null,
+  "offload": null,
+  "label": null
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 231,
+  "tokens_out": 11761,
+  "model_responses": 1,
+  "ttft_s": 0.215,
+  "ttft_avg_s": 0.215,
+  "response_time_avg_s": 115.588,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": "outputs/78e76168-53bf-5381-a4bc-b49503a14e93.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:decf362f9c643402465d5d729adfa3d7823b7501a40fa169bdddc9f60378b846",
+  "submitter": null,
+  "verification": null
+ }
+}

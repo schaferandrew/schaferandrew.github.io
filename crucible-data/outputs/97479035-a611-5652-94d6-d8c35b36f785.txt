@@ -1,0 +1,39 @@
+I have completed the task by creating a comprehensive CLI tool for interest calculations.
+
+### Key Features
+- **Simple Interest Calculation**: For straightforward interest scenarios.
+- **Compound Interest Calculation**: Supports varying compounding frequencies (e.g., annually, monthly).
+- **Loan Amortization**: Calculates fixed periodic payments (like monthly mortgage payments) and the total interest/payment over the term.
+- **Intuitive CLI**: Uses subparsers for a clear and consistent command-line interface.
+
+### Project Structure
+- `interest_calc/`: The core package.
+    - `calculator.py`: Contains the mathematical logic.
+    - `cli.py`: The command-line interface.
+- `tests/`: Unit tests for the calculator logic.
+- `README.md`: Documentation on how to install and use the tool.
+
+### How to Use
+
+#### 1. Simple Interest
+```bash
+python3 -m interest_calc.cli simple --principal 1000 --rate 5 --years 2
+```
+
+#### 2. Compound Interest
+```bash
+python3 -m interest_calc.cli compound --principal 1000 --rate 5 --years 2 --periods 12
+```
+
+#### 3. Loan Payment (Amortization)
+```bash
+python3 -m interest_calc.cli loan --principal 1000 --rate 12 --years 1 --periods 12
+```
+
+### Running Tests
+To ensure the calculations are accurate, run the following command:
+```bash
+python3 -m unittest tests/test_calculator.py
+```
+
+The tool is ready for use and follows best practices for Python CLI applications.

@@ -1,8 +1,8 @@
 # Fallbacks for the Crucible pages (crucible.html, crucible-about.html, assets/js/crucible.js).
-# A results bundle's own catalog (modes, areas, tiers, scoring_policy) always wins; this file only
-# fills what an older bundle (format 2) doesn't carry. Keyed by ID, so an ID missing here simply
+# A suite catalog's own fields (modes, areas, tiers, scoring_policy) always win; this file only
+# fills display text a catalog doesn't carry. Keyed by ID, so an ID missing here simply
 # renders generically (its label is the ID, capitalized). Never add a task, area or tier here that
-# a bundle doesn't also list: new ones belong in the bundle.
+# a catalog doesn't also list: new ones belong in the catalog.
 scoring_policy:
   coverage_min: 0.75
   in_progress_below: 0.75
@@ -66,3 +66,13 @@ areas:
   everyday:
     blurb: Can it handle the tasks you'd hand an assistant, using your own data?
     examples: Find meeting times across two calendars, a morning brief from email, calendar and news.
+
+# Display text for a catalog's task scoring methods (task.scoring.method), which catalogs carry as
+# bare IDs. An unknown method shows its raw ID.
+scoring_methods:
+  checks:
+    label: automatic checks
+    blurb: fixed rules applied to the model's answer
+  hidden_tests:
+    label: hidden tests
+    blurb: a test suite the agent never sees, run on the repo it leaves behind

@@ -1,0 +1,29 @@
+The benchmark task is complete. Here's a summary of what was built:
+
+## Interest Calculator CLI Tool
+
+A Python CLI tool for calculating interest, similar in spirit to consumer calculators like interest.gov.
+
+### Files Created
+| File | Description |
+|------|-------------|
+| `cli.py` | Command-line interface with 5 subcommands |
+| `interest_calculator.py` | Core calculation engine using precise `Decimal` arithmetic |
+| `test_interest_calculator.py` | 24 unit and integration tests |
+| `README.md` | Full documentation with formulas and examples |
+
+### Features
+- **Simple Interest**: `python cli.py simple <principal> <rate> <years>`
+- **Compound Interest**: Supports daily, monthly, quarterly, semi-annual, and annual compounding
+- **APR → APY Conversion**: See effective annual yield
+- **Loan Amortization Schedule**: Full payment-by-payment breakdown
+- **Savings Growth Calculator**: Projects growth with regular monthly contributions
+- **JSON Output Mode**: `--json` flag for machine-readable/scriptable output
+- **No external dependencies**: Uses only Python 3 standard library
+
+### Tests
+All 24 tests pass, covering:
+- Simple, compound, and APR-to-APY calculations
+- Amortization schedule accuracy
+- Savings with contributions
+- CLI integration (help, commands, error handling, JSON output)

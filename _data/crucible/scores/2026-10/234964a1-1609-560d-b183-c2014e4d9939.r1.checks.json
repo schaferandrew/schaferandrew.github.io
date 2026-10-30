@@ -1,0 +1,65 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "234964a1-1609-560d-b183-c2014e4d9939",
+ "rubric_version": 1,
+ "rubric_hash": "8edabc9afec16b4f",
+ "method": "checks",
+ "scored_at": "2026-10-27T16:46:53.593448+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 0,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "landlocked_found",
+   "type": "required_patterns",
+   "group": "All landlocked found",
+   "label": "The Landlocked line lists all 11: Bolivia, Kazakhstan, Austria, Laos, Paraguay, Serbia, Ethiopia, Uzbekistan, Zambia, Hungary, Mongolia.",
+   "passed": false,
+   "detail": "0/11 found; missing: (?im)^\\W*landlocked:.*\\bbolivia\\b, (?im)^\\W*landlocked:.*\\bkazakhstan\\b, (?im)^\\W*landlocked:.*\\baustria\\b, (?im)^\\W*landlocked:.*\\blaos\\b, (?im)^\\W*landlocked:.*\\bparaguay\\b, (?im)^\\W*landlocked:.*\\bserbia\\b"
+  },
+  {
+   "id": "coastal_not_listed",
+   "type": "forbidden_patterns",
+   "group": "No coastal country listed",
+   "label": "The Landlocked line includes none of Croatia, Eritrea, Mozambique, Vietnam.",
+   "passed": false,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "doubly",
+   "type": "required_patterns",
+   "group": "Doubly landlocked",
+   "label": "The doubly landlocked country is Uzbekistan.",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*doubly landlocked:\\W*uzbekistan\\b"
+  }
+ ],
+ "groups": [
+  {
+   "id": "All landlocked found",
+   "passed": 0,
+   "total": 4,
+   "detail": "0/11 found; missing: (?im)^\\W*landlocked:.*\\bbolivia\\b, (?im)^\\W*landlocked:.*\\bkazakhstan\\b, (?im)^\\W*landlocked:.*\\baustria\\b, (?im)^\\W*landlocked:.*\\blaos\\b, (?im)^\\W*landlocked:.*\\bparaguay\\b, (?im)^\\W*landlocked:.*\\bserbia\\b"
+  },
+  {
+   "id": "No coastal country listed",
+   "passed": 0,
+   "total": 3,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Doubly landlocked",
+   "passed": 0,
+   "total": 3,
+   "detail": "0/1 found; missing: (?im)^\\W*doubly landlocked:\\W*uzbekistan\\b"
+  }
+ ]
+}

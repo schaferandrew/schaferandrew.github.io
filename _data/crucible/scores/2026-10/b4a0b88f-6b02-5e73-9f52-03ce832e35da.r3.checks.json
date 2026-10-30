@@ -1,0 +1,121 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "b4a0b88f-6b02-5e73-9f52-03ce832e35da",
+ "rubric_version": 3,
+ "rubric_hash": "7d57227f67a0b9e9",
+ "method": "checks",
+ "scored_at": "2026-10-27T19:04:42.823956+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 10,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "answered",
+   "type": "non_empty",
+   "group": "Answered",
+   "label": "Produces a substantive answer (at least 60 words).",
+   "passed": true,
+   "detail": "478 words"
+  },
+  {
+   "id": "fixes_contraction",
+   "type": "required_patterns",
+   "group": "Fixes the contraction",
+   "label": "Fixes 'havent' to \"haven't\".",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "fixes_participle",
+   "type": "required_patterns",
+   "group": "Fixes the participle",
+   "label": "Fixes 'crush' to 'crushed'.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "fixes_agreement",
+   "type": "required_patterns",
+   "group": "Fixes the agreement error",
+   "label": "Fixes 'one of the two items were damaged' to 'was damaged'.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "keeps_facts",
+   "type": "required_patterns",
+   "group": "Keeps the facts",
+   "label": "Keeps the facts: order 84721, three days late, 5-7 business days, the mug and its handle.",
+   "passed": true,
+   "detail": "5/5 found"
+  },
+  {
+   "id": "separates_style",
+   "type": "required_patterns",
+   "group": "Separates errors from style",
+   "label": "Has separate parts for objective errors and optional style improvements.",
+   "passed": true,
+   "detail": "2/2 found"
+  },
+  {
+   "id": "no_added_apology",
+   "type": "forbidden_patterns",
+   "group": "Keeps the customer's tone",
+   "label": "Doesn't make the customer sound more apologetic (no 'sorry' or 'I apologize').",
+   "passed": true,
+   "detail": "none found"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Answered",
+   "passed": 1,
+   "total": 1,
+   "detail": "478 words"
+  },
+  {
+   "id": "Fixes the agreement error",
+   "passed": 4,
+   "total": 4,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Fixes the contraction",
+   "passed": 1,
+   "total": 1,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Fixes the participle",
+   "passed": 1,
+   "total": 1,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Keeps the facts",
+   "passed": 1,
+   "total": 1,
+   "detail": "5/5 found"
+  },
+  {
+   "id": "Separates errors from style",
+   "passed": 1,
+   "total": 1,
+   "detail": "2/2 found"
+  },
+  {
+   "id": "Keeps the customer's tone",
+   "passed": 1,
+   "total": 1,
+   "detail": "none found"
+  }
+ ]
+}

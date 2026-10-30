@@ -1,0 +1,30 @@
+---
+
+## Report
+
+### Application
+- URL: http://localhost:3456
+- Status: Running successfully
+
+### Test User
+- Username: `testuser`
+- Active: Yes
+
+### What Happened
+
+1. **Started the server** with `npm start` — it began listening on port 3456.
+
+2. **First login attempt** — Navigated to http://localhost:3456/login.html and attempted to log in as `testuser` with password `correctpassword` (as listed in SKILL.md). The login **failed** with `{"error":"invalid_credentials"}`.
+
+3. **Diagnosis** — Verified that `correctpassword` does not produce the hash stored in accounts.json for `testuser`. The expected hash was `530e52bf3a236035083e5cc9dca375feedf91a16526ae3766a11c257737eb5ac`, but hashing `correctpassword` with the user's salt (`tu-9b3e`) produced `4720712840acc19d1067dbb0b1709f359a51bb54047fd673d927fbb36fc8eb9d`. This is a **Wrong Password** failure mode.
+
+4. **Recovery** — Followed the "Forgot password?" procedure from the skill:
+   - Called `POST /api/reset-password-request` with `{username: "testuser"}` → received reset token `reset_a8f67f070b3af0dd`
+   - Called `POST /api/reset-password` with the token and new password `known-password` → success
+   - Logged in with `POST /api/login` using `testuser` / `known-password` → success, redirected to `/dashboard.html`
+
+5. **Verification** — Called `GET /api/dashboard` with the session cookie → returned `{"user":"testuser","dashboardMessage":"Welcome to your dashboard!"}` confirming the authenticated session is valid.
+
+The audit log confirms the full chain: `login_failed` (invalid_credentials) → `reset_requested` → `password_reset` → `login_success` → `dashboard_ok`.
+
+FAILURE: Wrong Password

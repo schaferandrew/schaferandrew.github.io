@@ -1,0 +1,51 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "43e2adba-32d4-5965-b2c2-bd1c7a0db2db",
+ "rubric_version": 1,
+ "rubric_hash": "9ce7eb8389398c5b",
+ "method": "checks",
+ "scored_at": "2026-10-26T17:13:11.244414+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 10,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "order",
+   "type": "required_patterns",
+   "group": "Order",
+   "label": "Lists them in order: Magna Carta, Gutenberg Bible, French Revolution, First World War, Moon landing, Berlin Wall.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "years",
+   "type": "required_patterns",
+   "group": "Years",
+   "label": "Gives the years: 1215, 1450s, 1789, 1914, 1969, 1989.",
+   "passed": true,
+   "detail": "6/6 found"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Order",
+   "passed": 5,
+   "total": 5,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Years",
+   "passed": 5,
+   "total": 5,
+   "detail": "6/6 found"
+  }
+ ]
+}

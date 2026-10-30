@@ -1,0 +1,68 @@
+This puzzle requires careful step-by-step deduction based on the constraints provided.
+
+### Assumptions Required
+The puzzle assumes that:
+1. Each friend has a unique favorite color, and each chair is uniquely occupied.
+2. The seating arrangement (1 to 4) is linear and fixed.
+
+### Step-by-Step Deduction
+
+We establish the seating arrangement (Chair $\rightarrow$ Name, Color).
+
+**1. Initial Placements (Clues 3, 5, & 4):**
+*   **Clue 3:** Chair 1 is Green. (Chair 1: ?, Green)
+*   **Clue 5:** Dave likes Red. (Dave = Red)
+*   **Clue 4:** Carol likes Yellow and sits to the right of the Red person. (Carol = Yellow)
+
+Since Dave is Red, and Chair 1 is Green, Dave cannot be in Chair 1.
+If Carol (Yellow) sits to the right of Dave (Red), Dave cannot be in Chair 4.
+Therefore, Dave must be in Chair 2 or Chair 3.
+
+**2. Testing the Position of Dave (Red):**
+
+*   **Case A: Assume Dave is in Chair 2.**
+    (Chair 1: Green), (Chair 2: Dave, Red).
+    Carol (Yellow) must be in Chair 3 or 4.
+    *If Carol is in Chair 3:* (Chair 3: Carol, Yellow). The remaining person, Bob, must be in Chair 4.
+    *Clue 2:* Bob does not sit in chair 4. **(Contradiction. Case A fails.)**
+
+*   **Case B: Assume Dave is in Chair 3.**
+    (Chair 1: Green), (Chair 2: ?), (Chair 3: Dave, Red).
+    Carol (Yellow) must sit to the right of Chair 3. Therefore, Carol must be in Chair 4.
+    (Chair 4: Carol, Yellow).
+
+**3. Finalizing the Seating (Clues 1 & 2):**
+We have established:
+*   Chair 3: Dave, Red
+*   Chair 4: Carol, Yellow
+*   Chair 1: Green
+
+The remaining people are Alice and Bob. They must occupy Chairs 1 and 2.
+*   **Clue 1:** Alice sits immediately to the left of the person who likes blue.
+    *   If Alice is in Chair 2, the person in Chair 3 (Dave) must be Blue. But Dave is Red. (Contradiction).
+    *   Therefore, Alice must be in Chair 1.
+    (Chair 1: Alice, Green).
+
+If Alice is in Chair 1 (Green), the person immediately to her right (Chair 2) must be Blue. The only remaining person is Bob.
+(Chair 2: Bob, Blue).
+
+**4. Verification:**
+*   Chairs: 1, 2, 3, 4
+*   Seating: (Alice, Green), (Bob, Blue), (Dave, Red), (Carol, Yellow)
+*   Clue 1: Alice (1) is left of Blue person (Bob in 2). **(True)**
+*   Clue 2: Bob is not in Chair 4. (Bob is in Chair 2). **(True)**
+*   Clue 3: Green is in Chair 1. (Alice, Green). **(True)**
+*   Clue 4: Carol (Yellow) is right of Red person (Dave in 3). **(True)**
+*   Clue 5: Dave likes Red. **(True)**
+
+The seating arrangement is consistent with all clues.
+
+***
+
+### Final Seating Arrangement
+Chair 1: Alice, Green
+Chair 2: Bob, Blue
+Chair 3: Dave, Red
+Chair 4: Carol, Yellow
+
+ANSWER: Dave

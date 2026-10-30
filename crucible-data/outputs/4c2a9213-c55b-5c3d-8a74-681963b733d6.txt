@@ -1,0 +1,43 @@
+1. **Savings Account Calculation**
+*   Principal ($P$): $5,000
+*   Annual interest rate ($r$): 4% or 0.04
+*   Compounding periods per year ($n$): 12
+*   Time in years ($t$): 3
+*   Formula: $A = P(1 + r/n)^{nt}$
+*   $A = 5000(1 + 0.04/12)^{12 \times 3}$
+*   $A = 5000(1 + 0.0033333333...)^{36}$
+*   $A = 5000(1.0033333333...)^{36}$
+*   $A = 5000(1.127270437...)$
+*   $A = 5636.352185...$
+*   Rounded to the cent: $5,636.35
+
+2. **Flooring Calculation**
+*   Area to cover: 1,850 sq ft
+*   Waste factor: 10%
+*   Total area needed: $1,850 \times 1.10 = 2,035$ sq ft
+*   Square footage per box: 23.5 sq ft
+*   Number of boxes: $2,035 / 23.5 = 86.59574468...$
+*   Since you cannot buy a partial box, you must round up to the nearest whole box.
+*   Total boxes: 87
+
+3. **Gas Cost Calculation**
+*   Total distance: 412 miles
+*   Fuel efficiency: 34 miles per gallon
+*   Gallons needed: $412 / 34 = 12.1176470588...$
+*   Price per gallon: $3.89
+*   Total cost: $12.1176470588... \times 3.89 = 47.1470588235...$
+*   Rounded to the cent: $47.15
+
+4. **Dinner Split Calculation**
+*   Total including tax: $186.40
+*   Pre-tax amount: $172.00
+*   Tip amount (18% of pre-tax): $172.00 \times 0.18 = 30.96$
+*   Total bill (including tax and tip): $186.40 + 30.96 = 217.36$
+*   Split four ways: $217.36 / 4 = 54.34$
+*   Amount per person: $54.34
+
+ANSWERS
+1. $5,636.35
+2. 87
+3. $47.15
+4. $54.34

@@ -1,0 +1,72 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "84df2b86-53e4-5ca6-9ddd-60c654a5f012",
+ "run_path": "openrouter_deepseek_deepseek-v4-flash/morning-brief-spanish/20260903_041420",
+ "legacy_run_id": "openrouter_deepseek_deepseek-v4-flash/everyday/TASK-2/20260903_041420",
+ "started_at": "2026-09-03T04:14:20.509428+00:00",
+ "ended_at": "2026-09-03T04:18:57.574694+00:00",
+ "elapsed_s": 277.07,
+ "task": {
+  "id": "morning-brief-spanish",
+  "version": 1,
+  "rubric_version": null,
+  "content_hash": null,
+  "rubric_hash": null,
+  "alias": "TASK-2"
+ },
+ "harness": {
+  "id": "opencode",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/deepseek/deepseek-v4-flash",
+  "base": "deepseek/deepseek-v4-flash",
+  "publisher": "deepseek",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek/deepseek-v4-flash|deepseek|api|-",
+  "display": "deepseek-v4-flash"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "timeout",
+  "harness_status": null,
+  "returncode": 0,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 4
+ },
+ "output_ref": "outputs/84df2b86-53e4-5ca6-9ddd-60c654a5f012.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": null,
+  "machine_label": null,
+  "source": "crucible-migrate",
+  "content_hash": "sha256:1e62ce4cb36437e4a6683bb17adc1a69fe32b9d4d4824acbcbe5c915dcb3cdc8",
+  "submitter": null,
+  "verification": null
+ }
+}

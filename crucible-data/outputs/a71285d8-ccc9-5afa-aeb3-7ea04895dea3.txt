@@ -1,0 +1,22 @@
+Enshittification is the process by which a product or service gets worse over time as its owner shifts from serving users to extracting profit.
+
+The mechanism is a three-stage pattern that happens most clearly with online platforms, which are services that make money by connecting two groups of users, like viewers and advertisers, or buyers and sellers.
+
+First, the platform is good to both sides to grow. It offers users a useful experience and gives business customers, like creators or sellers, good reach and fair terms. Growth is the priority.
+
+Second, once the platform becomes dominant and hard to leave, it has market power. It starts squeezing both sides. It makes the user experience worse with ads, spam, or confusing design, and it raises fees, changes rules, or gives preferential treatment to its own products over the business customers who helped build it. The platform is now extracting value rather than creating it.
+
+Third, the extraction continues until the product is hollow. Users and business customers leave or disengage because the quality has collapsed, and the platform survives on inertia and a captive audience until it is replaced.
+
+Two concrete examples:
+
+* **Facebook / Meta.** In the early 2000s Facebook was a simple social network for friends. After it became dominant, it filled feeds with engagement-optimized content and ads, reduced organic reach for Pages, and prioritized its own products. Creators and small businesses found it harder to reach audiences without paying, while users saw more low-quality posts and ads.
+* **Amazon Marketplace.** Amazon started by making it easy for third-party sellers to reach customers and for buyers to find cheap goods. As it dominated e-commerce, Amazon raised seller fees, used seller data to launch competing private-label products, and flooded search results with its own listings. Sellers complained about rising costs and arbitrary rules while buyers saw more generic products and less independent choice.
+
+What the concept does and does not claim:
+
+It does describe a recurring pattern in platform businesses where monopoly power enables value extraction, and it highlights how user experience can decline even as revenue rises. It does not claim that every company will enshittify, or that decline is inevitable for all businesses. It does not require proving malicious intent; it can happen through rational profit-seeking decisions even by well-meaning managers. It is a description of incentives, not a moral judgment about any one company.
+
+Criticisms and limitations:
+
+Critics argue the term is too broad and moralizing, lumping together very different business decisions under one catchy insult. Some say it describes normal competitive dynamics or the natural lifecycle of products, not a unique pathology. Others note that competition, regulation, or user migration can reverse the process, and that many platforms improve again after backlash. The model also fits best to two-sided platforms with network effects and is less useful for explaining decline in traditional goods or services.

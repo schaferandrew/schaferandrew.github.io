@@ -1,0 +1,107 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "ef6c31dd-3dd4-57a4-8de8-06e4430f222a",
+ "rubric_version": 1,
+ "rubric_hash": "2d7d0af0e447aabb",
+ "method": "checks",
+ "scored_at": "2026-10-27T00:18:36.614007+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 5,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 5.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "columbus",
+   "type": "required_patterns",
+   "group": "Columbus",
+   "label": "Corrects Columbus to 1492.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "king_john",
+   "type": "required_patterns",
+   "group": "King John",
+   "label": "Corrects the king to John.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "waterloo",
+   "type": "required_patterns",
+   "group": "Waterloo",
+   "label": "Corrects Waterloo to 1815.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "maiden_voyage",
+   "type": "required_patterns",
+   "group": "Maiden voyage",
+   "label": "Corrects the Titanic to its maiden voyage (to New York).",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "berlin_wall",
+   "type": "required_patterns",
+   "group": "Berlin Wall",
+   "label": "Corrects the Berlin Wall to 1989.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "no_false_flags",
+   "type": "forbidden_patterns",
+   "group": "Nothing accurate flagged",
+   "label": "Doesn't mark the Declaration (1776), the Moon landing (1969) or Runnymede as errors.",
+   "passed": false,
+   "detail": "found: in 1215 king richard sealed magna carta at runnymede →"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Columbus",
+   "passed": 1,
+   "total": 1,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "King John",
+   "passed": 1,
+   "total": 1,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Waterloo",
+   "passed": 1,
+   "total": 1,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Maiden voyage",
+   "passed": 1,
+   "total": 1,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Berlin Wall",
+   "passed": 1,
+   "total": 1,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Nothing accurate flagged",
+   "passed": 0,
+   "total": 5,
+   "detail": "found: in 1215 king richard sealed magna carta at runnymede →"
+  }
+ ]
+}

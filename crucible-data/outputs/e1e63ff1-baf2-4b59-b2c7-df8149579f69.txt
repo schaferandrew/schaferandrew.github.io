@@ -1,0 +1,22 @@
+Here's a summary of the diagnosis and fix:
+
+## Diagnosis
+
+The original `page.tsx` was a **Client Component** that used `fetch('/api/account?id=acct_1')` inside `useEffect` to load data. This approach has several problems:
+
+1. **Not idiomatic modern Next.js** — The App Router pattern favors Server Components that fetch data at render time
+2. **Unnecessary round-trip** — The page fetched from its own API route instead of accessing data directly
+3. **Testability issues** — In the jsdom test environment, there's no running server for the `fetch` call to reach
+4. **Unnecessary loading state** — The `useState(null)` + `useEffect` pattern creates a flash of loading content
+
+## Fix
+
+1. **`app/page.tsx`** — Converted to a **Server Component** (`async function`) that directly accesses the simulated data source at render time. No client-side `fetch` or `useEffect` needed.
+
+2. **`app/AccountDisplay.tsx`** — Extracted the display logic into a small **Client Component** (`'use client'`) for future interactivity, preserving the component structure intent.
+
+3. **`app/AccountDisplay.test.tsx`** — Added a test that renders the Server Component and verifies it displays "Name: Alice" and "Plan: Pro" for `acct_1`.
+
+4. **`app/page.test.tsx`** — Kept the existing API route tests intact.
+
+All 3 tests pass ✅

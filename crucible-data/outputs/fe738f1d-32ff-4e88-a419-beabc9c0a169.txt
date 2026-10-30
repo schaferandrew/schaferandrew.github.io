@@ -1,0 +1,18 @@
+Here's my analysis of both schedules for the week of August 31 – September 4 (all times in Central Daylight Time, CDT):
+
+**Monday, Aug 31:** No common 1-hour free slot. Alex is blocked 10:00–14:00 and Jamie blocked 14:00–17:00, leaving no overlap.
+
+**Tuesday, Sep 1:** Alex blocked 14:00–17:00, Jamie blocked 12:00–14:30. They share free time at 14:30–17:00 (2.5 hours).
+
+**Wednesday, Sep 2:** Alex blocked 9:00–11:30 and 12:00–14:00; Jamie blocked 9:00–13:00 and 14:00–15:30. Only Jamie free at 13:00–14:00 but Alex is busy. Late afternoon 15:30–17:00 could work.
+
+**Thursday, Sep 3:** Several good options. Alex free 11:00–12:00 and Jamie free 10:30–12:00 → overlap at 11:00–12:00. Also 13:00–14:00 and 16:00–17:00 both work.
+
+**Friday, Sep 4:** Alex free 10:30–12:00 and Jamie free 10:30–12:00 → overlap at 10:30–11:30. Also 15:00–17:00 works for both.
+
+**Best options (prioritizing midday slots on days with the most flexibility):**
+
+OPTIONS:
+2026-09-03 11:00 CDT
+2026-09-03 13:00 CDT
+2026-09-04 10:30 CDT

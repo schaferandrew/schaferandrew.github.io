@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "ebd7e2e3-011e-583e-9208-656cf26e9bce",
+ "run_path": "lmstudio_google_gemma-4-26b-a4b-qat/seating-logic-puzzle/20261026_171329",
+ "legacy_run_id": "lmstudio_google_gemma-4-26b-a4b-qat/reasoning/MATH-4/20261026_171329",
+ "started_at": "2026-10-26T17:13:29.032496+00:00",
+ "ended_at": "2026-10-26T17:16:13.479737+00:00",
+ "elapsed_s": 164.45,
+ "task": {
+  "id": "seating-logic-puzzle",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "d205d3bad1048689",
+  "rubric_hash": "ef4c3db9d4f7ff0a",
+  "alias": "MATH-4"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/google/gemma-4-26b-a4b-qat",
+  "base": "google/gemma-4-26b-a4b-qat",
+  "publisher": null,
+  "artifact": null,
+  "format": null,
+  "quant": "Q4_0",
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": 8192,
+  "variant_key": "google/gemma-4-26b-a4b-qat|-|-|q4_0",
+  "display": "gemma-4-26b-a4b-qat · Q4_0"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Whitehall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "rtx-5070-ti-16gb",
+  "class": "discrete_gpu",
+  "accelerators": [
+   {
+    "name": "NVIDIA RTX 5070 Ti 16GB",
+    "memory_gb": 16,
+    "count": 1
+   }
+  ],
+  "system_memory_gb": 32.0,
+  "cpu": "AMD Ryzen 7 7700",
+  "offload": null,
+  "label": "Whitehall"
+ },
+ "outcome": {
+  "status": "context_limit",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": {
+   "reason": "Loaded with an 8192-token context: the model's reasoning used it all (7,957 tokens) before it could answer. A setup problem, not the model's; rerun with 32k+ context.",
+   "marked_at": "2026-10-26T20:35:12.494693+00:00"
+  },
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 235,
+  "tokens_out": 7957,
+  "model_responses": 1,
+  "ttft_s": 0.915,
+  "ttft_avg_s": 0.915,
+  "response_time_avg_s": 164.439,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": null,
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:346b29690c027a8b106cbad26a68020d133d1b62d0d9bbdc64705bf4b22b03ec",
+  "submitter": null,
+  "verification": null
+ }
+}

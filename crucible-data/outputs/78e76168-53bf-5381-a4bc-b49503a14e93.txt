@@ -1,0 +1,69 @@
+**Assumptions:**
+1.  **Seating Arrangement:** The chairs are arranged in a single row, numbered 1 to 4 from left to right. Chair 1 is the leftmost chair, and Chair 4 is the rightmost chair.
+2.  **Directionality:** "Left" refers to a lower chair number (e.g., Chair 1 is to the left of Chair 2). "Immediately to the left" means sitting in chair $i$ while the other person sits in chair $i+1$. "Somewhere to the right" means sitting in a chair with a higher number than the reference.
+3.  **Color Assignment:** Each friend has exactly one favorite color, and each color (red, blue, green, yellow) is assigned to exactly one friend.
+4.  **Interpretation of Clues:** "The person who likes blue" refers to the specific individual whose favorite color is blue. If Alice were that person, she would be sitting to the left of herself, which is impossible in a row of distinct chairs.
+
+**Ambiguity Check:**
+There are no significant ambiguities in the wording that allow for multiple valid interpretations. The clues provide sufficient constraints to derive a unique solution.
+
+**Reasoning:**
+
+1.  **Analyze Chair 1 (Clue 3):**
+    *   Clue 3 states: "The person who likes green sits in chair 1."
+    *   Therefore, the color of Chair 1 is Green.
+
+2.  **Identify Candidates for Chair 1:**
+    *   We know from Clue 5 that Dave likes Red. Since Chair 1 is Green, Dave cannot sit in Chair 1.
+    *   We know from Clue 4 that Carol likes Yellow. Since Chair 1 is Green, Carol cannot sit in Chair 1.
+    *   This leaves only **Alice** or **Bob** as possible occupants of Chair 1.
+
+3.  **Test Scenario: Bob sits in Chair 1:**
+    *   If Bob sits in Chair 1, he must like Green (from Clue 3).
+    *   The remaining friends are Alice, Carol, and Dave. The remaining colors to be assigned are Red, Yellow, and Blue.
+    *   We know Dave likes Red and Carol likes Yellow. This leaves only one color for the last person, Alice: **Blue**.
+    *   However, Clue 1 states: "Alice sits immediately to the left of the person who likes blue."
+    *   If Alice likes Blue, she would be sitting to the left of herself (or there would be no other person who likes Blue for her to sit next to). This is a contradiction.
+    *   Therefore, **Bob cannot sit in Chair 1**.
+
+4.  **Confirm Scenario: Alice sits in Chair 1:**
+    *   Since Bob cannot be in Chair 1, **Alice must sit in Chair 1**.
+    *   Consequently, Alice likes Green (from Clue 3).
+
+5.  **Determine the arrangement based on Alice at Chair 1:**
+    *   From Clue 1: "Alice sits immediately to the left of the person who likes blue."
+    *   Since Alice is in Chair 1, the person in **Chair 2** must like Blue.
+    *   Who can sit in Chair 2?
+        *   Dave likes Red (Clue 5), so he cannot be in Chair 2.
+        *   Carol likes Yellow (Clue 4), so she cannot be in Chair 2.
+        *   Therefore, **Bob** must sit in Chair 2. So, Bob likes Blue.
+
+6.  **Determine the arrangement for Chairs 3 and 4:**
+    *   We have placed Alice (Chair 1) and Bob (Chair 2). The remaining friends are Dave and Carol.
+    *   The remaining chairs are 3 and 4.
+    *   The remaining colors to assign are Red and Yellow (since Green is at Chair 1 and Blue is at Chair 2).
+    *   We know Dave likes Red and Carol likes Yellow.
+    *   Clue 4 states: "Carol ... sits somewhere to the right of the person who likes red."
+    *   The person who likes red is Dave. So, Carol must be in a chair with a higher number than Dave's chair.
+    *   This implies **Dave** must be in Chair 3 and **Carol** must be in Chair 4.
+
+7.  **Final Verification:**
+    *   **Chair 1:** Alice (Green).
+    *   **Chair 2:** Bob (Blue).
+    *   **Chair 3:** Dave (Red).
+    *   **Chair 4:** Carol (Yellow).
+    *   Check Clue 1: Alice (1) is left of Blue (Bob at 2). (Correct)
+    *   Check Clue 2: Bob is not in Chair 4. (He is in 2). (Correct)
+    *   Check Clue 3: Green is in Chair 1. (Correct)
+    *   Check Clue 4: Carol (Yellow, Chair 4) is right of Red (Dave at Chair 3). (Correct)
+    *   Check Clue 5: Dave likes red. (Correct)
+
+**ANSWER:**
+The person sitting in chair 3 is **Dave**.
+
+Chair 1: Alice, Green
+Chair 2: Bob, Blue
+Chair 3: Dave, Red
+Chair 4: Carol, Yellow
+
+ANSWER: Dave

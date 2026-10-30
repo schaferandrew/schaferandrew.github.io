@@ -1,0 +1,40 @@
+Welcome! I'm ready to act as your Next.js tutor. Given your strong background in React and TypeScript, we can move quickly through the fundamentals and focus on how Next.js enhances these concepts with server-side rendering, routing, and optimized performance.
+
+We will follow an interactive structure: **Concept $\rightarrow$ Example $\rightarrow$ Exercise $\rightarrow$ Feedback**.
+
+---
+
+# 🚀 Next.js Practical Course: Lesson 1 - The File-System Router
+
+### 🧠 Concept: Routing in Next.js (App Router vs Pages Router)
+
+In a standard React application, routing is typically handled client-side using libraries like `react-router-dom`. When you navigate, the application shell stays up, and only the content view changes.
+
+Next.js offers two primary routing approaches: `pages` router and `app` router. The **App Router** (recommended for modern Next.js projects) maps directory structures inside the `app` folder directly to URL segments. This is a file-system routing approach.
+
+**The Core Idea:** If you want a page at `/about`, you create the file structure `app/about/page.tsx`. Next.js knows how to build the URL tree based on these files and folders, allowing server-side execution paths.
+
+---
+
+### 💻 Example: The Minimal Setup
+
+Let's set up a minimal application structure. If you create this file structure and content:
+
+```
+// app/page.tsx (This corresponds to the root URL "/")
+export default function HomePage() {
+  return <h1>Welcome to My Next.js App!</h1>;
+}
+```
+
+When you run the development server, accessing `http://localhost:3000` renders the content of `page.tsx`.
+
+---
+
+### 🛠️ Exercise for You
+
+Imagine you want to add a second page to the application: a "Contact Us" page located at `/contact`.
+
+**Your task:** Based on the file-system routing concept, tell me what specific file and directory structure you would need to create inside the `app` folder to achieve this `/contact` page.
+
+Take your time, and let me know what you think!

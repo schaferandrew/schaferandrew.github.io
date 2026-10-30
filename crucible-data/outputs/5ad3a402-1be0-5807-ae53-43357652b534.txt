@@ -1,0 +1,4 @@
+This is a standalone HTML/CSS/JS page with no existing test runner. I’m adding a native keyboard-operable toggle, responsive styling, and lightweight Node built-in tests for the menu interaction and responsive states.
+Implemented a responsive hamburger menu. On mobile, links are hidden until the labeled, keyboard-operable button opens them; desktop keeps the standard links visible.
+
+Added tests for menu toggling and mobile/desktop styles in `tests/navigation.test.js`. **All 4 tests pass** with `node --test`.

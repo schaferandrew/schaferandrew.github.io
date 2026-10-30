@@ -1,0 +1,35 @@
+All tests pass and the build succeeds. Here's a summary:
+
+---
+
+## What was wrong
+
+1. **`LeadForm.tsx` was a Server Component** — it had event handlers (`onSubmit`, `onChange`) which can't be serialized to the server, causing the build to timeout with *"Event handlers cannot be passed to Client Component props"*.
+
+2. **No React state** — the form used a plain mutable object (`const values = {...}`) that was mutated directly. This never triggers React re-renders, so typing in the fields did nothing.
+
+3. **No validation** — the form submitted without checking required fields or email format.
+
+4. **No error display** — no error message elements were rendered.
+
+5. **No success state** — no `lead-success` element after submission.
+
+6. **API had no validation** — `saveLead` saved whatever it received without normalizing the email or trimming fields.
+
+## What I changed (3 files, all under `app/` and `lib/`)
+
+### `lib/leads.ts`
+- Added `isValidEmail(raw)` — accepts real-world email input (plus addressing, dots, subdomains, hyphens, long/new TLDs) but validates structure strictly (one `@`, non-empty parts, valid domain labels, ≥2-letter TLD).
+- Added `normalizeEmail(email)` — trims and lowercases.
+- Updated `saveLead()` — trims `name`/`message`, normalizes `email`, defaults missing `company` to `""`.
+
+### `app/api/leads/route.ts`
+- Added validation: trims all fields, checks required fields, validates email. Returns **422** with `{ errors: {...} }` on problems, **201** with `{ lead: <saved lead> }` on success.
+
+### `app/contact/LeadForm.tsx`
+- Added `"use client"` — fixes the build failure.
+- Replaced plain-object mutation with `useState` for all fields, errors, success, and submitted state.
+- Client-side validation mirrors the API. On error: shows field-specific error messages, sets `aria-invalid`/`aria-describedby`, moves focus to the first error field, preserves all user input.
+- On success: renders `<div id="lead-success">` in place of the form.
+- On blur: clears error for that field if the value is now valid.
+- All required element IDs (`lead-form`, `lead-name`, `lead-email`, `lead-company`, `lead-message`, `lead-submit`, `lead-name-error`, `lead-email-error`, `lead-message-error`, `lead-success`) are preserved.

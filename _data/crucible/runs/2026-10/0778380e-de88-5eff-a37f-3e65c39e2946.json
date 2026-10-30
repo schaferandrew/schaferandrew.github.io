@@ -1,0 +1,80 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "0778380e-de88-5eff-a37f-3e65c39e2946",
+ "run_path": "openrouter_openai_gpt-6-luna/fire-truck-color/20261027_193130",
+ "legacy_run_id": "openrouter_openai_gpt-6-luna/everyday/KNOW-1/20261027_193130",
+ "started_at": "2026-10-27T19:31:30.688400+00:00",
+ "ended_at": "2026-10-27T19:31:42.390404+00:00",
+ "elapsed_s": 11.7,
+ "task": {
+  "id": "fire-truck-color",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "4f544d69ec35ecb1",
+  "rubric_hash": "93b038f024a752e9",
+  "alias": "KNOW-1"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/openai/gpt-6-luna",
+  "base": "openai/gpt-6-luna",
+  "publisher": "openai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "openai/gpt-6-luna|openai|api|-",
+  "display": "gpt-6-luna"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 23,
+  "tokens_out": 58,
+  "model_responses": 1,
+  "ttft_s": 2.388,
+  "ttft_avg_s": 2.388,
+  "response_time_avg_s": 3.059,
+  "cost_usd": 0.0,
+  "cost_source": "openrouter_billed"
+ },
+ "output_ref": "outputs/0778380e-de88-5eff-a37f-3e65c39e2946.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:9f031d161da313671ab74ec8d8134cd1ffbf1f422c5439e01d07d0585cf0f1c5",
+  "submitter": null,
+  "verification": null
+ }
+}

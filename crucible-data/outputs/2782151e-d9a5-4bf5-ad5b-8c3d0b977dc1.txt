@@ -1,0 +1,1 @@
+## Step 12: Update HomePage and ProfilePage to use cursor params

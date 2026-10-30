@@ -1,0 +1,32 @@
+**Assumptions & Ambiguities**
+
+- The puzzle assumes a single, consistent arrangement of the four friends that satisfies all clues simultaneously.
+- It is assumed that each friend’s favorite color is unique and that every chair has exactly one person.
+- No additional hidden constraints (e.g., seating order beyond those given) are present.
+
+**Reasoning**
+
+1. **Clue 5** tells us Dave likes red.  
+2. **Clue 4** says Carol likes yellow and sits somewhere to the right of the person who likes red → Carol must sit to the right of Dave.  
+3. **Clue 3** places the green‑liker in chair 1.  
+4. **Clue 1**: Alice is immediately left of the blue‑liker, so Alice cannot be in chair 4 and the blue‑liker cannot be in chair 1.  
+5. Since only Carol (yellow) and Dave (red) are fixed colors, the remaining colors for Alice and Bob are green or blue.  
+   - If Alice were blue, she would have to sit left of herself – impossible.  
+   - Therefore Bob must like blue.  
+6. Thus Bob sits immediately right of Alice (**Clue 1**).  
+7. **Clue 2** forbids Bob from chair 4, so the only viable pair is:
+   - Alice in chair 1, Bob in chair 2 (Bob cannot be in chair 3 because then Alice would have to be in chair 2 and Bob in 3, but that would place Bob in chair 3 which is allowed; however we must also satisfy the green‑chair condition).  
+8. Chair 1 already has the green color (**Clue 3**), so Alice (in chair 1) must like green.  
+9. With Alice in chair 1 and Bob in chair 2, the remaining chairs are 3 and 4 for Dave (red) and Carol (yellow).  
+10. **Clue 4** requires Dave to be left of Carol, so Dave occupies chair 3 and Carol chair 4.  
+11. All clues are now satisfied.
+
+**Final Seating**
+
+```
+Chair 1: Alice, green
+Chair 2: Bob, blue
+Chair 3: Dave, red
+Chair 4: Carol, yellow
+ANSWER: Dave
+```

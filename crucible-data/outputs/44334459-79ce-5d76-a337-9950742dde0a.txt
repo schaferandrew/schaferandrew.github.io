@@ -1,0 +1,18 @@
+### Objective Language Errors
+The following issues relate to grammar, tone, and the use of subjective or colloquial language that detracts from an objective academic style:
+
+*   **"Obvious"**: This is a subjective judgment call rather than an objective observation. Economic mechanisms are rarely "obvious" without empirical evidence.
+*   **"Stuff"**: This is colloquial slang. In formal writing, specific terms like "goods," "services," or "output" should be used.
+*   **"Lazy"**: This is a pejorative term and a subjective character judgment. It is not appropriate for economic analysis regarding labor market participation.
+*   **"Basically just"**: This is colloquial phrasing that weakens the precision of the definition.
+*   **"Failed"**: When applied to "Reagan tax cuts," this is a value judgment rather than a neutral description of economic outcomes (e.g., fiscal impact or growth metrics).
+
+### Claims, Terminology, and Technical Imprecision
+The following points contain factual inaccuracies, overgeneralizations, or technically imprecise terminology regarding economic theory and history:
+
+*   **Inflation Definition**: The text defines inflation solely as a result of government money printing. This ignores other causes such as supply shocks (e.g., oil price spikes), cost-push inflation, and demand-pull factors unrelated to monetary expansion.
+*   **Fed Legal Mandate**: The claim that the Federal Reserve is "legally required" to raise interest rates when CPI rises above 2% is factually incorrect. There is no statute mandating specific rate hikes based on a specific CPI threshold; the Fed operates under a dual mandate (maximum employment and stable prices) with discretionary targets.
+*   **Natural Rate of Unemployment**: The text implies that unemployment above the natural rate is solely due to individual laziness or policy failure. Economically, this ignores structural mismatches (skills mismatch), frictional unemployment (job search time), and institutional factors.
+*   **Quantitative Easing (QE)**: Describing QE as "printing money" is technically imprecise; it involves the central bank exchanging reserves for assets held by banks, increasing the monetary base without necessarily printing physical currency immediately. Furthermore, stating it "inevitably causes hyperinflation" is an overstatement not supported by historical data from major economies post-2008.
+*   **Japan's Deflation**: The claim that Japan's experience "proves" monetary policy is "completely ineffective" is an absolute generalization. It ignores the complexity of a liquidity trap, balance sheet recession, and structural factors beyond just demand stimulation.
+*   **Supply-Side Economics**: The claim that it was "definitively debunked" by Reagan tax cuts is contested among economists. Additionally, stating the economy did not grow "at all" contradicts historical GDP data from the 1980s, which showed growth despite increased deficits.

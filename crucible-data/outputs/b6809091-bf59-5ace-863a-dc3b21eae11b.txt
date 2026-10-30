@@ -1,0 +1,7 @@
+Implemented a responsive navigation bar:
+
+- Added hamburger button to `index.html`.
+- Created toggle logic in `script.js`.
+- Updated `styles.css` with mobile styles, animation, and desktop hiding of the hamburger.
+
+The navbar now adapts correctly across desktop and mobile widths while preserving visual identity and links.

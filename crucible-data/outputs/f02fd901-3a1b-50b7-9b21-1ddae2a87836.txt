@@ -1,0 +1,13 @@
+I'll check the environment for available tooling to set up tests.
+Network and Node 24 are available. I'll implement the hamburger menu (HTML/CSS/JS), then set up tests with `node:test` + jsdom.
+Now the test setup. First `package.json`, then the test file:
+Now install jsdom and run the tests:
+The directory argument wasn't interpreted as expected. Let me try the default discovery:
+Discovery works without an argument. The eval issue: `dom.window.eval(src)` runs in Node's scope. Fix by injecting the script into the DOM with `runScripts: 'dangerously'`:
+All 16 tests pass. Quick final check of `package.json`:
+Done. All 16 tests pass via `npm test`.
+
+- **index.html** — added a native `<button>` hamburger toggle with `aria-label="Open menu"`, `aria-expanded`, `aria-controls="nav-menu"`; menu list got `id="nav-menu"`; icon is decorative (`aria-hidden`).
+- **styles.css** — desktop unchanged (links visible, toggle `display: none`); `@media (max-width: 768px)` hides `.nav-links` until it has `.open`, and shows the toggle as a full-width dropdown.
+- **script.js** — toggles `aria-expanded`/`open` class, updates the label (Open/Close menu); closes on Escape (focus returns to toggle), outside click, or link selection.
+- **tests/navbar.test.js** — 16 tests (node:test + jsdom): structure/keyboard-accessibility, desktop state (links shown, toggle hidden), mobile state (links hidden, revealed via `.open`, toggle shown), and toggle behavior.

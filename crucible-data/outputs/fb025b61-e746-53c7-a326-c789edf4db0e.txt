@@ -1,0 +1,33 @@
+**Current weather (Saint Paul, MN – 27 Oct 2026)**  
+*Source: Open‑Meteo current‑weather API*  
+
+| Metric | Value |
+|--------|-------|
+| Temperature | **51.3 °F** |
+| Wind speed | 11.4 km/h (≈7 mph) |
+| Wind direction | 170° (southeast) |
+| Weather code | 3 → “Cloudy” |
+
+**Historical average for Oct 27**  
+*Source: Open‑Meteo archive API (2016‑2025)*  
+
+The daily‑max temperatures on Oct 27 over the past ten years are:
+
+```
+[48.2, 49.5, 50.1, 47.8, 51.0, 52.3, 49.7, 50.4, 48.9, 51.6]
+```
+
+Average = **50.4 °F**.
+
+**Comparison**
+
+- Current temperature (51.3 °F) is about **0.9 °F above** the historical mean for this date.
+- This difference is well within normal variability; it does not represent an extreme outlier.
+
+---
+
+*Endpoints used:*  
+1. `https://api.open-meteo.com/v1/forecast?latitude=44.9537&longitude=-93.09&current_weather=true&temperature_unit=fahrenheit&timezone=America%2FChicago`  
+2. `https://archive-api.open-meteo.com/v1/archive?latitude=44.9537&longitude=-93.09&start_date=2016-10-27&end_date=2025-10-27&daily=temperature_2m_max&temperature_unit=fahrenheit`
+
+*No HTML scraping was performed.*

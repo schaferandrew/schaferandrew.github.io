@@ -1,0 +1,79 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "3ed66e7d-9a5f-5589-bc91-f7057f5fdb1d",
+ "rubric_version": 2,
+ "rubric_hash": "ef4c3db9d4f7ff0a",
+ "method": "checks",
+ "scored_at": "2026-10-26T17:13:53.372644+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 9,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 9.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "answer",
+   "type": "required_patterns",
+   "group": "Correct answer",
+   "label": "The last line names Dave as the person in chair 3.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "no_wrong_answer",
+   "type": "forbidden_patterns",
+   "group": "No other answer",
+   "label": "The answer line doesn't name anyone else.",
+   "passed": true,
+   "detail": "none found"
+  },
+  {
+   "id": "seating",
+   "type": "required_patterns",
+   "group": "Full seating",
+   "label": "The full seating is right: Alice green in 1, Bob blue in 2, Dave red in 3, Carol yellow in 4.",
+   "passed": true,
+   "detail": "4/4 found"
+  },
+  {
+   "id": "assumptions",
+   "type": "required_patterns",
+   "group": "Assumptions stated",
+   "label": "States its assumptions (for example, that 'left' means a lower-numbered chair) rather than leaving them silent.",
+   "passed": false,
+   "detail": "0/1 found; missing: \\bassum"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Correct answer",
+   "passed": 4,
+   "total": 4,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "No other answer",
+   "passed": 1,
+   "total": 1,
+   "detail": "none found"
+  },
+  {
+   "id": "Full seating",
+   "passed": 4,
+   "total": 4,
+   "detail": "4/4 found"
+  },
+  {
+   "id": "Assumptions stated",
+   "passed": 0,
+   "total": 1,
+   "detail": "0/1 found; missing: \\bassum"
+  }
+ ]
+}

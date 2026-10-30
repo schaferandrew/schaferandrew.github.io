@@ -1,0 +1,19 @@
+Now let me get the current observed conditions from the closest station (KSTP - Downtown Holman Field) and find historical averages
+The full NOAA dataset is huge. Let me query specifically for the normal/average temperatures for September 2 for MSP.
+**Saint Paul, MN — Weather Report for September 2, 2026 (7:30 PM CDT)**
+
+**Current Conditions:**
+- Temperature: **84°F (29°C)**
+- Conditions: Clear
+- Heat index: 87°F
+- Humidity: 55%, Wind: SSE at 3 mph
+
+**Historical Average (1991–2020 normals, Sep 2):**
+- Normal daily average: **67.6°F**
+- Normal high: **76.9°F**, Normal low: **58.2°F**
+
+**Verdict: Significant outlier — 16.6°F above the average, 7.3°F above the normal high.** This is an unusually hot evening for early September in Saint Paul.
+
+**Sources:**
+1. **Current conditions** — [NWS API station KSTP](https://api.weather.gov/stations/KSTP/observations/latest) (Downtown Holman Field, St. Paul). The NWS is the official U.S. weather authority; data is machine-readable JSON with quality-control flags (all verified).
+2. **Historical normals** — [NOAA NCEI Normals](https://www.ncei.noaa.gov/access/services/data/v1?dataset=normals-daily&stations=USW00014922&startDate=2026-09-02&endDate=2026-09-02) (station USW00014922 — Minneapolis-St. Paul International Airport, 1991–2020 baseline). NOAA is the official U.S. climate data agency; these are the standard 30-year normals.

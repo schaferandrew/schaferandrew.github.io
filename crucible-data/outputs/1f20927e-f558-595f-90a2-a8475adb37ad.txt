@@ -1,0 +1,69 @@
+To solve these problems, we proceed step-by-step:
+
+**1. Integers from 1 to 10,000 divisible by 3 or 7, but not by 21.**
+Let $A$ be the set of integers divisible by 3, and $B$ be the set of integers divisible by 7.
+The number of elements in $A$ is $\lfloor 10000/3 \rfloor = 3333$.
+The number of elements in $B$ is $\lfloor 10000/7 \rfloor = 1428$.
+The number of elements in $A \cap B$ (divisible by 21) is $\lfloor 10000/21 \rfloor = 476$.
+The number of integers divisible by 3 or 7 is $|A \cup B| = |A| + |B| - |A \cap B| = 3333 + 1428 - 476 = 4285$.
+The question asks for those divisible by 3 or 7, but **not** by 21. This is $|A \cup B| - |A \cap B| = 4285 - 476 = 3809$.
+
+**2. Remainder when $7^{2026}$ is divided by 100.**
+We need to find $7^{2026} \pmod{100}$.
+$7^1 = 07$
+$7^2 = 49$
+$7^3 = 343 \equiv 43 \pmod{100}$
+$7^4 = 2401 \equiv 01 \pmod{100}$
+Since $7^4 \equiv 1 \pmod{100}$, we divide the exponent 2026 by 4: $2026 = 4 \times 506 + 2$.
+$7^{2026} = (7^4)^{506} \times 7^2 \equiv 1^{506} \times 49 \equiv 49 \pmod{100}$.
+
+**3. Tiling a 2 x 12 board with 1x2 dominoes and 2x2 squares.**
+Let $a_n$ be the number of ways to tile a 2 x $n$ board.
+To tile the end of a 2 x $n$ board:
+- A vertical 1x2 domino leaves a 2 x $(n-1)$ board ($a_{n-1}$ ways).
+- Two horizontal 1x2 dominoes leave a 2 x $(n-2)$ board ($a_{n-2}$ ways).
+- One 2x2 square leaves a 2 x $(n-2)$ board ($a_{n-2}$ ways).
+Thus, $a_n = a_{n-1} + 2a_{n-2}$.
+Base cases: $a_1 = 1$ (one vertical domino), $a_2 = 3$ (one vertical + one vertical, two horizontal, or one 2x2).
+$a_3 = 3 + 2(1) = 5$
+$a_4 = 5 + 2(3) = 11$
+$a_5 = 11 + 2(5) = 21$
+$a_6 = 21 + 2(11) = 43$
+$a_7 = 43 + 2(21) = 85$
+$a_8 = 85 + 2(43) = 171$
+$a_9 = 171 + 2(85) = 341$
+$a_{10} = 341 + 2(171) = 683$
+$a_{11} = 683 + 2(341) = 1365$
+$a_{12} = 1365 + 2(683) = 2731$
+
+**4. Probability that the largest number on three dice is exactly 4.**
+The total number of outcomes is $6^3 = 216$.
+The number of outcomes where the maximum is $\le 4$ is $4^3 = 64$.
+The number of outcomes where the maximum is $\le 3$ is $3^3 = 27$.
+The number of outcomes where the maximum is exactly 4 is $64 - 27 = 37$.
+The probability is $37/216$.
+
+**5. Probability both children are boys given at least one is a boy born on Tuesday.**
+Let $B$ be the event that a child is a boy and $T$ be the event that a child is born on Tuesday.
+The probability of a child being a boy born on Tuesday is $P(BT) = \frac{1}{2} \times \frac{1}{7} = \frac{1}{14}$.
+The probability of a child not being a boy born on Tuesday is $P(\text{not } BT) = 1 - \frac{1}{14} = \frac{13}{14}$.
+Let $X$ be the number of children who are boys born on Tuesday. We are given $X \ge 1$.
+The total number of outcomes for two children is $14 \times 14 = 196$ (where each "outcome" is a child's gender/day combination).
+The number of outcomes where $X \ge 1$ is $196 - (\text{outcomes where } X=0)$.
+$X=0$ means neither child is a boy born on Tuesday. There are $13 \times 13 = 169$ such outcomes.
+So, there are $196 - 169 = 27$ outcomes where at least one is a boy born on Tuesday.
+Now we count the outcomes where both are boys.
+A child is a boy with probability $7/14$.
+The number of outcomes where both are boys is $7 \times 7 = 49$.
+However, we must subtract the cases where both are boys but neither is a boy born on Tuesday.
+A child is a boy but NOT born on Tuesday with probability $6/14$.
+The number of outcomes where both are boys and neither is born on Tuesday is $6 \times 6 = 36$.
+The number of outcomes where both are boys AND at least one is a boy born on Tuesday is $49 - 36 = 13$.
+The probability is $13/27$.
+
+ANSWERS
+1. 3809
+2. 49
+3. 2731
+4. 37/216
+5. 13/27

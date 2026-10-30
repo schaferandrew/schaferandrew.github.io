@@ -1,0 +1,91 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "081da8f9-ed60-587d-b6a9-4ab33a74e7de",
+ "run_path": "lmstudio_google_gemma-4-12b-qat/letter-from-1863/20261027_001837",
+ "legacy_run_id": "lmstudio_google_gemma-4-12b-qat/history/HIST-3/20261027_001837",
+ "started_at": "2026-10-27T00:18:37.501135+00:00",
+ "ended_at": "2026-10-27T00:34:04.705458+00:00",
+ "elapsed_s": 927.2,
+ "task": {
+  "id": "letter-from-1863",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "f73283c0960967b1",
+  "rubric_hash": "3eba539e1a059980",
+  "alias": "HIST-3"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/google/gemma-4-12b-qat",
+  "base": "google/gemma-4-12b-qat",
+  "publisher": null,
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "google/gemma-4-12b-qat|-|-|-",
+  "display": "gemma-4-12b-qat"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m1-pro-32gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 32.0,
+  "cpu": "Apple M1 Pro",
+  "offload": null,
+  "label": "Ironwood"
+ },
+ "outcome": {
+  "status": "harness_error",
+  "harness_status": "ERROR (exit 1)",
+  "returncode": 1,
+  "timed_out": false,
+  "invalid": {
+   "reason": "Harness error: the agent exited before the model produced anything.",
+   "marked_at": "2026-10-27T00:34:05.111912+00:00"
+  },
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": null,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": null,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": null,
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:128aca64d040cf0948027741cb1039d6477deb6c1caf7b17ad75b9ba1fe3f753",
+  "submitter": null,
+  "verification": null
+ }
+}

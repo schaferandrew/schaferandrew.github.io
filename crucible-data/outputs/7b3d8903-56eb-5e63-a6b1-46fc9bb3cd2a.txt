@@ -1,0 +1,72 @@
+The CLI tool is complete! Here's a summary of what was built:
+
+---
+
+## `interest` — CLI Interest Calculator
+
+### Project structure
+
+```
+interest/
+├── interest/
+│   ├── __init__.py          # Package init, public API exports
+│   ├── calc.py              # Core calculation engine
+│   ├── cli.py               # Command-line interface (argparse)
+│   └── display.py           # Output formatting (text, JSON, CSV)
+├── tests/
+│   ├── __init__.py
+│   └── test_calc.py         # 73 comprehensive tests
+├── setup.py                 # pip-installable package
+└── README.md                # Full documentation
+```
+
+### Features
+
+| Feature | Description |
+|---|---|
+| **Simple interest** | `A = P(1 + rt)` |
+| **Compound interest** | `A = P(1 + r/n)^(nt)` — configurable compounding |
+| **Continuous compounding** | `A = Pe^(rt)` |
+| **Regular contributions** | Periodic deposits (ordinary annuity or annuity due) |
+| **Amortization schedule** | Period-by-period breakdown |
+| **Effective annual rate (APY)** | Automatically calculated |
+| **Multiple output formats** | Text, JSON, CSV |
+| **No external dependencies** | Pure Python 3, stdlib only |
+
+### Quick examples
+
+```bash
+# Compound interest (monthly compounding, default)
+interest 10000 --rate 5 --years 10
+
+# Simple interest
+interest 10000 --rate 5 --years 10 --type simple
+
+# With monthly contributions and schedule
+interest 10000 --rate 5 --years 10 --contribution 500 --schedule
+
+# JSON output for scripting
+interest 10000 --rate 5 --years 10 --output json
+
+# CSV amortization schedule
+interest 200000 --rate 6.5 --years 30 --schedule --output csv
+
+# Continuous compounding
+interest 10000 --rate 5 --years 10 --type continuous
+
+# Contributions at beginning of each period
+interest 10000 --rate 5 --years 10 --contribution 500 --contribution-at beginning
+```
+
+### Tests
+
+All **73 tests pass** (`pytest tests/ -v`), covering:
+- All calculation types (simple, compound, continuous)
+- All compounding frequencies (annual, semi-annual, quarterly, monthly, daily, continuous)
+- Regular contributions (ordinary annuity, annuity due)
+- Amortization schedule generation
+- Effective annual rate (APY)
+- All output formats (text, JSON, CSV)
+- CLI argument parsing and error handling
+- Edge cases (zero rate, zero time, very large/small values)
+- Formatting utilities

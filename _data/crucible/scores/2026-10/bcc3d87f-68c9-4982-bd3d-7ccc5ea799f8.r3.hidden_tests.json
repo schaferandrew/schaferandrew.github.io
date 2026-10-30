@@ -1,0 +1,229 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "bcc3d87f-68c9-4982-bd3d-7ccc5ea799f8",
+ "rubric_version": 3,
+ "rubric_hash": "534a86d7de9cff6b",
+ "method": "hidden_tests",
+ "scored_at": "2026-10-30T06:31:24.499248+00:00",
+ "crucible_version": "3.4.0",
+ "raw": {
+  "passed": 8,
+  "total": 22,
+  "unit": "tests"
+ },
+ "score": 3.64,
+ "scale": 10,
+ "capped_at": 5,
+ "passed": false,
+ "items": [
+  {
+   "id": "invite sign-up: an invited address claims its account > someone who signs up with an invited email ends up with their invited account",
+   "type": "hidden_test",
+   "group": "invite sign-up: an invited address claims its account",
+   "label": "someone who signs up with an invited email ends up with their invited account",
+   "passed": false,
+   "detail": "AssertionError: expected 'active' to be 'invited' // Object.is equality"
+  },
+  {
+   "id": "invite sign-up: an invited address claims its account > an invited account can't be claimed twice",
+   "type": "hidden_test",
+   "group": "invite sign-up: an invited address claims its account",
+   "label": "an invited account can't be claimed twice",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "invite sign-up: an invited address claims its account > an invited sign-up gets the username it chose, and can't take one that is in use",
+   "type": "hidden_test",
+   "group": "invite sign-up: an invited address claims its account",
+   "label": "an invited sign-up gets the username it chose, and can't take one that is in use",
+   "passed": false,
+   "detail": "Error: expected 422 \"Unprocessable Entity\", got 201 \"Created\""
+  },
+  {
+   "id": "terms: recorded only when accepted > signing up doesn't count as accepting the terms",
+   "type": "hidden_test",
+   "group": "terms: recorded only when accepted",
+   "label": "signing up doesn't count as accepting the terms",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "terms: recorded only when accepted > the terms are recorded when they accept them, and the profile is optional",
+   "type": "hidden_test",
+   "group": "terms: recorded only when accepted",
+   "label": "the terms are recorded when they accept them, and the profile is optional",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "terms: recorded only when accepted > the terms can't be skipped when accepting",
+   "type": "hidden_test",
+   "group": "terms: recorded only when accepted",
+   "label": "the terms can't be skipped when accepting",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "unchanged: accepting an invite and regular sign-ups > accepting an invite records the terms and gives a working account, next to a claimed one",
+   "type": "hidden_test",
+   "group": "unchanged: accepting an invite and regular sign-ups",
+   "label": "accepting an invite records the terms and gives a working account, next to a claimed one",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "unchanged: accepting an invite and regular sign-ups > regular sign-ups are unchanged, next to an invited one",
+   "type": "hidden_test",
+   "group": "unchanged: accepting an invite and regular sign-ups",
+   "label": "regular sign-ups are unchanged, next to an invited one",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "unchanged: accepting an invite and regular sign-ups > a real duplicate sign-up is still rejected, next to an invited one",
+   "type": "hidden_test",
+   "group": "unchanged: accepting an invite and regular sign-ups",
+   "label": "a real duplicate sign-up is still rejected, next to an invited one",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "loop: accounts that accepted an invite and are stuck today > can reach the editor without a loop",
+   "type": "hidden_test",
+   "group": "loop: accounts that accepted an invite and are stuck today",
+   "label": "can reach the editor without a loop",
+   "passed": false,
+   "detail": "Error: redirect loop: /editor -> /welcome -> /editor -> /welcome -> /editor -> /welcome ..."
+  },
+  {
+   "id": "loop: accounts that accepted an invite and are stuck today > are taken to the editor from the welcome screen too",
+   "type": "hidden_test",
+   "group": "loop: accounts that accepted an invite and are stuck today",
+   "label": "are taken to the editor from the welcome screen too",
+   "passed": false,
+   "detail": "Error: redirect loop: /welcome -> /editor -> /welcome -> /editor -> /welcome -> /editor ..."
+  },
+  {
+   "id": "loop: accounts that accepted an invite and are stuck today > aren't asked to fill in a profile first",
+   "type": "hidden_test",
+   "group": "loop: accounts that accepted an invite and are stuck today",
+   "label": "aren't asked to fill in a profile first",
+   "passed": false,
+   "detail": "Error: redirect loop: /editor -> /welcome -> /editor -> /welcome -> /editor -> /welcome ..."
+  },
+  {
+   "id": "terms: invited contributors who haven't accepted them > can't reach the editor, and aren't looped around",
+   "type": "hidden_test",
+   "group": "terms: invited contributors who haven't accepted them",
+   "label": "can't reach the editor, and aren't looped around",
+   "passed": false,
+   "detail": "Error: redirect loop: /editor -> /welcome -> /editor -> /welcome -> /editor -> /welcome ..."
+  },
+  {
+   "id": "terms: invited contributors who haven't accepted them > are asked for the terms and not for a bio",
+   "type": "hidden_test",
+   "group": "terms: invited contributors who haven't accepted them",
+   "label": "are asked for the terms and not for a bio",
+   "passed": false,
+   "detail": "Error: redirect loop: /editor -> /welcome -> /editor -> /welcome -> /editor -> /welcome ..."
+  },
+  {
+   "id": "terms: invited contributors who haven't accepted them > stay on the welcome screen when they open it",
+   "type": "hidden_test",
+   "group": "terms: invited contributors who haven't accepted them",
+   "label": "stay on the welcome screen when they open it",
+   "passed": false,
+   "detail": "Error: redirect loop: /welcome -> /editor -> /welcome -> /editor -> /welcome -> /editor ..."
+  },
+  {
+   "id": "terms: invited contributors who haven't accepted them > reach the editor once they accept the terms",
+   "type": "hidden_test",
+   "group": "terms: invited contributors who haven't accepted them",
+   "label": "reach the editor once they accept the terms",
+   "passed": false,
+   "detail": "Error: redirect loop: /editor -> /welcome -> /editor -> /welcome -> /editor -> /welcome ..."
+  },
+  {
+   "id": "loop: accepting an invite > lands in the editor with no loop",
+   "type": "hidden_test",
+   "group": "loop: accepting an invite",
+   "label": "lands in the editor with no loop",
+   "passed": false,
+   "detail": "Error: redirect loop: /invite/abc123 -> /editor -> /welcome -> /editor -> /welcome -> /editor ..."
+  },
+  {
+   "id": "unchanged: everyone else > a new sign-up is sent to onboarding and stays there, with a bio and the terms (next to an invited contributor)",
+   "type": "hidden_test",
+   "group": "unchanged: everyone else",
+   "label": "a new sign-up is sent to onboarding and stays there, with a bio and the terms (next to an invited contributor)",
+   "passed": false,
+   "detail": "Error: redirect loop: /editor -> /welcome -> /editor -> /welcome -> /editor -> /welcome ..."
+  },
+  {
+   "id": "unchanged: everyone else > a new sign-up reaches the editor after onboarding (next to an invited contributor)",
+   "type": "hidden_test",
+   "group": "unchanged: everyone else",
+   "label": "a new sign-up reaches the editor after onboarding (next to an invited contributor)",
+   "passed": false,
+   "detail": "Error: redirect loop: /welcome -> /editor -> /welcome -> /editor -> /welcome -> /editor ..."
+  },
+  {
+   "id": "unchanged: everyone else > an onboarded user can write, and is sent home from the welcome screen (next to an invited contributor)",
+   "type": "hidden_test",
+   "group": "unchanged: everyone else",
+   "label": "an onboarded user can write, and is sent home from the welcome screen (next to an invited contributor)",
+   "passed": false,
+   "detail": "Error: redirect loop: /editor -> /welcome -> /editor -> /welcome -> /editor -> /welcome ..."
+  },
+  {
+   "id": "unchanged: everyone else > signed out goes to login (next to an invited contributor)",
+   "type": "hidden_test",
+   "group": "unchanged: everyone else",
+   "label": "signed out goes to login (next to an invited contributor)",
+   "passed": false,
+   "detail": "Error: redirect loop: /editor -> /welcome -> /editor -> /welcome -> /editor -> /welcome ..."
+  },
+  {
+   "id": "regression > your new tests fail on the seeded code and pass on your fix",
+   "type": "hidden_test",
+   "group": "regression",
+   "label": "your new tests fail on the seeded code and pass on your fix",
+   "passed": true,
+   "detail": null
+  }
+ ],
+ "groups": [
+  {
+   "id": "No one gets stuck",
+   "passed": 0.0,
+   "total": 1.82,
+   "detail": "0/4 hidden tests pass"
+  },
+  {
+   "id": "Terms before writing",
+   "passed": 1.36,
+   "total": 3.18,
+   "detail": "3/7 hidden tests pass"
+  },
+  {
+   "id": "Invited sign-ups",
+   "passed": 0.45,
+   "total": 1.36,
+   "detail": "1/3 hidden tests pass"
+  },
+  {
+   "id": "Regular accounts unchanged",
+   "passed": 1.36,
+   "total": 3.18,
+   "detail": "3/7 hidden tests pass"
+  },
+  {
+   "id": "Regression tests",
+   "passed": 0.45,
+   "total": 0.45,
+   "detail": "1/1 hidden tests pass"
+  }
+ ]
+}

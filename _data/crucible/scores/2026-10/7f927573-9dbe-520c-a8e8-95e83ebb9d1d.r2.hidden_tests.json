@@ -1,0 +1,139 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "7f927573-9dbe-520c-a8e8-95e83ebb9d1d",
+ "rubric_version": 2,
+ "rubric_hash": "dab69ebda5432bad",
+ "method": "hidden_tests",
+ "scored_at": "2026-10-27T18:01:28.137212+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 3.0,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 3.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "cursor paging > walks every article once, newest first, ending with nextCursor null",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "walks every article once, newest first, ending with nextCursor null",
+   "passed": false,
+   "detail": "AssertionError: expected { articles: [ { …(10) }, …(2) ], …(1) } to have property \"nextCursor\""
+  },
+  {
+   "id": "cursor paging > is total even when createdAt ties",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "is total even when createdAt ties",
+   "passed": false,
+   "detail": "AssertionError: expected { articles: [ { …(10) }, …(2) ], …(1) } to have property \"nextCursor\""
+  },
+  {
+   "id": "cursor paging > never skips or repeats when articles are created and deleted between pages",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "never skips or repeats when articles are created and deleted between pages",
+   "passed": false,
+   "detail": "AssertionError: expected { articles: [ { …(10) }, …(2) ], …(1) } to have property \"nextCursor\""
+  },
+  {
+   "id": "cursor paging > works with filters and the feed",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "works with filters and the feed",
+   "passed": false,
+   "detail": "AssertionError: expected { articles: [ { …(10) }, …(2) ], …(1) } to have property \"nextCursor\""
+  },
+  {
+   "id": "cursor paging > keeps articlesCount as the filtered total",
+   "type": "hidden_test",
+   "group": "cursor paging",
+   "label": "keeps articlesCount as the filtered total",
+   "passed": false,
+   "detail": "AssertionError: expected 'undefined' to be 'string' // Object.is equality"
+  },
+  {
+   "id": "validation > rejects malformed and tampered cursors",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects malformed and tampered cursors",
+   "passed": false,
+   "detail": "Error: expected 422 \"Unprocessable Entity\", got 200 \"OK\""
+  },
+  {
+   "id": "validation > rejects a cursor used with different filters or another endpoint",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects a cursor used with different filters or another endpoint",
+   "passed": false,
+   "detail": "Error: expected 422 \"Unprocessable Entity\", got 200 \"OK\""
+  },
+  {
+   "id": "validation > rejects cursor together with offset",
+   "type": "hidden_test",
+   "group": "validation",
+   "label": "rejects cursor together with offset",
+   "passed": false,
+   "detail": "Error: expected 422 \"Unprocessable Entity\", got 200 \"OK\""
+  },
+  {
+   "id": "backward compatibility > offset paging is unchanged",
+   "type": "hidden_test",
+   "group": "backward compatibility",
+   "label": "offset paging is unchanged",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "backward compatibility > unpaged comments return everything",
+   "type": "hidden_test",
+   "group": "backward compatibility",
+   "label": "unpaged comments return everything",
+   "passed": false,
+   "detail": "AssertionError: expected { comments: [ …(25) ] } to have property \"nextCursor\""
+  }
+ ],
+ "groups": [
+  {
+   "id": "Cursor correctness",
+   "passed": 0.0,
+   "total": 3,
+   "detail": "0/5 hidden tests pass"
+  },
+  {
+   "id": "Validation and safety",
+   "passed": 0.0,
+   "total": 2,
+   "detail": "0/3 hidden tests pass"
+  },
+  {
+   "id": "Backward compatibility",
+   "passed": 1.0,
+   "total": 2,
+   "detail": "1/2 hidden tests pass"
+  },
+  {
+   "id": "Regression tests",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no new or changed test files"
+  },
+  {
+   "id": "Existing tests still pass",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "the repo's own tests pass"
+  },
+  {
+   "id": "Contract suite untouched",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "contract suite untouched"
+  }
+ ]
+}

@@ -1433,3 +1433,309 @@ $crucibleBlue: #1856a3;
     flex-wrap: wrap;
   }
 }
+
+// ---- Bundle format 3: suites, setups, compare ----------------------------
+
+.crucible-suite-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: ($gap / 2) $gap;
+  margin-bottom: $gap / 2;
+}
+
+.crucible-suite-line {
+  color: $gray;
+  font-size: $textSmall;
+}
+
+.crucible-suite-note {
+  padding: ($gap / 2) ($gap * 0.75);
+  background: $colorTertiary;
+  border-left: 3px solid $colorAccent;
+}
+
+// A name breaks only between its slug and "(reasoning …)", never inside the slug
+.crucible-slug {
+  white-space: nowrap;
+}
+
+.crucible-leaderboard {
+  .crucible-lb-name {
+    min-width: 220px;
+    max-width: 300px;
+  }
+
+  .crucible-lb-bar {
+    width: 64px;
+  }
+
+  // Markers (pass, partial, provisional) wrap under the score instead of widening the column
+  td.crucible-lb-bar-cell {
+    min-width: 130px;
+    white-space: normal;
+  }
+}
+
+.crucible-lb-name-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 0;
+}
+
+.crucible-config-line {
+  display: block;
+  margin-top: 2px;
+  color: $gray;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.crucible-config-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px $gap;
+  margin-top: 2px;
+}
+
+.crucible-variant-toggle,
+.crucible-link-button {
+  padding: 0;
+  background: none;
+  border: 0;
+  color: $colorSecondary;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+  }
+}
+
+.crucible-link-button[aria-pressed='true'] {
+  color: $gray;
+}
+
+.crucible-variant-row {
+  background: #f8f9fc;
+
+  th,
+  td {
+    border-bottom-style: dashed !important;
+  }
+
+  .crucible-lb-name {
+    padding-left: $gap * 1.5 !important;
+  }
+
+  &.is-best .crucible-lb-rank {
+    color: $colorSecondary;
+    font-size: 11px;
+  }
+}
+
+.crucible-variant-cards {
+  margin: ($gap / 2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.crucible-variant-card {
+  margin-top: $gap / 2;
+  padding: ($gap / 2) ($gap * 0.75);
+  background: #f8f9fc;
+  border-left: 2px solid $crucibleBorder;
+
+  &.is-best {
+    border-left-color: $colorSecondary;
+  }
+
+  .crucible-tag:first-child {
+    margin-left: 0;
+  }
+}
+
+.crucible-repeat,
+.crucible-config-n {
+  color: $gray;
+  font-size: 11px;
+}
+
+.crucible-repeat {
+  margin-left: 4px;
+}
+
+.crucible-repeat-n {
+  margin-left: 1px;
+  font-size: 8px;
+  opacity: 0.85;
+}
+
+.crucible-matrix-cell button.is-uncounted,
+.crucible-card-score.is-uncounted {
+  background: #fff;
+  border: 1px solid $crucibleMuted;
+  color: $crucibleMuted;
+}
+
+// The scatter's legend sits above the plot and, on a phone, a numbered key below it
+.crucible-scatter-legend {
+  display: flex;
+  gap: $gap;
+  margin-bottom: $gap / 4;
+  color: $gray;
+  font-size: $textSmall;
+}
+
+.crucible-scatter-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.crucible-scatter-swatch {
+  display: inline-block;
+  flex: 0 0 10px;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+  border-radius: 50%;
+}
+
+ol.crucible-scatter-key {
+  display: block;
+  margin: ($gap / 2) 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: $textSmall;
+
+  li {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    padding: 2px 0;
+  }
+}
+
+.crucible-chart-svg .crucible-point-num {
+  font-weight: $weightBold;
+}
+
+// Runs behind one cell
+.crucible-runs {
+  margin: ($gap / 2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.crucible-run {
+  border-top: 1px solid $crucibleBorder;
+
+  summary {
+    padding: 6px 0;
+    cursor: pointer;
+    font-size: $textSmall;
+  }
+
+  &.is-invalid,
+  &.is-older,
+  &.is-harness {
+    color: $crucibleMuted;
+  }
+}
+
+.crucible-run-score {
+  display: inline-block;
+  min-width: 2.5em;
+  font-weight: $weightBold;
+  font-variant-numeric: tabular-nums;
+}
+
+.crucible-run-body {
+  padding: 0 0 ($gap / 2) ($gap * 0.75);
+  border-left: 2px solid $crucibleBorder;
+}
+
+// Compare
+.crucible-compare-pick {
+  max-width: 100%;
+}
+
+.crucible-compare-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gap / 2;
+  margin: 0 0 $gap;
+  padding: 0;
+  list-style: none;
+}
+
+.crucible-compare-chip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+  max-width: 100%;
+  padding: 4px 10px;
+  border: 1px solid $crucibleBorder;
+  border-radius: 14px;
+  font-size: $textSmall;
+
+  .crucible-config-label {
+    color: $gray;
+    font-size: 12px;
+  }
+
+  .crucible-link-button {
+    margin-left: 4px;
+  }
+}
+
+.crucible-compare {
+  th,
+  td {
+    vertical-align: top;
+  }
+
+  .crucible-compare-col {
+    min-width: 180px;
+    white-space: normal;
+  }
+
+  .crucible-compare-num {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+
+    &.is-best {
+      font-weight: $weightBold;
+    }
+  }
+
+  .crucible-compare-tier th,
+  .crucible-compare-tier td {
+    background: #f8f9fc;
+  }
+}
+
+.crucible-compare-chip-score {
+  display: inline-block;
+  min-width: 2.6em;
+  padding: 1px 4px;
+  border-radius: 3px;
+  text-align: center;
+}
+
+// `hidden` always wins over a display rule above
+.crucible [hidden] {
+  display: none !important;
+}
+
+// Long setup names never widen the page on a phone
+.crucible .crucible-select {
+  max-width: 100%;
+  min-width: 0;
+  text-overflow: ellipsis;
+}

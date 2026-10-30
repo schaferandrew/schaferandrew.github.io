@@ -1,0 +1,49 @@
+Weather secured (Minneapolis via ipapi.co + live APIs). Now checking calendar, mail, work state, and news sources.
+Calendar access is blocked (AppleScript timed out). Extracting news headlines from the saved RSS feed:
+All sources gathered. Compiling the brief now.
+
+---
+
+# Morning Brief — Saturday, October 24, 2026 (Minneapolis, MN)
+
+*Compiled 12:50 PM CDT. Note up front: **no email, calendar, or work fixtures were supplied with this run** (workspace contains only `prompt.txt`). The only local work source available is the `crucible` git repo; Mail and Calendar on this machine are not accessible (details in §3–4). "Yesterday" = Friday, Oct 23.*
+
+## 1. Weather
+**Facts** (live, fetched 12:47 PM):
+- Now: 72°F, partly cloudy, SW wind ~12 mph — *wttr.in / World Weather Online*
+- Today: high ~74°F, low ~60°F, ~42% precip probability, isolated light showers possible early afternoon — *Open-Meteo + World Weather Online*
+- Tomorrow: sharp drop to 59°F/46°F, overcast, rain/drizzle likely — *Open-Meteo*
+- Sunset 6:13 PM
+
+**Needs attention:** Today is the last warm, mostly-dry window before a ~15°F drop with rain tomorrow. **Recommendation:** do any outdoor or errand tasks today, not tomorrow.
+
+## 2. Outstanding work from yesterday
+**Facts** (local source: `crucible` repo git history + working tree):
+- **No commits on Friday, Oct 23** — in fact none between Thu Sep 3 and today. Nothing from yesterday is recorded in the repo.
+- Outstanding, **uncommitted** work in the tree right now (today's effort): 13 modified files, +215/−28 lines — `agents/{base,direct,opencode,pi}.py`, `runner.py`, `console.py`, `metrics.py`, `providers.py`, `scorer.py`, `README.md`, `prompts/E6*.yaml`, `tests/test_runner_units.py` — plus 4 untracked items: `crucible/cost.py`, `crucible/mcp_servers/`, `crucible/models_known.py`, `uv.lock`.
+- PR #11 ("runners: pi not pool") merged today at 12:44 PM.
+
+**Needs attention:** The tree is a mid-refactor (architecture sweep + cost tracking + MCP web server + E6 prompt pins) sitting uncommitted. **Recommendation:** run `tests/` to confirm the runner/agent changes pass, then commit — or split into 2–3 logical commits (refactor / cost+models / MCP server) — before it's a weekend-long unreviewable blob. This is the only concrete deadline-adjacent item available.
+
+## 3. Important emails
+**Source unavailable — no emails reported.** No email fixture was supplied, `~/Library/Mail` returned "Operation not permitted," and no CLI mail tool (himalaya etc.) is installed. I will not invent email content.
+**Action:** open Mail.app manually, or grant file-access permission / supply a fixture, if email review matters today.
+
+## 4. Today's calendar
+**Source unavailable — no events reported.** Apple Calendar query timed out (likely a permission prompt unanswered in this context), and no calendar fixture was supplied. No conflicts or deadlines can be verified.
+**Context (fact):** today is Saturday, so a work calendar would typically be empty regardless — but I can't confirm either way.
+
+## 5. News
+**Facts** (live, *Google News RSS*, fetched 12:50 PM) — items worth a glance today:
+- **France:** sporadic violence as hundreds of thousands protest — *Reuters*
+- **Ukraine:** Starlink connection "now stable" after network limits — *BBC*
+- **US elections:** House-control outlook (NBC); Trump "goes after the system" facing wipeout (Politico); feds press California counties over "likely" noncitizen ballots (LA Times)
+- **Security:** 7 dead, 40 wounded in Jordan church funeral shooting (AL.com); US on alert amid questions of possible Iranian attacks on Americans (Al Jazeera)
+- **Tech/business:** Apple "Pro and tell" event coming (The Verge); iPhone Duo DIY repair guides published (9to5Mac); Zuckerberg's deal to stay in California (FT); Halloween candy sales soft on chocolate prices (AP)
+
+**Needs attention:** no Minneapolis-specific or locally actionable items in today's feed.
+
+## Top 3 things to do today
+1. **Land the uncommitted crucible work** — run `tests/` against the 13 modified files, then commit (ideally split: refactor / cost+models / MCP server). This is the only real outstanding work and it's at risk sitting uncommitted.
+2. **Use the weather window** — handle any outdoor/errand items today; tomorrow is 15°F colder and wet.
+3. **Unblock email and calendar sources** — both were inaccessible (permissions). Grant Mail/Calendar access or provide fixtures, or the brief stays structurally incomplete.

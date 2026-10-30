@@ -1,0 +1,409 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "bb993c85-ce7e-5280-b69e-c7d15af65b3f",
+ "rubric_version": 1,
+ "rubric_hash": "248484a519654873",
+ "method": "hidden_tests",
+ "scored_at": "2026-10-30T06:28:52.017175+00:00",
+ "crucible_version": "3.4.0",
+ "raw": {
+  "passed": 0,
+  "total": 43,
+  "unit": "tests"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "level 1: renders > the production build succeeds",
+   "type": "hidden_test",
+   "group": "level 1: renders",
+   "label": "the production build succeeds",
+   "passed": false,
+   "detail": "AssertionError: bsequent errors may be a result of the worker exiting."
+  },
+  {
+   "id": "level 1: renders > /contact serves the form, rendered on the server",
+   "type": "hidden_test",
+   "group": "level 1: renders",
+   "label": "/contact serves the form, rendered on the server",
+   "passed": false,
+   "detail": "AssertionError: expected +0 to be 200 // Object.is equality"
+  },
+  {
+   "id": "level 2: typing > every field shows what is typed into it",
+   "type": "hidden_test",
+   "group": "level 2: typing",
+   "label": "every field shows what is typed into it",
+   "passed": false,
+   "detail": "AssertionError: expected '' to be 'Jordan Reyes actho7' // Object.is equality"
+  },
+  {
+   "id": "level 2: typing > tab moves through the fields in order, and typing lands where focus is",
+   "type": "hidden_test",
+   "group": "level 2: typing",
+   "label": "tab moves through the fields in order, and typing lands where focus is",
+   "passed": false,
+   "detail": "AssertionError: expected 'm' to be 'actho7' // Object.is equality"
+  },
+  {
+   "id": "level 3: submit > posts the lead as JSON to /api/leads and shows the success message",
+   "type": "hidden_test",
+   "group": "level 3: submit",
+   "label": "posts the lead as JSON to /api/leads and shows the success message",
+   "passed": false,
+   "detail": "AssertionError: expected null not to be null"
+  },
+  {
+   "id": "level 3: submit > pressing Enter in a field submits the form",
+   "type": "hidden_test",
+   "group": "level 3: submit",
+   "label": "pressing Enter in a field submits the form",
+   "passed": false,
+   "detail": "AssertionError: expected null not to be null"
+  },
+  {
+   "id": "level 3: submit > doesn't show success when the server refuses the lead",
+   "type": "hidden_test",
+   "group": "level 3: submit",
+   "label": "doesn't show success when the server refuses the lead",
+   "passed": false,
+   "detail": "AssertionError: expected '777' to be 'Jordan Reyes actho7' // Object.is equality"
+  },
+  {
+   "id": "level 3: submit > the API saves a valid lead with every field trimmed",
+   "type": "hidden_test",
+   "group": "level 3: submit",
+   "label": "the API saves a valid lead with every field trimmed",
+   "passed": false,
+   "detail": "AssertionError: expected { Object (name, email, ...) } to match object { name: 'Jordan Reyes actho7', …(3) }"
+  },
+  {
+   "id": "level 3: submit > the company field is optional, and saved as an empty string when left out",
+   "type": "hidden_test",
+   "group": "level 3: submit",
+   "label": "the company field is optional, and saved as an empty string when left out",
+   "passed": false,
+   "detail": "AssertionError: expected { name: 'Jordan Reyes actho7', …(4) } to match object { name: 'Jordan Reyes actho7', …(3) }"
+  },
+  {
+   "id": "level 4: required fields > a missing name shows its error, keeps what was typed and sends nothing",
+   "type": "hidden_test",
+   "group": "level 4: required fields",
+   "label": "a missing name shows its error, keeps what was typed and sends nothing",
+   "passed": false,
+   "detail": "Error: #lead-name-error isn't on the page"
+  },
+  {
+   "id": "level 4: required fields > a missing email shows its error, keeps what was typed and sends nothing",
+   "type": "hidden_test",
+   "group": "level 4: required fields",
+   "label": "a missing email shows its error, keeps what was typed and sends nothing",
+   "passed": false,
+   "detail": "Error: #lead-email-error isn't on the page"
+  },
+  {
+   "id": "level 4: required fields > a missing message shows its error, keeps what was typed and sends nothing",
+   "type": "hidden_test",
+   "group": "level 4: required fields",
+   "label": "a missing message shows its error, keeps what was typed and sends nothing",
+   "passed": false,
+   "detail": "Error: #lead-message-error isn't on the page"
+  },
+  {
+   "id": "level 4: required fields > whitespace alone doesn't count as filled in",
+   "type": "hidden_test",
+   "group": "level 4: required fields",
+   "label": "whitespace alone doesn't count as filled in",
+   "passed": false,
+   "detail": "Error: #lead-name-error isn't on the page"
+  },
+  {
+   "id": "level 4: required fields > focus jumps to the first field with an error",
+   "type": "hidden_test",
+   "group": "level 4: required fields",
+   "label": "focus jumps to the first field with an error",
+   "passed": false,
+   "detail": "Error: #lead-email-error isn't on the page"
+  },
+  {
+   "id": "level 4: required fields > fixing the field and resubmitting clears the error and sends",
+   "type": "hidden_test",
+   "group": "level 4: required fields",
+   "label": "fixing the field and resubmitting clears the error and sends",
+   "passed": false,
+   "detail": "Error: #lead-message-error isn't on the page"
+  },
+  {
+   "id": "level 4: required fields > the API refuses a lead missing a required field with 422 and saves nothing",
+   "type": "hidden_test",
+   "group": "level 4: required fields",
+   "label": "the API refuses a lead missing a required field with 422 and saves nothing",
+   "passed": false,
+   "detail": "AssertionError: expected 201 to be 422 // Object.is equality"
+  },
+  {
+   "id": "level 5: badly formed email > the form refuses \"jordan\" with an email error",
+   "type": "hidden_test",
+   "group": "level 5: badly formed email",
+   "label": "the form refuses \"jordan\" with an email error",
+   "passed": false,
+   "detail": "Error: #lead-email-error isn't on the page"
+  },
+  {
+   "id": "level 5: badly formed email > the form refuses \"jordan@\" with an email error",
+   "type": "hidden_test",
+   "group": "level 5: badly formed email",
+   "label": "the form refuses \"jordan@\" with an email error",
+   "passed": false,
+   "detail": "Error: #lead-email-error isn't on the page"
+  },
+  {
+   "id": "level 5: badly formed email > the form refuses \"@example.com\" with an email error",
+   "type": "hidden_test",
+   "group": "level 5: badly formed email",
+   "label": "the form refuses \"@example.com\" with an email error",
+   "passed": false,
+   "detail": "Error: #lead-email-error isn't on the page"
+  },
+  {
+   "id": "level 5: badly formed email > the form refuses \"jordan example.com\" with an email error",
+   "type": "hidden_test",
+   "group": "level 5: badly formed email",
+   "label": "the form refuses \"jordan example.com\" with an email error",
+   "passed": false,
+   "detail": "Error: #lead-email-error isn't on the page"
+  },
+  {
+   "id": "level 5: badly formed email > the API refuses a badly formed email with 422 and saves nothing",
+   "type": "hidden_test",
+   "group": "level 5: badly formed email",
+   "label": "the API refuses a badly formed email with 422 and saves nothing",
+   "passed": false,
+   "detail": "AssertionError: expected 201 to be 422 // Object.is equality"
+  },
+  {
+   "id": "level 6: email accepted as typed > the form accepts \"  jordan.<random>@example.com  \"",
+   "type": "hidden_test",
+   "group": "level 6: email accepted as typed",
+   "label": "the form accepts \"  jordan.<random>@example.com  \"",
+   "passed": false,
+   "detail": "AssertionError: expected null not to be null"
+  },
+  {
+   "id": "level 6: email accepted as typed > the form accepts \"Jordan.Reyes@Example.COM\"",
+   "type": "hidden_test",
+   "group": "level 6: email accepted as typed",
+   "label": "the form accepts \"Jordan.Reyes@Example.COM\"",
+   "passed": false,
+   "detail": "AssertionError: expected null not to be null"
+  },
+  {
+   "id": "level 6: email accepted as typed > the form accepts \"jordan+quotes@example.com\"",
+   "type": "hidden_test",
+   "group": "level 6: email accepted as typed",
+   "label": "the form accepts \"jordan+quotes@example.com\"",
+   "passed": false,
+   "detail": "AssertionError: expected null not to be null"
+  },
+  {
+   "id": "level 6: email accepted as typed > the form accepts \"j.o.r.d.a.n@mail.example.co.uk\"",
+   "type": "hidden_test",
+   "group": "level 6: email accepted as typed",
+   "label": "the form accepts \"j.o.r.d.a.n@mail.example.co.uk\"",
+   "passed": false,
+   "detail": "AssertionError: expected null not to be null"
+  },
+  {
+   "id": "level 6: email accepted as typed > the form accepts \"o'neil_<random>@reyes-builders.com\"",
+   "type": "hidden_test",
+   "group": "level 6: email accepted as typed",
+   "label": "the form accepts \"o'neil_<random>@reyes-builders.com\"",
+   "passed": false,
+   "detail": "AssertionError: expected null not to be null"
+  },
+  {
+   "id": "level 6: email accepted as typed > the form accepts \"jordan@studio.photography\"",
+   "type": "hidden_test",
+   "group": "level 6: email accepted as typed",
+   "label": "the form accepts \"jordan@studio.photography\"",
+   "passed": false,
+   "detail": "AssertionError: expected null not to be null"
+  },
+  {
+   "id": "level 6: email accepted as typed > the form accepts \"2024@example.io\"",
+   "type": "hidden_test",
+   "group": "level 6: email accepted as typed",
+   "label": "the form accepts \"2024@example.io\"",
+   "passed": false,
+   "detail": "AssertionError: expected null not to be null"
+  },
+  {
+   "id": "level 6: email saved strictly > the API saves each accepted address trimmed and lowercased",
+   "type": "hidden_test",
+   "group": "level 6: email saved strictly",
+   "label": "the API saves each accepted address trimmed and lowercased",
+   "passed": false,
+   "detail": "AssertionError:   jordan.actho7@example.com  : expected '  jordan.actho7@example.com  ' to be 'jordan.actho7@example.com' // Object.is equality"
+  },
+  {
+   "id": "level 6: email saved strictly > the API refuses \"jordan@example\" and saves nothing",
+   "type": "hidden_test",
+   "group": "level 6: email saved strictly",
+   "label": "the API refuses \"jordan@example\" and saves nothing",
+   "passed": false,
+   "detail": "AssertionError: expected 201 to be 422 // Object.is equality"
+  },
+  {
+   "id": "level 6: email saved strictly > the API refuses \"jordan@@example.com\" and saves nothing",
+   "type": "hidden_test",
+   "group": "level 6: email saved strictly",
+   "label": "the API refuses \"jordan@@example.com\" and saves nothing",
+   "passed": false,
+   "detail": "AssertionError: expected 201 to be 422 // Object.is equality"
+  },
+  {
+   "id": "level 6: email saved strictly > the API refuses \"jordan@exa mple.com\" and saves nothing",
+   "type": "hidden_test",
+   "group": "level 6: email saved strictly",
+   "label": "the API refuses \"jordan@exa mple.com\" and saves nothing",
+   "passed": false,
+   "detail": "AssertionError: expected 201 to be 422 // Object.is equality"
+  },
+  {
+   "id": "level 6: email saved strictly > the API refuses \"jordan..reyes@example.com\" and saves nothing",
+   "type": "hidden_test",
+   "group": "level 6: email saved strictly",
+   "label": "the API refuses \"jordan..reyes@example.com\" and saves nothing",
+   "passed": false,
+   "detail": "AssertionError: expected 201 to be 422 // Object.is equality"
+  },
+  {
+   "id": "level 6: email saved strictly > the API refuses \".jordan@example.com\" and saves nothing",
+   "type": "hidden_test",
+   "group": "level 6: email saved strictly",
+   "label": "the API refuses \".jordan@example.com\" and saves nothing",
+   "passed": false,
+   "detail": "AssertionError: expected 201 to be 422 // Object.is equality"
+  },
+  {
+   "id": "level 6: email saved strictly > the API refuses \"jordan.@example.com\" and saves nothing",
+   "type": "hidden_test",
+   "group": "level 6: email saved strictly",
+   "label": "the API refuses \"jordan.@example.com\" and saves nothing",
+   "passed": false,
+   "detail": "AssertionError: expected 201 to be 422 // Object.is equality"
+  },
+  {
+   "id": "level 6: email saved strictly > the API refuses \"jordan@example..com\" and saves nothing",
+   "type": "hidden_test",
+   "group": "level 6: email saved strictly",
+   "label": "the API refuses \"jordan@example..com\" and saves nothing",
+   "passed": false,
+   "detail": "AssertionError: expected 201 to be 422 // Object.is equality"
+  },
+  {
+   "id": "level 6: email saved strictly > the API refuses \"jordan@-example.com\" and saves nothing",
+   "type": "hidden_test",
+   "group": "level 6: email saved strictly",
+   "label": "the API refuses \"jordan@-example.com\" and saves nothing",
+   "passed": false,
+   "detail": "AssertionError: expected 201 to be 422 // Object.is equality"
+  },
+  {
+   "id": "level 6: email saved strictly > the API refuses \"jordan@example.c\" and saves nothing",
+   "type": "hidden_test",
+   "group": "level 6: email saved strictly",
+   "label": "the API refuses \"jordan@example.c\" and saves nothing",
+   "passed": false,
+   "detail": "AssertionError: expected 201 to be 422 // Object.is equality"
+  },
+  {
+   "id": "level 6: email saved strictly > the API refuses \"jordan@example.com.\" and saves nothing",
+   "type": "hidden_test",
+   "group": "level 6: email saved strictly",
+   "label": "the API refuses \"jordan@example.com.\" and saves nothing",
+   "passed": false,
+   "detail": "AssertionError: expected 201 to be 422 // Object.is equality"
+  },
+  {
+   "id": "level 6: email saved strictly > the API refuses \"jordan@exam_ple.com\" and saves nothing",
+   "type": "hidden_test",
+   "group": "level 6: email saved strictly",
+   "label": "the API refuses \"jordan@exam_ple.com\" and saves nothing",
+   "passed": false,
+   "detail": "AssertionError: expected 201 to be 422 // Object.is equality"
+  },
+  {
+   "id": "level 6: email saved strictly > the API refuses \"jordan@example.123\" and saves nothing",
+   "type": "hidden_test",
+   "group": "level 6: email saved strictly",
+   "label": "the API refuses \"jordan@example.123\" and saves nothing",
+   "passed": false,
+   "detail": "AssertionError: expected 201 to be 422 // Object.is equality"
+  },
+  {
+   "id": "level 6: email saved strictly > a lead typed into the form is saved in canonical form",
+   "type": "hidden_test",
+   "group": "level 6: email saved strictly",
+   "label": "a lead typed into the form is saved in canonical form",
+   "passed": false,
+   "detail": "AssertionError: expected null not to be null"
+  },
+  {
+   "id": "level 6: email saved strictly > the API refuses fields that aren't strings",
+   "type": "hidden_test",
+   "group": "level 6: email saved strictly",
+   "label": "the API refuses fields that aren't strings",
+   "passed": false,
+   "detail": "AssertionError: expected 201 to be 422 // Object.is equality"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Renders",
+   "passed": 0.0,
+   "total": 0.47,
+   "detail": "0/2 hidden tests pass"
+  },
+  {
+   "id": "Typing",
+   "passed": 0.0,
+   "total": 0.47,
+   "detail": "0/2 hidden tests pass"
+  },
+  {
+   "id": "Submit",
+   "passed": 0.0,
+   "total": 1.16,
+   "detail": "0/5 hidden tests pass"
+  },
+  {
+   "id": "Required fields",
+   "passed": 0.0,
+   "total": 1.63,
+   "detail": "0/7 hidden tests pass"
+  },
+  {
+   "id": "Badly formed email",
+   "passed": 0.0,
+   "total": 1.16,
+   "detail": "0/5 hidden tests pass"
+  },
+  {
+   "id": "Email accepted as typed",
+   "passed": 0.0,
+   "total": 1.63,
+   "detail": "0/7 hidden tests pass"
+  },
+  {
+   "id": "Email saved strictly",
+   "passed": 0.0,
+   "total": 3.49,
+   "detail": "0/15 hidden tests pass"
+  }
+ ]
+}

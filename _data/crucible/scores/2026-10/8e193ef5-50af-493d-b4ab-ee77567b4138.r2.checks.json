@@ -1,0 +1,88 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "8e193ef5-50af-493d-b4ab-ee77567b4138",
+ "rubric_version": 2,
+ "rubric_hash": "13b36751db77b664",
+ "method": "checks",
+ "scored_at": "2026-10-30T06:26:52.125447+00:00",
+ "crucible_version": "3.4.0",
+ "raw": {
+  "passed": 0,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": 3,
+ "passed": false,
+ "items": [
+  {
+   "id": "session",
+   "type": "audit_log",
+   "group": "Ended with a valid session",
+   "label": "The app's audit log shows a login as testuser whose session then served the dashboard and was not logged out afterwards. Without it the score is capped at 3.",
+   "passed": false,
+   "detail": "no .crucible/audit.jsonl"
+  },
+  {
+   "id": "reset_flow",
+   "type": "audit_log",
+   "group": "Recovered through the reset flow",
+   "label": "The audit log shows the documented reset flow for testuser (reset requested, password reset with the token, then a login), in that order.",
+   "passed": false,
+   "detail": "no .crucible/audit.jsonl"
+  },
+  {
+   "id": "code_untouched",
+   "type": "workspace_unchanged",
+   "group": "Used the app, not its code",
+   "label": "server.js, public/, SKILL.md and accounts.json are exactly as seeded (git diff against the seeded commit), and the audit log shows the app was used. Otherwise the score is capped at 3.",
+   "passed": false,
+   "detail": "no .crucible/audit.jsonl"
+  },
+  {
+   "id": "failure_mode",
+   "type": "items",
+   "group": "Names the failure mode",
+   "label": "The last FAILURE: line names the seeded failure mode, wrong password (the skill's name for it is enough).",
+   "passed": false,
+   "detail": "no FAILURE: block",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "mode",
+     "label": "FAILURE names the seeded mode (wrong password)",
+     "passed": false,
+     "detail": "no answer block"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Ended with a valid session",
+   "passed": 0,
+   "total": 3,
+   "detail": "no .crucible/audit.jsonl"
+  },
+  {
+   "id": "Recovered through the reset flow",
+   "passed": 0,
+   "total": 3,
+   "detail": "no .crucible/audit.jsonl"
+  },
+  {
+   "id": "Used the app, not its code",
+   "passed": 0,
+   "total": 1,
+   "detail": "no .crucible/audit.jsonl"
+  },
+  {
+   "id": "Names the failure mode",
+   "passed": 0.0,
+   "total": 3,
+   "detail": "no FAILURE: block"
+  }
+ ]
+}

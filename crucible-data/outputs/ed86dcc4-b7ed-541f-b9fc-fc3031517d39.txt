@@ -1,0 +1,64 @@
+**Question 1**
+To find the future value of the savings account, we use the compound interest formula:
+$$A = P\left(1 + \frac{r}{n}\right)^{nt}$$
+
+Where:
+*   $P$ (Principal) = $\$5,000$
+*   $r$ (Annual Interest Rate) = $4\% = 0.04$
+*   $n$ (Compounding Frequency) = $12$ (monthly)
+*   $t$ (Time in years) = $3$
+
+**Working:**
+1.  Calculate the monthly interest rate: $\frac{0.04}{12} \approx 0.0033333333$
+2.  Add 1 to the monthly rate: $1 + 0.0033333333 = 1.0033333333$
+3.  Calculate the total number of compounding periods: $12 \times 3 = 36$
+4.  Raise the monthly rate factor to the power of 36: $(1.0033333333)^{36} \approx 1.12727185$
+5.  Multiply by the principal: $5,000 \times 1.12727185 \approx 5,636.35925$
+
+**Rounding:**
+Round to the nearest cent: **$\$5,636.36$**
+
+***
+
+**Question 2**
+First, calculate the total area required including waste, then divide by the coverage per box.
+
+**Working:**
+1.  Calculate total area needed with 10% waste: $1,850 \text{ sq ft} \times 1.10 = 2,035 \text{ sq ft}$
+2.  Divide total area by box size: $\frac{2,035}{23.5} \approx 86.595744$ boxes
+
+**Rounding:**
+Since you cannot purchase partial boxes, round up to the next whole number: **87 boxes**
+
+***
+
+**Question 3**
+Calculate the gallons needed for the trip, then multiply by the price per gallon.
+
+**Working:**
+1.  Calculate gallons required: $\frac{412 \text{ miles}}{34 \text{ mpg}} \approx 12.11764706$ gallons
+2.  Calculate total cost: $12.11764706 \times \$3.89 \approx 47.137647$
+
+**Rounding:**
+Round to the nearest cent: **$\$47.14$**
+
+***
+
+**Question 4**
+Calculate the tip based on the pre-tax amount, add it to the total bill (including tax), and divide by four.
+
+**Working:**
+1.  Calculate tip amount: $\$172.00 \times 0.18 = \$30.96$
+2.  Calculate total cost to split: $\$186.40 \text{ (bill)} + \$30.96 \text{ (tip)} = \$217.36$
+3.  Divide by number of people: $\frac{\$217.36}{4} = \$54.34$
+
+**Rounding:**
+The result is exact to the cent: **$\$54.34$**
+
+***
+
+ANSWERS
+1. $5,636.36
+2. 87 boxes
+3. $47.14
+4. $54.34

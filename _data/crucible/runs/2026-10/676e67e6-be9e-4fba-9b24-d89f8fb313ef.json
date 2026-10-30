@@ -1,0 +1,89 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "676e67e6-be9e-4fba-9b24-d89f8fb313ef",
+ "run_path": "lmstudio_google_gemma-4-e4b/landlocked-countries/20261030_012907",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T01:29:07.150391+00:00",
+ "ended_at": "2026-10-30T01:30:56.774913+00:00",
+ "elapsed_s": 109.09,
+ "task": {
+  "id": "landlocked-countries",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "7b5379ce8b6a3e04",
+  "rubric_hash": "f75bb0a15226bc61",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/google/gemma-4-e4b",
+  "base": "google/gemma-4-e4b",
+  "publisher": "google",
+  "artifact": null,
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 105609,
+  "variant_key": "google/gemma-4-e4b|google|mlx|mlx-4bit",
+  "display": "gemma-4-e4b · 4bit"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Ironwood",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m1-pro-32gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 32.0,
+  "cpu": "Apple M1 Pro",
+  "offload": null,
+  "label": "Ironwood"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 144,
+  "tokens_out": 1432,
+  "model_responses": 1,
+  "ttft_s": 1.224,
+  "ttft_avg_s": 1.224,
+  "response_time_avg_s": 109.092,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 5629
+ },
+ "output_ref": "outputs/676e67e6-be9e-4fba-9b24-d89f8fb313ef.txt",
+ "provenance": {
+  "crucible_version": "3.3.0",
+  "crucible_commit": "34a6f5d",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:86fd7a71e4b0f2dcf4e3580b44b00f7dd2f7a58623b8093bd587719629fe20b3",
+  "submitter": null,
+  "verification": null
+ }
+}

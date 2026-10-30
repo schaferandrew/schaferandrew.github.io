@@ -1,0 +1,80 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "7359c8d4-bf92-58f0-81dc-047a7138ef1c",
+ "run_path": "openrouter_poolside_laguna-xs-2.1/responsive-navbar-open-ended/20261025_062147",
+ "legacy_run_id": "openrouter_poolside_laguna-xs-2.1/coding_debug/CODE-2/20261025_062147",
+ "started_at": "2026-10-25T06:21:47.773569+00:00",
+ "ended_at": "2026-10-25T06:23:01.197442+00:00",
+ "elapsed_s": 73.42,
+ "task": {
+  "id": "responsive-navbar-open-ended",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "ca972102bf2b075d",
+  "rubric_hash": "ca8989fc10f5a77b",
+  "alias": "CODE-2"
+ },
+ "harness": {
+  "id": "opencode",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/poolside/laguna-xs-2.1",
+  "base": "poolside/laguna-xs-2.1",
+  "publisher": "poolside",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "poolside/laguna-xs-2.1|poolside|api|-",
+  "display": "laguna-xs-2.1"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": null,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": null,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": "outputs/7359c8d4-bf92-58f0-81dc-047a7138ef1c.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:831bc35e7e347b737efa2f995f8cbbed60b26c366101cdf3bd3585df611e97bf",
+  "submitter": null,
+  "verification": null
+ }
+}

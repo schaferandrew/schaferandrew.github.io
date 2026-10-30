@@ -1,0 +1,14 @@
+The objective language errors are minor grammatical slips. The claims, however, contain several instances of oversimplification, extreme causation, or factual inaccuracy regarding policy mandates.
+
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: imprecise
+4: misleading
+8: unclear
+11: misleading
+14: overstated
+18: misleading

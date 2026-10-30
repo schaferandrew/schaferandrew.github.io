@@ -1,0 +1,81 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "938da70a-8687-484e-aaae-70cae0441bf5",
+ "run_path": "openrouter_openai_gpt-6-luna/cache-leak-incident/20261030_032156",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T03:22:03.976320+00:00",
+ "ended_at": "2026-10-30T03:26:38.904806+00:00",
+ "elapsed_s": 274.67,
+ "task": {
+  "id": "cache-leak-incident",
+  "version": 3,
+  "rubric_version": 4,
+  "content_hash": "403fdd42d838cff4",
+  "rubric_hash": "a89eea7caac68e18",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/openai/gpt-6-luna",
+  "base": "openai/gpt-6-luna",
+  "publisher": "openai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "openai/gpt-6-luna|openai|api|-",
+  "display": "gpt-6-luna"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 42,
+  "tokens_in": 1617503,
+  "tokens_out": 24115,
+  "model_responses": 29,
+  "ttft_s": 1.437,
+  "ttft_avg_s": 4.669,
+  "response_time_avg_s": 9.153,
+  "cost_usd": 0.035395,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/938da70a-8687-484e-aaae-70cae0441bf5.txt",
+ "provenance": {
+  "crucible_version": "3.3.0",
+  "crucible_commit": "34a6f5d",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:68206e528f6bd5d6a6e4fa4fea07b8a318c55bde15a5171b18ebad3a8e157e45",
+  "submitter": null,
+  "verification": null
+ }
+}

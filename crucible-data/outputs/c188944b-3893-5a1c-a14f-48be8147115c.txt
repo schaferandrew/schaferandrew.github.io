@@ -1,0 +1,6 @@
+⏺ get_current_time()
+  ⎿ {"currentTime": "2026-08-31T08:30:00-05:00", "dayOfWeek": "Monday", "timeZone": "America/Chicago"}
+⏺ list_calendars()
+  ⎿ {"kind": "calendar#calendarList", "items": [{"kind": "calendar#calendarListEntry", "id": "alex@example.com", "summary": "Alex Rivera", "description": "Platform", "timeZone": "America/Chicago", "access
+⏺ get_freebusy(calendars=[{'id': 'jamie@example.com'}, {'id': 'priya@example.com'}, {, timeMax=2026-09-14T23:59:59Z, timeMin=2026-08-31T08:30:00Z)
+  ⎿ {"kind": "calendar#freeBusy", "timeMin": "2026-08-31T08:30:00+00:00", "timeMax": "2026-09-14T23:59:59+00:00", "calendars": {"jamie@example.com": {"busy": [{"start": "2026-08-31T10:30:00-05:00", "end":

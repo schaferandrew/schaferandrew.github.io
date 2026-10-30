@@ -1,0 +1,37 @@
+1. To find the value of the savings account, we use the compound interest formula: $A = P(1 + \frac{r}{n})^{nt}$
+   $P = 5,000$
+   $r = 0.04$
+   $n = 12$ (compounded monthly)
+   $t = 3$
+   $A = 5,000 \times (1 + \frac{0.04}{12})^{(12 \times 3)}$
+   $A = 5,000 \times (1.003333333333...)^{36}$
+   $A = 5,000 \times 1.1272718793...$
+   $A = 5,636.35939...$
+   Rounded to the cent: $5,636.36
+
+2. First, calculate the total square footage needed including the 10% waste:
+   $1,850 \times 1.10 = 2,035 \text{ sq ft}$
+   Next, divide the total area by the square footage per box:
+   $2,035 / 23.5 = 86.59574468...$
+   Since you cannot purchase a fraction of a box, you must round up to the next whole box:
+   87 boxes
+
+3. First, calculate the total gallons of gas needed:
+   $412 / 34 = 12.1176470588... \text{ gallons}$
+   Next, multiply the gallons by the price per gallon:
+   $12.1176470588... \times 3.89 = 47.1376470588...$
+   Rounded to the cent: $47.14
+
+4. First, calculate the tip based on the pre-tax amount:
+   $172.00 \times 0.18 = 30.96$
+   Next, add the tip to the total bill (including tax):
+   $186.40 + 30.96 = 217.36$
+   Finally, divide the total by four:
+   $217.36 / 4 = 54.34$
+   Each person pays $54.34
+
+ANSWERS
+1. $5,636.36
+2. 87
+3. $47.14
+4. $54.34

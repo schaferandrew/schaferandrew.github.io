@@ -1,0 +1,22 @@
+Simple vanilla app — no responsive navbar or mobile menu logic. Let me check for any existing test setup or repo context.
+I've reviewed the rubric: I need to achieve a responsive navbar (hamburger menu + ARIA on mobile, no horizontal overflow, maintaining the desktop layout) plus tests. Since the workspace is a plain HTML/CSS/JS app, I'll implement the mobile menu and add `node:test` tests. First, let me check whether `npm install` is possible (for jsdom):
+Network works, jsdom is installable. Now let me check the installed version and implement.
+`runs/` is gitignored, so workspace changes stay contained. Implementing now:
+Let me check if a real browser (Playwright/Puppeteer) is available for actual render verification, since jsdom can't evaluate media queries.
+Playwright CLI exists but no browser cached. Let me check if a Chromium is installed anywhere (would let me do a true render check myself).
+Continuing the navbar task. Writing the responsive implementation now.
+Now the test setup:
+Fixing two issues in the tests (tabIndex assertion would be wrong; awkward KeyboardEvent construction):
+All 12 tests pass. Now a real-browser render check (one-off verification, not part of the committed tests) using the cached Chromium:
+Mobile states look perfect (no overflow at 375/320, menu spans full width). Checking the desktop entries at the top of the output:
+All widths verified in a real browser. Let me visually inspect the screenshots:
+Screenshots confirm the design: desktop unchanged, mobile shows a clean hamburger with a full-width stacked dropdown. Final check of the workspace state:
+Done. The navbar is now fully responsive, verified in a real browser at 1280/769/768/375/320px with zero horizontal overflow.
+
+**Changes** (all in `workspace/`):
+- `index.html` — added a `<button class="nav-toggle">` (three-bar hamburger) with `aria-label`, `aria-expanded`, `aria-controls`; gave the link list `id="nav-links"`. Destinations and logo untouched.
+- `styles.css` — base (desktop) rules unchanged in effect: toggle `display:none`, links in a row. New `@media (max-width: 768px)` block shows the toggle and replaces the row with a full-width (`left:0; right:0`, no fixed widths) stacked dropdown under the navbar. Identity preserved: `#333` bar, white Arial links, `:focus-visible` outline on the toggle.
+- `script.js` — toggle logic: click opens/closes (syncs `aria-expanded` + `.open` class), Escape closes and returns focus to the toggle, outside-click and link-click close the menu.
+- `package.json` + `navbar.test.js` — 12 `node:test` + jsdom tests (`npm test`): desktop layout/destinations, mobile CSS swap, no-overflow anchoring, identity colors, ARIA wiring, and open/close/Escape/outside/link-click behaviors. All pass.
+
+Run `npm test` in the workspace to re-verify.

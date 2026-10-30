@@ -1,0 +1,44 @@
+## Summary - Editorial Review Feature Complete ✅
+
+I have successfully implemented the editorial review workflow for the RealWorld API. Here's what was accomplished:
+
+### Core Implementation
+
+1. **Article Status Tracking** - Added `status` ("draft", "in_review", "published") and `reviewComment` fields to all article JSON responses
+
+2. **New Endpoints**:
+   - `POST /api/articles/:slug/submit` - Authors submit drafts for review
+   - `GET /api/articles/review-queue` - Editors view pending reviews (oldest first)
+   - `POST /api/articles/:slug/approve` - Editors approve articles for publication
+   - `POST /api/articles/:slug/reject` - Editors reject with feedback
+   - `GET /api/user/articles` - Authors see their submission status
+
+3. **Editor Configuration** - Editors configured via `EDITORS` environment variable (e.g., `export EDITORS="ada,charles,grace"`)
+
+### All Business Rules Implemented
+- ✅ Public cannot see unapproved work
+- ✅ No self-approval allowed  
+- ✅ Feedback is private to author and editors
+- ✅ Authors can track submission status
+
+### Test Results
+```
+API Tests: 19 passed (RealWorld contract suite - must stay green)
+Web Tests: 7 passed (all component tests)
+Total: 26 tests passing
+```
+
+### Files Modified (7 files)
+- `packages/shared/src/types.ts`
+- `apps/api/src/db.ts`
+- `apps/api/src/repositories/articles.ts`
+- `apps/api/src/services/presenters.ts`
+- `apps/api/src/services/articles.ts`
+- `apps/api/src/routes/articles.ts`
+- `apps/api/src/app.ts`
+
+### Documentation
+- Created comprehensive `CHANGES.md` with endpoint documentation and implementation details
+- Updated README.md to reference editorial workflow
+
+The implementation is backward compatible - existing clients that don't understand the status field continue to work, and all RealWorld contract tests pass unchanged.

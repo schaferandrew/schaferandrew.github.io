@@ -1,0 +1,25 @@
+### Evaluation
+
+**Accuracy (4):**
+The agent's summary is accurate. It correctly identifies the new closing time (8 p.m.), the start date (March), the survey percentage (62%), the grant amount ($40,000), the duration of the grant (one year), and the opposition due to staffing. No details were invented.
+**Score: 4/4**
+
+**Exactly two sentences (3):**
+The agent's response contains three sentences.
+1. The Millbrook library board voted to extend weekend hours to 8 p.m. starting in March, following a survey where 62% of residents asked for evening access.
+2. The change is funded by a $40,000 grant that covers one year, and the board will revisit it next winter if no further money is found.
+3. Two board members opposed the decision over staffing concerns.
+Because the response is three sentences long instead of exactly two, it fails this criterion.
+**Score: 0/3**
+
+**Key points (3):**
+The summary captures the hours extension (8 p.m. starting in March), the funding limit ($40,000 grant for one year), and the resident survey (62% requested evening access).
+**Score: 3/3**
+
+**Total Score Calculation:**
+Accuracy: 4
+Sentences: 0
+Key Points: 3
+Total: 7
+
+GRADE: 7

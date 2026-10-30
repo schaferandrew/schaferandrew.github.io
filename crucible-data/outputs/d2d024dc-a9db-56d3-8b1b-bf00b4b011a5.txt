@@ -1,0 +1,25 @@
+## Objective errors and corrections
+
+- **“Inflation is when prices go up because the government prints too much money.”** This is too narrow as a definition. Inflation is a sustained rise in the general price level; its causes can include monetary, demand-side, and supply-side factors. “The government prints” is also imprecise: central-bank money creation and government spending are distinct processes.
+
+- **“The Consumer Price Index (CPI) measures inflation by tracking a basket of goods that the average household buys.”** The CPI tracks the prices of a weighted basket of goods and services intended to represent consumer spending. It is not literally a basket bought by one “average household.”
+
+- **“When CPI rises above 2% annually, the Federal Reserve is legally required to raise interest rates.”** This is incorrect. The Fed has no legal rule requiring a rate increase when CPI inflation exceeds 2%. Its 2% longer-run inflation goal is expressed in terms of the **Personal Consumption Expenditures (PCE) price index**, and policy changes are not automatic.
+
+- **“The natural rate of unemployment is around 4%, which means anyone above that is either lazy or the victim of bad policy.”** The conclusion does not follow. The natural rate is an estimate of the unemployment rate associated with stable inflation, not a threshold that classifies individuals. Estimates vary, and unemployment above that rate can have multiple causes.
+
+- **“Quantitative easing … is basically just printing money to buy treasury bonds.”** This is an oversimplification. QE involves central-bank purchases of financial assets, paid for by creating bank reserves; the Fed has purchased both Treasury securities and agency mortgage-backed securities. Capitalize **Treasury** when referring to U.S. Treasury securities.
+
+- **“Japan’s experience with deflation in the 1990s proves that monetary policy is completely ineffective at stimulating demand.”** “Proves” and “completely ineffective” are not supported by the example. Japan’s prolonged stagnation and periods of deflation are relevant to debates about monetary policy, but they do not establish that monetary policy has no effect.
+
+- **“The failed Reagan tax cuts, which increased the deficit without growing the economy at all.”** The claim that the economy did not grow at all during the Reagan years is factually false: real GDP increased over the period, despite a recession early in his presidency. Whether the tax cuts caused particular growth or deficit outcomes is a separate, disputed causal question.
+
+## Potentially unclear, overstated, or technically imprecise wording
+
+- **“More money chasing the same amount of stuff”** is a simplified account of one possible inflation mechanism. It assumes the amount of money and real output are the key changes, while leaving out factors such as changes in demand, supply, and the velocity of money.
+
+- **“Devalues the currency and inevitably causes hyperinflation”** makes two overly categorical claims. QE can affect a currency’s exchange rate, but depreciation is not automatic; nor does QE inevitably lead to hyperinflation. “Hyperinflation” is a technical term for an exceptionally rapid rise in prices, not just high inflation.
+
+- **“Japan’s experience with deflation in the 1990s”** may need a more precise timeframe, since Japan’s prolonged deflation is generally associated especially with the late 1990s and subsequent years.
+
+- **“Failed” and “definitively debunked”** present a contested assessment as settled fact. The effects of the Reagan tax cuts on growth, revenue, and deficits are subjects of debate, and the outcome depends partly on the measures and timeframe being considered.

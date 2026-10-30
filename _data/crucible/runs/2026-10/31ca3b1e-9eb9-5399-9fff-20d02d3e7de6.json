@@ -1,0 +1,88 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "31ca3b1e-9eb9-5399-9fff-20d02d3e7de6",
+ "run_path": "lmstudio_qwen_qwen3.5-9b/letter-from-1863/20261026_162213",
+ "legacy_run_id": "lmstudio_qwen_qwen3.5-9b/history/HIST-3/20261026_162213",
+ "started_at": "2026-10-26T16:22:13.580291+00:00",
+ "ended_at": "2026-10-26T16:42:13.610274+00:00",
+ "elapsed_s": 1200.03,
+ "task": {
+  "id": "letter-from-1863",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "f73283c0960967b1",
+  "rubric_hash": "3eba539e1a059980",
+  "alias": "HIST-3"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/qwen/qwen3.5-9b",
+  "base": "qwen/qwen3.5-9b",
+  "publisher": null,
+  "artifact": null,
+  "format": null,
+  "quant": "Q4_K_M",
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": 100096,
+  "variant_key": "qwen/qwen3.5-9b|-|-|q4_k_m",
+  "display": "qwen3.5-9b · Q4_K_M"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": null,
+  "class": null,
+  "accelerators": [],
+  "system_memory_gb": null,
+  "cpu": null,
+  "offload": null,
+  "label": null
+ },
+ "outcome": {
+  "status": "timeout",
+  "harness_status": "TIMEOUT",
+  "returncode": 1,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": 1,
+  "ttft_s": 0.328,
+  "ttft_avg_s": 0.328,
+  "response_time_avg_s": 1200.016,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": null,
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:f8bd54525b877ed30d20936f8a1b80ea9708d2c27868b3285e5e38573c5240d4",
+  "submitter": null,
+  "verification": null
+ }
+}

@@ -1,0 +1,80 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "9981b423-bc69-59f0-867d-bf6f9b0abad9",
+ "run_path": "openrouter_moonshotai_kimi-k2.6/interest-cli-open-ended/20261025_061939",
+ "legacy_run_id": "openrouter_moonshotai_kimi-k2.6/coding_build/CODE-1/20261025_061939",
+ "started_at": "2026-10-25T06:19:39.597123+00:00",
+ "ended_at": "2026-10-25T06:22:56.531555+00:00",
+ "elapsed_s": 196.93,
+ "task": {
+  "id": "interest-cli-open-ended",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "3b9f318817e376d9",
+  "rubric_hash": "b4526238202a2890",
+  "alias": "CODE-1"
+ },
+ "harness": {
+  "id": "opencode",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/moonshotai/kimi-k2.6",
+  "base": "moonshotai/kimi-k2.6",
+  "publisher": "moonshotai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "moonshotai/kimi-k2.6|moonshotai|api|-",
+  "display": "kimi-k2.6"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": null,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": null,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": "outputs/9981b423-bc69-59f0-867d-bf6f9b0abad9.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:c35d4731d1275f29b5bc65162a3a48f2471317be4d07f7eae270cdb420fe17c5",
+  "submitter": null,
+  "verification": null
+ }
+}

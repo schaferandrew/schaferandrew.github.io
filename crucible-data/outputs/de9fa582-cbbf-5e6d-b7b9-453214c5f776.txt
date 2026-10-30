@@ -1,0 +1,9 @@
+The benchmark task described in `prompt.txt` has been completed.
+
+I have implemented the responsive design using a hamburger menu:
+
+1.  **`index.html`**: Updated to include IDs (`mainNav`) and a functional menu toggle `<button>`.
+2.  **`styles.css`**: Implemented mobile-first styling. The navigation links are hidden by default on mobile screens and shown in a slide-down menu when toggled. Desktop view (768px+) restores the inline link layout and hides the toggle button.
+3.  **`script.js`**: Added JavaScript to handle the click event, toggling the visibility of the menu (`.active` class) and managing necessary ARIA attributes (`aria-expanded`) for full accessibility.
+
+The codebase is now ready to be tested against both mobile and desktop view states.

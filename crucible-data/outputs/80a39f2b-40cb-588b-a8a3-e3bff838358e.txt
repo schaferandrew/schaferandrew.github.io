@@ -1,0 +1,17 @@
+Implemented the full editorial workflow across the API, shared package, and web app.
+
+**Changed**
+- Added `ArticleStatus`, `status`, `reviewComment`, reject validation, and user-article query types in `packages/shared`.
+- API: status persistence, create-as-draft, submit/approve/reject transitions with permissions, editor configuration via `createApp(db, { editors })` and `EDITORS`, review queue, `/api/user/articles`, and published-only visibility for lists, feeds, tags, favorites, comments, and single-article access.
+- Web: draft/publish editor actions, “My Articles” page with status filtering/review comments/submit-for-review, review queue page with approve/reject, status display on article pages, and API client methods.
+- Tests: added 9 API editorial tests and 6 web UI tests. Existing RealWorld contract test remains unmodified and green.
+
+**Verification**
+- `npm run typecheck` passes.
+- `npm test` passes: 28 API tests, 13 web tests.
+
+**Code review flags**
+- Editors are matched by mutable username, so renaming an editor removes their editor rights.
+- The Review Queue nav link is shown to all signed-in users because editor status is not exposed in the user payload; the API still enforces 403.
+- The new web pages rely on the API's default paging and do not yet expose pagination controls.
+- Creating an article directly as `in_review` is intentionally rejected; only `draft` or `published` are accepted at creation.

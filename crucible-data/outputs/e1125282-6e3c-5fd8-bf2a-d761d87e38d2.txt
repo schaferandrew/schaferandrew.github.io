@@ -1,0 +1,161 @@
+Below is a proofread-only review. I have not rewritten the author’s argument.
+
+## 1. Objective language errors / clear wording or factual errors
+
+These are clear-cut issues in wording, mechanics, or factual accuracy that can be corrected without changing the author’s underlying argument.
+
+1. **“when CPI rises above 2% annually”**  
+   - **Issue:** The CPI is an index level, not an inflation rate. The CPI itself does not “rise above 2% annually”; the annual percentage change in the CPI, or annual CPI inflation, can rise above 2%.  
+   - **Why it matters:** As written, the sentence confuses an index level with a rate of change.
+
+2. **“the Federal Reserve is legally required to raise interest rates”**  
+   - **Issue:** The Federal Reserve is not legally required to raise interest rates whenever CPI inflation exceeds 2%.  
+   - **Why it matters:** This states a legal mandate that does not exist in that form. The Fed has a broad statutory mandate related to stable prices and maximum employment, but it does not have a statutory rule that says, “if CPI inflation is above 2%, raise rates.”
+
+3. **“the Fed started after 2008”**  
+   - **Issue:** The Fed’s first round of quantitative easing began in late 2007 / early 2008, not after 2008.  
+   - **Why it matters:** The timing is historically inaccurate.
+
+4. **“treasury bonds”**  
+   - **Issue:** “Treasury” should be capitalized when referring to U.S. Treasury securities. Also, QE was not limited to Treasury bonds; it also included mortgage-backed securities and, in later episodes, other assets.  
+   - **Why it matters:** The wording is mechanically incorrect and technically too narrow.
+
+5. **“Japan’s experience with deflation in the 1990s”**  
+   - **Issue:** Japan’s prolonged low-inflation / deflationary episode was not confined to the 1990s; it extended into the 2000s.  
+   - **Why it matters:** The time period is too narrow and could misrepresent the historical episode.
+
+6. **“without growing the economy at all”**  
+   - **Issue:** The U.S. economy did grow during and after the Reagan-era tax cuts.  
+   - **Why it matters:** The statement is factually false as written.
+
+---
+
+## 2. Flags: claims, terminology, or wording that may be unclear, overstated, or technically imprecise
+
+These do not necessarily represent “errors” in the same way as the items above, but they are places where the wording may be ambiguous, too strong, or technically loose.
+
+### A. Inflation and “printing money”
+
+1. **“Inflation is when prices go up because the government prints too much money.”**  
+   - **Potential issue:** This presents a very narrow definition of inflation and assigns it a single cause.  
+   - **Why it may be imprecise:** Inflation can also be associated with demand shocks, supply shocks, wage/price expectations, exchange-rate changes, supply-chain disruptions, monetary and fiscal policy interactions, and changes in money velocity. “The government” is also broad; in the U.S., the relevant institutions are the Federal Reserve and the Treasury, which play different roles.
+
+2. **“the government prints too much money”**  
+   - **Potential issue:** “Prints money” is a colloquial phrase. Modern monetary expansion is not simply physical printing of banknotes; it involves reserve balances, open-market operations, and the balance sheet of the central bank.  
+   - **Why it may be imprecise:** The phrase may obscure the actual mechanism by which monetary policy affects the economy.
+
+3. **“if there's more money chasing the same amount of stuff”**  
+   - **Potential issue:** This assumes that the quantity of goods and services is fixed and that money velocity or other factors do not change.  
+   - **Why it may be imprecise:** Inflation depends on the relationship between money, spending, output, expectations, and supply conditions, not simply on an increase in money alone.
+
+4. **“each dollar is worth less”**  
+   - **Potential issue:** This is a reasonable intuitive shorthand, but it is technically a statement about purchasing power, which depends on prices relative to money.  
+   - **Why it may be imprecise:** It can sound like a mechanical identity when, in reality, the relationship between money supply and prices can be indirect and time-dependent.
+
+5. **“This is obvious if you think about it”**  
+   - **Potential issue:** The word “obvious” may be too strong for a macroeconomic relationship that is actually contested and model-dependent.  
+   - **Why it may be imprecise:** It suggests the point is self-evident, when in fact the size, timing, and transmission of inflationary effects can be disputed.
+
+---
+
+### B. CPI, the 2% target, and the legal status of the Fed
+
+6. **“The Consumer Price Index (CPI) measures inflation by tracking a basket of goods that the average household buys”**  
+   - **Potential issue:** The CPI is a price index for a specific population and set of goods and services. It is not literally a basket of everything the “average household” buys.  
+   - **Why it may be imprecise:** The CPI-U covers urban consumers and excludes some groups such as the rural population, military populations, and people in institutions. It also includes services and housing, not just “goods” in the everyday sense.
+
+7. **“when CPI rises above 2% annually”**  
+   - **Potential issue:** The 2% figure is associated with the Fed’s price-stability objective, not a legal trigger.  
+   - **Why it may be imprecise:** The Fed’s 2% price-stability goal is part of its policy framework, not a statutory threshold that automatically requires a policy response.
+
+8. **“the Federal Reserve is legally required to raise interest rates”**  
+   - **Potential issue:** This overstates the legal constraint on the Fed.  
+   - **Why it may be imprecise:** The Fed has broad discretion in implementing monetary policy. Its mandate involves promoting stable prices and maximum employment, but it does not contain a mechanical rule requiring rate hikes at a specific CPI inflation threshold.
+
+---
+
+### C. Natural rate of unemployment
+
+9. **“Many economists believe that the natural rate of unemployment is around 4%”**  
+   - **Potential issue:** The natural rate, or NAIRU, is not a fixed, observed number. It is a theoretical concept and an empirical estimate that changes over time.  
+   - **Why it may be imprecise:** Estimates of the natural rate vary by country, time period, and methodology. Saying it is “around 4%” may be too definitive without qualification.
+
+10. **“which means anyone above that is either lazy or the victim of bad policy”**  
+   - **Potential issue:** The phrase “anyone above that” is unclear. It seems to refer to unemployment above the natural rate, but grammatically it points to “anyone.”  
+   - **Why it may be imprecise:** A unemployment rate above the natural rate is an aggregate phenomenon. It does not mean that each unemployed individual is “lazy” or simply a “victim of bad policy.” Unemployment can be cyclical, structural, seasonal, or related to search frictions.
+
+11. **“lazy” / “bad policy”**  
+   - **Potential issue:** These terms are value-laden and analytically vague.  
+   - **Why it may be imprecise:** “Lazy” introduces a normative judgment, and “bad policy” does not specify what type of policy is being criticized.
+
+---
+
+### D. Quantitative easing
+
+12. **“Quantitative easing … is basically just printing money to buy treasury bonds”**  
+   - **Potential issue:** This is a very simplified description.  
+   - **Why it may be imprecise:** QE involves the central bank purchasing assets, which increases bank reserves or the central bank’s balance sheet. It is not simply “printing money” in the physical sense, and it was not limited to Treasury bonds.
+
+13. **“which devalues the currency”**  
+   - **Potential issue:** QE does not automatically or necessarily devalue the currency.  
+   - **Why it may be imprecise:** Exchange-rate movements depend on relative interest rates, expectations, fiscal credibility, capital flows, and global financial conditions. QE can affect the exchange rate, but the effect is not automatic.
+
+14. **“inevitably causes hyperinflation”**  
+   - **Potential issue:** This is a very strong causal claim.  
+   - **Why it may be overstated:** QE does not inevitably produce hyperinflation. Hyperinflation usually requires rapid, sustained monetary expansion combined with fiscal dominance, loss of confidence in the currency, and often very weak institutional credibility.
+
+---
+
+### E. Japan and monetary policy effectiveness
+
+15. **“Japan's experience with deflation in the 1990s proves that monetary policy is completely ineffective at stimulating demand.”**  
+   - **Potential issue:** The word “proves” is too strong, and “completely ineffective” is too absolute.  
+   - **Why it may be overstated:** Japan’s experience is complex. Some economists point to limited effectiveness of monetary policy in a deflationary environment, balance-sheet problems, and weak demand; others emphasize that policy did have some effects, and that fiscal policy, structural factors, and expectations also matter. A single country’s experience rarely “proves” a universal claim about monetary policy.
+
+16. **“completely ineffective”**  
+   - **Potential issue:** Absolute language leaves no room for nuance.  
+   - **Why it may be imprecise:** Monetary policy can affect short-term interest rates, long-term rates, exchange rates, financial conditions, and asset prices even when it has limited direct effect on nominal GDP.
+
+---
+
+### F. Supply-side economics and the Reagan tax cuts
+
+17. **“supply-side economics has been definitively debunked”**  
+   - **Potential issue:** “Definitively debunked” is too strong.  
+   - **Why it may be overstated:** Supply-side economics is a broad set of ideas, and empirical findings vary depending on the specific tax changes, time period, sector, and empirical method used.
+
+18. **“the failed Reagan tax cuts”**  
+   - **Potential issue:** “Failed” is value-laden.  
+   - **Why it may be imprecise:** Whether the tax cuts “failed” depends on which outcome one cares about: deficits, growth, investment, labor supply, revenue, inequality, or long-run fiscal sustainability.
+
+19. **“which increased the deficit”**  
+   - **Potential issue:** This is true, but incomplete as a causal statement.  
+   - **Why it may be imprecise:** Deficits depend on both revenue and spending. The tax cuts reduced revenue, but the change in the deficit also depended on changes in spending, economic growth, and other factors.
+
+20. **“without growing the economy at all”**  
+   - **Potential issue:** This is factually incorrect.  
+   - **Why it may be imprecise:** The U.S. economy did grow after the early-1980s tax cuts. A more precise claim would need to specify whether the author means growth relative to potential, growth slower than expected, or growth that did not offset the fiscal cost.
+
+21. **“Most importantly”**  
+   - **Potential issue:** This is editorializing.  
+   - **Why it may be imprecise:** It tells the reader which point the author considers most important, but it does not follow from the preceding evidence in an objective way.
+
+---
+
+## Short summary of the main issues
+
+The passage has several clear wording/factual problems, especially around:
+
+- the legal status of the Fed’s 2% target,
+- the timing of QE,
+- the duration of Japan’s deflationary episode,
+- the claim that the Reagan tax cuts produced no economic growth,
+- and the misuse of the CPI as an inflation rate.
+
+It also contains several claims that are likely too broad or too strong, especially:
+
+- reducing inflation to “the government printing too much money,”
+- saying QE “inevitably causes hyperinflation,”
+- saying Japan “proves” monetary policy is “completely ineffective,”
+- saying supply-side economics has been “definitively debunked,”
+- and characterizing people above the natural unemployment rate as “lazy.”

@@ -1,0 +1,79 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "7a7f1838-5b58-546c-9f3e-40e2b649a2ca",
+ "rubric_version": 1,
+ "rubric_hash": "8d892908b5c59c65",
+ "method": "checks",
+ "scored_at": "2026-10-27T19:06:51.706945+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 2,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 2.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "interest",
+   "type": "required_patterns",
+   "group": "Compound interest",
+   "label": "Answer 1 is $5,636.36 (monthly compounding, 36 periods).",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*1[.)]\\s*.*\\$?\\s*5,?636\\.36\\b"
+  },
+  {
+   "id": "boxes",
+   "type": "required_patterns",
+   "group": "Boxes",
+   "label": "Answer 2 is 87 boxes (2,035 sq ft, rounded up).",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "gas",
+   "type": "required_patterns",
+   "group": "Gas cost",
+   "label": "Answer 3 is $47.14.",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*3[.)]\\s*.*\\$?\\s*47\\.14\\b"
+  },
+  {
+   "id": "split",
+   "type": "required_patterns",
+   "group": "Split bill",
+   "label": "Answer 4 is $54.34 each (tip on the pre-tax amount, added to the taxed total).",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*4[.)]\\s*.*\\$?\\s*54\\.34\\b"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Compound interest",
+   "passed": 0,
+   "total": 3,
+   "detail": "0/1 found; missing: (?im)^\\W*1[.)]\\s*.*\\$?\\s*5,?636\\.36\\b"
+  },
+  {
+   "id": "Boxes",
+   "passed": 2,
+   "total": 2,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Gas cost",
+   "passed": 0,
+   "total": 2,
+   "detail": "0/1 found; missing: (?im)^\\W*3[.)]\\s*.*\\$?\\s*47\\.14\\b"
+  },
+  {
+   "id": "Split bill",
+   "passed": 0,
+   "total": 3,
+   "detail": "0/1 found; missing: (?im)^\\W*4[.)]\\s*.*\\$?\\s*54\\.34\\b"
+  }
+ ]
+}

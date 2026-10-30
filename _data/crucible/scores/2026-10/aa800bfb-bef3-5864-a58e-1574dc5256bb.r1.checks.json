@@ -1,0 +1,65 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "aa800bfb-bef3-5864-a58e-1574dc5256bb",
+ "rubric_version": 1,
+ "rubric_hash": "8edabc9afec16b4f",
+ "method": "checks",
+ "scored_at": "2026-10-27T13:12:51.827925+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 7,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 7.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "landlocked_found",
+   "type": "required_patterns",
+   "group": "All landlocked found",
+   "label": "The Landlocked line lists all 11: Bolivia, Kazakhstan, Austria, Laos, Paraguay, Serbia, Ethiopia, Uzbekistan, Zambia, Hungary, Mongolia.",
+   "passed": true,
+   "detail": "11/11 found"
+  },
+  {
+   "id": "coastal_not_listed",
+   "type": "forbidden_patterns",
+   "group": "No coastal country listed",
+   "label": "The Landlocked line includes none of Croatia, Eritrea, Mozambique, Vietnam.",
+   "passed": true,
+   "detail": "none found"
+  },
+  {
+   "id": "doubly",
+   "type": "required_patterns",
+   "group": "Doubly landlocked",
+   "label": "The doubly landlocked country is Uzbekistan.",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*doubly landlocked:\\W*uzbekistan\\b"
+  }
+ ],
+ "groups": [
+  {
+   "id": "All landlocked found",
+   "passed": 4,
+   "total": 4,
+   "detail": "11/11 found"
+  },
+  {
+   "id": "No coastal country listed",
+   "passed": 3,
+   "total": 3,
+   "detail": "none found"
+  },
+  {
+   "id": "Doubly landlocked",
+   "passed": 0,
+   "total": 3,
+   "detail": "0/1 found; missing: (?im)^\\W*doubly landlocked:\\W*uzbekistan\\b"
+  }
+ ]
+}

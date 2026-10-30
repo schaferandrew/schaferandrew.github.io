@@ -26,6 +26,10 @@ The tasks are split into three tiers: Spark, Temper, and Forge.
 
 **Forge**: This is aspirational, however, I will not be surprised when these are all accomplished by smaller models as we continue to optimize performance by the harness and models themselves. For now, it's tasks I'd have to turn to flagship models to run. Large planning tasks, complicated bugs to uncover, and large rewrites.
 
+![Quality vs Time](/assets/img/technology/2026/crucible/chat-quality-vs-time.png)
+
+*Quality vs time — models ranked by score against median latency. Up and to the left is better.*
+
 ### What this has helped me do
 
 I've already seen tangible benefits from this workflow:
@@ -43,10 +47,18 @@ I've already seen tangible benefits from this workflow:
 
 **Architecture**: The harness was built to stay "clean" and support multiple agent interfaces natively — direct, OpenCode, Pi, and the door left open for future agents — while remaining provider-flexible.
 
+![Agentic Leaderboard — Local Only](/assets/img/technology/2026/crucible/agentic-local-leaderboard.png)
+
+*Agentic leaderboard, filtered to local models — gpt-oss-20b leads with a 9.9 Temper score on Whitehall (RTX 5070 Ti).*
+
 ### What can you do?
 
 I invite you to take a look at the results, play around with the dashboard, and filter by hardware closest to yours before testing out the models. Give Crucible a shot, run it yourself, and then be bold — try giving it real tasks in the harness of your choice!
 
 Reach out with questions. I hope soon to build the infrastructure to allow community-provided test results, but for now, I'd love to hear what your local models can do.
+
+![Expanded Test Detail](/assets/img/technology/2026/crucible/test-detail.png)
+
+*Each test shows the prompt, scoring rubric, checks, and model output — fully transparent.*
 
 [Check out the Crucible dashboard](/crucible/)

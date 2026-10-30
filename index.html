@@ -36,13 +36,13 @@ title: Home
   {% assign counter = 0 %}
 
 
-  <!-- Get everything but technology, show first 3 -->
+  <!-- Show first 6 recent posts -->
   {%- if site.posts.size > 0 -%}
   <div class="constrain">
     <h2>Recent Posts</h2>
     <ul>
       {%- for post in site.posts -%}
-      {% unless post.categories contains "technology" or counter > 5 %}
+      {% unless counter > 5 %}
       {% assign counter = counter | plus: 1 %}
       <li class="post-item">
         {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}

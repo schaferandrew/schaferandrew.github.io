@@ -17,15 +17,12 @@
     min-width: 0;
   }
 
+  // Inline flow, so a long 'maker / model' wraps after the dot rather than below it
   .cmp-id-name {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0 4px;
+    display: block;
 
     .cmp-dot {
-      align-self: center;
-      margin-right: 2px;
+      margin-right: 4px;
     }
 
     .crucible-tag {

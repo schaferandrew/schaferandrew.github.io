@@ -438,8 +438,11 @@ $crucibleBlue: #1856a3;
     border-radius: 4px;
   }
 
+  // 'maker / model' wraps before the model, so the areas fit at 1400 px
   tbody th {
+    min-width: 12em;
     font-weight: $weightBold;
+    white-space: normal;
   }
 }
 

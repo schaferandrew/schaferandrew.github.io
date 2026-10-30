@@ -707,7 +707,10 @@
       modeConfigsAll().filter(passesFilters).forEach(function (cfg) {
         (groups[cfg.rowKey] = groups[cfg.rowKey] || []).push(stats(cfg));
       });
-      return Object.keys(groups).map(function (key) {
+      // A model with no counted run in this suite and section isn't on the board at all
+      return Object.keys(groups).filter(function (key) {
+        return groups[key].some(function (v) { return v.runs > 0; });
+      }).map(function (key) {
         var variants = groups[key].sort(betterConfig);
         var best = variants[0];
         return Object.assign({}, best, { rowKey: key, label: rowLabel(best.cfg), variants: variants });
@@ -897,6 +900,10 @@
       return parts.join(' ');
     }
 
+    function emptyText() {
+      return 'No model has a counted run in this section of ' + suiteName(S.cat) + (filterPhrase() ? ' ' + filterPhrase() : '') + ' yet.';
+    }
+
     function renderTakeaways(list) {
       var ul = document.getElementById('crucible-takeaways');
       ul.innerHTML = '';
@@ -1072,7 +1079,7 @@
           });
         }
       });
-      if (!list.length) body.appendChild(el('tr')).appendChild(el('td', { colspan: columns.length, class: 'crucible-not-run' }, 'No runs match these filters.'));
+      if (!list.length) body.appendChild(el('tr')).appendChild(el('td', { colspan: columns.length, class: 'crucible-not-run' }, emptyText()));
     }
 
     function setSort(key) {
@@ -1135,7 +1142,7 @@
         }
         ul.appendChild(card);
       });
-      if (!list.length) box.appendChild(el('p', { class: 'crucible-not-run' }, 'No runs match these filters.'));
+      if (!list.length) box.appendChild(el('p', { class: 'crucible-not-run' }, emptyText()));
     }
 
     // ---- Scatter ----------------------------------------------------------
@@ -1486,7 +1493,7 @@
         });
         body.appendChild(row);
       });
-      if (!rows.length) body.appendChild(el('tr')).appendChild(el('td', { class: 'crucible-not-run' }, 'No runs match these filters.'));
+      if (!rows.length) body.appendChild(el('tr')).appendChild(el('td', { class: 'crucible-not-run' }, emptyText()));
     }
 
     function modelCard(s, ul) {
@@ -1508,7 +1515,7 @@
     function renderMatrixNarrow(rows) {
       var box = document.getElementById('crucible-matrix-narrow');
       box.innerHTML = '';
-      if (!rows.length) { box.appendChild(el('p', { class: 'crucible-not-run' }, 'No runs match these filters.')); return; }
+      if (!rows.length) { box.appendChild(el('p', { class: 'crucible-not-run' }, emptyText())); return; }
       var ul = box.appendChild(el('ul', { class: 'crucible-cards' }));
       rows.forEach(function (s) {
         var li = modelCard(s, ul);

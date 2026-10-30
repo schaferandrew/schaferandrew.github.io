@@ -1,0 +1,8 @@
+# Display settings for the Crucible page (crucible.html, assets/js/crucible.js), read through
+# crucible/data.json. Data-driven like the rest of the page: nothing here names a task or tier.
+#
+# hidden_suites: suite IDs (a catalog's suite.id) the page treats as not selectable. They're left
+# out of the suite selector, and a #...&suite=<id> link falls back to the current visible suite.
+# With one suite visible the selector isn't drawn; the suite line still is. Remove an ID to bring
+# that suite back. Nothing is deleted: the catalogs and runs stay in _data/crucible/.
+hidden_suites: [v1, v2]

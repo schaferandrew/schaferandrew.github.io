@@ -24,6 +24,11 @@ served by GitHub Pages at www.schaferandrew.com).
   per suite, and one file per run (`runs/<month>/`), score record (`scores/<month>/`) and status
   record (`status/`). Full model outputs are in `crucible-data/outputs/`, outside `_data`. Never
   hand-edit any of it; republish, and run `crucible publish --check` before committing.
+- `_data/crucible_display.yml` holds display settings, read through `crucible/data.json`.
+  `hidden_suites` lists suite IDs (a catalog's `suite.id`, e.g. `v1`) the page treats as not
+  selectable: they're left out of the suite selector, and a `#…&suite=<id>` link falls back to the
+  current visible suite. With one suite visible the selector isn't drawn, but the suite line is.
+  Remove an ID to bring that suite back; its catalog and runs stay in `_data/crucible/`.
 - Publishing results: run `crucible publish` in the Crucible repo, then commit and push only
   `_data/crucible/` and `crucible-data/` here.
 - The page is data-driven. Never hard-code a task, area, mode, tier, label, blurb or threshold in

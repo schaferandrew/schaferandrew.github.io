@@ -21,4 +21,4 @@ sitemap: false
     {%- endif -%}
   {%- endfor -%}
 {%- endfor -%}
-], "fallbacks": {{ site.data.crucible_fallbacks | jsonify }}}
+], "fallbacks": {{ site.data.crucible_fallbacks | jsonify }}, "display": {{ site.data.crucible_display | jsonify }}}

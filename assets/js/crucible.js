@@ -127,8 +127,13 @@
       showStatus(skippedNote || 'No results have been published yet.');
       return;
     }
-    var SUITES = store.catalogs;
     function suiteId(c) { return String(c.suite.id || c.suite.version); }
+    // Suites the display settings (_data/crucible_display.yml) hide aren't selectable; if that would
+    // hide every suite, all of them stay visible
+    var DISPLAY = payload.display || {};
+    var hiddenSuites = (DISPLAY.hidden_suites || []).map(String);
+    var SUITES = store.catalogs.filter(function (c) { return hiddenSuites.indexOf(suiteId(c)) === -1; });
+    if (!SUITES.length) SUITES = store.catalogs;
     function suiteName(c) { var id = suiteId(c); return 'Suite ' + (/^v/i.test(id) ? id : 'v' + id); }
     var CURRENT = SUITES.filter(function (c) { return c.suite.status === 'current'; })[0] || SUITES[0];
 
@@ -803,6 +808,9 @@
 
     // Suite selector, newest first, and the suite line: version, task counts, cut date, changelog
     function renderSuite() {
+      // One visible suite: no selector, just the suite line
+      document.getElementById('suite-select').hidden = SUITES.length < 2;
+      document.getElementById('suite-select-label').hidden = SUITES.length < 2;
       fillSelect(document.getElementById('suite-select'), SUITES.map(function (c) {
         return { value: suiteId(c), label: suiteName(c) + (c.suite.status === 'current' ? ' (current)' : '') };
       }), state.suite);

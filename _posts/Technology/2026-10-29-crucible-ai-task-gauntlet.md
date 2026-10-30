@@ -51,9 +51,9 @@ I've already seen tangible benefits from this workflow:
 
 **Architecture**: The harness was built to stay "clean" and support multiple agent interfaces natively — direct, OpenCode, Pi, and the door left open for future agents — while remaining provider-flexible.
 
-![Agentic Leaderboard](/assets/img/technology/2026/crucible/agentic-leaderboard.png)
+![Agentic Leaderboard — Local Only](/assets/img/technology/2026/crucible/agentic-local-leaderboard.png)
 
-*Agentic leaderboard — models evaluated on coding, research, and everyday tasks with an agent harness.*
+*Agentic leaderboard, filtered to local models — gpt-oss-20b leads with a 9.9 Temper score on Whitehall (RTX 5070 Ti).*
 
 ### What can you do?
 
@@ -61,8 +61,8 @@ I invite you to take a look at the results, play around with the dashboard, and 
 
 Reach out with questions. I hope soon to build the infrastructure to allow community-provided test results, but for now, I'd love to hear what your local models can do.
 
-![Crucible Mobile](/assets/img/technology/2026/crucible/mobile-leaderboard.jpg)
+![Expanded Test Detail](/assets/img/technology/2026/crucible/test-detail.png)
 
-*Mobile view — the dashboard works on any device.*
+*Each test shows the prompt, scoring rubric, checks, and model output — fully transparent.*
 
 [Check out the Crucible dashboard](/crucible/)

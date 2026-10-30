@@ -76,19 +76,3 @@ scoring_methods:
   hidden_tests:
     label: hidden tests
     blurb: a test suite the agent never sees, run on the repo it leaves behind
-
-# Makers (who made a model), keyed by maker ID: the model registry's label wins; without one the
-# maker is the model base's prefix ("qwen/qwen3.5-9b" -> qwen) and its label comes from here,
-# else the ID, capitalized.
-makers:
-  anthropic: {label: Anthropic}
-  deepseek: {label: DeepSeek}
-  google: {label: Google}
-  liquid: {label: Liquid AI}
-  mlx-community: {label: MLX Community}
-  moonshotai: {label: Moonshot AI}
-  nvidia: {label: NVIDIA}
-  openai: {label: OpenAI}
-  poolside: {label: Poolside}
-  qwen: {label: Qwen}
-  z-ai: {label: Z.ai}

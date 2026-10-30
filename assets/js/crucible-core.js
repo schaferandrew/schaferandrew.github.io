@@ -94,11 +94,14 @@
   function suiteId(c) { return String(c.suite.id || c.suite.version); }
   function suiteName(c) { var id = suiteId(c); return 'Suite ' + (/^v/i.test(id) ? id : 'v' + id); }
 
-  // A model base's maker is the part before its '/', with a leading '~' (a provider's "latest"
-  // alias) dropped; null when there is none. The model registry, when published, wins over this.
+  // Namespaces that repackage other labs' weights; never a maker. Mirrors Crucible's origin.PACKAGERS.
+  var PACKAGERS = ['mlx-community', 'lmstudio-community', 'unsloth', 'bartowski'];
+  // The maker inferred from a model base, for runs without model.origin: the part before its '/',
+  // with a leading '~' (a provider's "latest" alias) dropped; null when there is none or it's a packager.
   function makerFromBase(base) {
     var b = String(base || '').replace(/^~/, ''), i = b.indexOf('/');
-    return i > 0 ? b.slice(0, i) : null;
+    var m = i > 0 ? b.slice(0, i).toLowerCase() : null;
+    return m && PACKAGERS.indexOf(m) === -1 ? m : null;
   }
   // The model's own name, without its maker prefix: "qwen/qwen3.5-9b" -> "qwen3.5-9b"
   function modelName(base) {
@@ -315,39 +318,6 @@
   }
   C.collect = collect;
 
-  // The model registry, when the bundle carries one (payload.models): maker id and label per model
-  // base. Read tolerantly: any object with a `maker` (an id, or { id, label }) under a `base` field
-  // or a base-named key, and makers as { id: label } or { id: { label } } under a `makers` key.
-  function readModels(node) {
-    var models = {}, makers = {};
-    function makerLabel(id, v) {
-      var label = typeof v === 'string' ? v : v && (v.label || v.name);
-      if (id && label && !makers[id]) makers[id] = String(label);
-    }
-    (function walk(n, key, parentKey) {
-      if (Array.isArray(n)) { n.forEach(function (x) { walk(x, null, key); }); return; }
-      if (!n || typeof n !== 'object' || newer(n)) return;
-      if (parentKey === 'makers' || n.record === 'maker') {
-        makerLabel(n.id || key, n.label ? n : n.name ? n : null);
-        if (n.id || key) return;
-      }
-      if (n.maker !== undefined && n.maker !== null) {
-        var base = typeof n.base === 'string' ? n.base : key;
-        var mk = n.maker, id = typeof mk === 'string' ? mk : mk && mk.id;
-        if (base && id) {
-          models[base] = { maker: String(id), label: n.label || n.name || null };
-          makerLabel(String(id), typeof mk === 'object' ? mk : n.maker_label);
-        }
-        return;
-      }
-      Object.keys(n).forEach(function (k) {
-        if (k === 'makers' && n[k] && typeof n[k] === 'object' && !Array.isArray(n[k])) {
-          Object.keys(n[k]).forEach(function (id) { makerLabel(id, n[k][id]); });
-        } else walk(n[k], k, key);
-      });
-    })(node, null, null);
-    return { models: models, makers: makers };
-  }
 
   // ---- Data: everything the records say, joined ---------------------------
 
@@ -520,7 +490,20 @@
 
     // ---- Makers and models ---------------------------------------------------
 
-    var REG = readModels(payload.models);
+    // A run's maker is its recorded model.origin.maker (Crucible 3.5.0 on); without one it's inferred
+    // from the model base. A base's maker is the one its runs recorded most, else the inferred one.
+    var RECORDED = {};
+    Object.keys(store.runs).forEach(function (uuid) {
+      var m = store.runs[uuid].model || {}, o = m.origin;
+      if (!o || !o.maker || !m.base) return;
+      var c = RECORDED[m.base] = RECORDED[m.base] || {};
+      c[o.maker] = (c[o.maker] || 0) + 1;
+    });
+    function recordedMaker(base) {
+      var c = RECORDED[base];
+      if (!c) return null;
+      return Object.keys(c).sort(function (a, b) { return c[b] - c[a] || (a < b ? -1 : 1); })[0];
+    }
     // A base model: from a run, a configuration, a row (s.cfg) or the base string itself
     function baseOf(x) {
       if (!x) return null;
@@ -530,16 +513,20 @@
       if (x.model) { var m = x.model; return m.base || (m.variant_key ? String(m.variant_key).split('|')[0] : null) || m.id || null; }
       return x.base || null;
     }
-    function makerOf(x) {
+    // { id, inferred, source }: who made the model. A run answers from its own model.origin; anything
+    // else (a base, a configuration, a row) from its base's runs. id is null when nothing says.
+    function makerInfo(x) {
+      var o = x && x.model && x.model.origin;
+      if (o && o.maker) return { id: o.maker, inferred: false, source: o.source || null };
       var base = baseOf(x);
-      if (!base) return null;
-      return REG.models[base] ? REG.models[base].maker : makerFromBase(base);
+      if (!base) return { id: null, inferred: true, source: null };
+      var rec = recordedMaker(base);
+      if (rec) return { id: rec, inferred: false, source: 'runs' };
+      return { id: makerFromBase(base), inferred: true, source: null };
     }
-    function makerLabel(id) {
-      if (!id) return '';
-      var fb = (FB.makers || {})[id];
-      return REG.makers[id] || (typeof fb === 'string' ? fb : fb && fb.label) || cap(id);
-    }
+    function makerOf(x) { return makerInfo(x).id; }
+    // Makers are shown as recorded (the namespace the source uses, e.g. "qwen"): no label list.
+    function makerLabel(id) { return id ? String(id) : 'unknown maker'; }
     // The model page's id: "qwen/qwen3.5-9b" (maker, then the model's own name), or just the name
     function modelKey(x) {
       var base = baseOf(x);
@@ -550,10 +537,11 @@
     var BASES = [];
     Object.keys(CONFIGS).forEach(function (k) { if (BASES.indexOf(CONFIGS[k].base) === -1) BASES.push(CONFIGS[k].base); });
     D.baseOf = baseOf;
+    D.makerInfo = makerInfo;
     D.makerOf = makerOf;
     D.makerLabel = makerLabel;
     D.modelKey = modelKey;
-    D.modelLabel = function (base) { return (REG.models[base] && REG.models[base].label) || shortName(base); };
+    D.modelLabel = function (base) { return shortName(base); };
     D.bases = function () { return BASES.slice(); };
     D.basesOf = function (key) { return BASES.filter(function (b) { return modelKey(b) === key; }); };
     D.basesByMaker = function (maker) { return BASES.filter(function (b) { return makerOf(b) === maker; }); };

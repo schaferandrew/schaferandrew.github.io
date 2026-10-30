@@ -7,7 +7,6 @@ sitemap: false
   Bundle format 3, slimmed for the page: every catalog, run and status record as published, and
   each score record without its per-item results (those are in /crucible/details.json, fetched
   when a run is opened). Keys are folder and file names; the page reads the records, not the keys.
-  models is the model registry (maker per model base) when the bundle has one, else null.
 {%- endcomment -%}
 {%- assign cr = site.data.crucible -%}
 {%- assign n = 0 -%}
@@ -22,4 +21,4 @@ sitemap: false
     {%- endif -%}
   {%- endfor -%}
 {%- endfor -%}
-], "models": {{ cr.models | jsonify }}, "fallbacks": {{ site.data.crucible_fallbacks | jsonify }}, "display": {{ site.data.crucible_display | jsonify }}}
+], "fallbacks": {{ site.data.crucible_fallbacks | jsonify }}, "display": {{ site.data.crucible_display | jsonify }}}

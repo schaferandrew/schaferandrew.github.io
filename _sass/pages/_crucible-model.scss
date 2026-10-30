@@ -1,1 +1,348 @@
-// Crucible model page (crucible-model.html, assets/js/crucible-model.js)
+// Crucible model page: one model, all of its setups
+
+.crucible-model {
+  .cm-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px $gap;
+    margin-bottom: $gap;
+    color: $gray;
+    font-size: $textSmall;
+  }
+
+  .cm-inferred {
+    color: $gray;
+    font-size: $textSmall;
+    border-bottom: 1px dotted $gray;
+    cursor: help;
+  }
+
+  // ---- Index ----
+  .cm-maker {
+    margin-bottom: $gap;
+  }
+
+  .cm-maker-name {
+    margin: 0 0 4px;
+    font-size: $textMedium;
+  }
+
+  .cm-model-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px $gap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  // ---- Setup picker ----
+  .cm-picker {
+    display: grid;
+    gap: 8px;
+    margin-bottom: $gap;
+  }
+
+  .cm-chiprow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .cm-chiplabel {
+    flex: 0 0 9em;
+    color: $gray;
+    font-size: $textSmall;
+    font-weight: $weightBold;
+    text-transform: uppercase;
+    letter-spacing: $letterspaceMedium;
+  }
+
+  .cm-chip {
+    padding: 5px 12px;
+    background: #fff;
+    border: 1px solid $crucibleBorder;
+    border-radius: 999px;
+    color: $colorPrimary;
+    font-family: inherit;
+    font-size: $textSmall;
+    cursor: pointer;
+
+    &[aria-pressed='true'] {
+      background: $colorSecondary;
+      border-color: $colorSecondary;
+      color: #fff;
+      font-weight: $weightBold;
+    }
+
+    &.is-dashed {
+      border-style: dashed;
+      color: $crucibleMuted;
+    }
+
+    &.is-dashed[aria-pressed='true'] {
+      color: #fff;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $colorSecondary;
+      outline-offset: 2px;
+    }
+  }
+
+  .cm-chipplain {
+    font-size: $textSmall;
+  }
+
+  // ---- Tiles ----
+  .cm-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: $gap / 2;
+    margin-bottom: $gap * 1.5;
+  }
+
+  .cm-tile {
+    padding: ($gap * 0.75) $gap;
+    background: #fff;
+    border: 1px solid $crucibleBorder;
+    border-radius: 8px;
+  }
+
+  .cm-tile-label {
+    margin: 0;
+    color: $gray;
+    font-size: $textSmall;
+    font-weight: $weightBold;
+    text-transform: uppercase;
+    letter-spacing: $letterspaceMedium;
+  }
+
+  .cm-tile-value {
+    margin: 2px 0;
+    font-size: 28px;
+    font-weight: $weightBold;
+    line-height: 1.2;
+  }
+
+  .cm-tile-sub {
+    margin: 0;
+    color: $gray;
+    font-size: $textSmall;
+  }
+
+  // ---- Setups table ----
+  .cm-cov {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  .cm-cov-bar {
+    display: inline-block;
+    width: 64px;
+    height: 8px;
+    overflow: hidden;
+    background: $crucibleNotRun;
+    border-radius: 4px;
+  }
+
+  .cm-cov-fill {
+    display: block;
+    height: 100%;
+    background: $colorSecondary;
+
+    &.is-low {
+      background: $crucibleMuted;
+    }
+  }
+
+  .cm-setups {
+    tr.is-selected {
+      background: rgba(24, 86, 163, 0.08);
+      box-shadow: inset 3px 0 0 $colorSecondary;
+    }
+
+    tbody tr {
+      cursor: pointer;
+    }
+  }
+
+  .cm-note {
+    margin-left: 4px;
+    color: $gray;
+    font-size: $textSmall;
+  }
+
+  .cm-compare-bar {
+    margin: $gap / 2 0 $gap * 1.5;
+    font-size: $textSmall;
+  }
+
+  .cm-compare-go {
+    display: inline-block;
+    padding: 6px 14px;
+    background: $colorSecondary;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: $weightBold;
+
+    &.is-off {
+      background: $crucibleNotRun;
+      color: $crucibleMuted;
+    }
+  }
+
+  // ---- Areas ----
+  .cm-areas {
+    display: grid;
+    gap: 8px;
+    margin-bottom: $gap * 1.5;
+  }
+
+  .cm-area {
+    display: grid;
+    grid-template-columns: minmax(8em, 14em) 1fr auto;
+    align-items: center;
+    gap: $gap;
+  }
+
+  .cm-area-name {
+    font-weight: $weightBold;
+  }
+
+  .cm-area-track {
+    height: 14px;
+    overflow: hidden;
+    background: $crucibleNotRun;
+    border-radius: 7px;
+  }
+
+  .cm-area-fill {
+    display: block;
+    height: 100%;
+    background: $colorSecondary;
+  }
+
+  .cm-area-val {
+    min-width: 11em;
+    font-size: $textSmall;
+    text-align: right;
+  }
+
+  .cm-area.is-none .cm-area-name,
+  .cm-area.is-none .cm-area-val {
+    color: $crucibleMuted;
+    font-weight: normal;
+  }
+
+  // ---- A/B ----
+  .cm-db {
+    margin-bottom: 8px;
+  }
+
+  .cm-db-row {
+    display: grid;
+    grid-template-columns: minmax(10em, 18em) 1fr;
+    align-items: center;
+    gap: $gap;
+    padding: 2px 0;
+  }
+
+  .cm-db-name {
+    overflow: hidden;
+    font-size: $textSmall;
+    text-overflow: ellipsis;
+  }
+
+  .cm-db svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .cm-db-axis text {
+    fill: $gray;
+    font-size: 10px;
+  }
+
+  .cm-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px $gap;
+    margin-bottom: 8px;
+    font-size: $textSmall;
+  }
+
+  .cm-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 6px;
+    border-radius: 50%;
+  }
+
+  .cm-callout {
+    margin: 0 0 $gap * 1.5;
+    padding: ($gap / 2) ($gap * 0.75);
+    background: $colorTertiary;
+    border-left: 3px solid $colorAccent;
+  }
+
+  .cm-tasks-narrow .crucible-cards {
+    margin-top: 0;
+  }
+
+  .cm-other-link {
+    cursor: pointer;
+  }
+
+  // ---- Phone ----
+  @media screen and (max-width: 639px) {
+    .cm-chiplabel {
+      flex-basis: 100%;
+    }
+
+    .cm-area {
+      grid-template-columns: 1fr auto;
+    }
+
+    .cm-area-track {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+
+    .cm-area-val {
+      min-width: 0;
+    }
+
+    .cm-db-row {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .cm-cov-bar {
+      width: 100%;
+      flex: 1;
+    }
+
+    .cm-card-cov {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 6px 0;
+    }
+
+    .cm-card-check {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      font-size: $textSmall;
+    }
+  }
+}

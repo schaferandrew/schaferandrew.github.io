@@ -1,0 +1,67 @@
+---
+layout: default
+title: Crucible model
+noindex: true
+permalink: /crucible/model/
+---
+<div class="constrain crucible crucible-model">
+  <p class="crucible-breadcrumb" id="model-breadcrumb"><a href="/crucible/">← Crucible results</a></p>
+  <h1 class="crucible-title" id="model-title">Models</h1>
+
+  <p class="crucible-status" id="crucible-status" role="status">Loading results…</p>
+
+  <section class="crucible-results" aria-label="Model" id="crucible-results" hidden>
+    <div class="crucible-suite-bar">
+      <label class="crucible-toolbar-label" for="suite-select" id="suite-select-label">Suite</label>
+      <select class="crucible-select" id="suite-select"></select>
+      <span class="crucible-suite-line" id="suite-line"></span>
+    </div>
+    <p class="crucible-sub crucible-suite-note" id="suite-note" hidden></p>
+
+    <div id="model-index" hidden></div>
+
+    <div id="model-page" hidden>
+      <div class="cm-meta" id="model-meta"></div>
+      <p class="crucible-sub" id="model-empty" hidden></p>
+
+      <div id="model-body">
+        <h2 class="crucible-heading">Setup</h2>
+        <div class="cm-picker" id="model-picker"></div>
+        <div class="cm-tiles" id="model-tiles"></div>
+
+        <h2 class="crucible-heading">Every setup</h2>
+        <p class="crucible-sub" id="setups-sub"></p>
+        <div class="crucible-scroll cm-setups-wide">
+          <table class="crucible-tests cm-setups" id="cm-setups"></table>
+        </div>
+        <div class="cm-setups-narrow" id="cm-setups-narrow" hidden></div>
+        <p class="cm-compare-bar" id="cm-compare-bar"></p>
+
+        <h2 class="crucible-heading">By area</h2>
+        <p class="crucible-sub">Mean score on the tasks this setup ran in each area of the section; “ran x of y” counts the area’s tasks.</p>
+        <div class="cm-areas" id="cm-areas"></div>
+
+        <div id="cm-ab" hidden>
+          <h2 class="crucible-heading" id="cm-ab-heading">A/B</h2>
+          <div class="crucible-toolbar crucible-toolbar-tight" id="cm-ab-pick"></div>
+          <p class="crucible-sub" id="cm-ab-sub"></p>
+          <div class="cm-db" id="cm-db"></div>
+          <div class="cm-legend" id="cm-db-legend"></div>
+          <p class="cm-callout" id="cm-ab-summary"></p>
+        </div>
+
+        <h2 class="crucible-heading">Tasks</h2>
+        <p class="crucible-sub">Every task for the selected setup, grouped by area; a score is the mean of its runs. Select a score for its runs, checks and output.</p>
+        <div class="crucible-scroll cm-tasks-wide">
+          <table class="crucible-tests" id="cm-tasks"></table>
+        </div>
+        <div class="cm-tasks-narrow" id="cm-tasks-narrow" hidden></div>
+        <div class="crucible-cell-detail" id="cm-cell-detail" hidden></div>
+      </div>
+      <p class="crucible-sub" id="cm-other" hidden></p>
+    </div>
+  </section>
+</div>
+
+<script src="/assets/js/crucible-core.js?v={{ site.time | date: '%s' }}"></script>
+<script src="/assets/js/crucible-model.js?v={{ site.time | date: '%s' }}" data-src="/crucible/data.json?v={{ site.time | date: '%s' }}" data-details="/crucible/details.json?v={{ site.time | date: '%s' }}" data-outputs="/crucible-data/"></script>

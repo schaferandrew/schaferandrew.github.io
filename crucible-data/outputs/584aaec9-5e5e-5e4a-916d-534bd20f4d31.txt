@@ -1,0 +1,11 @@
+
+
+**Saint Paul, MN — live weather (fetched 2026-10-24 12:15 CT):**
+- **Current temp: 73.7°F**, clear skies (WMO code 0), wind 22.5 km/h from the SSW
+- Source: `https://api.open-meteo.com/v1/forecast?latitude=44.9537&longitude=-93.09&current_weather=true&temperature_unit=fahrenheit&timezone=America%2FChicago`
+
+**Historical average for Oct 24 (2016–2025 daily max temps):**
+- 53.2, 48.6, 51.0, 42.1, 32.8, 48.8, 70.2, 63.3, 62.6, 50.6 → **average 52.3°F** (range 32.8–70.2)
+- Source: `https://archive-api.open-meteo.com/v1/archive?latitude=44.9537&longitude=-93.09&start_date=2016-10-24&end_date=2025-10-24&daily=temperature_2m_max&temperature_unit=fahrenheit`
+
+**Verdict: outlier.** At noon, 73.7°F is already ~21°F above the average Oct 24 *high* of 52.3°F — and it's set to climb further. It's also above the warmest Oct 24 in the 2016–2025 sample (70.2°F in 2022), so today is tracking to be the warmest October 24th on record for this grid point in that window.

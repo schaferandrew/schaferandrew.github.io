@@ -1,0 +1,88 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "b77b5f66-639f-5fe0-815b-13c1d462fd06",
+ "run_path": "lmstudio_qwen_qwen3.5-9b/fire-truck-color/20261026_164213",
+ "legacy_run_id": "lmstudio_qwen_qwen3.5-9b/everyday/KNOW-1/20261026_164213",
+ "started_at": "2026-10-26T16:42:13.663765+00:00",
+ "ended_at": "2026-10-26T16:42:27.320593+00:00",
+ "elapsed_s": 13.66,
+ "task": {
+  "id": "fire-truck-color",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "4f544d69ec35ecb1",
+  "rubric_hash": "eace82f513c90ce0",
+  "alias": "KNOW-1"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/qwen/qwen3.5-9b",
+  "base": "qwen/qwen3.5-9b",
+  "publisher": null,
+  "artifact": null,
+  "format": null,
+  "quant": "Q4_K_M",
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": 100096,
+  "variant_key": "qwen/qwen3.5-9b|-|-|q4_k_m",
+  "display": "qwen3.5-9b · Q4_K_M"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": null,
+  "class": null,
+  "accelerators": [],
+  "system_memory_gb": null,
+  "cpu": null,
+  "offload": null,
+  "label": null
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 27,
+  "tokens_out": 1402,
+  "model_responses": 1,
+  "ttft_s": 0.957,
+  "ttft_avg_s": 0.957,
+  "response_time_avg_s": 13.65,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": "outputs/b77b5f66-639f-5fe0-815b-13c1d462fd06.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:93c056598de02e20531d5258cf13aecba2b8b9d8ca779cfac9fbdb7596d8a28b",
+  "submitter": null,
+  "verification": null
+ }
+}

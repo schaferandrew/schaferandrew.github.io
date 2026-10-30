@@ -1,0 +1,80 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "d2d024dc-a9db-56d3-8b1b-bf00b4b011a5",
+ "run_path": "openrouter_openai_gpt-6-luna/proofread-economics-essay/20261027_192922",
+ "legacy_run_id": "openrouter_openai_gpt-6-luna/writing/WRIT-1c/20261027_192922",
+ "started_at": "2026-10-27T19:29:22.178076+00:00",
+ "ended_at": "2026-10-27T19:29:40.804428+00:00",
+ "elapsed_s": 18.63,
+ "task": {
+  "id": "proofread-economics-essay",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "cf3ca397d5295f66",
+  "rubric_hash": "0fefa4c8e6e7b983",
+  "alias": "WRIT-1c"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/openai/gpt-6-luna",
+  "base": "openai/gpt-6-luna",
+  "publisher": "openai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "openai/gpt-6-luna|openai|api|-",
+  "display": "gpt-6-luna"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 252,
+  "tokens_out": 1816,
+  "model_responses": 1,
+  "ttft_s": 6.827,
+  "ttft_avg_s": 6.827,
+  "response_time_avg_s": 18.503,
+  "cost_usd": 0.000108,
+  "cost_source": "openrouter_billed"
+ },
+ "output_ref": "outputs/d2d024dc-a9db-56d3-8b1b-bf00b4b011a5.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:aab5d95e168bd5e93fbc933f0fc8419883c00b2836b1ed0251ba39c39ad45868",
+  "submitter": null,
+  "verification": null
+ }
+}

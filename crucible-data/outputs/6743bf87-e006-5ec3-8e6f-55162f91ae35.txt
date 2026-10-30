@@ -1,0 +1,55 @@
+
+
+## Assumptions / possible ambiguity
+
+I will use the standard puzzle assumptions:
+
+1. Chair 1 is leftmost and chair 4 is rightmost.
+2. “Immediately to the left” means in the adjacent chair to the left.
+3. “Somewhere to the right” means in a chair with a higher number; it may be immediately to the right.  
+   - If the phrase were intended to mean *not* immediately to the right, the clues would have no solution.  
+   - If it were intended to mean *immediately* to the right, the same solution results.
+4. The four colors red, blue, green, and yellow are assigned one-to-one to Alice, Bob, Carol, and Dave.
+
+## Reasoning
+
+From the clues:
+
+- Dave likes **red**.
+- Carol likes **yellow**.
+- The person who likes **green** sits in chair 1.
+
+So the person in chair 1 cannot be Dave or Carol, because Dave is red and Carol is yellow. Therefore chair 1 must be either **Alice** or **Bob**.
+
+That means Alice and Bob must be the two people assigned the remaining colors, **green** and **blue**.
+
+Now use clue 1:
+
+> Alice sits immediately to the left of the person who likes blue.
+
+Alice cannot be the person who likes blue, because the blue person is to Alice’s right. Therefore Alice must be the person who likes **green**, and Bob must be the person who likes **blue**.
+
+Since green is in chair 1:
+
+- Alice is in chair 1.
+- Bob, who likes blue, must be immediately to her right, so Bob is in chair 2.
+
+The remaining chairs are 3 and 4, and the remaining people are Dave and Carol.
+
+Clue 4 says Carol sits somewhere to the right of the person who likes red. Since Dave likes red, Carol must sit to the right of Dave. Therefore:
+
+- Dave is in chair 3.
+- Carol is in chair 4.
+
+The full seating arrangement is:
+
+| Chair | Person | Favorite color |
+|---|---|---|
+| 1 | Alice | green |
+| 2 | Bob | blue |
+| 3 | Dave | red |
+| 4 | Carol | yellow |
+
+## Final answer
+
+The person who sits in chair 3 is **Dave**.

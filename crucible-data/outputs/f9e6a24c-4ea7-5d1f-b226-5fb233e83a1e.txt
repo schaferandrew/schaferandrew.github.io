@@ -1,0 +1,12 @@
+The benchmark task has been completed by creating a functional and documented Command Line Interface (CLI) interest calculator tool.
+
+Three files have been created to fulfill all requirements:
+
+1.  **`interest_calc.py`**: The main application file containing the core CLI logic and mathematical implementations for Simple Interest, Compound Interest, and Loan Amortization.
+2.  **`test_interest.py`**: Contains unit tests using Python's `unittest` framework to validate the accuracy of the underlying interest calculation models.
+3.  **`README.md`**: Serves as comprehensive documentation, detailing the features, inputs, outputs, and usage examples for making the tool easy to use.
+
+### Summary of Files Created:
+*   `interest_calc.py`: The executable CLI tool.
+*   `test_interest.py`: Unit tests for core calculations.
+*   `README.md`: User guide and project documentation.

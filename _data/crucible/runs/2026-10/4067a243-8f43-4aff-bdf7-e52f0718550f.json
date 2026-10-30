@@ -1,0 +1,81 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "4067a243-8f43-4aff-bdf7-e52f0718550f",
+ "run_path": "openrouter_deepseek_deepseek-v4-flash/accessibility-audit-fixes/20261030_064812",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T06:48:19.909220+00:00",
+ "ended_at": "2026-10-30T06:54:52.315676+00:00",
+ "elapsed_s": 392.19,
+ "task": {
+  "id": "accessibility-audit-fixes",
+  "version": 1,
+  "rubric_version": 3,
+  "content_hash": "02332049fef999c1",
+  "rubric_hash": "ba79097d3d49ec8d",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/deepseek/deepseek-v4-flash",
+  "base": "deepseek/deepseek-v4-flash",
+  "publisher": "deepseek",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek/deepseek-v4-flash|deepseek|api|-",
+  "display": "deepseek-v4-flash"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 60,
+  "tokens_in": 858318,
+  "tokens_out": 24403,
+  "model_responses": 39,
+  "ttft_s": 1.538,
+  "ttft_avg_s": 2.998,
+  "response_time_avg_s": 9.866,
+  "cost_usd": 0.061141,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/4067a243-8f43-4aff-bdf7-e52f0718550f.txt",
+ "provenance": {
+  "crucible_version": "3.4.1",
+  "crucible_commit": "f618abf",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:6e7cb9125d6916bbcae9e92a3ae3a74bc63f55da033ee3fea5d1f3ac2d827469",
+  "submitter": null,
+  "verification": null
+ }
+}

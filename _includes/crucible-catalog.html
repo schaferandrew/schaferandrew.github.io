@@ -1,19 +1,21 @@
 {%- comment -%}
-  The Crucible catalog for Liquid pages: modes, areas, tiers and tasks from the newest results
-  bundle in _data/crucible/, with _data/crucible_fallbacks.yml filling what a format-2 bundle
+  The Crucible catalog for Liquid pages: the current suite's catalog from _data/crucible/catalog/
+  (bundle format 3: one catalog per suite), with _data/crucible_fallbacks.yml filling what a catalog
   lacks. Include it, then read cr_latest, cr_tasks, cr_modes, cr_tiers and cr_fb.
-  A bundle with a format_version above cr_supported is skipped.
+  A catalog with a format_version above cr_supported is skipped.
 {%- endcomment -%}
 {%- assign cr_supported = 3 -%}
 {%- assign cr_fb = site.data.crucible_fallbacks -%}
 {%- assign cr_latest = nil -%}
-{%- for pair in site.data.crucible -%}
+{%- assign cr_newest = nil -%}
+{%- for pair in site.data.crucible.catalog -%}
   {%- assign b = pair[1] -%}
   {%- if b.format_version and b.format_version > cr_supported -%}{%- continue -%}{%- endif -%}
-  {%- if b.tests or b.tasks -%}
-    {%- if cr_latest == nil or b.generated_at > cr_latest.generated_at -%}{%- assign cr_latest = b -%}{%- endif -%}
-  {%- endif -%}
+  {%- unless b.tasks -%}{%- continue -%}{%- endunless -%}
+  {%- if b.suite.status == "current" -%}{%- assign cr_latest = b -%}{%- endif -%}
+  {%- if cr_newest == nil or b.suite.cut_at > cr_newest.suite.cut_at -%}{%- assign cr_newest = b -%}{%- endif -%}
 {%- endfor -%}
-{%- assign cr_tasks = cr_latest.tasks | default: cr_latest.tests -%}
+{%- if cr_latest == nil -%}{%- assign cr_latest = cr_newest -%}{%- endif -%}
+{%- assign cr_tasks = cr_latest.tasks -%}
 {%- assign cr_modes = cr_latest.modes -%}
 {%- assign cr_tiers = cr_latest.tiers -%}

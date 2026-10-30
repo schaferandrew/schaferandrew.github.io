@@ -1,0 +1,18 @@
+### Corrected Text
+
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder **than** she remembered it, all brakes shrieking and people talking **too** fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+***
+
+### Editor's Notes & Flags
+
+Here is a breakdown of the changes made and elements preserved:
+
+**1. Corrections Made (Grammar/Spelling)**
+*   **"then" $\rightarrow$ "than":** In the phrase *"louder then she remembered it,"* the word **than** was corrected. While "then" can sometimes be used stylistically, in this context it is a comparative conjunction indicating degree ("louder than"), not time sequence. This appears to be a typo rather than an intentional voice choice.
+*   **"to fast" $\rightarrow$ "too fast":** In the phrase *"people talking to fast,"* **too** was corrected. "To fast" implies purpose (talking in order to fast), whereas **too** indicates excess speed. This is a common phonetic typo and not a stylistic choice.
+
+**2. Intentional Elements Preserved**
+*   **Sentence Fragments:** The lines *"Not waiting for her, exactly."* and *"That would have been too kind."* were left as fragments. These serve to mimic the rhythm of internal thought and hesitation, which is consistent with the author's voice.
+*   **Em Dash Usage:** The em dash in *"Still—she was back"* was preserved without surrounding spaces. This tight spacing creates a specific pause and emphasis that contributes to the paragraph's rhythm; changing it to standard spacing would alter the pacing.
+*   **Voice & Imagery:** Phrases like *"smelled like rain, hot asphalt, and somebody's breakfast"* were kept intact to maintain the sensory specificity and slightly gritty tone of the narrative.

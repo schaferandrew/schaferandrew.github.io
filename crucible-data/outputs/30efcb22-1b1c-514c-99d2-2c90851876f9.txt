@@ -1,0 +1,21 @@
+
+
+Done. All requirements from the prompt are implemented in the workspace:
+
+**Files**
+- `compound.py` — dependency-free (stdlib `argparse`/`math` only) CLI calculator
+- `test_compound.py` — 19 unittest cases, all passing
+- `README.md` — usage table, command examples, validation rules, math explanation
+
+**Features**
+- Inputs: `-p` principal, `-r` annual rate (percent), `-t` time in years (`5y`, `5 years`, bare `5`) **and** months (`18m`, `18 months`), `-n` compounding frequency (integer or `annually`/`semiannually`/`quarterly`/`monthly`/`weekly`/`daily`), optional `-c` recurring contribution with `-f` contribution frequency
+- Readable summary prints principal, rate, time, compounding, recurring contribution, total contributions, interest earned, and final balance
+- Contributions earn interest from deposit date via equivalent periodic rate `j = (1+r/n)^(n/f) − 1`; zero-rate and fractional-period cases handled
+- Validation (exit 1 with `error: ...` on stderr) for: non-numeric/non-finite values, negative principal/rate/time/contribution, zero time, non-integer or sub-1 frequencies, and the contradictory zero-principal + zero-contribution case
+
+**Tests cover** ordinary annual case, zero interest, monthly compounding, recurring contributions, known expected value ($1,000 @ 5% monthly × 1 yr = $1,051.161898), plus parsing/validation/CLI error paths.
+
+```
+$ python3 -m unittest test_compound
+Ran 19 tests ... OK
+```

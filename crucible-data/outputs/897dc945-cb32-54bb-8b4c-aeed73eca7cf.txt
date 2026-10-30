@@ -1,0 +1,41 @@
+Looking at this economics essay, I can identify several issues with language and accuracy. Let me break down the analysis into two parts:
+
+## Part 1: Objective Language Errors
+
+The text contains numerous **subjective value judgments** and **definitive statements** that should be flagged:
+
+- "This is obvious" - subjective assertion
+- "basically just" - dismissive characterization  
+- "completely ineffective" - absolute claim without qualification
+- "definitively debunked" - definitive dismissal
+- "inevitably causes hyperinflation" - deterministic prediction
+- "Most importantly" - editorial ranking of arguments
+- "anyone above that is either lazy or the victim of bad policy" - subjective moral judgment
+
+---
+
+## Part 2: Potentially Unclear, Overstated, or Technically Imprecise Claims
+
+Here are specific concerns about accuracy and precision (presenting them separately from the objective language issues):
+
+1. **"Inflation is when prices go up because the government prints too much money"**
+   - *Imprecise*: Inflation can have multiple causes (supply shocks, demand-pull, cost-push). Government actions aren't the only driver.
+
+2. **"CPI...when CPI rises above 2% annually, the Federal Reserve is legally required to raise interest rates"**
+   - *Technically inaccurate*: The Fed has no statutory mandate targeting 2%. That's a self-imposed intermediate target from its dual mandate (maximum employment + price stability).
+
+3. **"the natural rate of unemployment is around 4%, which means anyone above that is either lazy or the victim of bad policy"**
+   - *Imprecise*: "Natural rate" is a technical concept referring to equilibrium frictional/structural unemployment, not a prescriptive target. The statement conflates measurement with normative judgment.
+
+4. **"Quantitative easing...is basically just printing money to buy treasury bonds, which devalues the currency and inevitably causes hyperinflation"**
+   - *Overstated*: QE involves purchasing assets (not unlimited "printing"), and it has not caused hyperinflation in the U.S., Europe, or Japan to date.
+
+5. **"Japan's experience with deflation in the 1990s proves that monetary policy is completely ineffective at stimulating demand"**
+   - *Overstated*: While Japan's stimulus efforts faced challenges (the "liquidity trap"), attributing failure to complete ineffectiveness ignores structural and fiscal dimensions.
+
+6. **"supply-side economics has been definitively debunked by the failed Reagan tax cuts, which increased the deficit without growing the economy at all"**
+   - *Overstated*: The Reagan era saw real GDP growth above historical averages; "debunking" depends on competing theoretical frameworks. Also, supply-side theory doesn't predict only tax cuts work—deregulation, R&D incentives, and human capital investments count as supply-side policies.
+
+---
+
+**Summary**: The text mixes factual claims with subjective dismissals, makes absolute predictions (hyperinflation, complete ineffectiveness), and presents contested theoretical interpretations as settled fact.

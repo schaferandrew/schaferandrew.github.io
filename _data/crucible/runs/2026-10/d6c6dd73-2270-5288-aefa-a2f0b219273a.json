@@ -1,0 +1,80 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "d6c6dd73-2270-5288-aefa-a2f0b219273a",
+ "run_path": "openrouter_anthropic_claude-sonnet-5.5/interest-calculator-cli/20261025_062314",
+ "legacy_run_id": "openrouter_anthropic_claude-sonnet-5.5/coding_build/CODE-1b/20261025_062314",
+ "started_at": "2026-10-25T06:23:14.991714+00:00",
+ "ended_at": "2026-10-25T06:34:12.750214+00:00",
+ "elapsed_s": 657.76,
+ "task": {
+  "id": "interest-calculator-cli",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "0988983917902a9b",
+  "rubric_hash": "b4526238202a2890",
+  "alias": "CODE-1b"
+ },
+ "harness": {
+  "id": "opencode",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/anthropic/claude-sonnet-5.5",
+  "base": "anthropic/claude-sonnet-5.5",
+  "publisher": "anthropic",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "anthropic/claude-sonnet-5.5|anthropic|api|-",
+  "display": "claude-sonnet-5.5"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 5,
+  "tokens_in": 12,
+  "tokens_out": 10051,
+  "model_responses": 5,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": 131.051,
+  "cost_usd": 0.187986,
+  "cost_source": "opencode_estimate"
+ },
+ "output_ref": "outputs/d6c6dd73-2270-5288-aefa-a2f0b219273a.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:8cea8f7cfa96613fb6945fb8f4803a1868cd73af73b9a02ffdf1e84b618e8bab",
+  "submitter": null,
+  "verification": null
+ }
+}

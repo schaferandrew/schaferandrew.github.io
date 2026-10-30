@@ -1,0 +1,81 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "bac31d1e-beff-44b4-8f4e-ead1639d8317",
+ "run_path": "openrouter_deepseek_deepseek-v4-flash/blank-dashboard-debug/20261030_071813",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T07:18:14.004456+00:00",
+ "ended_at": "2026-10-30T07:28:58.794329+00:00",
+ "elapsed_s": 644.56,
+ "task": {
+  "id": "blank-dashboard-debug",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "1cd54ceb401f0947",
+  "rubric_hash": "c99e9bf61025cb59",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/deepseek/deepseek-v4-flash",
+  "base": "deepseek/deepseek-v4-flash",
+  "publisher": "deepseek",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek/deepseek-v4-flash|deepseek|api|-",
+  "display": "deepseek-v4-flash"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": 2,
+  "tests_failed": 0,
+  "tool_calls": 52,
+  "tokens_in": 875154,
+  "tokens_out": 30111,
+  "model_responses": 39,
+  "ttft_s": 2.994,
+  "ttft_avg_s": 1.711,
+  "response_time_avg_s": 8.891,
+  "cost_usd": 0.049969,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/bac31d1e-beff-44b4-8f4e-ead1639d8317.txt",
+ "provenance": {
+  "crucible_version": "3.4.1",
+  "crucible_commit": "f618abf",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:d4cf03200d823df0ef13299688a48ff121e8e1c74b1a9970dd0cedf4dfe9b4af",
+  "submitter": null,
+  "verification": null
+ }
+}

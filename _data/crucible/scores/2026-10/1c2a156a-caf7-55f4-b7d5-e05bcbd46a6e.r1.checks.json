@@ -1,0 +1,38 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "1c2a156a-caf7-55f4-b7d5-e05bcbd46a6e",
+ "rubric_version": 1,
+ "rubric_hash": "26bf360f734a2bbb",
+ "method": "checks",
+ "scored_at": "2026-10-30T06:25:15.274393+00:00",
+ "crucible_version": "3.4.0",
+ "raw": {
+  "passed": 10.0,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "grade",
+   "type": "grade_closeness",
+   "group": "Grade accuracy",
+   "label": "The grade is close to the reference grade: full points for an exact match, fewer the farther off it is (a bell curve), none when it is missing.",
+   "passed": true,
+   "detail": "graded 7, reference 7 (off by 0)",
+   "share": 1.0
+  }
+ ],
+ "groups": [
+  {
+   "id": "Grade accuracy",
+   "passed": 10.0,
+   "total": 10,
+   "detail": "graded 7, reference 7 (off by 0)"
+  }
+ ]
+}

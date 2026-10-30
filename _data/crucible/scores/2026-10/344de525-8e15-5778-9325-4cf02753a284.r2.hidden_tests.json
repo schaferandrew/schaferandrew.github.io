@@ -1,0 +1,125 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "344de525-8e15-5778-9325-4cf02753a284",
+ "rubric_version": 2,
+ "rubric_hash": "399f2610a0a48d6c",
+ "method": "hidden_tests",
+ "scored_at": "2026-10-27T18:29:06.586493+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 5.9,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 5.9,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "invites > accepting an invite records the terms and gives a working account",
+   "type": "hidden_test",
+   "group": "invites",
+   "label": "accepting an invite records the terms and gives a working account",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "invites > someone who signs up with an invited email ends up with their invited account",
+   "type": "hidden_test",
+   "group": "invites",
+   "label": "someone who signs up with an invited email ends up with their invited account",
+   "passed": false,
+   "detail": "AssertionError: expected 422 to be 201 // Object.is equality"
+  },
+  {
+   "id": "invites > a real duplicate sign-up is still rejected",
+   "type": "hidden_test",
+   "group": "invites",
+   "label": "a real duplicate sign-up is still rejected",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "invites > an invited account can't be claimed twice",
+   "type": "hidden_test",
+   "group": "invites",
+   "label": "an invited account can't be claimed twice",
+   "passed": false,
+   "detail": "Error: expected 201 \"Created\", got 422 \"Unprocessable Entity\""
+  },
+  {
+   "id": "no redirect loops, everyone lands where they should > a new sign-up is sent to onboarding and stays there",
+   "type": "hidden_test",
+   "group": "no redirect loops, everyone lands where they should",
+   "label": "a new sign-up is sent to onboarding and stays there",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "no redirect loops, everyone lands where they should > an onboarded user can write",
+   "type": "hidden_test",
+   "group": "no redirect loops, everyone lands where they should",
+   "label": "an onboarded user can write",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "no redirect loops, everyone lands where they should > an invited contributor who accepted the terms lands in the editor (accounts already in this state)",
+   "type": "hidden_test",
+   "group": "no redirect loops, everyone lands where they should",
+   "label": "an invited contributor who accepted the terms lands in the editor (accounts already in this state)",
+   "passed": false,
+   "detail": "AssertionError: expected [ Array(110) ] to deeply equal []"
+  },
+  {
+   "id": "no redirect loops, everyone lands where they should > an invited contributor who hasn't accepted the terms can't write, and isn't asked for a bio",
+   "type": "hidden_test",
+   "group": "no redirect loops, everyone lands where they should",
+   "label": "an invited contributor who hasn't accepted the terms can't write, and isn't asked for a bio",
+   "passed": false,
+   "detail": "AssertionError: expected [ Array(131) ] to deeply equal []"
+  },
+  {
+   "id": "no redirect loops, everyone lands where they should > signed out goes to login",
+   "type": "hidden_test",
+   "group": "no redirect loops, everyone lands where they should",
+   "label": "signed out goes to login",
+   "passed": true,
+   "detail": null
+  }
+ ],
+ "groups": [
+  {
+   "id": "No one gets stuck",
+   "passed": 2.4,
+   "total": 4,
+   "detail": "3/5 hidden tests pass"
+  },
+  {
+   "id": "Invited sign-ups",
+   "passed": 1.5,
+   "total": 3,
+   "detail": "2/4 hidden tests pass"
+  },
+  {
+   "id": "Regression tests",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no new or changed test files"
+  },
+  {
+   "id": "Existing tests still pass",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "the repo's own tests pass"
+  },
+  {
+   "id": "Contract suite untouched",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "contract suite untouched"
+  }
+ ]
+}

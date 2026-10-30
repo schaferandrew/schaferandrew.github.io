@@ -1,0 +1,14 @@
+Here is the proofread version of your paragraph. I have corrected the grammatical errors while preserving your specific stylistic choices, such as the intentional fragments and the rhythmic flow.
+
+### Revised Paragraph
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder **than** she remembered it, all brakes shrieking and people talking **too** fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+***
+
+### Flags & Notes
+
+*   **"than" vs. "then":** Changed "louder then" to "louder than." This was a grammatical error (comparison vs. time).
+*   **"too" vs. "to":** Changed "talking to fast" to "talking too fast." This was a grammatical error (adverb of degree).
+*   **"Still—she was back":** I left the em-dash and the preceding "Still" as is. While some might consider this a fragment, it functions perfectly as a stylistic choice to convey a sense of hesitation or a shift in thought.
+*   **"Not waiting for her, exactly":** Left as an intentional fragment. It works well to establish the narrator's internal voice.
+*   **"And she didn't know..."**: Left the starting "And" as is. It is a common literary device used to create a lingering, rhythmic effect.

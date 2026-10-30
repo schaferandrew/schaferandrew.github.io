@@ -1,0 +1,89 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "a546ddad-0a96-41d0-ab75-d055711eb750",
+ "run_path": "lmstudio_qwen_qwen3.6-35b-a3b/calendar-team-of-16/20261030_060832",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T06:08:32.745109+00:00",
+ "ended_at": "2026-10-30T06:14:21.580575+00:00",
+ "elapsed_s": 348.11,
+ "task": {
+  "id": "calendar-team-of-16",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "b3eb371da517cb6a",
+  "rubric_hash": "28b2d02d8b0aedf0",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "lmstudio/qwen/qwen3.6-35b-a3b",
+  "base": "qwen/qwen3.6-35b-a3b",
+  "publisher": "qwen",
+  "artifact": null,
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 100292,
+  "variant_key": "qwen/qwen3.6-35b-a3b|qwen|mlx|mlx-4bit",
+  "display": "qwen3.6-35b-a3b · 4bit"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": null,
+  "class": null,
+  "accelerators": [],
+  "system_memory_gb": null,
+  "cpu": null,
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 3,
+  "tokens_in": 45436,
+  "tokens_out": 17543,
+  "model_responses": 4,
+  "ttft_s": 2.567,
+  "ttft_avg_s": 5.561,
+  "response_time_avg_s": 86.816,
+  "cost_usd": 0,
+  "cost_source": "pi_estimate",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/a546ddad-0a96-41d0-ab75-d055711eb750.txt",
+ "provenance": {
+  "crucible_version": "3.3.1",
+  "crucible_commit": "6c0b3c1",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:39e1c9eb6a4583675be67f12cac81163c7133f24565af23d5409bd8fce65aef3",
+  "submitter": null,
+  "verification": null
+ }
+}

@@ -1,0 +1,108 @@
+**Lesson 1 – Setting up a Next.js Project (React + TypeScript)**  
+*Goal:* Get you comfortable with the basic file structure, development server, and pages in a brand‑new Next.js app.
+
+---
+
+## 📦 What you’ll learn today
+
+| Step | Concept | Why it matters |
+|------|---------|----------------|
+| 1️⃣ | Create a fresh repo + install dependencies | Avoids “works on my machine” problems. |
+| 2️⃣ | Understand the folder layout (`pages`, `public`, `styles`) | Know where to put code that will be rendered, static assets, and CSS. |
+| 3️⃣ | Run the dev server & see hot‑reloading | Fast feedback loop. |
+| 4️⃣ | Add a simple page (`/about`) using TypeScript + JSX | See how routing works out of the box. |
+
+---
+
+## 🚀 Step‑by‑step
+
+### 1️⃣ Create the project
+
+```bash
+# In your terminal, run:
+npx create-next-app@latest nextjs-practice --typescript
+cd nextjs-practice
+```
+
+> **Tip:** `create-next-app` scaffolds a minimal but production‑ready starter.  
+> The `--typescript` flag sets up TypeScript right away.
+
+### 2️⃣ Explore the folder tree
+
+```bash
+tree -L 2 .
+```
+
+You should see something like:
+
+```
+.
+├── node_modules/
+├── public/          # Static files (images, favicon, etc.)
+├── src/
+│   ├── pages/       # React components that become routes
+│   │   └── index.tsx  # Home page
+│   ├── styles/
+│   │   └── globals.css
+│   └── app.tsx
+├── .gitignore
+├── next.config.js
+└── package.json
+```
+
+- **`pages/`** – Each file maps to a URL.  
+- **`public/`** – Served as static assets; reference them with `/asset.png`.  
+- **`src/styles/globals.css`** – Imported in `app.tsx`; applied globally.
+
+### 3️⃣ Run the dev server
+
+```bash
+npm run dev
+```
+
+Open <http://localhost:3000> in your browser. You should see a default Next.js welcome page that updates live as you edit files.
+
+> **Hot‑reload**: Save any change → browser refresh automatically.  
+> This is what we’ll use for all exercises.
+
+### 4️⃣ Add an “About” page
+
+Create `src/pages/about.tsx` with:
+
+```tsx
+// src/pages/about.tsx
+import type { NextPage } from 'next';
+
+const About: NextPage = () => {
+  return (
+    <div style={{ padding: '2rem' }}>
+      <h1>About This Project</h1>
+      <p>This is a simple Next.js + TypeScript starter.</p>
+    </div>
+  );
+};
+
+export default About;
+```
+
+Open <http://localhost:3000/about>. You should see the new page.
+
+---
+
+## ✏️ Quick exercise
+
+**Your task:**  
+Create a `Contact` page at `/contact`. It should:
+
+1. Be a functional component (`NextPage`) in TypeScript.
+2. Display an `<h1>` with the text “Contact Us”.
+3. Include a simple form (just a `<form>` tag – no need for functionality).
+
+**Deliverable:**  
+Show me the contents of `src/pages/contact.tsx` you wrote.
+
+---
+
+### ✅ How to submit
+
+Type or paste the file contents into your reply, then hit **Send**. I’ll review and give feedback before we move on!

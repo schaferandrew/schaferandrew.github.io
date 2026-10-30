@@ -1,0 +1,19 @@
+### Corrected Paragraph
+
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder **than** she remembered it, all brakes shrieking and people talking **too** fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+***
+
+### Notes & Flags
+
+**Corrections Made:**
+*   **than vs. then:** Changed "louder then" to "louder than" (used for comparisons).
+*   **too vs. to:** Changed "talking to fast" to "talking too fast" (adverb of degree).
+
+**Flagged Intentional Elements (Preserved):**
+*   **Sentence Fragments:** I have left the following fragments intact, as they appear to be stylistic choices used to establish rhythm and a "staccato" mood:
+    *   *"...all brakes shrieking and people talking too fast."* (An absolute phrase used for sensory detail).
+    *   *"...waiting."* (A dangling participle used for emphasis).
+    *   *"Not waiting for her, exactly."* (A fragment used for dramatic pacing).
+*   **Sentence Starters:** I have left the sentence starting with **"And"** as it contributes to the character's internal rhythm.
+*   **Punctuation/Rhythm:** I have left the comma in **"laugh, or leave"** as it functions as a *caesura* (a rhythmic pause) to emphasize the character's hesitation.

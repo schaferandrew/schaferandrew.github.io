@@ -1,0 +1,81 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "805475eb-0a77-4652-8f23-b714d7516161",
+ "run_path": "openrouter_deepseek_deepseek-v4-flash/cache-leak-incident/20261030_072906",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T07:29:13.801298+00:00",
+ "ended_at": "2026-10-30T07:36:18.892946+00:00",
+ "elapsed_s": 424.87,
+ "task": {
+  "id": "cache-leak-incident",
+  "version": 3,
+  "rubric_version": 4,
+  "content_hash": "403fdd42d838cff4",
+  "rubric_hash": "a89eea7caac68e18",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/deepseek/deepseek-v4-flash",
+  "base": "deepseek/deepseek-v4-flash",
+  "publisher": "deepseek",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek/deepseek-v4-flash|deepseek|api|-",
+  "display": "deepseek-v4-flash"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 61,
+  "tokens_in": 1674499,
+  "tokens_out": 36368,
+  "model_responses": 40,
+  "ttft_s": 2.515,
+  "ttft_avg_s": 1.862,
+  "response_time_avg_s": 9.587,
+  "cost_usd": 0.090167,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/805475eb-0a77-4652-8f23-b714d7516161.txt",
+ "provenance": {
+  "crucible_version": "3.4.1",
+  "crucible_commit": "f618abf",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:3c6d61b46d04dfb75d27ab591d911726813354724ab8418127dab88bece37689",
+  "submitter": null,
+  "verification": null
+ }
+}

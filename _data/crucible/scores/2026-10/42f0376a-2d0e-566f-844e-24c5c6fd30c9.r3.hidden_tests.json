@@ -1,0 +1,163 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "42f0376a-2d0e-566f-844e-24c5c6fd30c9",
+ "rubric_version": 3,
+ "rubric_hash": "9f960076993014bb",
+ "method": "hidden_tests",
+ "scored_at": "2026-10-27T19:29:17.525417+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 2.0,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 2.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "contract > publishes immediately without a status",
+   "type": "hidden_test",
+   "group": "contract",
+   "label": "publishes immediately without a status",
+   "passed": false,
+   "detail": "AssertionError: expected { slug: 'live', title: 'Live', …(8) } to match object { status: 'published', …(1) }"
+  },
+  {
+   "id": "contract > draft -> in_review -> published",
+   "type": "hidden_test",
+   "group": "contract",
+   "label": "draft -> in_review -> published",
+   "passed": false,
+   "detail": "AssertionError: expected undefined to be 'draft' // Object.is equality"
+  },
+  {
+   "id": "contract > reject returns to draft with feedback the author sees",
+   "type": "hidden_test",
+   "group": "contract",
+   "label": "reject returns to draft with feedback the author sees",
+   "passed": false,
+   "detail": "AssertionError: expected undefined to be 'draft' // Object.is equality"
+  },
+  {
+   "id": "contract > rejects transitions that don't apply with 422",
+   "type": "hidden_test",
+   "group": "contract",
+   "label": "rejects transitions that don't apply with 422",
+   "passed": false,
+   "detail": "AssertionError: expected undefined to be 'draft' // Object.is equality"
+  },
+  {
+   "id": "contract > only editors approve or reject",
+   "type": "hidden_test",
+   "group": "contract",
+   "label": "only editors approve or reject",
+   "passed": false,
+   "detail": "AssertionError: expected undefined to be 'draft' // Object.is equality"
+  },
+  {
+   "id": "contract > review queue: in_review oldest first, editors only",
+   "type": "hidden_test",
+   "group": "contract",
+   "label": "review queue: in_review oldest first, editors only",
+   "passed": false,
+   "detail": "AssertionError: expected undefined to be 'draft' // Object.is equality"
+  },
+  {
+   "id": "contract > own articles of every status",
+   "type": "hidden_test",
+   "group": "contract",
+   "label": "own articles of every status",
+   "passed": false,
+   "detail": "AssertionError: expected undefined to be 'draft' // Object.is equality"
+  },
+  {
+   "id": "rules: unapproved work stays private > no list, filter or feed shows it",
+   "type": "hidden_test",
+   "group": "rules: unapproved work stays private",
+   "label": "no list, filter or feed shows it",
+   "passed": false,
+   "detail": "AssertionError: expected undefined to be 'draft' // Object.is equality"
+  },
+  {
+   "id": "rules: unapproved work stays private > tag counts don't reveal it",
+   "type": "hidden_test",
+   "group": "rules: unapproved work stays private",
+   "label": "tag counts don't reveal it",
+   "passed": false,
+   "detail": "AssertionError: expected undefined to be 'draft' // Object.is equality"
+  },
+  {
+   "id": "rules: unapproved work stays private > direct access, comments and favorites 404 for anyone who can't see it",
+   "type": "hidden_test",
+   "group": "rules: unapproved work stays private",
+   "label": "direct access, comments and favorites 404 for anyone who can't see it",
+   "passed": false,
+   "detail": "AssertionError: expected undefined to be 'draft' // Object.is equality"
+  },
+  {
+   "id": "rules: found in the brief, not the contract > no one approves their own work, even an editor",
+   "type": "hidden_test",
+   "group": "rules: found in the brief, not the contract",
+   "label": "no one approves their own work, even an editor",
+   "passed": false,
+   "detail": "AssertionError: expected undefined to be 'draft' // Object.is equality"
+  },
+  {
+   "id": "rules: found in the brief, not the contract > feedback never reaches the public, even after publishing",
+   "type": "hidden_test",
+   "group": "rules: found in the brief, not the contract",
+   "label": "feedback never reaches the public, even after publishing",
+   "passed": false,
+   "detail": "AssertionError: expected undefined to be 'draft' // Object.is equality"
+  },
+  {
+   "id": "rules: found in the brief, not the contract > renaming an article under review keeps it in review and in the queue",
+   "type": "hidden_test",
+   "group": "rules: found in the brief, not the contract",
+   "label": "renaming an article under review keeps it in review and in the queue",
+   "passed": false,
+   "detail": "AssertionError: expected undefined to be 'draft' // Object.is equality"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Client contract",
+   "passed": 0.0,
+   "total": 3,
+   "detail": "0/7 hidden tests pass"
+  },
+  {
+   "id": "Unapproved work stays private",
+   "passed": 0.0,
+   "total": 2,
+   "detail": "0/3 hidden tests pass"
+  },
+  {
+   "id": "Rules found, not given",
+   "passed": 0.0,
+   "total": 2,
+   "detail": "0/3 hidden tests pass"
+  },
+  {
+   "id": "Regression tests",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no new or changed test files"
+  },
+  {
+   "id": "Existing tests still pass",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "the repo's own tests pass"
+  },
+  {
+   "id": "Contract suite untouched",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "contract suite untouched"
+  }
+ ]
+}

@@ -1,0 +1,107 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "404d751b-25d4-585c-9ea8-2b907e57103a",
+ "rubric_version": 1,
+ "rubric_hash": "5944fb9d7568cdce",
+ "method": "checks",
+ "scored_at": "2026-10-30T06:26:34.225957+00:00",
+ "crucible_version": "3.4.0",
+ "raw": {
+  "passed": 1,
+  "total": 6,
+  "unit": "points"
+ },
+ "score": 1.67,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "equator_capricorn",
+   "type": "required_patterns",
+   "group": "Equator and Capricorn",
+   "label": "Answer 1 is Brazil.",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*1[.)]\\s*.*\\bbrazil\\b"
+  },
+  {
+   "id": "red_sea_gulf",
+   "type": "required_patterns",
+   "group": "Red Sea and Gulf",
+   "label": "Answer 2 is Saudi Arabia.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "northern_capital",
+   "type": "required_patterns",
+   "group": "Northernmost capital",
+   "label": "Answer 3 is Reykjavík (Nuuk's Greenland isn't sovereign).",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*3[.)]\\s*.*\\breykjav[ií]k\\b"
+  },
+  {
+   "id": "time_zones",
+   "type": "required_patterns",
+   "group": "Most time zones",
+   "label": "Answer 4 is France.",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*4[.)]\\s*.*\\bfrance\\b"
+  },
+  {
+   "id": "closest_state",
+   "type": "required_patterns",
+   "group": "Closest state",
+   "label": "Answer 5 is Maine.",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*5[.)]\\s*.*\\bmaine\\b"
+  },
+  {
+   "id": "one_neighbor",
+   "type": "required_patterns",
+   "group": "One neighbor",
+   "label": "Answer 6 is Lesotho.",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*6[.)]\\s*.*\\blesotho\\b"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Equator and Capricorn",
+   "passed": 0,
+   "total": 1,
+   "detail": "0/1 found; missing: (?im)^\\W*1[.)]\\s*.*\\bbrazil\\b"
+  },
+  {
+   "id": "Red Sea and Gulf",
+   "passed": 1,
+   "total": 1,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Northernmost capital",
+   "passed": 0,
+   "total": 1,
+   "detail": "0/1 found; missing: (?im)^\\W*3[.)]\\s*.*\\breykjav[ií]k\\b"
+  },
+  {
+   "id": "Most time zones",
+   "passed": 0,
+   "total": 1,
+   "detail": "0/1 found; missing: (?im)^\\W*4[.)]\\s*.*\\bfrance\\b"
+  },
+  {
+   "id": "Closest state",
+   "passed": 0,
+   "total": 1,
+   "detail": "0/1 found; missing: (?im)^\\W*5[.)]\\s*.*\\bmaine\\b"
+  },
+  {
+   "id": "One neighbor",
+   "passed": 0,
+   "total": 1,
+   "detail": "0/1 found; missing: (?im)^\\W*6[.)]\\s*.*\\blesotho\\b"
+  }
+ ]
+}

@@ -1,0 +1,80 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "d1ca3115-1412-5762-aa35-adf271360d17",
+ "run_path": "opencode_deepseek-v4.1-flash-free/cache-leak-incident/20261025_232043",
+ "legacy_run_id": "opencode_deepseek-v4.1-flash-free/coding_debug/CODE-13/20261025_232043",
+ "started_at": "2026-10-25T23:20:51.996524+00:00",
+ "ended_at": "2026-10-25T23:26:50.999280+00:00",
+ "elapsed_s": 359.0,
+ "task": {
+  "id": "cache-leak-incident",
+  "version": 2,
+  "rubric_version": 1,
+  "content_hash": "e972a448a401602f",
+  "rubric_hash": "18dab407119d5992",
+  "alias": "CODE-13"
+ },
+ "harness": {
+  "id": "opencode",
+  "version": "opencode v2.1.4"
+ },
+ "model": {
+  "id": "opencode/deepseek-v4.1-flash-free",
+  "base": "deepseek-v4.1-flash-free",
+  "publisher": null,
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek-v4.1-flash-free|-|api|-",
+  "display": "deepseek-v4.1-flash-free"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "opencode",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": 7,
+  "tests_failed": 0,
+  "tool_calls": 54,
+  "tokens_in": 112747,
+  "tokens_out": 39317,
+  "model_responses": 38,
+  "ttft_s": 1.462,
+  "ttft_avg_s": 8.792,
+  "response_time_avg_s": 9.413,
+  "cost_usd": 0,
+  "cost_source": "opencode_estimate"
+ },
+ "output_ref": "outputs/d1ca3115-1412-5762-aa35-adf271360d17.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:ce1f18bf17f332ff16d83465fac3001b242e28cb9b6e6206432ff8443cdd2268",
+  "submitter": null,
+  "verification": null
+ }
+}

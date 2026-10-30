@@ -1,0 +1,89 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "9b1ced44-3818-408b-863e-c3136f719752",
+ "run_path": "lmstudio_google_gemma-4-e4b/seating-logic-puzzle/20261030_012534",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T01:25:34.324935+00:00",
+ "ended_at": "2026-10-30T01:29:06.418376+00:00",
+ "elapsed_s": 211.53,
+ "task": {
+  "id": "seating-logic-puzzle",
+  "version": 3,
+  "rubric_version": 3,
+  "content_hash": "4bc46a0e3e4f1478",
+  "rubric_hash": "ba4027243454539b",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/google/gemma-4-e4b",
+  "base": "google/gemma-4-e4b",
+  "publisher": "google",
+  "artifact": null,
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 105609,
+  "variant_key": "google/gemma-4-e4b|google|mlx|mlx-4bit",
+  "display": "gemma-4-e4b · 4bit"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Ironwood",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m1-pro-32gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 32.0,
+  "cpu": "Apple M1 Pro",
+  "offload": null,
+  "label": "Ironwood"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 222,
+  "tokens_out": 2746,
+  "model_responses": 1,
+  "ttft_s": 1.35,
+  "ttft_avg_s": 1.35,
+  "response_time_avg_s": 211.527,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 5612
+ },
+ "output_ref": "outputs/9b1ced44-3818-408b-863e-c3136f719752.txt",
+ "provenance": {
+  "crucible_version": "3.3.0",
+  "crucible_commit": "34a6f5d",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:cb2070fe254cda83a9a7d682c5d3ae55391e77b7c46b5a9033c89defe2bb0ba4",
+  "submitter": null,
+  "verification": null
+ }
+}

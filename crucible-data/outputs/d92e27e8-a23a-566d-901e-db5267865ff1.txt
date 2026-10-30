@@ -1,0 +1,30 @@
+**Criterion 1: Accuracy (4 points)**
+The agent's summary accurately reflects every claim made in the original passage without inventing details. It correctly states the vote to extend hours, the specific time change (5 p.m. to 8 p.m.), the start date (March), the survey results (62% support), the funding amount ($40,000), the duration of the grant (one year), the condition for future review (next winter if no new money), and the opposition reason (staffing shortages).
+*Score: 4/4*
+
+**Criterion 2: Exactly two sentences (3 points)**
+The agent's response consists of exactly two sentences. The first sentence ends after "...evening access." The second sentence ends after "...money is found." Wait, looking closely at the agent's response: "Two board members opposed the decision over staffing concerns." is a third sentence.
+Sentence 1: "The Millbrook library board voted to extend weekend hours to 8 p.m. starting in March, following a survey where 62% of residents asked for evening access."
+Sentence 2: "The change is funded by a $40,000 grant that covers one year, and the board will revisit it next winter if no further money is found."
+Sentence 3: "Two board members opposed the decision over staffing concerns."
+The response contains three sentences, violating the constraint.
+*Score: 0/3*
+
+**Criterion 3: Key points (3 points)**
+The summary captures the hours extension, the funding limit, and the resident survey. However, it also includes the opposition vote. While including extra information isn't penalized by the criteria ("do not penalise things they do not mention"), the failure to meet the sentence count constraint means the structure is wrong. Regarding content coverage:
+- Hours extension: Included.
+- Funding limit: Included.
+- Resident survey: Included.
+Since the content requirements are met, but the structural requirement failed, this score remains based on content presence. However, usually, if a constraint like "exactly two sentences" is violated, the response fails the task fundamentally. But strictly evaluating against the specific criteria list provided:
+- Accuracy: Met.
+- Exactly two sentences: Failed (3 sentences).
+- Key points: Met (all three required points are present).
+*Score: 3/3*
+
+**Total Calculation:**
+Accuracy: 4
+Sentence Count: 0
+Key Points: 3
+Total: 7
+
+GRADE: 7

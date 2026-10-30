@@ -1,0 +1,182 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "a5814d85-32e5-4d62-bb93-e93d561f1a14",
+ "rubric_version": 3,
+ "rubric_hash": "936fb11c6fb812f3",
+ "method": "checks",
+ "scored_at": "2026-10-30T06:35:29.221102+00:00",
+ "crucible_version": "3.4.0",
+ "raw": {
+  "passed": 18.0,
+  "total": 18,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "language_errors",
+   "type": "items",
+   "group": "Language errors fixed",
+   "label": "Fixes each planted language error with its corrected word alone: 3 \"is\" to \"are\", 6 \"it's\" to \"its\", 12 \"then\" to \"than\"; one item per fix.",
+   "passed": true,
+   "detail": "3/3 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "agreement",
+     "label": "Sentence 3 corrected to \"are\"",
+     "passed": true,
+     "detail": "got are"
+    },
+    {
+     "id": "its",
+     "label": "Sentence 6 corrected to \"its\"",
+     "passed": true,
+     "detail": "got its"
+    },
+    {
+     "id": "than",
+     "label": "Sentence 12 corrected to \"than\"",
+     "passed": true,
+     "detail": "got than"
+    }
+   ]
+  },
+  {
+   "id": "overstatements_flagged",
+   "type": "items",
+   "group": "Overstatements flagged",
+   "label": "Flags each planted overstatement in the FLAGS: block, with any of the four labels: 1 (Inflation is when ... because), 4 (legally required), 8 (lazy), 11 (inevitably causes hyperinflation), 14 (proves ... completely ineffective), 18 (definitively debunked ... at all); one item per sentence.",
+   "passed": true,
+   "detail": "6/6 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "flagged:1",
+     "label": "Line 1 listed",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "flagged:4",
+     "label": "Line 4 listed",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "flagged:8",
+     "label": "Line 8 listed",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "flagged:11",
+     "label": "Line 11 listed",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "flagged:14",
+     "label": "Line 14 listed",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "flagged:18",
+     "label": "Line 18 listed",
+     "passed": true,
+     "detail": "listed"
+    }
+   ]
+  },
+  {
+   "id": "accurate_kept",
+   "type": "items",
+   "group": "Accurate sentences left alone",
+   "label": "Leaves the accurate sentences (2, 5, 7, 9, 10, 13, 15, 16 and 17) out of the FLAGS: block; one item per sentence.",
+   "passed": true,
+   "detail": "9/9 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "unflagged:2",
+     "label": "Line 2 left out",
+     "passed": true,
+     "detail": "not listed"
+    },
+    {
+     "id": "unflagged:5",
+     "label": "Line 5 left out",
+     "passed": true,
+     "detail": "not listed"
+    },
+    {
+     "id": "unflagged:7",
+     "label": "Line 7 left out",
+     "passed": true,
+     "detail": "not listed"
+    },
+    {
+     "id": "unflagged:9",
+     "label": "Line 9 left out",
+     "passed": true,
+     "detail": "not listed"
+    },
+    {
+     "id": "unflagged:10",
+     "label": "Line 10 left out",
+     "passed": true,
+     "detail": "not listed"
+    },
+    {
+     "id": "unflagged:13",
+     "label": "Line 13 left out",
+     "passed": true,
+     "detail": "not listed"
+    },
+    {
+     "id": "unflagged:15",
+     "label": "Line 15 left out",
+     "passed": true,
+     "detail": "not listed"
+    },
+    {
+     "id": "unflagged:16",
+     "label": "Line 16 left out",
+     "passed": true,
+     "detail": "not listed"
+    },
+    {
+     "id": "unflagged:17",
+     "label": "Line 17 left out",
+     "passed": true,
+     "detail": "not listed"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Language errors fixed",
+   "passed": 3.0,
+   "total": 3,
+   "detail": "3/3 items"
+  },
+  {
+   "id": "Overstatements flagged",
+   "passed": 6.0,
+   "total": 6,
+   "detail": "6/6 items"
+  },
+  {
+   "id": "Accurate sentences left alone",
+   "passed": 9.0,
+   "total": 9,
+   "detail": "9/9 items"
+  }
+ ]
+}

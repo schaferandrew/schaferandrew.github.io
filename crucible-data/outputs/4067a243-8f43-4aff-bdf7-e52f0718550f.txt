@@ -1,0 +1,84 @@
+Here's a summary of every finding, what was changed, and what couldn't be verified without a real screen reader.
+
+---
+
+## Accessibility Fix Summary
+
+### Finding 1 — ConfirmDialog keyboard trap and focus loss (WCAG 2.1.1, 2.4.3, 2.1.2, 4.1.2)
+
+**Problem**: `ConfirmDialog` used `<div>` elements for Cancel/Delete buttons (not keyboard-reachable), had no focus trap (Tab moved through the page *behind* the overlay), had no Escape handler, didn't announce itself as a dialog, and lost focus when closed.
+
+**Changes** (`apps/web/src/components/ConfirmDialog.tsx`):
+- Wrapped the overlay with `role="dialog"`, `aria-modal="true"`, and `aria-labelledby="confirm-dialog-title"` so screen readers announce it as a modal.
+- Replaced `<div>` action elements with native `<button>` elements (keyboard-focusable by default, activated with Enter/Space).
+- Added `useEffect` to autofocus the Cancel button when the dialog opens.
+- Added a focus-trap `useEffect` that captures Tab and Shift+Tab between the two buttons, preventing focus from escaping to the page behind.
+- Added `onKeyDown` handling for Escape to call `onCancel`.
+- In `ArticlePage.tsx`: stored a `ref` on the Delete Article button so focus is restored to it when the dialog closes.
+
+**Tests** (`apps/web/test/ConfirmDialog.test.tsx` — 9 tests): verify `role="dialog"`, autofocus, Escape closes, Tab trapping forward/backward, native button elements, click actions, and backdrop click.
+
+### Finding 2 — "Read more" can't be used without a mouse (WCAG 2.1.1, 4.1.2, 1.3.1)
+
+**Problem**: `ReadMore` used a `<span>` with `onClick` — not focusable, not keyboard-activated, no state announcement.
+
+**Changes** (`apps/web/src/components/ReadMore.tsx`):
+- Replaced `<span className="read-more">` with a native `<button type="button" class="read-more">` (keyboard-focusable, activatable with Enter/Space).
+- Added `aria-expanded` to reflect the collapsed/expanded state.
+- Added `aria-controls="readmore-content"` linking the button to the content `<span>`, so screen readers can associate the toggle with the revealed text.
+
+**Tests** (`apps/web/test/ReadMore.test.tsx` — 7 tests): verify `<button>` element, `aria-expanded` toggles, keyboard activation with Enter and Space, Tab reachability, and no button for short text.
+
+### Finding 3 — Tag filter is mouse-only (WCAG 2.1.1, 4.1.2)
+
+**Problem**: `TagFilter` used `<div>` elements for the trigger and options — no keyboard reachability, no ARIA roles, no selection indication.
+
+**Changes** (`apps/web/src/components/TagFilter.tsx`):
+- Replaced the `<div>` trigger with a native `<button>` (keyboard-focusable, Enter/Space activates).
+- Added `aria-haspopup="listbox"` and `aria-expanded` to the trigger.
+- Wrapped the options list in a `<div role="listbox" aria-label="Available tags">`.
+- Each option is `<div role="option" aria-selected="true|false">` with `tabIndex={-1}`.
+- Added keyboard navigation: Arrow Up/Down moves between options, Enter/Space selects the active option, Escape closes and returns focus to the trigger.
+- When the menu opens, focus moves programmatically to the currently selected option.
+- On selection, focus returns to the trigger button.
+
+**Tests** (`apps/web/test/TagFilter.test.tsx` — 11 tests): verify `<button>` trigger with ARIA attributes, keyboard navigation (Arrow keys, Enter, Escape), click selection, `aria-selected` on options, menu open/close state.
+
+### Finding 4 — Favorite button has no name (WCAG 4.1.2, 1.1.1)
+
+**Problem**: The Favorite button had only an icon and a count — screen readers announced "3, button" with no indication of purpose or toggle state.
+
+**Changes** (`apps/web/src/components/FavoriteButton.tsx`):
+- Added `aria-label="Favorite article"` (or `"Unfavorite article"` when pressed), giving screen readers a clear description of the button's action.
+
+**Tests** (`apps/web/test/FavoriteButton.test.tsx` — 3 existing tests updated): verify `aria-label` is "Favorite article" when not favorited and "Unfavorite article" when favorited, in addition to the existing `aria-pressed` checks.
+
+### Finding 5 — Form errors aren't connected to their fields (WCAG 3.3.1, 1.3.1, 4.1.2)
+
+**Problem**: In `EditorPage`, field errors appeared visually but weren't linked via ARIA — screen reader users couldn't tell which field was invalid.
+
+**Changes** (`apps/web/src/pages/EditorPage.tsx`):
+- Added `aria-invalid="true"` on each input/textarea when its error is present.
+- Added `aria-describedby="<field>-error"` connecting each input to its error `<span>` via the `id` attribute.
+- Added `role="alert"` on each error `<span>` so screen readers announce the error immediately when it appears.
+
+**Tests** (`apps/web/test/EditorPage.test.tsx` — 4 tests): verify `aria-describedby` connects errors to fields, `aria-invalid` is set on error, `aria-invalid` omitted when clean, and `role="alert"` present on error spans.
+
+### Finding 6 — "Article published" confirmation is silent (WCAG 4.1.3 Status Messages)
+
+**Problem**: The `Toast` appeared visually but wasn't announced by screen readers.
+
+**Changes** (`apps/web/src/components/Toast.tsx`):
+- Added `role="status"` and `aria-live="polite"` to the toast `<div>`, causing screen readers to announce the message when it appears without interrupting ongoing speech.
+
+**Tests** (`apps/web/test/Toast.test.tsx` — 5 tests): verify `role="status"` and `aria-live="polite"` attributes, null message renders nothing, fade-out after 4 seconds, and unmount safety.
+
+---
+
+## What couldn't be verified without a real screen reader
+
+1. **VoiceOver/NVDA announcement order**: The dialog's `aria-labelledby` linking to the title should cause screen readers to announce "Delete this article? dialog" on open, but the exact phrasing and timing depend on the screen reader.
+2. **Toast announcement**: `role="status"` with `aria-live="polite"` should announce the toast message, but the interruption behavior (whether it cuts off previous speech) differs between VoiceOver and NVDA.
+3. **Focus trap edge cases**: The Tab trapping works between the two buttons, but if a user manages to focus something outside the dialog via browser chrome or a click, the trap doesn't catch that — this is the standard "best effort" approach from the ARAP Authoring Practices.
+4. **The "Read more" content association**: `aria-controls` links the toggle button to the content span, but not all screen readers support `aria-controls` for dynamic content. The `aria-expanded` attribute is more broadly supported and is the primary signal.
+5. **TagFilter visual design**: The `tabIndex={-1}` on options ensures programmatic focus without affecting the visual Tab order, but the `.focused` CSS class was added for the currently-highlighted option; if no CSS exists for `.tag-filter-option.focused` it may need to be added by the design team.

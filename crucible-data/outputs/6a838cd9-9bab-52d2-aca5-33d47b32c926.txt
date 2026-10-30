@@ -1,0 +1,29 @@
+# Morning Brief
+
+**Important Emails from Yesterday**
+* **Project update - Q3 review completed** (from alex@example.com): The Q3 review is now complete and ahead of schedule. Let's discuss the results in our planning meeting.
+* **Meeting notes from yesterday** (from jamie@example.com): Notes from yesterday's 1-on-1: discussed career goals, next quarter priorities, and team building activities.
+
+**Upcoming Calendar Events**
+* **Tuesday, Sept 1**
+  * 09:00 AM: Standup (Alex) @ Zoom
+  * 10:00 AM: Team standup @ Zoom
+  * 01:00 PM: Design review @ Conference Room A
+  * 03:00 PM: Customer call @ Zoom
+* **Wednesday, Sept 2**
+  * 09:30 AM: Planning @ Room B
+  * 01:00 PM: Budget meeting @ Conference Room A
+* **Thursday, Sept 3**
+  * 09:00 AM: Standup @ Zoom
+  * 11:00 AM: Interview @ Conference Room B
+* **Friday, Sept 4**
+  * 09:00 AM: Workshop @ Main Hall
+  * 02:00 PM: Project review @ Conference Room A
+
+**Important Local News (Saint Paul, MN)**
+* **Twin Cities Tech Conference Returns:** Annual tech conference returns to Minneapolis with 50+ speakers covering AI, startup funding, and emerging technologies. Registration opens this Friday. (*StarTribune*)
+* **Maplewood Park Renovation Complete:** Renovations to Maplewood Park finished ahead of schedule, adding new walking trails and a children's playground. Grand reopening is Saturday. (*Pioneer Press*)
+
+***
+
+¡Buenos días! Hoy tienes un día muy ocupado con varias reuniones importantes, incluyendo una revisión de diseño y una llamada con un cliente. Además, hay noticias interesantes sobre una conferencia tecnológica que regresa a Minneapolis y la renovación del parque Maplewood. ¡Mucho éxito con tus actividades de hoy!

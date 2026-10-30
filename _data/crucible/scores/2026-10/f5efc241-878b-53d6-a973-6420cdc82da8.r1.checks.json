@@ -1,0 +1,93 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "f5efc241-878b-53d6-a973-6420cdc82da8",
+ "rubric_version": 1,
+ "rubric_hash": "f6ab32399662966b",
+ "method": "checks",
+ "scored_at": "2026-10-27T04:21:14.776541+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 0,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "inclusion_exclusion",
+   "type": "required_patterns",
+   "group": "Inclusion-exclusion",
+   "label": "Answer 1 is 3809.",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*1[.)]\\s*.*\\b3,?809\\b"
+  },
+  {
+   "id": "modular",
+   "type": "required_patterns",
+   "group": "Modular power",
+   "label": "Answer 2 is 49.",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*2[.)]\\s*.*\\b49\\b"
+  },
+  {
+   "id": "tiling",
+   "type": "required_patterns",
+   "group": "Tiling",
+   "label": "Answer 3 is 2731.",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*3[.)]\\s*.*\\b2,?731\\b"
+  },
+  {
+   "id": "dice",
+   "type": "required_patterns",
+   "group": "Dice",
+   "label": "Answer 4 is 37/216.",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*4[.)]\\s*.*\\b37\\s*/\\s*216\\b"
+  },
+  {
+   "id": "tuesday_boy",
+   "type": "required_patterns",
+   "group": "Tuesday boy",
+   "label": "Answer 5 is 13/27.",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*5[.)]\\s*.*\\b13\\s*/\\s*27\\b"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Inclusion-exclusion",
+   "passed": 0,
+   "total": 2,
+   "detail": "0/1 found; missing: (?im)^\\W*1[.)]\\s*.*\\b3,?809\\b"
+  },
+  {
+   "id": "Modular power",
+   "passed": 0,
+   "total": 2,
+   "detail": "0/1 found; missing: (?im)^\\W*2[.)]\\s*.*\\b49\\b"
+  },
+  {
+   "id": "Tiling",
+   "passed": 0,
+   "total": 2,
+   "detail": "0/1 found; missing: (?im)^\\W*3[.)]\\s*.*\\b2,?731\\b"
+  },
+  {
+   "id": "Dice",
+   "passed": 0,
+   "total": 2,
+   "detail": "0/1 found; missing: (?im)^\\W*4[.)]\\s*.*\\b37\\s*/\\s*216\\b"
+  },
+  {
+   "id": "Tuesday boy",
+   "passed": 0,
+   "total": 2,
+   "detail": "0/1 found; missing: (?im)^\\W*5[.)]\\s*.*\\b13\\s*/\\s*27\\b"
+  }
+ ]
+}

@@ -1,0 +1,91 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "774fa8aa-7b39-559d-9995-fe580c6a73ea",
+ "run_path": "lmstudio_google_gemma-4-12b-qat/geography-trick-questions/20261026_233029",
+ "legacy_run_id": "lmstudio_google_gemma-4-12b-qat/geography/GEOG-3/20261026_233029",
+ "started_at": "2026-10-26T23:30:29.891715+00:00",
+ "ended_at": "2026-10-26T23:39:35.563971+00:00",
+ "elapsed_s": 545.67,
+ "task": {
+  "id": "geography-trick-questions",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "5a1af1208cb9b9a5",
+  "rubric_hash": "5944fb9d7568cdce",
+  "alias": "GEOG-3"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/google/gemma-4-12b-qat",
+  "base": "google/gemma-4-12b-qat",
+  "publisher": null,
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "google/gemma-4-12b-qat|-|-|-",
+  "display": "gemma-4-12b-qat"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m1-pro-32gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 32.0,
+  "cpu": "Apple M1 Pro",
+  "offload": null,
+  "label": "Ironwood"
+ },
+ "outcome": {
+  "status": "harness_error",
+  "harness_status": "ERROR (exit 1)",
+  "returncode": 1,
+  "timed_out": false,
+  "invalid": {
+   "reason": "Harness error: the agent exited before the model produced anything.",
+   "marked_at": "2026-10-26T23:39:36.043062+00:00"
+  },
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": null,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": null,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": null,
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:3905140561351fc1e038cd0f9f20c325f7835e9b0fbe1d3645bfd7854ec7bc5e",
+  "submitter": null,
+  "verification": null
+ }
+}

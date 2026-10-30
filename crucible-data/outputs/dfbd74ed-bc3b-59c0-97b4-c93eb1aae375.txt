@@ -1,0 +1,64 @@
+I've gathered local and global news from Star Tribune and Reuters. Now I'll check national news sources to get a more complete picture.
+# Saint Paul, MN News Briefing — Saturday, Oct. 24, 2026
+
+## The Five Most Important Stories
+
+**1. Kellogg Blvd. bridge reopens to pedestrians and cyclists today** *(Local)*
+- **What:** After a $93M rebuild, St. Paul's longest city-owned bridge reopens to foot and bike traffic Saturday; vehicles return in mid-November.
+- **Why it matters:** Restores a key Mississippi River crossing for Northeast St. Paul and North St. Paul neighborhoods after years of construction.
+- **Source:** Pioneer Press (reported fact).
+
+**2. Midterms: 10 days until polls close, early voting surging in Minnesota** *(State + National)*
+- **What:** Minnesotans are deep into early voting for the Nov. 3 general election, including the Klobuchar–Demuth governor's race. Star Tribune's investigation links a network of wealthy donors and PACs to millions in political ads; a separate investigation ties an anonymous group attacking Klobuchar to a wider untracked dark-money network, with Democrats filing a disclosure complaint.
+- **Why it matters:** A likely-competitive state could tilt both sides' congressional math; ad-spending transparency is a live battleground.
+- **Source:** Star Tribune (reporting + investigation; note the "why it matters" is my analysis).
+
+**3. Minnesota measles outbreak widens** *(State)*
+- **What:** Statewide measles cases have surpassed 40, and a central-Minnesota hospital has stepped up screening as the cluster widens.
+- **Why it matters:** Rare for an era of near-elimination; a reminder of the cost of low vaccination coverage, with potential for spread to unvaccinated children and adults.
+- **Source:** Pioneer Press; Star Tribune (reported facts).
+
+**4. CDC: U.S. birth rate falls to a record low** *(National)*
+- **What:** New federal data show the lowest U.S. birth rate ever recorded, though the drop was cushioned by more births among women 30–45.
+- **Why it matters:** A demographic shift with long-run implications for schools, labor, and Social Security; analysts say aging of the childbearing population is now a durable trend.
+- **Source:** NPR, citing CDC data (reported fact; the trend framing is analysis).
+
+**5. France's second day of nationwide protests under heavy security; Paris shuts museums** *(Global)*
+- **What:** A second nationwide cost-of-living protest day began in France with 70,000 police deployed — 10,000 more than last week's marches, which saw vandalism and looting. Paris closed its museums, including the Louvre, out of protest fears.
+- **Why it matters:** A direct test of the government's ability to hold public order; European allies and markets are watching for spillover.
+- **Source:** Reuters (reported facts).
+
+## Other Notable Developments
+
+**Local (St. Paul / Twin Cities)**
+- St. Paul police issued a public safety alert on serial sex-assault suspect Eduart Gomez Ochoa; residents urged to call 911, not approach (Pioneer Press, 10/23).
+- A St. Paul store clerk was honored for leaping on and stopping a runaway school bus with students aboard after the driver had a medical emergency (Pioneer Press, 10/22).
+- City council rules Mayor Her must give 60 days' notice before clearing homeless encampments (Pioneer Press, 10/21).
+- St. Paul approved a $160,000 settlement with opponents of the Summit Ave. bikeway (Pioneer Press, 10/22).
+- Schubert Club soprano Lise Davidsen drew a rapturous reception at Ordway Concert Hall (Star Tribune review).
+- St. Paul school board delayed a vote on cuts to English-learner teachers amid teacher pushback (Pioneer Press, 10/20).
+
+**State (Minnesota)**
+- Minnesota seniors face what Star Tribune calls the nation's biggest health-insurance shake-up: up to 5M Medicare Advantage enrollees nationally must re-enroll as plans are cancelled, with open enrollment running through Dec. 7 (Star Tribune; NPR, 10/24).
+- Google made concessions as the Hermantown data center project nears a crucial council vote (Star Tribune).
+- Rural Minnesota hospitals keep losing delivery wards, leaving pregnant patients traveling farther for care (Star Tribune feature).
+- Opinion/analysis: Ramstad argues the new governor must confront whether high taxes hurt growth; a Star Tribune column urges DFL leaders to condemn a planned Minneapolis appearance by the streamer Hasan Piker (Star Tribune opinion — views, not facts).
+
+**National**
+- Trump exempted some Canadian imports from his 50% tariffs, publicly framed as helping Maine Sen. Susan Collins ahead of her race (AP, 10/23). Analysts say voters are connecting his foreign policy to household costs, a liability for Republicans (Reuters analysis).
+- DOJ charged two ex-FBI employees with lying to Congress over Hunter Biden investigations (AP/NPR, 10/23).
+- Severe flooding in the Four Corners region forced rooftop rescues and evacuations; more rain expected through the weekend (AP/NPR, 10/23).
+- Trump said he may move the White House press corps to a new location (Reuters, 10/24).
+- Researchers say Kremlin-backed groups have stepped up influence operations in the final stretch before the midterms (NPR, 10/23); DOJ also sued to block certification of a possible Alaska Senate win by a Democrat (Reuters, 10/23).
+- The judge in the Charlie Kirk murder trial pushed back on setting a trial date (Deseret via KUER/NPR, 10/23).
+
+**Global**
+- Jordan: Gunmen fired on a Greek Orthodox church during a funeral in Karak, killing 7 and wounding 40; the king ordered an "iron fist" response and the U.S. embassy ramped up security (AP/NPR, 10/24).
+- West Bank: Israel began a military operation in Hebron, displacing ~1,200 Palestinians, a day after two Israeli soldiers were killed in a checkpoint attack; the PM pledged a massive operation (Reuters/NPR, 10/24).
+- Ukraine: Russia and Ukraine agreed to a ceasefire in the occupied town of Oleshky (brokered by Melania Trump), with new peace talks set for next month; Starlink service in Ukraine is back to normal after a week of throttling, and a Reuters exclusive says both Washington administrations have for years asked Elon Musk to alter Starlink service in Ukraine and the Middle East (Reuters, 10/23–24).
+- Germany: A fire devastated the former Nazi "Eagle's Nest" retreat in the Alps; German police say a suspect was arrested (Reuters, 10/24).
+- Asia: Kim Jong Un crossed the new Yalu River bridge into China for a visit as trade ties warm (Yonhap via Reuters, 10/24); Typhoon Champi swept past Taiwan leaving 1 dead and ~500 injured (Reuters, 10/24).
+- A new study attributes ~50,000 deaths to Europe's record summer heat, blaming climate change for two-thirds (AP via Pioneer Press, 10/23 — a study, not direct reporting).
+- Brazil: Lula and Bolsonaro clashed in their final debate ahead of Sunday's presidential runoff, with polls showing them roughly even (Reuters, 10/24).
+
+*Note: AP News and CNN front pages blocked automated access, so national items lean on Reuters, NPR, and local-published AP wire stories. Items marked as analysis/opinion are distinguished from reported facts.*

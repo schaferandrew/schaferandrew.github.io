@@ -1,0 +1,19 @@
+### Objective Language Errors
+*   **Grammatical Construction:** "Inflation is when..." is a grammatical error. "Inflation" is a noun, so it should be defined using a noun phrase (e.g., "Inflation is a phenomenon where...") rather than a temporal clause.
+*   **Informal Register:** The word "stuff" is too informal for an academic or professional economics essay.
+*   **Informal Register:** The phrase "basically just" is colloquial and lacks the precision required for economic analysis.
+
+***
+
+### Claims, Terminology, and Wording
+**Unclear or Imprecise Terminology**
+*   **"The government prints too much money":** This is a reductive description of monetary expansion. It fails to distinguish between the actions of a central bank (monetary policy) and a treasury (fiscal policy).
+*   **"Natural rate of unemployment":** The text implies that anyone above this rate is "lazy." In economic theory, the natural rate of unemployment (NAIRU) refers to the level of unemployment when the economy is at full employment; it is a structural/frictional metric, not a measure of individual work ethic.
+*   **"Quantitative easing... is basically just printing money":** While related to monetary base expansion, QE involves the exchange of assets (bonds for reserves) rather than the literal printing of physical currency, making "printing money" a technical oversimplification.
+
+**Overstated or Absolute Claims**
+*   **"Legally required to raise interest rates":** This is factually inaccurate. The Federal Reserve has a "dual mandate" to promote maximum employment and stable prices, but there is no legal requirement to raise rates specifically when CPI exceeds 2%.
+*   **"Inevitably causes hyperinflation":** The use of "inevitably" is an extreme overstatement. Hyperinflation is a rare, specific phenomenon that differs significantly from standard inflationary trends.
+*   **"Proves that monetary policy is completely ineffective":** The word "proves" is too strong for social science, and "completely ineffective" is an absolute that ignores various nuances of Japanese monetary policy and the complexities of deflationary spirals.
+*   **"Definitively debunked":** This is an overstated claim. Economic theories (like supply-side economics) are subject to ongoing debate and empirical scrutiny; they are rarely "definitively debunked" in a way that precludes further study.
+*   **"Without growing the economy at all":** This is an absolute claim that ignores nuances in GDP growth rates, per capita growth, or sectoral growth during the Reagan era.

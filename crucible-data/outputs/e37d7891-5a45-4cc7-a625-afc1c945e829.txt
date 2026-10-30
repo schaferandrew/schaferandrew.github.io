@@ -1,0 +1,7 @@
+Fixed the quote form and API validation.
+
+- `app/contact/LeadForm.tsx` now uses React state, validates fields without browser popups, focuses the first invalid field, preserves input on failure, and shows success only after an accepted response.
+- `app/api/leads/route.ts` validates untrusted requests, trims fields, canonicalizes email, returns 422 errors for invalid leads, and saves only valid submissions.
+- Added shared validation and email normalization in `lib/lead-validation.ts`.
+
+`npm test` and `npm run build` both pass. `/contact` builds as a prerendered page with the form in its HTML.

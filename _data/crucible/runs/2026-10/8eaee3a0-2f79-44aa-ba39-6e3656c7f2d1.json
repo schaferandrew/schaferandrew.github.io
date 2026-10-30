@@ -1,0 +1,84 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "8eaee3a0-2f79-44aa-ba39-6e3656c7f2d1",
+ "run_path": "openrouter_deepseek_deepseek-v4-flash/landlocked-countries/20261030_064437",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T06:44:37.578734+00:00",
+ "ended_at": "2026-10-30T06:45:10.831999+00:00",
+ "elapsed_s": 33.24,
+ "task": {
+  "id": "landlocked-countries",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "7b5379ce8b6a3e04",
+  "rubric_hash": "f75bb0a15226bc61",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/deepseek/deepseek-v4-flash",
+  "base": "deepseek/deepseek-v4-flash",
+  "publisher": "deepseek",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek/deepseek-v4-flash|deepseek|api|-",
+  "display": "deepseek-v4-flash"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "Relace",
+   "quant": null
+  },
+  "resolved_model": "deepseek/deepseek-v4-flash"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 211,
+  "tokens_out": 2495,
+  "model_responses": 1,
+  "ttft_s": 2.26,
+  "ttft_avg_s": 2.26,
+  "response_time_avg_s": 24.832,
+  "cost_usd": 0.0,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 10205
+ },
+ "output_ref": "outputs/8eaee3a0-2f79-44aa-ba39-6e3656c7f2d1.txt",
+ "provenance": {
+  "crucible_version": "3.4.1",
+  "crucible_commit": "f618abf",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:8baf51716b28e43f10c67e8aae935a655ea8d0162877b97a6371681d5c891f12",
+  "submitter": null,
+  "verification": null
+ }
+}

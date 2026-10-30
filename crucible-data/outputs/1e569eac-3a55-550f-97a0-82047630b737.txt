@@ -1,0 +1,25 @@
+I have updated the application to make the navbar responsive. 
+
+### Changes Made:
+1.  **`index.html`**: Added a `<button class="menu-toggle">` containing three spans to create a "hamburger" icon for mobile users.
+2.  **`styles.css`**: 
+    *   Added styles for the `.menu-toggle` button to hide it on desktop and show it on mobile.
+    *   Implemented a media query (`@media screen and (max-width: 768px)`) to transform the `.nav-links` into a vertical, full-width mobile menu that is hidden by default and revealed when the `.active` class is added.
+3.  **`script.js`**: Implemented the logic to toggle the `.active` class on the `.nav-links` element when the menu button is clicked.
+4.  **Testing**:
+    *   Created a `package.json` file with `playwright` as a dependency.
+    *   Added comprehensive Playwright tests in `tests/navbar.spec.js` that verify:
+        *   The navigation links are visible on desktop.
+        *   The menu toggle appears and correctly shows/hides the links on mobile viewports.
+
+### Verification:
+All tests were executed and passed successfully:
+```bash
+Running 3 tests using 1 worker
+
+  ✓  1 tests/navbar.spec.js:10:3 › Navbar Responsiveness › should show links on desktop
+  ✓  2 tests/navbar.spec.js:17:3 › Navbar Responsiveness › should show menu toggle on mobile and show links when clicked
+  ✓  3 tests/navbar.spec.js:34:3 › Navbar Responsiveness › should hide links when menu is toggled again
+
+  3 passed (825ms)
+```

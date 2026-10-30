@@ -1,0 +1,10 @@
+Implemented a full interest‑calculator package:
+
+* **`interest_calc/__init__.py`** – package docstring.
+* **`interest_calc/calc.py`** – functions for simple and compound interest with validation.
+* **`interest_calc/cli.py`** – Click‑based CLI with `simple` & `compound` commands.
+* **`interest_calc/tests/test_calc.py`** – pytest unit tests covering basic cases and error handling.
+* **`interest_calc/README.md`** – Usage, installation, examples, and testing instructions.
+* **`pyproject.toml`** – Build metadata, dependencies, and console script entry point.
+
+This provides a user‑friendly CLI tool, proper documentation, and automated tests.

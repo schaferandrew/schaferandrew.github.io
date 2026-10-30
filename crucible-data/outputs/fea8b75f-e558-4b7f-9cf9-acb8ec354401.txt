@@ -1,0 +1,28 @@
+## Emails
+
+- **Urgent:** Q3 expense report is due **today at 5:00 PM** — don't miss the cutoff or it rolls into next month's payroll.
+- **Client inquiry:** A client is asking whether the revised proposal can be delivered by Friday. They need to brief their team, so a prompt reply would be appreciated.
+- **Q3 review complete:** Alex reports the Q3 review is done and ahead of schedule. Expect to discuss results in today's planning meeting.
+- **1-on-1 notes:** Jamie shared notes from yesterday's check-in covering career goals, next-quarter priorities, and team-building activities.
+
+## Calendar
+
+Today is Wednesday, September 2.
+
+| Time (CT) | Event | Location |
+|---|---|---|
+| 9:30–10:30 AM | Planning | Room B |
+| 10:00–11:00 AM | Vendor demo | Zoom |
+| 1:00–2:00 PM | Budget meeting | Conference Room A |
+
+Note: The Planning meeting and Vendor demo overlap — you may need to prioritize or delegate.
+
+## News
+
+- **Twin Cities Tech Conference Returns** *(high)* — The annual conference comes to Minneapolis with 50+ speakers on AI, startup funding, and emerging tech. Registration opens Friday. Worth checking out if you're in tech.
+- **Maplewood Park Renovation Complete** *(medium)* — New walking trails and a playground are ready. Grand reopening is tomorrow, Saturday.
+- **State Fair Attendance Drops Slightly** *(low)* — A 3% decline attributed to cooler-than-average weather.
+
+## Spanish practice
+
+Hoy es miércoles y tienes una jornada intensa por delante: la reunión de planificación a las 9:30, la demostración del proveedor a las 10:00 y la reunión de presupuesto a la una de la tarde. No olvides presentar tu informe de gastos del tercer trimestre antes de las cinco, o se retrasará al próximo mes. Mientras tanto, la conferencia de tecnología de las Twin Cities vuelve este fin de semana, y el parque de Maplewood acaba de renovar sus senderos y juegos; la reapertura es mañana. ¡Que tengas un buen día y no te olvides de responder al cliente sobre el cronograma de la propuesta!

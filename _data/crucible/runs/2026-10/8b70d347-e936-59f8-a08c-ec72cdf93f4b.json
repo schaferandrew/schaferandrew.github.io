@@ -1,0 +1,80 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "8b70d347-e936-59f8-a08c-ec72cdf93f4b",
+ "run_path": "opencode_deepseek-v4.1-flash-free/cursor-pagination/20261025_231250",
+ "legacy_run_id": "opencode_deepseek-v4.1-flash-free/coding_repo/CODE-12/20261025_231250",
+ "started_at": "2026-10-25T23:12:57.493751+00:00",
+ "ended_at": "2026-10-25T23:20:43.494788+00:00",
+ "elapsed_s": 466.0,
+ "task": {
+  "id": "cursor-pagination",
+  "version": 2,
+  "rubric_version": 1,
+  "content_hash": "840e2d2836e3ca9a",
+  "rubric_hash": "9a5431489589644b",
+  "alias": "CODE-12"
+ },
+ "harness": {
+  "id": "opencode",
+  "version": "opencode v2.1.4"
+ },
+ "model": {
+  "id": "opencode/deepseek-v4.1-flash-free",
+  "base": "deepseek-v4.1-flash-free",
+  "publisher": null,
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek-v4.1-flash-free|-|api|-",
+  "display": "deepseek-v4.1-flash-free"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "opencode",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": 0,
+  "tests_failed": 1,
+  "tool_calls": 121,
+  "tokens_in": 56446,
+  "tokens_out": 61438,
+  "model_responses": 66,
+  "ttft_s": 1.645,
+  "ttft_avg_s": 6.591,
+  "response_time_avg_s": 7.035,
+  "cost_usd": 0,
+  "cost_source": "opencode_estimate"
+ },
+ "output_ref": "outputs/8b70d347-e936-59f8-a08c-ec72cdf93f4b.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:34cec596973487db67d65c35c4d6b87bee8aff58a58bc4b05dfae1a213bbe0ad",
+  "submitter": null,
+  "verification": null
+ }
+}

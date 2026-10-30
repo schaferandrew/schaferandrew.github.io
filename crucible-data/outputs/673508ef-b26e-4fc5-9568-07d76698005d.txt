@@ -1,0 +1,21 @@
+Let's analyze the clues step-by-step to deduce the exact seating arrangement. The wording is precise and leads to a unique solution without ambiguity.
+
+1. **Clue 3** tells us the person who likes **Green** sits in **Chair 1**.
+2. **Clue 5** states **Dave** likes **Red**. **Clue 4** says **Carol** likes **Yellow** and sits somewhere to the right of the person who likes Red (Dave). This means Dave cannot be in Chair 4 (Carol must be to his right), and Dave cannot be in Chair 1 (since Chair 1 is Green, not Red). Therefore, **Dave (Red) must be in Chair 2 or 3**.
+3. **Clue 1** says **Alice** sits immediately to the left of the person who likes **Blue**. This means Alice cannot be in Chair 4, and Blue cannot be in Chair 1. Blue must be in Chair 2, 3, or 4.
+4. Let's test where **Blue** can go:
+   - If Blue were in **Chair 3**, Alice would be in Chair 2. But we already know Dave (Red) must be in Chair 2 or 3. If Dave is in Chair 2, he conflicts with Alice. If Dave is in Chair 3, he conflicts with Blue. So Blue ≠ Chair 3.
+   - If Blue were in **Chair 4**, Alice would be in Chair 3. The remaining colors for Chairs 2 and 3 would be Red and Yellow. Dave (Red) and Carol (Yellow) would have to occupy Chairs 2 and 3, but Chair 3 is already taken by Alice. So Blue ≠ Chair 4.
+   - Therefore, **Blue must be in Chair 2**. By Clue 1, **Alice sits in Chair 1**.
+5. Since Alice is in Chair 1 and Chair 1 is Green, **Alice likes Green**.
+6. We now have Chair 1: Alice (Green), Chair 2: Blue. The remaining chairs are 3 and 4, and the remaining colors are Red and Yellow.
+7. From Clues 4 and 5, Dave likes Red and Carol likes Yellow, with Carol sitting to the right of Dave. This forces **Dave (Red) into Chair 3** and **Carol (Yellow) into Chair 4**.
+8. The only remaining person is **Bob**, who must sit in **Chair 2**. This satisfies Clue 2 (Bob does not sit in Chair 4).
+
+All clues are satisfied with this arrangement.
+
+Chair 1: Alice, Green
+Chair 2: Bob, Blue
+Chair 3: Dave, Red
+Chair 4: Carol, Yellow
+ANSWER: Dave

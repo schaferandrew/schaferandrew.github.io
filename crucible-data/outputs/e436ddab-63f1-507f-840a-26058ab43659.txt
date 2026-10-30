@@ -1,0 +1,5 @@
+- **Accuracy (4/4):** The claims are supported by the passage, including the 8 p.m. closing time, the grant’s one-year coverage, the planned review, and the staffing concerns.
+- **Exactly two sentences (0/3):** The response has three sentences.
+- **Key points (3/3):** It captures the extension to 8 p.m., the funding limit, and the survey result.
+
+GRADE: 7

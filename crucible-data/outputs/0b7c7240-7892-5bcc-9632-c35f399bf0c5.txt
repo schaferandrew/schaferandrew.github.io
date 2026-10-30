@@ -1,0 +1,12 @@
+I have implemented the following changes to make the navbar responsive:
+
+1.  **Modified `index.html`**: Added a `button` with class `menu-toggle` inside the `nav` element to serve as the hamburger menu icon for mobile devices.
+2.  **Modified `styles.css`**:
+    *   Added styles for `.menu-toggle` (hidden by default).
+    *   Added a `@media (max-width: 600px)` query that:
+        *   Displays the `.menu-toggle` button on small screens.
+        *   Converts the `.nav-links` list into a vertical menu that is absolutely positioned below the navbar when the screen is small.
+        *   Added a `.nav-links.active` class to handle showing/hiding the menu when toggled.
+3.  **Modified `script.js`**: Added logic to listen for clicks on the `.menu-toggle` button and toggle the `.active` class on the `.nav-links` list.
+
+The navbar now maintains its original look on desktop but transforms into a vertical mobile menu on screens narrower than 600px.

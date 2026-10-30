@@ -1,0 +1,78 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "caf7f24e-59df-5339-9a4a-0f4004bb9261",
+ "run_path": "openrouter_qwen_qwen3.8-27b/proofread-economics-essay/20261024_175301",
+ "legacy_run_id": "openrouter_qwen_qwen3.8-27b/writing/WRIT-1c/20261024_175301",
+ "started_at": "2026-10-24T17:53:01.633224+00:00",
+ "ended_at": "2026-10-24T17:53:36.792498+00:00",
+ "elapsed_s": 35.16,
+ "task": {
+  "id": "proofread-economics-essay",
+  "version": 1,
+  "rubric_version": null,
+  "content_hash": null,
+  "rubric_hash": null,
+  "alias": "WRIT-1c"
+ },
+ "harness": {
+  "id": "opencode",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/qwen/qwen3.8-27b",
+  "base": "qwen/qwen3.8-27b",
+  "publisher": "qwen",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "qwen/qwen3.8-27b|qwen|api|-",
+  "display": "qwen3.8-27b"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 1,
+  "tokens_in": 8220,
+  "tokens_out": 6560,
+  "model_responses": 2,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": 16.727
+ },
+ "output_ref": "outputs/caf7f24e-59df-5339-9a4a-0f4004bb9261.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": null,
+  "machine_label": null,
+  "source": "crucible-migrate",
+  "content_hash": "sha256:306ba6e2580c26f63a45e03b7c13f0d744d90015eb10742af8a5d3de7df9fee9",
+  "submitter": null,
+  "verification": null
+ }
+}

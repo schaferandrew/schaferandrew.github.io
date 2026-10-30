@@ -1,0 +1,24 @@
+I have completed the task. I implemented a mobile hamburger menu that is accessible and keyboard-friendly, updated the CSS to handle responsive layouts, and added Playwright tests to verify both desktop and mobile experiences.
+
+### Changes made:
+
+- **`index.html`**: Added a `<button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">` with a hamburger icon span.
+- **`styles.css`**: 
+    - Added styles for the hamburger icon (three bars).
+    - Added a media query (`max-width: 768px`) to hide the `.nav-links` and show the `.menu-toggle` on mobile.
+    - Set `.nav-links` to `position: absolute` and `display: none` on mobile, with an `.active` class to show them when the menu is opened.
+- **`script.js`**: Implemented logic to:
+    - Toggle the `.active` class on `.nav-links` when the button is clicked.
+    - Update the `aria-expanded` attribute for accessibility.
+    - Automatically close the menu when a link is clicked (important for single-page-app style navigation).
+- **`tests/navbar.spec.js`**: Created comprehensive Playwright tests that:
+    - Verify desktop: Links are visible, toggle is hidden.
+    - Verify mobile: Links are hidden, toggle is visible.
+    - Verify mobile interaction: Toggling the menu shows the links and updates `aria-expanded`.
+    - Verify mobile cleanup: Clicking a link closes the menu.
+
+### Verification Results:
+All tests passed:
+```bash
+4 passed (2.4s)
+```

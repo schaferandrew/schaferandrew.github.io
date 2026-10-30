@@ -1,0 +1,3 @@
+Fixed the account page by removing client-side hooks and its self-fetch, which were incompatible with the default Server Component. The page now reads `acct_1` from a shared server-side data module; the API route uses that same data source.
+
+Added a test verifying the page renders Alice’s name and Pro plan. **Tests, TypeScript checks, and the production build pass.**

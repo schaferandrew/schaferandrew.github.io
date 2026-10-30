@@ -1,0 +1,1 @@
+Now I have a complete picture. Let me read the existing tests to understand the test patterns, then implement the fix.

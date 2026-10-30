@@ -1,0 +1,15 @@
+**1. Flour Calculation**
+
+*   Find the ratio per person: $300 \text{ g} / 4 \text{ people} = 75 \text{ g/person}$.
+*   Calculate for 10 people: $75 \text{ g/person} \times 10 \text{ people} = 750 \text{ g}$.
+
+**2. Jacket Sale Price**
+
+*   Calculate the discount amount: $\$84.60 \times 0.15 = \$12.69$.
+*   Calculate the sale price: $\$84.60 - \$12.69 = \$71.91$.
+
+***
+
+ANSWERS
+1. 750 g
+2. $71.91

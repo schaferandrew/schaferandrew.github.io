@@ -1,0 +1,88 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "17c4b653-64a4-5138-999f-77318aaf0bfc",
+ "run_path": "lmstudio_mlx-community_muse-glimmer-30b/household-money-math/20261026_205852",
+ "legacy_run_id": "lmstudio_mlx-community_muse-glimmer-30b/math/MATH-2/20261026_205852",
+ "started_at": "2026-10-26T20:58:52.484751+00:00",
+ "ended_at": "2026-10-26T21:13:52.516530+00:00",
+ "elapsed_s": 900.03,
+ "task": {
+  "id": "household-money-math",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "7f6f5246841ce00c",
+  "rubric_hash": "8d892908b5c59c65",
+  "alias": "MATH-2"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/mlx-community/muse-glimmer-30b",
+  "base": "mlx-community/muse-glimmer-30b",
+  "publisher": "mlx-community",
+  "artifact": null,
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": 100383,
+  "variant_key": "mlx-community/muse-glimmer-30b|mlx-community|mlx|mlx-4bit",
+  "display": "muse-glimmer-30b · 4bit"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Ironwood",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m1-pro-32gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 32.0,
+  "cpu": "Apple M1 Pro",
+  "offload": null,
+  "label": "Ironwood"
+ },
+ "outcome": {
+  "status": "timeout",
+  "harness_status": "TIMEOUT",
+  "returncode": 1,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": 1,
+  "ttft_s": 5.562,
+  "ttft_avg_s": 5.562,
+  "response_time_avg_s": 900.029,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": null,
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:b81f3b65ac818b96ce0cb1fb1bfe68e3161a6621886f5a1e5b51d5f0cced6ddb",
+  "submitter": null,
+  "verification": null
+ }
+}

@@ -1,0 +1,31 @@
+The test suite is currently broken — `@testing-library/react` is not installed. Let's try installing the test dependencies.
+The bug is clear: `app/page.tsx` is a Server Component (no `'use client'`), yet it uses `useState`/`useEffect` — hooks can't run in server components, so the page just renders "Loading..." forever. Also, the tests can't even be run (missing test dependencies).
+The idiomatic fix: since the page is a server component and the data is available server-side, read it directly inside the page (no client hooks, no API round-trip). First, let's extract the data into a shared module:
+Now the tests — the page is async, so the test awaits the component and renders the resolved element:
+I've added a vitest config file with the jsdom environment and switched the test script to use non-watch mode so it runs and exits properly:
+Vite doesn't read tsconfig paths — adding the alias to the vitest config:
+2 API tests pass. The page test runs into the classic Next+Vite issue: tsconfig's `jsx: "preserve"` gets mapped to the classic React transform by esbuild. Fix it by configuring automatic JSX in the vitest config:
+The page renders correctly — the issue is that the text matcher is splitting the text (`Name: Alice` vs `Alice`). Update the matcher to a regex:
+All 3 tests pass. Now typecheck and build:
+Build succeeded, and `/` is now statically prerendered (server-side data fetch). Quick smoke test of the rendered output:
+Static HTML has the account data, no "Loading". Full runtime smoke test:
+Everything works end-to-end. Now the lint command:
+`next lint` has no ESLint config in the repo (pre-existing state — it prompts interactively). Let me make sure it didn't leave a hanging process:
+Clean. Final review of all changed files:
+Final verification pass:
+Done. All green: 3/3 tests, `tsc` clean, production build passes, runtime smoke test confirmed.
+
+**Diagnosis:** `app/page.tsx` is a Server Component (no `'use client'`) but used `useState`/`useEffect` — hooks can't run in server components, and the client-side `fetch` never executes, so the page stuck on "Loading..." forever.
+
+**Fix (idiomatic App Router approach):** the data was already server-side, so the page is now an async Server Component that reads it directly — no client hooks, no API round-trip, no loading state:
+- `lib/accounts.ts` — new shared data module (`getAccount`), single source of truth
+- `app/page.tsx:3` — `async function AccountPage()` awaits `getAccount('acct_1')`, same UI markup as before
+- `app/api/account/route.ts` — refactored to use the shared module (200/404 behavior unchanged)
+
+**Tests:**
+- Installed missing `@testing-library/react` + `jsdom` (the old test file couldn't even load)
+- `vitest.config.ts` — jsdom env, `@` alias (Vite ignores tsconfig paths), `jsx: 'automatic'` (Next's tsconfig `jsx: "preserve"` otherwise breaks esbuild)
+- `app/page.test.tsx` — page test now awaits the async server component; added API route tests for 200 and 404
+- `npm test` → `vitest run` (exits instead of watching)
+
+Verified live: page renders `Name: Alice` / `Plan: Pro` (statically prerendered), `/api/account?id=acct_1` → 200, unknown id → 404.

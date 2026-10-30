@@ -1,0 +1,93 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "11e38b91-bc8b-52e0-b67b-5a7eb42d68d4",
+ "rubric_version": 2,
+ "rubric_hash": "307cd16e5d9b4cbf",
+ "method": "checks",
+ "scored_at": "2026-10-27T04:09:36.610400+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 4,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 4.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "answered",
+   "type": "non_empty",
+   "group": "Answered",
+   "label": "Produces a substantive answer (at least 60 words).",
+   "passed": false,
+   "detail": "0 words (want at least 60)"
+  },
+  {
+   "id": "twenty_names",
+   "type": "list_items",
+   "group": "Twenty names",
+   "label": "Lists at least 20 names as list items.",
+   "passed": false,
+   "detail": "0 items (want at least 20)"
+  },
+  {
+   "id": "distinct_names",
+   "type": "list_items",
+   "group": "Distinct",
+   "label": "No name appears twice in the list of 20 (a later recap of favorites is fine).",
+   "passed": true,
+   "detail": "0 items"
+  },
+  {
+   "id": "each_described",
+   "type": "list_items",
+   "group": "Each described",
+   "label": "Every name is followed by a short description (after a dash or colon).",
+   "passed": true,
+   "detail": "0 items"
+  },
+  {
+   "id": "no_famous_names",
+   "type": "forbidden_patterns",
+   "group": "No famous names",
+   "label": "Uses no famous fictional characters or celebrities (checked against a blocklist).",
+   "passed": false,
+   "detail": "no answer to check"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Answered",
+   "passed": 0,
+   "total": 1,
+   "detail": "0 words (want at least 60)"
+  },
+  {
+   "id": "Twenty names",
+   "passed": 0,
+   "total": 3,
+   "detail": "0 items (want at least 20)"
+  },
+  {
+   "id": "Distinct",
+   "passed": 2,
+   "total": 2,
+   "detail": "0 items"
+  },
+  {
+   "id": "Each described",
+   "passed": 2,
+   "total": 2,
+   "detail": "0 items"
+  },
+  {
+   "id": "No famous names",
+   "passed": 0,
+   "total": 2,
+   "detail": "no answer to check"
+  }
+ ]
+}

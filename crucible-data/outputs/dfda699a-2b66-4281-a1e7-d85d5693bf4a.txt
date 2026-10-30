@@ -1,0 +1,1 @@
+I'll build this compound-interest calculator step by step. Let me create all the necessary files.

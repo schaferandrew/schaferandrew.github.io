@@ -1,0 +1,14 @@
+## Fixed
+
+- **Root cause:** invite acceptance recorded `termsAcceptedAt` but left `onboardingComplete` false. The welcome page sent invited users to `/editor`, while `RequireWriter` sent anyone with incomplete onboarding back to `/welcome`, creating the flashing redirect loop. Regular signup also rejected any email already present, including a pending invite.
+- **Decisions:** Legal’s requirement takes precedence over the invite design’s editor bypass. Writer access now depends on accepted terms—not profile completion—and article creation, updates, and deletion enforce that requirement server-side. Invited users see a terms-only step, with no bio prompt. A homepage signup for a pending invite claims the existing account, preserving its assigned work; terms are still required before writing. Regular signup continues through its existing welcome flow.
+- **Existing accounts:** affected invitees already have a terms-acceptance timestamp, so they can reach the editor after deployment without data changes. The guard no longer relies on their stale onboarding flag.
+
+Added API and web regression tests. Updated the API test helper to accept terms for tests that need writer-ready users; **`apps/api/test/realworld.contract.test.ts` remains unmodified.**
+
+**Validation:** `npm test` passes (API 22 tests, web 9 tests); `npm run typecheck` passes.
+
+## Code review flags
+
+- Homepage claiming of a pending invite relies on knowing the invited email; without mailbox verification, someone who knows that address could claim the account. Consider requiring proof of email ownership.
+- `termsAcceptedAt` records a timestamp but not a terms version. If Legal revises the terms, versioned acceptance may be needed to prove acceptance of the current text.

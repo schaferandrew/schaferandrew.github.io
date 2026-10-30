@@ -1,0 +1,94 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "9ac6ac2f-2617-50e7-88cf-b75d9e080a3c",
+ "run_path": "lmstudio_google_gemma-4-12b-qat/seating-logic-puzzle/20261026_224023",
+ "legacy_run_id": "lmstudio_google_gemma-4-12b-qat/reasoning/MATH-4/20261026_224023",
+ "started_at": "2026-10-26T22:40:23.115545+00:00",
+ "ended_at": "2026-10-26T22:55:23.140114+00:00",
+ "elapsed_s": 900.02,
+ "task": {
+  "id": "seating-logic-puzzle",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "d205d3bad1048689",
+  "rubric_hash": "ef4c3db9d4f7ff0a",
+  "alias": "MATH-4"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/google/gemma-4-12b-qat",
+  "base": "google/gemma-4-12b-qat",
+  "publisher": null,
+  "artifact": null,
+  "format": null,
+  "quant": "Q4_0",
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": 100608,
+  "variant_key": "google/gemma-4-12b-qat|-|-|q4_0",
+  "display": "gemma-4-12b-qat · Q4_0"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Whitehall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "rtx-5070-ti-16gb",
+  "class": "discrete_gpu",
+  "accelerators": [
+   {
+    "name": "NVIDIA RTX 5070 Ti 16GB",
+    "memory_gb": 16,
+    "count": 1
+   }
+  ],
+  "system_memory_gb": 32.0,
+  "cpu": "AMD Ryzen 7 7700",
+  "offload": null,
+  "label": "Whitehall"
+ },
+ "outcome": {
+  "status": "timeout",
+  "harness_status": "TIMEOUT",
+  "returncode": 1,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": 1,
+  "ttft_s": 0.337,
+  "ttft_avg_s": 0.337,
+  "response_time_avg_s": 900.013,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": null,
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:ec2890963578b804778edc2c7e92ae453a16b5e916543047b7e1d274206cef40",
+  "submitter": null,
+  "verification": null
+ }
+}

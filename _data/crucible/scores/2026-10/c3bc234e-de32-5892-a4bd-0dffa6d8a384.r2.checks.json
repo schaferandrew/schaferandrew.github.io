@@ -1,0 +1,107 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "c3bc234e-de32-5892-a4bd-0dffa6d8a384",
+ "rubric_version": 2,
+ "rubric_hash": "e3b3571f5658103d",
+ "method": "checks",
+ "scored_at": "2026-10-27T03:54:01.663561+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 10,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "answered",
+   "type": "non_empty",
+   "group": "Answered",
+   "label": "Produces a substantive answer (at least 40 words).",
+   "passed": true,
+   "detail": "232 words"
+  },
+  {
+   "id": "fixes_than",
+   "type": "required_patterns",
+   "group": "Fixes than",
+   "label": "Fixes 'louder then' to 'louder than'.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "fixes_too",
+   "type": "required_patterns",
+   "group": "Fixes too",
+   "label": "Fixes 'talking to fast' to 'talking too fast'.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "keeps_fragments",
+   "type": "required_patterns",
+   "group": "Keeps the fragments",
+   "label": "Keeps the intentional fragments and the dash ('Not waiting for her, exactly.', 'That would have been too kind.', 'Still—she was back').",
+   "passed": true,
+   "detail": "3/3 found"
+  },
+  {
+   "id": "keeps_imagery",
+   "type": "required_patterns",
+   "group": "Keeps the imagery",
+   "label": "Keeps the opening imagery word for word.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "flags_intent",
+   "type": "required_patterns",
+   "group": "Flags intent",
+   "label": "Flags at least one choice as possibly intentional rather than silently changing it.",
+   "passed": true,
+   "detail": "1/1 found"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Answered",
+   "passed": 1,
+   "total": 1,
+   "detail": "232 words"
+  },
+  {
+   "id": "Fixes than",
+   "passed": 2,
+   "total": 2,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Fixes too",
+   "passed": 2,
+   "total": 2,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Keeps the fragments",
+   "passed": 2,
+   "total": 2,
+   "detail": "3/3 found"
+  },
+  {
+   "id": "Keeps the imagery",
+   "passed": 1,
+   "total": 1,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Flags intent",
+   "passed": 2,
+   "total": 2,
+   "detail": "1/1 found"
+  }
+ ]
+}

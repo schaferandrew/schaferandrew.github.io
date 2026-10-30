@@ -1,0 +1,81 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "69e2bf6f-80f7-40f0-a724-0dfa55ed65f5",
+ "run_path": "openrouter_openai_gpt-6-luna/accessibility-audit-fixes/20261030_031623",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T03:16:31.771088+00:00",
+ "ended_at": "2026-10-30T03:19:08.742410+00:00",
+ "elapsed_s": 156.73,
+ "task": {
+  "id": "accessibility-audit-fixes",
+  "version": 1,
+  "rubric_version": 3,
+  "content_hash": "02332049fef999c1",
+  "rubric_hash": "ba79097d3d49ec8d",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/openai/gpt-6-luna",
+  "base": "openai/gpt-6-luna",
+  "publisher": "openai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "openai/gpt-6-luna|openai|api|-",
+  "display": "gpt-6-luna"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 39,
+  "tokens_in": 344647,
+  "tokens_out": 13537,
+  "model_responses": 21,
+  "ttft_s": 1.374,
+  "ttft_avg_s": 3.829,
+  "response_time_avg_s": 7.186,
+  "cost_usd": 0.011421,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/69e2bf6f-80f7-40f0-a724-0dfa55ed65f5.txt",
+ "provenance": {
+  "crucible_version": "3.3.0",
+  "crucible_commit": "34a6f5d",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:7b38c5b4e3f7630437c607acfaebe45c89319bc846891192174d6045b8b3704c",
+  "submitter": null,
+  "verification": null
+ }
+}

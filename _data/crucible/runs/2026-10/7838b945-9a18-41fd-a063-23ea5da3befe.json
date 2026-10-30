@@ -1,0 +1,81 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "7838b945-9a18-41fd-a063-23ea5da3befe",
+ "run_path": "openrouter_deepseek_deepseek-v4-flash/editorial-review-workflow/20261030_075115",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T07:51:21.620661+00:00",
+ "ended_at": "2026-10-30T07:58:58.172237+00:00",
+ "elapsed_s": 456.32,
+ "task": {
+  "id": "editorial-review-workflow",
+  "version": 3,
+  "rubric_version": 4,
+  "content_hash": "02dc7545b79f29a4",
+  "rubric_hash": "045074375d3af88a",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/deepseek/deepseek-v4-flash",
+  "base": "deepseek/deepseek-v4-flash",
+  "publisher": "deepseek",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek/deepseek-v4-flash|deepseek|api|-",
+  "display": "deepseek-v4-flash"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "failed",
+  "harness_status": "ERROR (exit 1)",
+  "returncode": 1,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": 40,
+  "tests_failed": 0,
+  "tool_calls": 69,
+  "tokens_in": 1775536,
+  "tokens_out": 42743,
+  "model_responses": 48,
+  "ttft_s": 1.827,
+  "ttft_avg_s": 2.079,
+  "response_time_avg_s": 9.186,
+  "cost_usd": 0.124077,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/7838b945-9a18-41fd-a063-23ea5da3befe.txt",
+ "provenance": {
+  "crucible_version": "3.4.1",
+  "crucible_commit": "f618abf",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:4bd0837bc0328a04826a20cfff57c95cabbd32cb653ea3e9adc2d175f777da92",
+  "submitter": null,
+  "verification": null
+ }
+}

@@ -1,0 +1,27 @@
+I have completed the task by implementing a dependency-light, robust CLI compound-interest calculator in Python.
+
+### Summary of Work
+1.  **`calculator.py`**: A CLI tool using `argparse` to handle user inputs. It uses a month-by-month simulation to accurately handle interest compounding and recurring contributions. It includes robust input validation for negative values and contradictory arguments (e.g., a contribution amount without a frequency).
+2.  **`test_calculator.py`**: A comprehensive suite of unit tests using `unittest` that covers:
+    *   Ordinary compound interest cases.
+    *   Zero interest scenarios.
+    *   Monthly compounding and contributions.
+    *   Yearly recurring contributions.
+    *   Edge cases for invalid inputs (negative values, zero frequency).
+    *   Known expected-value verification.
+3.  **`README.md`**: Documentation including installation instructions, argument definitions, and several practical command-line examples.
+
+### File Structure
+*   `calculator.py` - The main application.
+*   `test_calculator.py` - The test suite.
+*   `README.md` - The documentation.
+
+To run the calculator:
+```bash
+python3 calculator.py --principal 1000 --rate 0.05 --years 10
+```
+
+To run the tests:
+```bash
+python3 test_calculator.py
+```

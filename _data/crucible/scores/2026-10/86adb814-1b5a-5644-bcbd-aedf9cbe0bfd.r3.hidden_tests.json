@@ -1,0 +1,153 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "86adb814-1b5a-5644-bcbd-aedf9cbe0bfd",
+ "rubric_version": 3,
+ "rubric_hash": "e184c2157cc6dbf7",
+ "method": "hidden_tests",
+ "scored_at": "2026-10-27T18:22:14.701756+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 1.0,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 1.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "postmortem_timeline",
+   "type": "required_patterns",
+   "group": "Postmortem timeline",
+   "label": "The postmortem's timeline has the deploy (16:42:10), first affected request (16:44:15) and first report (18:06:01) from the logs.",
+   "passed": false,
+   "detail": "0/3 found; missing: 16:42:10, 16:44:15, 18:06:01"
+  },
+  {
+   "id": "postmortem_count",
+   "type": "required_patterns",
+   "group": "Postmortem count",
+   "label": "The postmortem counts 371 affected users (or 481, counting anonymous-stored responses).",
+   "passed": false,
+   "detail": "0/1 found; missing: \\b(371|481)\\b"
+  },
+  {
+   "id": "per-viewer fields are never shared through the cache > article: favorited belongs to the viewer",
+   "type": "hidden_test",
+   "group": "per-viewer fields are never shared through the cache",
+   "label": "article: favorited belongs to the viewer",
+   "passed": false,
+   "detail": "AssertionError: expected true to be false // Object.is equality"
+  },
+  {
+   "id": "per-viewer fields are never shared through the cache > anonymous responses don't leak to signed-in viewers either",
+   "type": "hidden_test",
+   "group": "per-viewer fields are never shared through the cache",
+   "label": "anonymous responses don't leak to signed-in viewers either",
+   "passed": false,
+   "detail": "AssertionError: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "per-viewer fields are never shared through the cache > lists: favorited and author.following belong to the viewer",
+   "type": "hidden_test",
+   "group": "per-viewer fields are never shared through the cache",
+   "label": "lists: favorited and author.following belong to the viewer",
+   "passed": false,
+   "detail": "AssertionError: expected { slug: 'cached', …(9) } to match object { favorited: false, author: { …(1) } }"
+  },
+  {
+   "id": "per-viewer fields are never shared through the cache > profiles: following belongs to the viewer",
+   "type": "hidden_test",
+   "group": "per-viewer fields are never shared through the cache",
+   "label": "profiles: following belongs to the viewer",
+   "passed": false,
+   "detail": "AssertionError: expected true to be false // Object.is equality"
+  },
+  {
+   "id": "writes are visible immediately > updates",
+   "type": "hidden_test",
+   "group": "writes are visible immediately",
+   "label": "updates",
+   "passed": false,
+   "detail": "AssertionError: expected 'original body' to be 'fixed typo' // Object.is equality"
+  },
+  {
+   "id": "writes are visible immediately > deletes",
+   "type": "hidden_test",
+   "group": "writes are visible immediately",
+   "label": "deletes",
+   "passed": false,
+   "detail": "Error: expected 404 \"Not Found\", got 200 \"OK\""
+  },
+  {
+   "id": "writes are visible immediately > favorite counts",
+   "type": "hidden_test",
+   "group": "writes are visible immediately",
+   "label": "favorite counts",
+   "passed": false,
+   "detail": "AssertionError: expected +0 to be 1 // Object.is equality"
+  },
+  {
+   "id": "writes are visible immediately > follows and unfollows",
+   "type": "hidden_test",
+   "group": "writes are visible immediately",
+   "label": "follows and unfollows",
+   "passed": false,
+   "detail": "AssertionError: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "writes are visible immediately > new articles and tags",
+   "type": "hidden_test",
+   "group": "writes are visible immediately",
+   "label": "new articles and tags",
+   "passed": false,
+   "detail": "AssertionError: expected 1 to be 2 // Object.is equality"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Per-viewer fields",
+   "passed": 0.0,
+   "total": 3,
+   "detail": "0/4 hidden tests pass"
+  },
+  {
+   "id": "Writes visible immediately",
+   "passed": 0.0,
+   "total": 2,
+   "detail": "0/5 hidden tests pass"
+  },
+  {
+   "id": "Postmortem timeline",
+   "passed": 0,
+   "total": 1,
+   "detail": "0/3 found; missing: 16:42:10, 16:44:15, 18:06:01"
+  },
+  {
+   "id": "Postmortem count",
+   "passed": 0,
+   "total": 1,
+   "detail": "0/1 found; missing: \\b(371|481)\\b"
+  },
+  {
+   "id": "Regression tests",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no new or changed test files"
+  },
+  {
+   "id": "Existing tests still pass",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "the repo's own tests don't all pass"
+  },
+  {
+   "id": "Contract suite untouched",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "contract suite untouched"
+  }
+ ]
+}

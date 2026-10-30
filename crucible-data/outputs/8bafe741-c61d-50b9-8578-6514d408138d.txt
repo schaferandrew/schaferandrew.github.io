@@ -1,0 +1,30 @@
+Need `tests/__init__.py` and the sed (macOS) fix.
+I built a command-line interest calculator called `interestcalc`. It uses only the Python standard library, and all 42 tests pass.
+
+You can run it from the workspace with `python3 -m interestcalc --help`. After `pip install .` it also runs as `interest`; I didn't test the install.
+
+**Commands**
+- `simple` calculates simple interest. It shows the interest earned, the total, and the interest per year and per month.
+- `compound` calculates compound interest. It supports daily through annual and continuous compounding, plus optional recurring deposits made at the start or end of each period. It prints a year-by-year table.
+- `apy` converts between the nominal rate (APR) and the effective annual yield (APY) in both directions.
+- `loan` gives the monthly payment, total interest and total paid. `--extra` shows the interest and time saved by paying more, and `--schedule` prints the amortization schedule.
+- `goal` finds either the deposit needed to reach a target in a given time, or the time needed with a given deposit.
+
+**Usability**
+- Money and rates are parsed flexibly: `$5,000`, `4.5%`.
+- Time can be given as any mix of `--years`, `--months` and `--days`.
+- `--format text|json|csv` works on every command. CSV prints the table when there is one, so a loan schedule can go straight into a spreadsheet.
+- Bad input prints `error: ...` to stderr and exits with status 2.
+- Running with no arguments prints help with examples.
+
+**Calculation choices**
+- The maths uses exact decimals, so there is no floating-point drift.
+- Loan payments are rounded to the cent, and the final payment absorbs the rounding difference.
+- Time spans are capped at 100 years.
+- With recurring deposits, interest grows at the equivalent rate for each deposit period. Compounding frequency and deposit frequency are independent, but this may differ slightly from how a particular bank counts.
+
+The tests check known values, such as $200,000 at 6% over 30 years giving $1,199.10 a month. They also cover edge cases (zero rate, partial years, unreachable goals) and the CLI itself. Running them also caught two bugs, which I fixed. The loan schedule had a stray 361st payment, and partial-year compound results were missing their closing row.
+
+The README covers usage, inputs, the formulas used and how to run the tests. Run the tests with `python3 -m unittest discover -s tests -t .`.
+
+I didn't commit anything.

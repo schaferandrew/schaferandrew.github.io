@@ -1,0 +1,88 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "592210d1-445a-564d-ac7f-f5460477dd63",
+ "run_path": "lmstudio_mlx-community_muse-glimmer-30b/seating-logic-puzzle/20261026_211353",
+ "legacy_run_id": "lmstudio_mlx-community_muse-glimmer-30b/reasoning/MATH-4/20261026_211353",
+ "started_at": "2026-10-26T21:13:53.052050+00:00",
+ "ended_at": "2026-10-26T21:17:12.539675+00:00",
+ "elapsed_s": 199.49,
+ "task": {
+  "id": "seating-logic-puzzle",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "d205d3bad1048689",
+  "rubric_hash": "ef4c3db9d4f7ff0a",
+  "alias": "MATH-4"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/mlx-community/muse-glimmer-30b",
+  "base": "mlx-community/muse-glimmer-30b",
+  "publisher": "mlx-community",
+  "artifact": null,
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": 100383,
+  "variant_key": "mlx-community/muse-glimmer-30b|mlx-community|mlx|mlx-4bit",
+  "display": "muse-glimmer-30b · 4bit"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Ironwood",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m1-pro-32gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 32.0,
+  "cpu": "Apple M1 Pro",
+  "offload": null,
+  "label": "Ironwood"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 269,
+  "tokens_out": 1950,
+  "model_responses": 1,
+  "ttft_s": 6.851,
+  "ttft_avg_s": 6.851,
+  "response_time_avg_s": 199.48,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": "outputs/592210d1-445a-564d-ac7f-f5460477dd63.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:392683c883315f0f1070d354b42d54fff990f5d36ddf0ca86b81d9c1d84aa872",
+  "submitter": null,
+  "verification": null
+ }
+}

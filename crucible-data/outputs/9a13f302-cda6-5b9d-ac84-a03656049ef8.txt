@@ -1,0 +1,11 @@
+1. **Flour calculation:**
+*   Flour per person: $300\text{ g} \div 4 = 75\text{ g}$
+*   Flour for 10 people: $75\text{ g} \times 10 = 750\text{ g}$
+
+2. **Jacket calculation:**
+*   Discount amount: $84.60 \times 0.15 = 12.69$
+*   Sale price: $84.60 - 12.69 = 71.91$
+
+ANSWERS
+1. 750 g
+2. $71.91

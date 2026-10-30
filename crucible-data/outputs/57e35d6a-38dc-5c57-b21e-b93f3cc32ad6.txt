@@ -1,0 +1,24 @@
+
+
+## Objective errors
+
+1. **"one of the two items were damaged" → "was damaged"** — Subject–verb agreement. The subject of the clause is *one* (singular), so the verb must be *was*.
+2. **"havent" → "haven't"** — Missing apostrophe.
+3. **"The box was clearly crush" → "was clearly crushed"** — Wrong verb form; the passive construction requires the past participle.
+
+## Optional style improvements (not errors)
+
+- **Comma before "but"**: "…last week **,** but I haven't heard anything back." — Two independent clauses joined by a conjunction; a comma is standard, but omitting it is common.
+- **Adverb placement**: "…which seem to have **passed already** for my earlier request" → "…to have **already passed**" reads more naturally.
+- **"Can you tell me what the status is?"** → "Could you tell me the status of my earlier request?" — slightly more polite and specific, without changing the customer's tone.
+- **"I am writing because…"** is a stiff opener; the email could start directly with "My order arrived three days late…".
+- **"Thanks for your help."** → "Thank you for your help." — marginally more formal.
+
+Note: "**which seem**" is correct as written — "which" refers to the plural "5-7 business days," so no change is needed.
+
+## Corrected version (objective errors fixed only; facts and tone unchanged)
+
+Subject: Refund for order 84721
+
+Hi Support,
+I am writing because my order arrived three days late, and one of the two items **was** damaged. I contacted support last week but I **haven't** heard anything back. The box was clearly **crushed** on one side, and the mug inside has a crack through the handle. I would like a refund for the mug, but please let me know if you need pictures of it. Also, your website says refunds are processed in 5-7 business days, which seem to have passed already for my earlier request. Can you tell me what the status is? Thanks for your help.

@@ -1,0 +1,80 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "bd554676-245b-59b8-aab4-cad7326c1b93",
+ "run_path": "openrouter_~openai_gpt-luna-latest/react-lead-form/20261029_031107",
+ "legacy_run_id": "openrouter_~openai_gpt-luna-latest/coding_debug/CODE-16/20261029_031107",
+ "started_at": "2026-10-29T03:11:11.560343+00:00",
+ "ended_at": "2026-10-29T03:12:57.978709+00:00",
+ "elapsed_s": 106.42,
+ "task": {
+  "id": "react-lead-form",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "02ccc27101b8f69d",
+  "rubric_hash": "f8a8d3233616858b",
+  "alias": "CODE-16"
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/~openai/gpt-luna-latest",
+  "base": "~openai/gpt-luna-latest",
+  "publisher": "~openai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "~openai/gpt-luna-latest|~openai|api|-",
+  "display": "gpt-luna-latest"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 21,
+  "tokens_in": 103675,
+  "tokens_out": 6466,
+  "model_responses": 14,
+  "ttft_s": 2.175,
+  "ttft_avg_s": 3.007,
+  "response_time_avg_s": 6.483,
+  "cost_usd": 0.004787,
+  "cost_source": "openrouter_billed"
+ },
+ "output_ref": "outputs/bd554676-245b-59b8-aab4-cad7326c1b93.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:48b8d131816e78960752eb696f044a10b6c8c8565dbacc71b28fad22490ca233",
+  "submitter": null,
+  "verification": null
+ }
+}

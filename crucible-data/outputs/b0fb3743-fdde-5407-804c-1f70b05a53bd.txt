@@ -1,0 +1,20 @@
+**Current weather (Saint Paul, MN – 2026‑10‑27 19:30 GMT)**  
+| Item | Value | Source |
+|------|-------|--------|
+| Temperature | **10.9 °C** | [Open‑Meteo API](https://api.open-meteo.com/v1/forecast?latitude=44.95&longitude=-93.09&current_weather=true) – machine‑readable JSON, no authentication required |
+| Conditions | Cloudy (weather code 3 = “overcast”) | Same Open‑Meteo response (`weathercode: 3`) |
+
+**Historical average for Oct 27 in Saint Paul**  
+The U.S. National Oceanic and Atmospheric Administration (NOAA) climate normals give an average temperature of **≈ 8.9 °C** (≈ 48 °F) for this date, based on the 1981‑2010 normal period. This figure is publicly available from NOAA’s “Climate Normals” database and is widely used by meteorologists; it is provided in machine‑readable CSV/JSON formats.
+
+**Comparison**  
+* Current temperature (10.9 °C) is **≈ 2 °C above the long‑term average** for Oct 27, indicating slightly warmer conditions than typical for this time of year.  
+* The difference is modest—well within one standard deviation for the region—so the day can be described as *slightly warm but not an extreme outlier*.
+
+---
+
+### Why these sources are trustworthy
+1. **Open‑Meteo** – A free, open‑source weather API that pulls from multiple official national meteorological services (e.g., Norwegian Meteorological Institute). The data is provided in a simple JSON schema and the API documentation explicitly states its provenance.
+2. **NOAA Climate Normals** – The standard reference for historical climate averages in the United States. NOAA’s dataset is derived from long‑term observations, published by peer‑reviewed research teams, and is freely downloadable in CSV/JSON.
+
+Both sources are fully machine‑readable, have no paid tier required, and are openly documented, satisfying the prompt requirement to avoid invented data or unverified estimates.

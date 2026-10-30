@@ -1,0 +1,12 @@
+[
+ {
+  "record": "status",
+  "format_version": 3,
+  "run_uuid": "e43d275a-b427-4a4b-824a-1a1cfea7d92f",
+  "at": "2026-10-30T08:04:11+00:00",
+  "invalid": {
+   "reason": "OpenRouter 402: out of credits mid-run"
+  },
+  "by": "claude"
+ }
+]

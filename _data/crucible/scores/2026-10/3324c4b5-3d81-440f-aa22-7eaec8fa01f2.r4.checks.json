@@ -1,0 +1,93 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "3324c4b5-3d81-440f-aa22-7eaec8fa01f2",
+ "rubric_version": 4,
+ "rubric_hash": "a5437ba617323fd5",
+ "method": "checks",
+ "scored_at": "2026-10-30T06:26:52.161828+00:00",
+ "crucible_version": "3.4.0",
+ "raw": {
+  "passed": 5.0,
+  "total": 6,
+  "unit": "points"
+ },
+ "score": 8.33,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "names_list",
+   "type": "items",
+   "group": "The list",
+   "label": "The NAMES: block has 20 numbered lines, no name twice, a reason (at least three words after a dash) on every line, and no famous or caricature name (blocklist) among the names.",
+   "passed": false,
+   "detail": "3/4 items; failed: distinct (repeated: vivian zielinski)",
+   "share": 0.75,
+   "items": [
+    {
+     "id": "twenty",
+     "label": "Twenty lines",
+     "passed": true,
+     "detail": "20 entries"
+    },
+    {
+     "id": "distinct",
+     "label": "All names distinct",
+     "passed": false,
+     "detail": "repeated: vivian zielinski"
+    },
+    {
+     "id": "reasons",
+     "label": "Every line has a reason",
+     "passed": true,
+     "detail": "20/20 entries match"
+    },
+    {
+     "id": "blocklist",
+     "label": "No blocklisted name",
+     "passed": true,
+     "detail": "none found"
+    }
+   ]
+  },
+  {
+   "id": "top_five",
+   "type": "items",
+   "group": "The top five",
+   "label": "The TOP FIVE: block has exactly five names, each one in the NAMES: list.",
+   "passed": true,
+   "detail": "2/2 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "five",
+     "label": "Five top names",
+     "passed": true,
+     "detail": "5 entries"
+    },
+    {
+     "id": "from_list",
+     "label": "Every top name is on the list",
+     "passed": true,
+     "detail": "all in the list"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "The list",
+   "passed": 3.0,
+   "total": 4,
+   "detail": "3/4 items; failed: distinct (repeated: vivian zielinski)"
+  },
+  {
+   "id": "The top five",
+   "passed": 2.0,
+   "total": 2,
+   "detail": "2/2 items"
+  }
+ ]
+}

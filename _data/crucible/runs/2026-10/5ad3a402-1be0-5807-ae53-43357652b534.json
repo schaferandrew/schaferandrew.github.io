@@ -1,0 +1,80 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "5ad3a402-1be0-5807-ae53-43357652b534",
+ "run_path": "openrouter_openai_gpt-6-luna/navbar-hamburger-menu/20261025_062355",
+ "legacy_run_id": "openrouter_openai_gpt-6-luna/coding_debug/CODE-2b/20261025_062355",
+ "started_at": "2026-10-25T06:23:55.654184+00:00",
+ "ended_at": "2026-10-25T06:34:20.864052+00:00",
+ "elapsed_s": 625.21,
+ "task": {
+  "id": "navbar-hamburger-menu",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "f7a87a0eb3d44428",
+  "rubric_hash": "ca8989fc10f5a77b",
+  "alias": "CODE-2b"
+ },
+ "harness": {
+  "id": "opencode",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/openai/gpt-6-luna",
+  "base": "openai/gpt-6-luna",
+  "publisher": "openai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "openai/gpt-6-luna|openai|api|-",
+  "display": "gpt-6-luna"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": null,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": null,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": "outputs/5ad3a402-1be0-5807-ae53-43357652b534.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:4c34fa341ab3bcdaabc7e3e00ee2e67e2ef5e4789bd70ad1a183fec6ae59ff57",
+  "submitter": null,
+  "verification": null
+ }
+}

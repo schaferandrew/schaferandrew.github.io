@@ -1,0 +1,115 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "4c2a9213-c55b-5c3d-8a74-681963b733d6",
+ "rubric_version": 2,
+ "rubric_hash": "3a7f59dac961798f",
+ "method": "checks",
+ "scored_at": "2026-10-30T06:25:15.216624+00:00",
+ "crucible_version": "3.4.0",
+ "raw": {
+  "passed": 2.0,
+  "total": 4,
+  "unit": "points"
+ },
+ "score": 5.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "interest",
+   "type": "items",
+   "group": "Compound interest",
+   "label": "Answer 1 is $5,636.36 (monthly compounding, 36 periods).",
+   "passed": false,
+   "detail": "0/1 items; failed: interest (got 5,636.35)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "interest",
+     "label": "Answer 1 is $5,636.36",
+     "passed": false,
+     "detail": "got 5,636.35"
+    }
+   ]
+  },
+  {
+   "id": "boxes",
+   "type": "items",
+   "group": "Boxes",
+   "label": "Answer 2 is 87 boxes (2,035 sq ft, rounded up).",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "boxes",
+     "label": "Answer 2 is 87 boxes",
+     "passed": true,
+     "detail": "got 87"
+    }
+   ]
+  },
+  {
+   "id": "gas",
+   "type": "items",
+   "group": "Gas cost",
+   "label": "Answer 3 is $47.14.",
+   "passed": false,
+   "detail": "0/1 items; failed: gas (got 47.15)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "gas",
+     "label": "Answer 3 is $47.14",
+     "passed": false,
+     "detail": "got 47.15"
+    }
+   ]
+  },
+  {
+   "id": "split",
+   "type": "items",
+   "group": "Split bill",
+   "label": "Answer 4 is $54.34 each (tip on the pre-tax amount, added to the taxed total).",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "split",
+     "label": "Answer 4 is $54.34",
+     "passed": true,
+     "detail": "got 54.34"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Compound interest",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: interest (got 5,636.35)"
+  },
+  {
+   "id": "Boxes",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "1/1 items"
+  },
+  {
+   "id": "Gas cost",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: gas (got 47.15)"
+  },
+  {
+   "id": "Split bill",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "1/1 items"
+  }
+ ]
+}

@@ -1,0 +1,40 @@
+I'll work through this: fetch live conditions for Saint Paul from machine-readable APIs, fetch historical data for Oct 24, then compare. Starting with parallel requests to independent sources:
+Good results from Open-Meteo and NWS. The NCEI file only has 1 line (likely just the header — no data returned). Let me check it and try alternative historical data approaches:
+The NCEI service is only returning the header with no data. I'll verify the request itself and, in parallel, parse the historical data from Open-Meteo (the past 10 years for October 24) that has already been downloaded:
+Two things need to be verified: (1) whether the Open-Meteo Climate API actually returns long-term normals, or today's forecast (the values 54.5/65/48 look suspiciously close to typical normals), (2) whether NCEI is responding at all. Running diagnostic requests:
+All sources confirmed. The Climate API is verified to return **long-term normals** (Jan 15 → 2.7°F, an impossible "forecast"), while today's actual forecast/observations are clearly warmer. Here is the report.
+
+---
+
+## Saint Paul, MN — Weather vs. Historical (Sat, Oct 24, 2026)
+
+### 1. Current conditions (right now)
+- **Temperature:** ~**22–23 °C / 72–74 °F**
+  - NWS (KMSP airport, obs. 11:55 AM CDT): **22 °C (71.6 °F)**
+  - Open-Meteo (12:30 PM CDT): **23.4 °C (74.1 °F)**
+- **Conditions:** **Clear / mainly clear** (NWS "Clear"; Open-Meteo WMO code 1 = mainly clear). Humidity ~42–43%, wind ~22 km/h from the SW.
+- Today's forecast high (Open-Meteo): **75.6 °F (24.2 °C)**.
+
+The two independent live sources agree within ~1–2 °C, so the live reading is solid.
+
+### 2. Historical average for this date (Oct 24)
+- **Long-term climate normal (ERA5-based):** mean **54.5 °F (12.5 °C)**, typical high **65.0 °F (18.3 °C)**, low **48.0 °F (8.9 °C)**.
+- **Supplementary — last 8 Oct 24s (2018–2025, model archive):** daily-mean avg **44.1 °F** (stdev 9.8 °F), daily-high avg **52.8 °F**. (Skewed cold by the record-early-frost events of Oct 2019 and Oct 2020, ~28–38 °F.)
+
+### 3. Typical or outlier?
+**Outlier — markedly warm.**
+- Current ~74 °F is **~19–20 °F above the Oct 24 normal mean (54.5 °F)**.
+- It is also **~9 °F above the typical Oct 24 *high* (65 °F)** — i.e., it's running warmer than this date normally gets all day.
+- Today's forecast high (75.6 °F) exceeds both the normal high (65 °F) and the warmest of the last eight Oct 24s (69.1 °F, in 2022).
+
+Late October in Saint Paul is normally near/below the mid-50s °F; a clear mid-70s °F day is a significant warm anomaly.
+
+### 4. Sources used and why I trusted them
+| Purpose | Source | Why trusted |
+|---|---|---|
+| Live conditions | **NWS API** (`api.weather.gov`, station **KMSP**) | Official U.S. government weather service — highest authority for live U.S. observations; KMSP is the primary station serving Saint Paul. |
+| Live conditions | **Open-Meteo Forecast API** (`api.open-meteo.com`) | Established open weather-data provider (model-based); **cross-validated against NWS** (agreement within ~1–2 °C). |
+| Historical normal | **Open-Meteo Climate API** (`climate-api.open-meteo.com`) | Provides **ERA5-based long-term normals**. I verified it returns normals, not a forecast, by querying an out-of-forecast-range date (Jan 15 → 2.7 °F, a realistic January normal, impossible as a forecast). |
+| Recent context | **Open-Meteo Historical Forecast API** (`historical-forecast-api.open-meteo.com`) | Actual Oct 24 temps for 2018–2025; used only as supplementary, clearly labeled model-based data. |
+
+**Adaptation note (no data invented):** I first targeted the gold-standard station record, **NOAA/NCEI GHCN-Daily** (station **USW00093889**, MSP). It returned **no data (header only)** across multiple dates and data types, so I discarded it and used the ERA5-based climate normals plus the historical forecast archive instead. No figures were fabricated.

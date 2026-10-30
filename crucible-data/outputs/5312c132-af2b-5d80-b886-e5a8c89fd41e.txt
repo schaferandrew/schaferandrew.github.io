@@ -1,0 +1,18 @@
+Here is the proofread version of your paragraph. I have corrected the grammatical errors while preserving your specific stylistic choices.
+
+### Revised Text
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder **than** she remembered it, all brakes shrieking and people talking **too** fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+***
+
+### Changes & Flags
+
+**Corrections:**
+*   **than:** Changed from "then" (used for time) to "than" (used for comparison).
+*   **too:** Changed from "to" to "too" (used to mean "excessively" or "also").
+
+**Intentional Elements Flagged (Preserved):**
+*   **"all brakes shrieking..."**: This is a participial phrase acting as a fragment. I left it as-is because it effectively establishes the atmosphere and rhythm of the scene.
+*   **"Not waiting for her, exactly."**: This is an intentional fragment used for emphasis. I have preserved it.
+*   **"Still—she was back."**: The use of the em dash here creates a specific rhythmic pause. I have preserved it.
+*   **"laugh, or leave."**: Technically, the comma before "or" is unnecessary in a simple "whether to X or Y" construction. However, in literary fiction, it is often used to indicate a beat or a moment of hesitation. I have left it as-is to preserve your pacing.

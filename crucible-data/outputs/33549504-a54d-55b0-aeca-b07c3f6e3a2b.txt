@@ -1,0 +1,51 @@
+1. **3809**
+   - Let $A$ be the set of integers in $\{1, \dots, 10000\}$ divisible by 3. $|A| = \lfloor 10000/3 \rfloor = 3333$.
+   - Let $B$ be the set of integers divisible by 7. $|B| = \lfloor 10000/7 \rfloor = 1428$.
+   - Let $C$ be the set of integers divisible by 21 (which is $A \cap B$). $|C| = \lfloor 10000/21 \rfloor = 476$.
+   - We want the number of integers divisible by 3 or 7, but not by 21. This corresponds to the set $(A \cup B) \setminus C$. Since $C \subseteq A \cup B$, the size is $|A \cup B| - |C|$.
+   - Using inclusion-exclusion, $|A \cup B| = |A| + |B| - |C|$.
+   - Thus, the desired count is $(|A| + |B| - |C|) - |C| = |A| + |B| - 2|C|$.
+   - Calculation: $3333 + 1428 - 2(476) = 4761 - 952 = 3809$.
+
+2. **49**
+   - We need to find $7^{2026} \pmod{100}$.
+   - The powers of 7 modulo 100 cycle with a period of 4: $7^1 \equiv 07$, $7^2 \equiv 49$, $7^3 \equiv 43$, $7^4 \equiv 01$.
+   - Since $2026 = 4 \times 506 + 2$, we have $7^{2026} \equiv (7^4)^{506} \cdot 7^2 \equiv 1^{506} \cdot 49 \equiv 49 \pmod{100}$.
+
+3. **2731**
+   - Let $a_n$ be the number of ways to tile a $2 \times n$ board with dominoes ($1 \times 2$) and squares ($2 \times 2$).
+   - The recurrence relation is $a_n = a_{n-1} + 2a_{n-2}$ for $n \ge 2$, with base cases $a_0 = 1, a_1 = 1$.
+   - The term $a_{n-1}$ corresponds to placing a vertical domino at the end.
+   - The term $2a_{n-2}$ corresponds to placing either two horizontal dominoes or one square covering the last two columns.
+   - Calculating up to $n=12$:
+     - $a_0=1, a_1=1$
+     - $a_2=3, a_3=5, a_4=11, a_5=21, a_6=43, a_7=85, a_8=171, a_9=341, a_{10}=683, a_{11}=1365$.
+     - $a_{12} = 1365 + 2(683) = 1365 + 1366 = 2731$.
+
+4. **37/216**
+   - Total outcomes for 3 dice is $6^3 = 216$.
+   - The event "largest number shown is exactly 4" means all dice show $\le 4$ and at least one shows 4.
+   - Number of outcomes with all dice $\le 4$ is $4^3 = 64$.
+   - Number of outcomes with all dice $\le 3$ is $3^3 = 27$.
+   - The number of favorable outcomes is $64 - 27 = 37$.
+   - Probability is $37/216$.
+
+5. **13/27**
+   - Let the state of a child be $(G, D)$ where $G \in \{B, G\}$ and $D \in \{Mon, \dots, Sun\}$. There are 14 states per child.
+   - Total outcomes for two children is $14^2 = 196$.
+   - The condition is "at least one child is a Boy born on Tuesday" (BT).
+   - Number of outcomes with no BT children: Each child can be any of the other 13 states. Count = $13 \times 13 = 169$.
+   - Number of outcomes satisfying the condition: $196 - 169 = 27$.
+   - We want the probability that both children are boys (BB) given this condition.
+   - Favorable outcomes (Both Boys AND at least one BT):
+     - Total BB outcomes is $7 \times 7 = 49$ (since there are 7 days for each boy).
+     - Outcomes with no BT in the BB set: Both children are boys but not born on Tuesday. There are 6 such states per child. Count = $6 \times 6 = 36$.
+     - Favorable count = $49 - 36 = 13$.
+   - Probability is $13/27$.
+
+ANSWERS
+1. 3809
+2. 49
+3. 2731
+4. 37/216
+5. 13/27

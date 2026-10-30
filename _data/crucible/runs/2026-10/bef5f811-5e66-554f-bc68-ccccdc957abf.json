@@ -1,0 +1,80 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "bef5f811-5e66-554f-bc68-ccccdc957abf",
+ "run_path": "openrouter_anthropic_claude-opus-5.5/navbar-hamburger-menu/20261025_062354",
+ "legacy_run_id": "openrouter_anthropic_claude-opus-5.5/coding_debug/CODE-2b/20261025_062354",
+ "started_at": "2026-10-25T06:23:54.044217+00:00",
+ "ended_at": "2026-10-25T06:34:51.840231+00:00",
+ "elapsed_s": 657.8,
+ "task": {
+  "id": "navbar-hamburger-menu",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "f7a87a0eb3d44428",
+  "rubric_hash": "ca8989fc10f5a77b",
+  "alias": "CODE-2b"
+ },
+ "harness": {
+  "id": "opencode",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/anthropic/claude-opus-5.5",
+  "base": "anthropic/claude-opus-5.5",
+  "publisher": "anthropic",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "anthropic/claude-opus-5.5|anthropic|api|-",
+  "display": "claude-opus-5.5"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 5,
+  "tokens_in": 14,
+  "tokens_out": 6533,
+  "model_responses": 6,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": 14.558,
+  "cost_usd": 0.241889,
+  "cost_source": "opencode_estimate"
+ },
+ "output_ref": "outputs/bef5f811-5e66-554f-bc68-ccccdc957abf.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:a4947968bff32746657b818f47eac9f9d13821e1322b77d22a3d260447b1a77c",
+  "submitter": null,
+  "verification": null
+ }
+}

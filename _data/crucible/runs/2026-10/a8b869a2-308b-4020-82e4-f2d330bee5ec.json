@@ -1,0 +1,84 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "a8b869a2-308b-4020-82e4-f2d330bee5ec",
+ "run_path": "openrouter_deepseek_deepseek-v4-flash/household-money-math/20261030_064209",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T06:42:09.587919+00:00",
+ "ended_at": "2026-10-30T06:42:35.922603+00:00",
+ "elapsed_s": 26.32,
+ "task": {
+  "id": "household-money-math",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "7f6f5246841ce00c",
+  "rubric_hash": "3a7f59dac961798f",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/deepseek/deepseek-v4-flash",
+  "base": "deepseek/deepseek-v4-flash",
+  "publisher": "deepseek",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek/deepseek-v4-flash|deepseek|api|-",
+  "display": "deepseek-v4-flash"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "SiliconFlow",
+   "quant": null
+  },
+  "resolved_model": "deepseek/deepseek-v4-flash"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 211,
+  "tokens_out": 2566,
+  "model_responses": 1,
+  "ttft_s": 1.613,
+  "ttft_avg_s": 1.613,
+  "response_time_avg_s": 17.944,
+  "cost_usd": 0.0,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 4748
+ },
+ "output_ref": "outputs/a8b869a2-308b-4020-82e4-f2d330bee5ec.txt",
+ "provenance": {
+  "crucible_version": "3.4.1",
+  "crucible_commit": "f618abf",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:62767ea42351e980f10a684ed73578a11ebd7287aab4f1bd939d651287244bd0",
+  "submitter": null,
+  "verification": null
+ }
+}

@@ -1,0 +1,3 @@
+The response contains three sentences, not two, so the exactly-two-sentence requirement is not met. All claims made are supported by the passage and no invented details are present, so Accuracy is satisfied. The hours extension, the one-year funding limit with a revisit next winter, and the 62% resident survey are all captured, so Key points is satisfied.
+
+GRADE: 7

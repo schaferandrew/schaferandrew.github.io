@@ -1,0 +1,80 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "7d030e9f-848e-5636-8fb5-abd69be5754e",
+ "run_path": "openrouter_openai_gpt-6-luna/interest-calculator-cli/20261025_062145",
+ "legacy_run_id": "openrouter_openai_gpt-6-luna/coding_build/CODE-1b/20261025_062145",
+ "started_at": "2026-10-25T06:21:45.606622+00:00",
+ "ended_at": "2026-10-25T06:23:08.653363+00:00",
+ "elapsed_s": 83.05,
+ "task": {
+  "id": "interest-calculator-cli",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "0988983917902a9b",
+  "rubric_hash": "b4526238202a2890",
+  "alias": "CODE-1b"
+ },
+ "harness": {
+  "id": "opencode",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/openai/gpt-6-luna",
+  "base": "openai/gpt-6-luna",
+  "publisher": "openai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "openai/gpt-6-luna|openai|api|-",
+  "display": "gpt-6-luna"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": null,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": null,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": "outputs/7d030e9f-848e-5636-8fb5-abd69be5754e.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:c79bb00fef83f1af36643d30183427b1607fda08f4f184cfdbf04ff24e322e5b",
+  "submitter": null,
+  "verification": null
+ }
+}

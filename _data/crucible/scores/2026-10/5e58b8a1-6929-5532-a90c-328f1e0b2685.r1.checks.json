@@ -1,0 +1,51 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "5e58b8a1-6929-5532-a90c-328f1e0b2685",
+ "rubric_version": 1,
+ "rubric_hash": "3eba539e1a059980",
+ "method": "checks",
+ "scored_at": "2026-10-26T17:13:11.328659+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 10,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "all_found",
+   "type": "required_patterns",
+   "group": "All anachronisms found",
+   "label": "The final line includes c (Gettysburg, July), f (telephone, 1876), g (barbed wire, 1874), j (West Virginia, June 20) and k (draft riots, July).",
+   "passed": true,
+   "detail": "5/5 found"
+  },
+  {
+   "id": "no_false_flags",
+   "type": "forbidden_patterns",
+   "group": "Nothing period-correct flagged",
+   "label": "The final line includes none of a, b, d, e, h, i (all possible by June 10, 1863).",
+   "passed": true,
+   "detail": "none found"
+  }
+ ],
+ "groups": [
+  {
+   "id": "All anachronisms found",
+   "passed": 5,
+   "total": 5,
+   "detail": "5/5 found"
+  },
+  {
+   "id": "Nothing period-correct flagged",
+   "passed": 5,
+   "total": 5,
+   "detail": "none found"
+  }
+ ]
+}

@@ -1,0 +1,49 @@
+To solve these problems, we will go through each one step-by-step.
+
+1.  **Integers from 1 to 10,000 divisible by 3 or 7, but not by 21:**
+    Let $A$ be the set of integers from 1 to 10,000 divisible by 3, and $B$ be the set of integers divisible by 7. We want to find the number of elements in $(A \cup B) \setminus (A \cap B)$.
+    - $|A| = \lfloor 10000 / 3 \rfloor = 3333$
+    - $|B| = \lfloor 10000 / 7 \rfloor = 1428$
+    - $|A \cap B| = \lfloor 10000 / \text{lcm}(3, 7) \rfloor = \lfloor 10000 / 21 \rfloor = 476$
+    The number of elements in $A \cup B$ is $|A| + |B| - |A \cap B| = 3333 + 1428 - 476 = 4285$.
+    The number of elements in $(A \cup B) \setminus (A \cap B)$ is $|A \cup B| - |A \cap B| = 4285 - 476 = 3809$.
+
+2.  **Remainder of $7^{2026}$ divided by 100:**
+    We need to find $7^{2026} \pmod{100}$.
+    - $7^1 \equiv 7 \pmod{100}$
+    - $7^2 \equiv 49 \pmod{100}$
+    - $7^3 \equiv 343 \equiv 43 \pmod{100}$
+    - $7^4 \equiv 2401 \equiv 1 \pmod{100}$
+    The powers of 7 modulo 100 repeat every 4 steps.
+    $2026 = 4 \times 506 + 2$, so $7^{2026} \equiv 7^2 \equiv 49 \pmod{100}$.
+
+3.  **Tiling a $2 \times 12$ board with $1 \times 2$ dominoes and $2 \times 2$ squares:**
+    Let $a_n$ be the number of ways to tile a $2 \times n$ board. The recurrence relation is $a_n = a_{n-1} + 2a_{n-2}$, with $a_0 = 1$ and $a_1 = 1$.
+    The closed-form solution is $a_n = \frac{2^{n+1} + (-1)^n}{3}$.
+    For $n = 12$:
+    $a_{12} = \frac{2^{13} + (-1)^{12}}{3} = \frac{8192 + 1}{3} = \frac{8193}{3} = 2731$.
+
+4.  **Probability that the largest number shown on three dice is exactly 4:**
+    Let $X$ be the maximum of three fair six-sided dice.
+    $P(X = 4) = P(X \le 4) - P(X \le 3)$
+    - $P(X \le 4) = (4/6)^3 = 64/216$
+    - $P(X \le 3) = (3/6)^3 = 27/216$
+    $P(X = 4) = (64 - 27) / 216 = 37/216$.
+
+5.  **Probability that both children are boys, given at least one is a boy born on a Tuesday:**
+    Let $B_T$ be the event that a child is a boy born on a Tuesday. $P(B_T) = 1/14$.
+    Let $B$ be the event that a child is a boy. $P(B) = 1/2$.
+    We want $P(\text{both boys} | \text{at least one } B_T)$.
+    $P(\text{at least one } B_T) = 1 - (13/14)^2 = 1 - 169/196 = 27/196$.
+    $P(\text{both boys and at least one } B_T) = P(\text{both boys}) - P(\text{both boys and neither is } B_T)$
+    $P(\text{both boys and neither is } B_T) = (6/14)^2 = 36/196$.
+    $P(\text{both boys}) = (7/14)^2 = 49/196$.
+    $P(\text{both boys and at least one } B_T) = 49/196 - 36/196 = 13/196$.
+    The conditional probability is $(13/196) / (27/196) = 13/27$.
+
+ANSWERS
+1. 3809
+2. 49
+3. 2731
+4. 37/216
+5. 13/27

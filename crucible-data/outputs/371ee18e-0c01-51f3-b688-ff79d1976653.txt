@@ -1,0 +1,22 @@
+### Objective Language Errors
+*   **Grammatical Construction:** "Inflation is when..." (The sentence defines a noun using a temporal clause; in formal writing, it is better to use "Inflation occurs when..." or "Inflation is the increase in...").
+*   **Informal Register:** The use of "stuff," "basically just," and "think about it" is too colloquial for an academic or professional economics essay.
+
+***
+
+### Claims, Terminology, and Wording
+**Unclear or Imprecise Terminology**
+*   **"The average household buys":** The CPI uses a specific, weighted basket of goods; "average household" is a vague descriptor that does not account for the specific methodology of the index.
+*   **"Printing money":** In the context of Quantitative Easing (QE), the Fed creates electronic reserves to purchase assets rather than physically printing currency; "printing money" is a common but technically imprecise shorthand.
+*   **"Lazy":** This is a subjective, non-economic descriptor that lacks technical definition in the context of unemployment.
+
+**Overstated or Absolute Claims**
+*   **"Legally required to raise interest rates":** This is technically inaccurate. The Federal Reserve has a "dual mandate" to maintain price stability and maximum employment; the 2% inflation target is a policy goal, not a legal trigger that mandates a rate hike.
+*   **"Inevitably causes hyperinflation":** This is an extreme overstatement. Hyperinflation is a specific, rare economic phenomenon; QE is a tool used to prevent deflationary spirals and does not inherently lead to hyperinflation.
+*   **"Proves that monetary policy is completely ineffective":** The use of "proves" and "completely ineffective" is an absolute that ignores the complexities of monetary theory and the various factors involved in Japan's economy.
+*   **"Definitively debunked":** This is a subjective claim; the efficacy of supply-side economics remains a subject of significant debate among economists.
+*   **"Without growing the economy at all":** This is an overstated claim that ignores various metrics of GDP growth and economic activity during that period.
+
+**Subjective or Loaded Wording**
+*   **"This is obvious if you think about it":** This is a subjective rhetorical device rather than an objective analytical statement.
+*   **"Failed Reagan tax cuts":** The term "failed" is a value judgment and is a matter of intense political and economic debate.

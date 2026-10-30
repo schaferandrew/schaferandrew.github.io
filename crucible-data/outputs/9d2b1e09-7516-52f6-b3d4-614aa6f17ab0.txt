@@ -1,0 +1,57 @@
+I'll gather current news from multiple sources, then compile the briefing.
+Good progress. AP blocked the fetch; I'll get national news from Reuters' US section and check a couple more sources for detail on key stories.
+# Saint Paul, MN News Briefing — Saturday, Oct. 24, 2026
+
+## The Five Most Important Stories
+
+**1. (State) Minnesota midterms: 400,000+ absentee ballots already accepted**
+What happened: The Secretary of State's office said more than 400,000 ballots have been accepted for the Nov. 3 election, with early voting underway and polls closing in 10 days. The marquee race is Klobuchar (D) vs. Demuth (R) for governor.
+Why it matters: Early-ballot volume is a leading indicator of overall turnout in the races that will decide whether control of Minnesota government — and statewide offices — changes hands.
+Source: KARE 11 (Oct. 24, fact); Star Tribune election coverage (context).
+
+**2. (Local) DOJ says it has stopped sharing evidence in the Good and Pretti fatal shootings**
+What happened: Recently filed court documents claim the Justice Department is refusing to share critical evidence from the killings of Renee Good and Alex Pretti in Minneapolis with local authorities.
+Why it matters: A federal refusal to hand over evidence in high-profile local cases raises direct questions about federal accountability and intergovernmental cooperation in the Twin Cities — analysis, but grounded in the filed documents.
+Source: KARE 11 (court documents, Oct. 23–24).
+
+**3. (National, with MN impact) Trump exempts some Canadian imports from 50% tariffs, effective Oct. 30**
+What happened: The White House announced carve-outs from the 50% tariffs on $20B of Canadian goods (plywood, packing crates, some machinery), explicitly to help Sen. Susan Collins' reelection bid in Maine. The AP notes U.S. importers — not foreign governments — pay these tariffs, and an AP-NORC poll found 65% of Americans blame Trump's policies for persistently high prices.
+Why it matters: Minnesota's economy sits on the border of this trade war; Star Tribune has separately covered how the Canada tariff dispute stands to hurt Minnesota, so any easing bears directly on local businesses. The election-driven timing is analysis layered on the factual exemption.
+Source: AP/Star Tribune (Oct. 23); Star Tribune trade-war/MN-effects coverage.
+
+**4. (Global) Mass protests sweep France — 400,000+ demonstrators, 70,000 police**
+What happened: Over 400,000 people protested across France on Saturday over school funding and living costs, with clashes in Paris after mass marches. The interior minister mobilized 70,000 police — 10,000 more than the Oct. 17 day that saw vandalism and looting. Related: thousands marched in Milan and other European cities under heavy security.
+Why it matters: This is the sharpest challenge yet to the Macron government's grip on order and a sign that European cost-of-living unrest is spreading across countries. (The spread-across-Europe framing is analysis; the participation figures are reported facts.)
+Source: Reuters and AP (Oct. 24).
+
+**5. (Global/Security) Intelligence memo: Iran has ramped up efforts to target U.S. personnel**
+What happened: A U.S. intelligence memo warns Iran has increased efforts to target U.S. personnel, per Reuters. Iran's president, Pezeshkian, separately blamed the U.S. for the failure of an interim deal with Iran while urging a new attempt. An AP poll cited in Star Tribune coverage notes the U.S.–Iran war has driven up gasoline prices.
+Why it matters: Elevated threat to U.S. troops and diplomats abroad, and the conflict's spillover into fuel prices is a live economic issue for Minnesota drivers heading into election day.
+Source: Reuters (Oct. 24); AP/Star Tribune (Oct. 23).
+
+## Other Notable Developments
+
+**Local & State**
+- A measles cluster is widening in central Minnesota; a hospital is stepping up screening. (Star Tribune, Oct. 24)
+- A new report questions Robbinsdale school district finances ahead of its referendum vote. (KARE 11)
+- Minneapolis voters could shape the future of school closures, which are currently on hold, in a school board election. (Star Tribune)
+- Star Tribune investigation: an anonymous group running anti-Klobuchar mailers has ties to a wider dark-money network; Minnesota Democrats filed a disclosure complaint. (Star Tribune)
+
+**National**
+- The DOJ sued to block certification of a possible Democrat win in Alaska's U.S. Senate race. (Reuters, Oct. 23)
+- A U.S. appeals court ruled detained migrants have no constitutional right to bond hearings. (Reuters, Oct. 23)
+- Two former senior FBI officials were charged with lying to Congress about their knowledge of the Hunter Biden investigations. (Reuters, Oct. 23)
+- The administration's $8B diesel aid for farmers will be disbursed after Nov. 3, per an official — a timing that draws scrutiny. (Reuters, Oct. 23)
+- BP and Louisiana agreed a $350M lump-sum settlement to resolve remaining Deepwater Horizon claims. (Reuters, Oct. 23)
+
+**Global**
+- Jordan's king ordered an "iron fist" response after gunmen killed worshippers at a church funeral the day before; the U.S. embassy says security has been ramped up. (Reuters, Oct. 24)
+- Israel began a military operation in Hebron, displacing around 1,200 Palestinians from their homes. (Reuters, Oct. 24)
+- Houthis claimed attacks on Saudi oil sites, with strikes reported on Yemen's Aden; the UAE's Ras Al Khaimah shut all beaches over a linked offshore oil leak. (Reuters, Oct. 24)
+- Typhoon Champi swept past Taiwan, killing 1 and injuring 500+ before weakening toward the Chinese coast. (Reuters, Oct. 24)
+- Kim Jong Un crossed the newly opened Yalu River Bridge into China, a signal of warming trade ties. (Reuters/Yonhap, Oct. 24)
+- Brazil's Lula and Flavio Bolsonaro are about even in a CNT/MDA poll ahead of Sunday's runoff. (Reuters, Oct. 24)
+- A fire engulfed Hitler's former "Eagle's Nest" retreat in southern Germany; a suspect was detained on arson suspicion. (Reuters/AP, Oct. 24)
+- Starlink service in Ukraine returned to normal after a week of throttling. (Reuters, Oct. 24)
+
+**Light local note:** Gophers-Iowa (Floyd of Rosedale) kicked off 2:30 p.m. today at Huntington Bank Stadium; the Gophers had already secured the trophy. (Star Tribune live coverage)

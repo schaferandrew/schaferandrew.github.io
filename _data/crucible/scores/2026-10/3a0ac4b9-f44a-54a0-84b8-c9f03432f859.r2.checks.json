@@ -1,0 +1,79 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "3a0ac4b9-f44a-54a0-84b8-c9f03432f859",
+ "rubric_version": 2,
+ "rubric_hash": "ef4c3db9d4f7ff0a",
+ "method": "checks",
+ "scored_at": "2026-10-26T17:31:44.871553+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 0,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "answer",
+   "type": "required_patterns",
+   "group": "Correct answer",
+   "label": "The last line names Dave as the person in chair 3.",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*answer:\\W*dave\\b"
+  },
+  {
+   "id": "no_wrong_answer",
+   "type": "forbidden_patterns",
+   "group": "No other answer",
+   "label": "The answer line doesn't name anyone else.",
+   "passed": false,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "seating",
+   "type": "required_patterns",
+   "group": "Full seating",
+   "label": "The full seating is right: Alice green in 1, Bob blue in 2, Dave red in 3, Carol yellow in 4.",
+   "passed": false,
+   "detail": "0/4 found; missing: (?im)^\\W*chair\\s*1\\W+alice\\W+green\\b, (?im)^\\W*chair\\s*2\\W+bob\\W+blue\\b, (?im)^\\W*chair\\s*3\\W+dave\\W+red\\b, (?im)^\\W*chair\\s*4\\W+carol\\W+yellow\\b"
+  },
+  {
+   "id": "assumptions",
+   "type": "required_patterns",
+   "group": "Assumptions stated",
+   "label": "States its assumptions (for example, that 'left' means a lower-numbered chair) rather than leaving them silent.",
+   "passed": false,
+   "detail": "0/1 found; missing: \\bassum"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Correct answer",
+   "passed": 0,
+   "total": 4,
+   "detail": "0/1 found; missing: (?im)^\\W*answer:\\W*dave\\b"
+  },
+  {
+   "id": "No other answer",
+   "passed": 0,
+   "total": 1,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Full seating",
+   "passed": 0,
+   "total": 4,
+   "detail": "0/4 found; missing: (?im)^\\W*chair\\s*1\\W+alice\\W+green\\b, (?im)^\\W*chair\\s*2\\W+bob\\W+blue\\b, (?im)^\\W*chair\\s*3\\W+dave\\W+red\\b, (?im)^\\W*chair\\s*4\\W+carol\\W+yellow\\b"
+  },
+  {
+   "id": "Assumptions stated",
+   "passed": 0,
+   "total": 1,
+   "detail": "0/1 found; missing: \\bassum"
+  }
+ ]
+}

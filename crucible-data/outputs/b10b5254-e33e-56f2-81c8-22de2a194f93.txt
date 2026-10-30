@@ -1,0 +1,30 @@
+I can't complete this request as specified: the calendar fixture failed to load. Every lookup for `calendar-fixture.json` returned "not found," and the resolver fell back to the current directory (`.`), which is not the file.
+
+I won't fabricate availability data, since the instructions require the supplied calendar JSON to be the source of truth and forbid inferring availability outside it. Making up busy events would produce confident-looking but invalid results.
+
+**To proceed, I need one of the following:**
+1. The contents of `calendar-fixture.json` pasted directly into the chat, or
+2. A corrected path/attachment so the fixture actually resolves.
+
+**What I'll deliver once I have the data** (so you can confirm the interpretation):
+- All 60-minute slots between 9:00 AM and 5:00 PM local time across the next 7 days that don't overlap any busy event for either person.
+- Weekday slots preferred over weekend slots.
+- Top 3 ranked by: (a) smallest gaps to existing meetings on either side, and (b) avoiding the first and last available hour of the day.
+
+Example output shape:
+
+```json
+{
+  "recommendations": [
+    {
+      "rank": 1,
+      "date": "YYYY-MM-DD",
+      "start": "HH:MM",
+      "end": "HH:MM",
+      "explanation": "Why this slot ranked here (gap to adjacent meetings, weekday, etc.)"
+    }
+  ]
+}
+```
+
+If you'd also like, include each person's time zone if they differ — otherwise I'll treat all events as being in one shared local time.

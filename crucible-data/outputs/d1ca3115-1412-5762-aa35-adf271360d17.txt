@@ -1,0 +1,41 @@
+Implemented the incident fix and postmortem.
+
+## Root causes found
+
+1. **Personalized responses were cached by URL only.**
+   `responseCache` used `req.originalUrl` as the key, ignoring the viewer. Responses containing `favorited`, `following`, and feed contents were therefore shared across accounts and with anonymous visitors.
+
+2. **Cached entries were never invalidated on writes.**
+   Article edits/deletes, favorites, follows, and tag changes stayed stale until the 60-second TTL expired — matching the reported edit/delete delays and “refresh sometimes fixes it” behavior.
+
+3. **The cache ran before authentication**, so a cache hit could bypass auth for invalid tokens.
+
+Both issues are confirmed in the logs, including:
+- first cross-user personalized hit at `2026-10-23T16:43:31.746Z` (`rid=0031281`)
+- Priya’s stale edit hits at `18:57:26.803Z` / `18:57:33.803Z`
+- Tomasz’s deleted article still returning `200` at `20:07:29.202Z` / `20:07:39.202Z`
+
+## Fix
+
+Updated `apps/api/src/middleware/responseCache.ts`:
+
+- Cache keys now include a hashed Authorization credential; anonymous and invalid credentials are separate partitions.
+- Successful writes to `/articles*`, `/profiles*`, or `/user` clear cached reads immediately.
+- Added `Vary: Authorization`.
+- Preserved the 60-second TTL and `createApp(db, { responseCacheTtlMs })` behavior.
+
+## Regression tests
+
+Added `apps/api/test/responseCache.test.ts` with 10 tests covering cross-user list/detail/profile/feed leakage, auth bypass, edit/delete freshness, favorite/follow state, and tag updates.
+
+All tests pass:
+- API: **29 passed**
+- Web: **7 passed**
+- TypeScript: **clean**
+- `realworld.contract.test.ts` unchanged.
+
+## Impact count
+
+From the access log: **481 distinct signed-in users received a personalized response that did not belong to them.** Strictly, **371 distinct users received another signed-in user’s personalization flags** across 427 requests. Details and counting methodology are in `incident/POSTMORTEM.md`.
+
+The full timeline, impact analysis, fix rationale, and follow-ups are in `incident/POSTMORTEM.md`.

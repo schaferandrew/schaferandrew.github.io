@@ -1,0 +1,81 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "a40b474b-6327-4a20-8f95-7a979b7d5419",
+ "run_path": "openrouter_deepseek_deepseek-v4-flash/login-recovery/20261030_070924",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T07:09:25.759864+00:00",
+ "ended_at": "2026-10-30T07:09:57.340681+00:00",
+ "elapsed_s": 31.38,
+ "task": {
+  "id": "login-recovery",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "9e2054ec754b41ca",
+  "rubric_hash": "13b36751db77b664",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/deepseek/deepseek-v4-flash",
+  "base": "deepseek/deepseek-v4-flash",
+  "publisher": "deepseek",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek/deepseek-v4-flash|deepseek|api|-",
+  "display": "deepseek-v4-flash"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 19,
+  "tokens_in": 124069,
+  "tokens_out": 3028,
+  "model_responses": 13,
+  "ttft_s": 0.674,
+  "ttft_avg_s": 0.66,
+  "response_time_avg_s": 2.179,
+  "cost_usd": 0.009246,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/a40b474b-6327-4a20-8f95-7a979b7d5419.txt",
+ "provenance": {
+  "crucible_version": "3.4.1",
+  "crucible_commit": "f618abf",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:977d7c24baed7bede18d511fc9fc407406faab5096eaf4d577d02f6ceef75224",
+  "submitter": null,
+  "verification": null
+ }
+}

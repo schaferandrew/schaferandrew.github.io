@@ -1,0 +1,16 @@
+1. The count is \(3333+1428-2(476)=3809\): multiples of 21 must be excluded from both counts.
+
+2. Since \(7^4\equiv1\pmod{100}\), \(7^{2026}\equiv7^2\equiv49\pmod{100}\).
+
+3. Let \(T_n\) count tilings of a \(2\times n\) board. Then \(T_n=T_{n-1}+2T_{n-2}\), with \(T_0=T_1=1\). Thus \(T_{12}=2731\).
+
+4. The probability is \((4^3-3^3)/6^3=37/216\).
+
+5. There are \(27\) equally likely two-child outcomes satisfying the condition. Of these, \(13\) have both children boys, so the probability is \(13/27\).
+
+## ANSWERS
+1. 3809
+2. 49
+3. 2731
+4. 37/216
+5. 13/27

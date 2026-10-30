@@ -1,0 +1,88 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "16e4efb7-96e7-5ca6-b3c0-91d200428b16",
+ "run_path": "lmstudio_google_gemma-4-e4b/names-for-one-character/20261027_130421",
+ "legacy_run_id": "lmstudio_google_gemma-4-e4b/writing/WRIT-2b/20261027_130421",
+ "started_at": "2026-10-27T13:04:21.915234+00:00",
+ "ended_at": "2026-10-27T13:04:52.329424+00:00",
+ "elapsed_s": 30.41,
+ "task": {
+  "id": "names-for-one-character",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "1910aa6ceae57f5f",
+  "rubric_hash": "70e05ca5984d3fd8",
+  "alias": "WRIT-2b"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/google/gemma-4-e4b",
+  "base": "google/gemma-4-e4b",
+  "publisher": null,
+  "artifact": null,
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": 105609,
+  "variant_key": "google/gemma-4-e4b|-|mlx|mlx-4bit",
+  "display": "gemma-4-e4b · 4bit"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Ironwood",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m1-pro-32gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 32.0,
+  "cpu": "Apple M1 Pro",
+  "offload": null,
+  "label": "Ironwood"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 97,
+  "tokens_out": 914,
+  "model_responses": 1,
+  "ttft_s": 0.597,
+  "ttft_avg_s": 0.597,
+  "response_time_avg_s": 30.411,
+  "cost_usd": null,
+  "cost_source": null
+ },
+ "output_ref": "outputs/16e4efb7-96e7-5ca6-b3c0-91d200428b16.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:1845793ef87505b305657f60e2fc664fb9e9780b51796d3c7f27b997c85ab1f6",
+  "submitter": null,
+  "verification": null
+ }
+}

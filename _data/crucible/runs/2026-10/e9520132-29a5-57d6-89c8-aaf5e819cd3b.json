@@ -1,0 +1,94 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "e9520132-29a5-57d6-89c8-aaf5e819cd3b",
+ "run_path": "lmstudio_openai_gpt-oss-20b/calendar-free-at-330/20261027_193139",
+ "legacy_run_id": "lmstudio_openai_gpt-oss-20b/everyday/TASK-4/20261027_193139",
+ "started_at": "2026-10-27T19:31:39.947791+00:00",
+ "ended_at": "2026-10-27T19:31:44.001553+00:00",
+ "elapsed_s": 4.05,
+ "task": {
+  "id": "calendar-free-at-330",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "6739207e3d393ffe",
+  "rubric_hash": "b69b7486f14e46de",
+  "alias": "TASK-4"
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.2.0"
+ },
+ "model": {
+  "id": "lmstudio/openai/gpt-oss-20b",
+  "base": "openai/gpt-oss-20b",
+  "publisher": null,
+  "artifact": null,
+  "format": null,
+  "quant": "MXFP4",
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": 101376,
+  "variant_key": "openai/gpt-oss-20b|-|-|mxfp4",
+  "display": "gpt-oss-20b · MXFP4"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Whitehall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "rtx-5070-ti-16gb",
+  "class": "discrete_gpu",
+  "accelerators": [
+   {
+    "name": "NVIDIA RTX 5070 Ti 16GB",
+    "memory_gb": 16,
+    "count": 1
+   }
+  ],
+  "system_memory_gb": 32.0,
+  "cpu": "AMD Ryzen 7 7700",
+  "offload": null,
+  "label": "Whitehall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 2,
+  "tokens_in": 6557,
+  "tokens_out": 253,
+  "model_responses": 3,
+  "ttft_s": 0.742,
+  "ttft_avg_s": 0.382,
+  "response_time_avg_s": 1.099,
+  "cost_usd": 0,
+  "cost_source": "pi_estimate"
+ },
+ "output_ref": "outputs/e9520132-29a5-57d6-89c8-aaf5e819cd3b.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:00bb4ed3f1af8a39d7389648cb610fbfbc66dd8760bc09ebab8dd1faf5f46c4c",
+  "submitter": null,
+  "verification": null
+ }
+}

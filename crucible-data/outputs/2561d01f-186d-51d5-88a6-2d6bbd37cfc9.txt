@@ -1,0 +1,109 @@
+Welcome! Since you're already an expert in React and TypeScript, we won't waste time on the basics of hooks or props. Instead, we'll focus on the **mental model shift** required to master Next.js.
+
+Here is the roadmap for our course:
+
+### **Course Curriculum: Mastering Next.js (App Router Era)**
+
+*   **Module 1: The Mental Model Shift**
+    *   Lesson 1: The Server-First Paradigm (Server vs. Client Components)
+    *   Lesson 2: File-Based Routing & The Layout System
+*   **Module 2: Data Orchestration**
+    *   Lesson 3: Server-Side Data Fetching (Fetching on the Server)
+    *   Lesson 4: Caching, Revalidation, and the Data Cache
+    *   Lesson 5: Suspense & Streaming UI
+*   **Module 3: Advanced Routing & User Experience**
+    *   Lesson 6: Dynamic Routes & Parallel/Intercepting Routes
+    *   Lesson 7: Error Handling & Loading States (Error Boundaries)
+*   **Module 4: Mutations & State**
+    *   Lesson 8: Server Actions (The End of API Routes?)
+    *   Lesson 9: Optimistic UI & Form Management
+*   **Module 5: Production Architecture**
+    *   Lesson 10: Optimization (Images, Fonts, Scripts, & SEO)
+    *   Lesson 11: Middleware & Authentication Patterns
+    *   Lesson 12: Building a Full-stack Scalable Architecture
+
+---
+
+## **Lesson 1: The Server-First Paradigm**
+
+In standard React (CRA or Vite), your application is a "Client-Side Rendered" (CSR) bundle. The browser downloads a minimal HTML file, a massive JS bundle, and then executes that JS to build the DOM.
+
+In Next.js (App Router), the default is **Server Components (RSC)**.
+
+### **The Concept**
+Instead of sending all the logic to the browser, Next.js executes your components on the server. The server sends only the resulting HTML (and a small instruction set for hydration) to the client.
+
+**Key Differences:**
+1.  **Server Components (Default):**
+    *   **Can:** Fetch data directly (using `async/await`), access databases/file systems, and keep heavy dependencies on the server.
+    *   **Cannot:** Use `useState`, `useEffect`, `useContext`, or browser APIs (`window`, `localStorage`).
+    *   **Result:** Zero bundle size impact for the logic used in the component.
+2.  **Client Components (`'use client'` directive):**
+    *   **Can:** Use all React hooks and browser APIs.
+    *   **Result:** They are sent to the client for hydration.
+
+**The Golden Rule:** Keep your Client Components at the "leaves" of your component tree. Keep your data fetching and heavy logic in Server Components at the "roots."
+
+### **Example**
+
+**The Server Component (The Data Fetcher):**
+```tsx
+// app/users/page.tsx (Server Component by default)
+import { UserList } from './UserList'; // A Client Component
+
+export default async function UsersPage() {
+  // 1. We can fetch data directly in the component!
+  const response = await fetch('https://api.example.com/users');
+  const users = await response.json();
+
+  return (
+    <main>
+      <h1>User Directory</h1>
+      {/* 2. Pass data down to a Client Component for interactivity */}
+      <UserList initialUsers={users} />
+    </main>
+  );
+}
+```
+
+**The Client Component (The Interactive Part):**
+```tsx
+// app/users/UserList.tsx
+'use client'; // This tells Next.js to bundle this for the browser
+
+import { useState } from 'react';
+
+export function UserList({ initialUsers }: { initialUsers: any[] }) {
+  const [search, setSearch] = useState('');
+
+  return (
+    <div>
+      <input 
+        type="text" 
+        onChange={(e) => setSearch(e.target.value)} 
+        placeholder="Filter users..." 
+      />
+      <ul>
+        {initialUsers
+          .filter(u => u.name.includes(search))
+          .map(u => <li key={u.id}>{u.name}</li>)}
+      </ul>
+    </div>
+  );
+}
+```
+
+---
+
+### **Exercise 1**
+
+Imagine you are building a **Weather Dashboard**.
+
+1.  You need to fetch weather data from an API based on a city name.
+2.  You want to have a "Refresh" button that updates the temperature on the screen without a full page reload.
+3.  The weather data is quite large and includes historical data that you only need for a chart, but the user needs to be able to toggle between "Current" and "Forecast" view using a button.
+
+**Question:**
+In an ideal Next.js architecture, which component should be a **Server Component** and which should be a **Client Component** (or a combination of both)? Briefly explain *why* for your choice.
+
+*I will wait for your answer before moving to Lesson 2.*

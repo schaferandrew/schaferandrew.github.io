@@ -1,0 +1,81 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "3ecc0a00-d0da-43b7-b9fd-085b07d05292",
+ "run_path": "openrouter_deepseek_deepseek-v4-flash/nextjs-server-data-boundary/20261030_070957",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T07:10:02.572658+00:00",
+ "ended_at": "2026-10-30T07:12:57.799089+00:00",
+ "elapsed_s": 175.01,
+ "task": {
+  "id": "nextjs-server-data-boundary",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "f5196c62d3613d53",
+  "rubric_hash": "071f25e0acdbacbf",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/deepseek/deepseek-v4-flash",
+  "base": "deepseek/deepseek-v4-flash",
+  "publisher": "deepseek",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek/deepseek-v4-flash|deepseek|api|-",
+  "display": "deepseek-v4-flash"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 25,
+  "tokens_in": 247354,
+  "tokens_out": 15578,
+  "model_responses": 18,
+  "ttft_s": 2.535,
+  "ttft_avg_s": 2.179,
+  "response_time_avg_s": 8.981,
+  "cost_usd": 0.017524,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/3ecc0a00-d0da-43b7-b9fd-085b07d05292.txt",
+ "provenance": {
+  "crucible_version": "3.4.1",
+  "crucible_commit": "f618abf",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:794220a5e3efa6ee88bef64fedb25f23a309a0ff2d617055f5602f26ab3bd67f",
+  "submitter": null,
+  "verification": null
+ }
+}

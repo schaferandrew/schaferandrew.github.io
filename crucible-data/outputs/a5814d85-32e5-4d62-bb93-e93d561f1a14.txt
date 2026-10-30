@@ -1,0 +1,12 @@
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: misleading
+4: misleading
+8: misleading
+11: misleading
+14: overstated
+18: overstated

@@ -1,0 +1,84 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "1db7c26a-979b-45fd-8619-b05e71f07db2",
+ "run_path": "openrouter_deepseek_deepseek-v4-flash/news-briefing-from-feeds/20261030_064647",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T06:46:47.028354+00:00",
+ "ended_at": "2026-10-30T06:47:03.827086+00:00",
+ "elapsed_s": 16.79,
+ "task": {
+  "id": "news-briefing-from-feeds",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "ab43c774dcf4271c",
+  "rubric_hash": "7f63c4216de11a95",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/deepseek/deepseek-v4-flash",
+  "base": "deepseek/deepseek-v4-flash",
+  "publisher": "deepseek",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek/deepseek-v4-flash|deepseek|api|-",
+  "display": "deepseek-v4-flash"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "DigitalOcean",
+   "quant": null
+  },
+  "resolved_model": "deepseek/deepseek-v4-flash"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 985,
+  "tokens_out": 418,
+  "model_responses": 1,
+  "ttft_s": 0.921,
+  "ttft_avg_s": 0.921,
+  "response_time_avg_s": 14.577,
+  "cost_usd": 0.002417,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 0
+ },
+ "output_ref": "outputs/1db7c26a-979b-45fd-8619-b05e71f07db2.txt",
+ "provenance": {
+  "crucible_version": "3.4.1",
+  "crucible_commit": "f618abf",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:cbc4d0ac16c64260e05a6e8f0c544fbee50ce744be035767d8d212a85f5be04d",
+  "submitter": null,
+  "verification": null
+ }
+}

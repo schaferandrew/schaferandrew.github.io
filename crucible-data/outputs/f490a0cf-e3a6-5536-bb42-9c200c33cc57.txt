@@ -1,0 +1,16 @@
+
+
+**Corrected paragraph:**
+
+> Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder **than** she remembered it, all brakes shrieking and people talking **too** fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+**Changes made (clear errors):**
+- Line 2: "louder *then* she remembered" → "louder *than*" — comparative, not time.
+- Line 2: "talking *to* fast" → "talking *too* fast" — adverb of excess, not preposition.
+
+**Flagged, left as-is (possibly intentional):**
+- "whether to laugh, **or** leave" — the comma before "or" in a two-item correlative is nonstandard, but it enforces a dramatic pause that matches the rhythm; kept.
+- "Not waiting for her, exactly." — intentional fragment; kept.
+- "stepped off the train **and into** a city" — asymmetric prepositional pairing, but the clipped second half fits the voice; kept.
+
+Everything else (imagery, the em dash in "Still—she was back.", the personified "waiting") is sound.

@@ -1,0 +1,15 @@
+Here are the calculations:
+
+**1. Flour calculation:**
+*   Find the ratio needed: $10 \text{ people} / 4 \text{ people} = 2.5$
+*   Multiply the original amount by the ratio: $300 \text{ g} \times 2.5 = 750 \text{ g}$
+
+**2. Jacket sale price:**
+*   Calculate the discount amount: $\$84.60 \times 0.15 = \$12.69$
+*   Subtract the discount from the original price: $\$84.60 - \$12.69 = \$71.91$
+
+***
+
+**ANSWERS**
+1. 750 g
+2. $71.91

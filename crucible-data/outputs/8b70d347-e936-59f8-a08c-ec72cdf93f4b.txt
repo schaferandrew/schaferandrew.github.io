@@ -1,0 +1,44 @@
+Implemented cursor pagination across the API and web app.
+
+## API changes
+
+- Added `apps/api/src/cursor.ts`: HMAC-signed, base64url cursors carrying the last row’s `(createdAt, id)` plus a canonical query scope.
+- `GET /api/articles`, `/api/articles/feed`, and `/api/articles/:slug/comments` now accept `limit` + `cursor` and return `nextCursor`.
+- Cursor paging is keyset-based, ordered `createdAt DESC, id DESC`, so concurrent inserts/deletes/favorites cannot shift the page window or cause repeats.
+- Cursors are bound to their endpoint and filters (`tag`, `author`, `favorited`, and viewer for feeds). Reuse elsewhere, malformed/tampered cursors, and `cursor` + `offset` all return `422 {"errors":{"cursor":[...]}}`.
+- `articlesCount` remains the full filtered total. Offset pagination is unchanged and still works when no cursor is sent.
+- Comments return every comment when neither `limit` nor `cursor` is supplied, preserving existing behavior.
+
+## Shared types
+
+- Added `nextCursor: string | null` to `ArticlesResponse` and `CommentsResponse`.
+- Added `cursor` to `ArticleListQuery` and introduced `CommentListQuery`.
+
+## Web changes
+
+- `ArticleList` now accumulates loaded articles and uses a `Load more` button driven by `nextCursor`; numbered pagination is no longer rendered.
+- Home tabs (global/feed/tag) and profile tabs (author/favorited) pass cursors through their filters.
+- Article comments load in cursor pages with a `Load more` button, while newly posted comments still appear immediately.
+- Updated the API client so `api.comments` returns the paged response.
+
+## Tests
+
+- Added `apps/api/test/cursor.test.ts` covering:
+  - no skips/repeats while articles are created/deleted/favorited between pages,
+  - equal-timestamp tie-breaking,
+  - feed cursor paging,
+  - filter/endpoint cursor rejection,
+  - malformed/tampered cursors and cursor+offset,
+  - comments paging, unpaginated default, and concurrent comment writes.
+- Updated `ArticleList` tests and added `ArticlePage` comment-paging tests.
+- `realworld.contract.test.ts` was left untouched and remains green.
+
+All tests and typechecks pass: **26 API tests + 10 web tests**, plus a successful web production build.
+
+## Code review notes
+
+- Set `CURSOR_SECRET` in multi-instance deployments. Without it, each process generates its own secret, so cursors are safe but not portable across instances/restarts.
+- Keyset paging intentionally does not backfill items inserted newer than the cursor; that is standard cursor semantics and is what prevents duplicates.
+- Offset responses also include `nextCursor`, which makes migration from offset to cursor straightforward.
+- `apps/web/src/components/Pagination.tsx` is now unused dead code and can be removed in a follow-up.
+- Ordering still depends on `createdAt` plus id, so a system clock moving backwards can alter order — this was already true of the existing sort.

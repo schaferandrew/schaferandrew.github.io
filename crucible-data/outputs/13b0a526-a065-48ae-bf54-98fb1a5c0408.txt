@@ -1,0 +1,5 @@
+**Diagnosis:** Reproduced the blank dashboard in Chromium by logging in as `testuser`, waiting past the 30-second session lifetime, and reloading. The browser showed no client-side exception. `/api/dashboard` returned HTTP 200 with `{"user":null,"dashboardMessage":""}`, and the page cleared both dashboard fields—leaving them blank.
+
+**Fix:** In `server.js`, invalid or expired sessions now return HTTP 401 with an error code. In `public/dashboard.html`, the dashboard shows a signed-out message and a link to log in again, rather than clearing its content. Other request failures also display a message.
+
+**Verification:** Repeated the expired-session flow in Chromium. `/api/dashboard` returned `401 {"error":"expired_session"}`, and the page displayed the sign-in message and link. Added regression tests for the API response and the dashboard’s expired-session UI. `npm test` passes: **9 tests**.

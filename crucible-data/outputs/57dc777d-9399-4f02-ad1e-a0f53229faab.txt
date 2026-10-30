@@ -1,0 +1,3 @@
+Implemented the calculator in `interest/`, with CLI validation, readable and JSON output, recurring contributions, tests, and usage examples in `README.md`.
+
+Tests pass: `python3 -m unittest discover -s tests` (8 tests).

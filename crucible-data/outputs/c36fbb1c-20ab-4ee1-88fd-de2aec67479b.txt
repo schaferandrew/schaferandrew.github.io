@@ -1,0 +1,11 @@
+Implemented cursor pagination across articles, feeds, and comments.
+
+- Article and feed responses now include `nextCursor`; cursors are signed, query-bound snapshots. Inserts and changing favorites don’t shift page boundaries, and deleted rows are skipped.
+- Comments support cursor pages while requests without `limit` or `cursor` still return every comment.
+- Offset paging remains supported, and combining `cursor` with `offset` returns a 422 cursor error.
+- Replaced numbered article-list pagination with “Load more” on home and profile lists; comments use the same interaction. Updated shared response/query types.
+- Added API tests for concurrent changes and cursor validation, plus web tests for loading and appending pages. Left `realworld.contract.test.ts` unmodified.
+
+**Verification:** `npm test` and `npm run typecheck` pass.
+
+**Code-review note:** Cursor snapshots and signing keys are process-local and expire after 30 minutes. That fits the current in-memory API, but a persistent or multi-instance deployment would need shared snapshot storage and a shared signing key.

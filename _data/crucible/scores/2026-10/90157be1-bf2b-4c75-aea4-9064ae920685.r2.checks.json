@@ -1,0 +1,226 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "90157be1-bf2b-4c75-aea4-9064ae920685",
+ "rubric_version": 2,
+ "rubric_hash": "e6394e3e00a41fc7",
+ "method": "checks",
+ "scored_at": "2026-10-30T06:27:37.123223+00:00",
+ "crucible_version": "3.4.0",
+ "raw": {
+  "passed": 0,
+  "total": 14,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": 5,
+ "passed": false,
+ "items": [
+  {
+   "id": "json_valid",
+   "type": "items",
+   "group": "Valid JSON",
+   "label": "slots.json parses as a JSON object (a code fence around it is tolerated, prose around it is not).",
+   "passed": false,
+   "detail": "0/1 items; failed: parses (not valid JSON)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "parses",
+     "label": "slots.json is valid JSON",
+     "passed": false,
+     "detail": "not valid JSON"
+    }
+   ]
+  },
+  {
+   "id": "true_slots",
+   "type": "items",
+   "group": "Valid slots listed",
+   "label": "For each of the 8 days Aug 31 to Sep 7, valid_slots lists every start where a 60-minute meeting fits for Alex and Jamie (half hours inside 9-5, computed from the fixture) and none that overlaps an event; one item per day.",
+   "passed": false,
+   "detail": "0/8 items; failed: listed:2026-08-31 (not a JSON object), listed:2026-09-01 (not a JSON object), listed:2026-09-02 (not a JSON object), listed:2026-09-03 (not a JSON object), listed:2026-09-04 (not a JSON object), listed:2026-09-05 (not a JSON object)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "listed:2026-08-31",
+     "label": "2026-08-31: every free start listed, none that overlaps an event",
+     "passed": false,
+     "detail": "not a JSON object"
+    },
+    {
+     "id": "listed:2026-09-01",
+     "label": "2026-09-01: every free start listed, none that overlaps an event",
+     "passed": false,
+     "detail": "not a JSON object"
+    },
+    {
+     "id": "listed:2026-09-02",
+     "label": "2026-09-02: every free start listed, none that overlaps an event",
+     "passed": false,
+     "detail": "not a JSON object"
+    },
+    {
+     "id": "listed:2026-09-03",
+     "label": "2026-09-03: every free start listed, none that overlaps an event",
+     "passed": false,
+     "detail": "not a JSON object"
+    },
+    {
+     "id": "listed:2026-09-04",
+     "label": "2026-09-04: every free start listed, none that overlaps an event",
+     "passed": false,
+     "detail": "not a JSON object"
+    },
+    {
+     "id": "listed:2026-09-05",
+     "label": "2026-09-05: every free start listed, none that overlaps an event",
+     "passed": false,
+     "detail": "not a JSON object"
+    },
+    {
+     "id": "listed:2026-09-06",
+     "label": "2026-09-06: every free start listed, none that overlaps an event",
+     "passed": false,
+     "detail": "not a JSON object"
+    },
+    {
+     "id": "listed:2026-09-07",
+     "label": "2026-09-07: every free start listed, none that overlaps an event",
+     "passed": false,
+     "detail": "not a JSON object"
+    }
+   ]
+  },
+  {
+   "id": "no_conflicts",
+   "type": "items",
+   "group": "No slot overlaps an event",
+   "label": "None of the starts in valid_slots or top3 overlaps an event of either person. Any overlap caps the score at 5.",
+   "passed": false,
+   "detail": "0/1 items; failed: free (not a JSON object)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "free",
+     "label": "No listed slot overlaps an event",
+     "passed": false,
+     "detail": "not a JSON object"
+    }
+   ]
+  },
+  {
+   "id": "no_false_slots",
+   "type": "items",
+   "group": "No slot outside the window",
+   "label": "Every start listed is on the half hour inside 9-5 within the window (nothing at 16:30, 08:30, 09:15 or after Sep 7).",
+   "passed": false,
+   "detail": "0/1 items; failed: inside (not a JSON object)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "inside",
+     "label": "No listed slot outside the window or the half-hour grid",
+     "passed": false,
+     "detail": "not a JSON object"
+    }
+   ]
+  },
+  {
+   "id": "top3_count",
+   "type": "items",
+   "group": "Exactly three recommendations",
+   "label": "top3 is a list of exactly three entries.",
+   "passed": false,
+   "detail": "0/1 items; failed: count (not a JSON object)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "count",
+     "label": "top3 has exactly three entries",
+     "passed": false,
+     "detail": "not a JSON object"
+    }
+   ]
+  },
+  {
+   "id": "top3_valid",
+   "type": "items",
+   "group": "Recommendations are valid",
+   "label": "Every top3 start is one of the true slots, with no repeats. The order of the three is not scored.",
+   "passed": false,
+   "detail": "0/1 items; failed: valid (not a JSON object)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "valid",
+     "label": "All three top3 starts are valid and distinct",
+     "passed": false,
+     "detail": "not a JSON object"
+    }
+   ]
+  },
+  {
+   "id": "top3_why",
+   "type": "items",
+   "group": "Explanations",
+   "label": "Every top3 entry has a non-empty explanation string.",
+   "passed": false,
+   "detail": "0/1 items; failed: why (not a JSON object)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "why",
+     "label": "Every top3 entry has an explanation",
+     "passed": false,
+     "detail": "not a JSON object"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Valid slots listed",
+   "passed": 0.0,
+   "total": 8,
+   "detail": "0/8 items; failed: listed:2026-08-31 (not a JSON object), listed:2026-09-01 (not a JSON object), listed:2026-09-02 (not a JSON object), listed:2026-09-03 (not a JSON object), listed:2026-09-04 (not a JSON object), listed:2026-09-05 (not a JSON object)"
+  },
+  {
+   "id": "No slot overlaps an event",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: free (not a JSON object)"
+  },
+  {
+   "id": "No slot outside the window",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: inside (not a JSON object)"
+  },
+  {
+   "id": "Valid JSON",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: parses (not valid JSON)"
+  },
+  {
+   "id": "Exactly three recommendations",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: count (not a JSON object)"
+  },
+  {
+   "id": "Recommendations are valid",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: valid (not a JSON object)"
+  },
+  {
+   "id": "Explanations",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: why (not a JSON object)"
+  }
+ ]
+}

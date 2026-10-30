@@ -1,0 +1,37 @@
+
+
+All constraints verified: window is Mon 2026-08-31 → Mon 2026-09-07, CDT (-05:00), 60-min slots within 9:00–17:00 that don't touch any busy event.
+
+Scoring candidates (weekday preference, smallest gap to existing meetings, avoiding the 9:00 and 16:00 edge hours, largest remaining free blocks):
+
+```json
+{
+  "meeting_duration_minutes": 60,
+  "timezone": "America/Chicago",
+  "recommendations": [
+    {
+      "rank": 1,
+      "start": "2026-09-01T10:00:00-05:00",
+      "end": "2026-09-01T11:00:00-05:00",
+      "day": "Tuesday",
+      "explanation": "Both Alex and Jamie are free 10:00-11:00 with zero conflict. It sits directly after Jamie's standup (9:00-10:00), so the gap to the nearest existing meeting is 0 minutes, and it avoids the 9:00 first hour and 16:00 last hour. It also preserves a large contiguous 4-hour free block (11:00-15:00) before Alex's 15:00 customer call, minimizing schedule fragmentation."
+    },
+    {
+      "rank": 2,
+      "start": "2026-09-02T14:00:00-05:00",
+      "end": "2026-09-02T15:00:00-05:00",
+      "day": "Wednesday",
+      "explanation": "Both people are free 14:00-15:00 with no overlap: Alex's planning ends at 10:30 and Jamie's budget meeting ends exactly at 14:00, giving a 0-minute gap to an existing meeting. It avoids the edge hours and keeps a clean 2-hour free block (15:00-17:00) for the rest of the afternoon."
+    },
+    {
+      "rank": 3,
+      "start": "2026-09-04T11:00:00-05:00",
+      "end": "2026-09-04T12:00:00-05:00",
+      "day": "Friday",
+      "explanation": "Both Alex and Jamie are free 11:00-12:00; it starts exactly when Jamie's morning workshop ends (9:00-11:00), so the gap to the nearest existing meeting is 0 minutes. It avoids the 9:00 and 16:00 edge hours and leaves a contiguous 2-hour free block (12:00-14:00) before Alex's 14:00 project review."
+    }
+  ],
+  "excluded_weekends": ["2026-09-05", "2026-09-06"],
+  "notes": "Weekdays (Mon-Fri) were preferred per the prompt. Slots at 9:00 AM (first hour) and 4:00 PM (last hour) were deprioritized/avoided. Monday 2026-08-31 11:00-12:00 was a valid runner-up but left only a 1-hour gap before the 13:00 design review, making Tuesday 10:00-11:00 the better gap-minimizing choice."
+}
+```

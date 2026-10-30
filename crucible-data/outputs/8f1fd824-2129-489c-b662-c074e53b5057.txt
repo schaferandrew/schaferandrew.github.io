@@ -1,0 +1,1 @@
+[error] 400: {"message":"Failed to load model \"qwen/qwen3.6-35b-a3b\". Error: Model loading was stopped due to insufficient system resources. Continuing to load the model would likely overload your system and cause it to freeze. If you think this is incorrect, you can adjust the model loading guardrails in settings.","type":"invalid_request_error","param":"model","code":null}

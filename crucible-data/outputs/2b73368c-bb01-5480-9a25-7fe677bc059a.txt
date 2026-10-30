@@ -1,0 +1,32 @@
+**Identified Objective Errors (grammar, spelling, punctuation)**  
+
+| # | Original Text | Error Type | Corrected Form |
+|---|---------------|------------|----------------|
+| 1 | “one of the two items were damaged.” | Subject‑verb agreement | “one of the two items was damaged.” |
+| 2 | “I contacted support last week but I havent heard anything back.” | Contraction missing apostrophe; informal “havent” | “I contacted support last week, but I haven’t heard anything back.” |
+| 3 | “The box was clearly crush on one side,” | Incorrect verb form (“crush”) | “The box was clearly crushed on one side,” |
+| 4 | “the mug inside has a crack through the handle.” | No error (but could be clearer) – kept as is. |
+| 5 | “I would like a refund for the mug, but please let me know if you need pictures of it.” | No grammatical error; punctuation fine. |
+| 6 | “Also, your website says refunds are processed in 5-7 business days, which seem to have passed already for my earlier request.” | Subject‑verb agreement (“which seem” → “which seems”) | “...which seems to have passed already for my earlier request.” |
+| 7 | “Can you tell me what the status is?” | No error. |
+
+**Optional Style Improvements (not required but may enhance clarity)**  
+
+- Add a comma after “Hi Support,” for proper salutation formatting.  
+- Replace “crushed” with “damaged” to match earlier wording.  
+- Use “I have not” instead of “haven’t” for slightly more formal tone.  
+- Clarify the refund request by specifying “for the damaged mug.”  
+
+---
+
+### Corrected Email (keeping facts and apologetic level unchanged)
+
+**Subject:** Refund for order 84721
+
+Hi Support,
+
+I am writing because my order arrived three days late, and one of the two items was damaged. I contacted support last week, but I haven’t heard anything back. The box was clearly crushed on one side, and the mug inside has a crack through the handle. I would like a refund for the mug; please let me know if you need pictures of it.
+
+Also, your website says refunds are processed in 5‑7 business days, which seems to have passed already for my earlier request. Can you tell me what the status is?
+
+Thanks for your help.

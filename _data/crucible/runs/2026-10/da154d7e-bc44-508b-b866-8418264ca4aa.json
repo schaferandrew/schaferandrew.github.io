@@ -1,0 +1,78 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "da154d7e-bc44-508b-b866-8418264ca4aa",
+ "run_path": "openrouter_qwen_qwen3.8-27b/fire-truck-color/20261024_172234",
+ "legacy_run_id": "openrouter_qwen_qwen3.8-27b/everyday/KNOW-1/20261024_172234",
+ "started_at": "2026-10-24T17:22:34.913446+00:00",
+ "ended_at": "2026-10-24T17:22:35.871808+00:00",
+ "elapsed_s": 0.96,
+ "task": {
+  "id": "fire-truck-color",
+  "version": 1,
+  "rubric_version": null,
+  "content_hash": null,
+  "rubric_hash": null,
+  "alias": "KNOW-1"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/qwen/qwen3.8-27b",
+  "base": "qwen/qwen3.8-27b",
+  "publisher": "qwen",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "qwen/qwen3.8-27b|qwen|api|-",
+  "display": "qwen3.8-27b"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 69,
+  "tokens_out": 81,
+  "model_responses": 1,
+  "ttft_s": 0.583,
+  "ttft_avg_s": 0.583,
+  "response_time_avg_s": 0.952
+ },
+ "output_ref": "outputs/da154d7e-bc44-508b-b866-8418264ca4aa.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": null,
+  "machine_label": null,
+  "source": "crucible-migrate",
+  "content_hash": "sha256:1785f9f9b92f974ad08e217d9f71fbc71f69fb005aa544a16a8027c16b8a8a39",
+  "submitter": null,
+  "verification": null
+ }
+}

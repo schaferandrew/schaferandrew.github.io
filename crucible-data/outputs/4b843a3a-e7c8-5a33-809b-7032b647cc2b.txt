@@ -1,0 +1,37 @@
+
+
+Here’s a minimal proofread that keeps the voice, rhythm, and intentional fragments intact:
+
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder **than** she remembered it, all brakes shrieking and people talking **too** fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+### Clear corrections
+- **then → than**  
+  “Louder **than** she remembered” is the standard comparative form.
+- **to fast → too fast**  
+  “Too” is the correct adverb meaning “excessively.”
+
+### Flagged as possibly intentional
+- **“than she remembered it”**  
+  This reads slightly clipped, but it can work as part of the narrator’s voice. A smoother option would be:
+  - “than she remembered”
+  - “than she remembered it being”
+
+  I left it as is in the proofread version.
+
+- **“all brakes shrieking and people talking too fast”**  
+  This has a fragment-like, sensory immediacy that fits the voice. If you want it slightly more formal, you could write:
+  - “with all brakes shrieking and people talking too fast”
+
+  I left it unchanged.
+
+- **“And she didn't know whether to laugh, or leave.”**  
+  Standard punctuation would usually be:
+  - “And she didn't know whether to laugh or leave.”
+
+  But the comma creates a pause, and since you asked to preserve rhythm and intentional fragments, I left it in place and am flagging it here.
+
+- **“Still—she was back.”**  
+  The dash works well if the break is intentional. The more conventional version would be:
+  - “Still, she was back.”
+
+  I kept the dash.

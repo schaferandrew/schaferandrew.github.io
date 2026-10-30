@@ -1,0 +1,78 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "4b3c8a5c-aa1f-5bb2-a796-abaaedf8ddb2",
+ "run_path": "openrouter_nvidia_nemotron-3-ultra-550b-a55b_free/interest-cli-open-ended/20261024_163241",
+ "legacy_run_id": "openrouter_nvidia_nemotron-3-ultra-550b-a55b_free/coding_build/CODE-1/20261024_163241",
+ "started_at": "2026-10-24T16:32:41.465909+00:00",
+ "ended_at": "2026-10-24T16:39:38.499757+00:00",
+ "elapsed_s": 417.03,
+ "task": {
+  "id": "interest-cli-open-ended",
+  "version": 1,
+  "rubric_version": null,
+  "content_hash": null,
+  "rubric_hash": null,
+  "alias": "CODE-1"
+ },
+ "harness": {
+  "id": "opencode",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+  "base": "nvidia/nemotron-3-ultra-550b-a55b:free",
+  "publisher": "nvidia",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "nvidia/nemotron-3-ultra-550b-a55b:free|nvidia|api|-",
+  "display": "nemotron-3-ultra-550b-a55b:free"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": null,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": null
+ },
+ "output_ref": "outputs/4b3c8a5c-aa1f-5bb2-a796-abaaedf8ddb2.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": null,
+  "machine_label": null,
+  "source": "crucible-migrate",
+  "content_hash": "sha256:184857b886e17b9508b040cdf4625c76dd66756eacd46b665525f5b13218a636",
+  "submitter": null,
+  "verification": null
+ }
+}

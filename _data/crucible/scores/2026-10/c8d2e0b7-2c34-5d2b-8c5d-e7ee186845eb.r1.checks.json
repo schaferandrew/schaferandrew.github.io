@@ -1,0 +1,107 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "c8d2e0b7-2c34-5d2b-8c5d-e7ee186845eb",
+ "rubric_version": 1,
+ "rubric_hash": "5944fb9d7568cdce",
+ "method": "checks",
+ "scored_at": "2026-10-30T06:25:15.350060+00:00",
+ "crucible_version": "3.4.0",
+ "raw": {
+  "passed": 0,
+  "total": 6,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "equator_capricorn",
+   "type": "required_patterns",
+   "group": "Equator and Capricorn",
+   "label": "Answer 1 is Brazil.",
+   "passed": false,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "red_sea_gulf",
+   "type": "required_patterns",
+   "group": "Red Sea and Gulf",
+   "label": "Answer 2 is Saudi Arabia.",
+   "passed": false,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "northern_capital",
+   "type": "required_patterns",
+   "group": "Northernmost capital",
+   "label": "Answer 3 is Reykjavík (Nuuk's Greenland isn't sovereign).",
+   "passed": false,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "time_zones",
+   "type": "required_patterns",
+   "group": "Most time zones",
+   "label": "Answer 4 is France.",
+   "passed": false,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "closest_state",
+   "type": "required_patterns",
+   "group": "Closest state",
+   "label": "Answer 5 is Maine.",
+   "passed": false,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "one_neighbor",
+   "type": "required_patterns",
+   "group": "One neighbor",
+   "label": "Answer 6 is Lesotho.",
+   "passed": false,
+   "detail": "no answer to check"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Equator and Capricorn",
+   "passed": 0,
+   "total": 1,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Red Sea and Gulf",
+   "passed": 0,
+   "total": 1,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Northernmost capital",
+   "passed": 0,
+   "total": 1,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Most time zones",
+   "passed": 0,
+   "total": 1,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Closest state",
+   "passed": 0,
+   "total": 1,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "One neighbor",
+   "passed": 0,
+   "total": 1,
+   "detail": "no answer to check"
+  }
+ ]
+}

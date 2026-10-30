@@ -1,0 +1,36 @@
+A solar panel is just a lot of identical solar cells wired together. The whole chain starts with light and ends with the same kind of electricity you plug a toaster into.
+
+**1. Photons, not rays**
+Sunlight is a stream of photons, tiny packets of energy. The energy of each photon depends on its color: blue/violet photons carry more energy than red/infrared ones. Silicon, the material in most panels, has a bandgap of about 1.1 eV. A photon with at least that much energy can be absorbed by the silicon and give its energy to an electron in the crystal.
+
+**2. From photon to separated charges in the semiconductor**
+The cells are made of silicon that is doped to make a p-n junction.
+
+* The p-side is doped with boron, which leaves a lot of *holes*, places where an electron is missing.
+* The n-side is doped with phosphorus, which adds extra free electrons.
+
+Where they meet a built-in electric field forms, like a one-way slope. Normally the field keeps electrons on the n-side and holes on the p-side.
+
+When a photon with enough energy is absorbed, it kicks an electron up from the valence band to the conduction band. That leaves a hole behind. The pair is an electron-hole pair.
+
+The built-in field of the p-n junction immediately pulls them apart before they can recombine: electrons are pushed toward the n-side, holes toward the p-side. That separation is a voltage. If you connect a wire from the n-side to the p-side outside the cell, electrons can flow around the circuit back to the holes, giving you a direct current, DC. The current is proportional to how many electron-hole pairs are created per second.
+
+**Analogy:** Think of the silicon as a crowded parking lot where electrons are cars stuck in spaces. Photons are like tiny baseballs thrown from above. If a baseball has enough energy it can knock a car out of its space and leave an empty spot behind. The p-n junction is like a slight downhill slope that makes the knocked-out cars roll one way and the empty spots roll the other.
+
+*What the analogy gets wrong:* Photons aren't little balls that physically collide with electrons. The interaction is quantum: the electron absorbs the photon's energy all at once, not by a billiard-ball hit. Electrons aren't macroscopic cars rolling around; they move as a quantum wave and the drift speed in silicon is very slow. The "knock out" picture also hides that only photons above a threshold energy work, and excess energy is lost as heat.
+
+**3. From DC to usable AC**
+A single cell makes ~0.5-0.6 V. Cells are wired in series to make ~30-40 V per panel, and many panels are wired together. That DC goes to an inverter.
+
+The inverter is essentially a fast electronic switch that chops the DC and reshapes it into an alternating current, AC, at 50 or 60 Hz, the same frequency and voltage as your home grid. Modern inverters also synchronize phase with the grid so excess power can be exported.
+
+**4. Household / grid use**
+The AC powers appliances, lights, chargers directly. If production exceeds demand, a bidirectional meter pushes power back to the grid. If demand exceeds production, you draw from the grid.
+
+**Why output changes**
+
+*Sunlight intensity.* More photons per second = more electron-hole pairs per second = more current. Output is roughly linear with irradiance. That’s why a panel makes almost nothing at night, less on cloudy days, and peaks when the sun is high and directly facing it. Angle of incidence matters: photons arriving at a shallow angle spread over more area and are partially reflected.
+
+*Temperature.* Higher cell temperature actually *reduces* power, about -0.3 to -0.5% per °C for voltage. Heat makes the silicon’s bandgap shrink a little, so each electron-hole pair has a slightly lower voltage. Current rises a tiny bit with heat, but the voltage drop dominates, so net power falls. That’s why panels perform best on cool, bright days and worse on hot, hazy afternoons.
+
+Shading, dust, and age also matter: a single shaded cell can limit the whole string, and real-world losses are normal.

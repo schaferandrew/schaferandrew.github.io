@@ -1,0 +1,3 @@
+The first login as `testuser` failed with “Invalid username or password.” I diagnosed **Wrong Password**, requested a password reset through the application, reset the password, and logged in successfully. The authenticated dashboard confirmed `testuser` and displayed “Welcome to your dashboard!”
+
+FAILURE: Wrong Password

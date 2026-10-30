@@ -1,0 +1,34 @@
+### 1. Objective Errors (Grammar, Spelling, Punctuation)
+These are mistakes that must be corrected to ensure the email is grammatically correct and professional.
+
+*   **Subject-Verb Agreement:** The phrase *"one of the two items were damaged"* contains an error. The subject is "one" (singular), so the verb must be singular.
+    *   *Correction:* "...one of the two items **was** damaged."
+*   **Spelling/Apostrophe:** The word *"havent"* is missing an apostrophe.
+    *   *Correction:* "**haven't**".
+*   **Word Form:** The phrase *"box was clearly crush"* uses a verb/noun where a past participle/adjective is needed.
+    *   *Correction:* "...box was clearly **crushed**..."
+*   **Punctuation:** There is a missing comma before the coordinating conjunction "but" in the sentence *"I contacted support last week but I havent heard anything back."* When joining two independent clauses, a comma is required before "but."
+    *   *Correction:* "...last week**, but** I haven't..."
+
+### 2. Optional Style Improvements
+These suggestions improve clarity and flow without changing the tone or facts. They are not strictly errors, but they make the email sound more polished.
+
+*   **Salutation:** "Hi Support," is acceptable, but "Hello Support Team," is slightly more standard for business correspondence.
+*   **Opening Phrase:** "I am writing because" is functional but can be tightened to "I am writing regarding" or "I am following up on."
+*   **Timeline Phrasing:** The phrase *"which seem to have passed already"* is grammatically defensible (referring to the plural "days"), but phrasing it as *"the timeframe has passed"* is clearer. I will keep this close to the original in the final version to avoid changing facts, but smooth the grammar slightly.
+*   **Closing:** "Thanks for your help" is fine, but "Thank you" is concise.
+
+***
+
+### 3. Corrected Email Version
+This version incorporates all objective corrections and includes minor style adjustments for clarity while maintaining the original tone and facts.
+
+**Subject:** Refund for order 84721
+
+Hello Support Team,
+
+I am writing regarding my order, which arrived three days late. One of the two items was damaged. I contacted support last week, but I haven't heard anything back yet. The box was clearly crushed on one side, and the mug inside has a crack through the handle.
+
+I would like a refund for the mug; please let me know if you need pictures of it. Also, your website says refunds are processed in 5-7 business days, which seems to have passed already for my earlier request. Can you tell me what the status is?
+
+Thank you for your help.

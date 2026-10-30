@@ -1,0 +1,12 @@
+All 22 tests pass. Now the README:
+Let me verify the sample output numbers in the README against the actual CLI:
+I found two issues: the "Recurring contributions:" label is breaking the column alignment, and the figures in the README sample were wrong (the actual values are $9,998.32 / $31,998.32). I'll fix both:
+Let me verify the file state after those edits:
+I'll patch the test expectations programmatically to guarantee exact spacing:
+Done. Built in `workspace/`:
+
+- **`compound_interest.py`** — dependency-free Python 3 CLI. Flags: `-p` principal, `-r` annual rate %, `-t` time (`10y`, `6m`, `1y6m`, or bare years), `-f` compounding frequency (`yearly`…`daily`), `-c` recurring contribution, `-cf` contribution frequency (default monthly). Computes on a discrete timeline so contribution and compounding frequencies can differ (contributions at a period end don't earn interest for that period). Prints a summary with principal, total contributions, interest earned, and final balance; invalid/negative/contradictory input (negative amounts, bad durations, unknown frequencies, `--contribution-frequency` without an amount, zero principal with no contribution) exits with status 2 and an `error:` on stderr.
+- **`test_compound_interest.py`** — 22 unittest tests, all passing: ordinary cases, zero interest, monthly compounding, recurring contributions (incl. mixed frequencies vs. hand-computed timelines), invalid-input CLI rejection, time parsing, and known expected values (e.g. 10000·1.05¹⁰ = 16288.946267…, ordinary-annuity FV = 1268.250301…).
+- **`README.md`** — flag reference and 6 documented command examples, sample output verified byte-for-byte against the CLI.
+
+Run: `python3 compound_interest.py -p 10000 -r 5 -t 10y -f monthly -c 100`; tests: `python3 -m unittest test_compound_interest -v`.

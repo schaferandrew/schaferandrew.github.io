@@ -1,0 +1,39 @@
+
+
+Done. I built **`interest`**, a dependency-free Python CLI consumer interest calculator (in the spirit of interest.gov's "What If?" tools), with all 37 tests passing.
+
+## What it does
+
+Four subcommands covering the questions consumers actually ask:
+
+| Command | Answers |
+|---|---|
+| `interest simple P -r 5 -y 3` | Simple interest (I = P·r·t) |
+| `interest compound 1000 -r 6 -y 10 -m 200` | Compound interest with optional regular contributions; `--compounding 1/4/12/365`, `--start` for annuity-due |
+| `interest loan 200000 -r 6 -y 30` | Monthly payment, total interest cost; `--schedule` for full month-by-month amortization |
+| `interest goal 100000 -r 6 -y 20 --start 5000` | How much to save per month to hit a savings goal (inverts the FV formula) |
+
+## Design choices
+- **Consumer-friendly inputs**: rates as percentages (`5` = 5%), decimal years, short flags (`-r`, `-y`, `-m`)
+- **Clear error handling**: bad inputs → `error: ...` on stderr, exit code 2; non-integer month terms get a stderr note
+- **Correct math**: exact FV/annuity formulas, final loan payment absorbs floating-point residue so the schedule lands exactly on $0
+
+## Files
+- `interest_calc/core.py` — pure math with dataclass results (also a usable Python API)
+- `interest_calc/cli.py` — argparse CLI with help text and examples
+- `interest_calc/__main__.py`, `interest` (executable wrapper)
+- `tests/` — 37 tests: brute-force month-by-month simulation cross-checks, round-trip goal↔compound consistency, zero-rate edge cases, validation, and end-to-end CLI tests
+- `README.md` — usage, formula explanations, option tables, disclaimers
+- `pyproject.toml` (installable with `interest` console script), `Makefile` (`make test`, `make demo`)
+
+## Verified output
+```
+$ ./interest loan 200000 --rate 6 --years 30
+  Monthly payment:$1,199.10
+  Total interest: $231,676.38
+
+$ ./interest goal 100000 --rate 6 --years 20 --start 5000
+  Monthly savings:  $180.61 (at the end of each month)
+```
+
+Run it with `./interest --help` or the tests with `python3 -m pytest -q`.

@@ -1,0 +1,26 @@
+**1. Objective language / tone errors**
+
+These are word choices that are subjective, loaded, colloquial, or presumptive rather than neutral and descriptive:
+
+* **"This is obvious if you think about it"** - presumptive / appeals to common sense
+* **"government prints too much money"** - colloquial phrasing for monetary expansion
+* **"lazy"** - pejorative value judgment
+* **"victim of bad policy"** - loaded characterization
+* **"basically just printing money"** - colloquial / informal hedging
+* **"inevitably causes hyperinflation"** - absolute certainty language
+* **"proves that monetary policy is completely ineffective"** - absolute language
+* **"Most importantly"** - subjective prioritization
+* **"definitively debunked"** - absolute certainty language
+* **"failed Reagan tax cuts"** - loaded evaluative judgment
+* **"without growing the economy at all"** - absolute language
+
+**2. Claims, terminology, or wording that are potentially unclear, overstated, or technically imprecise**
+
+These are flagged for factual accuracy, precision, and clarity, not rewritten:
+
+* **Inflation definition:** "Inflation is when prices go up because the government prints too much money." The causal attribution to government printing alone is an oversimplification. Inflation has multiple drivers beyond money supply.
+* **CPI and Fed mandate:** "when CPI rises above 2% annually, the Federal Reserve is legally required to raise interest rates." The Fed has a dual mandate for price stability and maximum employment and is not legally required to raise rates at a specific CPI threshold.
+* **Natural rate of unemployment interpretation:** "the natural rate of unemployment is around 4%, which means anyone above that is either lazy or the victim of bad policy." The natural rate / NAIRU concept does not imply individual workers above that rate are lazy, and the dichotomy is a false one.
+* **Quantitative easing description:** "Quantitative easing... is basically just printing money to buy treasury bonds, which devalues the currency and inevitably causes hyperinflation." QE is technically distinct from direct money printing, currency devaluation is not automatic, and hyperinflation is not an inevitable outcome.
+* **Japan monetary policy claim:** "Japan's experience with deflation in the 1990s proves that monetary policy is completely ineffective at stimulating demand." A single country episode does not prove complete ineffectiveness, and the characterization of Japan's 1990s experience is oversimplified.
+* **Supply-side economics claim:** "supply-side economics has been definitively debunked by the failed Reagan tax cuts, which increased the deficit without growing the economy at all." The claim of definitive debunking and that the Reagan tax cuts grew the economy "at all" is historically contested and stated in absolute terms.

@@ -1,0 +1,153 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "d1ca3115-1412-5762-aa35-adf271360d17",
+ "rubric_version": 3,
+ "rubric_hash": "e184c2157cc6dbf7",
+ "method": "hidden_tests",
+ "scored_at": "2026-10-26T17:13:29.931866+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 9,
+  "total": 9,
+  "unit": "tests"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "postmortem_timeline",
+   "type": "required_patterns",
+   "group": "Postmortem timeline",
+   "label": "The postmortem's timeline has the deploy (16:42:10), first affected request (16:44:15) and first report (18:06:01) from the logs.",
+   "passed": true,
+   "detail": "3/3 found"
+  },
+  {
+   "id": "postmortem_count",
+   "type": "required_patterns",
+   "group": "Postmortem count",
+   "label": "The postmortem counts 371 affected users (or 481, counting anonymous-stored responses).",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "per-viewer fields are never shared through the cache > article: favorited belongs to the viewer",
+   "type": "hidden_test",
+   "group": "per-viewer fields are never shared through the cache",
+   "label": "article: favorited belongs to the viewer",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "per-viewer fields are never shared through the cache > anonymous responses don't leak to signed-in viewers either",
+   "type": "hidden_test",
+   "group": "per-viewer fields are never shared through the cache",
+   "label": "anonymous responses don't leak to signed-in viewers either",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "per-viewer fields are never shared through the cache > lists: favorited and author.following belong to the viewer",
+   "type": "hidden_test",
+   "group": "per-viewer fields are never shared through the cache",
+   "label": "lists: favorited and author.following belong to the viewer",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "per-viewer fields are never shared through the cache > profiles: following belongs to the viewer",
+   "type": "hidden_test",
+   "group": "per-viewer fields are never shared through the cache",
+   "label": "profiles: following belongs to the viewer",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "writes are visible immediately > updates",
+   "type": "hidden_test",
+   "group": "writes are visible immediately",
+   "label": "updates",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "writes are visible immediately > deletes",
+   "type": "hidden_test",
+   "group": "writes are visible immediately",
+   "label": "deletes",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "writes are visible immediately > favorite counts",
+   "type": "hidden_test",
+   "group": "writes are visible immediately",
+   "label": "favorite counts",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "writes are visible immediately > follows and unfollows",
+   "type": "hidden_test",
+   "group": "writes are visible immediately",
+   "label": "follows and unfollows",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "writes are visible immediately > new articles and tags",
+   "type": "hidden_test",
+   "group": "writes are visible immediately",
+   "label": "new articles and tags",
+   "passed": true,
+   "detail": null
+  }
+ ],
+ "groups": [
+  {
+   "id": "Per-viewer fields",
+   "passed": 3.0,
+   "total": 3,
+   "detail": "4/4 hidden tests pass"
+  },
+  {
+   "id": "Writes visible immediately",
+   "passed": 2.0,
+   "total": 2,
+   "detail": "5/5 hidden tests pass"
+  },
+  {
+   "id": "Postmortem timeline",
+   "passed": 1,
+   "total": 1,
+   "detail": "3/3 found"
+  },
+  {
+   "id": "Postmortem count",
+   "passed": 1,
+   "total": 1,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Regression tests",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "pass on the fix and catch the bug on the seeded code"
+  },
+  {
+   "id": "Existing tests still pass",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "the repo's own tests pass"
+  },
+  {
+   "id": "Contract suite untouched",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "contract suite untouched"
+  }
+ ]
+}

@@ -1,0 +1,31 @@
+Build and tests pass! Here's a summary of what was fixed:
+
+## What Was Wrong
+
+1. **Broken client-side state**: The original `LeadForm.tsx` used a plain object (`const values`) that doesn't sync with React state, making fields uneditable even in development mode.
+
+2. **No error handling**: There were no inline error displays for invalid fields or aria attributes for accessibility.
+
+3. **No success state**: After successful submission, the form wasn't replaced with a success message.
+
+4. **API lacked validation**: The API route (`/api/leads`) didn't validate inputs at all.
+
+## What I Changed
+
+### `app/contact/LeadForm.tsx`
+- Added `"use client"` directive and `useState` hooks for proper state management
+- Implemented `validateEmail()` with accommodating rules (accepts plus addressing, dots, hyphens, long TLDs) but strict canonical normalization (trim + lowercase)
+- Added `validateLead()` to check required fields (name, message) and email validity
+- Added inline error messages with exact IDs: `lead-name-error`, `lead-email-error`, `lead-message-error`
+- Implemented focus management on first error field using `aria-invalid` and `aria-describedby`
+- On submit: shows errors if validation fails, posts to API if valid, or shows `lead-success` on 201
+
+### `app/api/leads/route.ts`
+- Added email validation matching the form's accommodating/strict rules
+- Trims all fields; saves missing company as empty string
+- Normalizes email to lowercase/trimmed for canonical storage
+- Returns 201 with `{ "lead": <saved lead> }` on success
+- Returns 422 with `{ "errors": { "<field>": "<message>" } }` on validation failure
+
+### Build and Tests
+Both `npm test` and `npm run build` pass successfully.

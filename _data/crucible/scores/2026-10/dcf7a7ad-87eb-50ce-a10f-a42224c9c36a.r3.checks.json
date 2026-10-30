@@ -1,0 +1,121 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "dcf7a7ad-87eb-50ce-a10f-a42224c9c36a",
+ "rubric_version": 3,
+ "rubric_hash": "7d57227f67a0b9e9",
+ "method": "checks",
+ "scored_at": "2026-10-26T22:35:39.979292+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 0,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "answered",
+   "type": "non_empty",
+   "group": "Answered",
+   "label": "Produces a substantive answer (at least 60 words).",
+   "passed": false,
+   "detail": "0 words (want at least 60)"
+  },
+  {
+   "id": "fixes_contraction",
+   "type": "required_patterns",
+   "group": "Fixes the contraction",
+   "label": "Fixes 'havent' to \"haven't\".",
+   "passed": false,
+   "detail": "0/1 found; missing: haven['’]t"
+  },
+  {
+   "id": "fixes_participle",
+   "type": "required_patterns",
+   "group": "Fixes the participle",
+   "label": "Fixes 'crush' to 'crushed'.",
+   "passed": false,
+   "detail": "0/1 found; missing: \\bcrushed\\b"
+  },
+  {
+   "id": "fixes_agreement",
+   "type": "required_patterns",
+   "group": "Fixes the agreement error",
+   "label": "Fixes 'one of the two items were damaged' to 'was damaged'.",
+   "passed": false,
+   "detail": "0/1 found; missing: \\bwas damaged\\b"
+  },
+  {
+   "id": "keeps_facts",
+   "type": "required_patterns",
+   "group": "Keeps the facts",
+   "label": "Keeps the facts: order 84721, three days late, 5-7 business days, the mug and its handle.",
+   "passed": false,
+   "detail": "0/5 found; missing: 84721, three days, 5\\s*[-–]\\s*7 business days, \\bmug\\b, \\bhandle\\b"
+  },
+  {
+   "id": "separates_style",
+   "type": "required_patterns",
+   "group": "Separates errors from style",
+   "label": "Has separate parts for objective errors and optional style improvements.",
+   "passed": false,
+   "detail": "0/2 found; missing: \\b(objective|errors?|corrections?)\\b, \\b(style|stylistic|optional)\\b"
+  },
+  {
+   "id": "no_added_apology",
+   "type": "forbidden_patterns",
+   "group": "Keeps the customer's tone",
+   "label": "Doesn't make the customer sound more apologetic (no 'sorry' or 'I apologize').",
+   "passed": false,
+   "detail": "no answer to check"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Answered",
+   "passed": 0,
+   "total": 1,
+   "detail": "0 words (want at least 60)"
+  },
+  {
+   "id": "Fixes the agreement error",
+   "passed": 0,
+   "total": 4,
+   "detail": "0/1 found; missing: \\bwas damaged\\b"
+  },
+  {
+   "id": "Fixes the contraction",
+   "passed": 0,
+   "total": 1,
+   "detail": "0/1 found; missing: haven['’]t"
+  },
+  {
+   "id": "Fixes the participle",
+   "passed": 0,
+   "total": 1,
+   "detail": "0/1 found; missing: \\bcrushed\\b"
+  },
+  {
+   "id": "Keeps the facts",
+   "passed": 0,
+   "total": 1,
+   "detail": "0/5 found; missing: 84721, three days, 5\\s*[-–]\\s*7 business days, \\bmug\\b, \\bhandle\\b"
+  },
+  {
+   "id": "Separates errors from style",
+   "passed": 0,
+   "total": 1,
+   "detail": "0/2 found; missing: \\b(objective|errors?|corrections?)\\b, \\b(style|stylistic|optional)\\b"
+  },
+  {
+   "id": "Keeps the customer's tone",
+   "passed": 0,
+   "total": 1,
+   "detail": "no answer to check"
+  }
+ ]
+}

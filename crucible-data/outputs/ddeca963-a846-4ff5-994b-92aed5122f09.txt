@@ -1,0 +1,9 @@
+To arrange these events chronologically, I first identified the historical year each occurred: the Magna Carta was sealed in 1215, the Gutenberg Bible was completed around 1455, the French Revolution began in 1789, World War I started in 1914, the first Moon landing took place in 1969, and the Berlin Wall fell in 1989. Ordering these from earliest to latest produces the sequence below.
+
+ORDER:
+1. The signing of Magna Carta — 1215
+2. The printing of the Gutenberg Bible — 1455
+3. The start of the French Revolution — 1789
+4. The start of the First World War — 1914
+5. The first Moon landing — 1969
+6. The fall of the Berlin Wall — 1989

@@ -1,0 +1,35 @@
+To solve this puzzle, let's analyze the clues step-by-step.
+
+### Analysis of Clues:
+1. **Clue 3:** The person who likes green sits in chair 1.
+2. **Clue 5:** Dave likes red.
+3. **Clue 4:** Carol likes yellow and sits somewhere to the right of the person who likes red (Dave).
+4. **Clue 1:** Alice sits immediately to the left of the person who likes blue.
+
+### Deductions:
+*   **Colors:** We know the colors are Green (Chair 1), Red (Dave), Yellow (Carol), and Blue. Since Green is in Chair 1, and Dave is Red and Carol is Yellow, the person in Chair 1 cannot be Dave or Carol. Therefore, the person in Chair 1 must be either Alice or Bob.
+*   **Dave and Carol's positions:** Dave (Red) must be to the left of Carol (Yellow). Since Green is in Chair 1, Dave must be in Chair 2 or 3. Carol must be in Chair 3 or 4.
+*   **Alice and Blue:** Alice is immediately to the left of the person who likes Blue. This means Alice cannot be in Chair 4. The "Blue" person cannot be in Chair 1.
+*   **Combining Dave and Carol:** 
+    *   If Dave (Red) is in Chair 2, Carol (Yellow) could be in Chair 3 or 4.
+    *   If Dave (Red) is in Chair 3, Carol (Yellow) must be in Chair 4.
+*   **Testing Alice's position:**
+    *   If Alice is in Chair 1 (Green): The person in Chair 2 must like Blue (Clue 1). If Chair 2 is Blue, then Dave (Red) must be in Chair 3 and Carol (Yellow) must be in Chair 4. This leaves Bob for Chair 2. However, if Bob is in Chair 2, he would be the one who likes Blue. This configuration works: 1: Alice (Green), 2: Bob (Blue), 3: Dave (Red), 4: Carol (Yellow).
+    *   Let's check the other possibility: If Bob is in Chair 1 (Green). Then Alice must be in Chair 2 or 3. If Alice is in Chair 2, the person in Chair 3 must be Blue. If Chair 3 is Blue, Dave (Red) must be in Chair 2 (but Alice is there) or Chair 1 (but Bob is there). This is a contradiction. If Alice is in Chair 3, the person in Chair 4 must be Blue. If Chair 4 is Blue, Carol (Yellow) cannot be in Chair 4. This is a contradiction.
+
+### Final Verification:
+1. Alice (Chair 1, Green) is immediately to the left of Bob (Chair 2, Blue). (Matches Clue 1)
+2. Bob is in Chair 2, not Chair 4. (Matches Clue 2)
+3. Green is in Chair 1. (Matches Clue 3)
+4. Carol (Chair 4, Yellow) is to the right of Dave (Chair 3, Red). (Matches Clue 4)
+5. Dave likes Red. (Matches Clue 5)
+
+**Assumptions:**
+The puzzle assumes "immediately to the left" refers to the perspective of the viewer looking at the chairs (Chair 1 is the leftmost).
+
+Chair 1: Alice, green
+Chair 2: Bob, blue
+Chair 3: Dave, red
+Chair 4: Carol, yellow
+
+ANSWER: Dave

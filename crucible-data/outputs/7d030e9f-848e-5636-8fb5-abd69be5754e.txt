@@ -1,0 +1,5 @@
+I’ll inspect the existing project structure, then implement the calculator, tests, and README examples in its established style.
+The provided workspace is empty apart from `prompt.txt`, so I’m creating a small Python standard-library project from scratch. The CLI will use named options, frequency aliases, and reject incomplete contribution settings.
+Implemented the calculator in `compound_interest.py`, with a CLI for principal, annual rate, duration in years or months, compounding frequency, and optional recurring contributions. It prints principal, total contributions, interest earned, and final balance, and validates negative, invalid, and mismatched inputs.
+
+Added eight automated tests in `test_compound_interest.py` and command examples in `README.md`. Verified with `python3 -m unittest -v`; all eight tests pass.

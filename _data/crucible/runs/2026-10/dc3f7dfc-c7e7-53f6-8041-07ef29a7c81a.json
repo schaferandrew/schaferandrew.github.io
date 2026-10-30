@@ -1,0 +1,80 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "dc3f7dfc-c7e7-53f6-8041-07ef29a7c81a",
+ "run_path": "openrouter_openai_gpt-6-luna/grade-binary-search-answer/20261027_193234",
+ "legacy_run_id": "openrouter_openai_gpt-6-luna/evals/EVAL-3/20261027_193234",
+ "started_at": "2026-10-27T19:32:34.025399+00:00",
+ "ended_at": "2026-10-27T19:32:38.238502+00:00",
+ "elapsed_s": 4.21,
+ "task": {
+  "id": "grade-binary-search-answer",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "e914619e43d38223",
+  "rubric_hash": "8f27c5af40bbe68b",
+  "alias": "EVAL-3"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/openai/gpt-6-luna",
+  "base": "openai/gpt-6-luna",
+  "publisher": "openai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "openai/gpt-6-luna|openai|api|-",
+  "display": "gpt-6-luna"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 311,
+  "tokens_out": 234,
+  "model_responses": 1,
+  "ttft_s": 2.114,
+  "ttft_avg_s": 2.114,
+  "response_time_avg_s": 4.05,
+  "cost_usd": 0.000281,
+  "cost_source": "openrouter_billed"
+ },
+ "output_ref": "outputs/dc3f7dfc-c7e7-53f6-8041-07ef29a7c81a.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:bc26630fd28a76c47f250d1439f4b144ddb55c66bc04e2339816316df269569e",
+  "submitter": null,
+  "verification": null
+ }
+}

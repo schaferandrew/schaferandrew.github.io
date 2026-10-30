@@ -7,11 +7,6 @@ permalink: /crucible/about/
 <div class="constrain crucible crucible-about">
   <p class="crucible-breadcrumb"><a href="/crucible/">← Crucible results</a></p>
   <h1 class="crucible-title">About Crucible</h1>
-  <div class="crucible-construction" role="note">
-    <strong>Under construction.</strong> Crucible is a work in progress: tests, scoring and results are still
-    changing, and some numbers here come from early or partial runs. Check back soon.
-  </div>
-
   <p class="crucible-disclaimer">This page was created and written by or with the help of AI.</p>
 
   <p class="crucible-lede">
@@ -25,12 +20,12 @@ permalink: /crucible/about/
   <h2 class="crucible-heading">How a run works</h2>
   <ol class="crucible-steps">
     <li>
-      <strong>Test.</strong> Each test is a YAML file: the prompt, a rubric of weighted criteria, and anything it
-      needs, such as a seeded repo, fixture files or a mock email-and-calendar server.
+      <strong>Task.</strong> Each task is a YAML file: the prompt, the checks or hidden tests that score it, and
+      anything it needs, such as a seeded repo, fixture files or a mock email-and-calendar server.
     </li>
     <li>
-      <strong>Harness.</strong> The harness hands the prompt to the model. Chat tests always use
-      <strong>direct</strong>, a single API call with no tools. Agentic tests use a coding agent,
+      <strong>Harness.</strong> The harness hands the prompt to the model. Chat tasks always use
+      <strong>direct</strong>, a single API call with no tools. Agentic tasks use a coding agent,
       <strong>opencode</strong> or <strong>pi</strong>, that can read and write files, run commands and browse. The
       same model can do very differently depending on the agent, which is why the Agentic results let you switch
       between them.
@@ -44,19 +39,21 @@ permalink: /crucible/about/
       model produced, and the metrics: time, time to first token, tool calls, tokens and cost.
     </li>
     <li>
-      <strong>Score.</strong> Each run is scored 0–10 against its rubric, by a person or by an AI judge (an agent
-      score). Some tests have a critical failure, like wrong interest math or an invented news story, that caps the
-      score.
+      <strong>Score.</strong> Each run is scored 0–10 automatically: chat answers by fixed checks, agentic work by
+      hidden tests the agent never sees, run on the repo it left behind. Some tasks have a critical failure, like wrong
+      interest math or an invented news story, that caps the score. Repeat runs of the same setup are averaged.
     </li>
     <li>
-      <strong>Export.</strong> Scored runs are flattened into one JSON file that drives the results page.
+      <strong>Publish.</strong> Each run, score and status record is published as its own file, keyed by the
+      run's permanent ID, and never edited afterwards: a rescore adds a score record, and a bad run gets a status
+      record marking it invalid. The results page joins them for the suite you pick.
     </li>
   </ol>
 
   <h2 class="crucible-heading">Sections and areas</h2>
   <p>
-    Every test belongs to one section, {% for m in cr_modes %}<strong>{{ m.label | default: cr_fb.modes[m.id].label | default: m.id }}</strong>{% unless forloop.last %}{% if forloop.rindex == 2 %} or {% else %}, {% endif %}{% endunless %}{% endfor %}, and the sections are never mixed: not in a run,
-    not in a score. Within each, a test's area is the kind of work it covers, and every test ID is its area's code and a number.
+    Every task belongs to one section, {% for m in cr_modes %}<strong>{{ m.label | default: cr_fb.modes[m.id].label | default: m.id }}</strong>{% unless forloop.last %}{% if forloop.rindex == 2 %} or {% else %}, {% endif %}{% endunless %}{% endfor %}, and the sections are never mixed: not in a run,
+    not in a score. Within each, a task's area is the kind of work it covers.
   </p>
   <div class="crucible-scroll">
     <table class="crucible-tests crucible-suites">
@@ -71,10 +68,8 @@ permalink: /crucible/about/
         {%- assign mareas = m.areas | default: cr_latest.areas %}
         {%- for a in mareas %}{% if a.mode == nil or a.mode == m.id %}
         {%- assign afb = cr_fb.areas[a.id] %}
-        {%- assign code = "" %}
-        {%- for task in cr_tasks %}{% if task.area == a.id and code == "" %}{% assign code = task.id | split: "-" | first %}{% endif %}{% endfor %}
         <tr>
-          <th scope="row">{{ a.label | default: a.id }}{% if code != "" %} <span class="crucible-tag">{{ code }}</span>{% endif %}</th>
+          <th scope="row">{{ a.label | default: a.id }}</th>
           <td>{{ a.blurb | default: afb.blurb | default: "—" }}</td>
           <td>{{ a.examples | default: afb.examples | default: "—" }}</td>
         </tr>
@@ -85,7 +80,7 @@ permalink: /crucible/about/
   </div>
 
   <h2 class="crucible-heading">Tiers</h2>
-  <p>Tests are also sorted by how hard they are, so a small model isn't judged on work meant for a frontier one.</p>
+  <p>Tasks are also sorted by how hard they are, so a small model isn't judged on work meant for a frontier one.</p>
   <ul>
     {%- for t in cr_tiers %}
     {%- if t.id %}{% assign tid = t.id %}{% else %}{% assign tid = t %}{% endif %}
@@ -94,36 +89,46 @@ permalink: /crucible/about/
     {%- endfor %}
   </ul>
 
-  <h2 class="crucible-heading">Programmatic checks</h2>
-  {%- assign checked_areas = "" | split: "" -%}
-  {%- for m in cr_modes %}{% assign mareas = m.areas | default: cr_latest.areas %}{% for a in mareas %}{% if a.mode == nil or a.mode == m.id %}
-    {%- assign n_all = 0 %}{% assign n_checks = 0 %}
-    {%- for task in cr_tasks %}{% if task.area == a.id and task.status != "retired" %}{% assign n_all = n_all | plus: 1 %}{% assign method = task.scoring.method | default: task.scoring %}{% if method == "checks" %}{% assign n_checks = n_checks | plus: 1 %}{% endif %}{% endif %}{% endfor %}
-    {%- if n_all > 0 and n_all == n_checks %}{% assign lab = a.label | downcase %}{% assign checked_areas = checked_areas | push: lab %}{% endif %}
-  {%- endif %}{% endfor %}{% endfor %}
+  <h2 class="crucible-heading">How scores are made</h2>
   <p>
-    {% if checked_areas.size > 0 %}{{ checked_areas | join: ", " | capitalize }} tests are scored with no judge at all: each rule below runs on the model's final answer, passes or
-    fails, and is worth a fixed number of points. Anyone running the same answer through Crucible gets the same
-    score. The answer that was checked is saved with the result, so every score can be audited later. Tests that
-    need judgment (does the code actually work, is the advice safe) use an AI judge instead, with deterministic
-    checks wherever a rule can be stated exactly.{% else %}Some tests are scored by rules that run on the model's final answer, pass or fail, each worth a fixed number of points. The answer that was checked is saved with the result, so every score can be audited later. Tests that need judgment use an AI judge instead.{% endif %}
+    Every score is computed automatically, the same way every time. Chat tasks are scored by fixed
+    rules that run on the model's answer: each passes or fails and is worth a fixed number of points. Agentic tasks
+    are scored by hidden tests, a test suite the agent never sees, run against the repo it leaves behind. Anyone
+    running the same answer through Crucible gets the same score, and the answer that was checked is published with
+    the result, so every score can be audited. The rules for each task in the current suite:
   </p>
-  {%- comment -%} The test list comes from the newest results bundle in _data/crucible/ {%- endcomment -%}
-  {% for test in cr_tasks %}{% if test.rules.size > 0 %}
+  {%- comment -%} The task list comes from the current suite's catalog in _data/crucible/catalog/ {%- endcomment -%}
+  {% for test in cr_tasks %}{% if test.rules.size > 0 and test.status == "active" %}
   {%- assign method = test.scoring.method | default: test.scoring %}
-  <h3 class="crucible-rules-test" title="{{ test.id }}">{{ test.name | default: test.id }}{% if method == "checks" %} <span class="crucible-tag">fully deterministic</span>{% endif %}{% if test.name and test.name != test.id %} <small class="crucible-task-id">{{ test.id }}</small>{% endif %}</h3>
+  <h3 class="crucible-rules-test" title="{{ test.id }}">{{ test.name | default: test.id }}</h3>
   <ul class="crucible-rules">
     {% for rule in test.rules %}<li>{{ rule }}</li>{% endfor %}
   </ul>
   {% endif %}{% endfor %}
 
-  <h2 class="crucible-heading">Keeping scores comparable</h2>
+  <h2 class="crucible-heading">Versions: Crucible and the suite</h2>
   <p>
-    Every test is versioned. If a prompt or its files change, old runs of it stop counting until they're rerun; if
-    only the rubric changes, the saved outputs are re-scored. Published scores are always on a <em>release</em>, a
-    pinned list of tests and versions, so adding a test never quietly moves anyone's score. New tests start
-    provisional and only count once they've been checked against small, mid-size and frontier models to confirm
-    their tier.
+    Two version numbers matter here. <strong>Crucible</strong>{% if cr_latest.crucible_version %} ({{ cr_latest.crucible_version }} published this suite's catalog){% endif %} is the tool you install: the command
+    line, the harnesses, the scoring engine and the format results are published in. <strong>The suite</strong>
+    ("Suite {{ cr_latest.suite.id | default: "v1" }}") is which tasks are scored, at which version, with which
+    tiers and weights. The leaderboard always names the suite it shows, and the selector at the top of the results
+    switches to an earlier one.
+  </p>
+  <ul>
+    <li><strong>A suite cut</strong> (Suite v2 → v3) promotes new tasks, retires old ones, or changes tiers and
+      weights. Each suite is frozen once cut, so a score in Suite v2 means the same thing forever.</li>
+    <li><strong>A suite patch</strong> (v3 → v3.1) only fixes how a task is scored. Saved answers are rescored;
+      nothing needs rerunning.</li>
+    <li><strong>Runs belong to every suite that includes their task unchanged.</strong> If a task's prompt or files
+      change, it gets a new version and older runs of it stop counting until they're rerun. A run from October still
+      counts in a later suite if its task didn't change.</li>
+    <li><strong>New tasks start provisional:</strong> they run, but appear here only once a cut makes them active,
+      after they've been checked against a small, a mid-size and a frontier model.</li>
+  </ul>
+  <p>
+    The full rules are in <a href="https://github.com/schaferandrew/crucible/blob/main/docs/versioning.md">Crucible's
+    versioning doc</a>, and what changed in each suite is in its
+    <a href="{{ cr_latest.suite.changelog_url | default: "https://github.com/schaferandrew/crucible/blob/main/SUITE_CHANGELOG.md" }}">changelog</a>.
   </p>
 
   <h2 class="crucible-heading">Run it yourself</h2>
@@ -134,7 +139,7 @@ uv sync
 uv run crucible run</code></pre>
   <p>
     <code>crucible run</code> asks which model, what to run (everything, Chat, Agentic, an area, a tier or single
-    tests) and, for agentic tests, which harness, then prints the one-line command to repeat it. Without uv:
+    tasks) and, for agentic tasks, which harness, then prints the one-line command to repeat it. Without uv:
     <code>python3 -m venv .venv</code>, activate it, <code>pip install -e .</code>.
   </p>
   <p><a href="https://github.com/schaferandrew/crucible">schaferandrew/crucible on GitHub</a> has the full setup for each harness and provider.</p>

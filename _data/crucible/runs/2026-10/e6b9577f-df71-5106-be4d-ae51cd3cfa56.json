@@ -1,0 +1,80 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "e6b9577f-df71-5106-be4d-ae51cd3cfa56",
+ "run_path": "openrouter_openai_gpt-6-luna/geography-trick-questions/20261027_193040",
+ "legacy_run_id": "openrouter_openai_gpt-6-luna/geography/GEOG-3/20261027_193040",
+ "started_at": "2026-10-27T19:30:40.209079+00:00",
+ "ended_at": "2026-10-27T19:30:54.958213+00:00",
+ "elapsed_s": 14.75,
+ "task": {
+  "id": "geography-trick-questions",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "5a1af1208cb9b9a5",
+  "rubric_hash": "5944fb9d7568cdce",
+  "alias": "GEOG-3"
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/openai/gpt-6-luna",
+  "base": "openai/gpt-6-luna",
+  "publisher": "openai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "openai/gpt-6-luna|openai|api|-",
+  "display": "gpt-6-luna"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 154,
+  "tokens_out": 1167,
+  "model_responses": 1,
+  "ttft_s": 3.842,
+  "ttft_avg_s": 3.842,
+  "response_time_avg_s": 14.556,
+  "cost_usd": 0.000379,
+  "cost_source": "openrouter_billed"
+ },
+ "output_ref": "outputs/e6b9577f-df71-5106-be4d-ae51cd3cfa56.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": "m_09df208c24c5",
+  "machine_label": "Ironwood",
+  "source": "crucible-migrate",
+  "content_hash": "sha256:f430d293ec24122c04efaaae8033949b3bb95c92a248372bd735590c22b415c3",
+  "submitter": null,
+  "verification": null
+ }
+}

@@ -1,0 +1,12 @@
+[
+ {
+  "record": "status",
+  "format_version": 3,
+  "run_uuid": "8f1fd824-2129-489c-b662-c074e53b5057",
+  "at": "2026-10-30T06:06:32+00:00",
+  "invalid": {
+   "reason": "LM Link dropped mid-run (peer_keepalive_timeout); LM Studio then refused to load the model locally"
+  },
+  "by": "claude"
+ }
+]

@@ -1,0 +1,84 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "f9bf805a-b438-477e-8be0-330b2f103615",
+ "run_path": "openrouter_deepseek_deepseek-v4-flash/geography-trick-questions/20261030_064422",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T06:44:22.465343+00:00",
+ "ended_at": "2026-10-30T06:44:37.353429+00:00",
+ "elapsed_s": 14.88,
+ "task": {
+  "id": "geography-trick-questions",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "5a1af1208cb9b9a5",
+  "rubric_hash": "5944fb9d7568cdce",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/deepseek/deepseek-v4-flash",
+  "base": "deepseek/deepseek-v4-flash",
+  "publisher": "deepseek",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek/deepseek-v4-flash|deepseek|api|-",
+  "display": "deepseek-v4-flash"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "SiliconFlow",
+   "quant": null
+  },
+  "resolved_model": "deepseek/deepseek-v4-flash"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 154,
+  "tokens_out": 256,
+  "model_responses": 1,
+  "ttft_s": 1.194,
+  "ttft_avg_s": 1.194,
+  "response_time_avg_s": 6.46,
+  "cost_usd": 0.0,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 0
+ },
+ "output_ref": "outputs/f9bf805a-b438-477e-8be0-330b2f103615.txt",
+ "provenance": {
+  "crucible_version": "3.4.1",
+  "crucible_commit": "f618abf",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:756585d7c509cbb27057144bc43338ee624c0af7ea6195a7acd10a9d9dd3e19c",
+  "submitter": null,
+  "verification": null
+ }
+}

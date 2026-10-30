@@ -1,0 +1,37 @@
+**Proofreading – Objective‑language corrections**
+
+| Original sentence | Suggested correction |
+|-------------------|----------------------|
+| *Inflation is when prices go up because the government prints too much money.* | *Inflation occurs when the general price level rises, often due to an increase in the money supply.* |
+| *This is obvious if you think about it: if there's more money chasing the same amount of stuff, each dollar is worth less.* | *A simple way to understand this is that with more money circulating for the same quantity of goods, the purchasing power of each unit of currency declines.* |
+| *The Consumer Price Index (CPI) measures inflation by tracking a basket of goods that the average household buys, and when CPI rises above 2% annually, the Federal Reserve is legally required to raise interest rates.* | *The Consumer Price Index (CPI) tracks changes in the price level of a representative basket of goods and services. When the CPI exceeds 2 % per year, the Federal Reserve typically considers tightening monetary policy, though it is not legally mandated to raise rates.* |
+| *Many economists believe that the natural rate of unemployment is around 4%, which means anyone above that is either lazy or the victim of bad policy.* | *Some economists estimate the natural rate of unemployment to be roughly 4 %. However, interpreting higher unemployment as a sign of laziness or policy failure oversimplifies complex labor‑market dynamics.* |
+| *Quantitative easing, which the Fed started after 2008, is basically just printing money to buy treasury bonds, which devalues the currency and inevitably causes hyperinflation.* | *Quantitative easing (QE), introduced by the Fed after 2008, involves purchasing Treasury securities to increase the monetary base. While QE can influence inflation expectations, it does not automatically lead to hyperinflation.* |
+| *Japan's experience with deflation in the 1990s proves that monetary policy is completely ineffective at stimulating demand.* | *Japan’s prolonged deflationary period in the 1990s suggests limits to the effectiveness of monetary policy for boosting demand, though other factors also contributed.* |
+| *Most importantly, supply‑side economics has been definitively debunked by the failed Reagan tax cuts, which increased the deficit without growing the economy at all.* | *Supply‑side economics remains a contested framework; some argue that the Reagan tax cuts widened deficits while not delivering sustained growth, but this conclusion is debated among scholars.* |
+
+---
+
+**Flagged content – Potentially unclear, overstated, or technically imprecise**
+
+1. **“Inflation is when prices go up because the government prints too much money.”**  
+   *Issue:* Simplifies inflation to a single cause; ignores demand‑side shocks, supply constraints, and expectations.
+
+2. **“The CPI rises above 2% annually, the Federal Reserve is legally required to raise interest rates.”**  
+   *Issue:* Misstates policy rule; Fed’s actions are discretionary, not legally mandated by CPI thresholds.
+
+3. **“Anyone above that [natural unemployment] is either lazy or the victim of bad policy.”**  
+   *Issue:* Value‑laden and unsupported claim; ignores structural unemployment, demographic shifts, etc.
+
+4. **“Quantitative easing… inevitably causes hyperinflation.”**  
+   *Issue:* Overstates QE’s effect; hyperinflation has not occurred in advanced economies despite QE.
+
+5. **“Japan's experience with deflation proves that monetary policy is completely ineffective at stimulating demand.”**  
+   *Issue:* Causal claim unsupported by evidence; other factors (structural, demographic) played roles.
+
+6. **“Supply‑side economics has been definitively debunked… failed Reagan tax cuts…”**  
+   *Issue:* Definitive language (“definitively debunked”) is too strong; the relationship between tax cuts, deficits, and growth is debated.
+
+7. **General tone:** Several sentences contain informal or colloquial phrasing (e.g., “basically just printing money,” “lazy or victim of bad policy”) that may reduce academic neutrality.
+
+These flagged points should be revisited to ensure clarity, precision, and adherence to scholarly standards.

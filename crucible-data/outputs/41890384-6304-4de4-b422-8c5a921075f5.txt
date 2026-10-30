@@ -1,0 +1,8 @@
+The inaccurate claims are 2, 3, 6, 7, and 10. Magna Carta was sealed by King John in 1215; Columbus first reached the Americas in 1492; Waterloo was in 1815; the Titanic sank in 1912; and the Berlin Wall fell in 1989. The remaining claims are accurate, including Germany’s reunification in 1990.
+
+ERRORS:
+2: John
+3: 1492
+6: 1815
+7: 1912
+10: 1989

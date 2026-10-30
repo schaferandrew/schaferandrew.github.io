@@ -1,0 +1,7 @@
+---
+layout: null
+permalink: /crucible/details.json
+sitemap: false
+---
+{%- comment -%} Every score record in full (per-check and per-test results), fetched only when a run is opened. {%- endcomment -%}
+{"scores": {{ site.data.crucible.scores | jsonify }}}

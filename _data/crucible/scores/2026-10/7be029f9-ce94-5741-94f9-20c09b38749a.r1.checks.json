@@ -1,0 +1,51 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "7be029f9-ce94-5741-94f9-20c09b38749a",
+ "rubric_version": 1,
+ "rubric_hash": "9ce7eb8389398c5b",
+ "method": "checks",
+ "scored_at": "2026-10-27T03:19:48.648158+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 5,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 5.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "order",
+   "type": "required_patterns",
+   "group": "Order",
+   "label": "Lists them in order: Magna Carta, Gutenberg Bible, French Revolution, First World War, Moon landing, Berlin Wall.",
+   "passed": false,
+   "detail": "0/1 found; missing: (?is)magna carta.*gutenberg.*french revolution.*(first world war|world war (i|1|one)\\b|\\bwwi\\b).*moon.*berlin wall"
+  },
+  {
+   "id": "years",
+   "type": "required_patterns",
+   "group": "Years",
+   "label": "Gives the years: 1215, 1450s, 1789, 1914, 1969, 1989.",
+   "passed": true,
+   "detail": "6/6 found"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Order",
+   "passed": 0,
+   "total": 5,
+   "detail": "0/1 found; missing: (?is)magna carta.*gutenberg.*french revolution.*(first world war|world war (i|1|one)\\b|\\bwwi\\b).*moon.*berlin wall"
+  },
+  {
+   "id": "Years",
+   "passed": 5,
+   "total": 5,
+   "detail": "6/6 found"
+  }
+ ]
+}

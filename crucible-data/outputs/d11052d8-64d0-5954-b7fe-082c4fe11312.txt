@@ -1,0 +1,25 @@
+Here is a proofreading of your essay according to your instructions:
+
+## Objective Language Errors (Proofread)
+
+The following points address objective language errors, meaning statements that present subjective opinion or oversimplification as established fact.
+
+*   **"Inflation is when prices go up because the government prints too much money."** (This presents a singular, causal mechanism as the universal definition of inflation.)
+*   **"This is obvious if you think about it..."** (This introduces a subjective judgment regarding the clarity of the concept.)
+*   **"...each dollar is worth less."** (While this describes a symptom of inflation, presenting it as the direct, sole cause/effect relationship without nuance is an oversimplification.)
+*   **"...the Federal Reserve is legally required to raise interest rates."** (This presents a specific, absolute legal requirement that may not accurately reflect the Fed's operational mandates or discretionary powers.)
+*   **"...anyone above that is either lazy or the victim of bad policy."** (This presents a highly judgmental and binary conclusion regarding unemployment.)
+*   **"...inevitably causes hyperinflation."** (This presents a deterministic, absolute outcome from a specific policy action.)
+*   **"Japan's experience with deflation in the 1990s proves that monetary policy is completely ineffective at stimulating demand."** (This uses a specific historical case to draw an absolute, universal conclusion about the failure of monetary policy.)
+*   **"...supply-side economics has been definitively debunked by the failed Reagan tax cuts, which increased the deficit without growing the economy at all."** (This presents a conclusive judgment on the success or failure of an entire body of economic theory based on one specific, complex historical event.)
+
+## Potentially Unclear, Overstated, or Technically Imprecise Claims/Wording
+
+The following flags address specific claims, terminology, or wording that lacks necessary qualification for rigorous economic discussion.
+
+*   **"Inflation is when prices go up because the government prints too much money."** (Oversimplification of causes; inflation has multiple drivers, including supply shocks, demand-pull factors, cost-push factors, etc.)
+*   **"The Consumer Price Index (CPI) measures inflation by tracking a basket of goods that the average household buys, and when CPI rises above 2% annually, the Federal Reserve is legally required to raise interest rates."** (The link between CPI and mandatory Fed action is imprecise. The Fed targets inflation, but the decision to raise rates is based on a complex assessment of multiple indicators against a target range, not solely a legal trigger based on the CPI exceeding 2%.)
+*   **"Many economists believe that the natural rate of unemployment is around 4%, which means anyone above that is either lazy or the victim of bad policy."** (The conclusion drawn—"lazy or the victim of bad policy"—is a significant, unsupported leap from the concept of NAIRU/natural rate.)
+*   **"Quantitative easing, which the Fed started after 2008, is basically just printing money to buy treasury bonds, which devalues the currency and inevitably causes hyperinflation."** (The description of QE is a simplification; its effects are debated, and the causal link between QE and *inevitable* hyperinflation is a strong assertion.)
+*   **"Japan's experience with deflation in the 1990s proves that monetary policy is completely ineffective at stimulating demand."** (The word "proves" is too strong; the experience suggests challenges or limitations, but not absolute proof of ineffectiveness.)
+*   **"Most importantly, supply-side economics has been definitively debunked by the failed Reagan tax cuts, which increased the deficit without growing the economy at all."** (This is a highly contentious and absolute claim. Attributing the entire failure of a broad economic theory to one specific policy implementation, while also using definitive language like "definitively debunked," is technically imprecise.)

@@ -1,0 +1,18 @@
+Let’s reason through the dates:
+
+- Magna Carta was signed in 1215.
+- The Gutenberg Bible was printed around 1455.
+- The French Revolution began in 1789.
+- The First World War started in 1914.
+- The first Moon landing was in 1969.
+- The fall of the Berlin Wall happened in 1989.
+
+Ordering from oldest to newest: Magna Carta (1215), Gutenberg Bible (1455), French Revolution (1789), WWI (1914), Moon landing (1969), Berlin Wall (1989).
+
+ORDER:
+1. The signing of Magna Carta — 1215
+2. The printing of the Gutenberg Bible — 1455
+3. The start of the French Revolution — 1789
+4. The start of the First World War — 1914
+5. The first Moon landing — 1969
+6. The fall of the Berlin Wall — 1989

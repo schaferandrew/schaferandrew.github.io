@@ -1,0 +1,78 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "8eb40920-3a04-597c-8ec9-db964057d917",
+ "run_path": "openrouter_qwen_qwen3.8-27b/morning-brief-spanish/20261024_174150",
+ "legacy_run_id": "openrouter_qwen_qwen3.8-27b/everyday/TASK-2/20261024_174150",
+ "started_at": "2026-10-24T17:41:50.337072+00:00",
+ "ended_at": "2026-10-24T17:42:02.966076+00:00",
+ "elapsed_s": 12.63,
+ "task": {
+  "id": "morning-brief-spanish",
+  "version": 1,
+  "rubric_version": null,
+  "content_hash": null,
+  "rubric_hash": null,
+  "alias": "TASK-2"
+ },
+ "harness": {
+  "id": "opencode",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/qwen/qwen3.8-27b",
+  "base": "qwen/qwen3.8-27b",
+  "publisher": "qwen",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "qwen/qwen3.8-27b|qwen|api|-",
+  "display": "qwen3.8-27b"
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 4,
+  "tokens_in": 10453,
+  "tokens_out": 1319,
+  "model_responses": 3,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": 3.599
+ },
+ "output_ref": "outputs/8eb40920-3a04-597c-8ec9-db964057d917.txt",
+ "provenance": {
+  "crucible_version": null,
+  "crucible_commit": null,
+  "crucible_dirty": null,
+  "machine_id": null,
+  "machine_label": null,
+  "source": "crucible-migrate",
+  "content_hash": "sha256:819722100c79a9f230e87027d182a5cb7e0e32c5fa22144f90f9a38ce99aa003",
+  "submitter": null,
+  "verification": null
+ }
+}

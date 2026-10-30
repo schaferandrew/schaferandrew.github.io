@@ -1,0 +1,6 @@
+Implemented a responsive hamburger menu for mobile devices:
+
+- Added hamburger button and event logic in **index.html**.
+- Updated **script.js** with toggle behavior.
+- Enhanced **styles.css** with media queries, hiding the menu on desktop, showing it behind a hamburger on mobile.
+- Created **tests/mobile_nav.test.js** to verify both desktop and mobile states using JSDOM.

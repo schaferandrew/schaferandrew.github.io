@@ -1,0 +1,89 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "d333cc92-a8be-485f-9d75-59b7ff8313c2",
+ "run_path": "lmstudio_google_gemma-4-e4b/fact-check-history/20261030_013145",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T01:31:45.015284+00:00",
+ "ended_at": "2026-10-30T01:33:19.744447+00:00",
+ "elapsed_s": 93.61,
+ "task": {
+  "id": "fact-check-history",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "33f30be6930d812b",
+  "rubric_hash": "0fdc5051fcd23767",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/google/gemma-4-e4b",
+  "base": "google/gemma-4-e4b",
+  "publisher": "google",
+  "artifact": null,
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 105609,
+  "variant_key": "google/gemma-4-e4b|google|mlx|mlx-4bit",
+  "display": "gemma-4-e4b · 4bit"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Ironwood",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m1-pro-32gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 32.0,
+  "cpu": "Apple M1 Pro",
+  "offload": null,
+  "label": "Ironwood"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 332,
+  "tokens_out": 1217,
+  "model_responses": 1,
+  "ttft_s": 2.065,
+  "ttft_avg_s": 2.065,
+  "response_time_avg_s": 93.609,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 4106
+ },
+ "output_ref": "outputs/d333cc92-a8be-485f-9d75-59b7ff8313c2.txt",
+ "provenance": {
+  "crucible_version": "3.3.0",
+  "crucible_commit": "34a6f5d",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:cab9c1016ff0b552563c66832239822805dab214f770bdcf5c7f97fdaf0a4e61",
+  "submitter": null,
+  "verification": null
+ }
+}

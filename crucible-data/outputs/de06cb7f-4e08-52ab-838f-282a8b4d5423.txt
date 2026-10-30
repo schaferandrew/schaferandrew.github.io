@@ -1,0 +1,53 @@
+⏺ bash(command=ls -R . | head)
+  ⎿ apps
+docs
+incident
+node_modules
+package-lock.json
+package.json
+packages
+prompt.txt
+README.md
+tsconfig.base.json
+⏺ read(path=docs/invites.md, offset=1, limit=200)
+  ⎿ # Contributor invites (CONTRIB-88)
+
+Editors invite contributors by email from the editor dashboard. The flow:
+
+1. `POST /api/invites` creates the account immediately, with `accountState: "invited"` an
+⏺ bash(command=grep -R "POST /api/invites" -n .. | head)
+  ⎿ ../lmstudio_openai_gpt-oss-20b_coding_debug_CODE-14_20261027_192951/docs/invites.md:5:1. `POST /api/invites` creates the account immediately, with `accountState: "invited"` and no password, so the edi
+⏺ bash(command=grep -R "invites" -n apps/api | head)
+  ⎿ apps/api/src/app.ts:5:import { invitesRouter } from "./routes/invites";
+apps/api/src/app.ts:20:  api.use(invitesRouter(db));
+apps/api/src/seed.ts:5:import { acceptInvite, createInvite } from "./servic
+⏺ read(path=apps/api/src/services/invites.ts, offset=1, limit=200)
+  ⎿ import { randomBytes } from "node:crypto";
+import type { AcceptInviteInput, Invite, User } from "@conduit/shared";
+import type { Db } from "../db";
+import { hashPassword } from "../auth/tokens";
+impor
+⏺ bash(command=npm test --silent, timeout=120000)
+  ⎿ RUN  v2.1.9 /Users/schafer/.crucible/workspaces/lmstudio_openai_gpt-oss-20b_coding_debug_CODE-14_20261027_192951/apps/api
+
+ ✓ test/realworld.contract.test.ts (19 tests) 821ms
+
+ Test Files  1 passed (1
+⏺ bash(command=grep -R "accountState" -n apps/api/src | head)
+  ⎿ apps/api/src/db.ts:10:  accountState: "active" | "invited";
+apps/api/src/services/presenters.ts:16:    accountState: user.accountState,
+apps/api/src/services/users.ts:27:    accountState: "active",
+ap
+⏺ bash(command=grep -R "invited" -n apps/api/src | head)
+  ⎿ apps/api/src/seed.ts:35:  createInvite(db, id("grace"), "pending@example.com"); // invited, not yet accepted
+apps/api/src/db.ts:10:  accountState: "active" | "invited";
+apps/api/src/db.ts:18:  invited
+⏺ bash(command=grep -R "termsAcceptedAt" -n apps/api/src | head)
+  ⎿ apps/api/src/db.ts:12:  termsAcceptedAt: Date | null;
+apps/api/src/services/presenters.ts:18:    termsAcceptedAt: user.termsAcceptedAt ? user.termsAcceptedAt.toISOString() : null,
+apps/api/src/service
+⏺ bash(command=grep -R "accountState" -n apps/api/src | head)
+  ⎿ apps/api/src/db.ts:10:  accountState: "active" | "invited";
+apps/api/src/services/presenters.ts:16:    accountState: user.accountState,
+apps/api/src/services/users.ts:27:    accountState: "active",
+ap

@@ -1,0 +1,76 @@
+Here are the step-by-step solutions to your problems.
+
+### 1. Compound Interest Calculation
+This uses the compound interest formula: $A = P \left(1 + \frac{r}{n}\right)^{nt}$
+
+*   $P$ (Principal) = $\$5,000$
+*   $r$ (Annual interest rate) = $4\% = 0.04$
+*   $n$ (Number of times compounded per year) = $12$ (monthly)
+*   $t$ (Time in years) = $3$
+
+**Working:**
+$$A = 5000 \left(1 + \frac{0.04}{12}\right)^{(12 \times 3)}$$
+$$A = 5000 \left(1 + 0.003333...\right)^{36}$$
+$$A = 5000 (1.003333...)^{36}$$
+$$A = 5000 \times (1.12732698...)$$
+$$A = 5636.6349...$$
+
+Rounding to the cent: $\$5,636.63$
+
+### 2. Flooring Calculation
+First, calculate the total area needed including waste. Then, determine how many boxes are required.
+
+*   Area to cover = $1,850$ sq ft
+*   Extra needed for waste = $10\%$ of $1,850$
+
+**Working:**
+1.  **Calculate waste allowance:** $1,850 \times 0.10 = 185$ sq ft
+2.  **Calculate total required area:** $1,850 + 185 = 2,035$ sq ft
+3.  **Calculate number of boxes:** $\text{Total Area} / \text{Area per box}$
+    $$\text{Number of boxes} = \frac{2035}{23.5}$$
+    $$\text{Number of boxes} = 86.9148...$$
+
+Since you cannot buy a fraction of a box, you must round up to ensure full coverage.
+You need $87$ boxes.
+
+### 3. Gas Cost Calculation
+First, calculate the total gallons needed, then multiply by the price per gallon.
+
+*   Distance = $412$ miles
+*   Fuel efficiency = $34$ miles per gallon (mpg)
+*   Gas price = $\$3.89$ per gallon
+
+**Working:**
+1.  **Calculate gallons needed:** $\text{Total Distance} / \text{MPG}$
+    $$\text{Gallons} = \frac{412}{34}$$
+    $$\text{Gallons} = 12.117647... \text{ gallons}$$
+2.  **Calculate total cost:** $\text{Gallons} \times \text{Price per gallon}$
+    $$\text{Cost} = 12.117647... \times 3.89$$
+    $$\text{Cost} = 47.127647...$$
+
+Rounding to the cent: $\$47.13$
+
+### 4. Dinner Bill Split
+First, calculate the tip amount based on the pre-tax total. Then, add the tip to the original bill and divide by four.
+
+*   Pre-tax amount = $\$172.00$
+*   Tip percentage = $18\%$
+*   Number of people = $4$
+
+**Working:**
+1.  **Calculate the tip amount:** $\text{Pre-tax} \times \text{Tip Rate}$
+    $$\text{Tip} = 172.00 \times 0.18$$
+    $$\text{Tip} = 30.96$$
+2.  **Calculate the total bill (including tip):** $\text{Pre-tax} + \text{Tip}$
+    $$\text{Total Bill} = 172.00 + 30.96$$
+    $$\text{Total Bill} = 202.96$$
+3.  **Calculate each person's share:** $\text{Total Bill} / 4$
+    $$\text{Each Share} = \frac{202.96}{4}$$
+    $$\text{Each Share} = 50.74$$
+
+---
+ANSWERS
+1. \$5,636.63
+2. 87 boxes
+3. \$47.13
+4. \$50.74

@@ -1,0 +1,51 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "0b1b0fd3-d696-5129-aada-2621d78178ae",
+ "rubric_version": 1,
+ "rubric_hash": "5f56bc1ccddd03dd",
+ "method": "checks",
+ "scored_at": "2026-10-26T17:13:11.236429+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 10,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "capitals",
+   "type": "required_patterns",
+   "group": "Capitals",
+   "label": "Names all six capitals: Canberra, Ottawa, Brasília, Abuja, Ankara, Bern.",
+   "passed": true,
+   "detail": "6/6 found"
+  },
+  {
+   "id": "no_big_city_traps",
+   "type": "forbidden_patterns",
+   "group": "No big-city traps",
+   "label": "Never gives the largest city as the capital (Sydney, Toronto, Rio/São Paulo, Lagos, Istanbul, Zürich/Geneva).",
+   "passed": true,
+   "detail": "none found"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Capitals",
+   "passed": 6,
+   "total": 6,
+   "detail": "6/6 found"
+  },
+  {
+   "id": "No big-city traps",
+   "passed": 4,
+   "total": 4,
+   "detail": "none found"
+  }
+ ]
+}

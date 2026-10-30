@@ -1,0 +1,9 @@
+**Accuracy (4):** The summary accurately reflects all major details from the passage. It correctly states the extension to 8 p.m. starting in March, the role of the survey (62% requesting evening access), the funding source ($40,000 grant for one year), the condition of revisiting the schedule next winter, and the opposition from two board members regarding staffing. All claims are supported by the source text. (4/4)
+
+**Exactly two sentences (3):** The agent has successfully structured the summary into two distinct, complete sentences. (3/3)
+
+**Key points (3):** The summary successfully captures all three required key elements: the hours extension (8 p.m.), the funding limit ($40,000 grant for one year/revisit), and the resident survey (62% request). (3/3)
+
+**Total Score:** 10/10
+
+GRADE: 10

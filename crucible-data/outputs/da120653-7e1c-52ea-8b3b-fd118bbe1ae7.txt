@@ -1,0 +1,24 @@
+### Proofreading: Objective Language Errors
+
+*   **Faulty Predication:** "Inflation is when prices go up..." 
+    *   *Note:* Grammatically, "inflation" is a noun (a phenomenon), not a time or an event. It is more precise to say, "Inflation is the increase in prices..."
+*   **Colloquialism:** "...chasing the same amount of stuff..."
+    *   *Note:* The word "stuff" is informal and imprecise for an academic economics essay. A term like "goods and services" would be more appropriate.
+
+***
+
+### Flags: Claims, Terminology, and Imprecision
+
+**Factually Incorrect Claims**
+*   **"the Federal Reserve is legally required to raise interest rates":** This is incorrect. The Federal Reserve has a "dual mandate" (maximum employment and stable prices), but there is no specific law requiring them to raise rates at a specific percentage (like 2%). They have the discretion to set rates based on economic conditions.
+
+**Overstated or Subjective Language**
+*   **"anyone above that is either lazy or the victim of bad policy":** This is a subjective value judgment rather than an economic analysis. In academic writing, attributing "laziness" to a demographic is considered non-objective.
+*   **"inevitably causes hyperinflation":** The word "inevitably" is an overstatement. While Quantitative Easing (QE) impacts inflation, it does not automatically or "inevitably" lead to hyperinflation (which is a specific, extreme economic state).
+*   **"proves that monetary policy is completely ineffective":** The word "proves" is rarely used in economics, as the field relies on correlation and modeling. Furthermore, "completely ineffective" is an absolute that ignores the nuances of the "liquidity trap" or other factors involved in the Japanese experience.
+*   **"definitively debunked":** This is an overstatement. While the Reagan tax cuts are a subject of intense debate regarding their efficacy, "definitively debunked" implies a universal consensus that does not exist in economic literature.
+*   **"without growing the economy at all":** This is a highly contested claim. Most economic data from the 1980s shows GDP growth during the Reagan era; the debate is usually over the *rate* of growth and the *distribution* of that growth, rather than a total lack of growth.
+
+**Technically Imprecise Terminology**
+*   **"Inflation is when prices go up because the government prints too much money":** This is a significant oversimplification. Inflation can be caused by supply-side shocks (e.g., oil price spikes), demand-pull factors, and velocity of money, not just "printing money."
+*   **"basically just printing money":** Technically, Quantitative Easing involves the purchase of assets (like Treasury bonds) to increase the money supply and lower long-term interest rates. Describing it as "just printing money" ignores the mechanism of asset purchasing and the intended impact on the yield curve.

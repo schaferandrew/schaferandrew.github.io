@@ -1,0 +1,42 @@
+All tests pass. Here's the write-up:
+
+---
+
+## Root Cause
+
+**Two bugs in the API layer caused the reported issues:**
+
+### Bug 1: Redirect loop for invited contributors (`apps/api/src/services/invites.ts`)
+
+After `acceptInvite()` sets `termsAcceptedAt`, it **never sets `onboardingComplete: true`**. The frontend flow is:
+
+1. User accepts invite → navigates to `/editor`
+2. `RequireWriter` checks `user.onboardingComplete` → `false` → redirects to `/welcome`
+3. `WelcomePage` checks `user.accountState === "invited"` → `true` → redirects to `/editor`
+4. Back to step 2 → infinite redirect loop (the "flashing" Rosa and Tomek reported)
+
+**Fix:** Set `onboardingComplete: true` in `acceptInvite()`. Invited contributors skip the welcome screen by design (per the design doc: "Invited contributors aren't asked for a bio"), so they need `onboardingComplete` set to pass the `RequireWriter` guard.
+
+### Bug 2: "Email has already been taken" for pending invites (`apps/api/src/services/users.ts`)
+
+`register()` calls `findUserByEmail()` and immediately returns 422 if found, without checking the account state. Per the design doc: *"Someone who signs up from the homepage with an address that has a pending invite gets that invited account."*
+
+**Fix:** Check if the found user has `accountState === "invited"`. If so, update that account (set username, password, set `accountState` to `"active"`) instead of creating a new one. Only return "email has already been taken" for accounts that are already `active`.
+
+## Decisions & Reasoning
+
+1. **`accountState` stays `"invited"` after acceptance** — This is intentional per the design doc: *"editors use it to see which contributors came through invites."* I did not change this.
+
+2. **`onboardingComplete` is set in `acceptInvite` but not `termsAcceptedAt`** — `termsAcceptedAt` was already being set. Adding `onboardingComplete: true` bridges the gap between the invite flow and the `RequireWriter` guard, which is the correct gate for editor access.
+
+3. **Claiming a pending invite resets `onboardingComplete` to `false`** — The user who claims an invite via homepage registration hasn't gone through the welcome screen yet, so they should still see it. This aligns with Legal's requirement: *"Accepting the terms is required; filling in a profile is not."* They'll accept terms at the welcome screen.
+
+4. **No database migration needed** — The fix works for existing affected accounts (Rosa, Tomek) because `acceptInvite()` now sets `onboardingComplete: true`. Any future accept will work; past accepts just need the user to log in again (their existing JWT is still valid).
+
+## Code Review Flags
+
+1. **The `RequireWriter` guard checks `onboardingComplete` but Legal says the gate should be `termsAcceptedAt`** — `RequireWriter` currently blocks anyone without `onboardingComplete`, which is stricter than Legal requires. An invited user with `termsAcceptedAt` but `onboardingComplete: false` would be blocked. My fix (setting `onboardingComplete: true` in `acceptInvite`) works around this, but ideally the guard should check `termsAcceptedAt` to match Legal's intent exactly.
+
+2. **The `register` fix doesn't handle the case where both email and username collide** — If someone registers with a username that matches another user AND the email matches an invited account, the email check runs first and activates the invite. This is intentional (the design prioritizes preserving the editor's work), but worth noting.
+
+3. **The invite token remains valid after homepage registration** — When someone claims a pending invite via homepage registration, the original invite token still exists in the database. If the invite link is later used, it would try to set a password on an already-active account (which would succeed but is confusing). Consider revoking the invite when the email is claimed via registration.

@@ -1,0 +1,93 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "9f615f08-e512-57e0-98d2-a24e130be8f0",
+ "rubric_version": 2,
+ "rubric_hash": "70e05ca5984d3fd8",
+ "method": "checks",
+ "scored_at": "2026-10-27T19:30:02.177615+00:00",
+ "crucible_version": null,
+ "raw": {
+  "passed": 10,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "answered",
+   "type": "non_empty",
+   "group": "Answered",
+   "label": "Produces a substantive answer (at least 60 words).",
+   "passed": true,
+   "detail": "120 words"
+  },
+  {
+   "id": "twenty_names",
+   "type": "list_items",
+   "group": "Twenty names",
+   "label": "Lists at least 20 names as list items.",
+   "passed": true,
+   "detail": "25 items"
+  },
+  {
+   "id": "distinct_names",
+   "type": "list_items",
+   "group": "Distinct",
+   "label": "No name appears twice in the list of 20 (a later recap of favorites is fine).",
+   "passed": true,
+   "detail": "25 items"
+  },
+  {
+   "id": "explains_top_five",
+   "type": "required_patterns",
+   "group": "Explains the top five",
+   "label": "Explains the strongest five (names a 'top/strongest five' section).",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "no_caricature",
+   "type": "forbidden_patterns",
+   "group": "No caricature",
+   "label": "Uses no famous names and no food or caricature words as names (blocklist).",
+   "passed": true,
+   "detail": "none found"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Answered",
+   "passed": 1,
+   "total": 1,
+   "detail": "120 words"
+  },
+  {
+   "id": "Twenty names",
+   "passed": 3,
+   "total": 3,
+   "detail": "25 items"
+  },
+  {
+   "id": "Distinct",
+   "passed": 2,
+   "total": 2,
+   "detail": "25 items"
+  },
+  {
+   "id": "Explains the top five",
+   "passed": 2,
+   "total": 2,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "No caricature",
+   "passed": 2,
+   "total": 2,
+   "detail": "none found"
+  }
+ ]
+}

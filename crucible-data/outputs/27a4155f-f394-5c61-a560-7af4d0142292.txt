@@ -1,0 +1,41 @@
+
+
+Assumptions and ambiguity notes:
+
+- There is one person per chair, and each of the four friends has exactly one of the four colors, with no color repeated.
+- “Left” and “right” refer to the chair-number order: chair 1 is leftmost, chair 4 is rightmost.
+- “Immediately to the left” means adjacent to the left: if Alice is in chair \(i\), the blue person is in chair \(i+1\).
+- “Somewhere to the right” is interpreted as any chair with a higher number, including the immediately adjacent chair. This is the usual reading. If it were intended to mean “to the right but not adjacent,” the clues would have no solution, so the solvability of the puzzle supports the inclusive reading.
+
+Reasoning:
+
+1. The person in chair 1 likes green.
+2. Dave likes red, so Dave cannot be in chair 1.
+3. Carol likes yellow, so Carol cannot be in chair 1.
+4. Therefore, chair 1 is either Alice or Bob.
+
+Test the possibility that Bob is in chair 1:
+
+- If Bob is in chair 1, then Alice must be in chair 2 or chair 3, because Alice cannot be in chair 1 and cannot be in chair 4 (since she must be immediately left of the blue person).
+- If Alice is in chair 2, then the blue person is in chair 3. The remaining people, Dave and Carol, would have to occupy chairs 3 and 4. But chair 3 is blue, while Dave is red and Carol is yellow, so neither can sit in chair 3. Contradiction.
+- If Alice is in chair 3, then the blue person is in chair 4. The remaining people, Dave and Carol, would have to occupy chairs 2 and 4. But chair 4 is blue, while Dave is red and Carol is yellow, so neither can sit in chair 4. Contradiction.
+
+So Bob cannot be in chair 1.
+
+Therefore, Alice is in chair 1.
+
+- Chair 1: Alice, green.
+- Since Alice is immediately left of the blue person, chair 2 is blue.
+- The remaining people are Dave and Carol, and the remaining chairs are 3 and 4.
+- Dave likes red and Carol likes yellow.
+- Carol sits somewhere to the right of the person who likes red, i.e. to the right of Dave.
+- Therefore Dave must be in chair 3 and Carol in chair 4.
+- Bob takes the remaining chair, chair 2.
+
+This also satisfies “Bob does not sit in chair 4.”
+
+Chair 1: Alice, green
+Chair 2: Bob, blue
+Chair 3: Dave, red
+Chair 4: Carol, yellow
+ANSWER: Dave

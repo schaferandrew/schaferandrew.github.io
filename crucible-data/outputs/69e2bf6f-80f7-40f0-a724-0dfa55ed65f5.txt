@@ -1,0 +1,12 @@
+Implemented all six audit fixes:
+
+1. **Delete confirmation:** Added a named modal dialog with Escape dismissal, trapped Tab/Shift+Tab navigation, keyboard-operable Cancel/Delete buttons, and focus restoration when it closes.
+2. **Read more:** Replaced the mouse-only span with a native button. Expanding moves focus to a labeled region containing the full article text.
+3. **Tag filter:** Added a keyboard-operable menu with arrow/Home/End navigation, Escape handling, and an announced selected state.
+4. **Favorite button:** Added an action-specific accessible name and retained `aria-pressed` so its state is announced.
+5. **Form errors:** Connected article field errors with `aria-describedby` and marked fields invalid when they have errors.
+6. **Publish confirmation:** Added a persistent polite status region for the “Article published” message.
+
+Added accessibility interaction tests, including keyboard behavior, accessible names/states, error descriptions, status announcements, and axe checks. `npm test` and the web production build pass.
+
+**Not verified:** Automated tests can check the announcements’ ARIA markup and focus behavior, but I could not confirm the actual spoken output with VoiceOver or NVDA. The axe checks run in jsdom, which cannot reliably assess color contrast; that should be checked in a browser.

@@ -1,0 +1,8 @@
+After reviewing each claim, I identified several inaccuracies. Item 2 incorrectly states King Richard sealed the Magna Carta; it was King John. Item 3 gives the year of Columbus's first voyage as 1493, but it was 1492. Item 6 places the Battle of Waterloo in 1812, but it occurred in 1815. Item 7 says the Titanic sank in 1913, but it sank in 1912. Item 10 claims the Berlin Wall fell in November 1991, but it fell in November 1989. The remaining items are correct.
+
+ERRORS:
+2: King John
+3: 1492
+6: 1815
+7: 1912
+10: 1989

@@ -14,8 +14,11 @@ served by GitHub Pages at www.schaferandrew.com).
 
 ## The Crucible dashboard (`/crucible/`)
 
-- It stays out of the navbar, `noindex`, with its under-construction notice, until the user
-  says otherwise.
+- It has launched: no under-construction notice. It stays out of the navbar and `noindex` until
+  the user says otherwise.
+- Only tasks the selected suite makes active are shown. Provisional tasks' runs stay in the data
+  but never appear (no cells, no tier columns, no counts); a task appears once a suite makes it
+  active.
 - Its data is bundle format 3 in `_data/crucible/`, written by `crucible publish` in the Crucible
   repo (that repo's `docs/bundle-format.md`; schemas in `crucible/schemas/`): `catalog/v<N>.json`
   per suite, and one file per run (`runs/<month>/`), score record (`scores/<month>/`) and status

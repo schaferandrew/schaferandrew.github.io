@@ -7,11 +7,6 @@ permalink: /crucible/about/
 <div class="constrain crucible crucible-about">
   <p class="crucible-breadcrumb"><a href="/crucible/">← Crucible results</a></p>
   <h1 class="crucible-title">About Crucible</h1>
-  <div class="crucible-construction" role="note">
-    <strong>Under construction.</strong> Crucible is a work in progress: tasks, scoring and results are still
-    changing, and some numbers here come from early or partial runs. Check back soon.
-  </div>
-
   <p class="crucible-disclaimer">This page was created and written by or with the help of AI.</p>
 
   <p class="crucible-lede">
@@ -103,9 +98,9 @@ permalink: /crucible/about/
     the result, so every score can be audited. The rules for each task in the current suite:
   </p>
   {%- comment -%} The task list comes from the current suite's catalog in _data/crucible/catalog/ {%- endcomment -%}
-  {% for test in cr_tasks %}{% if test.rules.size > 0 and test.status != "retired" %}
+  {% for test in cr_tasks %}{% if test.rules.size > 0 and test.status == "active" %}
   {%- assign method = test.scoring.method | default: test.scoring %}
-  <h3 class="crucible-rules-test" title="{{ test.id }}">{{ test.name | default: test.id }}{% if test.status == "provisional" %} <span class="crucible-tag">provisional</span>{% endif %}</h3>
+  <h3 class="crucible-rules-test" title="{{ test.id }}">{{ test.name | default: test.id }}</h3>
   <ul class="crucible-rules">
     {% for rule in test.rules %}<li>{{ rule }}</li>{% endfor %}
   </ul>
@@ -127,8 +122,8 @@ permalink: /crucible/about/
     <li><strong>Runs belong to every suite that includes their task unchanged.</strong> If a task's prompt or files
       change, it gets a new version and older runs of it stop counting until they're rerun. A run from October still
       counts in a later suite if its task didn't change.</li>
-    <li><strong>New tasks start provisional:</strong> they run and show (dashed), but count only once a cut promotes
-      them, after they've been checked against a small, a mid-size and a frontier model.</li>
+    <li><strong>New tasks start provisional:</strong> they run, but appear here only once a cut makes them active,
+      after they've been checked against a small, a mid-size and a frontier model.</li>
   </ul>
   <p>
     The full rules are in <a href="https://github.com/schaferandrew/crucible/blob/main/docs/versioning.md">Crucible's

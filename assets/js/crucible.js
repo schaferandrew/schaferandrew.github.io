@@ -532,9 +532,10 @@
       return t.role === 'gate' && g && typeof g.mean === 'number' && typeof g.min === 'number' ? g : null;
     }
     function taskName(t) { return (t && t.name) || (t && t.id) || ''; }
-    function inMode(t) { return t.mode === state.mode && t.status !== 'retired'; }
+    // Only tasks the suite makes active are shown; provisional runs stay in the data, unshown
+    function inMode(t) { return t.mode === state.mode && t.status === 'active'; }
 
-    // Tasks shown: this mode's active and provisional tasks, tier by tier, area order within a tier
+    // Tasks shown: this mode's active tasks, tier by tier, area order within a tier
     var tiers = [], orderedTasks = [], modeTaskIds = {};
     function selectMode() {
       var areas = modeInfo().areas.map(function (a) { return a.id; });
@@ -549,7 +550,15 @@
       });
       modeTaskIds = {};
       orderedTasks.forEach(function (t) { modeTaskIds[t.id] = true; });
+      // A tier with no active task in this section has no column here
+      MODE_TIERS = S.TIERS.filter(function (t) { return tiers.indexOf(t.id) !== -1; });
+      if (!MODE_TIERS.length) MODE_TIERS = [S.HEADLINE];
+      var keyOk = MODE_TIERS.some(function (t) { return t.id === state.sort.key; }) || ['time', 'cost', 'model'].indexOf(state.sort.key) !== -1;
+      if (!keyOk) state.sort = { key: modeHead().id, dir: -1 };
     }
+    var MODE_TIERS = [];
+    function modeHead() { return MODE_TIERS.filter(function (t) { return t.id === S.HEAD; })[0] || MODE_TIERS.filter(function (t) { return t.role !== 'gate'; })[0] || MODE_TIERS[0]; }
+    function modeStretch() { return MODE_TIERS.filter(function (t) { return t.id !== S.HEAD && t.role !== 'gate'; }); }
 
     // Harnesses in this mode: the catalog's, then any other a run used (shown, never counted)
     function modeHarnesses() {
@@ -801,9 +810,7 @@
       line.innerHTML = '';
       var cat = S.cat, suite = cat.suite;
       var active = S.tasks.filter(function (t) { return t.status === 'active'; }).length;
-      var prov = S.tasks.filter(function (t) { return t.status === 'provisional'; }).length;
       var parts = [suiteName(cat) + (suite.version ? ' (version ' + suite.version + ')' : ''), active + ' scored tasks'];
-      if (prov) parts.push(prov + ' provisional');
       if (suite.cut_at) parts.push('cut ' + fmtDate(suite.cut_at));
       line.appendChild(document.createTextNode(parts.join(' · ')));
       if (suite.changelog_url) {
@@ -820,7 +827,7 @@
       var tabs = document.getElementById('mode-tabs');
       tabs.innerHTML = '';
       S.MODES.forEach(function (m) {
-        var n = S.tasks.filter(function (t) { return t.mode === m.id && t.status !== 'retired'; }).length;
+        var n = S.tasks.filter(function (t) { return t.mode === m.id && t.status === 'active'; }).length;
         var tab = el('button', { type: 'button', role: 'tab', class: 'crucible-mode-tab', 'aria-selected': m.id === state.mode, id: 'mode-tab-' + m.id });
         tab.appendChild(el('span', { class: 'crucible-mode-name' }, m.label));
         tab.appendChild(el('span', { class: 'crucible-mode-blurb' }, (m.blurb ? cap(m.blurb) + ' · ' : '') + n + ' tasks · ' +
@@ -925,7 +932,7 @@
           lines.push(value.label + ' gives the most ' + H.label + ' score per dollar (' + fmtUsd(value.cost) + ' per task).');
         }
       }
-      var stretch = S.STRETCH[0];
+      var stretch = modeStretch()[0];
       // Counted scores only: a provisional score never headlines a sentence
       var countedOf = function (s) { var r = stretch && s.tier[stretch.id]; return r && r.score !== null && !r.partial ? r.score : null; };
       var best = stretch && list.filter(function (s) { return countedOf(s) !== null; })
@@ -938,7 +945,7 @@
     function renderLeaderboardNote() {
       var H = S.HEADLINE;
       var parts = ['Ranked by ' + H.label + ' score (0–10).'];
-      S.TIERS.forEach(function (t) {
+      MODE_TIERS.forEach(function (t) {
         if (t.id === S.HEAD) return;
         parts.push(gateOf(t.id)
           ? t.label + ' is a pass/fail gate: a ' + t.label + ' score of at least ' + gateOf(t.id).mean + ', with no task below ' + gateOf(t.id).min + '.'
@@ -948,7 +955,7 @@
         ' Repeat runs are averaged. Cloud providers usually serve full precision, so a row shows what a model can do, not what it does on your hardware.');
       parts.push('A hatched bar means fewer than ' + pct(S.COVERAGE_MIN) + ' of that tier\'s tasks were scored. Select a column to sort.');
       document.getElementById('leaderboard-sub').textContent = parts.join(' ');
-      var stretch = S.STRETCH.filter(function (t) { return !gateOf(t.id); })[0];
+      var stretch = modeStretch().filter(function (t) { return !gateOf(t.id); })[0];
       document.getElementById('detail-outline-note').textContent = stretch ? ' (a thick outline is ' + stretch.label + ')' : '';
     }
 
@@ -1026,7 +1033,7 @@
       if (isNarrow()) { renderLeaderboardCards(list); return; }
       document.getElementById('crucible-lb-narrow').innerHTML = '';
       var columns = [{ key: null, label: '#' }, { key: 'model', label: 'Model and best setup' }]
-        .concat(S.TIERS.map(function (t) { return { key: t.id, label: t.label }; }))
+        .concat(MODE_TIERS.map(function (t) { return { key: t.id, label: t.label }; }))
         .concat([{ key: 'time', label: 'Time / task' }, { key: 'cost', label: 'Cost / task' }]);
       var head = el('tr');
       columns.forEach(function (c) {
@@ -1048,7 +1055,7 @@
       var body = table.appendChild(el('tbody'));
       var rank = 0;
       function scoreCells(row, s) {
-        S.TIERS.forEach(function (t) {
+        MODE_TIERS.forEach(function (t) {
           var td = el('td', { class: 'crucible-lb-bar-cell' });
           tierCellContent(s, t, td);
           row.appendChild(td);
@@ -1096,7 +1103,7 @@
       var bar = el('div', { class: 'crucible-lb-sortbar' });
       bar.appendChild(el('label', { for: 'crucible-lb-sort' }, 'Sort by'));
       var select = el('select', { id: 'crucible-lb-sort', class: 'crucible-select' });
-      S.TIERS.map(function (t) { return [t.id, t.label]; }).concat([['time', 'Time / task'], ['cost', 'Cost / task'], ['model', 'Model']]).forEach(function (o) {
+      MODE_TIERS.map(function (t) { return [t.id, t.label]; }).concat([['time', 'Time / task'], ['cost', 'Cost / task'], ['model', 'Model']]).forEach(function (o) {
         var opt = el('option', { value: o[0] }, o[1]);
         if (o[0] === state.sort.key) opt.selected = true;
         select.appendChild(opt);
@@ -1108,7 +1115,7 @@
       var ul = box.appendChild(el('ul', { class: 'crucible-lb-cards' }));
       var rank = 0;
       function scoreRows(card, s) {
-        var tierList = S.TIERS.slice().sort(function (x, y) { return (y.id === state.sort.key) - (x.id === state.sort.key); });
+        var tierList = MODE_TIERS.slice().sort(function (x, y) { return (y.id === state.sort.key) - (x.id === state.sort.key); });
         tierList.forEach(function (t) {
           var row = card.appendChild(el('div', { class: 'crucible-lb-card-score' + (t.id === state.sort.key ? ' is-sorted' : '') }));
           row.appendChild(el('span', { class: 'crucible-lb-card-label' }, t.label));
@@ -1542,22 +1549,16 @@
     // ---- Heatmap ----------------------------------------------------------
 
     function areaResult(cfg, area) {
-      var list = orderedTasks.filter(function (t) { return t.area === area.id && t.status === 'active'; });
+      var list = orderedTasks.filter(function (t) { return t.area === area.id; });
       var means = list.map(function (t) { return countedMean(cfg, t.id); }).filter(function (v) { return v !== null; });
-      var provisional = !means.length;
-      if (provisional) {
-        list = orderedTasks.filter(function (t) { return t.area === area.id && t.status === 'provisional'; });
-        means = list.map(function (t) { var v = cellValue(cellOf(cfg, t.id)); return v && v.agg ? v.agg.mean : null; }).filter(function (v) { return v !== null; });
-      }
-      return { tasks: list, n: means.length, score: mean(means), provisional: provisional };
+      return { tasks: list, n: means.length, score: mean(means) };
     }
 
     function areaCellInto(td, r) {
       if (!r.n) { td.className = 'is-not-run'; td.textContent = 'not run'; return; }
       td.setAttribute('style', heatStyle(r.score));
-      if (r.provisional) { td.classList.add('is-provisional'); td.title = 'Provisional tasks only: not in tier scores yet'; }
       td.appendChild(el('span', { class: 'crucible-heat-score' }, fmtScore(r.score)));
-      td.appendChild(el('span', { class: 'crucible-heat-n' }, r.n + '/' + r.tasks.length + (r.provisional ? ' provisional' : ' tasks')));
+      td.appendChild(el('span', { class: 'crucible-heat-n' }, r.n + '/' + r.tasks.length + ' tasks'));
     }
 
     function renderHeatmap(list) {

@@ -6,11 +6,6 @@ permalink: /crucible/
 ---
 <div class="constrain crucible">
   <h1 class="crucible-title">Crucible</h1>
-  <div class="crucible-construction" role="note">
-    <strong>Under construction.</strong> Crucible is a work in progress: tasks, scoring and results are still
-    changing, and some numbers here come from early or partial runs. Check back soon.
-  </div>
-
   <div class="crucible-intro">
     <p>Crucible is an AI task gauntlet to analyze whether local models are capable of real work. Can they write code for personal projects? Keep working when the internet is unavailable? Accomplish tasks involving personal data we don't want to share with cloud providers for training? The tasks are divided into chat and agentic sections and sorted into tiers of difficulty. Play around, I think you'll be surprised by the performance of these small models.</p>
 
@@ -89,9 +84,8 @@ permalink: /crucible/
     <h2 class="crucible-heading">Every model on every task</h2>
     <p class="crucible-sub" id="matrix-sub">
       Score per task, grouped by tier, for each model's best setup; rows keep the leaderboard's order. A score is the
-      mean of that setup's runs (×n marks repeats). Select any cell for its runs, checks and output. Dashed cells are
-      provisional tasks that don't count toward tier scores yet; an empty outlined cell has runs that don't count in this
-      suite (an older task version, or a run marked invalid).
+      mean of that setup's runs (×n marks repeats). Select any cell for its runs, checks and output. An empty outlined cell has runs
+      that don't count in this suite (an older task version, or a run marked invalid).
     </p>
     <div class="crucible-scroll crucible-matrix-wide">
       <table class="crucible-matrix" id="crucible-matrix"></table>
@@ -101,7 +95,7 @@ permalink: /crucible/
 
     <h2 class="crucible-heading">Model × area</h2>
     <p class="crucible-sub">Mean score (0–10) for each area in this section, across all tiers, for each model's best
-      setup. Where a model has no scored task in an area yet, a dashed cell shows its provisional tasks instead.</p>
+      setup.</p>
     <div class="crucible-scroll crucible-heatmap-wide">
       <table class="crucible-heatmap" id="crucible-heatmap"></table>
     </div>

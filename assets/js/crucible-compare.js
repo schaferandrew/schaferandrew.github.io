@@ -309,17 +309,6 @@
       });
     }
 
-    function renderLegend() {
-      var ul = document.getElementById('cmp-legend');
-      ul.innerHTML = '';
-      ctx.chosen.forEach(function (s) {
-        var li = ul.appendChild(el('li'));
-        li.appendChild(dot(s.color));
-        li.appendChild(document.createTextNode(shortLabel(s.cfg) + ' '));
-        li.appendChild(el('span', { class: 'crucible-config-label' }, '· ' + s.cfg.where + ' · ' + configLabel(s.cfg)));
-      });
-    }
-
     // ---- Where they differ -------------------------------------------------------------------
 
     // Each setup's checks on one task, side by side, from its newest counted run
@@ -558,7 +547,6 @@
       if (n) {
         var nums = numbers();
         renderSummary(nums);
-        renderLegend();
         renderCharts(nums);
         renderDiff(nums);
         ctx.nums = nums;

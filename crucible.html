@@ -101,39 +101,17 @@ permalink: /crucible/
     </div>
     <div class="crucible-heatmap-narrow" id="crucible-heatmap-narrow" hidden></div>
 
-    <h2 class="crucible-heading">One model in detail</h2>
-    <div class="crucible-toolbar crucible-toolbar-tight">
-      <label class="crucible-toolbar-label" for="detail-model">Model</label>
-      <select class="crucible-select" id="detail-model"></select>
-      <label class="crucible-toolbar-label" for="detail-config">Setup</label>
-      <select class="crucible-select" id="detail-config"></select>
-    </div>
-    <p class="crucible-sub">Every task for one setup, grouped by area; a score is the mean of its runs, with n and the range.
-      Each collapsed area shows its mean score, how many of its tasks ran, and one square per task, easiest tier
-      first<span id="detail-outline-note"></span>. Open an area for its tasks, then select a task for every run, its checks and the model's output.</p>
-    <div class="crucible-scroll crucible-tests-wide">
-      <table class="crucible-tests" id="crucible-tests"></table>
-    </div>
-    <div class="crucible-tests-narrow" id="crucible-tests-narrow" hidden></div>
-    <p class="crucible-sub" id="crucible-other-runs" hidden></p>
-
-    <div class="crucible-heading-row">
-      <h2 class="crucible-heading" id="compare">Compare setups</h2>
-      <button type="button" class="crucible-link-button" id="compare-link" hidden>Copy link</button>
-    </div>
-    <p class="crucible-sub" id="compare-sub"></p>
-    <div class="crucible-toolbar crucible-toolbar-tight">
-      <label class="crucible-toolbar-label" for="compare-pick">Add</label>
-      <select class="crucible-select crucible-compare-pick" id="compare-pick"></select>
-    </div>
-    <ul class="crucible-compare-chips" id="compare-chips"></ul>
-    <div class="crucible-scroll crucible-compare-wide">
-      <table class="crucible-tests crucible-compare" id="crucible-compare"></table>
-    </div>
-    <div class="crucible-compare-narrow" id="crucible-compare-narrow" hidden></div>
+    <h2 class="crucible-heading">Go deeper</h2>
+    <nav class="crucible-deeper" id="crucible-deeper" aria-label="More Crucible pages">
+      <a href="/crucible/task/">All tasks</a>
+      <a href="/crucible/model/">All models</a>
+      <a href="/crucible/publisher/">Publishers</a>
+      <a href="/crucible/compare/">Compare setups</a>
+    </nav>
 
     <p class="crucible-footnote" id="crucible-footnote"></p>
   </section>
+  <div class="crucible-compare-tray" id="compare-tray" role="status" hidden></div>
 </div>
 
 <script src="/assets/js/crucible-core.js?v={{ site.time | date: '%s' }}"></script>

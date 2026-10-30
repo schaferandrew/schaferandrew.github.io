@@ -16,13 +16,13 @@
   function start(D) {
     var store = D.store, SUITES = D.SUITES, CURRENT = D.CURRENT, suiteId = D.suiteId, suiteName = D.suiteName;
     var FB_METHODS = D.FB.scoring_methods || {};
-    var rowLabel = D.rowLabel, configLabel = D.configLabel, hwValue = D.hwValue, cellValue = D.cellValue;
+    var configLabel = D.configLabel, hwValue = D.hwValue;
 
     // ---- State ------------------------------------------------------------
 
     var state = {
       suite: suiteId(CURRENT), mode: '', harness: 'best', where: 'all', hw: 'all', showInProgress: false,
-      scatter: 'time', sort: null, detailRow: null, detailCfg: null, compare: [], open: {}
+      scatter: 'time', sort: null, open: {}
     };
     var S = null, V = null;
     function useSuite(id) {
@@ -33,24 +33,62 @@
       if (!state.sort || (!S.tierSeen[state.sort.key] && ['time', 'cost', 'model'].indexOf(state.sort.key) === -1)) state.sort = { key: S.HEAD, dir: -1 };
     }
 
-    // The hash holds the section, the suite and the compared setups: #agentic&suite=v2&compare=a,b
+    // The hash holds the section and the suite: #agentic&suite=v2. An old #chat&compare=a,b link
+    // moves to the compare page (the comparison lives there now), keeping the suite.
     function readHash() {
       var h = C.parseHash();
       var v = h.params.compare;
-      return { mode: h.id, suite: h.params.suite || null, compare: v === undefined ? null : v ? v.split(',').filter(Boolean) : [] };
+      return { mode: h.id, suite: h.params.suite || null, compare: v ? v.split(',').filter(Boolean) : [] };
+    }
+    function redirectCompare(h) {
+      if (!h.compare.length) return false;
+      location.replace(C.compareUrl(h.compare.slice(0, MAX_COMPARE), h.suite));
+      return true;
     }
     function applyHash() {
       var h = readHash();
       if (h.mode) state.mode = h.mode;
       useSuite(h.suite && D.catalogById(h.suite) ? h.suite : state.suite);
-      if (h.compare) state.compare = h.compare.slice(0, MAX_COMPARE);
     }
     function writeHash() {
       var parts = [encodeURIComponent(state.mode)];
       if (state.suite !== suiteId(CURRENT)) parts.push('suite=' + encodeURIComponent(state.suite));
-      if (state.compare.length) parts.push('compare=' + state.compare.map(encodeURIComponent).join(','));
       var hash = '#' + parts.join('&');
       if (location.hash !== hash && history.replaceState) history.replaceState(null, '', hash);
+    }
+
+    // A model as 'maker / model': the maker (muted, with the inferred marker) links to its publisher
+    // page, the model to its model page. Nothing before the model when no maker is known.
+    var INFERRED_TITLE = 'Inferred from the model name: these runs didn\'t record who made the model.';
+    function makerNode(x) {
+      var info = D.makerInfo(x);
+      if (!info.id) return null;
+      var span = el('span', { class: 'crucible-maker' });
+      span.appendChild(el('a', { href: C.publisherUrl(info.id), class: 'crucible-maker-link' }, D.makerLabel(info.id)));
+      if (info.inferred) span.appendChild(el('span', { class: 'crucible-inferred', title: INFERRED_TITLE }, 'inferred'));
+      span.appendChild(document.createTextNode(' / '));
+      return span;
+    }
+    function modelLink(s, suffix) {
+      var a = el('a', { href: D.modelUrl(s), class: 'crucible-model-link' });
+      a.appendChild(nameNode(s.label, suffix));
+      return a;
+    }
+    function modelRef(s, suffix) {
+      var span = el('span', { class: 'crucible-model-ref' });
+      var maker = makerNode(s);
+      if (maker) span.appendChild(maker);
+      span.appendChild(modelLink(s, suffix));
+      return span;
+    }
+    // The shared model card with the linked name
+    function modelCard(s, ul) {
+      var li = ul.appendChild(el('li', { class: 'crucible-card' }));
+      var title = li.appendChild(el('div', { class: 'crucible-card-title' }));
+      title.appendChild(modelRef(s));
+      title.appendChild(whereTag(s.cfg));
+      li.appendChild(el('p', { class: 'crucible-config-line' }, configLabel(s.cfg)));
+      return li;
     }
 
     function modeInfo() { return V.info; }
@@ -93,7 +131,7 @@
     // ---- Layout -----------------------------------------------------------
 
     function applyLayout() {
-      C.applyLayout(['crucible-lb', 'crucible-matrix', 'crucible-heatmap', 'crucible-tests', 'crucible-compare']);
+      C.applyLayout(['crucible-lb', 'crucible-matrix', 'crucible-heatmap']);
     }
 
     // ---- Controls ---------------------------------------------------------
@@ -219,17 +257,18 @@
         .sort(function (a, b) { return b.head.score - a.head.score; });
       var lines = [];
       if (ranked.length) {
-        var top = ranked.slice(0, 2).map(function (s) { return s.label; });
+        var top = ranked.slice(0, 2);
+        var tail = filterPhrase() ? ' ' + filterPhrase() : '';
         var what = H.blurb ? H.blurb + ' (' + H.label + ')' : 'the ' + H.label + ' tasks';
-        lines.push(top.join(' and ') + (top.length > 1 ? ' lead ' : ' leads ') + what + (filterPhrase() ? ' ' + filterPhrase() : '') + '.');
+        lines.push(top.length > 1 ? [top[0], ' and ', top[1], ' lead ' + what + tail + '.'] : [top[0], ' leads ' + what + tail + '.']);
         var local = ranked.filter(function (s) { return s.local; })[0];
         if (local && state.where !== 'cloud') {
-          lines.push('The best local model is ' + local.label + ' at ' + fmtScore(local.head.score) + ', on ' + configLabel(local.cfg) + '.');
+          lines.push(['The best local model is ', local, ' at ' + fmtScore(local.head.score) + ', on ' + configLabel(local.cfg) + '.']);
         }
         var priced = ranked.filter(function (s) { return !s.local && s.cost; });
         if (priced.length > 1) {
           var value = priced.slice().sort(function (a, b) { return b.head.score / b.cost - a.head.score / a.cost; })[0];
-          lines.push(value.label + ' gives the most ' + H.label + ' score per dollar (' + fmtUsd(value.cost) + ' per task).');
+          lines.push([value, ' gives the most ' + H.label + ' score per dollar (' + fmtUsd(value.cost) + ' per task).']);
         }
       }
       var stretch = V.stretch()[0];
@@ -237,9 +276,14 @@
       var countedOf = function (s) { var r = stretch && s.tier[stretch.id]; return r && r.score !== null && !r.partial ? r.score : null; };
       var best = stretch && list.filter(function (s) { return countedOf(s) !== null; })
         .sort(function (a, b) { return countedOf(b) - countedOf(a); })[0];
-      if (best) lines.push(best.label + ' scores highest on the ' + stretch.label + ' tasks (' + fmtScore(countedOf(best)) + ').');
+      if (best) lines.push([best, ' scores highest on the ' + stretch.label + ' tasks (' + fmtScore(countedOf(best)) + ').']);
       if (!lines.length) lines.push('No model has a complete ' + H.label + ' score' + (filterPhrase() ? ' ' + filterPhrase() : ' in this section') + ' yet.');
-      lines.forEach(function (line) { ul.appendChild(el('li', {}, line)); });
+      lines.forEach(function (line) {
+        var li = ul.appendChild(el('li'));
+        [].concat(line).forEach(function (part) {
+          li.appendChild(typeof part === 'string' ? document.createTextNode(part) : modelLink(part));
+        });
+      });
     }
 
     function renderLeaderboardNote() {
@@ -255,8 +299,6 @@
         ' Repeat runs are averaged. Cloud providers usually serve full precision, so a row shows what a model can do, not what it does on your hardware.');
       parts.push('A hatched bar means fewer than ' + pct(S.COVERAGE_MIN) + ' of that tier\'s tasks were scored. Select a column to sort.');
       document.getElementById('leaderboard-sub').textContent = parts.join(' ');
-      var stretch = V.stretch().filter(function (t) { return !gateOf(t.id); })[0];
-      document.getElementById('detail-outline-note').textContent = stretch ? ' (a thick outline is ' + stretch.label + ')' : '';
     }
 
     // ---- Leaderboard -------------------------------------------------------
@@ -265,11 +307,35 @@
     function rankLabel(s, rank) { return V.isRanked(s) ? String(rank) : ''; }
     var costLabel = D.costLabel, costTitle = D.costTitle;
 
+    // The compare selection: setup slugs kept in sessionStorage, up to four. Two or more open the compare page.
+    var STORE_KEY = 'crucible-compare';
+    var picked = [];
+    try { picked = JSON.parse(sessionStorage.getItem(STORE_KEY) || '[]').filter(function (x) { return typeof x === 'string'; }).slice(0, MAX_COMPARE); } catch (e) { picked = []; }
+    function savePicked() { try { sessionStorage.setItem(STORE_KEY, JSON.stringify(picked)); } catch (e) { /* storage blocked */ } }
+    function togglePicked(slug) {
+      var i = picked.indexOf(slug);
+      if (i !== -1) picked.splice(i, 1);
+      else { if (picked.length >= MAX_COMPARE) picked.shift(); picked.push(slug); }
+      savePicked();
+      renderLeaderboard(currentList);
+      renderTray();
+    }
+    function renderTray() {
+      var tray = document.getElementById('compare-tray');
+      tray.innerHTML = '';
+      tray.hidden = !picked.length;
+      if (!picked.length) return;
+      if (picked.length > 1) tray.appendChild(el('a', { class: 'crucible-compare-go', href: C.compareUrl(picked) }, 'Compare ' + picked.length + ' →'));
+      else tray.appendChild(el('span', { class: 'crucible-compare-hint' }, '1 setup picked: pick another to compare'));
+      var clear = tray.appendChild(el('button', { type: 'button', class: 'crucible-link-button' }, 'Clear'));
+      clear.addEventListener('click', function () { picked = []; savePicked(); renderLeaderboard(currentList); renderTray(); });
+    }
+
     function compareButton(cfg) {
-      var on = state.compare.indexOf(cfg.slug) !== -1;
-      var b = el('button', { type: 'button', class: 'crucible-link-button', 'aria-pressed': on }, on ? 'in compare ✓' : '+ compare');
-      b.title = on ? 'Remove this setup from the compare view' : 'Add this setup to the compare view';
-      b.addEventListener('click', function (e) { e.stopPropagation(); toggleCompare(cfg.slug); });
+      var on = picked.indexOf(cfg.slug) !== -1;
+      var b = el('button', { type: 'button', class: 'crucible-link-button', 'aria-pressed': on }, on ? 'picked ✓' : '+ compare');
+      b.title = on ? 'Remove this setup from the comparison' : 'Add this setup to a comparison (two to ' + MAX_COMPARE + ')';
+      b.addEventListener('click', function (e) { e.stopPropagation(); togglePicked(cfg.slug); });
       return b;
     }
 
@@ -284,7 +350,7 @@
 
     function nameBlock(s, into, isVariant) {
       var top = into.appendChild(el('span', { class: 'crucible-lb-name-line' }));
-      if (!isVariant) top.appendChild(nameNode(s.label, s.inProgress ? ' *' : ''));
+      if (!isVariant) top.appendChild(modelRef(s, s.inProgress ? ' *' : ''));
       top.appendChild(whereTag(s.cfg));
       var cfgLine = into.appendChild(el('span', { class: 'crucible-config-line' }));
       cfgLine.appendChild(el('span', { class: 'crucible-config-label' }, configLabel(s.cfg)));
@@ -427,6 +493,9 @@
     function renderScatter(list) {
       var container = document.getElementById('crucible-scatter');
       var tooltip = document.getElementById('crucible-tooltip');
+      var tipTimer;
+      tooltip.onmouseenter = function () { clearTimeout(tipTimer); };
+      tooltip.onmouseleave = function () { tooltip.hidden = true; };
       container.innerHTML = '';
       tooltip.hidden = true;
       var H = S.HEADLINE, measure = state.scatter;
@@ -517,8 +586,11 @@
         }
         var hit = svg('circle', { class: 'crucible-hit', cx: px, cy: py, r: 14 });
         hit.addEventListener('mouseenter', function () {
+          clearTimeout(tipTimer);
           tooltip.innerHTML = '';
-          tooltip.appendChild(el('div', { class: 'crucible-tooltip-title' }, s.label + ' · ' + s.cfg.where));
+          var tipTitle = tooltip.appendChild(el('div', { class: 'crucible-tooltip-title' }));
+          tipTitle.appendChild(modelRef(s));
+          tipTitle.appendChild(document.createTextNode(' · ' + s.cfg.where));
           tooltip.appendChild(el('div', { class: 'crucible-tooltip-note' }, configLabel(s.cfg)));
           tooltip.appendChild(el('div', {}, H.label + ' ' + fmtScore(s.head.score) + (s.head.partial ? ' (partial)' : '')));
           tooltip.appendChild(el('div', {}, 'Time per task ' + fmtSeconds(s.time) + ' · cost ' + costLabel(s)));
@@ -528,7 +600,7 @@
           tooltip.style.left = Math.max(0, left - container.scrollLeft) + 'px';
           tooltip.style.top = Math.max(0, py - 20) + 'px';
         });
-        hit.addEventListener('mouseleave', function () { tooltip.hidden = true; });
+        hit.addEventListener('mouseleave', function () { tipTimer = setTimeout(function () { tooltip.hidden = true; }, 250); });
         root.appendChild(hit);
       });
       container.appendChild(root);
@@ -538,7 +610,8 @@
           var sw = li.appendChild(el('span', { class: 'crucible-scatter-swatch', 'aria-hidden': 'true' }));
           sw.style.background = s.local ? COLORS.local : COLORS.cloud;
           li.appendChild(el('strong', {}, (i + 1) + ' '));
-          li.appendChild(document.createTextNode(s.label + ' · ' + fmtScore(s.head.score) + (s.head.partial ? ' (partial)' : '') + ' · ' + (measure === 'time' ? fmtSeconds(s.time) : costLabel(s))));
+          li.appendChild(modelLink(s));
+          li.appendChild(document.createTextNode(' · ' + fmtScore(s.head.score) + (s.head.partial ? ' (partial)' : '') + ' · ' + (measure === 'time' ? fmtSeconds(s.time) : costLabel(s))));
         });
       }
     }
@@ -568,7 +641,7 @@
       orderedTasks.forEach(function (t, i) {
         var newTier = i && t.tier !== orderedTasks[i - 1].tier;
         var th = el('th', { scope: 'col', class: 'crucible-matrix-id' + (newTier ? ' is-tier-start' : ''), title: taskName(t) + (t.summary ? ': ' + t.summary : '') });
-        th.appendChild(el('span', { class: 'crucible-matrix-name' }, taskName(t)));
+        th.appendChild(el('a', { href: C.taskUrl(t.id), class: 'crucible-matrix-name' }, taskName(t)));
         idRow.appendChild(th);
       });
       var head = table.appendChild(el('thead'));
@@ -579,7 +652,7 @@
       rows.forEach(function (s) {
         var row = el('tr');
         var name = el('th', { scope: 'row' });
-        name.appendChild(nameNode(s.label));
+        name.appendChild(modelRef(s));
         name.appendChild(el('span', { class: 'crucible-matrix-harness' }, configLabel(s.cfg)));
         row.appendChild(name);
         orderedTasks.forEach(function (t, i) {
@@ -598,8 +671,6 @@
       if (!rows.length) body.appendChild(el('tr')).appendChild(el('td', { class: 'crucible-not-run' }, emptyText()));
     }
 
-    var modelCard = D.modelCard;
-
     function renderMatrixNarrow(rows) {
       var box = document.getElementById('crucible-matrix-narrow');
       box.innerHTML = '';
@@ -611,7 +682,8 @@
           li.appendChild(el('p', { class: 'crucible-card-group' }, tierLabel(tier)));
           orderedTasks.filter(function (t) { return t.tier === tier; }).forEach(function (t) {
             var c = cellOf(s.cfg, t.id);
-            var label = el('span', { class: 'crucible-kv-label', title: taskName(t) + (t.summary ? ': ' + t.summary : '') }, taskName(t));
+            var label = el('span', { class: 'crucible-kv-label', title: taskName(t) + (t.summary ? ': ' + t.summary : '') });
+            label.appendChild(el('a', { href: C.taskUrl(t.id) }, taskName(t)));
             if (t.status === 'provisional') label.appendChild(el('span', { class: 'crucible-tag' }, 'provisional'));
             var value;
             if (c) {
@@ -664,7 +736,7 @@
       ran.forEach(function (s) {
         var row = el('tr');
         var th = el('th', { scope: 'row' });
-        th.appendChild(nameNode(s.label));
+        th.appendChild(modelRef(s));
         th.appendChild(whereTag(s.cfg));
         row.appendChild(th);
         areas.forEach(function (area) {
@@ -675,326 +747,6 @@
         body.appendChild(row);
       });
     }
-
-    // ---- One model in detail ----------------------------------------------
-
-    function detailTarget(list) {
-      var ran = list.filter(function (s) { return s.ran; });
-      var row = ran.filter(function (s) { return s.rowKey === state.detailRow; })[0] || ran[0] || null;
-      if (!row) return null;
-      state.detailRow = row.rowKey;
-      var v = row.variants.filter(function (x) { return x.cfg.key === state.detailCfg; })[0] || row.variants[0];
-      state.detailCfg = v.cfg.key;
-      return { row: row, s: Object.assign({}, v, { label: row.label }) };
-    }
-
-    function renderDetailPicker(list) {
-      var target = detailTarget(list);
-      var ran = list.filter(function (s) { return s.ran; });
-      fillSelect(document.getElementById('detail-model'), ran.map(function (s) {
-        return { value: s.rowKey, label: s.label + ' (' + s.cfg.where + ')' };
-      }), state.detailRow);
-      var cfgSelect = document.getElementById('detail-config');
-      fillSelect(cfgSelect, target ? target.row.variants.map(function (v, i) {
-        return { value: v.cfg.key, label: (i === 0 ? 'Best: ' : '') + configLabel(v.cfg) + ' (' + v.cfg.where + ')' };
-      }) : [], state.detailCfg);
-      cfgSelect.disabled = !target || target.row.variants.length < 2;
-      return target;
-    }
-
-    var openAreas = {};
-    var cellNumbers = D.cellNumbers;
-
-    function taskRow(s, t, columns, body, toolCalls) {
-      var c = cellOf(s.cfg, t.id);
-      var row = el('tr', { class: 'crucible-row' + (c ? '' : ' is-not-run') });
-      var name = el('th', { scope: 'row' });
-      name.title = taskName(t);
-      name.appendChild(el('span', { class: 'crucible-test-id' }, taskName(t)));
-      name.appendChild(el('span', { class: 'crucible-tag crucible-tier-tag is-' + t.tier }, tierLabel(t.tier)));
-      name.appendChild(el('span', { class: 'crucible-test-summary', title: t.summary || '' }, t.summary || ''));
-      if (t.status === 'provisional') name.appendChild(el('span', { class: 'crucible-tag' }, 'provisional'));
-      row.appendChild(name);
-      if (!c) {
-        row.appendChild(el('td', { colspan: columns.length - 1, class: 'crucible-not-run' }, 'not run'));
-        body.appendChild(row);
-        return;
-      }
-      var n = cellNumbers(c);
-      var scoreCell = row.appendChild(el('td', { class: 'crucible-score-cell' }));
-      scoreBar(n.value, scoreCell);
-      var timeCell = row.appendChild(el('td', {}, fmtSeconds(n.time)));
-      if (n.timedOut) timeCell.appendChild(el('span', { class: 'crucible-flag' }, 'timed out'));
-      if (toolCalls) row.appendChild(el('td', {}, fmtInt(n.tools)));
-      row.appendChild(el('td', {}, fmtInt(n.tokens)));
-      row.appendChild(el('td', {}, fmtCost(n.cost, s.local)));
-      row.appendChild(el('td', {}, String(n.runs)));
-
-      var detail = el('tr', { class: 'crucible-detail', hidden: '' });
-      var detailCell = el('td', { colspan: columns.length });
-      detail.appendChild(detailCell);
-      var filled = false;
-      row.tabIndex = 0;
-      row.setAttribute('aria-expanded', 'false');
-      function toggle() {
-        var open = detail.hidden;
-        if (open && !filled) { filled = true; promptBlock(t, detailCell); runList(c, detailCell); }
-        detail.hidden = !open;
-        row.setAttribute('aria-expanded', open);
-      }
-      row.addEventListener('click', toggle);
-      row.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-      });
-      body.appendChild(row);
-      body.appendChild(detail);
-    }
-
-    // Runs of tasks this suite's catalog doesn't list are kept, not counted, and named here
-    function renderOtherRuns(target) {
-      var p = document.getElementById('crucible-other-runs');
-      var other = target ? (S.other[target.s.cfg.key] || []) : [];
-      p.hidden = !other.length;
-      if (!other.length) return;
-      var names = [];
-      other.forEach(function (r) { var id = (r.task || {}).id || '?'; if (names.indexOf(id) === -1) names.push(id); });
-      p.textContent = 'Other runs: ' + other.length + ' run' + (other.length === 1 ? '' : 's') + ' of tasks this suite doesn\'t list (' +
-        names.slice(0, 8).join(', ') + (names.length > 8 ? ', …' : '') + '). They aren\'t counted in any score.';
-    }
-
-    function areaToggle(area, tasks, cfg, key, open) {
-      var values = tasks.map(function (t) { return cellValue(cellOf(cfg, t.id)); });
-      var ran = tasks.filter(function (t) { return cellOf(cfg, t.id); }).length;
-      var avg = mean(values.map(function (v) { return v && v.agg ? v.agg.mean : null; }));
-      var button = el('button', { type: 'button', class: 'crucible-area-toggle', 'aria-expanded': open });
-      button.appendChild(el('span', { class: 'crucible-area-caret', 'aria-hidden': 'true' }, open ? '▾' : '▸'));
-      button.appendChild(el('span', { class: 'crucible-area-name' }, area.label));
-      var chip = el('span', { class: 'crucible-area-score' }, avg === null ? NONE : (isNarrow() ? 'mean ' : '') + fmtScore(avg));
-      if (avg !== null) chip.setAttribute('style', heatStyle(avg));
-      button.appendChild(chip);
-      button.appendChild(el('span', { class: 'crucible-area-count' }, ran + '/' + tasks.length + ' run'));
-      var strip = el('span', { class: 'crucible-area-strip', 'aria-hidden': 'true' });
-      tasks.forEach(function (t, k) {
-        var v = values[k], score = v && v.agg ? v.agg.mean : null;
-        var sq = el('span', { class: 'crucible-area-sq is-role-' + S.tierRole(t.tier) + (v ? '' : ' is-empty'), title: taskName(t) + ' · ' + tierLabel(t.tier) + ' · ' + (v ? fmtScore(score) : 'not run') });
-        if (score !== null) sq.setAttribute('style', heatStyle(score));
-        strip.appendChild(sq);
-      });
-      button.appendChild(strip);
-      button.addEventListener('click', function () { openAreas[key] = !open; renderTasks(currentTarget); });
-      return button;
-    }
-
-    function taskCard(s, t, ul, toolCalls) {
-      var c = cellOf(s.cfg, t.id);
-      var li = ul.appendChild(el('li', { class: 'crucible-card crucible-test-card' + (c ? '' : ' is-not-run') }));
-      var title = li.appendChild(el('div', { class: 'crucible-card-title' }));
-      title.appendChild(el('span', { class: 'crucible-test-id' }, taskName(t)));
-      title.appendChild(el('span', { class: 'crucible-tag crucible-tier-tag is-' + t.tier }, tierLabel(t.tier)));
-      if (t.status === 'provisional') title.appendChild(el('span', { class: 'crucible-tag' }, 'provisional'));
-      li.appendChild(el('p', { class: 'crucible-test-summary' }, t.summary || taskName(t)));
-      if (!c) { li.appendChild(el('p', { class: 'crucible-not-run' }, 'not run')); return; }
-      var n = cellNumbers(c);
-      var score = el('span', { class: 'crucible-kv-value' });
-      scoreBar(n.value, score);
-      kvRow(li, 'Score', score);
-      var time = el('span', { class: 'crucible-kv-value' }, fmtSeconds(n.time));
-      if (n.timedOut) time.appendChild(el('span', { class: 'crucible-flag' }, 'timed out'));
-      kvRow(li, 'Time', time);
-      if (toolCalls) kvRow(li, 'Tool calls', fmtInt(n.tools));
-      kvRow(li, 'Tokens out', fmtInt(n.tokens));
-      kvRow(li, 'Cost', fmtCost(n.cost, s.local));
-      kvRow(li, 'Runs', String(n.runs));
-      var detail = li.appendChild(el('div', { class: 'crucible-detail', hidden: '' }));
-      var filled = false;
-      var more = li.appendChild(el('button', { type: 'button', class: 'crucible-card-more', 'aria-expanded': 'false' }, 'Show runs, checks and output'));
-      more.addEventListener('click', function () {
-        var open = detail.hidden;
-        if (open && !filled) { filled = true; promptBlock(t, detail); runList(c, detail); }
-        detail.hidden = !open;
-        more.setAttribute('aria-expanded', open);
-        more.textContent = open ? 'Hide runs, checks and output' : 'Show runs, checks and output';
-      });
-    }
-
-    var currentTarget = null;
-    function renderTasks(target) {
-      currentTarget = target;
-      var table = document.getElementById('crucible-tests');
-      table.innerHTML = '';
-      document.getElementById('crucible-tests-narrow').innerHTML = '';
-      renderOtherRuns(target);
-      if (!target) return;
-      var s = target.s;
-      var toolCalls = V.hasToolCalls();
-      var groups = modeInfo().areas.map(function (area) {
-        var list = orderedTasks.filter(function (t) { return t.area === area.id; });
-        list.sort(function (a, b) { return tiers.indexOf(a.tier) - tiers.indexOf(b.tier); });
-        return { area: area, tasks: list, key: state.mode + ':' + area.id };
-      }).filter(function (g) { return g.tasks.length; });
-      if (isNarrow()) {
-        var box = document.getElementById('crucible-tests-narrow');
-        groups.forEach(function (g) {
-          var open = !!openAreas[g.key];
-          var group = box.appendChild(el('div', { class: 'crucible-area-narrow' + (open ? ' is-open' : '') }));
-          group.appendChild(areaToggle(g.area, g.tasks, s.cfg, g.key, open));
-          if (open) {
-            var ul = group.appendChild(el('ul', { class: 'crucible-cards' }));
-            g.tasks.forEach(function (t) { taskCard(s, t, ul, toolCalls); });
-          }
-        });
-        return;
-      }
-      var columns = ['Task', 'Score (mean)', 'Time'].concat(toolCalls ? ['Tool calls'] : [], ['Tokens out', 'Cost', 'Runs']);
-      var head = el('tr');
-      columns.forEach(function (c) { head.appendChild(el('th', { scope: 'col' }, c)); });
-      table.appendChild(el('thead')).appendChild(head);
-      groups.forEach(function (g) {
-        var open = !!openAreas[g.key];
-        var body = table.appendChild(el('tbody', { class: 'crucible-area' + (open ? ' is-open' : '') }));
-        var groupRow = el('tr', { class: 'crucible-group crucible-area-row' });
-        var th = el('th', { colspan: columns.length, scope: 'rowgroup' });
-        th.appendChild(areaToggle(g.area, g.tasks, s.cfg, g.key, open));
-        groupRow.appendChild(th);
-        body.appendChild(groupRow);
-        if (open) g.tasks.forEach(function (t) { taskRow(s, t, columns, body, toolCalls); });
-      });
-    }
-
-    // ---- Compare ----------------------------------------------------------
-
-    function toggleCompare(slug) {
-      var i = state.compare.indexOf(slug);
-      if (i !== -1) state.compare.splice(i, 1);
-      else {
-        if (state.compare.length >= MAX_COMPARE) state.compare.shift();
-        state.compare.push(slug);
-      }
-      render();
-    }
-
-    // Two to four setups side by side on the tasks all of them have counted runs of (V.compare);
-    // this draws its numbers
-    function renderCompare() {
-      var cmp = V.compare(state.compare);
-      var candidates = cmp.candidates, chosen = cmp.chosen;
-
-      var pick = document.getElementById('compare-pick');
-      fillSelect(pick, [{ value: '', label: chosen.length >= MAX_COMPARE ? 'Up to ' + MAX_COMPARE + ' setups' : 'Pick a setup to add…' }].concat(
-        candidates.filter(function (s) { return state.compare.indexOf(s.cfg.slug) === -1; }).map(function (s) {
-          return { value: s.cfg.slug, label: rowLabel(s.cfg) + ' · ' + s.cfg.where + ' · ' + configLabel(s.cfg) };
-        })), '');
-      pick.disabled = chosen.length >= MAX_COMPARE;
-
-      var chips = document.getElementById('compare-chips');
-      chips.innerHTML = '';
-      chosen.forEach(function (s) {
-        var li = chips.appendChild(el('li', { class: 'crucible-compare-chip' }));
-        li.appendChild(nameNode(s.label));
-        li.appendChild(whereTag(s.cfg));
-        li.appendChild(el('span', { class: 'crucible-config-label' }, ' ' + configLabel(s.cfg)));
-        var x = li.appendChild(el('button', { type: 'button', class: 'crucible-link-button', 'aria-label': 'Remove ' + s.label + ' from the comparison' }, '✕'));
-        x.addEventListener('click', function () { toggleCompare(s.cfg.slug); });
-      });
-
-      var sub = document.getElementById('compare-sub');
-      var table = document.getElementById('crucible-compare');
-      var box = document.getElementById('crucible-compare-narrow');
-      table.innerHTML = '';
-      box.innerHTML = '';
-      var link = document.getElementById('compare-link');
-      link.hidden = chosen.length < 2;
-      if (chosen.length < 2) {
-        sub.textContent = 'Pick two to four setups (a model at a reasoning level, on one quant, device or provider, and harness), local or cloud, to see them side by side on the tasks they all ran in this suite. "+ compare" on any leaderboard row adds it here.';
-        return;
-      }
-      var sharedTasks = cmp.sharedTasks;
-      sub.textContent = sharedTasks.length
-        ? sharedTasks.length + ' scored task' + (sharedTasks.length === 1 ? '' : 's') + (chosen.length === 2 ? ' both setups ran in ' : ' all ' + chosen.length + ' setups ran in ') + suiteName(S.cat) +
-          '. Tier scores below use only these, so no setup gains from a task another skipped. Scores are the mean of repeat runs (n and range under each).'
-        : 'These setups have no scored task in common in ' + suiteName(S.cat) + ' yet.';
-      if (!sharedTasks.length) return;
-
-      var tierRowsData = cmp.tiers, extra = cmp.extra, taskCell = cmp.cell, best = C.bestOf;
-
-      if (isNarrow()) {
-        var ul = box.appendChild(el('ul', { class: 'crucible-cards' }));
-        chosen.forEach(function (s, k) {
-          var li = modelCard(s, ul);
-          tierRowsData.forEach(function (r) { kvRow(li, r.tier.label + ' (shared)', fmtScore(r.scores[k].score)); });
-          kvRow(li, 'Time / task', fmtSeconds(extra[k].time));
-          kvRow(li, 'Cost / task', fmtCost(extra[k].cost, s.local));
-        });
-        sharedTasks.forEach(function (t) {
-          var li = ul.appendChild(el('li', { class: 'crucible-card' }));
-          var title = li.appendChild(el('div', { class: 'crucible-card-title' }));
-          title.appendChild(el('span', { class: 'crucible-test-id' }, taskName(t)));
-          title.appendChild(el('span', { class: 'crucible-tag crucible-tier-tag is-' + t.tier }, tierLabel(t.tier)));
-          chosen.forEach(function (s) {
-            var a = taskCell(s, t);
-            var v = el('span', { class: 'crucible-kv-value' });
-            v.appendChild(el('span', { class: 'crucible-score-num' }, fmtScore(a.mean)));
-            v.appendChild(el('span', { class: 'crucible-repeat' }, ' ' + fmtRepeat(a)));
-            kvRow(li, s.label + ' · ' + s.cfg.where, v);
-          });
-        });
-        return;
-      }
-
-      var head = el('tr');
-      head.appendChild(el('th', { scope: 'col' }, 'Task'));
-      chosen.forEach(function (s) {
-        var th = head.appendChild(el('th', { scope: 'col', class: 'crucible-compare-col' }));
-        th.appendChild(nameNode(s.label));
-        th.appendChild(whereTag(s.cfg));
-        th.appendChild(el('span', { class: 'crucible-config-line' }, configLabel(s.cfg)));
-      });
-      table.appendChild(el('thead')).appendChild(head);
-      var body = table.appendChild(el('tbody'));
-      function numRow(label, cells, cls) {
-        var row = body.appendChild(el('tr', { class: cls || '' }));
-        row.appendChild(el('th', { scope: 'row' }, label));
-        cells.forEach(function (c) { row.appendChild(c); });
-      }
-      tierRowsData.forEach(function (r) {
-        var top = best(r.scores.map(function (x) { return x.score; }));
-        numRow(r.tier.label + ' on shared tasks', r.scores.map(function (x) {
-          var td = el('td', { class: 'crucible-compare-num' + (top !== null && x.score === top ? ' is-best' : '') }, fmtScore(x.score));
-          td.appendChild(el('span', { class: 'crucible-repeat' }, ' ' + x.scored + '/' + x.total + ' tasks'));
-          return td;
-        }), 'crucible-compare-tier');
-      });
-      numRow('Time / task (median)', extra.map(function (x) { return el('td', { class: 'crucible-compare-num' }, fmtSeconds(x.time)); }), 'crucible-compare-tier');
-      numRow('Cost / task', extra.map(function (x, k) {
-        return el('td', { class: 'crucible-compare-num', title: costTitle(chosen[k]) }, fmtCost(x.cost, chosen[k].local));
-      }), 'crucible-compare-tier');
-      var lastTier = null;
-      sharedTasks.forEach(function (t) {
-        if (t.tier !== lastTier) {
-          lastTier = t.tier;
-          body.appendChild(el('tr', { class: 'crucible-group' })).appendChild(el('th', { colspan: chosen.length + 1, scope: 'rowgroup' }, tierLabel(t.tier)));
-        }
-        var aggs = chosen.map(function (s) { return taskCell(s, t); });
-        var top = best(aggs.map(function (a) { return a.mean; }));
-        numRow(taskName(t), aggs.map(function (a) {
-          var td = el('td', { class: 'crucible-compare-num' + (top !== null && a.mean === top ? ' is-best' : '') });
-          td.appendChild(el('span', { class: 'crucible-compare-chip-score', style: heatStyle(a.mean) }, fmtScore(a.mean)));
-          td.appendChild(el('span', { class: 'crucible-repeat' }, ' ' + fmtRepeat(a)));
-          return td;
-        }));
-      });
-    }
-
-    document.getElementById('compare-pick').addEventListener('change', function (e) {
-      if (e.target.value) toggleCompare(e.target.value);
-    });
-    document.getElementById('compare-link').addEventListener('click', function () {
-      var url = location.href;
-      var btn = this;
-      function done() { btn.textContent = 'Link copied'; setTimeout(function () { btn.textContent = 'Copy link'; }, 1500); }
-      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, function () { window.prompt('Copy this link', url); });
-      else window.prompt('Copy this link', url);
-    });
 
     // ---- How scores are made ----------------------------------------------
 
@@ -1032,6 +784,16 @@
       p.appendChild(document.createTextNode(' page.'));
     }
 
+    // The other pages keep the suite being looked at
+    function renderDeeper() {
+      var suite = state.suite !== suiteId(CURRENT) ? C.buildHash(null, { suite: state.suite }) : '';
+      Array.prototype.forEach.call(document.querySelectorAll('#crucible-deeper a'), function (a) {
+        var base = a.getAttribute('data-base') || a.getAttribute('href');
+        a.setAttribute('data-base', base);
+        a.setAttribute('href', base + suite);
+      });
+    }
+
     function renderFootnote() {
       var cat = S.cat;
       document.getElementById('crucible-footnote').textContent = suiteName(cat) +
@@ -1056,8 +818,8 @@
       renderScatter(list);
       renderMatrix(list);
       renderHeatmap(list);
-      renderTasks(renderDetailPicker(list));
-      renderCompare();
+      renderDeeper();
+      renderTray();
       renderCaveat();
       renderFootnote();
     }
@@ -1072,21 +834,12 @@
       if (state.hw !== 'all' && state.hw !== 'cloud' && state.where === 'cloud') state.where = 'all';
       render();
     });
-    document.getElementById('detail-model').addEventListener('change', function (e) {
-      state.detailRow = e.target.value;
-      state.detailCfg = null;
-      renderTasks(renderDetailPicker(currentList));
-    });
-    document.getElementById('detail-config').addEventListener('change', function (e) {
-      state.detailCfg = e.target.value;
-      renderTasks(renderDetailPicker(currentList));
-    });
-
-    // Links to #chat, #agentic&suite=v2 or a compare URL switch views without a reload
+    // Links to #chat or #agentic&suite=v2 switch views without a reload; an old compare link moves on
     window.addEventListener('hashchange', function () {
-      var before = [state.mode, state.suite, state.compare.join(',')].join('|');
+      if (redirectCompare(readHash())) return;
+      var before = [state.mode, state.suite].join('|');
       applyHash();
-      if ([state.mode, state.suite, state.compare.join(',')].join('|') !== before) render();
+      if ([state.mode, state.suite].join('|') !== before) render();
     });
 
     var relayout = C.onLayoutChange(render);
@@ -1096,6 +849,7 @@
       resizeTimer = setTimeout(function () { relayout(); renderScatter(currentList); }, 150);
     });
 
+    if (redirectCompare(readHash())) return;
     state.mode = '';
     useSuite(state.suite);
     applyHash();

@@ -207,39 +207,107 @@
     function shortName(base) { var parts = String(base).split('/'); return parts[parts.length - 1]; }
     function slugify(s) { return String(s).toLowerCase().replace(/[^a-z0-9.]+/g, '-').replace(/^-+|-+$/g, ''); }
 
-    function configOf(r) {
+    // The identity fields a configuration is made of, from the run record. null means "not
+    // recorded" (older and migrated runs often lack the publisher, the resolved reasoning level, the
+    // upstream provider or the hardware key), never a different setup.
+    var FIELDS = ['publisher', 'format', 'quant', 'reasoning', 'provider', 'upstream', 'hwKey', 'device'];
+    function identityOf(r) {
       var m = r.model || {}, e = r.endpoint || {}, hw = r.hardware || null;
-      var h = (r.harness && r.harness.id) || 'unknown';
-      var level = (m.reasoning && (m.reasoning.resolved || m.reasoning.requested)) || 'default';
+      var vk = m.variant_key ? String(m.variant_key).split('|') : [];
+      function known(v) { return v === undefined || v === null || v === '' || v === '-' ? null : String(v); }
       var where = e.where || (hw && hw.key ? 'local' : 'cloud');
       var local = where === 'local';
-      var hwKey = local ? (hw && hw.key) || null : null;
-      var upstream = e.upstream ? e.upstream.name || e.upstream.provider || null : null;
-      var base = m.base || m.id || 'unknown';
-      var variant = m.variant_key || [base, m.publisher || '-', m.format || '-', String(m.quant || '-').toLowerCase()].join('|');
-      var key = [variant, level, where, local ? hwKey || '-' : (e.provider || '-') + '/' + (upstream || '-'), h].join('|');
-      var cfg = CONFIGS[key];
-      if (!cfg) {
-        cfg = CONFIGS[key] = {
-          key: key, rowKey: base + '#' + level, base: base, level: level, where: where, local: local,
-          harness: h, quant: m.quant || null, publisher: m.publisher || null, hwKey: hwKey, hw: local ? hw : null,
-          provider: e.provider || null, upstream: upstream, servedVia: {}, devices: {}
-        };
-        var slug = [shortName(base), level !== 'default' ? 'reasoning-' + level : '', local ? m.quant : '',
-          local ? hwKey || 'local' : (e.provider || 'cloud') + (upstream ? '-' + upstream : ''), h]
-          .filter(Boolean).map(slugify).join('~');
-        var unique = slug, i = 2;
-        while (SLUGS[unique]) unique = slug + '~' + (i++);
-        cfg.slug = unique;
-        SLUGS[unique] = cfg;
-      }
-      if (local) {
-        var device = e.device || (hw && hw.label);
-        if (device) cfg.devices[device] = true;
-        if (e.served_via) cfg.servedVia[e.served_via] = true;
-      }
-      return cfg;
+      var rs = m.reasoning || {};
+      var requested = known(rs.requested), resolved = known(rs.resolved);
+      // An explicitly requested level is known; "default" is known only once it resolved
+      var explicit = requested && requested !== 'default';
+      return {
+        base: m.base || vk[0] || m.id || 'unknown', where: where, local: local,
+        harness: (r.harness && r.harness.id) || 'unknown',
+        publisher: known(vk.length ? vk[1] : m.publisher),
+        format: known(vk.length ? vk[2] : m.format),
+        quant: known(vk.length ? vk[3] : m.quant && String(m.quant).toLowerCase()),
+        reasoning: explicit ? requested : resolved,
+        reqDefault: !explicit,
+        provider: local ? null : known(e.provider),
+        upstream: local ? null : known(e.upstream && (e.upstream.name || e.upstream.provider)),
+        hwKey: local ? known(hw && hw.key) : null,
+        // The machine that served the weights (an LM Link peer, or this machine's label)
+        device: local ? known(e.device || (hw && hw.label)) : null,
+        quantLabel: m.quant || null, publisherLabel: m.publisher || null
+      };
     }
+    function rawKey(id) {
+      return [id.base, id.where, id.harness, id.reqDefault ? 'd' : 'x'].concat(FIELDS.map(function (f) { return id[f] === null ? '?' : id[f]; })).join('|');
+    }
+    function unknowns(id) { return FIELDS.filter(function (f) { return id[f] === null; }); }
+    // b can stand for a: same base, endpoint kind and harness, and every field both recorded agrees.
+    // A run that asked for the default reasoning level and didn't record what it resolved to only
+    // matches runs that also asked for the default.
+    function compatible(a, b) {
+      if (a.base !== b.base || a.where !== b.where || a.harness !== b.harness) return false;
+      if (a.reasoning === null && !b.reqDefault) return false;
+      if (b.reasoning === null && !a.reqDefault) return false;
+      return FIELDS.every(function (f) { return a[f] === null || b[f] === null || a[f] === b[f]; });
+    }
+    function strictlyMoreKnown(b, a) {
+      var ua = unknowns(a), ub = unknowns(b);
+      return ub.length < ua.length && ub.every(function (f) { return ua.indexOf(f) !== -1; });
+    }
+
+    // Group every run by its recorded identity, then merge a group with unrecorded fields into the
+    // one better-recorded group it matches; when two or more match, it stays its own setup.
+    var CONFIG_OF_RUN = {};
+    (function buildConfigs() {
+      var groups = {}, order = [];
+      Object.keys(store.runs).forEach(function (uuid) {
+        var r = store.runs[uuid], id = identityOf(r), k = rawKey(id);
+        if (!groups[k]) { groups[k] = { key: k, id: id, runs: [] }; order.push(k); }
+        groups[k].runs.push(r);
+      });
+      var target = {};
+      order.forEach(function (k) {
+        var g = groups[k];
+        if (!unknowns(g.id).length) return;
+        var cands = order.filter(function (o) { return o !== k && compatible(g.id, groups[o].id) && strictlyMoreKnown(groups[o].id, g.id); });
+        // Keep the best-recorded candidates: drop one that another candidate refines
+        var top = cands.filter(function (c) {
+          return !cands.some(function (d) { return d !== c && compatible(groups[c].id, groups[d].id) && strictlyMoreKnown(groups[d].id, groups[c].id); });
+        });
+        if (top.length === 1) target[k] = top[0];
+      });
+      function resolve(k) { var seen = {}; while (target[k] && !seen[k]) { seen[k] = true; k = target[k]; } return k; }
+      order.forEach(function (k) {
+        var finalKey = resolve(k), g = groups[finalKey], id = g.id;
+        var cfg = CONFIGS[finalKey];
+        if (!cfg) {
+          var level = id.reasoning || 'default';
+          cfg = CONFIGS[finalKey] = {
+            key: finalKey, rowKey: id.base + '#' + level, base: id.base, level: level, where: id.where, local: id.local,
+            harness: id.harness, quant: id.quantLabel || id.quant, publisher: id.publisherLabel || id.publisher,
+            hwKey: id.hwKey, provider: id.provider, upstream: id.upstream, servedVia: {}, devices: {}, merged: 0
+          };
+          var slug = [shortName(id.base), level !== 'default' ? 'reasoning-' + level : '', id.local ? id.quant : '',
+            id.local ? id.hwKey || id.device || 'local' : (id.provider || 'cloud') + (id.upstream ? '-' + id.upstream : ''), id.harness]
+            .filter(Boolean).map(slugify).join('~');
+          var unique = slug, i = 2;
+          while (SLUGS[unique]) unique = slug + '~' + (i++);
+          cfg.slug = unique;
+          SLUGS[unique] = cfg;
+        }
+        if (finalKey !== k) cfg.merged += groups[k].runs.length;
+        groups[k].runs.forEach(function (r) {
+          CONFIG_OF_RUN[r.run_uuid] = cfg;
+          var e = r.endpoint || {}, hw = r.hardware || null;
+          if (cfg.local) {
+            var device = e.device || (hw && hw.label);
+            if (device) cfg.devices[device] = true;
+            if (e.served_via) cfg.servedVia[e.served_via] = true;
+          }
+        });
+      });
+    })();
+    function configOf(r) { return CONFIG_OF_RUN[r.run_uuid]; }
 
     function rowLabel(cfg) { return shortName(cfg.base) + (cfg.level !== 'default' ? ' (reasoning ' + cfg.level + ')' : ''); }
     function hardwareText(cfg) {
@@ -613,15 +681,21 @@
       });
     }
 
-    // Best configuration: a complete headline score beats a partial one, then the higher score,
-    // then more coverage, then more runs. Never stitched per task: every number is one setup's.
+    // Best configuration: among setups whose headline tier meets the catalog's coverage_min, the
+    // highest headline score; only when none does, the one with the most scored tasks. A near-empty
+    // setup never beats a covered one. Never stitched per task: every number is one setup's.
     function betterConfig(a, b) {
-      var ca = a.head.score !== null && !a.head.partial, cb = b.head.score !== null && !b.head.partial;
+      var ca = a.head.score !== null && a.head.coverage >= S.COVERAGE_MIN;
+      var cb = b.head.score !== null && b.head.coverage >= S.COVERAGE_MIN;
       if (ca !== cb) return ca ? -1 : 1;
-      if (!ca && a.head.coverage !== b.head.coverage) return b.head.coverage - a.head.coverage;
+      if (ca) {
+        if (a.head.score !== b.head.score) return b.head.score - a.head.score;
+        if (a.progress.done !== b.progress.done) return b.progress.done - a.progress.done;
+        return b.runs - a.runs;
+      }
+      if (a.progress.done !== b.progress.done) return b.progress.done - a.progress.done;
       var sa = a.head.score === null ? -1 : a.head.score, sb = b.head.score === null ? -1 : b.head.score;
       if (sa !== sb) return sb - sa;
-      if (a.progress.share !== b.progress.share) return b.progress.share - a.progress.share;
       return b.runs - a.runs;
     }
 

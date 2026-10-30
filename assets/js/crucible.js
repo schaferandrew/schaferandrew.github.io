@@ -1,501 +1,22 @@
 // Crucible results: a suite, a leaderboard, then the views below it.
-// The page reads bundle format 3: one catalog per suite (what a suite is) plus run, score and status
-// records (what happened), joined here. Everything shown comes from those records: modes, areas,
-// tiers, thresholds and their text come from the selected suite's catalog. FALLBACKS
-// (_data/crucible_fallbacks.yml) only fill a label a catalog doesn't carry, and anything the page
-// doesn't recognize renders generically instead of throwing.
+// Loading, the record join, counting rules, scores and the run detail panel are CrucibleCore's
+// (crucible-core.js, loaded first); this file draws the main page from them. Everything shown comes
+// from the records: modes, areas, tiers, thresholds and their text come from the selected suite's
+// catalog, and anything the page doesn't recognize renders generically instead of throwing.
 (function () {
-  var SUPPORTED_FORMAT = 3; // a record or catalog with a higher format_version is skipped, with a notice
-  var NONE = '—';
-  var SVG_NS = 'http://www.w3.org/2000/svg';
-  // Two identities on the scatter: local (the point of Crucible) and cloud (the reference)
-  var COLORS = { local: '#2a78d6', cloud: '#eb6834' };
-  var MAX_COMPARE = 4;
+  var C = window.CrucibleCore;
+  var NONE = C.NONE, COLORS = C.COLORS, MAX_COMPARE = C.MAX_COMPARE;
+  var num = C.num, cap = C.cap, pct = C.pct, mean = C.mean, median = C.median, fmtRepeat = C.fmtRepeat;
+  var fmtScore = C.fmtScore, fmtSeconds = C.fmtSeconds, fmtUsd = C.fmtUsd, fmtCost = C.fmtCost, fmtInt = C.fmtInt, fmtDate = C.fmtDate;
+  var heatStyle = C.heatStyle, el = C.el, svg = C.svg, nameNode = C.nameNode, whereTag = C.whereTag, taskName = C.taskName;
+  var segmented = C.segmented, fillSelect = C.fillSelect, kvRow = C.kvRow, scoreBar = C.scoreBar, isNarrow = C.isNarrow;
   var script = document.currentScript;
-  var statusEl = document.getElementById('crucible-status');
   var resultsEl = document.getElementById('crucible-results');
 
-  function showStatus(text, retry) {
-    statusEl.hidden = !text;
-    statusEl.textContent = text || '';
-    if (retry) {
-      var button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'crucible-segment crucible-retry';
-      button.textContent = 'Try again';
-      button.addEventListener('click', load);
-      statusEl.appendChild(document.createTextNode(' '));
-      statusEl.appendChild(button);
-    }
-  }
-
-  // The records are a generated JSON page, fetched after first paint instead of inlined
-  function load() {
-    showStatus('Loading results…');
-    fetch(script.getAttribute('data-src'))
-      .then(function (response) {
-        if (!response.ok) throw new Error('HTTP ' + response.status);
-        return response.json();
-      })
-      .then(function (payload) {
-        try {
-          start(payload);
-        } catch (e) {
-          if (window.console) console.error(e);
-          showStatus('Something went wrong drawing the results.', true);
-        }
-      }, function () {
-        showStatus('Couldn’t load the results.', true);
-      });
-  }
-
-  function num(v, fallback) { return typeof v === 'number' && isFinite(v) ? v : fallback; }
-  function cap(id) { id = String(id); return id.charAt(0).toUpperCase() + id.slice(1); }
-  function ids(list) {
-    return (list || []).map(function (h) { return typeof h === 'string' ? h : h && h.id; }).filter(Boolean);
-  }
-  // A share meets a threshold at exactly the threshold (6 of 8 meets 0.75), whatever the float rounding
-  function meets(share, min) { return share + 1e-9 >= min; }
-  function pct(v) { return Math.round(v * 100) + '%'; }
-  function scoreKey(uuid, rubric, method) { return uuid + '|' + rubric + '|' + method; }
-  function newer(node) { return typeof node.format_version === 'number' && node.format_version > SUPPORTED_FORMAT; }
-
-  // Find every record, wherever Jekyll nested it (folders become nested hashes): catalogs, runs,
-  // score records and status records. Keys are file names; only the records' own fields are read.
-  function collect(payload) {
-    var out = { catalogs: [], runs: {}, scores: {}, scoresByRun: {}, status: {}, skipped: 0 };
-    function add(node) {
-      if (node.record === 'run') {
-        if (newer(node)) out.skipped += 1;
-        else if (node.run_uuid && !out.runs[node.run_uuid]) out.runs[node.run_uuid] = node;
-        return true;
-      }
-      if (node.record === 'score') {
-        if (newer(node)) { out.skipped += 1; return true; }
-        if (!node.run_uuid) return true;
-        out.scores[scoreKey(node.run_uuid, node.rubric_version, node.method)] = node;
-        (out.scoresByRun[node.run_uuid] = out.scoresByRun[node.run_uuid] || []).push(node);
-        return true;
-      }
-      if (node.record === 'status') {
-        if (node.run_uuid) (out.status[node.run_uuid] = out.status[node.run_uuid] || []).push(node);
-        return true;
-      }
-      if (node.suite && Array.isArray(node.tasks)) {
-        if (newer(node)) out.skipped += 1;
-        else out.catalogs.push(node);
-        return true;
-      }
-      return false;
-    }
-    (function walk(node) {
-      if (Array.isArray(node)) { node.forEach(walk); return; }
-      if (!node || typeof node !== 'object') return;
-      if (add(node)) return;
-      if (newer(node)) { out.skipped += 1; return; }
-      Object.keys(node).forEach(function (k) { walk(node[k]); });
-    })([payload.catalogs, payload.runs, payload.scores, payload.status]);
-    // Status records only ever append: the last one wins
-    Object.keys(out.status).forEach(function (uuid) {
-      out.status[uuid].sort(function (a, b) { return (a.at || '') < (b.at || '') ? -1 : (a.at || '') > (b.at || '') ? 1 : 0; });
-    });
-    // One catalog per suite, newest suite first (by its version, then its cut date)
-    var bySuite = {};
-    out.catalogs.forEach(function (c) {
-      var id = String(c.suite.id || c.suite.version || '?');
-      if (!bySuite[id] || num(c.format_revision, 0) > num(bySuite[id].format_revision, 0)) bySuite[id] = c;
-    });
-    function versionParts(c) {
-      return String(c.suite.version || c.suite.id || '').replace(/^v/i, '').split('.').map(function (p) { return parseInt(p, 10) || 0; });
-    }
-    out.catalogs = Object.keys(bySuite).map(function (k) { return bySuite[k]; }).sort(function (a, b) {
-      var va = versionParts(a), vb = versionParts(b);
-      for (var i = 0; i < Math.max(va.length, vb.length); i++) {
-        if ((va[i] || 0) !== (vb[i] || 0)) return (vb[i] || 0) - (va[i] || 0);
-      }
-      return (b.suite.cut_at || '') < (a.suite.cut_at || '') ? -1 : 1;
-    });
-    return out;
-  }
-
-  function start(payload) {
-    var FB = payload.fallbacks || {};
-    var FB_MODES = FB.modes || {}, FB_TIERS = FB.tiers || {}, FB_AREAS = FB.areas || {}, FB_METHODS = FB.scoring_methods || {};
-    var store = collect(payload);
-    var skippedNote = store.skipped ? 'Some results were published with a newer Crucible than this page understands, so they are not shown.' : '';
-    if (!store.catalogs.length) {
-      showStatus(skippedNote || 'No results have been published yet.');
-      return;
-    }
-    function suiteId(c) { return String(c.suite.id || c.suite.version); }
-    // Suites the display settings (_data/crucible_display.yml) hide aren't selectable; if that would
-    // hide every suite, all of them stay visible
-    var DISPLAY = payload.display || {};
-    var hiddenSuites = (DISPLAY.hidden_suites || []).map(String);
-    // A local run isn't billed: its cost is the electricity it used, its time x its machine's watts
-    // (display settings, by hardware key) x the price per kWh. None when the machine has no watts listed
-    var ENERGY = DISPLAY.energy || {};
-    function wattsOf(hwKey) { var w = num((ENERGY.watts || {})[hwKey], null); return w && w > 0 ? w : null; }
-    function isLocalRun(run) { return !!(run.endpoint && run.endpoint.where === 'local'); }
-    function runCost(run) {
-      if (!isLocalRun(run)) return num((run.metrics || {}).cost_usd, null);
-      var w = wattsOf(run.hardware && run.hardware.key), t = num(run.elapsed_s, null), price = num(ENERGY.usd_per_kwh, null);
-      return w && t !== null && price !== null ? w * t / 3600000 * price : null;
-    }
-    var SUITES = store.catalogs.filter(function (c) { return hiddenSuites.indexOf(suiteId(c)) === -1; });
-    if (!SUITES.length) SUITES = store.catalogs;
-    function suiteName(c) { var id = suiteId(c); return 'Suite ' + (/^v/i.test(id) ? id : 'v' + id); }
-    var CURRENT = SUITES.filter(function (c) { return c.suite.status === 'current'; })[0] || SUITES[0];
-
-    // ---- Formatting -------------------------------------------------------
-
-    function fmtScore(v) { return v === null || v === undefined ? NONE : v.toFixed(1); }
-    function fmtSeconds(v) {
-      if (v === null || v === undefined) return NONE;
-      if (v < 60) return v.toFixed(v < 10 ? 1 : 0) + 's';
-      if (v < 3600) return Math.floor(v / 60) + 'm ' + String(Math.round(v % 60)).padStart(2, '0') + 's';
-      return Math.floor(v / 3600) + 'h ' + String(Math.round((v % 3600) / 60)).padStart(2, '0') + 'm';
-    }
-    function fmtUsd(v) {
-      if (v === null || v === undefined) return NONE;
-      if (v === 0) return '$0';
-      if (v < 0.0001) return '<$0.0001';
-      return '$' + (v < 0.01 ? v.toPrecision(2) : v.toFixed(v < 1 ? 3 : 2));
-    }
-    // A local cost is an electricity estimate, marked as such; a cloud cost is what the provider billed
-    function fmtCost(v, local) { return (local && v !== null && v !== undefined ? '≈' : '') + fmtUsd(v); }
-    function fmtInt(v) { return v === null || v === undefined ? NONE : v.toLocaleString(); }
-    function fmtDate(v) { return v ? String(v).slice(0, 10) : NONE; }
-
-    // Sequential scale: light to the site's secondary blue. Text flips to white on the dark half.
-    function heatStyle(score) {
-      if (score === null || score === undefined) return '';
-      var t = Math.max(0, Math.min(1, score / 10));
-      var light = [234, 242, 251], dark = [24, 86, 163];
-      var rgb = light.map(function (c, i) { return Math.round(c + (dark[i] - c) * t); });
-      return 'background:rgb(' + rgb.join(',') + ');color:' + (t > 0.55 ? '#fff' : '#2b2537');
-    }
-
-    function el(tag, attrs, text) {
-      var node = document.createElement(tag);
-      Object.keys(attrs || {}).forEach(function (k) {
-        if (k === 'class') node.className = attrs[k];
-        else node.setAttribute(k, attrs[k]);
-      });
-      if (text !== undefined) node.textContent = text;
-      return node;
-    }
-
-    function svg(tag, attrs, text) {
-      var node = document.createElementNS(SVG_NS, tag);
-      Object.keys(attrs || {}).forEach(function (k) { node.setAttribute(k, attrs[k]); });
-      if (text !== undefined) node.textContent = text;
-      return node;
-    }
-
-    function mean(values) {
-      values = values.filter(function (v) { return v !== null && v !== undefined; });
-      if (!values.length) return null;
-      return values.reduce(function (a, b) { return a + b; }, 0) / values.length;
-    }
-
-    function median(values) {
-      values = values.filter(function (v) { return v !== null && v !== undefined; }).sort(function (a, b) { return a - b; });
-      if (!values.length) return null;
-      var mid = Math.floor(values.length / 2);
-      return values.length % 2 ? values[mid] : (values[mid - 1] + values[mid]) / 2;
-    }
-
-    // Repeats: the mean, with n and the range (never the best or the latest run)
-    function agg(values) {
-      values = values.filter(function (v) { return v !== null && v !== undefined; });
-      if (!values.length) return null;
-      return { mean: mean(values), n: values.length, min: Math.min.apply(null, values), max: Math.max.apply(null, values) };
-    }
-    function fmtRepeat(a) {
-      if (!a) return NONE;
-      if (a.n === 1) return '1 run';
-      return a.n + ' runs, ' + (a.min === a.max ? 'all ' + fmtScore(a.min) : fmtScore(a.min) + '–' + fmtScore(a.max));
-    }
-
-    // ---- Configurations ----------------------------------------------------
-
-    // A configuration is one model, as weights, at one reasoning level, on one endpoint, hardware
-    // and harness (the run record's identity keys). Rows on the leaderboard are a base model at a
-    // reasoning level; a row is scored by its single best configuration.
-    var CONFIGS = {}, SLUGS = {};
-    function shortName(base) { var parts = String(base).split('/'); return parts[parts.length - 1]; }
-    function slugify(s) { return String(s).toLowerCase().replace(/[^a-z0-9.]+/g, '-').replace(/^-+|-+$/g, ''); }
-
-    // The identity fields a configuration is made of, from the run record. null means "not
-    // recorded" (older and migrated runs often lack the publisher, the resolved reasoning level or
-    // the hardware key), never a different setup. OpenRouter's upstream provider is per-request
-    // routing, not a setup anyone chose, so it never splits one (a run's detail names it).
-    var FIELDS = ['publisher', 'format', 'quant', 'reasoning', 'provider', 'hwKey', 'device'];
-    function identityOf(r) {
-      var m = r.model || {}, e = r.endpoint || {}, hw = r.hardware || null;
-      var vk = m.variant_key ? String(m.variant_key).split('|') : [];
-      function known(v) { return v === undefined || v === null || v === '' || v === '-' ? null : String(v); }
-      var where = e.where || (hw && hw.key ? 'local' : 'cloud');
-      var local = where === 'local';
-      var rs = m.reasoning || {};
-      var requested = known(rs.requested), resolved = known(rs.resolved);
-      // An explicitly requested level is known; "default" is known only once it resolved
-      var explicit = requested && requested !== 'default';
-      return {
-        base: m.base || vk[0] || m.id || 'unknown', where: where, local: local,
-        harness: (r.harness && r.harness.id) || 'unknown',
-        publisher: known(vk.length ? vk[1] : m.publisher),
-        format: known(vk.length ? vk[2] : m.format),
-        quant: known(vk.length ? vk[3] : m.quant && String(m.quant).toLowerCase()),
-        reasoning: explicit ? requested : resolved,
-        reqDefault: !explicit,
-        provider: local ? null : known(e.provider),
-        hwKey: local ? known(hw && hw.key) : null,
-        // The machine that served the weights (an LM Link peer, or this machine's label)
-        device: local ? known(e.device || (hw && hw.label)) : null,
-        quantLabel: m.quant || null, publisherLabel: m.publisher || null
-      };
-    }
-    function rawKey(id) {
-      return [id.base, id.where, id.harness, id.reqDefault ? 'd' : 'x'].concat(FIELDS.map(function (f) { return id[f] === null ? '?' : id[f]; })).join('|');
-    }
-    function unknowns(id) { return FIELDS.filter(function (f) { return id[f] === null; }); }
-    // b can stand for a: same base, endpoint kind and harness, and every field both recorded agrees.
-    // A run that asked for the default reasoning level and didn't record what it resolved to only
-    // matches runs that also asked for the default.
-    function compatible(a, b) {
-      if (a.base !== b.base || a.where !== b.where || a.harness !== b.harness) return false;
-      if (a.reasoning === null && !b.reqDefault) return false;
-      if (b.reasoning === null && !a.reqDefault) return false;
-      return FIELDS.every(function (f) { return a[f] === null || b[f] === null || a[f] === b[f]; });
-    }
-    function strictlyMoreKnown(b, a) {
-      var ua = unknowns(a), ub = unknowns(b);
-      return ub.length < ua.length && ub.every(function (f) { return ua.indexOf(f) !== -1; });
-    }
-
-    // Group every run by its recorded identity, then merge a group with unrecorded fields into the
-    // one better-recorded group it matches; when two or more match, it stays its own setup.
-    var CONFIG_OF_RUN = {};
-    (function buildConfigs() {
-      var groups = {}, order = [];
-      Object.keys(store.runs).forEach(function (uuid) {
-        var r = store.runs[uuid], id = identityOf(r), k = rawKey(id);
-        if (!groups[k]) { groups[k] = { key: k, id: id, runs: [] }; order.push(k); }
-        groups[k].runs.push(r);
-      });
-      var target = {};
-      order.forEach(function (k) {
-        var g = groups[k];
-        if (!unknowns(g.id).length) return;
-        var cands = order.filter(function (o) { return o !== k && compatible(g.id, groups[o].id) && strictlyMoreKnown(groups[o].id, g.id); });
-        // Keep the best-recorded candidates: drop one that another candidate refines
-        var top = cands.filter(function (c) {
-          return !cands.some(function (d) { return d !== c && compatible(groups[c].id, groups[d].id) && strictlyMoreKnown(groups[d].id, groups[c].id); });
-        });
-        if (top.length === 1) target[k] = top[0];
-      });
-      function resolve(k) { var seen = {}; while (target[k] && !seen[k]) { seen[k] = true; k = target[k]; } return k; }
-      order.forEach(function (k) {
-        var finalKey = resolve(k), g = groups[finalKey], id = g.id;
-        var cfg = CONFIGS[finalKey];
-        if (!cfg) {
-          var level = id.reasoning || 'default';
-          cfg = CONFIGS[finalKey] = {
-            key: finalKey, rowKey: id.base + '#' + level, base: id.base, level: level, where: id.where, local: id.local,
-            harness: id.harness, quant: id.quantLabel || id.quant, publisher: id.publisherLabel || id.publisher,
-            hwKey: id.hwKey, provider: id.provider, servedVia: {}, devices: {}, merged: 0
-          };
-          var slug = [shortName(id.base), level !== 'default' ? 'reasoning-' + level : '', id.local ? id.quant : '',
-            id.local ? id.hwKey || id.device || 'local' : id.provider || 'cloud', id.harness]
-            .filter(Boolean).map(slugify).join('~');
-          var unique = slug, i = 2;
-          while (SLUGS[unique]) unique = slug + '~' + (i++);
-          cfg.slug = unique;
-          SLUGS[unique] = cfg;
-        }
-        if (finalKey !== k) cfg.merged += groups[k].runs.length;
-        groups[k].runs.forEach(function (r) {
-          CONFIG_OF_RUN[r.run_uuid] = cfg;
-          var e = r.endpoint || {}, hw = r.hardware || null;
-          if (cfg.local) {
-            var device = e.device || (hw && hw.label);
-            if (device) cfg.devices[device] = true;
-            if (e.served_via) cfg.servedVia[e.served_via] = true;
-          }
-        });
-      });
-    })();
-    function configOf(r) { return CONFIG_OF_RUN[r.run_uuid]; }
-
-    function rowLabel(cfg) { return shortName(cfg.base) + (cfg.level !== 'default' ? ' (reasoning ' + cfg.level + ')' : ''); }
-    function hardwareText(cfg) {
-      var devices = Object.keys(cfg.devices);
-      if (!cfg.hwKey) return devices.length ? devices.join(', ') : 'hardware not recorded';
-      return cfg.hwKey + (devices.length ? ' (' + devices.join(', ') + ')' : '');
-    }
-    // "Q4_K_M · rtx-5070-ti-16gb (Whitehall) · direct" or "via openrouter (OpenAI) · direct"
-    function configLabel(cfg) {
-      var parts = cfg.local
-        ? [(cfg.publisher ? cfg.publisher + ' ' : '') + (cfg.quant || 'quant not recorded'), hardwareText(cfg)]
-        : ['via ' + (cfg.provider || 'cloud')];
-      return parts.concat([cfg.harness]).join(' · ');
-    }
-    // A model's name never breaks inside its slug ("qwen3.6-35b-a3b"): only before "(reasoning …)"
-    function nameNode(label, suffix) {
-      var span = el('span', { class: 'crucible-legend-name' });
-      var i = label.indexOf(' (');
-      span.appendChild(el('span', { class: 'crucible-slug' }, i === -1 ? label : label.slice(0, i)));
-      if (i !== -1) span.appendChild(document.createTextNode(label.slice(i)));
-      if (suffix) span.appendChild(document.createTextNode(suffix));
-      return span;
-    }
-    function whereTag(cfg) {
-      return el('span', { class: 'crucible-tag' + (cfg.local ? ' is-local' : '') }, cfg.where === 'local' || cfg.where === 'cloud' ? cfg.where : cap(cfg.where));
-    }
-
-    // A run's standing: withdrawn runs never show; invalid ones show, flagged, and never count
-    function validity(uuid, r) {
-      var list = store.status[uuid];
-      var last = list && list[list.length - 1];
-      if (last) {
-        if (last.withdrawn) return 'withdrawn';
-        if (last.invalid) return 'invalid';
-        if (last.valid === true) return 'valid';
-      }
-      return r.outcome && r.outcome.invalid ? 'invalid' : 'valid';
-    }
-    function invalidReason(uuid, r) {
-      var list = store.status[uuid], last = list && list[list.length - 1];
-      var inv = (last && last.invalid) || (r.outcome && r.outcome.invalid);
-      return inv && (inv.reason || inv.detail) || null;
-    }
-
-    // ---- Suite context -----------------------------------------------------
-
-    // Everything the selected suite decides: its tasks, tiers, modes, weights, and which runs count
-    function buildSuite(cat) {
-      var S = { cat: cat };
-      var tasks = (cat.tasks || []).filter(function (t) { return t && t.id; });
-      var taskById = {}, aliasOf = {};
-      tasks.forEach(function (t) {
-        taskById[t.id] = t;
-        (t.aliases || []).forEach(function (a) { aliasOf[a] = t.id; });
-        t.scoring_method = t.scoring && typeof t.scoring === 'object' ? t.scoring.method : t.scoring;
-      });
-      S.tasks = tasks;
-      S.taskById = taskById;
-      S.categoryWeights = {};
-      (cat.categories || []).forEach(function (c) { if (c && c.id && typeof c.weight === 'number') S.categoryWeights[c.id] = c.weight; });
-
-      var policy = cat.scoring_policy || {}, policyFb = FB.scoring_policy || {};
-      S.COVERAGE_MIN = num(policy.coverage_min, num(policyFb.coverage_min, 0.75));
-      S.IN_PROGRESS_BELOW = num(policy.in_progress_below, num(policyFb.in_progress_below, 0.75));
-
-      // Tiers: the catalog's order and roles. A tier no catalog lists (only tasks mention it) is
-      // appended with no role: shown, but it never headlines or gates.
-      function tierInfo(id, o, pos) {
-        var fb = FB_TIERS[id] || {};
-        return {
-          id: id, label: o.label || fb.label || cap(id), blurb: o.blurb || fb.blurb || '',
-          role: o.role || fb.role || null, gate: o.gate || fb.gate || null,
-          order: num(o.order, num(fb.order, 1000 + pos)), pos: pos
-        };
-      }
-      var TIERS = [], tierSeen = {};
-      (cat.tiers || []).forEach(function (t) {
-        var id = typeof t === 'string' ? t : t && t.id;
-        if (!id || tierSeen[id]) return;
-        tierSeen[id] = true;
-        TIERS.push(tierInfo(id, typeof t === 'object' ? t : {}, TIERS.length));
-      });
-      tasks.forEach(function (t) {
-        if (t.tier && !tierSeen[t.tier]) { tierSeen[t.tier] = true; TIERS.push(tierInfo(t.tier, {}, TIERS.length)); }
-      });
-      if (!TIERS.length) TIERS.push(tierInfo('all', { label: 'Score' }, 0));
-      TIERS.sort(function (a, b) { return a.order - b.order || a.pos - b.pos; });
-      S.TIERS = TIERS;
-      S.tierSeen = tierSeen;
-      S.HEADLINE = TIERS.filter(function (t) { return t.role === 'headline'; })[0] ||
-        TIERS.filter(function (t) { return t.role !== 'gate'; })[0] || TIERS[0];
-      S.HEAD = S.HEADLINE.id;
-      S.STRETCH = TIERS.filter(function (t) { return t.id !== S.HEAD && t.role !== 'gate'; });
-
-      // Modes: sections that are never ranked together, each with its own harnesses and areas
-      var harnessModes = {};
-      (cat.harnesses || []).forEach(function (h) { if (h && h.id) harnessModes[h.id] = h.modes || []; });
-      var modes = [], seen = {};
-      function addMode(id, o) {
-        if (!id || seen[id]) return;
-        seen[id] = true;
-        var fb = FB_MODES[id] || {};
-        var areas = (o.areas || (cat.areas || []).filter(function (a) { return a && a.mode === id; })).filter(Boolean).map(function (a, i) {
-          return { id: a.id, label: a.label || (FB_AREAS[a.id] || {}).label || cap(a.id), order: num(a.order, i) };
-        }).sort(function (a, b) { return a.order - b.order; });
-        var harnesses = ids(o.harnesses || (cat.harnesses || []).filter(function (h) { return h && h.modes && h.modes.indexOf(id) !== -1; }));
-        modes.push({ id: id, label: o.label || fb.label || cap(id), blurb: o.blurb || fb.blurb || '', areas: areas, harnesses: harnesses, order: num(o.order, num(fb.order, 1000 + modes.length)), pos: modes.length });
-      }
-      (cat.modes || []).forEach(function (m) { if (m && typeof m === 'object') addMode(m.id, m); });
-      tasks.forEach(function (t) { if (t.mode) addMode(t.mode, {}); });
-      modes.forEach(function (m) {
-        tasks.forEach(function (t) {
-          if (t.mode === m.id && t.area && !m.areas.some(function (a) { return a.id === t.area; })) {
-            m.areas.push({ id: t.area, label: (FB_AREAS[t.area] || {}).label || cap(t.area), order: 1000 });
-          }
-        });
-      });
-      S.MODES = modes.sort(function (a, b) { return a.order - b.order || a.pos - b.pos; });
-      function harnessCounts(h, mode) {
-        // A harness the catalog doesn't declare for any mode is unknown: it never counts
-        return (harnessModes[h] || []).indexOf(mode) !== -1;
-      }
-
-      // Join every run to this suite. A run counts when the suite pins its task (active) at the
-      // run's task version, through one of its mode's harnesses, and it isn't invalid or withdrawn;
-      // its score is its score record at the rubric version the suite pins.
-      S.cells = {};       // cfg.key -> task id -> { all, counted, provisional }
-      S.cfgModes = {};    // cfg.key -> mode id -> true
-      S.other = {};       // cfg.key -> [runs of tasks this catalog doesn't list]
-      S.unscored = 0;     // counted runs with no score record at the pinned rubric version
-      Object.keys(store.runs).forEach(function (uuid) {
-        var r = store.runs[uuid];
-        var valid = validity(uuid, r);
-        if (valid === 'withdrawn') return;
-        var cfg = configOf(r);
-        var taskRef = r.task || {};
-        var t = taskById[taskRef.id] || taskById[aliasOf[taskRef.id]] || taskById[aliasOf[taskRef.alias]];
-        if (!t) { (S.other[cfg.key] = S.other[cfg.key] || []).push(r); return; }
-        if (t.status === 'retired') return;
-        var sameVersion = t.version === null || t.version === undefined || taskRef.version === t.version;
-        var state;
-        if (valid === 'invalid') state = 'invalid';
-        else if (!sameVersion) state = 'older';
-        else if (!harnessCounts(cfg.harness, t.mode)) state = 'harness';
-        else if (t.status === 'active') state = 'counted';
-        else state = 'provisional';
-        // The pinned rubric version's score record; anything that doesn't count may show its newest
-        var rec = store.scores[scoreKey(uuid, t.rubric_version, t.scoring_method)] ||
-          (store.scoresByRun[uuid] || []).filter(function (s) { return s.rubric_version === t.rubric_version; })[0] || null;
-        if (!rec && state !== 'counted') {
-          rec = (store.scoresByRun[uuid] || []).slice().sort(function (a, b) { return b.rubric_version - a.rubric_version; })[0] || null;
-        }
-        if (state === 'counted' && !rec) S.unscored += 1;
-        var info = { run: r, uuid: uuid, task: t, cfg: cfg, state: state, rec: rec, score: rec && typeof rec.score === 'number' ? rec.score : null };
-        var byTask = (S.cells[cfg.key] = S.cells[cfg.key] || {});
-        var c = (byTask[t.id] = byTask[t.id] || { all: [], counted: [], provisional: [] });
-        c.all.push(info);
-        if (state === 'counted' && info.score !== null) c.counted.push(info);
-        if (state === 'provisional' && info.score !== null) c.provisional.push(info);
-        (S.cfgModes[cfg.key] = S.cfgModes[cfg.key] || {})[t.mode] = true;
-      });
-      Object.keys(S.cells).forEach(function (k) {
-        Object.keys(S.cells[k]).forEach(function (id) {
-          S.cells[k][id].all.sort(function (a, b) { return (b.run.started_at || '') < (a.run.started_at || '') ? -1 : 1; });
-        });
-      });
-      return S;
-    }
+  function start(D) {
+    var store = D.store, SUITES = D.SUITES, CURRENT = D.CURRENT, suiteId = D.suiteId, suiteName = D.suiteName;
+    var FB_METHODS = D.FB.scoring_methods || {};
+    var rowLabel = D.rowLabel, configLabel = D.configLabel, hwValue = D.hwValue, cellValue = D.cellValue;
 
     // ---- State ------------------------------------------------------------
 
@@ -503,34 +24,25 @@
       suite: suiteId(CURRENT), mode: '', harness: 'best', where: 'all', hw: 'all', showInProgress: false,
       scatter: 'time', sort: null, detailRow: null, detailCfg: null, compare: [], open: {}
     };
-    var S = null;
-    var suiteCache = {};
-    function catalogById(id) { return SUITES.filter(function (c) { return suiteId(c) === id; })[0] || null; }
+    var S = null, V = null;
     function useSuite(id) {
-      var cat = catalogById(id) || CURRENT;
+      var cat = D.catalogById(id) || CURRENT;
       state.suite = suiteId(cat);
-      S = suiteCache[state.suite] = suiteCache[state.suite] || buildSuite(cat);
+      S = D.suite(state.suite);
       if (!S.MODES.some(function (m) { return m.id === state.mode; })) state.mode = S.MODES[0] ? S.MODES[0].id : '';
       if (!state.sort || (!S.tierSeen[state.sort.key] && ['time', 'cost', 'model'].indexOf(state.sort.key) === -1)) state.sort = { key: S.HEAD, dir: -1 };
     }
 
     // The hash holds the section, the suite and the compared setups: #agentic&suite=v2&compare=a,b
     function readHash() {
-      var out = { mode: null, suite: null, compare: null };
-      location.hash.replace(/^#/, '').split('&').forEach(function (part) {
-        if (!part) return;
-        var i = part.indexOf('=');
-        if (i === -1) { out.mode = decodeURIComponent(part); return; }
-        var k = part.slice(0, i), v = decodeURIComponent(part.slice(i + 1));
-        if (k === 'suite') out.suite = v;
-        else if (k === 'compare') out.compare = v ? v.split(',').filter(Boolean) : [];
-      });
-      return out;
+      var h = C.parseHash();
+      var v = h.params.compare;
+      return { mode: h.id, suite: h.params.suite || null, compare: v === undefined ? null : v ? v.split(',').filter(Boolean) : [] };
     }
     function applyHash() {
       var h = readHash();
       if (h.mode) state.mode = h.mode;
-      useSuite(h.suite && catalogById(h.suite) ? h.suite : state.suite);
+      useSuite(h.suite && D.catalogById(h.suite) ? h.suite : state.suite);
       if (h.compare) state.compare = h.compare.slice(0, MAX_COMPARE);
     }
     function writeHash() {
@@ -541,66 +53,24 @@
       if (location.hash !== hash && history.replaceState) history.replaceState(null, '', hash);
     }
 
-    function modeInfo() { return S.MODES.filter(function (m) { return m.id === state.mode; })[0] || { id: state.mode, label: '', blurb: '', harnesses: [], areas: [] }; }
-    function tierById(id) { return S.TIERS.filter(function (t) { return t.id === id; })[0] || { id: id, label: cap(id), role: null }; }
-    function tierLabel(id) { return tierById(id).label; }
-    function tierRole(id) { return tierById(id).role || 'none'; }
-    function gateOf(id) {
-      var t = tierById(id), g = t.gate;
-      return t.role === 'gate' && g && typeof g.mean === 'number' && typeof g.min === 'number' ? g : null;
-    }
-    function taskName(t) { return (t && t.name) || (t && t.id) || ''; }
-    // Only tasks the suite makes active are shown; provisional runs stay in the data, unshown
-    function inMode(t) { return t.mode === state.mode && t.status === 'active'; }
+    function modeInfo() { return V.info; }
+    function tierLabel(id) { return S.tierLabel(id); }
+    function gateOf(id) { return S.gateOf(id); }
 
     // Tasks shown: this mode's active tasks, tier by tier, area order within a tier
-    var tiers = [], orderedTasks = [], modeTaskIds = {};
+    var tiers = [], orderedTasks = [], modeTaskIds = {}, MODE_TIERS = [];
     function selectMode() {
-      var areas = modeInfo().areas.map(function (a) { return a.id; });
-      tiers = S.TIERS.map(function (t) { return t.id; }).filter(function (tier) {
-        return S.tasks.some(function (t) { return inMode(t) && t.tier === tier; });
-      });
-      orderedTasks = [];
-      tiers.forEach(function (tier) {
-        areas.forEach(function (area) {
-          S.tasks.forEach(function (t) { if (inMode(t) && t.tier === tier && t.area === area) orderedTasks.push(t); });
-        });
-      });
-      modeTaskIds = {};
-      orderedTasks.forEach(function (t) { modeTaskIds[t.id] = true; });
-      // A tier with no active task in this section has no column here
-      MODE_TIERS = S.TIERS.filter(function (t) { return tiers.indexOf(t.id) !== -1; });
-      if (!MODE_TIERS.length) MODE_TIERS = [S.HEADLINE];
+      V = S.view(state.mode);
+      tiers = V.tiers;
+      orderedTasks = V.orderedTasks;
+      modeTaskIds = V.taskIds;
+      MODE_TIERS = V.TIERS;
       var keyOk = MODE_TIERS.some(function (t) { return t.id === state.sort.key; }) || ['time', 'cost', 'model'].indexOf(state.sort.key) !== -1;
-      if (!keyOk) state.sort = { key: modeHead().id, dir: -1 };
-    }
-    var MODE_TIERS = [];
-    function modeHead() { return MODE_TIERS.filter(function (t) { return t.id === S.HEAD; })[0] || MODE_TIERS.filter(function (t) { return t.role !== 'gate'; })[0] || MODE_TIERS[0]; }
-    function modeStretch() { return MODE_TIERS.filter(function (t) { return t.id !== S.HEAD && t.role !== 'gate'; }); }
-
-    // Harnesses in this mode: only the catalog's. A run through any other harness never counts,
-    // so it isn't offered as a filter; the model detail still lists the run as not counted
-    function modeHarnesses() { return modeInfo().harnesses.slice(); }
-
-    function cellOf(cfg, taskId) { return ((S.cells[cfg.key] || {})[taskId]) || null; }
-    // A cell's value: the mean of its counted runs; for a provisional task, its runs' mean
-    function cellValue(c) {
-      if (!c) return null;
-      if (c.counted.length) return { kind: 'counted', agg: agg(c.counted.map(function (i) { return i.score; })) };
-      if (c.provisional.length) return { kind: 'provisional', agg: agg(c.provisional.map(function (i) { return i.score; })) };
-      return { kind: 'uncounted', agg: null };
-    }
-    function countedMean(cfg, taskId) {
-      var c = cellOf(cfg, taskId);
-      return c && c.counted.length ? mean(c.counted.map(function (i) { return i.score; })) : null;
+      if (!keyOk) state.sort = { key: V.head().id, dir: -1 };
     }
 
-    function modeConfigsAll() {
-      return Object.keys(S.cells).map(function (k) { return CONFIGS[k]; }).filter(function (cfg) {
-        return S.cfgModes[cfg.key] && S.cfgModes[cfg.key][state.mode];
-      });
-    }
-    function hwValue(cfg) { return cfg.local ? cfg.hwKey || '-' : 'cloud'; }
+    function cellOf(cfg, taskId) { return S.cellOf(cfg, taskId); }
+    function modeConfigsAll() { return V.configs(); }
     function passesFilters(cfg) {
       if (state.where !== 'all' && (state.where === 'local') !== cfg.local) return false;
       if (state.hw !== 'all' && hwValue(cfg) !== state.hw) return false;
@@ -610,208 +80,23 @@
 
     // ---- Scores -----------------------------------------------------------
 
-    // Each active task's share of its tier: the catalog's weight, else its category's weight split
-    var weightCache = {};
-    function taskWeights(tier) {
-      var key = state.suite + ':' + state.mode + ':' + tier;
-      if (weightCache[key]) return weightCache[key];
-      var active = S.tasks.filter(function (t) { return inMode(t) && t.tier === tier && t.status === 'active'; });
-      var perCategory = {};
-      active.forEach(function (t) { perCategory[t.category] = (perCategory[t.category] || 0) + 1; });
-      var weights = {}, sum = 0;
-      active.forEach(function (t) {
-        weights[t.id] = typeof t.weight === 'number' ? t.weight : (S.categoryWeights[t.category] || 0) / perCategory[t.category];
-        sum += weights[t.id];
-      });
-      // A tier nothing weights yet counts its tasks equally rather than vanishing
-      if (!sum && active.length) active.forEach(function (t) { weights[t.id] = 1 / active.length; });
-      return (weightCache[key] = weights);
-    }
-
-    // Tier score: weighted mean of per-task means, rescaled over the scored tasks. Coverage is the
-    // share of the tier's weight that was scored; below COVERAGE_MIN the score is partial.
-    // `only` limits it to a set of tasks (the compare view's shared tasks).
-    function tierScore(cfg, tier, only) {
-      var weights = taskWeights(tier);
-      var total = 0, scoredWeight = 0, allWeight = 0, scores = [], n = 0;
-      Object.keys(weights).forEach(function (id) {
-        if (only && !only[id]) return;
-        allWeight += weights[id];
-        n += 1;
-        var score = countedMean(cfg, id);
-        if (score === null) return;
-        scores.push(score);
-        total += score * weights[id];
-        scoredWeight += weights[id];
-      });
-      var result = {
-        score: scoredWeight ? total / scoredWeight : null,
-        coverage: allWeight ? scoredWeight / allWeight : 0,
-        scored: scores.length, total: n,
-        min: scores.length ? Math.min.apply(null, scores) : null
-      };
-      result.partial = result.score !== null && !meets(result.coverage, S.COVERAGE_MIN);
-      return result;
-    }
-
-    // Provisional tasks don't count, but are worth showing on their own
-    function provisionalScore(cfg, tier) {
-      var list = S.tasks.filter(function (t) { return inMode(t) && t.tier === tier && t.status === 'provisional'; });
-      var scores = list.map(function (t) { var v = cellValue(cellOf(cfg, t.id)); return v && v.agg ? v.agg.mean : null; });
-      return { score: mean(scores), scored: scores.filter(function (s) { return s !== null; }).length, total: list.length };
-    }
-
-    function gateVerdict(result, gate) {
-      if (!result || result.score === null) return null;
-      if (result.partial) return 'partial';
-      return result.score >= gate.mean && result.min >= gate.min ? 'pass' : 'fail';
-    }
-
-    function countedRuns(cfg, only) {
-      var out = [];
-      Object.keys(S.cells[cfg.key] || {}).forEach(function (id) {
-        if (!modeTaskIds[id] || (only && !only[id])) return;
-        out = out.concat(S.cells[cfg.key][id].counted);
-      });
-      return out;
-    }
-    function timeOf(runs) { return median(runs.map(function (i) { return num(i.run.elapsed_s, null); })); }
-    function costOf(cfg, runs) { return mean(runs.map(function (i) { return runCost(i.run); })); }
-
-    var statsCache = {};
-    function stats(cfg) {
-      if (statsCache[cfg.key]) return statsCache[cfg.key];
-      var runs = countedRuns(cfg);
-      var active = orderedTasks.filter(function (t) { return t.status === 'active'; });
-      var done = active.filter(function (t) { return countedMean(cfg, t.id) !== null; }).length;
-      var progress = { done: done, total: active.length, share: active.length ? done / active.length : 0 };
-      var tier = {}, verdict = {}, provisionalOf = {};
-      S.TIERS.forEach(function (t) {
-        var result = tierScore(cfg, t.id);
-        if (t.id === S.HEAD || t.role === 'gate') tier[t.id] = result;
-        else {
-          tier[t.id] = result.total ? result : null;
-          var prov = provisionalScore(cfg, t.id);
-          provisionalOf[t.id] = prov.total ? prov : null;
-        }
-        if (gateOf(t.id)) verdict[t.id] = gateVerdict(result, gateOf(t.id));
-      });
-      var ran = Object.keys(S.cells[cfg.key] || {}).some(function (id) { return modeTaskIds[id]; });
-      return (statsCache[cfg.key] = {
-        cfg: cfg, local: cfg.local, ran: ran, tier: tier, verdict: verdict, provisional: provisionalOf,
-        head: tier[S.HEAD], time: timeOf(runs), cost: costOf(cfg, runs), runs: runs.length,
-        progress: progress, inProgress: !meets(progress.share, S.IN_PROGRESS_BELOW)
-      });
-    }
-
-    // Best configuration: among setups whose headline tier meets the catalog's coverage_min, the
-    // highest headline score; only when none does, the one with the most scored tasks. A near-empty
-    // setup never beats a covered one. Never stitched per task: every number is one setup's.
-    function betterConfig(a, b) {
-      var ca = a.head.score !== null && meets(a.head.coverage, S.COVERAGE_MIN);
-      var cb = b.head.score !== null && meets(b.head.coverage, S.COVERAGE_MIN);
-      if (ca !== cb) return ca ? -1 : 1;
-      if (ca) {
-        if (a.head.score !== b.head.score) return b.head.score - a.head.score;
-        if (a.progress.done !== b.progress.done) return b.progress.done - a.progress.done;
-        return b.runs - a.runs;
-      }
-      if (a.progress.done !== b.progress.done) return b.progress.done - a.progress.done;
-      var sa = a.head.score === null ? -1 : a.head.score, sb = b.head.score === null ? -1 : b.head.score;
-      if (sa !== sb) return sb - sa;
-      return b.runs - a.runs;
-    }
-
-    // One row per base model and reasoning level, across local and cloud
-    function rowsAll() {
-      var groups = {};
-      modeConfigsAll().filter(passesFilters).forEach(function (cfg) {
-        (groups[cfg.rowKey] = groups[cfg.rowKey] || []).push(stats(cfg));
-      });
-      // A model with no counted run in this suite and section isn't on the board at all
-      return Object.keys(groups).filter(function (key) {
-        return groups[key].some(function (v) { return v.runs > 0; });
-      }).map(function (key) {
-        var variants = groups[key].sort(betterConfig);
-        var best = variants[0];
-        return Object.assign({}, best, { rowKey: key, label: rowLabel(best.cfg), variants: variants });
-      });
-    }
-
-    function tierValue(s, id) {
-      var result = s.tier[id];
-      if (result && result.score !== null) return result.score;
-      return s.provisional[id] ? s.provisional[id].score : null;
-    }
-    function sortValue(key, s) {
-      if (key === 'model') return (s.label || rowLabel(s.cfg)).toLowerCase();
-      if (key === 'time') return s.time;
-      if (key === 'cost') return s.cost;
-      return tierValue(s, key);
-    }
-
-    function noneFinished(rows) { return !rows.some(function (s) { return s.ran && !s.inProgress; }); }
-    function showingInProgress(rows) { return state.showInProgress || noneFinished(rows); }
+    function rowsAll() { return V.rows(passesFilters); }
+    function showingInProgress(rows) { return state.showInProgress || V.noneFinished(rows); }
 
     function rankedRows() {
       var all = rowsAll();
       var showAll = showingInProgress(all);
       var list = all.filter(function (s) { return showAll || !s.inProgress; });
-      var sort = state.sort;
-      var tierKey = S.tierSeen[sort.key] === true;
-      return list.sort(function (a, b) {
-        if (a.ran !== b.ran) return a.ran ? -1 : 1;
-        if (a.inProgress !== b.inProgress) return a.inProgress ? 1 : -1;
-        if (tierKey) {
-          var pa = !a.tier[sort.key] || a.tier[sort.key].partial || a.tier[sort.key].score === null;
-          var pb = !b.tier[sort.key] || b.tier[sort.key].partial || b.tier[sort.key].score === null;
-          if (pa !== pb) return pa ? 1 : -1;
-        }
-        var va = sortValue(sort.key, a), vb = sortValue(sort.key, b);
-        if (va === null || va === undefined) return 1;
-        if (vb === null || vb === undefined) return -1;
-        if (va < vb) return -sort.dir;
-        if (va > vb) return sort.dir;
-        return a.label < b.label ? -1 : 1;
-      });
+      return V.sortRows(list, state.sort);
     }
 
     // ---- Layout -----------------------------------------------------------
 
-    // One layout at a time, chosen here rather than by CSS so a stale stylesheet can't show both:
-    // below 640 px every table is cards
-    var narrowQuery = window.matchMedia ? window.matchMedia('(max-width: 639px)') : null;
-    function isNarrow() { return !!(narrowQuery && narrowQuery.matches); }
     function applyLayout() {
-      var narrow = isNarrow();
-      ['crucible-lb', 'crucible-matrix', 'crucible-heatmap', 'crucible-tests', 'crucible-compare'].forEach(function (name) {
-        var wide = document.querySelector('.' + name + '-wide'), box = document.getElementById(name + '-narrow');
-        if (wide) wide.hidden = narrow;
-        if (box) box.hidden = !narrow;
-      });
+      C.applyLayout(['crucible-lb', 'crucible-matrix', 'crucible-heatmap', 'crucible-tests', 'crucible-compare']);
     }
 
     // ---- Controls ---------------------------------------------------------
-
-    function segmented(containerId, options, current, onPick) {
-      var group = document.getElementById(containerId);
-      group.innerHTML = '';
-      options.forEach(function (opt) {
-        var button = el('button', { type: 'button', role: 'radio', 'aria-checked': opt.value === current, class: 'crucible-segment' + (opt.empty ? ' is-empty' : '') }, opt.label);
-        if (opt.empty) button.title = opt.emptyTitle || '';
-        button.addEventListener('click', function () { onPick(opt.value); });
-        group.appendChild(button);
-      });
-    }
-
-    function fillSelect(select, options, current) {
-      select.innerHTML = '';
-      options.forEach(function (o) {
-        var opt = el('option', { value: o.value }, o.label);
-        if (o.value === current) opt.selected = true;
-        select.appendChild(opt);
-      });
-    }
 
     // Suite selector, newest first, and the suite line: version, task counts, cut date, changelog
     function renderSuite() {
@@ -856,7 +141,7 @@
         tabs.appendChild(tab);
       });
 
-      var harnesses = modeHarnesses();
+      var harnesses = V.harnesses();
       var many = harnesses.length > 1;
       document.getElementById('harness-label').hidden = !many;
       document.getElementById('harness-toggle').hidden = !many;
@@ -894,7 +179,7 @@
 
       var all = rowsAll();
       var hidden = all.filter(function (s) { return s.ran && s.inProgress; }).length;
-      var none = noneFinished(all);
+      var none = V.noneFinished(all);
       segmented('progress-toggle', [
         { value: false, label: 'Finished' },
         { value: true, label: 'Include in progress' + (hidden ? ' (' + hidden + ')' : ''), empty: !hidden, emptyTitle: 'Every model has finished this section' }
@@ -947,7 +232,7 @@
           lines.push(value.label + ' gives the most ' + H.label + ' score per dollar (' + fmtUsd(value.cost) + ' per task).');
         }
       }
-      var stretch = modeStretch()[0];
+      var stretch = V.stretch()[0];
       // Counted scores only: a provisional score never headlines a sentence
       var countedOf = function (s) { var r = stretch && s.tier[stretch.id]; return r && r.score !== null && !r.partial ? r.score : null; };
       var best = stretch && list.filter(function (s) { return countedOf(s) !== null; })
@@ -970,51 +255,15 @@
         ' Repeat runs are averaged. Cloud providers usually serve full precision, so a row shows what a model can do, not what it does on your hardware.');
       parts.push('A hatched bar means fewer than ' + pct(S.COVERAGE_MIN) + ' of that tier\'s tasks were scored. Select a column to sort.');
       document.getElementById('leaderboard-sub').textContent = parts.join(' ');
-      var stretch = modeStretch().filter(function (t) { return !gateOf(t.id); })[0];
+      var stretch = V.stretch().filter(function (t) { return !gateOf(t.id); })[0];
       document.getElementById('detail-outline-note').textContent = stretch ? ' (a thick outline is ' + stretch.label + ')' : '';
     }
 
     // ---- Leaderboard -------------------------------------------------------
 
-    // Every tier reads the same: a 0-10 score, the bar, and 'n/m tasks'. The gate result (pass or
-    // fail) and 'partial' or 'provisional' are small markers on that cell, not a different cell.
-    function tierCellContent(s, t, into) {
-      var result = s.tier[t.id], prov = s.provisional[t.id];
-      var counted = result && result.score !== null;
-      var score = counted ? result.score : prov && prov.score !== null ? prov.score : null;
-      if (score === null) { into.appendChild(el('span', { class: 'crucible-lb-none' }, NONE)); return; }
-      var partial = counted && result.partial;
-      var provisional = !counted;
-      var scored = counted ? result.scored : prov.scored, total = counted ? result.total : prov.total;
-      var cellEl = el('span', { class: 'crucible-tier-cell' + (provisional ? ' is-provisional' : '') });
-      var bar = el('span', { class: 'crucible-lb-bar' + (partial ? ' is-partial' : '') + (provisional ? ' is-provisional' : '') });
-      var fill = el('span', { class: 'crucible-lb-fill' + (s.local ? ' is-local' : '') });
-      fill.style.width = (score * 10) + '%';
-      bar.appendChild(fill);
-      cellEl.appendChild(bar);
-      cellEl.appendChild(el('span', { class: 'crucible-lb-score' }, fmtScore(score)));
-      cellEl.appendChild(el('span', { class: 'crucible-lb-count' }, scored + '/' + total + ' tasks'));
-      var markers = el('span', { class: 'crucible-lb-markers' });
-      var verdict = s.verdict[t.id];
-      if (verdict === 'pass' || verdict === 'fail') {
-        markers.appendChild(el('span', { class: 'crucible-verdict is-' + verdict, title: t.label + ' gate: ' + verdict }, verdict === 'pass' ? '✓ pass' : '✕ fail'));
-      }
-      if (partial) markers.appendChild(el('span', { class: 'crucible-lb-note', title: 'Fewer than ' + pct(S.COVERAGE_MIN) + ' of this tier\'s tasks were scored' }, 'partial'));
-      else if (provisional) markers.appendChild(el('span', { class: 'crucible-lb-note', title: 'Provisional tasks don\'t count toward rankings' }, 'provisional'));
-      if (markers.firstChild) cellEl.appendChild(markers);
-      into.appendChild(cellEl);
-    }
-
-    function rankLabel(s, rank) {
-      return s.ran && !s.inProgress && s.head.score !== null && !s.head.partial ? String(rank) : '';
-    }
-    function costLabel(s) { return fmtCost(s.cost, s.local); }
-    function costTitle(s) {
-      if (!s.local) return 'Average API cost per counted run';
-      var w = wattsOf(s.cfg.hwKey);
-      return w ? 'Estimated electricity per counted run: ' + w + ' W at $' + num(ENERGY.usd_per_kwh, 0) + '/kWh for the run\'s time. Not the hardware\'s cost.'
-        : 'Local runs aren\'t billed, and this hardware has no power figure';
-    }
+    function tierCellContent(s, t, into) { S.tierCell(s, t, into); }
+    function rankLabel(s, rank) { return V.isRanked(s) ? String(rank) : ''; }
+    var costLabel = D.costLabel, costTitle = D.costTitle;
 
     function compareButton(cfg) {
       var on = state.compare.indexOf(cfg.slug) !== -1;
@@ -1294,187 +543,11 @@
       }
     }
 
-    // ---- Runs: score detail, checks and output, loaded on demand ---------
-
-    var detailsPromise = null;
-    function loadDetails() {
-      if (!detailsPromise) {
-        detailsPromise = fetch(script.getAttribute('data-details')).then(function (r) {
-          if (!r.ok) throw new Error('HTTP ' + r.status);
-          return r.json();
-        }).then(function (payload) {
-          var index = {};
-          (function walk(node) {
-            if (Array.isArray(node)) { node.forEach(walk); return; }
-            if (!node || typeof node !== 'object') return;
-            if (node.record === 'score') { index[scoreKey(node.run_uuid, node.rubric_version, node.method)] = node; return; }
-            Object.keys(node).forEach(function (k) { walk(node[k]); });
-          })(payload);
-          return index;
-        });
-        detailsPromise.catch(function () { detailsPromise = null; });
-      }
-      return detailsPromise;
-    }
-
-    var STATE_TEXT = {
-      counted: 'counts in this suite',
-      provisional: 'provisional task: shown, not in tier scores',
-      older: 'from an older version of this task: doesn\'t count in this suite',
-      invalid: 'marked invalid: never counts',
-      harness: 'a harness this suite doesn\'t score for this section: doesn\'t count'
-    };
-
-    function promptBlock(t, into) {
-      into.appendChild(el('p', { class: 'crucible-detail-prompt' }, t.summary || taskName(t)));
-      if (!t.prompt || t.prompt === t.summary) return;
-      var details = el('details', { class: 'crucible-output crucible-prompt-full' });
-      details.appendChild(el('summary', {}, 'Full prompt'));
-      details.appendChild(el('pre', {}, t.prompt));
-      into.appendChild(details);
-    }
-
-    function scoreSentence(info) {
-      var rec = info.rec, t = info.task;
-      if (!rec) return 'Not scored at rubric version ' + (t.rubric_version === undefined ? '?' : t.rubric_version) + '.';
-      var raw = rec.raw || {};
-      var unit = raw.unit || (t.scoring && t.scoring.unit) || '';
-      var amount = function (v) { return typeof v === 'number' && !Number.isInteger(v) ? v.toFixed(1) : fmtInt(v); };
-      var text = raw.total ? amount(raw.passed) + ' of ' + amount(raw.total) + ' ' + unit + (unit === 'tests' ? ' passed' : '') + ' → ' + fmtScore(rec.score)
-        : 'Score ' + fmtScore(rec.score);
-      if (typeof rec.capped_at === 'number') text += ' (capped at ' + fmtScore(rec.capped_at) + ')';
-      var methodLabel = (FB_METHODS[rec.method] || {}).label || rec.method;
-      return text + ', by ' + methodLabel + ' (rubric version ' + rec.rubric_version + ').';
-    }
-
-    function renderItems(full, into) {
-      into.innerHTML = '';
-      if (!full) { into.appendChild(el('p', { class: 'crucible-detail-meta' }, 'No per-check results published for this score.')); return; }
-      var items = full.items || [];
-      var ul = el('ul', { class: 'crucible-checks' });
-      if (items.length) {
-        var lastGroup = null;
-        items.forEach(function (it) {
-          if (it.group && it.group !== lastGroup) { ul.appendChild(el('li', { class: 'crucible-check-group' }, it.group)); lastGroup = it.group; }
-          var li = el('li', { class: it.passed ? 'is-pass' : 'is-fail' });
-          li.appendChild(el('span', { class: 'crucible-check-mark', 'aria-label': it.passed ? 'passed' : 'failed' }, it.passed ? '✓' : '✕'));
-          li.appendChild(el('span', {}, (it.label || it.id || '') + ' '));
-          if (it.detail) li.appendChild(el('span', { class: 'crucible-check-detail' }, '(' + it.detail + ')'));
-          ul.appendChild(li);
-        });
-      } else {
-        (full.groups || []).forEach(function (g) {
-          var all = g.passed === g.total;
-          var li = el('li', { class: all ? 'is-pass' : g.passed ? 'is-partial' : 'is-fail' });
-          li.appendChild(el('span', { class: 'crucible-check-mark' }, fmtInt(g.passed) + '/' + fmtInt(g.total)));
-          li.appendChild(el('span', {}, ' ' + (g.id || '') + (g.detail ? ' (' + g.detail + ')' : '')));
-          ul.appendChild(li);
-        });
-      }
-      if (!ul.firstChild) { into.appendChild(el('p', { class: 'crucible-detail-meta' }, 'No per-check results published for this score.')); return; }
-      into.appendChild(el('p', { class: 'crucible-detail-label' }, 'Checks and tests'));
-      into.appendChild(ul);
-    }
-
-    function runBody(info, into) {
-      var r = info.run, met = r.metrics || {}, out = r.outcome || {};
-      into.appendChild(el('p', {}, scoreSentence(info)));
-      var flag = STATE_TEXT[info.state] || info.state;
-      var reason = info.state === 'invalid' ? invalidReason(info.uuid, r) : null;
-      into.appendChild(el('p', { class: 'crucible-detail-meta' }, cap(flag) + (reason ? ': ' + reason : '') + '.'));
-      var checks = into.appendChild(el('div', { class: 'crucible-run-checks' }));
-      if (info.rec) {
-        checks.appendChild(el('p', { class: 'crucible-detail-meta' }, 'Loading checks…'));
-        loadDetails().then(function (index) {
-          renderItems(index[scoreKey(info.uuid, info.rec.rubric_version, info.rec.method)], checks);
-        }, function () { checks.innerHTML = ''; checks.appendChild(el('p', { class: 'crucible-detail-meta' }, 'Couldn’t load the checks.')); });
-      }
-      if (met.reasoning_chars) {
-        into.appendChild(el('p', { class: 'crucible-detail-meta' }, 'Reasoned for ' + met.reasoning_chars.toLocaleString() + ' characters before answering.'));
-      }
-      if (r.output_ref) {
-        var details = el('details', { class: 'crucible-output' });
-        details.appendChild(el('summary', {}, 'Model output'));
-        var pre = details.appendChild(el('pre', {}, 'Loading…'));
-        var loaded = false;
-        details.addEventListener('toggle', function () {
-          if (!details.open || loaded) return;
-          loaded = true;
-          fetch((script.getAttribute('data-outputs') || '/crucible-data/') + r.output_ref).then(function (res) {
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            return res.text();
-          }).then(function (text) { pre.textContent = text || '(empty)'; }, function () { loaded = false; pre.textContent = 'Couldn’t load the output.'; });
-        });
-        into.appendChild(details);
-      }
-      into.appendChild(el('p', { class: 'crucible-detail-meta' }, [
-        'ran ' + fmtDate(r.started_at), (out.status || NONE).replace(/_/g, ' ') + (out.timed_out ? ' (timed out)' : ''),
-        'time ' + fmtSeconds(num(r.elapsed_s, null)), met.tool_calls !== null && met.tool_calls !== undefined ? 'tool calls ' + fmtInt(met.tool_calls) : null,
-        'tokens in ' + fmtInt(met.tokens_in), 'out ' + fmtInt(met.tokens_out),
-        (info.cfg.local ? 'electricity ' : 'cost ') + fmtCost(runCost(r), info.cfg.local),
-        r.endpoint && r.endpoint.upstream && (r.endpoint.upstream.name || r.endpoint.upstream.provider) ? 'routed to ' + (r.endpoint.upstream.name || r.endpoint.upstream.provider) : null,
-        'task v' + ((r.task || {}).version === null || (r.task || {}).version === undefined ? '?' : r.task.version),
-        r.provenance && r.provenance.crucible_version ? 'Crucible ' + r.provenance.crucible_version : null,
-        'run ' + info.uuid.slice(0, 8)
-      ].filter(Boolean).join(' · ')));
-    }
-
-    // Every run behind one cell, newest first; open one for its score, checks and output
-    function runList(c, into) {
-      if (!c || !c.all.length) { into.appendChild(el('p', {}, 'Not run with this setup.')); return; }
-      var value = cellValue(c);
-      if (value.agg) {
-        into.appendChild(el('p', {}, (value.kind === 'provisional' ? 'Provisional: ' : 'Score ') + fmtScore(value.agg.mean) +
-          (value.agg.n > 1 ? ', the mean of ' + fmtRepeat(value.agg) : ' (1 run)') + '.'));
-      } else {
-        into.appendChild(el('p', {}, 'No run of this setup counts in this suite.'));
-      }
-      var ul = into.appendChild(el('ul', { class: 'crucible-runs' }));
-      c.all.forEach(function (info, i) {
-        var li = ul.appendChild(el('li', { class: 'crucible-run is-' + info.state }));
-        var details = li.appendChild(el('details'));
-        var summary = details.appendChild(el('summary'));
-        summary.appendChild(el('span', { class: 'crucible-run-score' }, fmtScore(info.score)));
-        summary.appendChild(document.createTextNode(' ' + fmtDate(info.run.started_at) + ' · ' + fmtSeconds(num(info.run.elapsed_s, null))));
-        if (info.state !== 'counted') summary.appendChild(el('span', { class: 'crucible-flag' }, info.state === 'provisional' ? 'provisional' : info.state === 'older' ? 'older task version' : info.state === 'invalid' ? 'invalid' : 'not counted'));
-        var body = details.appendChild(el('div', { class: 'crucible-run-body' }));
-        var filled = false;
-        details.addEventListener('toggle', function () {
-          if (!details.open || filled) return;
-          filled = true;
-          runBody(info, body);
-        });
-        if (i === 0) details.open = true;
-      });
-    }
-
-    function showCellDetail(s, t, c) {
-      var panel = document.getElementById('crucible-cell-detail');
-      panel.innerHTML = '';
-      var title = panel.appendChild(el('p', { class: 'crucible-tooltip-title' }, s.label + ' · ' + taskName(t) + ' · ' + tierLabel(t.tier) +
-        (t.status === 'provisional' ? ' (provisional)' : '')));
-      title.appendChild(el('small', { class: 'crucible-task-id' }, ' ' + configLabel(s.cfg)));
-      promptBlock(t, panel);
-      runList(c, panel);
-      panel.hidden = false;
-    }
-
     // ---- Matrix -----------------------------------------------------------
 
-    function matrixButton(s, t, c, narrowCell) {
-      var value = cellValue(c);
-      var a = value && value.agg;
-      var text = a ? (narrowCell ? fmtScore(a.mean) : Math.round(a.mean).toString()) : NONE;
-      var b = el('button', { type: 'button', class: narrowCell ? 'crucible-card-score' : '',
-        'aria-label': s.label + ' ' + taskName(t) + ': ' + (a ? fmtScore(a.mean) + ', ' + fmtRepeat(a) : 'doesn\'t count in this suite') });
-      b.textContent = text;
-      b.title = a ? fmtScore(a.mean) + ' · ' + fmtRepeat(a) : (STATE_TEXT[c.all[0].state] || '');
-      if (a) b.setAttribute('style', heatStyle(a.mean));
-      else b.classList.add('is-uncounted');
-      if (a && a.n > 1) b.appendChild(el('sup', { class: 'crucible-repeat-n' }, '×' + a.n));
-      if (c.all.some(function (i) { return i.run.outcome && i.run.outcome.timed_out; })) b.classList.add('is-timeout');
-      return b;
-    }
+    var promptBlock = D.promptBlock, runList = D.runList;
+    function showCellDetail(s, t, c) { D.showCellDetail(document.getElementById('crucible-cell-detail'), S, s, t, c); }
+    var matrixButton = D.cellButton;
 
     function renderMatrix(list) {
       var table = document.getElementById('crucible-matrix');
@@ -1525,21 +598,7 @@
       if (!rows.length) body.appendChild(el('tr')).appendChild(el('td', { class: 'crucible-not-run' }, emptyText()));
     }
 
-    function modelCard(s, ul) {
-      var li = ul.appendChild(el('li', { class: 'crucible-card' }));
-      var title = li.appendChild(el('div', { class: 'crucible-card-title' }));
-      title.appendChild(nameNode(s.label));
-      title.appendChild(whereTag(s.cfg));
-      li.appendChild(el('p', { class: 'crucible-config-line' }, configLabel(s.cfg)));
-      return li;
-    }
-
-    function kvRow(parent, label, value, extraClass) {
-      var row = parent.appendChild(el('div', { class: 'crucible-kv' + (extraClass ? ' ' + extraClass : '') }));
-      row.appendChild(typeof label === 'string' ? el('span', { class: 'crucible-kv-label' }, label) : label);
-      row.appendChild(typeof value === 'string' ? el('span', { class: 'crucible-kv-value' }, value) : value);
-      return row;
-    }
+    var modelCard = D.modelCard;
 
     function renderMatrixNarrow(rows) {
       var box = document.getElementById('crucible-matrix-narrow');
@@ -1570,12 +629,6 @@
 
     // ---- Heatmap ----------------------------------------------------------
 
-    function areaResult(cfg, area) {
-      var list = orderedTasks.filter(function (t) { return t.area === area.id; });
-      var means = list.map(function (t) { return countedMean(cfg, t.id); }).filter(function (v) { return v !== null; });
-      return { tasks: list, n: means.length, score: mean(means) };
-    }
-
     function areaCellInto(td, r) {
       if (!r.n) { td.className = 'is-not-run'; td.textContent = 'not run'; return; }
       td.setAttribute('style', heatStyle(r.score));
@@ -1597,7 +650,7 @@
           var li = modelCard(s, ul);
           areas.forEach(function (area) {
             var holder = el('span', { class: 'crucible-narrow-cell' });
-            areaCellInto(holder, areaResult(s.cfg, area));
+            areaCellInto(holder, V.areaResult(s.cfg, area));
             kvRow(li, area.label, holder);
           });
         });
@@ -1616,7 +669,7 @@
         row.appendChild(th);
         areas.forEach(function (area) {
           var td = el('td');
-          areaCellInto(td, areaResult(s.cfg, area));
+          areaCellInto(td, V.areaResult(s.cfg, area));
           row.appendChild(td);
         });
         body.appendChild(row);
@@ -1650,34 +703,7 @@
     }
 
     var openAreas = {};
-
-    function cellNumbers(c) {
-      var counted = c ? c.counted : [];
-      var shown = c ? (c.counted.length ? c.counted : c.provisional.length ? c.provisional : c.all) : [];
-      var met = function (f) { return shown.map(function (i) { return num((i.run.metrics || {})[f], null); }); };
-      return {
-        value: cellValue(c), time: median(shown.map(function (i) { return num(i.run.elapsed_s, null); })),
-        tools: median(met('tool_calls')), tokens: median(met('tokens_out')), cost: mean(shown.map(function (i) { return runCost(i.run); })),
-        timedOut: shown.some(function (i) { return i.run.outcome && i.run.outcome.timed_out; }), runs: c ? c.all.length : 0, counted: counted.length
-      };
-    }
-
-    function modeHasToolCalls() {
-      return modeConfigsAll().some(function (cfg) {
-        return Object.keys(S.cells[cfg.key] || {}).some(function (id) {
-          return modeTaskIds[id] && S.cells[cfg.key][id].all.some(function (i) { var v = (i.run.metrics || {}).tool_calls; return v !== null && v !== undefined; });
-        });
-      });
-    }
-
-    function scoreBar(value, into) {
-      var a = value && value.agg;
-      into.appendChild(el('span', { class: 'crucible-score-num' }, a ? fmtScore(a.mean) : NONE));
-      var bar = into.appendChild(el('span', { class: 'crucible-bar' + (value && value.kind === 'counted' ? '' : ' is-uncounted') }));
-      var fill = bar.appendChild(el('span', { class: 'crucible-bar-fill' }));
-      fill.style.width = (a ? a.mean * 10 : 0) + '%';
-      if (a) into.appendChild(el('span', { class: 'crucible-repeat' }, fmtRepeat(a)));
-    }
+    var cellNumbers = D.cellNumbers;
 
     function taskRow(s, t, columns, body, toolCalls) {
       var c = cellOf(s.cfg, t.id);
@@ -1750,7 +776,7 @@
       var strip = el('span', { class: 'crucible-area-strip', 'aria-hidden': 'true' });
       tasks.forEach(function (t, k) {
         var v = values[k], score = v && v.agg ? v.agg.mean : null;
-        var sq = el('span', { class: 'crucible-area-sq is-role-' + tierRole(t.tier) + (v ? '' : ' is-empty'), title: taskName(t) + ' · ' + tierLabel(t.tier) + ' · ' + (v ? fmtScore(score) : 'not run') });
+        var sq = el('span', { class: 'crucible-area-sq is-role-' + S.tierRole(t.tier) + (v ? '' : ' is-empty'), title: taskName(t) + ' · ' + tierLabel(t.tier) + ' · ' + (v ? fmtScore(score) : 'not run') });
         if (score !== null) sq.setAttribute('style', heatStyle(score));
         strip.appendChild(sq);
       });
@@ -1800,7 +826,7 @@
       renderOtherRuns(target);
       if (!target) return;
       var s = target.s;
-      var toolCalls = modeHasToolCalls();
+      var toolCalls = V.hasToolCalls();
       var groups = modeInfo().areas.map(function (area) {
         var list = orderedTasks.filter(function (t) { return t.area === area.id; });
         list.sort(function (a, b) { return tiers.indexOf(a.tier) - tiers.indexOf(b.tier); });
@@ -1847,22 +873,11 @@
       render();
     }
 
-    function compareCandidates() {
-      return modeConfigsAll().map(stats).filter(function (s) { return s.ran; }).sort(function (a, b) {
-        var la = rowLabel(a.cfg), lb = rowLabel(b.cfg);
-        if (la !== lb) return la < lb ? -1 : 1;
-        return betterConfig(a, b);
-      });
-    }
-
-    // Two to four setups side by side on the tasks all of them have counted runs of. Tier scores
-    // are recomputed over those shared tasks only; each keeps its own local/cloud tag, cost and time.
+    // Two to four setups side by side on the tasks all of them have counted runs of (V.compare);
+    // this draws its numbers
     function renderCompare() {
-      var candidates = compareCandidates();
-      var bySlug = {};
-      candidates.forEach(function (s) { bySlug[s.cfg.slug] = s; });
-      var chosen = state.compare.map(function (slug) { return bySlug[slug]; }).filter(Boolean)
-        .map(function (s) { return Object.assign({}, s, { label: rowLabel(s.cfg) }); });
+      var cmp = V.compare(state.compare);
+      var candidates = cmp.candidates, chosen = cmp.chosen;
 
       var pick = document.getElementById('compare-pick');
       fillSelect(pick, [{ value: '', label: chosen.length >= MAX_COMPARE ? 'Up to ' + MAX_COMPARE + ' setups' : 'Pick a setup to add…' }].concat(
@@ -1893,32 +908,14 @@
         sub.textContent = 'Pick two to four setups (a model at a reasoning level, on one quant, device or provider, and harness), local or cloud, to see them side by side on the tasks they all ran in this suite. "+ compare" on any leaderboard row adds it here.';
         return;
       }
-      var shared = {}, sharedTasks = orderedTasks.filter(function (t) {
-        return t.status === 'active' && chosen.every(function (s) { return countedMean(s.cfg, t.id) !== null; });
-      });
-      sharedTasks.forEach(function (t) { shared[t.id] = true; });
+      var sharedTasks = cmp.sharedTasks;
       sub.textContent = sharedTasks.length
         ? sharedTasks.length + ' scored task' + (sharedTasks.length === 1 ? '' : 's') + (chosen.length === 2 ? ' both setups ran in ' : ' all ' + chosen.length + ' setups ran in ') + suiteName(S.cat) +
           '. Tier scores below use only these, so no setup gains from a task another skipped. Scores are the mean of repeat runs (n and range under each).'
         : 'These setups have no scored task in common in ' + suiteName(S.cat) + ' yet.';
       if (!sharedTasks.length) return;
 
-      var tierRowsData = S.TIERS.map(function (t) {
-        var any = sharedTasks.some(function (x) { return x.tier === t.id; });
-        return any ? { tier: t, scores: chosen.map(function (s) { return tierScore(s.cfg, t.id, shared); }) } : null;
-      }).filter(Boolean);
-      var extra = chosen.map(function (s) {
-        var runs = countedRuns(s.cfg, shared);
-        return { time: timeOf(runs), cost: costOf(s.cfg, runs) };
-      });
-      function taskCell(s, t) {
-        var c = cellOf(s.cfg, t.id), a = agg(c.counted.map(function (i) { return i.score; }));
-        return a;
-      }
-      function best(values) {
-        var nums = values.filter(function (v) { return v !== null && v !== undefined; });
-        return nums.length > 1 ? Math.max.apply(null, nums) : null;
-      }
+      var tierRowsData = cmp.tiers, extra = cmp.extra, taskCell = cmp.cell, best = C.bestOf;
 
       if (isNarrow()) {
         var ul = box.appendChild(el('ul', { class: 'crucible-cards' }));
@@ -2047,7 +1044,6 @@
     // ---- Render -----------------------------------------------------------
 
     function render() {
-      statsCache = {};
       applyLayout();
       selectMode();
       writeHash();
@@ -2093,16 +1089,7 @@
       if ([state.mode, state.suite, state.compare.join(',')].join('|') !== before) render();
     });
 
-    var shownNarrow = isNarrow();
-    function relayout() {
-      if (isNarrow() === shownNarrow) return;
-      shownNarrow = isNarrow();
-      render();
-    }
-    if (narrowQuery) {
-      if (narrowQuery.addEventListener) narrowQuery.addEventListener('change', relayout);
-      else if (narrowQuery.addListener) narrowQuery.addListener(relayout);
-    }
+    var relayout = C.onLayoutChange(render);
     var resizeTimer;
     window.addEventListener('resize', function () {
       clearTimeout(resizeTimer);
@@ -2114,8 +1101,7 @@
     applyHash();
     resultsEl.hidden = false;
     render();
-    showStatus(skippedNote);
   }
 
-  load();
+  C.boot({ script: script, ready: start });
 })();

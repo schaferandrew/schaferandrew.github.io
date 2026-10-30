@@ -1,1 +1,275 @@
 // Crucible compare page (crucible-compare.html, assets/js/crucible-compare.js)
+
+.crucible-compare-page {
+  .cmp-dot {
+    display: inline-block;
+    flex: none;
+    width: 10px;
+    height: 10px;
+    margin-right: 6px;
+    border-radius: 50%;
+  }
+
+  .cmp-id {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .cmp-id-name {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 4px;
+
+    .cmp-dot {
+      align-self: center;
+      margin-right: 2px;
+    }
+
+    .crucible-tag {
+      margin-left: 2px;
+    }
+  }
+
+  .cmp-maker {
+    color: $gray;
+    font-size: 0.9em;
+  }
+
+  .cmp-unknown {
+    font-style: italic;
+  }
+
+  .cmp-inferred {
+    margin-left: 1px;
+    color: $gray;
+    cursor: help;
+  }
+
+  .cmp-sep {
+    color: $gray;
+  }
+
+  .cmp-model {
+    font-weight: $weightBold;
+  }
+
+  .cmp-chip {
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    border-radius: 6px;
+  }
+
+  .cmp-remove {
+    margin-left: 6px;
+    padding: 2px 4px;
+    font-size: 14px;
+  }
+
+  .cmp-notes {
+    margin: 0 0 $gap;
+    padding: 0;
+    list-style: none;
+    color: $gray;
+    font-size: $textSmall;
+
+    li {
+      margin-bottom: 4px;
+      padding-left: $gap / 2;
+      border-left: 3px solid $colorAccent;
+    }
+  }
+
+  .cmp-url {
+    display: block;
+    width: 100%;
+    margin-bottom: $gap / 2;
+    font-size: $textSmall;
+  }
+
+  .cmp-table {
+    th,
+    td {
+      vertical-align: top;
+    }
+
+    .cmp-num {
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+      white-space: nowrap;
+
+      &.is-best {
+        font-weight: $weightBold;
+      }
+    }
+
+    .cmp-setup {
+      min-width: 220px;
+      white-space: normal;
+      font-weight: $weightNormal;
+    }
+
+    .cmp-colhead {
+      white-space: normal;
+      font-weight: $weightBold;
+    }
+  }
+
+  .cmp-card {
+    .cmp-id {
+      margin-bottom: 6px;
+    }
+  }
+
+  .cmp-kv-setup {
+    display: inline-flex;
+    align-items: baseline;
+  }
+
+  .cmp-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px $gap;
+    margin: $gap 0;
+    padding: 0;
+    list-style: none;
+    font-size: $textSmall;
+  }
+
+  .cmp-charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 $gap * 2;
+    margin-top: $gap;
+
+    > div {
+      min-width: 0;
+    }
+  }
+
+  .cmp-chart {
+    min-width: 0;
+    margin-bottom: $gap;
+  }
+
+  .cmp-svg {
+    display: block;
+    max-width: 100%;
+    overflow: visible;
+
+    .cmp-grid {
+      stroke: $crucibleBorder;
+      stroke-width: 1;
+    }
+
+    .cmp-rowline {
+      stroke: #f1f1f3;
+    }
+
+    .cmp-tick {
+      fill: $gray;
+      font-size: 11px;
+    }
+
+    .cmp-lbl {
+      fill: $colorSecondary;
+      font-size: 12px;
+    }
+
+    .cmp-bell {
+      stroke: $crucibleMuted;
+      stroke-width: 3;
+      stroke-linecap: round;
+      opacity: 0.55;
+    }
+
+    .cmp-pt {
+      stroke: #fff;
+      stroke-width: 1.4;
+    }
+  }
+
+  .cmp-expand {
+    display: block;
+    margin-top: 2px;
+  }
+
+  .cmp-task-row {
+    cursor: pointer;
+  }
+
+  .cmp-detail-row > td {
+    background: #f8f9fc;
+    white-space: normal;
+  }
+
+  .cmp-detail {
+    padding: $gap / 2 0;
+    white-space: normal;
+  }
+
+  .cmp-checks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: $gap;
+  }
+
+  .cmp-checks-col {
+    min-width: 0;
+    padding-top: $gap / 2;
+  }
+
+  .cmp-checks-head {
+    margin: 0;
+  }
+
+  .cmp-task-link {
+    margin: $gap / 2 0 0;
+    font-size: $textSmall;
+  }
+
+  .cmp-fold td,
+  .cmp-fold {
+    color: $gray;
+    font-size: $textSmall;
+  }
+
+  .cmp-missing {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    > li {
+      margin-bottom: $gap / 2;
+    }
+  }
+
+  .cmp-missing-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px $gap / 2;
+  }
+
+  .cmp-missing-list {
+    margin: 4px 0 0 ($gap * 1.5);
+    padding: 0;
+    font-size: $textSmall;
+  }
+
+  @media screen and (max-width: 899px) {
+    .cmp-charts {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media screen and (max-width: 639px) {
+    .cmp-chip {
+      width: 100%;
+    }
+  }
+}

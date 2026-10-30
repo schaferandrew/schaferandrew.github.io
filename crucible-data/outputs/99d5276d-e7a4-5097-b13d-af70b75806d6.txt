@@ -1,5 +1,0 @@
-<function=read>
-<path>
-/Users/schafer/.crucible/workspaces/lmstudio_qwen_qwen3.5-9b_writing_W1b_20261026_035553/prompt.txt
-</path>
-</function>

@@ -8,10 +8,6 @@ Crucible is an AI task gauntlet to analyze whether local models are capable of r
 
 I am giddy with excitement to introduce **Crucible**. This is my AI workflow gauntlet to help me test models, along with a harness to help me be as efficient as possible with token usage. The local and open-weight world is getting scary good — I'm hopeful this is a tool that helps you see just how capable it is.
 
-![Crucible Chat Leaderboard](/assets/img/technology/2026/crucible/chat-leaderboard.png)
-
-*Chat leaderboard — local models competing head-to-head with cloud models.*
-
 ## Why is this necessary?
 
 A developer in 2026 is spoiled by an enterprise subscription to Cursor, Codex, or Claude Code. The nearly limitless tokens and polished tool interface begin to create a stark difference between personal projects and company workflows.

@@ -128,6 +128,17 @@
 
   // ---- Setups table ----
   .cm-setups {
+    // Tier cells are a bar and a score, left-aligned: their headings sit over them
+    th.is-tier,
+    td.is-tier {
+      text-align: left;
+    }
+
+    th.is-num,
+    td.is-num {
+      text-align: right;
+    }
+
     tr.is-selected {
       background: rgba(24, 86, 163, 0.08);
       box-shadow: inset 3px 0 0 $colorSecondary;

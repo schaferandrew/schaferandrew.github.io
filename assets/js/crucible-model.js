@@ -245,8 +245,10 @@
       box.innerHTML = '';
       var head = el('tr');
       head.appendChild(el('th', { scope: 'col' }, ''));
-      ['Coverage'].concat(dims.length ? dims.map(function (d) { return d.label; }) : ['Setup'], V.TIERS.map(function (t) { return t.label; }), ['Median time'])
-        .forEach(function (c) { head.appendChild(el('th', { scope: 'col' }, c)); });
+      head.appendChild(el('th', { scope: 'col' }, 'Coverage'));
+      (dims.length ? dims.map(function (d) { return d.label; }) : ['Setup']).forEach(function (c) { head.appendChild(el('th', { scope: 'col' }, c)); });
+      V.TIERS.forEach(function (t) { head.appendChild(el('th', { scope: 'col', class: 'is-tier' }, t.label)); });
+      head.appendChild(el('th', { scope: 'col', class: 'is-num' }, 'Median time'));
       table.appendChild(el('thead')).appendChild(head);
       var body = table.appendChild(el('tbody'));
       function setLabel(s, d) { return dimText(d, dimVal(d, s.cfg)); }
@@ -272,8 +274,8 @@
         tr.appendChild(el('td')).appendChild(C.coverageBar(s, S));
         if (dims.length) dims.forEach(function (d) { tr.appendChild(el('td', {}, setLabel(s, d))); });
         else tr.appendChild(el('td', {}, D.configLabel(s.cfg)));
-        V.TIERS.forEach(function (t) { S.tierCell(s, t, tr.appendChild(el('td'))); });
-        tr.appendChild(el('td', {}, fmtSeconds(s.time)));
+        V.TIERS.forEach(function (t) { S.tierCell(s, t, tr.appendChild(el('td', { class: 'is-tier' }))); });
+        tr.appendChild(el('td', { class: 'is-num' }, fmtSeconds(s.time)));
       });
       // Narrow: a card per setup
       var ul = box.appendChild(el('ul', { class: 'crucible-cards' }));

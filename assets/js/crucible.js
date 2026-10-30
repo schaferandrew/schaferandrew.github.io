@@ -167,6 +167,20 @@
     function fmtInt(v) { return v === null || v === undefined ? NONE : v.toLocaleString(); }
     function fmtDate(v) { return v ? String(v).slice(0, 10) : NONE; }
 
+    // Decode speed: a run's output tokens (reasoning included) over its generation time, prompt
+    // processing left out (metrics.output_tokens_per_s). Older runs don't have it; they never count.
+    function runTps(run) { var v = num(((run && run.metrics) || {}).output_tokens_per_s, null); return v !== null && v > 0 ? v : null; }
+    // The median over the runs that recorded it, with how many did
+    function tpsOf(runs) {
+      var values = runs.map(function (i) { return runTps(i.run); }).filter(function (v) { return v !== null; });
+      return { value: median(values), n: values.length };
+    }
+    function fmtTps(v, bare) { return v === null || v === undefined ? NONE : (v < 10 ? v.toFixed(1) : String(Math.round(v))) + (bare ? '' : ' tok/s'); }
+    function tpsTitle(t, of) {
+      return t.n ? 'Decode speed: median of the ' + t.n + (of ? ' of ' + of : '') + ' run' + (t.n === 1 ? '' : 's') + ' that recorded it (output tokens per second of generation, prompt processing excluded)'
+        : 'Decode speed wasn\'t recorded for these runs';
+    }
+
     // Sequential scale: light to the site's secondary blue. Text flips to white on the dark half.
     function heatStyle(score) {
       if (score === null || score === undefined) return '';
@@ -571,7 +585,7 @@
       // A tier with no active task in this section has no column here
       MODE_TIERS = S.TIERS.filter(function (t) { return tiers.indexOf(t.id) !== -1; });
       if (!MODE_TIERS.length) MODE_TIERS = [S.HEADLINE];
-      var keyOk = MODE_TIERS.some(function (t) { return t.id === state.sort.key; }) || ['time', 'cost', 'model'].indexOf(state.sort.key) !== -1;
+      var keyOk = MODE_TIERS.some(function (t) { return t.id === state.sort.key; }) || ['time', 'tps', 'cost', 'model'].indexOf(state.sort.key) !== -1;
       if (!keyOk) state.sort = { key: modeHead().id, dir: -1 };
     }
     var MODE_TIERS = [];
@@ -699,7 +713,7 @@
       var ran = Object.keys(S.cells[cfg.key] || {}).some(function (id) { return modeTaskIds[id]; });
       return (statsCache[cfg.key] = {
         cfg: cfg, local: cfg.local, ran: ran, tier: tier, verdict: verdict, provisional: provisionalOf,
-        head: tier[S.HEAD], time: timeOf(runs), cost: costOf(cfg, runs), runs: runs.length,
+        head: tier[S.HEAD], time: timeOf(runs), tps: tpsOf(runs), cost: costOf(cfg, runs), runs: runs.length,
         progress: progress, inProgress: !meets(progress.share, S.IN_PROGRESS_BELOW)
       });
     }
@@ -746,6 +760,7 @@
     function sortValue(key, s) {
       if (key === 'model') return (s.label || rowLabel(s.cfg)).toLowerCase();
       if (key === 'time') return s.time;
+      if (key === 'tps') return s.tps ? s.tps.value : null;
       if (key === 'cost') return s.cost;
       return tierValue(s, key);
     }
@@ -1054,10 +1069,11 @@
       document.getElementById('crucible-lb-narrow').innerHTML = '';
       var columns = [{ key: null, label: '#' }, { key: 'model', label: 'Model and best setup' }]
         .concat(MODE_TIERS.map(function (t) { return { key: t.id, label: t.label }; }))
-        .concat([{ key: 'time', label: 'Time / task' }, { key: 'cost', label: 'Cost / task' }]);
+        .concat([{ key: 'time', label: 'Time / task' }, { key: 'tps', label: 'tok/s', title: 'Decode speed: output tokens per second of generation (median)' }, { key: 'cost', label: 'Cost / task' }]);
       var head = el('tr');
       columns.forEach(function (c) {
         var th = el('th', { scope: 'col' });
+        if (c.title) th.title = c.title;
         if (!c.key) th.textContent = c.label;
         else {
           var button = el('button', { type: 'button', class: 'crucible-sort' }, c.label);
@@ -1081,6 +1097,7 @@
           row.appendChild(td);
         });
         row.appendChild(el('td', { class: 'crucible-lb-num' }, fmtSeconds(s.time)));
+        row.appendChild(el('td', { class: 'crucible-lb-num', title: tpsTitle(s.tps, s.runs) }, fmtTps(s.tps.value, true)));
         row.appendChild(el('td', { class: 'crucible-lb-num', title: costTitle(s) }, costLabel(s)));
       }
       list.forEach(function (s) {
@@ -1110,7 +1127,7 @@
     }
 
     function setSort(key) {
-      // Scores sort high-first by default; time, cost and names low-first
+      // Scores and decode speed sort high-first by default; time, cost and names low-first
       var natural = ['time', 'cost', 'model'].indexOf(key) === -1 ? -1 : 1;
       state.sort = { key: key, dir: state.sort.key === key ? -state.sort.dir : natural };
       render();
@@ -1123,7 +1140,7 @@
       var bar = el('div', { class: 'crucible-lb-sortbar' });
       bar.appendChild(el('label', { for: 'crucible-lb-sort' }, 'Sort by'));
       var select = el('select', { id: 'crucible-lb-sort', class: 'crucible-select' });
-      MODE_TIERS.map(function (t) { return [t.id, t.label]; }).concat([['time', 'Time / task'], ['cost', 'Cost / task'], ['model', 'Model']]).forEach(function (o) {
+      MODE_TIERS.map(function (t) { return [t.id, t.label]; }).concat([['time', 'Time / task'], ['tps', 'Decode speed'], ['cost', 'Cost / task'], ['model', 'Model']]).forEach(function (o) {
         var opt = el('option', { value: o[0] }, o[1]);
         if (o[0] === state.sort.key) opt.selected = true;
         select.appendChild(opt);
@@ -1141,11 +1158,11 @@
           row.appendChild(el('span', { class: 'crucible-lb-card-label' }, t.label));
           tierCellContent(s, t, row);
         });
-        var time = fmtSeconds(s.time) + '/task', cost = costLabel(s) + '/task';
+        var parts = [['time', 'Time ', fmtSeconds(s.time) + '/task'], ['tps', 'Decode ', fmtTps(s.tps.value)], ['cost', 'Cost ', costLabel(s) + '/task']];
         var line = card.appendChild(el('p', { class: 'crucible-lb-card-line' }));
-        if (state.sort.key === 'time') line.appendChild(el('strong', {}, 'Time ' + time));
-        else if (state.sort.key === 'cost') line.appendChild(el('strong', {}, 'Cost ' + cost));
-        var rest = state.sort.key === 'time' ? [cost] : state.sort.key === 'cost' ? [time] : [time, cost];
+        var sorted = parts.filter(function (p) { return p[0] === state.sort.key; })[0];
+        if (sorted) line.appendChild(el('strong', {}, sorted[1] + sorted[2]));
+        var rest = parts.filter(function (p) { return p !== sorted; }).map(function (p) { return p[0] === 'tps' ? 'decode ' + p[2] : p[2]; });
         line.appendChild(document.createTextNode((line.firstChild ? ' · ' : '') + rest.join(' · ')));
       }
       list.forEach(function (s) {
@@ -1409,7 +1426,7 @@
       }
       into.appendChild(el('p', { class: 'crucible-detail-meta' }, [
         'ran ' + fmtDate(r.started_at), (out.status || NONE).replace(/_/g, ' ') + (out.timed_out ? ' (timed out)' : ''),
-        'time ' + fmtSeconds(num(r.elapsed_s, null)), met.tool_calls !== null && met.tool_calls !== undefined ? 'tool calls ' + fmtInt(met.tool_calls) : null,
+        'time ' + fmtSeconds(num(r.elapsed_s, null)), runTps(r) !== null ? 'decode ' + fmtTps(runTps(r)) : 'decode speed not recorded', met.tool_calls !== null && met.tool_calls !== undefined ? 'tool calls ' + fmtInt(met.tool_calls) : null,
         'tokens in ' + fmtInt(met.tokens_in), 'out ' + fmtInt(met.tokens_out),
         (info.cfg.local ? 'electricity ' : 'cost ') + fmtCost(runCost(r), info.cfg.local),
         r.endpoint && r.endpoint.upstream && (r.endpoint.upstream.name || r.endpoint.upstream.provider) ? 'routed to ' + (r.endpoint.upstream.name || r.endpoint.upstream.provider) : null,
@@ -1657,7 +1674,7 @@
       var met = function (f) { return shown.map(function (i) { return num((i.run.metrics || {})[f], null); }); };
       return {
         value: cellValue(c), time: median(shown.map(function (i) { return num(i.run.elapsed_s, null); })),
-        tools: median(met('tool_calls')), tokens: median(met('tokens_out')), cost: mean(shown.map(function (i) { return runCost(i.run); })),
+        tools: median(met('tool_calls')), tokens: median(met('tokens_out')), tps: tpsOf(shown), cost: mean(shown.map(function (i) { return runCost(i.run); })),
         timedOut: shown.some(function (i) { return i.run.outcome && i.run.outcome.timed_out; }), runs: c ? c.all.length : 0, counted: counted.length
       };
     }
@@ -1701,6 +1718,7 @@
       if (n.timedOut) timeCell.appendChild(el('span', { class: 'crucible-flag' }, 'timed out'));
       if (toolCalls) row.appendChild(el('td', {}, fmtInt(n.tools)));
       row.appendChild(el('td', {}, fmtInt(n.tokens)));
+      row.appendChild(el('td', { title: tpsTitle(n.tps) }, fmtTps(n.tps.value)));
       row.appendChild(el('td', {}, fmtCost(n.cost, s.local)));
       row.appendChild(el('td', {}, String(n.runs)));
 
@@ -1777,6 +1795,7 @@
       kvRow(li, 'Time', time);
       if (toolCalls) kvRow(li, 'Tool calls', fmtInt(n.tools));
       kvRow(li, 'Tokens out', fmtInt(n.tokens));
+      kvRow(li, 'Decode speed', fmtTps(n.tps.value));
       kvRow(li, 'Cost', fmtCost(n.cost, s.local));
       kvRow(li, 'Runs', String(n.runs));
       var detail = li.appendChild(el('div', { class: 'crucible-detail', hidden: '' }));
@@ -1791,6 +1810,55 @@
       });
     }
 
+    // Decode speed of one model (at one reasoning level) on each machine it ran on in this section:
+    // the median over its counted runs there that recorded it. Every setup of the model counts here,
+    // whatever the filters, since the same weights decode at different speeds on different hardware.
+    function renderSpeed(target) {
+      var box = document.getElementById('crucible-speed');
+      if (!box) return;
+      box.innerHTML = '';
+      box.hidden = !target;
+      if (!target) return;
+      var groups = {}, order = [];
+      modeConfigsAll().filter(function (cfg) { return cfg.rowKey === target.row.rowKey; }).forEach(function (cfg) {
+        var key = cfg.local ? 'local|' + (cfg.hwKey || cfg.where) : 'cloud|' + (cfg.provider || cfg.where);
+        var g = groups[key];
+        if (!g) { g = groups[key] = { key: key, label: cfg.local ? hardwareText(cfg) : 'cloud via ' + (cfg.provider || cfg.where), cfg: cfg, runs: [], setups: [], current: false }; order.push(key); }
+        g.runs = g.runs.concat(countedRuns(cfg));
+        var setup = (cfg.local ? [cfg.quant || 'quant not recorded', cfg.harness] : [cfg.harness]).join(' · ');
+        if (g.setups.indexOf(setup) === -1) g.setups.push(setup);
+        if (cfg.key === target.s.cfg.key) g.current = true;
+      });
+      var list = order.map(function (k) { var g = groups[k]; g.tps = tpsOf(g.runs); return g; }).filter(function (g) { return g.runs.length; });
+      list.sort(function (a, b) {
+        if ((a.tps.value === null) !== (b.tps.value === null)) return a.tps.value === null ? 1 : -1;
+        return (b.tps.value || 0) - (a.tps.value || 0) || (a.label < b.label ? -1 : 1);
+      });
+      var head = box.appendChild(el('p', { class: 'crucible-speed-title' }));
+      head.appendChild(el('strong', {}, 'Decode speed'));
+      head.appendChild(document.createTextNode(' by hardware: output tokens per second of generation, prompt processing excluded; the median of ' +
+        target.s.label + '\'s counted runs in this section that recorded it.'));
+      var max = Math.max.apply(null, [0].concat(list.map(function (g) { return g.tps.value || 0; })));
+      if (!max) {
+        box.appendChild(el('p', { class: 'crucible-detail-meta' }, NONE + ' (not recorded for ' + (list.length === 1 ? 'this model\'s runs' : 'any of this model\'s runs') + ' yet)'));
+        return;
+      }
+      var ul = box.appendChild(el('ul', { class: 'crucible-speed-list' }));
+      list.forEach(function (g) {
+        var li = ul.appendChild(el('li', { class: 'crucible-speed-row' + (g.current ? ' is-current' : ''), title: tpsTitle(g.tps, g.runs.length) }));
+        var name = li.appendChild(el('span', { class: 'crucible-speed-name' }));
+        name.appendChild(el('span', { class: 'crucible-speed-hw' }, g.label));
+        name.appendChild(whereTag(g.cfg));
+        name.appendChild(el('span', { class: 'crucible-config-n crucible-speed-setups' }, g.setups.join(', ')));
+        var bar = li.appendChild(el('span', { class: 'crucible-bar crucible-speed-bar' }));
+        var fill = bar.appendChild(el('span', { class: 'crucible-bar-fill' }));
+        fill.style.width = (g.tps.value ? Math.max(2, g.tps.value / max * 100) : 0) + '%';
+        var value = li.appendChild(el('span', { class: 'crucible-speed-value' }));
+        value.appendChild(el('span', { class: 'crucible-score-num' }, fmtTps(g.tps.value)));
+        value.appendChild(el('span', { class: 'crucible-repeat' }, g.tps.n + ' of ' + g.runs.length + ' run' + (g.runs.length === 1 ? '' : 's')));
+      });
+    }
+
     var currentTarget = null;
     function renderTasks(target) {
       currentTarget = target;
@@ -1798,6 +1866,7 @@
       table.innerHTML = '';
       document.getElementById('crucible-tests-narrow').innerHTML = '';
       renderOtherRuns(target);
+      renderSpeed(target);
       if (!target) return;
       var s = target.s;
       var toolCalls = modeHasToolCalls();
@@ -1819,7 +1888,7 @@
         });
         return;
       }
-      var columns = ['Task', 'Score (mean)', 'Time'].concat(toolCalls ? ['Tool calls'] : [], ['Tokens out', 'Cost', 'Runs']);
+      var columns = ['Task', 'Score (mean)', 'Time'].concat(toolCalls ? ['Tool calls'] : [], ['Tokens out', 'Decode speed', 'Cost', 'Runs']);
       var head = el('tr');
       columns.forEach(function (c) { head.appendChild(el('th', { scope: 'col' }, c)); });
       table.appendChild(el('thead')).appendChild(head);
@@ -1909,7 +1978,7 @@
       }).filter(Boolean);
       var extra = chosen.map(function (s) {
         var runs = countedRuns(s.cfg, shared);
-        return { time: timeOf(runs), cost: costOf(s.cfg, runs) };
+        return { time: timeOf(runs), tps: tpsOf(runs), cost: costOf(s.cfg, runs) };
       });
       function taskCell(s, t) {
         var c = cellOf(s.cfg, t.id), a = agg(c.counted.map(function (i) { return i.score; }));
@@ -1926,6 +1995,7 @@
           var li = modelCard(s, ul);
           tierRowsData.forEach(function (r) { kvRow(li, r.tier.label + ' (shared)', fmtScore(r.scores[k].score)); });
           kvRow(li, 'Time / task', fmtSeconds(extra[k].time));
+          kvRow(li, 'Decode speed', fmtTps(extra[k].tps.value));
           kvRow(li, 'Cost / task', fmtCost(extra[k].cost, s.local));
         });
         sharedTasks.forEach(function (t) {
@@ -1968,6 +2038,11 @@
         }), 'crucible-compare-tier');
       });
       numRow('Time / task (median)', extra.map(function (x) { return el('td', { class: 'crucible-compare-num' }, fmtSeconds(x.time)); }), 'crucible-compare-tier');
+      numRow('Decode speed (median)', extra.map(function (x) {
+        var td = el('td', { class: 'crucible-compare-num', title: tpsTitle(x.tps) }, fmtTps(x.tps.value));
+        if (x.tps.n) td.appendChild(el('span', { class: 'crucible-repeat' }, ' ' + x.tps.n + ' run' + (x.tps.n === 1 ? '' : 's')));
+        return td;
+      }), 'crucible-compare-tier');
       numRow('Cost / task', extra.map(function (x, k) {
         return el('td', { class: 'crucible-compare-num', title: costTitle(chosen[k]) }, fmtCost(x.cost, chosen[k].local));
       }), 'crucible-compare-tier');
@@ -2041,7 +2116,8 @@
         (cat.suite.cut_at ? ', cut ' + fmtDate(cat.suite.cut_at) : '') + (cat.crucible_version ? '; catalog published by Crucible ' + cat.crucible_version : '') + '. ' +
         NONE + ' means the harness didn\'t report that number. Cost per task is the provider\'s billed cost where reported; for local runs (marked ≈) it\'s the electricity used, ' +
         'estimated from the run\'s time, the machine\'s power draw and the average US price per kWh, and leaves out the hardware itself. ' +
-        'Token counts aren\'t comparable across harnesses. Time and cost are each setup\'s own: local time depends on the hardware named.';
+        'Decode speed is output tokens (reasoning included) per second of generation, leaving out prompt processing: the median over the runs that recorded it (' + NONE + ' when none did). ' +
+        'Token counts aren\'t comparable across harnesses. Time, decode speed and cost are each setup\'s own: local ones depend on the hardware named.';
     }
 
     // ---- Render -----------------------------------------------------------

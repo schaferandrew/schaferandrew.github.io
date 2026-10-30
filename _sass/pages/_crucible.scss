@@ -573,6 +573,71 @@ $crucibleBlue: #1856a3;
   vertical-align: middle;
 }
 
+// Decode speed by hardware (model detail): one row per machine, a bar scaled to the fastest
+.crucible-speed {
+  margin: 0 0 $gap;
+}
+
+.crucible-speed-title {
+  margin: 0 0 ($gap / 2);
+  color: $gray;
+  font-size: $textSmall;
+}
+
+.crucible-speed-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.crucible-speed-row {
+  display: grid;
+  grid-template-columns: minmax(0, 22em) minmax(80px, 240px) auto;
+  align-items: center;
+  gap: 2px $gap;
+  padding: 4px 0;
+  font-size: $textSmall;
+  border-top: 1px solid $crucibleBorder;
+
+  &.is-current .crucible-speed-hw {
+    font-weight: $weightBold;
+  }
+
+  @media screen and (max-width: 639px) {
+    grid-template-columns: minmax(0, 1fr) auto;
+
+    .crucible-speed-name {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+.crucible-speed-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.crucible-speed-hw {
+  margin-right: 4px;
+}
+
+.crucible-speed-setups {
+  display: block;
+}
+
+.crucible-speed-bar {
+  width: 100%;
+}
+
+.crucible-speed-value {
+  white-space: nowrap;
+
+  .crucible-score-num {
+    width: auto;
+    min-width: 5em;
+  }
+}
+
 .crucible-bar.is-uncounted .crucible-bar-fill {
   opacity: 0.35;
 }

@@ -531,23 +531,6 @@ $crucibleBlue: #1856a3;
   font-weight: $weightBold;
 }
 
-.crucible-test-summary {
-  display: none;
-
-  @media screen and (min-width: $medium) {
-    display: block;
-  }
-
-  max-width: 48ch;
-  margin-top: 2px;
-  overflow: hidden;
-  color: $gray;
-  font-size: $textSmall;
-  font-weight: normal;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .crucible-not-run {
   color: $crucibleMuted;
   font-style: italic;
@@ -1113,31 +1096,6 @@ $crucibleBlue: #1856a3;
   font-size: $textSmall;
 }
 
-.crucible-area-strip {
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 3px;
-  margin-left: $gap / 2;
-}
-
-.crucible-area-sq {
-  width: 12px;
-  height: 12px;
-  border-radius: 2px;
-  background: $crucibleNotRun;
-  // Tier shows as the square's outline weight: easy thin, hard thick
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
-
-  &.is-role-stretch {
-    box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.35);
-  }
-
-  &.is-empty {
-    background: none;
-    box-shadow: inset 0 0 0 1px $crucibleMuted;
-  }
-}
-
 .crucible-tier-tag {
   margin-right: 6px;
 }
@@ -1390,16 +1348,6 @@ $crucibleBlue: #1856a3;
   border-radius: 6px;
   font: inherit;
   font-weight: $weightBold;
-  cursor: pointer;
-}
-
-.crucible-card-more {
-  margin-top: $gap / 2;
-  padding: 0;
-  background: none;
-  border: 0;
-  color: $colorSecondary;
-  font: inherit;
   cursor: pointer;
 }
 
@@ -1691,32 +1639,6 @@ ol.crucible-scatter-key {
 
   .crucible-link-button {
     margin-left: 4px;
-  }
-}
-
-.crucible-compare {
-  th,
-  td {
-    vertical-align: top;
-  }
-
-  .crucible-compare-col {
-    min-width: 180px;
-    white-space: normal;
-  }
-
-  .crucible-compare-num {
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-
-    &.is-best {
-      font-weight: $weightBold;
-    }
-  }
-
-  .crucible-compare-tier th,
-  .crucible-compare-tier td {
-    background: #f8f9fc;
   }
 }
 

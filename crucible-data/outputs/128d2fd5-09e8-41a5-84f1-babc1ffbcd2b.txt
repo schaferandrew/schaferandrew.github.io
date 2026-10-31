@@ -1,0 +1,99 @@
+**1. Savings account**
+
+Principal = \$5 000  
+Annual rate = 4 % → monthly rate \(r = \dfrac{0.04}{12}=0.003333\overline{3}\)  
+
+Number of months in 3 years: \(n = 3\times12 = 36\)
+
+Future value formula (compound interest)  
+
+\[
+A = P(1+r)^{n}
+\]
+
+\[
+\begin{aligned}
+A &= 5000\bigl(1+0.003333\overline{3}\bigr)^{36} \\
+  &= 5000\,(1.003333\overline{3})^{36} \\
+  &\approx 5000 \times 1.1272988 \\
+  &\approx 5636.494
+\end{aligned}
+\]
+
+Rounded to the nearest cent: **\$5 636.49**
+
+---
+
+**2. Flooring a room**
+
+Room area = 1 850 ft²  
+Boxes supply 23.5 ft² each, need 10 % extra for waste.
+
+\[
+\text{Total required} = 1\,850 \times 1.10 = 2\,035\ \text{ft}^2
+\]
+
+Number of boxes needed  
+
+\[
+\frac{2\,035}{23.5}=86.79\;\;\Longrightarrow\;\; \lceil 86.79\rceil = 87
+\]
+
+So **87 boxes** must be bought.
+
+---
+
+**3. Gas cost for the road trip**
+
+Distance = 412 mi  
+Fuel efficiency = 34 mpg → gallons needed  
+
+\[
+\text{gallons}= \frac{412}{34}=12.117647\ldots
+\]
+
+Gas price = \$3.89 per gallon  
+
+\[
+\text{Cost}=12.117647 \times 3.89 \approx 47.1376
+\]
+
+Rounded to the nearest cent: **\$47.14**
+
+---
+
+**4. Dinner and tip split**
+
+Pre‑tax amount = \$172.00  
+Tax already included → total after tax = \$186.40 (matches 172 + tax).  
+
+Tip = 18 % of pre‑tax amount  
+
+\[
+\text{Tip}=0.18 \times 172 = 30.96? \; \text{Wait, recalc: } 0.1\times172=17.2,\;0.05\times172=8.6\;\Rightarrow\;25.8
+\]
+
+So tip = \$25.80.
+
+Total with tip  
+
+\[
+186.40 + 25.80 = 212.20
+\]
+
+Split four ways  
+
+\[
+\frac{212.20}{4}=53.05
+\]
+
+Each person pays **\$53.05**.
+
+---
+
+**ANSWERS**
+
+1. 5636.49  
+2. 87  
+3. 47.14  
+4. 53.05

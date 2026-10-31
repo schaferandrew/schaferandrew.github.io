@@ -1,0 +1,7 @@
+The author’s claim in sentence 11 is overstated and misleading.  
+
+ERRORS:
+11: inevitably
+
+FLAGS:
+11: overstated

@@ -1,0 +1,41 @@
+## Weather  
+Today (September 2, 2026) in Saint Paul, MN: **Partly Cloudy**, 68 °F high / 55 °F low, humidity 65 %, wind 8 mph. The forecast for later today shows scattered showers possible around midday.
+
+## Outstanding work  
+- Q3 expense report must be submitted by **5:00 PM** (reminder sent yesterday). A delay will affect next month’s payroll.  
+- Client email awaiting a reply about the revised proposal timeline; no answer has been provided yet.
+
+## Emails  
+
+1. **From:** alex@example.com  
+   **Subject:** Project update – Q3 review completed  
+   **Body:** The Q3 review is now complete and ahead of schedule. Let's discuss the results in our planning meeting.  
+
+2. **From:** jamie@example.com  
+   **Subject:** Meeting notes from yesterday  
+   **Body:** Notes from yesterday's 1‑on‑1: discussed career goals, next quarter priorities, and team building activities.  
+
+3. **From:** finance@example.com  
+   **Subject:** Reminder: Q3 expense report due Wednesday 5 PM  
+   **Body:** Your Q3 expense report must be submitted by 5:00 PM on Wednesday, September 2. Reports that miss the cutoff are paid with next month's payroll.  
+
+4. **From:** client@example.com  
+   **Subject:** Question about the proposal timeline  
+   **Body:** Hi, can you confirm whether the revised proposal can be delivered by Friday? I need an answer before I brief my team. Please reply when you can.
+
+## Calendar  
+
+- **Planning** – 9:30 AM – 10:30 AM, Room B (you).  
+- **Vendor demo** – 10:00 AM – 11:00 AM, Zoom (with vendor@example.com).
+
+## News  
+
+1. **Twin Cities Tech Conference Returns** – Annual conference returns with 50+ speakers covering AI, startup funding, and emerging technologies; registration opens Friday. *(StarTribune)*  
+2. **Maplewood Park Renovation Complete** – Renovations finished ahead of schedule; new walking trails and children’s playground open Saturday. *(Pioneer Press)*  
+3. **State Fair Attendance Drops Slightly** – 3% lower attendance this year, partly due to cooler‑than-average weather. *(StarTribune)*
+
+## Top 3 things to do today  
+
+1. Respond to the client’s proposal timeline question by end of day.  
+2. Attend the Planning meeting in Room B at 9:30 AM.  
+3. Participate in the Vendor demo at 10:00 AM Zoom.

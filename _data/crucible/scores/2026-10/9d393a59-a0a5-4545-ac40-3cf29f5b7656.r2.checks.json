@@ -1,0 +1,212 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "9d393a59-a0a5-4545-ac40-3cf29f5b7656",
+ "rubric_version": 2,
+ "rubric_hash": "f75bb0a15226bc61",
+ "method": "checks",
+ "scored_at": "2026-10-30T20:41:50.788074+00:00",
+ "crucible_version": "3.4.2",
+ "raw": {
+  "passed": 16.0,
+  "total": 23,
+  "unit": "points"
+ },
+ "score": 6.96,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "landlocked_found",
+   "type": "items",
+   "group": "All landlocked found",
+   "label": "Lists each of the 11 landlocked countries on the Landlocked line, and not on the Not landlocked line: Bolivia, Kazakhstan, Austria, Laos, Paraguay, Serbia, Ethiopia, Uzbekistan, Zambia, Hungary, Mongolia; one item per country.",
+   "passed": true,
+   "detail": "11/11 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "landlocked:Bolivia",
+     "label": "Bolivia on the Landlocked line",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "landlocked:Kazakhstan",
+     "label": "Kazakhstan on the Landlocked line",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "landlocked:Austria",
+     "label": "Austria on the Landlocked line",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "landlocked:Laos",
+     "label": "Laos on the Landlocked line",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "landlocked:Paraguay",
+     "label": "Paraguay on the Landlocked line",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "landlocked:Serbia",
+     "label": "Serbia on the Landlocked line",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "landlocked:Ethiopia",
+     "label": "Ethiopia on the Landlocked line",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "landlocked:Uzbekistan",
+     "label": "Uzbekistan on the Landlocked line",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "landlocked:Zambia",
+     "label": "Zambia on the Landlocked line",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "landlocked:Hungary",
+     "label": "Hungary on the Landlocked line",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "landlocked:Mongolia",
+     "label": "Mongolia on the Landlocked line",
+     "passed": true,
+     "detail": "listed"
+    }
+   ]
+  },
+  {
+   "id": "coastal_not_listed",
+   "type": "items",
+   "group": "Coastal countries on the right line",
+   "label": "Lists each coastal country on the Not landlocked line, and not on the Landlocked line: Croatia, Eritrea, Mozambique, Vietnam, Slovenia, Jordan, Bosnia and Herzegovina, Togo, Iraq, DR Congo, Belgium; one item per country.",
+   "passed": false,
+   "detail": "5/11 items; failed: coastal:Slovenia (not listed), coastal:Jordan (not listed), coastal:Bosnia and Herzegovina (not listed), coastal:Iraq (not listed), coastal:DR Congo (not listed), coastal:Belgium (not listed)",
+   "share": 0.4545,
+   "items": [
+    {
+     "id": "coastal:Croatia",
+     "label": "Croatia on the Not landlocked line",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "coastal:Eritrea",
+     "label": "Eritrea on the Not landlocked line",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "coastal:Mozambique",
+     "label": "Mozambique on the Not landlocked line",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "coastal:Vietnam",
+     "label": "Vietnam on the Not landlocked line",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "coastal:Slovenia",
+     "label": "Slovenia on the Not landlocked line",
+     "passed": false,
+     "detail": "not listed"
+    },
+    {
+     "id": "coastal:Jordan",
+     "label": "Jordan on the Not landlocked line",
+     "passed": false,
+     "detail": "not listed"
+    },
+    {
+     "id": "coastal:Bosnia and Herzegovina",
+     "label": "Bosnia and Herzegovina on the Not landlocked line",
+     "passed": false,
+     "detail": "not listed"
+    },
+    {
+     "id": "coastal:Togo",
+     "label": "Togo on the Not landlocked line",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "coastal:Iraq",
+     "label": "Iraq on the Not landlocked line",
+     "passed": false,
+     "detail": "not listed"
+    },
+    {
+     "id": "coastal:DR Congo",
+     "label": "DR Congo on the Not landlocked line",
+     "passed": false,
+     "detail": "not listed"
+    },
+    {
+     "id": "coastal:Belgium",
+     "label": "Belgium on the Not landlocked line",
+     "passed": false,
+     "detail": "not listed"
+    }
+   ]
+  },
+  {
+   "id": "doubly",
+   "type": "items",
+   "group": "Doubly landlocked",
+   "label": "The doubly landlocked country is Uzbekistan.",
+   "passed": false,
+   "detail": "0/1 items; failed: doubly (got Kazakhstan)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "doubly",
+     "label": "Doubly landlocked is Uzbekistan",
+     "passed": false,
+     "detail": "got Kazakhstan"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "All landlocked found",
+   "passed": 11.0,
+   "total": 11,
+   "detail": "11/11 items"
+  },
+  {
+   "id": "Coastal countries on the right line",
+   "passed": 5.0,
+   "total": 11,
+   "detail": "5/11 items; failed: coastal:Slovenia (not listed), coastal:Jordan (not listed), coastal:Bosnia and Herzegovina (not listed), coastal:Iraq (not listed), coastal:DR Congo (not listed), coastal:Belgium (not listed)"
+  },
+  {
+   "id": "Doubly landlocked",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: doubly (got Kazakhstan)"
+  }
+ ]
+}

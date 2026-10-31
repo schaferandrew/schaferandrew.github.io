@@ -1,0 +1,3 @@
+The response meets the correctness and handling criteria fully (5 + 2 = 7). It also provides two correct example calls (2 = 9 total so far). However, it includes extensive preamble and explanation before the code, which violates the conciseness requirement (0 points for that criterion). Hence the final grade is 9.
+
+GRADE: 9

@@ -1,0 +1,90 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "ff01988c-962b-43a9-8d8d-a8eefb3c4009",
+ "run_path": "lmstudio_granite-4.2-3b-mlx@4bit/river-haiku-banned-words/20261030_211828",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T21:18:28.528999+00:00",
+ "ended_at": "2026-10-30T21:19:04.173999+00:00",
+ "elapsed_s": 34.86,
+ "task": {
+  "id": "river-haiku-banned-words",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "abfd04ef9376bbaa",
+  "rubric_hash": "66b089cf0968cc9e",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/granite-4.2-3b-mlx@4bit",
+  "base": "granite-4.2-3b-mlx@4bit",
+  "publisher": "lmstudio-community",
+  "artifact": null,
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": 131072,
+  "variant_key": "granite-4.2-3b-mlx@4bit|lmstudio-community|mlx|mlx-4bit",
+  "display": "granite-4.2-3b-mlx@4bit · 4bit"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 39,
+  "tokens_out": 2789,
+  "model_responses": 1,
+  "ttft_s": 0.128,
+  "ttft_avg_s": 0.128,
+  "response_time_avg_s": 34.855,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 8423,
+  "output_tokens_per_s": 80.3
+ },
+ "output_ref": "outputs/ff01988c-962b-43a9-8d8d-a8eefb3c4009.txt",
+ "provenance": {
+  "crucible_version": "3.4.2",
+  "crucible_commit": "06d4398",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Duskfall",
+  "source": "crucible-run",
+  "content_hash": "sha256:f45a6f64682c76f5be60bf9cd655c3338601dfb07013d8e3d956614f5fc5e12d",
+  "submitter": null,
+  "verification": null
+ }
+}

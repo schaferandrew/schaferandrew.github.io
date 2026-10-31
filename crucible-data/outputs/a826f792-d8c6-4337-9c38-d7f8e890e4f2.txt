@@ -1,0 +1,16 @@
+I see there are several issues with my implementation:
+
+1. The `submitForReview` function throws a forbidden error when the article is not in draft status (which happens for published articles) - but I'm catching that wrong in the route handler
+2. The privacy rules aren't being enforced properly - drafts and in_review articles should return 404 to the public
+
+Let me fix these issues one by one. First, let me understand the issue better:
+
+1. For "cannot submit already submitted article" - when an article is published (no status field means published), calling submit returns a forbidden error because it's not in draft state
+2. For privacy rules - I need to check if the public can see unapproved articles
+
+Let me look at how getArticle works and fix the issues:</think>I see several issues with my implementation. Let me analyze and fix them:
+
+1. The `submitForReview` function should return a 422 error when trying to submit an article that's not in draft state
+2. Public users shouldn't be able to see unapproved articles at all (should get 404)
+
+Let me fix the services/articles.ts first:

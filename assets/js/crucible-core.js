@@ -247,11 +247,44 @@
   }
   // Links to the other pages keep the suite the reader is looking at (no param means the current one)
   function suiteParam(suite) { return suite !== undefined ? suite : parseHash().params.suite || null; }
-  function pageUrl(page, id, suite) { return C.BASE + page + '/' + buildHash(id, { suite: suiteParam(suite) }); }
+  // extra: more parameters, written before the suite (e.g. { variant, deployment, mode })
+  function pageUrl(page, id, suite, extra) {
+    var p = {};
+    Object.keys(extra || {}).forEach(function (k) { if (k !== 'suite') p[k] = extra[k]; });
+    p.suite = suiteParam(suite);
+    return C.BASE + page + '/' + buildHash(id, p);
+  }
   function taskUrl(id, suite) { return pageUrl('task', id, suite); }
-  function modelUrl(maker, base, suite) { return pageUrl('model', (maker ? maker + '/' : '') + modelName(base), suite); }
+  // The model page: '#<maker>/<model>', '#-/<model>' when no maker is known. The third argument is
+  // the suite, or an object { variant, deployment, mode, suite }; extra (the 4th) adds parameters.
+  function modelUrl(maker, base, suite, extra) {
+    if (suite && typeof suite === 'object') { extra = suite; suite = extra.suite; }
+    return pageUrl('model', (maker || UNKNOWN_MAKER) + '/' + modelName(base), suite, extra);
+  }
   function compareUrl(slugs, suite) { return pageUrl('compare', slugs.join(','), suite); }
-  function publisherUrl(maker, suite) { return pageUrl('publisher', maker, suite); }
+  // A publisher (the maker) is the model page's top level: '#<maker>', '#-' for models with no
+  // known maker. publisherUrl() with no maker at all would be '#-' too; the index is modelIndexUrl().
+  function publisherUrl(maker, suite) { return pageUrl('model', maker || UNKNOWN_MAKER, suite); }
+  function modelIndexUrl(suite) { return pageUrl('model', null, suite); }
+  // The model page's id, parsed: '' -> { level: 'index' }; '<maker>' -> { level: 'publisher', maker };
+  // '<maker>/<model>' -> { level: 'model', maker, model }. '-' stands for "no known maker" (maker null,
+  // unknownMaker true). key is what D.basesOf takes ("qwen/qwen3.5-9b", or just the name).
+  var UNKNOWN_MAKER = '-';
+  function parseModelId(id) {
+    id = id === null || id === undefined ? '' : String(id).replace(/^\/+|\/+$/g, '');
+    if (!id) return { level: 'index', maker: null, model: null, unknownMaker: false, key: null };
+    var i = id.indexOf('/');
+    var maker = i === -1 ? id : id.slice(0, i), model = i === -1 ? null : id.slice(i + 1) || null;
+    var unknown = maker === UNKNOWN_MAKER;
+    if (unknown) maker = null;
+    return {
+      level: model ? 'model' : 'publisher', maker: maker, model: model, unknownMaker: unknown,
+      key: model ? (maker ? maker + '/' : '') + model : null
+    };
+  }
+  C.UNKNOWN_MAKER = UNKNOWN_MAKER;
+  C.parseModelId = parseModelId;
+  C.modelIndexUrl = modelIndexUrl;
 
   // The hash for `id`, keeping the current hash's `keep` parameters (default: the suite), then `over`
   function hashFor(id, over, keep) {
@@ -595,14 +628,19 @@
     D.modelKey = modelKey;
     D.modelLabel = function (base) { return shortName(base); };
     D.bases = function () { return BASES.slice(); };
-    D.basesOf = function (key) { return BASES.filter(function (b) { return modelKey(b) === key; }); };
+    // key: "qwen/qwen3.5-9b", or "-/name" / "name" for a model with no known maker
+    D.basesOf = function (key) {
+      key = String(key || '').replace(/^-\//, '');
+      return BASES.filter(function (b) { return modelKey(b) === key; });
+    };
     D.basesByMaker = function (maker) { return BASES.filter(function (b) { return makerOf(b) === maker; }); };
     D.makers = function () {
       var out = [];
       BASES.forEach(function (b) { var m = makerOf(b); if (m && out.indexOf(m) === -1) out.push(m); });
       return out.sort();
     };
-    D.modelUrl = function (x, suite) { var base = baseOf(x); return modelUrl(makerOf(base), base, suite); };
+    // x: a run, setup, row or base; suite and extra as C.modelUrl's ({ variant, deployment, mode })
+    D.modelUrl = function (x, suite, extra) { var base = baseOf(x); return modelUrl(makerOf(base), base, suite, extra); };
 
     // A run's standing: withdrawn runs never show; invalid ones show, flagged, and never count
     function validity(uuid, r) {

@@ -1,45 +1,82 @@
 ---
 layout: default
-title: Crucible model
+title: Crucible models
 noindex: true
 permalink: /crucible/model/
 ---
 <div class="constrain crucible crucible-model">
-  <p class="crucible-breadcrumb" id="model-breadcrumb"><a href="/crucible/">← Crucible results</a></p>
+  <p class="crucible-breadcrumb" id="model-breadcrumb"><a href="/crucible/">Crucible</a> › Models</p>
   <h1 class="crucible-title" id="model-title">Models</h1>
 
   <p class="crucible-status" id="crucible-status" role="status">Loading results…</p>
 
-  <section class="crucible-results" aria-label="Model" id="crucible-results" hidden>
+  <section class="crucible-results" aria-label="Models" id="crucible-results" hidden>
+    <div class="cm-meta" id="model-meta" hidden></div>
     <div class="crucible-suite-bar">
       <label class="crucible-toolbar-label" for="suite-select" id="suite-select-label">Suite</label>
       <select class="crucible-select" id="suite-select"></select>
       <span class="crucible-suite-line" id="suite-line"></span>
     </div>
     <p class="crucible-sub crucible-suite-note" id="suite-note" hidden></p>
+    <p class="crucible-sub crucible-pub-message" id="model-message" hidden></p>
 
+    <!-- Level 1: publishers and their models -->
     <div id="model-index" hidden></div>
 
+    <!-- Level 2: one publisher's models -->
+    <div id="model-publisher" hidden>
+      <div id="pub-modes-box" hidden>
+        <div class="crucible-toolbar crucible-toolbar-tight">
+          <span class="crucible-toolbar-label" id="pub-mode-label">Section</span>
+          <div class="crucible-segmented" role="radiogroup" aria-labelledby="pub-mode-label" id="pub-modes"></div>
+        </div>
+      </div>
+
+      <h2 class="crucible-heading" id="pub-table-heading">Models</h2>
+      <p class="crucible-sub" id="pub-sub"></p>
+      <div class="crucible-scroll crucible-pub-wide">
+        <table class="crucible-leaderboard crucible-pub-table" id="pub-table"></table>
+      </div>
+      <div class="crucible-pub-narrow" id="crucible-pub-narrow" hidden></div>
+      <p class="crucible-pub-compare" id="pub-compare" hidden></p>
+
+      <div id="pub-chart-box" hidden>
+        <h2 class="crucible-heading" id="pub-chart-heading">Score per model</h2>
+        <p class="crucible-sub" id="pub-chart-sub"></p>
+        <div class="crucible-pub-legend" id="pub-legend"></div>
+        <div class="crucible-pub-chart" id="pub-chart"></div>
+      </div>
+    </div>
+
+    <!-- Level 3: one model -->
     <div id="model-page" hidden>
-      <div class="cm-meta" id="model-meta"></div>
       <p class="crucible-sub" id="model-empty" hidden></p>
 
       <div id="model-body">
-        <h2 class="crucible-heading">Setup</h2>
+        <h2 class="crucible-heading">Variant</h2>
+        <p class="crucible-sub">What changes the answers: the weights, the reasoning level and, where a section has several, the harness. Dashed means no variant ran with that value alongside your other choices; it selects the nearest one.</p>
         <div class="cm-picker" id="model-picker"></div>
         <div class="cm-tiles" id="model-tiles"></div>
 
-        <h2 class="crucible-heading">Every setup</h2>
-        <p class="crucible-sub" id="setups-sub"></p>
-        <div class="crucible-scroll cm-setups-wide">
-          <table class="crucible-tests cm-setups" id="cm-setups"></table>
-        </div>
-        <div class="cm-setups-narrow" id="cm-setups-narrow" hidden></div>
-        <p class="cm-compare-bar" id="cm-compare-bar"></p>
-
         <h2 class="crucible-heading">By area</h2>
-        <p class="crucible-sub">Mean score on the tasks this setup ran in each area of the section; “ran x of y” counts the area’s tasks.</p>
+        <p class="crucible-sub" id="cm-areas-sub"></p>
         <div class="cm-areas" id="cm-areas"></div>
+
+        <h2 class="crucible-heading">Deployments</h2>
+        <p class="crucible-sub" id="cm-deps-sub"></p>
+        <div class="crucible-scroll cm-deps-wide">
+          <table class="crucible-tests cm-deps" id="cm-deps"></table>
+        </div>
+        <div class="cm-deps-narrow" id="cm-deps-narrow" hidden></div>
+        <div id="cm-dnf" hidden></div>
+
+        <h2 class="crucible-heading">Every variant</h2>
+        <p class="crucible-sub" id="variants-sub"></p>
+        <div class="crucible-scroll cm-variants-wide">
+          <table class="crucible-tests cm-variants" id="cm-variants"></table>
+        </div>
+        <div class="cm-variants-narrow" id="cm-variants-narrow" hidden></div>
+        <p class="cm-compare-bar" id="cm-compare-bar"></p>
 
         <div id="cm-ab" hidden>
           <h2 class="crucible-heading" id="cm-ab-heading">A/B</h2>
@@ -48,10 +85,11 @@ permalink: /crucible/model/
           <div class="cm-db" id="cm-db"></div>
           <div class="cm-legend" id="cm-db-legend"></div>
           <p class="cm-callout" id="cm-ab-summary"></p>
+          <div id="cm-ab-notes"></div>
         </div>
 
         <h2 class="crucible-heading">Tasks</h2>
-        <p class="crucible-sub">Every task for the selected setup, grouped by area; a score is the mean of its runs. Select a score for its runs, checks and output.</p>
+        <p class="crucible-sub" id="cm-tasks-sub"></p>
         <div class="crucible-scroll cm-tasks-wide">
           <table class="crucible-tests" id="cm-tasks"></table>
         </div>

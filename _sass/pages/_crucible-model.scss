@@ -1,4 +1,4 @@
-// Crucible model page: one model, all of its setups
+// Crucible model page: publishers, a publisher's models, one model with its variants and deployments
 
 .crucible-model {
   .cm-meta {
@@ -325,5 +325,308 @@
       margin-top: 8px;
       font-size: $textSmall;
     }
+  }
+}
+
+// ---- Variants, deployments, A/B additions ----
+.crucible-model {
+  .cm-meta {
+    margin-bottom: $gap / 2;
+  }
+
+  .cm-maker-name .crucible-inferred {
+    margin-left: 6px;
+  }
+
+  .cm-area.is-pale .cm-area-fill {
+    background: rgba(24, 86, 163, 0.35);
+  }
+
+  .cm-area.is-pale .cm-area-name,
+  .cm-area.is-pale .cm-area-val {
+    color: $crucibleMuted;
+  }
+
+  .cm-variants {
+    th.is-tier,
+    td.is-tier {
+      text-align: left;
+    }
+
+    th.is-num,
+    td.is-num {
+      text-align: right;
+    }
+
+    tr.is-selected {
+      background: rgba(24, 86, 163, 0.08);
+      box-shadow: inset 3px 0 0 $colorSecondary;
+    }
+
+    tbody tr {
+      cursor: pointer;
+    }
+  }
+
+  .cm-deps {
+    th.is-num,
+    td.is-num {
+      text-align: right;
+    }
+
+    td.is-bad {
+      color: #b3261e;
+      font-weight: $weightBold;
+    }
+
+    tr.is-selected {
+      background: rgba(24, 86, 163, 0.08);
+      box-shadow: inset 3px 0 0 $colorSecondary;
+    }
+
+    tr.is-unrecorded th,
+    tr.is-unrecorded td {
+      border-top: 2px dashed $crucibleBorder;
+    }
+
+    tbody tr {
+      cursor: pointer;
+    }
+  }
+
+  .cm-dep-name {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px 8px;
+  }
+
+  .cm-dep-label {
+    font-weight: $weightBold;
+  }
+
+  .cm-unrecorded {
+    display: inline-block;
+    padding: 0 6px;
+    border: 1px dashed $crucibleMuted;
+    border-radius: 999px;
+    color: $crucibleMuted;
+    font-size: 11px;
+    font-weight: $weightNormal;
+    white-space: nowrap;
+  }
+
+  .crucible-card.is-unrecorded {
+    border-style: dashed;
+  }
+
+  .cm-dnf-head {
+    margin: $gap / 2 0 4px;
+    font-size: $textSmall;
+    font-weight: $weightBold;
+  }
+
+  .cm-dnf-list {
+    margin: 0 0 $gap;
+    padding-left: 1.2em;
+    font-size: $textSmall;
+
+    li {
+      margin-bottom: 2px;
+    }
+
+    .cm-unrecorded {
+      margin-left: 6px;
+    }
+  }
+
+  .cm-db-row.is-uncounted .cm-db-name {
+    color: $crucibleMuted;
+  }
+
+  .cm-db-skip {
+    color: $crucibleMuted;
+    font-size: $textSmall;
+    font-style: italic;
+  }
+
+  .cm-deps-narrow .crucible-cards,
+  .cm-variants-narrow .crucible-cards {
+    margin-top: 0;
+  }
+}
+
+// ---- Publisher level: a maker's models side by side. Reuses the leaderboard's table, bars and cards.
+
+.crucible-pub-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px $gap;
+  margin: 0 0 ($gap / 2);
+  color: $gray;
+  font-size: $textSmall;
+}
+
+.crucible-pub-message {
+  padding: ($gap / 2) ($gap * 0.75);
+  background: $colorTertiary;
+  border-left: 3px solid $colorAccent;
+}
+
+.crucible-pub-model,
+.crucible-pub-maker {
+  font-weight: $weightBold;
+}
+
+.crucible-pub-table {
+  .crucible-pub-setup {
+    min-width: 150px;
+    max-width: 210px;
+    white-space: normal;
+  }
+
+  .crucible-config-n {
+    display: block;
+    color: $gray;
+    font-size: 11px;
+  }
+
+  td.crucible-pub-covcell {
+    min-width: 0;
+    white-space: normal;
+  }
+
+  .crucible-lb-name {
+    min-width: 150px;
+    max-width: 200px;
+  }
+
+  th,
+  td {
+    padding-right: $gap / 2;
+    padding-left: $gap / 2;
+  }
+
+  td.crucible-lb-bar-cell {
+    min-width: 0;
+  }
+
+  // In the table the call to action is a plain link, so the row fits at 1400 px
+  .crucible-pub-button {
+    padding: 0;
+    border: 0;
+  }
+}
+
+.crucible-pub-button {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid $colorSecondary;
+  border-radius: 4px;
+  font-size: $textSmall;
+  white-space: nowrap;
+
+  &.is-solid {
+    background: $colorSecondary;
+    color: #fff;
+  }
+}
+
+.crucible-pub-compare {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px $gap / 2;
+  margin: $gap 0 0;
+
+  .crucible-sub {
+    margin: 0;
+  }
+}
+
+.crucible-pub-best {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 8px;
+
+  &.is-pale .crucible-lb-score {
+    color: $crucibleMuted;
+    font-weight: $weightNormal;
+  }
+}
+
+.crucible-pub-card {
+  .crucible-pub-button {
+    margin-top: $gap / 2;
+  }
+
+  .crucible-pub-card-cov {
+    margin: 4px 0;
+  }
+
+  .crucible-lb-name-line {
+    gap: 2px 8px;
+  }
+}
+
+.crucible-pub-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px $gap;
+  margin-bottom: $gap / 2;
+  color: $gray;
+  font-size: $textSmall;
+}
+
+.crucible-pub-swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 6px;
+  border-radius: 3px;
+  vertical-align: -1px;
+}
+
+.crucible-pub-chart {
+  width: 100%;
+}
+
+.crucible-pub-svg {
+  display: block;
+  max-width: 100%;
+
+  .crucible-pub-lbl {
+    fill: $colorSecondary;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .crucible-pub-val,
+  .crucible-pub-none {
+    fill: #333;
+    font-size: 12px;
+  }
+
+  .crucible-pub-none {
+    fill: $crucibleMuted;
+    font-style: italic;
+  }
+}
+
+.crucible-pub-unknown {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    padding: 4px 0;
+    border-bottom: 1px solid $crucibleBorder;
+  }
+
+  .crucible-config-line {
+    display: inline;
+    margin-left: $gap / 2;
   }
 }

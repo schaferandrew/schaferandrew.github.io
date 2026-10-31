@@ -1,5 +1,8 @@
 // Crucible compare page: two to four setups of one section side by side, on the tasks all of them
-// have counted runs of. The numbers are CrucibleCore's (V.compare); this file draws them.
+// have counted runs of. A setup is a variant (quant, reasoning, harness: what changes answers) on a
+// deployment (machine or provider: what changes speed and cost). Scores compare only tasks every
+// setup finished; a timeout or harness error is reliability and is listed apart. Each setup is a
+// V.side on its own recorded machine or provider; runs from an unrecorded machine are set aside.
 // The hash is the state: #<slug>,<slug>[&mode=<id>][&suite=<id>].
 (function () {
   var C = window.CrucibleCore;
@@ -70,7 +73,9 @@
     // ---- Setup identity -------------------------------------------------------
 
     function dot(color) { return el('span', { class: 'cmp-dot', style: 'background:' + color, 'aria-hidden': 'true' }); }
-    // maker / model, then the setup line and the local/cloud tag
+    function hasHarness() { return ctx.S.variantDims(ctx.mode).indexOf('harness') !== -1; }
+    function depLabel(cfg) { var d = D.deploymentOf(cfg); return d ? (d.label || D.deploymentLabel(d)) : ''; }
+    // maker / model and the local/cloud tag; then the variant and the deployment on separate lines
     function identity(cfg, color, opts) {
       opts = opts || {};
       var box = el('span', { class: 'cmp-id' });
@@ -78,11 +83,29 @@
       if (color) line.appendChild(dot(color));
       line.appendChild(D.modelRef(cfg));
       line.appendChild(C.whereTag(cfg));
-      if (!opts.short) box.appendChild(el('span', { class: 'crucible-config-line' }, configLabel(cfg)));
+      if (!opts.short) {
+        var v = D.variantOf(cfg), dep = D.deploymentOf(cfg);
+        var vl = box.appendChild(el('span', { class: 'crucible-config-line cmp-variant' }));
+        vl.appendChild(el('span', { class: 'cmp-id-key' }, 'Variant '));
+        vl.appendChild(document.createTextNode(D.variantLabel(v, { harness: hasHarness() })));
+        var packed = D.packagedBy(v);
+        if (packed) vl.appendChild(el('span', { class: 'cmp-packed' }, ' · ' + packed));
+        var dl = box.appendChild(el('span', { class: 'crucible-config-line cmp-deployment' + (dep && !dep.recorded ? ' is-unrecorded' : '') }));
+        dl.appendChild(el('span', { class: 'cmp-id-key' }, 'Deployment '));
+        dl.appendChild(document.createTextNode(depLabel(cfg)));
+      }
       return box;
     }
-    // A plain-text name for charts, legends and column heads
-    function shortLabel(cfg) { return rowLabel(cfg); }
+    // A plain-text name for charts, legends and column heads: the model, plus what tells it apart
+    // from another chosen setup of the same model (its variant, then its deployment)
+    function shortLabel(cfg) {
+      var name = rowLabel(cfg), chosen = ctx && ctx.chosen ? ctx.chosen : [];
+      var same = chosen.filter(function (s) { return rowLabel(s.cfg) === name; });
+      if (same.length < 2) return name;
+      var v = D.variantOf(cfg);
+      var sameVariant = same.filter(function (s) { return D.variantOf(s.cfg) === v; });
+      return name + ' (' + D.variantLabel(v, { harness: hasHarness() }) + (sameVariant.length > 1 ? ', ' + depLabel(cfg) : '') + ')';
+    }
     function fullLabel(cfg) { return rowLabel(cfg) + ' · ' + cfg.where + ' · ' + configLabel(cfg); }
 
     // ---- Controls ---------------------------------------------------------------
@@ -138,39 +161,89 @@
 
     // ---- Numbers ------------------------------------------------------------------
 
-    function runsOf(s, shared) { return ctx.V.countedRuns(s.cfg, shared); }
-    function sum(list) { var t = 0; list.forEach(function (v) { t += v; }); return t; }
+    function startedAt(i) { return (i.run && i.run.started_at) || ''; }
+    function finishedScored(list) { return list.filter(function (i) { return D.runOutcome(i.run) === 'finished' && i.score !== null; }); }
+    function unfinished(list) { return list.filter(function (i) { return D.runOutcome(i.run) !== 'finished'; }); }
 
+    // Per setup and shared task: its finished score (mean of finished repeats), median finished time,
+    // mean cost per run, and the runs that didn't finish. A task is paired when every setup has a
+    // finished, scored run of it; only paired tasks enter any score, tier, time or cost figure.
     function numbers() {
-      var cmp = ctx.cmp, tasks = cmp.sharedTasks, S = ctx.S;
-      // score[k][i]: setup k on shared task i (mean of its counted repeats)
-      var score = ctx.chosen.map(function (s) { return tasks.map(function (t) { return S.countedMean(s.cfg, t.id); }); });
-      var time = ctx.chosen.map(function (s) {
-        return tasks.map(function (t) { var n = D.cellNumbers(S.cellOf(s.cfg, t.id)).time; return n > 0 ? n : null; });
+      var V = ctx.V, S = ctx.S, sides = ctx.chosen.map(function (s) { return s.side; });
+      var shared = V.orderedTasks.filter(function (t) {
+        return t.status === 'active' && sides.every(function (sd) { return sd.runs[t.id]; });
       });
-      var tops = tasks.map(function (t, i) { return Math.max.apply(null, score.map(function (row) { return row[i]; })); });
+      var cell = sides.map(function (sd) {
+        return shared.map(function (t) {
+          var list = sd.runs[t.id], fin = finishedScored(list);
+          return {
+            runs: list.length, bad: unfinished(list), fin: fin,
+            score: C.mean(fin.map(function (i) { return i.score; })),
+            time: C.median(fin.map(function (i) { return num(i.run.elapsed_s, null); })),
+            cost: C.mean(list.map(function (i) { return D.runCost(i.run); }))
+          };
+        });
+      });
+      var idx = [];
+      shared.forEach(function (t, i) { if (cell.every(function (row) { return row[i].score !== null; })) idx.push(i); });
+      var pick = function (f) { return cell.map(function (row) { return idx.map(function (i) { return f(row[i]); }); }); };
+      var score = pick(function (c) { return c.score; }), time = pick(function (c) { return c.time; }), cost = pick(function (c) { return c.cost; });
+      var paired = idx.map(function (i) { return shared[i]; });
+      var tops = paired.map(function (t, j) { return Math.max.apply(null, score.map(function (row) { return row[j]; })); });
+      var tiers = S.TIERS.map(function (tier) {
+        var js = paired.map(function (t, j) { return t.tier === tier.id ? j : -1; }).filter(function (j) { return j >= 0; });
+        return js.length ? { tier: tier, n: js.length, scores: score.map(function (row) { return C.mean(js.map(function (j) { return row[j]; })); }) } : null;
+      }).filter(Boolean);
       var rows = ctx.chosen.map(function (s, k) {
-        var runs = runsOf(s, cmp.shared);
-        var times = runs.map(function (r) { return num(r.run.elapsed_s, null); });
-        var costs = runs.map(function (r) { return D.runCost(r.run); });
-        var costKnown = costs.length && costs.every(function (c) { return c !== null; });
+        var bad = [];
+        shared.forEach(function (t, i) { if (cell[k][i].bad.length) bad.push({ task: t, k: cell[k][i].bad.length, n: cell[k][i].runs, runs: cell[k][i].bad }); });
         return {
-          mean: mean(score[k]), top: score[k].filter(function (v, i) { return v + TIE >= tops[i]; }).length,
-          median: median(times), total: times.every(function (t) { return t !== null; }) ? sum(times) : null,
-          cost: costKnown ? sum(costs) : null, runs: runs.length
+          mean: C.mean(score[k]), top: score[k].filter(function (v, j) { return v + TIE >= tops[j]; }).length,
+          median: C.median(time[k]), cost: C.mean(cost[k]), bad: bad
         };
       });
-      return { score: score, time: time, tops: tops, rows: rows };
+      // Runs from a machine that wasn't recorded: listed, never used
+      var unrec = sides.map(function (sd) { return sd.unrecorded.slice().sort(function (a, b) { return startedAt(a) < startedAt(b) ? 1 : -1; }); });
+      return { shared: shared, cell: cell, paired: paired, idx: idx, score: score, time: time, cost: cost, tops: tops, tiers: tiers, rows: rows, unrec: unrec };
     }
 
     // ---- Summary ---------------------------------------------------------------------
 
+    function dash() { return '–'; }
+    function timeText(v) { return v === null ? dash() : fmtSeconds(v); }
+    // Do the setups run on different machines or providers? Then their times aren't one footing.
+    function depKeys() {
+      var seen = {};
+      ctx.chosen.forEach(function (s) { seen[s.side.deployment ? s.side.deployment.key : 'x:' + s.cfg.key] = true; });
+      return Object.keys(seen);
+    }
+    function deploymentsDiffer() { return depKeys().length > 1; }
+    function mixedWhere() { return ctx.chosen.some(function (s) { return s.cfg.local; }) && ctx.chosen.some(function (s) { return !s.cfg.local; }); }
+    function timeCaveat() {
+      if (!deploymentsDiffer()) return '';
+      var places = [];
+      ctx.chosen.forEach(function (s) { var l = depLabel(s.cfg); if (places.indexOf(l) === -1) places.push(l); });
+      return (mixedWhere() ? 'These times come from local machines and a cloud provider' : 'These times come from different ' + (ctx.chosen[0].cfg.local ? 'machines' : 'providers')) +
+        ' (' + places.join('; ') + '), so a gap in time may be the hardware, not the model.';
+    }
+    function costCell(r, s) {
+      if (r.cost === null) return dash();
+      return fmtCost(r.cost, s.cfg.local);
+    }
+
     function renderSummary(nums) {
-      var cmp = ctx.cmp, S = ctx.S, n = cmp.sharedTasks.length;
+      var S = ctx.S, n = nums.paired.length;
       var table = document.getElementById('cmp-summary'), box = document.getElementById('cmp-summary-narrow');
       table.innerHTML = '';
       box.innerHTML = '';
+      var anyLocal = ctx.chosen.some(function (s) { return s.cfg.local; }), anyCloud = ctx.chosen.some(function (s) { return !s.cfg.local; });
       var bestMean = C.bestOf(nums.rows.map(function (r) { return r.mean; }));
+      var differ = deploymentsDiffer();
+
+      function dnfCell(r) {
+        var shared = nums.shared.length;
+        return r.bad.length ? 'didn\'t finish ' + r.bad.length + ' of ' + shared : 'all ' + shared + ' finished';
+      }
 
       if (C.isNarrow()) {
         var ul = box.appendChild(el('ul', { class: 'crucible-cards cmp-cards' }));
@@ -179,21 +252,26 @@
           var li = ul.appendChild(el('li', { class: 'crucible-card cmp-card' }));
           li.style.borderLeft = '5px solid ' + s.color;
           li.appendChild(identity(s.cfg, s.color));
-          C.kvRow(li, 'Mean on shared tasks', el('span', { class: 'crucible-compare-chip-score', style: heatStyle(r.mean) }, fmtScore(r.mean)));
-          cmp.tiers.forEach(function (t) { C.kvRow(li, S.tierLabel(t.tier.id) + ' (shared)', fmtScore(t.scores[k].score)); });
+          C.kvRow(li, 'Mean on ' + n + ' finished', el('span', { class: 'crucible-compare-chip-score', style: heatStyle(r.mean) }, fmtScore(r.mean)));
+          nums.tiers.forEach(function (t) { C.kvRow(li, S.tierLabel(t.tier.id) + ' (' + t.n + ')', fmtScore(t.scores[k])); });
           C.kvRow(li, 'Top score on', r.top + ' of ' + n);
-          C.kvRow(li, 'Median time', fmtSeconds(r.median));
-          C.kvRow(li, 'Total time', fmtSeconds(r.total));
-          C.kvRow(li, 'Cost', fmtCost(r.cost, s.local));
+          C.kvRow(li, 'Finished', dnfCell(r));
+          C.kvRow(li, 'Median time per task' + (differ ? ' · ' + depLabel(s.cfg) : ''), timeText(r.median));
+          if (s.cfg.local) C.kvRow(li, '≈ Electricity per task', costCell(r, s));
+          else C.kvRow(li, 'Billed per task', costCell(r, s));
         });
         return;
       }
 
       var head = el('tr');
       head.appendChild(el('th', { scope: 'col' }, 'Setup'));
-      head.appendChild(el('th', { scope: 'col', class: 'cmp-num' }, 'Mean on ' + n + ' shared'));
-      cmp.tiers.forEach(function (t) { head.appendChild(el('th', { scope: 'col', class: 'cmp-num' }, S.tierLabel(t.tier.id))); });
-      ['Top score on', 'Median time', 'Total time', 'Cost'].forEach(function (h) { head.appendChild(el('th', { scope: 'col', class: 'cmp-num' }, h)); });
+      head.appendChild(el('th', { scope: 'col', class: 'cmp-num' }, 'Mean, ' + n + ' finished'));
+      nums.tiers.forEach(function (t) { head.appendChild(el('th', { scope: 'col', class: 'cmp-num', title: t.n + ' shared finished task' + (t.n === 1 ? '' : 's') }, S.tierLabel(t.tier.id))); });
+      head.appendChild(el('th', { scope: 'col', class: 'cmp-num' }, 'Top score on'));
+      head.appendChild(el('th', { scope: 'col', class: 'cmp-num' }, 'Finished'));
+      head.appendChild(el('th', { scope: 'col', class: 'cmp-num' }, 'Median time per task'));
+      if (anyLocal) head.appendChild(el('th', { scope: 'col', class: 'cmp-num', title: 'Local runs aren\'t billed: this is time × the machine\'s power × the electricity price' }, '≈ Electricity per task'));
+      if (anyCloud) head.appendChild(el('th', { scope: 'col', class: 'cmp-num', title: 'API cost per task, billed' }, 'Billed per task'));
       table.appendChild(el('thead')).appendChild(head);
       var body = table.appendChild(el('tbody'));
       ctx.chosen.forEach(function (s, k) {
@@ -201,15 +279,17 @@
         tr.appendChild(el('th', { scope: 'row', class: 'cmp-setup' })).appendChild(identity(s.cfg, s.color));
         var td = tr.appendChild(el('td', { class: 'cmp-num' + (bestMean !== null && r.mean === bestMean ? ' is-best' : '') }));
         td.appendChild(el('span', { class: 'crucible-compare-chip-score', style: heatStyle(r.mean) }, fmtScore(r.mean)));
-        cmp.tiers.forEach(function (t) {
-          var best = C.bestOf(t.scores.map(function (x) { return x.score; })), x = t.scores[k];
-          var c = tr.appendChild(el('td', { class: 'cmp-num' + (best !== null && x.score === best ? ' is-best' : '') }, fmtScore(x.score)));
-          if (x.scored !== x.total) c.appendChild(el('span', { class: 'crucible-repeat' }, ' ' + x.scored + '/' + x.total));
+        nums.tiers.forEach(function (t) {
+          var best = C.bestOf(t.scores);
+          tr.appendChild(el('td', { class: 'cmp-num' + (best !== null && t.scores[k] === best ? ' is-best' : '') }, fmtScore(t.scores[k])));
         });
         tr.appendChild(el('td', { class: 'cmp-num' }, r.top + ' of ' + n));
-        tr.appendChild(el('td', { class: 'cmp-num' }, fmtSeconds(r.median)));
-        tr.appendChild(el('td', { class: 'cmp-num' }, fmtSeconds(r.total)));
-        tr.appendChild(el('td', { class: 'cmp-num', title: D.costTitle(s) }, fmtCost(r.cost, s.local)));
+        tr.appendChild(el('td', { class: 'cmp-num cmp-wrap' + (r.bad.length ? ' is-bad' : '') }, dnfCell(r)));
+        var tt = tr.appendChild(el('td', { class: 'cmp-num', title: 'Median over shared finished tasks, on ' + depLabel(s.cfg) }, timeText(r.median)));
+        if (differ) tt.appendChild(el('span', { class: 'cmp-sub-line' }, depLabel(s.cfg)));
+        var tip = D.costTitle({ local: s.cfg.local, cfg: s.cfg });
+        if (anyLocal) tr.appendChild(el('td', { class: 'cmp-num', title: tip }, s.cfg.local ? costCell(r, s) : dash()));
+        if (anyCloud) tr.appendChild(el('td', { class: 'cmp-num', title: tip }, s.cfg.local ? dash() : costCell(r, s)));
       });
     }
 
@@ -224,7 +304,8 @@
       var above = W < 520;                                  // labels sit over their row on narrow widths
       var pad = 9, rowH = above ? 50 : 32;
       var x0 = above ? 4 : Math.min(200, Math.round(W * 0.36));
-      var left = x0 + pad + (above ? 0 : 8), right = W - pad - 6;
+      var strip = spec.dnf ? 13 * spec.dnf.length : 0;       // a column of x marks for "didn't finish"
+      var left = x0 + pad + (above ? 0 : 8) + strip, right = W - pad - 6;
       var n = spec.tasks.length, H = n * rowH + 26;
       var g = svg('svg', { class: 'cmp-svg', viewBox: '0 0 ' + W + ' ' + H, width: W, height: H, role: 'img', 'aria-label': spec.what });
       function X(v) { return left + spec.pos(v) * (right - left); }
@@ -246,6 +327,12 @@
         g.appendChild(a);
         var pts = [];
         spec.values.forEach(function (row, k) { if (row[i] !== null && row[i] !== undefined) pts.push({ k: k, v: row[i] }); });
+        (spec.dnf || []).forEach(function (row, k) {
+          if (!row[i]) return;
+          var mark = svg('text', { x: left - strip + 6 + k * 13, y: cy + 4, 'text-anchor': 'middle', class: 'cmp-dnf', fill: ctx.chosen[k].color }, '×');
+          mark.appendChild(svg('title', {}, spec.labels[k] + ' · ' + name + ': ' + row[i]));
+          g.appendChild(mark);
+        });
         if (spec.values.length === 2 && pts.length === 2) {
           g.appendChild(svg('line', { x1: X(pts[0].v), x2: X(pts[1].v), y1: cy, y2: cy, class: 'cmp-bell' }));
         }
@@ -265,31 +352,46 @@
     function niceTime(v) { return v >= 60 && v % 60 === 0 ? v / 60 + 'm' : v + 's'; }
 
     function renderCharts(nums) {
-      var cmp = ctx.cmp, tasks = cmp.sharedTasks;
+      var tasks = nums.shared;
       var labels = ctx.chosen.map(function (s) { return shortLabel(s.cfg); });
+      // Rows are the shared tasks. A dot is a finished score; a cross is a task the setup didn't
+      // finish (its score is left out, not drawn as 0). A task only some setups finished keeps
+      // its finished dots, but is not in any figure above.
+      var dnf = nums.cell.map(function (row) {
+        return row.map(function (c) {
+          if (!c.bad.length) return null;
+          var kinds = {};
+          c.bad.forEach(function (i) { kinds[D.outcomeText(i.run)] = true; });
+          return 'didn\'t finish (' + Object.keys(kinds).join(', ') + ')' + (c.bad.length < c.runs ? ', ' + c.bad.length + ' of ' + c.runs + ' runs' : '');
+        });
+      });
+      var anyDnf = dnf.some(function (row) { return row.some(Boolean); });
+      var dnfNote = anyDnf ? ' A × is a task that setup didn\'t finish: left out of every score, not drawn as 0.' : '';
+      var cellOf = function (key) { return nums.cell.map(function (row) { return row.map(function (c) { return c[key]; }); }); };
 
       var all = [];
-      nums.score.forEach(function (row) { all = all.concat(row); });
-      var lo = Math.floor(Math.min.apply(null, all) / 2) * 2;
+      cellOf('score').forEach(function (row) { all = all.concat(row.filter(function (x) { return x !== null; })); });
+      var lo = all.length ? Math.floor(Math.min.apply(null, all) / 2) * 2 : 0;
       if (lo >= 10) lo = 8;
       var ticks = [], step = 10 - lo <= 4 ? 1 : 2;
       for (var v = lo; v <= 10 + TIE; v += step) ticks.push(v);
-      document.getElementById('cmp-dots-sub').textContent = lo > 0
+      document.getElementById('cmp-dots-sub').textContent = (lo > 0
         ? 'Score out of 10, one dot per setup. The axis starts at ' + lo + ', not 0, so gaps look bigger than they would on a full scale.'
-        : 'Score out of 10, one dot per setup. The axis runs from 0 to 10.';
+        : 'Score out of 10, one dot per setup. The axis runs from 0 to 10.') + dnfNote;
       rowsChart({
-        host: document.getElementById('cmp-dots'), tasks: tasks, values: nums.score, labels: labels, lo: lo, hi: 10,
+        host: document.getElementById('cmp-dots'), tasks: tasks, values: cellOf('score'), dnf: anyDnf ? dnf : null, labels: labels, lo: lo, hi: 10,
         pos: function (x) { return (x - lo) / (10 - lo); }, ticks: ticks, tick: function (x) { return String(x); },
         show: fmtScore, what: 'Score per shared task, one dot per setup, axis from ' + lo + ' to 10'
       });
 
+      var times = cellOf('time');
       var flat = [];
-      nums.time.forEach(function (row) { row.forEach(function (x) { if (x !== null) flat.push(x); }); });
-      var timeHost = document.getElementById('cmp-time');
+      times.forEach(function (row) { row.forEach(function (x) { if (x !== null) flat.push(x); }); });
+      var timeHost = document.getElementById('cmp-time'), timeSub = document.getElementById('cmp-time-sub');
+      timeSub.innerHTML = '';
       if (!flat.length) {
         timeHost.innerHTML = '';
         timeHost.appendChild(el('p', { class: 'crucible-sub' }, 'No run times were recorded for these tasks.'));
-        document.getElementById('cmp-time-sub').textContent = '';
         return;
       }
       var mn = Math.min.apply(null, flat), mx = Math.max.apply(null, flat);
@@ -301,11 +403,19 @@
       if (!(thi > tlo)) thi = tlo * 10;
       var tticks = cand.filter(function (x) { return x >= tlo && x <= thi; });
       var span = Math.log(thi) - Math.log(tlo);
-      document.getElementById('cmp-time-sub').textContent = 'Median seconds per task on a log scale: equal distances are equal ratios (10× faster is one big step), not equal seconds.';
+      timeSub.appendChild(document.createTextNode('Seconds per task (median of finished runs) on a log scale: equal distances are equal ratios, not equal seconds.' + dnfNote + ' '));
+      var legend = timeSub.appendChild(el('span', { class: 'cmp-legend' }));
+      ctx.chosen.forEach(function (s) {
+        var item = legend.appendChild(el('span', { class: 'cmp-legend-item' }));
+        item.appendChild(dot(s.color));
+        item.appendChild(document.createTextNode(shortLabel(s.cfg) + ': ' + depLabel(s.cfg)));
+      });
+      var caveat = timeCaveat();
+      if (caveat) timeSub.appendChild(el('span', { class: 'cmp-caveat' }, caveat));
       rowsChart({
-        host: timeHost, tasks: tasks, values: nums.time, labels: labels, lo: tlo, hi: thi,
+        host: timeHost, tasks: tasks, values: times, dnf: anyDnf ? dnf : null, labels: labels, lo: tlo, hi: thi,
         pos: function (x) { return (Math.log(x) - Math.log(tlo)) / span; }, ticks: tticks, tick: niceTime,
-        show: fmtSeconds, what: 'Median seconds per shared task, one dot per setup, log scale'
+        show: fmtSeconds, what: 'Median seconds per shared task, one dot per setup, log scale' + (caveat ? '; from different machines' : '')
       });
     }
 
@@ -319,11 +429,12 @@
       ctx.chosen.forEach(function (s) {
         var col = grid.appendChild(el('div', { class: 'cmp-checks-col' }));
         col.style.borderTop = '3px solid ' + s.color;
-        var cell = ctx.S.cellOf(s.cfg, t.id), info = cell && cell.counted[0];
+        var fin = finishedScored(s.side.runs[t.id] || []).sort(function (a, b) { return startedAt(a) < startedAt(b) ? 1 : -1; });
+        var info = fin[0], cell = { counted: fin };
         var head = col.appendChild(el('p', { class: 'cmp-checks-head' }));
         head.appendChild(el('strong', {}, shortLabel(s.cfg)));
         var body = col.appendChild(el('div'));
-        if (!info) { body.appendChild(el('p', { class: 'crucible-detail-meta' }, 'No counted run.')); return; }
+        if (!info) { body.appendChild(el('p', { class: 'crucible-detail-meta' }, 'No finished run.')); return; }
         head.appendChild(document.createTextNode(' ' + fmtScore(info.score)));
         col.appendChild(el('p', { class: 'crucible-detail-meta' }, cell.counted.length > 1
           ? 'Newest of ' + cell.counted.length + ' counted runs, ' + C.fmtDate(info.run.started_at)
@@ -357,7 +468,7 @@
     }
 
     function renderDiff(nums) {
-      var cmp = ctx.cmp, tasks = cmp.sharedTasks, k = ctx.chosen.length;
+      var tasks = nums.paired, k = ctx.chosen.length;
       var rows = tasks.map(function (t, i) {
         var vals = nums.score.map(function (row) { return row[i]; });
         return { t: t, vals: vals, spread: Math.max.apply(null, vals) - Math.min.apply(null, vals), i: i };
@@ -366,8 +477,16 @@
       var tied = rows.filter(function (r) { return r.spread < TIE; });
       var collapse = tied.length > 5;
 
-      document.getElementById('cmp-diff-sub').textContent = 'Shared tasks sorted by spread (best score minus worst), widest first. Select a task to see each setup\'s checks side by side.' +
-        (collapse ? ' ' + tied.length + ' tasks where every setup scored the same are folded into one line.' : '');
+      var sub = document.getElementById('cmp-diff-sub');
+      sub.innerHTML = '';
+      // Two setups get the paired sentence (its headline only when there are enough tasks and no
+      // single task drives it); three or four get the sorted table alone
+      if (ctx.pairing) {
+        var names = ctx.chosen.map(function (s) { return shortLabel(s.cfg); });
+        sub.appendChild(el('strong', {}, ctx.pairing.sentence(names[0], names[1]) + ' '));
+      }
+      sub.appendChild(document.createTextNode('Tasks every setup finished, sorted by spread (best score minus worst), widest first. Select a task to see each setup\'s checks side by side.' +
+        (collapse ? ' ' + tied.length + ' tasks where every setup scored the same are folded into one line.' : '')));
 
       var table = document.getElementById('cmp-diff'), box = document.getElementById('cmp-diff-narrow');
       table.innerHTML = '';
@@ -461,21 +580,82 @@
 
     // ---- Tasks not shared --------------------------------------------------------------------------
 
+    // What didn't finish and what wasn't used, each listed on its own: reliability and unknowns
+    // are not score differences
+    function runLine(i) {
+      var bits = [D.outcomeText(i.run)];
+      var t = num(i.run.elapsed_s, null);
+      if (t !== null) bits.push('after ' + fmtSeconds(t));
+      return bits.join(' ');
+    }
+    function renderReliability(nums) {
+      var host = document.getElementById('cmp-dnf');
+      host.innerHTML = '';
+      var any = nums.rows.some(function (r) { return r.bad.length; });
+      if (!any) {
+        host.appendChild(el('p', { class: 'crucible-sub' }, 'Every setup finished every shared task, so no task is left out of the scores.'));
+        return;
+      }
+      host.appendChild(el('p', { class: 'crucible-sub' }, 'A run that timed out or hit a harness error says how reliable the setup is, not how well it answers, so it is left out of the scores above (the suite\'s own leaderboard still scores it 0).'));
+      var ul = host.appendChild(el('ul', { class: 'cmp-missing' }));
+      ctx.chosen.forEach(function (s, k) {
+        var r = nums.rows[k], li = ul.appendChild(el('li'));
+        var line = li.appendChild(el('div', { class: 'cmp-missing-line' }));
+        line.appendChild(dot(s.color));
+        line.appendChild(el('span', {}, shortLabel(s.cfg) + ': ' + (r.bad.length ? 'didn\'t finish on ' + r.bad.length + ' of ' + nums.shared.length + ' shared tasks' : 'finished all ' + nums.shared.length + ' shared tasks')));
+        if (!r.bad.length) return;
+        var list = li.appendChild(el('ul', { class: 'cmp-missing-list' }));
+        r.bad.forEach(function (b) {
+          var item = list.appendChild(el('li'));
+          item.appendChild(el('a', { href: C.taskUrl(b.task.id) }, taskName(b.task)));
+          item.appendChild(document.createTextNode(': ' + b.runs.map(runLine).join('; ') + (b.k < b.n ? ' (' + b.k + ' of ' + b.n + ' runs)' : '')));
+        });
+      });
+    }
+
+    function renderUnrecorded(nums) {
+      var host = document.getElementById('cmp-unrec');
+      host.innerHTML = '';
+      var total = nums.unrec.reduce(function (t, l) { return t + l.length; }, 0);
+      host.hidden = !total;
+      document.getElementById('cmp-unrec-head').hidden = !total;
+      if (!total) return;
+      host.appendChild(el('p', { class: 'crucible-sub' }, 'These runs count in the suite but ran on a machine or provider that wasn\'t recorded, so they could be a different one from the rest. They are left out of the scores, speed and cost above.'));
+      var ul = host.appendChild(el('ul', { class: 'cmp-missing' }));
+      ctx.chosen.forEach(function (s, k) {
+        var list = nums.unrec[k];
+        if (!list.length) return;
+        var li = ul.appendChild(el('li'));
+        var line = li.appendChild(el('div', { class: 'cmp-missing-line' }));
+        line.appendChild(dot(s.color));
+        line.appendChild(el('span', {}, shortLabel(s.cfg) + ': ' + list.length + ' run' + (list.length === 1 ? '' : 's') + ', ' + (D.deploymentOf(list[0]) ? D.deploymentOf(list[0]).label : 'an unrecorded deployment')));
+        var ol = li.appendChild(el('ul', { class: 'cmp-missing-list' }));
+        list.forEach(function (i) {
+          var item = ol.appendChild(el('li'));
+          item.appendChild(el('a', { href: C.taskUrl(i.task.id) }, taskName(i.task)));
+          var o = D.runOutcome(i.run) === 'finished' ? 'finished' : runLine(i);
+          item.appendChild(document.createTextNode(': ' + o + (D.runOutcome(i.run) === 'finished' ? ', scored ' + fmtScore(i.score) : '') +
+            (D.runOutcome(i.run) === 'finished' && num(i.run.elapsed_s, null) !== null ? ' in ' + fmtSeconds(num(i.run.elapsed_s, null)) : '')));
+        });
+      });
+    }
+
+    // ---- Tasks not shared --------------------------------------------------------------------------
+
     function renderMissing() {
       var host = document.getElementById('cmp-missing'), V = ctx.V, S = ctx.S;
       host.innerHTML = '';
       var active = V.orderedTasks.filter(function (t) { return t.status === 'active'; });
-      var shared = ctx.cmp.shared;
-      var outside = active.filter(function (t) { return !shared[t.id]; });
+      var outside = active.filter(function (t) { return !ctx.chosen.every(function (s) { return s.side.runs[t.id]; }); });
       if (!outside.length) {
         host.appendChild(el('p', { class: 'crucible-sub' }, 'Every one of the ' + active.length + ' tasks in ' + modeName(S, ctx.mode) + ' is shared by all of these setups.'));
         return;
       }
       host.appendChild(el('p', { class: 'crucible-sub' }, outside.length + ' of the ' + active.length + ' tasks in ' + modeName(S, ctx.mode) +
-        ' are left out of the comparison because at least one setup has no counted run of them. Nobody is scored on a task another setup skipped.'));
+        ' are left out of the comparison because at least one setup has no counted run of them on its recorded machine or provider. Nobody is scored on a task another setup skipped.'));
       var ul = host.appendChild(el('ul', { class: 'cmp-missing' }));
       ctx.chosen.forEach(function (s) {
-        var miss = active.filter(function (t) { return S.countedMean(s.cfg, t.id) === null; });
+        var miss = active.filter(function (t) { return !s.side.runs[t.id]; });
         var li = ul.appendChild(el('li'));
         var line = li.appendChild(el('div', { class: 'cmp-missing-line' }));
         line.appendChild(dot(s.color));
@@ -503,6 +683,7 @@
       ctx.explicitMode = !!route.params.mode;
       ctx.cmp = ctx.V ? ctx.V.compare(ctx.cfgs.map(function (c) { return c.slug; })) : { chosen: [], sharedTasks: [], tiers: [], shared: {} };
       ctx.chosen = ctx.cmp.chosen;
+      ctx.chosen.forEach(function (s) { s.side = ctx.V.side(s.cfg); });
       // A setup that has no scored task here comes back from the core's candidates only if it ran
       ctx.cfgs.forEach(function (c) {
         if (!ctx.chosen.some(function (s) { return s.cfg === c; })) ctx.notes.push(rowLabel(c) + ' has no scored task in ' + modeName(S, ctx.mode) + ', so it was left out.');
@@ -521,6 +702,24 @@
         s.color = colorOf[s.cfg.slug];
       });
 
+      // Setting notes: more than one answer-changing difference can't be put down to either
+      ctx.pairing = ctx.chosen.length === 2 ? D.pairedComparison(ctx.chosen[0].side, ctx.chosen[1].side) : null;
+      if (ctx.chosen.length > 1) {
+        var diffs = [];
+        ctx.chosen.forEach(function (a, i) {
+          ctx.chosen.slice(i + 1).forEach(function (b) {
+            D.variantDiff(a.cfg, b.cfg).forEach(function (d) { if (d !== 'model' && diffs.indexOf(d) === -1) diffs.push(d); });
+          });
+        });
+        if (diffs.length > 1) {
+          var names = diffs.map(function (d) { return D.dimension(d).label.toLowerCase(); });
+          ctx.notes.push('These differ in ' + (names.length > 2 ? names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1] : names.join(' and ')) +
+            ': a difference can\'t be put down to any one of them.');
+        }
+        if (deploymentsDiffer()) ctx.notes.push('They also run on different ' + (mixedWhere() ? 'machines and providers (local and cloud)' : ctx.chosen[0].cfg.local ? 'machines' : 'providers') +
+          ', so times are labelled by deployment and local electricity is never set against cloud billing.');
+      }
+
       C.breadcrumb(document.getElementById('cmp-crumbs'), ['Compare setups']);
       document.title = ctx.chosen.length > 1 ? 'Compare ' + ctx.chosen.map(function (s) { return shortLabel(s.cfg); }).join(' vs ') : 'Compare setups';
       renderSuite();
@@ -528,7 +727,6 @@
       renderPicker();
       document.getElementById('compare-link').hidden = !ctx.chosen.length;
       var sub = document.getElementById('cmp-sub'), body = document.getElementById('cmp-body');
-      var n = ctx.cmp.sharedTasks.length;
       if (ctx.chosen.length < 2) {
         body.hidden = true;
         sub.textContent = 'Pick two to four setups to see them side by side. A setup is one model at one reasoning level, quant, machine or provider and harness, local or cloud. ' +
@@ -538,22 +736,24 @@
         return;
       }
       body.hidden = false;
+      var nums = numbers(), n = nums.shared.length, np = nums.paired.length;
+      ctx.nums = nums;
       sub.textContent = n
         ? n + ' task' + (n === 1 ? '' : 's') + (ctx.chosen.length === 2 ? ' both setups' : ' all ' + ctx.chosen.length + ' setups') + ' ran in ' + modeName(S, ctx.mode) + ' of ' + C.suiteName(S.cat) +
-          '. Everything below counts only these tasks. Scores are the mean of repeat runs.'
+          '. Scores count the ' + np + ' of them every setup finished (' + (n - np) + ' left out); a task that timed out or errored is listed under reliability, not scored 0. Scores are the mean of repeat runs.'
         : 'These setups have no scored task in common in ' + modeName(S, ctx.mode) + ' of ' + C.suiteName(S.cat) + ' yet, so there is nothing to compare.';
       document.getElementById('cmp-shared').hidden = !n;
       C.applyLayout(['cmp-summary', 'cmp-diff']);
       if (n) {
-        var nums = numbers();
         renderSummary(nums);
         renderCharts(nums);
         renderDiff(nums);
-        ctx.nums = nums;
       } else {
         document.getElementById('cmp-summary').innerHTML = '';
         document.getElementById('cmp-summary-narrow').innerHTML = '';
       }
+      renderReliability(nums);
+      renderUnrecorded(nums);
       renderMissing();
     }
 
@@ -592,7 +792,7 @@
       clearTimeout(timer);
       timer = setTimeout(function () {
         var w = document.getElementById('cmp-dots').clientWidth;
-        if (ctx && ctx.nums && Math.abs(w - lastW) > 8 && ctx.cmp.sharedTasks.length) { lastW = w; renderCharts(ctx.nums); }
+        if (ctx && ctx.nums && Math.abs(w - lastW) > 8 && ctx.nums.shared.length) { lastW = w; renderCharts(ctx.nums); }
         relayout();
       }, 150);
     });

@@ -500,7 +500,7 @@
 
     // Group every run by its recorded identity, then merge a group with unrecorded fields into the
     // one better-recorded group it matches; when two or more match, it stays its own setup.
-    var CONFIG_OF_RUN = {};
+    var CONFIG_OF_RUN = {}, IDENT_OF_CFG = {};
     (function buildConfigs() {
       var groups = {}, order = [];
       Object.keys(store.runs).forEach(function (uuid) {
@@ -537,6 +537,7 @@
           while (SLUGS[unique]) unique = slug + '~' + (i++);
           cfg.slug = unique;
           SLUGS[unique] = cfg;
+          IDENT_OF_CFG[finalKey] = id;
         }
         if (finalKey !== k) cfg.merged += groups[k].runs.length;
         groups[k].runs.forEach(function (r) {
@@ -572,6 +573,218 @@
     D.configLabel = configLabel;
     function hwValue(cfg) { return cfg.local ? cfg.hwKey || '-' : 'cloud'; }
     D.hwValue = hwValue;
+
+    // ---- Variants and deployments -------------------------------------------
+
+    // A setup is a variant on a deployment. The variant is what changes the answers: the base model,
+    // its weights (packager, format, quant), the reasoning level and the harness. Quality belongs to a
+    // variant. The deployment is what changes speed and cost: the machine for a local run (its
+    // hardware key, else the device that served it), the provider for a cloud one. Speed, cost and
+    // reliability belong to a deployment of a variant.
+    // Variants come from setups, so a run with no recorded machine that a setup took in (see
+    // buildConfigs) counts in that setup's variant. Deployments come from each run's own record: such
+    // a run is in its own "machine not recorded" deployment, never merged, and kept out of A/Bs and
+    // speed or cost comparisons.
+    var VARIANTS = D.VARIANTS = {}, VARIANT_OF_CFG = {}, VARIANT_SLUGS = {};
+    var DEPLOYMENTS = D.DEPLOYMENTS = {}, DEPLOYMENT_OF_RUN = {};
+
+    // Every dimension a setup is made of, and its kind. 'harness' is answer-changing only in a mode
+    // with more than one harness (S.variantDims(mode) asks the catalog); elsewhere it's implied.
+    D.DIMENSIONS = [
+      { id: 'model', kind: 'variant', label: 'Model' },
+      { id: 'weights', kind: 'variant', label: 'Quant' },
+      { id: 'reasoning', kind: 'variant', label: 'Reasoning' },
+      { id: 'harness', kind: 'variant', label: 'Harness' },
+      { id: 'where', kind: 'deployment', label: 'Local or cloud' },
+      { id: 'machine', kind: 'deployment', label: 'Machine' },
+      { id: 'provider', kind: 'deployment', label: 'Provider' }
+    ];
+    D.dimension = function (id) { return D.DIMENSIONS.filter(function (d) { return d.id === id; })[0] || { id: id, kind: 'variant', label: cap(id) }; };
+
+    // finished | timed_out | error (a harness error, a failure, a context limit, or no status
+    // recorded). Only a finished run's score is quality in a comparison; the others are reliability.
+    function runOutcome(r) {
+      var o = (r && r.outcome) || {};
+      if (o.timed_out || o.status === 'timeout') return 'timed_out';
+      if (o.status === 'completed') return 'finished';
+      return 'error';
+    }
+    D.runOutcome = runOutcome;
+    D.OUTCOME_TEXT = { finished: 'finished', timed_out: 'timed out', error: 'harness error' };
+    function outcomeText(r) {
+      var k = runOutcome(r), st = ((r && r.outcome) || {}).status;
+      return k === 'error' && st && st !== 'harness_error' ? String(st).replace(/_/g, ' ') : D.OUTCOME_TEXT[k];
+    }
+    D.outcomeText = outcomeText;
+
+    function deploymentFrom(local, hwKey, device, provider) {
+      var key, label, recorded = true;
+      if (local) {
+        if (hwKey) key = 'local~' + slugify(hwKey);
+        else if (device) key = 'local~device-' + slugify(device);
+        else { key = 'local~unrecorded'; recorded = false; }
+      } else if (provider) key = 'cloud~' + slugify(provider);
+      else { key = 'cloud~unrecorded'; recorded = false; }
+      var dep = DEPLOYMENTS[key];
+      if (!dep) {
+        dep = DEPLOYMENTS[key] = {
+          key: key, local: local, where: local ? 'local' : 'cloud', recorded: recorded,
+          hwKey: local ? hwKey || null : null, provider: local ? null : provider || null,
+          devices: {}, upstreams: {}, costKind: local ? 'electricity' : 'billed'
+        };
+      }
+      if (local && device && hwKey) dep.devices[device] = true;
+      return dep;
+    }
+    function deploymentLabel(dep) {
+      if (!dep) return NONE;
+      if (dep.local) {
+        if (!dep.recorded) return 'machine not recorded';
+        var devices = Object.keys(dep.devices);
+        if (!dep.hwKey) return devices.join(', ') || dep.key.replace(/^local~device-/, '');
+        return dep.hwKey + (devices.length ? ' (' + devices.join(', ') + ')' : '');
+      }
+      return dep.recorded ? 'via ' + dep.provider : 'provider not recorded';
+    }
+    D.deploymentLabel = deploymentLabel;
+    Object.keys(store.runs).forEach(function (uuid) {
+      var r = store.runs[uuid], id = identityOf(r), e = r.endpoint || {};
+      var dep = deploymentFrom(id.local, id.hwKey, id.device, id.provider);
+      if (!id.hwKey && id.device) dep.devices[id.device] = true;
+      var up = e.upstream && (e.upstream.name || e.upstream.provider);
+      if (up) dep.upstreams[up] = true;
+      DEPLOYMENT_OF_RUN[uuid] = dep;
+    });
+    Object.keys(DEPLOYMENTS).forEach(function (k) { DEPLOYMENTS[k].label = deploymentLabel(DEPLOYMENTS[k]); });
+
+    // Variants, one per setup's answer-changing fields. Weights that weren't recorded (no quant on
+    // a local setup) are unknown: such a setup is a variant of its own, never pooled with another.
+    Object.keys(CONFIGS).forEach(function (k) {
+      var cfg = CONFIGS[k], id = IDENT_OF_CFG[k] || {};
+      var recorded = !cfg.local || !!id.quant;
+      var weightsKey = cfg.local ? [id.publisher || '?', id.format || '?', id.quant || '?'].join('/') : 'api';
+      var vkey = [cfg.base, recorded ? weightsKey : 'unrecorded:' + cfg.key, cfg.level, cfg.harness].join('|');
+      var v = VARIANTS[vkey];
+      if (!v) {
+        v = VARIANTS[vkey] = {
+          key: vkey, base: cfg.base, rowKey: cfg.rowKey, level: cfg.level, harness: cfg.harness,
+          local: cfg.local, where: cfg.where,
+          weights: { key: recorded ? weightsKey : null, recorded: recorded, quant: cfg.local ? cfg.quant || null : null, format: id.format || null, packager: cfg.publisher || null },
+          cfgs: []
+        };
+        var slug = [cfg.local ? (cfg.quant || 'quant-not-recorded') : 'api', 'reasoning-' + cfg.level, cfg.harness].map(slugify).join('~');
+        var unique = slug, n = 2, taken = VARIANT_SLUGS[cfg.base] = VARIANT_SLUGS[cfg.base] || {};
+        while (taken[unique]) unique = slug + '~' + (n++);
+        taken[unique] = v;
+        v.slug = unique;
+      }
+      v.cfgs.push(cfg);
+      VARIANT_OF_CFG[k] = v;
+    });
+
+    // x: a run, a setup, a cell entry or row ({ cfg }), a variant, or a variant key
+    function variantOf(x) {
+      if (!x) return null;
+      if (typeof x === 'string') return VARIANTS[x] || null;
+      if (x.cfgs && x.weights) return x;
+      if (x.run_uuid && CONFIG_OF_RUN[x.run_uuid]) return VARIANT_OF_CFG[CONFIG_OF_RUN[x.run_uuid].key];
+      if (x.cfg) return VARIANT_OF_CFG[x.cfg.key] || null;
+      if (x.key && VARIANT_OF_CFG[x.key]) return VARIANT_OF_CFG[x.key];
+      return null;
+    }
+    // x: a run (its own record), a cell entry ({ run }), a setup (its recorded machine or provider),
+    // a deployment, or a deployment key
+    function deploymentOf(x) {
+      if (!x) return null;
+      if (typeof x === 'string') return DEPLOYMENTS[x] || null;
+      if (x.costKind && x.key && DEPLOYMENTS[x.key] === x) return x;
+      if (x.run_uuid && DEPLOYMENT_OF_RUN[x.run_uuid]) return DEPLOYMENT_OF_RUN[x.run_uuid];
+      if (x.run && x.run.run_uuid) return DEPLOYMENT_OF_RUN[x.run.run_uuid] || null;
+      if (x.cfg) x = x.cfg;
+      if (x.key && CONFIGS[x.key] === x) {
+        var id = IDENT_OF_CFG[x.key] || {};
+        var dep = deploymentFrom(x.local, x.hwKey, id.device, x.provider);
+        if (!dep.label) dep.label = deploymentLabel(dep);
+        return dep;
+      }
+      return null;
+    }
+    D.variantOf = variantOf;
+    D.deploymentOf = deploymentOf;
+    D.variantBySlug = function (base, slug) { return (VARIANT_SLUGS[baseOf(base)] || {})[slug] || null; };
+    // Every variant of a base model (or of the bases a model key names), in setup order
+    D.variantsOfBase = function (base) {
+      base = baseOf(base);
+      return Object.keys(VARIANTS).map(function (k) { return VARIANTS[k]; }).filter(function (v) { return v.base === base; });
+    };
+
+    // A variant's value on an answer-changing dimension, and its text
+    function variantValue(v, dim) {
+      if (dim === 'model') return v.base;
+      if (dim === 'weights') return v.weights.key || 'unrecorded:' + v.key;
+      if (dim === 'reasoning') return v.level;
+      if (dim === 'harness') return v.harness;
+      return null;
+    }
+    function variantText(v, dim) {
+      if (dim === 'model') return shortName(v.base);
+      if (dim === 'weights') return v.local ? v.weights.quant || 'quant not recorded' : 'provider\'s weights';
+      if (dim === 'reasoning') return 'reasoning ' + v.level;
+      if (dim === 'harness') return v.harness;
+      return '';
+    }
+    D.variantValue = variantValue;
+    D.variantText = variantText;
+    // Chips text: "Q4_K_M · reasoning off", plus " · pi" when opts.harness (a mode with several
+    // harnesses: S.variantDims(mode)). opts.model puts the model name first.
+    D.variantLabel = function (v, opts) {
+      v = variantOf(v);
+      if (!v) return NONE;
+      opts = opts || {};
+      var dims = (opts.model ? ['model'] : []).concat(v.local ? ['weights'] : [], ['reasoning'], opts.harness ? ['harness'] : []);
+      return dims.map(function (d) { return variantText(v, d); }).join(' · ');
+    };
+    // The answer-changing dimensions on which two variants differ (ids of D.DIMENSIONS)
+    D.variantDiff = function (a, b) {
+      a = variantOf(a); b = variantOf(b);
+      if (!a || !b) return [];
+      return ['model', 'weights', 'reasoning', 'harness'].filter(function (d) { return variantValue(a, d) !== variantValue(b, d); });
+    };
+    // "Packaged by mlx-community": the weights' packager (model.publisher), when it's recorded and
+    // isn't the maker itself; '' otherwise. Never call the packager the publisher.
+    D.packagerOf = function (x) {
+      var v = variantOf(x);
+      var p = v ? v.weights.packager : x && x.model ? x.model.publisher : null;
+      return p ? String(p) : null;
+    };
+    D.packagedBy = function (x) {
+      var p = D.packagerOf(x), v = variantOf(x);
+      var maker = makerOf(v ? v.base : x);
+      return p && p !== maker ? 'Packaged by ' + p : '';
+    };
+
+    // An old '&setup=<slug>' link as the model page's parameters: { variant, deployment, base, cfg }
+    D.setupParams = function (slug) {
+      var cfg = SLUGS[slug];
+      if (!cfg) return null;
+      return { variant: VARIANT_OF_CFG[cfg.key].slug, deployment: deploymentOf(cfg).key, base: cfg.base, cfg: cfg };
+    };
+    // The model page's route, resolved: C.parseModelId(route.id) plus { bases, variant (a variant or
+    // null), deployment (a deployment or null), mode, suite }. An old &setup= maps to its variant and
+    // deployment; &variant= and &deployment= win when both are given.
+    D.modelRoute = function (route) {
+      route = route || parseHash();
+      var p = route.params || {}, out = parseModelId(route.id);
+      out.bases = out.key ? D.basesOf(out.key) : [];
+      out.mode = p.mode || null;
+      out.suite = p.suite || null;
+      var fromSetup = p.setup ? D.setupParams(p.setup) : null;
+      var vSlug = p.variant || (fromSetup && fromSetup.variant), dKey = p.deployment || (fromSetup && fromSetup.deployment);
+      out.variant = null;
+      out.bases.some(function (b) { out.variant = vSlug ? D.variantBySlug(b, vSlug) : null; return !!out.variant; });
+      out.deployment = dKey ? DEPLOYMENTS[dKey] || null : null;
+      return out;
+    };
 
     // ---- Makers and models ---------------------------------------------------
 
@@ -814,6 +1027,39 @@
         var t = S.tierById(id), g = t.gate;
         return t.role === 'gate' && g && typeof g.mean === 'number' && typeof g.min === 'number' ? g : null;
       };
+      // ---- Variants in this suite ----
+
+      // The answer-changing dimensions a model's variants can differ on in a mode: weights and
+      // reasoning, and the harness when the catalog gives the mode more than one
+      S.variantDims = function (mode) {
+        return ['weights', 'reasoning'].concat(S.modeInfo(mode).harnesses.length > 1 ? ['harness'] : []);
+      };
+      // A variant's cell on one task, pooled over its setups ({ all, counted, provisional }, as
+      // S.cellOf's), optionally only the runs on one deployment (a key). null when there's no run.
+      var pooledCache = {};
+      S.variantCell = function (v, taskId, depKey) {
+        v = variantOf(v);
+        if (!v) return null;
+        var ck = v.key + '\u0000' + taskId + '\u0000' + (depKey || '');
+        if (pooledCache[ck] !== undefined) return pooledCache[ck];
+        var out = { all: [], counted: [], provisional: [] };
+        function keep(i) { return !depKey || DEPLOYMENT_OF_RUN[i.uuid].key === depKey; }
+        v.cfgs.forEach(function (cfg) {
+          var c = S.cellOf(cfg, taskId);
+          if (!c) return;
+          out.all = out.all.concat(c.all.filter(keep));
+          out.counted = out.counted.concat(c.counted.filter(keep));
+          out.provisional = out.provisional.concat(c.provisional.filter(keep));
+        });
+        out.all.sort(function (a, b) { return (b.run.started_at || '') < (a.run.started_at || '') ? -1 : 1; });
+        return (pooledCache[ck] = out.all.length ? out : null);
+      };
+      // The mean of a variant's counted runs of a task, over all its deployments (its quality)
+      S.variantMean = function (v, taskId) {
+        var c = S.variantCell(v, taskId);
+        return c && c.counted.length ? mean(c.counted.map(function (i) { return i.score; })) : null;
+      };
+
       S.cellOf = function (cfg, taskId) { return ((S.cells[cfg.key] || {})[taskId]) || null; };
       S.countedMean = function (cfg, taskId) {
         var c = S.cellOf(cfg, taskId);
@@ -936,13 +1182,17 @@
       // share of the tier's weight that was scored; below COVERAGE_MIN the score is partial.
       // `only` limits it to a set of tasks (the compare view's shared tasks).
       V.tierScore = function (cfg, tier, only) {
+        return tierScoreBy(function (id) { return S.countedMean(cfg, id); }, tier, only);
+      };
+      // The same, with each task's score from meanOf(taskId) (a variant's pooled mean, say)
+      function tierScoreBy(meanOf, tier, only) {
         var weights = V.taskWeights(tier);
         var total = 0, scoredWeight = 0, allWeight = 0, scores = [], n = 0;
         Object.keys(weights).forEach(function (id) {
           if (only && !only[id]) return;
           allWeight += weights[id];
           n += 1;
-          var score = S.countedMean(cfg, id);
+          var score = meanOf(id);
           if (score === null) return;
           scores.push(score);
           total += score * weights[id];
@@ -956,7 +1206,7 @@
         };
         result.partial = result.score !== null && !meets(result.coverage, S.COVERAGE_MIN);
         return result;
-      };
+      }
 
       // Provisional tasks don't count, but are worth showing on their own
       V.provisionalScore = function (cfg, tier) {
@@ -1108,6 +1358,157 @@
         // One setup's counted runs of one shared task, as a mean with n and range
         out.cell = function (s, t) { return agg(S.cellOf(s.cfg, t.id).counted.map(function (i) { return i.score; })); };
         return out;
+      };
+
+      // ---- Variants and deployments in this mode ----
+
+      // A variant's quality, pooled over its deployments' counted runs by the same rules as a
+      // setup's (V.stats): tier scores, gate verdicts, provisional scores, coverage and areas. No
+      // time or cost: those belong to a deployment (V.deployments).
+      var variantCache = {};
+      V.variantStats = function (v) {
+        v = variantOf(v);
+        if (!v) return null;
+        if (variantCache[v.key]) return variantCache[v.key];
+        var meanOf = function (id) { return S.variantMean(v, id); };
+        var active = orderedTasks.filter(function (t) { return t.status === 'active'; });
+        var done = active.filter(function (t) { return meanOf(t.id) !== null; }).length;
+        var progress = { done: done, total: active.length, share: active.length ? done / active.length : 0 };
+        var tier = {}, verdict = {}, provisionalOf = {}, runs = 0;
+        S.TIERS.forEach(function (t) {
+          var result = tierScoreBy(meanOf, t.id);
+          if (t.id === S.HEAD || t.role === 'gate') tier[t.id] = result;
+          else {
+            tier[t.id] = result.total ? result : null;
+            var list = S.tasks.filter(function (x) { return inMode(x) && x.tier === t.id && x.status === 'provisional'; });
+            var scores = list.map(function (x) { var val = cellValue(S.variantCell(v, x.id)); return val && val.agg ? val.agg.mean : null; });
+            provisionalOf[t.id] = list.length ? { score: mean(scores), scored: scores.filter(function (s) { return s !== null; }).length, total: list.length } : null;
+          }
+          if (S.gateOf(t.id)) verdict[t.id] = gateVerdict(result, S.gateOf(t.id));
+        });
+        var ran = false;
+        orderedTasks.forEach(function (t) {
+          var c = S.variantCell(v, t.id);
+          if (c) { ran = true; runs += c.counted.length; }
+        });
+        return (variantCache[v.key] = {
+          variant: v, cfg: v.cfgs[0], cfgs: v.cfgs, local: v.local, ran: ran, tier: tier, verdict: verdict,
+          provisional: provisionalOf, head: tier[S.HEAD], runs: runs, progress: progress,
+          inProgress: !meets(progress.share, S.IN_PROGRESS_BELOW), label: rowLabel(v.cfgs[0]),
+          areas: V.info.areas.map(function (a) { return V.variantAreaResult(v, a); })
+        });
+      };
+      // A variant's result in one area: { area, tasks, n (tasks with a counted run), score (their
+      // mean), coverage (n / tasks), pale (measured on fewer than half its tasks), ran (tasks with
+      // any run), state: 'counted' | 'none-count' (it ran, nothing counts) | 'not-run' }
+      V.variantAreaResult = function (v, area) {
+        var list = orderedTasks.filter(function (t) { return t.area === area.id; });
+        var means = list.map(function (t) { return S.variantMean(v, t.id); }).filter(function (x) { return x !== null; });
+        var ran = list.filter(function (t) { return S.variantCell(v, t.id); }).length;
+        return {
+          area: area, tasks: list, n: means.length, score: mean(means), ran: ran,
+          coverage: list.length ? means.length / list.length : 0, pale: means.length < list.length / 2,
+          state: means.length ? 'counted' : ran ? 'none-count' : 'not-run'
+        };
+      };
+      // Variants with a run in this mode, best first (S.betterConfig on pooled quality); `keep(v)`
+      // filters them, e.g. by base: V.variants(function (v) { return v.base === base; })
+      V.variants = function (keep) {
+        var seen = {}, out = [];
+        V.configs().forEach(function (cfg) {
+          var v = VARIANT_OF_CFG[cfg.key];
+          if (!v || seen[v.key] || (keep && !keep(v))) return;
+          seen[v.key] = true;
+          out.push(V.variantStats(v));
+        });
+        return out.filter(function (s) { return s.ran; }).sort(S.betterConfig);
+      };
+      // A model's variants in this mode (base: a base string, or a list of them)
+      V.variantsOf = function (bases) {
+        bases = [].concat(bases).map(baseOf);
+        return V.variants(function (v) { return bases.indexOf(v.base) !== -1; });
+      };
+
+      // A variant's runs on this mode's tasks that are eligible to count (state 'counted', scored or
+      // not), by task id, optionally on one deployment only
+      function eligible(v, depKey) {
+        var byTask = {};
+        orderedTasks.forEach(function (t) {
+          var c = S.variantCell(v, t.id, depKey);
+          var list = c ? c.all.filter(function (i) { return i.state === 'counted'; }) : [];
+          if (list.length) byTask[t.id] = list;
+        });
+        return byTask;
+      }
+      function finishedOf(list) { return list.filter(function (i) { return runOutcome(i.run) === 'finished'; }); }
+      function costKindOf(dep) { return dep && dep.local ? 'electricity' : 'billed'; }
+
+      // One deployment of a variant: { deployment, key, label, local, recorded, runs (eligible runs),
+      // tasks, finished, timedOut, errors, time (median over tasks of each task's median finished
+      // time), timeAll (the same over every run), cost { kind: 'electricity' | 'billed', value (mean
+      // over tasks of each task's mean cost per run; null when none is known), n (runs with a cost) },
+      // packager ("Packaged by …" or '') }
+      V.deploymentStats = function (v, dep) {
+        v = variantOf(v); dep = deploymentOf(dep);
+        var byTask = eligible(v, dep.key), all = [];
+        var taskTimes = [], taskTimesAll = [], taskCosts = [], costN = 0;
+        Object.keys(byTask).forEach(function (id) {
+          var list = byTask[id], fin = finishedOf(list);
+          all = all.concat(list);
+          taskTimes.push(median(fin.map(function (i) { return num(i.run.elapsed_s, null); })));
+          taskTimesAll.push(median(list.map(function (i) { return num(i.run.elapsed_s, null); })));
+          var costs = list.map(function (i) { return runCost(i.run); }).filter(function (c) { return c !== null; });
+          costN += costs.length;
+          taskCosts.push(mean(costs));
+        });
+        var count = function (k) { return all.filter(function (i) { return runOutcome(i.run) === k; }).length; };
+        return {
+          deployment: dep, key: dep.key, label: dep.label, local: dep.local, recorded: dep.recorded, variant: v,
+          runs: all.length, tasks: Object.keys(byTask).length,
+          finished: count('finished'), timedOut: count('timed_out'), errors: count('error'),
+          time: median(taskTimes), timeAll: median(taskTimesAll),
+          cost: { kind: costKindOf(dep), value: mean(taskCosts), n: costN },
+          packager: D.packagedBy(v)
+        };
+      };
+      // Every deployment a variant ran on in this mode: recorded ones first, most runs first; the
+      // "machine not recorded" one last
+      V.deployments = function (v) {
+        v = variantOf(v);
+        if (!v) return [];
+        var keys = {};
+        orderedTasks.forEach(function (t) {
+          var c = S.variantCell(v, t.id);
+          (c ? c.all : []).forEach(function (i) { if (i.state === 'counted') keys[DEPLOYMENT_OF_RUN[i.uuid].key] = true; });
+        });
+        return Object.keys(keys).map(function (k) { return V.deploymentStats(v, DEPLOYMENTS[k]); }).sort(function (a, b) {
+          if (a.recorded !== b.recorded) return a.recorded ? -1 : 1;
+          if (a.runs !== b.runs) return b.runs - a.runs;
+          return a.label < b.label ? -1 : 1;
+        });
+      };
+
+      // One side of a comparison: a setup (cfg, or a row/stats with .cfg) on its own recorded
+      // deployment, or { variant, deployment } (objects or keys; deployment null pools every
+      // recorded deployment). Runs on a deployment that isn't recorded are set aside in `unrecorded`.
+      V.side = function (spec) {
+        var cfg = spec && (spec.cfgs ? null : spec.cfg || (spec.key && CONFIGS[spec.key] === spec ? spec : null));
+        var v = cfg ? VARIANT_OF_CFG[cfg.key] : variantOf(spec.variant);
+        var dep = cfg ? deploymentOf(cfg) : spec.deployment ? deploymentOf(spec.deployment) : null;
+        if (!v) return null;
+        var all = {}, runs = {}, unrecorded = [];
+        orderedTasks.forEach(function (t) {
+          var c = cfg ? S.cellOf(cfg, t.id) : S.variantCell(v, t.id);
+          (c ? c.all : []).forEach(function (i) {
+            if (i.state !== 'counted') return;
+            var d = DEPLOYMENT_OF_RUN[i.uuid];
+            if (!d.recorded && (!dep || dep.recorded)) { unrecorded.push(i); return; }
+            if (dep && d.key !== dep.key) return;
+            (runs[t.id] = runs[t.id] || []).push(i);
+          });
+          all[t.id] = true;
+        });
+        return { V: V, variant: v, deployment: dep, cfg: cfg, runs: runs, unrecorded: unrecorded, label: rowLabel(v.cfgs[0]) };
       };
       return V;
     }

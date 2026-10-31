@@ -154,9 +154,19 @@ $crucibleBlue: #1856a3;
   cursor: pointer;
   transition: background $speedFast ease;
 
-  &[aria-checked='true'] {
+  &[aria-checked='true'],
+  &[aria-pressed='true'] {
     background: #fff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  }
+
+  &[aria-pressed='false'] {
+    color: $crucibleMuted;
+    font-weight: $weightNormal;
+  }
+
+  &[aria-disabled='true'] {
+    cursor: default;
   }
 
   &.is-empty {
@@ -795,7 +805,7 @@ $crucibleBlue: #1856a3;
 
   th,
   td {
-    padding: ($gap / 2) ($gap * 0.75);
+    padding: ($gap / 2) ($gap * 0.5);
     border-bottom: 1px solid $crucibleBorder;
     text-align: left;
     white-space: nowrap;
@@ -807,7 +817,7 @@ $crucibleBlue: #1856a3;
   }
 
   .crucible-lb-bar {
-    width: 100px;
+    width: 72px;
   }
 
   thead th {
@@ -885,7 +895,7 @@ $crucibleBlue: #1856a3;
 }
 
 .crucible-lb-bar-cell {
-  min-width: 190px;
+  min-width: 136px;
   text-align: left;
 }
 
@@ -1803,4 +1813,21 @@ ol.crucible-scatter-key {
   max-width: 100%;
   min-width: 0;
   text-overflow: ellipsis;
+}
+
+// The overall score and the tier toggles that choose what it includes
+
+.crucible-agg-toggle {
+  flex-wrap: wrap;
+}
+
+.crucible-lb-bar-cell.is-overall .crucible-lb-score,
+.crucible-lb-card-score .crucible-tier-cell.is-overall .crucible-lb-score {
+  font-weight: $weightBold;
+}
+
+// A tier left out of the overall score is still shown, quieter
+.crucible-lb-bar-cell.is-excluded,
+.crucible-lb-card-score.is-excluded {
+  opacity: 0.5;
 }

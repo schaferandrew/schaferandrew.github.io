@@ -88,6 +88,11 @@ permalink: /crucible/about/
     <li><strong>{{ t.label | default: tfb.label | default: tid }}</strong>: {{ t.detail | default: tfb.detail | default: t.blurb | default: tfb.blurb }}</li>
     {%- endfor %}
   </ul>
+  <p>
+    The leaderboard ranks by the <strong>{{ cr_fb.aggregate.label | default: "Overall" }}</strong> score: a
+    section's tier scores combined, each tier weighted by its number of tasks. You can leave tiers out of it, to rank on the everyday
+    tiers alone, say. A model that hasn't covered every tier in it isn't ranked until that tier is left out.
+  </p>
 
   <h2 class="crucible-heading">How scores are made</h2>
   <p>

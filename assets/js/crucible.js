@@ -271,7 +271,7 @@
 
     function renderLeaderboardNote() {
       var parts = [showAgg()
-        ? 'Ranked by ' + AGG_LABEL + ' score (0–10): the ' + aggTierNames() + ' scores combined, each tier weighted by its number of tasks. ' +
+        ? 'Ranked by ' + AGG_LABEL + ' score (0–' + V.aggMax(state.exclude) + '): ' + (aggTiers().length > 1 ? 'the ' + aggTierNames() + ' scores added together, each out of 10. ' : 'the ' + aggTierNames() + ' score alone. ') +
           'Choose which tiers it includes above; a model missing one of them isn\'t ranked until you leave that tier out.'
         : 'Ranked by ' + aggInfo().label + ' score (0–10).'];
       MODE_TIERS.forEach(function (t) {
@@ -353,7 +353,7 @@
       if (isNarrow()) { renderLeaderboardCards(list); return; }
       document.getElementById('crucible-lb-narrow').innerHTML = '';
       var columns = [{ key: null, label: '#' }, { key: 'model', label: 'Model and best setup' }]
-        .concat(scoreColumns().map(function (t) { return { key: t.id, label: t.label, title: t.id === AGG ? aggTierNames() + ', weighted by number of tasks' : t.blurb ? cap(t.blurb) : '' }; }))
+        .concat(scoreColumns().map(function (t) { return { key: t.id, label: t.label, title: t.id === AGG ? aggTierNames() + (aggTiers().length > 1 ? ' added together, out of ' : ' alone, out of ') + V.aggMax(state.exclude) : t.blurb ? cap(t.blurb) : '' }; }))
         .concat([{ key: 'time', label: 'Time / task' }, { key: 'tps', label: 'tok/s', title: 'Decode speed: output tokens per second of generation (median)' }, { key: 'cost', label: 'Cost / task' }]);
       var head = el('tr');
       columns.forEach(function (c) {
@@ -521,7 +521,8 @@
       if (hi - lo < 0.5) { lo -= 0.25; hi += 0.25; }
       lo -= 0.1; hi += 0.1;
       function x(v) { return m.left + (Math.log10(v) - lo) / (hi - lo) * (width - m.left - m.right); }
-      function y(v) { return m.top + (1 - v / 10) * (height - m.top - m.bottom); }
+      var yMax = V.aggMax(state.exclude);
+      function y(v) { return m.top + (1 - v / yMax) * (height - m.top - m.bottom); }
 
       var root = svg('svg', {
         class: 'crucible-chart-svg', width: width, height: height, viewBox: '0 0 ' + width + ' ' + height, role: 'img',
@@ -529,7 +530,7 @@
       });
       var medX = median(xs), medY = median(points.map(function (s) { return s.overall.score; }));
       root.appendChild(svg('rect', { class: 'crucible-quadrant', x: m.left, y: m.top, width: Math.max(0, x(medX) - m.left), height: Math.max(0, y(medY) - m.top) }));
-      [0, 5, 10].forEach(function (v) {
+      [0, yMax / 2, yMax].forEach(function (v) {
         root.appendChild(svg('line', { class: v ? 'crucible-grid' : 'crucible-baseline', x1: m.left, x2: width - m.right, y1: y(v), y2: y(v) }));
         root.appendChild(svg('text', { class: 'crucible-axis-label', x: m.left - 8, y: y(v) + 4, 'text-anchor': 'end' }, String(v)));
       });

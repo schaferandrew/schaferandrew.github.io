@@ -155,7 +155,7 @@
       var ord = order(models.map(function (m) { return entryFor(m, pubMode); }));
       $('pub-table-heading').hidden = false;
       $('pub-sub').textContent = S.modeInfo(pubMode).label + ' section. Each model\'s best variant, chosen and ranked by ' + V.aggInfo().label +
-        ' score as on the leaderboard' + (V.showAgg() ? ' (' + V.aggTierNames() + ' combined, each tier weighted by its number of tasks)' : '') + ', and the deployment (machine or provider) it mostly ran on; time and cost belong to that deployment. Models with less than ' +
+        ' score as on the leaderboard' + (V.showAgg() ? ' (' + V.aggTierNames() + ' added together, each out of 10)' : '') + ', and the deployment (machine or provider) it mostly ran on; time and cost belong to that deployment. Models with less than ' +
         pct(S.COVERAGE_MIN) + ' of the section\'s tasks run come after the rest.';
       renderModels(ord);
       renderPubCompare(ord);
@@ -262,7 +262,8 @@
       if (wrap.hidden) return;
       var H = V.aggInfo();
       $('pub-chart-heading').textContent = H.label + ' score per model';
-      $('pub-chart-sub').textContent = H.label + ' score of each model\'s best variant, 0 to 10. Labels read score · tasks run / tasks in the section.';
+      var max = V.aggMax();
+      $('pub-chart-sub').textContent = H.label + ' score of each model\'s best variant, 0 to ' + max + '. Labels read score · tasks run / tasks in the section.';
       var legend = $('pub-legend');
       legend.innerHTML = '';
       [['local', 'local', 1], ['cloud', 'cloud', 1], ['pale', 'in progress (under ' + pct(S.COVERAGE_MIN) + ' of tasks run)', 0.35]].forEach(function (l) {
@@ -278,10 +279,10 @@
       var barMax = narrow ? W - 8 - 100 : x1 - x0;
       var Hh = list.length * rowH + 26;
       var g = svg('svg', { class: 'crucible-chart-svg crucible-pub-svg', width: W, height: Hh, viewBox: '0 0 ' + W + ' ' + Hh, role: 'img', 'aria-label': H.label + ' score per model' });
-      function X(v) { return x0 + v / 10 * barMax; }
-      [0, 5, 10].forEach(function (v) {
+      function X(v) { return x0 + v / max * barMax; }
+      [0, max / 2, max].forEach(function (v) {
         g.appendChild(svg('line', { class: 'crucible-grid', x1: X(v), x2: X(v), y1: 0, y2: Hh - 20 }));
-        g.appendChild(svg('text', { class: 'crucible-tick', x: X(v), y: Hh - 5, 'text-anchor': v === 0 ? 'start' : v === 10 ? 'end' : 'middle' }, v));
+        g.appendChild(svg('text', { class: 'crucible-tick', x: X(v), y: Hh - 5, 'text-anchor': v === 0 ? 'start' : v === max ? 'end' : 'middle' }, v));
       });
       list.forEach(function (e, i) {
         var s = e.best, y = top + i * rowH, ty = narrow ? y + 13 : y + 16, by = narrow ? y + 20 : y + 5;
@@ -292,7 +293,7 @@
           g.appendChild(svg('text', { class: 'crucible-pub-none', x: x0 + 4, y: narrow ? by + 13 : ty }, 'no ' + H.label + ' tasks run yet'));
           return;
         }
-        var w = Math.max(1, s.overall.score / 10 * barMax), pale = s.inProgress || s.overall.partial;
+        var w = Math.max(1, s.overall.score / max * barMax), pale = s.inProgress || s.overall.partial;
         g.appendChild(svg('rect', { x: x0, y: by, width: w, height: 16, rx: 3, fill: COLORS[s.local ? 'local' : 'cloud'], 'fill-opacity': pale ? 0.35 : 1 }));
         g.appendChild(svg('text', { class: 'crucible-pub-val', x: x0 + w + 6, y: by + 12 }, fmtScore(s.overall.score) + ' · ' + s.progress.done + '/' + s.progress.total));
       });
@@ -452,7 +453,7 @@
       var box = $('model-tiles');
       box.innerHTML = '';
       var head = V.head(), r = s.tier[head.id], o = s.overall;
-      if (V.showAgg()) tile(box, V.aggInfo().label, o.score !== null ? fmtScore(o.score) : NONE, V.aggTierNames() + ' combined' + (o.partial ? ' (partial)' : ''));
+      if (V.showAgg()) tile(box, V.aggInfo().label, o.score !== null ? fmtScore(o.score) : NONE, V.aggTierNames() + ' added together, out of ' + o.max + (o.partial ? ' (partial)' : ''));
       tile(box, head.label, r && r.score !== null ? fmtScore(r.score) : NONE, r ? r.scored + ' of ' + r.total + ' tasks' + (r.partial ? ' (partial)' : '') : 'no scored task');
       V.TIERS.forEach(function (t) {
         if (t.id === head.id) return;

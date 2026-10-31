@@ -1118,7 +1118,7 @@
         return b.runs - a.runs;
       };
 
-      // Every tier reads the same: a 0-10 score, the bar, and 'n/m tasks'. The gate result (pass or
+      // Every tier reads the same: a 0-10 score (the overall one is out of its max), the bar, and 'n/m tasks'. The gate result (pass or
       // fail) and 'partial' or 'provisional' are small markers on that cell, not a different cell.
       // t may be the overall score's column (t.id === C.AGG).
       S.tierCell = function (s, t, into) {
@@ -1133,7 +1133,7 @@
         var cellEl = el('span', { class: 'crucible-tier-cell' + (provisional ? ' is-provisional' : '') + (isAgg ? ' is-overall' : '') });
         var bar = el('span', { class: 'crucible-lb-bar' + (partial ? ' is-partial' : '') + (provisional ? ' is-provisional' : '') });
         var fill = el('span', { class: 'crucible-lb-fill' + (s.local ? ' is-local' : '') });
-        fill.style.width = (score * 10) + '%';
+        fill.style.width = (score / (isAgg ? result.max : 10) * 100) + '%';
         bar.appendChild(fill);
         cellEl.appendChild(bar);
         cellEl.appendChild(el('span', { class: 'crucible-lb-score' }, fmtScore(score)));
@@ -1278,17 +1278,18 @@
       function excludeKey(exclude) {
         return V.aggAll(exclude) ? '' : V.TIERS.filter(function (t) { return exclude[t.id]; }).map(function (t) { return t.id; }).join(',');
       }
-      // Overall score: the chosen tiers' scores, each weighted by its number of tasks (so three Spark
-      // tasks don't count as much as twelve Temper ones). Partial when any of those tiers is partial
-      // or unscored, so a setup that skipped a tier is never ranked on the rest; leave that tier out
-      // to rank it. tierResults: tier id -> tierScore result.
+      // The overall score's maximum: 10 per tier in it
+      V.aggMax = function (exclude) { return V.aggTiers(exclude).length * 10; };
+      // Overall score: the chosen tiers' 0-10 scores added up, out of V.aggMax(). Partial when any
+      // of those tiers is partial or unscored, so a setup that skipped a tier is never ranked on the
+      // rest; leave that tier out to rank it. tierResults: tier id -> tierScore result.
       V.aggregate = function (tierResults, exclude) {
         var list = V.aggTiers(exclude).map(function (t) { return tierResults[t.id] || null; });
         var scored = list.filter(function (r) { return r && r.score !== null; });
         var mins = scored.map(function (r) { return r.min; }).filter(function (v) { return v !== null; });
         var result = {
-          score: scored.length ? scored.reduce(function (n, r) { return n + r.score * r.total; }, 0) /
-            scored.reduce(function (n, r) { return n + r.total; }, 0) : null,
+          score: scored.length ? scored.reduce(function (n, r) { return n + r.score; }, 0) : null,
+          max: V.aggMax(exclude),
           coverage: mean(list.map(function (r) { return r ? r.coverage : 0; })) || 0,
           scored: list.reduce(function (n, r) { return n + (r ? r.scored : 0); }, 0),
           total: list.reduce(function (n, r) { return n + (r ? r.total : 0); }, 0),

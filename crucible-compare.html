@@ -1,0 +1,79 @@
+---
+layout: default
+title: Compare setups
+noindex: true
+permalink: /crucible/compare/
+---
+<div class="constrain crucible crucible-compare-page">
+  <p class="crucible-breadcrumb" id="cmp-crumbs"><a href="/crucible/">Crucible</a> › Compare setups</p>
+  <div class="crucible-heading-row">
+    <h1 class="crucible-title">Compare setups</h1>
+    <button type="button" class="crucible-link-button" id="compare-link" hidden>Copy link</button>
+  </div>
+
+  <p class="crucible-status" id="crucible-status" role="status">Loading results…</p>
+
+  <section class="crucible-results" aria-label="Comparison" id="crucible-results" hidden>
+    <div class="crucible-suite-bar">
+      <label class="crucible-toolbar-label" for="suite-select" id="suite-select-label">Suite</label>
+      <select class="crucible-select" id="suite-select"></select>
+      <span class="crucible-suite-line" id="suite-line"></span>
+    </div>
+    <p class="crucible-sub crucible-suite-note" id="suite-note" hidden></p>
+
+    <div class="crucible-toolbar crucible-toolbar-tight" id="cmp-mode-bar" hidden>
+      <span class="crucible-toolbar-label" id="cmp-mode-label">Section</span>
+      <div class="crucible-segmented" role="radiogroup" aria-labelledby="cmp-mode-label" id="cmp-mode"></div>
+    </div>
+
+    <ul class="crucible-compare-chips cmp-chips" id="cmp-chips"></ul>
+    <div class="crucible-toolbar crucible-toolbar-tight">
+      <label class="crucible-toolbar-label" for="cmp-pick">Add a setup</label>
+      <select class="crucible-select crucible-compare-pick" id="cmp-pick"></select>
+    </div>
+    <ul class="cmp-notes" id="cmp-notes"></ul>
+    <p class="crucible-sub" id="cmp-sub"></p>
+
+    <div id="cmp-body" hidden>
+      <h2 class="crucible-heading">Summary</h2>
+      <div class="crucible-scroll cmp-summary-wide">
+        <table class="crucible-tests cmp-table" id="cmp-summary"></table>
+      </div>
+      <div class="cmp-summary-narrow" id="cmp-summary-narrow" hidden></div>
+
+      <div id="cmp-shared">
+        <div class="cmp-charts">
+          <div>
+            <h2 class="crucible-heading">Task by task</h2>
+            <p class="crucible-sub" id="cmp-dots-sub"></p>
+            <div class="cmp-chart" id="cmp-dots"></div>
+          </div>
+          <div>
+            <h2 class="crucible-heading">Time per task</h2>
+            <p class="crucible-sub" id="cmp-time-sub"></p>
+            <div class="cmp-chart" id="cmp-time"></div>
+          </div>
+        </div>
+
+        <h2 class="crucible-heading">Where they differ</h2>
+        <p class="crucible-sub" id="cmp-diff-sub"></p>
+        <div class="crucible-scroll cmp-diff-wide">
+          <table class="crucible-tests cmp-table cmp-diff" id="cmp-diff"></table>
+        </div>
+        <div class="cmp-diff-narrow" id="cmp-diff-narrow" hidden></div>
+      </div>
+
+      <h2 class="crucible-heading">Reliability</h2>
+      <div id="cmp-dnf"></div>
+
+      <h2 class="crucible-heading" id="cmp-unrec-head" hidden>Machine not recorded</h2>
+      <div id="cmp-unrec" hidden></div>
+
+      <h2 class="crucible-heading">Tasks not shared</h2>
+      <div id="cmp-missing"></div>
+    </div>
+  </section>
+</div>
+
+<script src="/assets/js/crucible-core.js?v={{ site.time | date: '%s' }}"></script>
+<script src="/assets/js/crucible-compare.js?v={{ site.time | date: '%s' }}" data-src="/crucible/data.json?v={{ site.time | date: '%s' }}" data-details="/crucible/details.json?v={{ site.time | date: '%s' }}" data-outputs="/crucible-data/"></script>

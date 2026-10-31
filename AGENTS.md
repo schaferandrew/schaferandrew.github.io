@@ -18,7 +18,9 @@ served by GitHub Pages at www.schaferandrew.com).
   the user says otherwise.
 - Only tasks the selected suite makes active are shown. Provisional tasks' runs stay in the data
   but never appear (no cells, no tier columns, no counts); a task appears once a suite makes it
-  active.
+  active. The one exception is the task page: a "Show provisional tasks" toggle (`&provisional=1`)
+  lists them in its index and opens their pages, each clearly marked provisional. They're still never
+  counted in any score.
 - Its data is bundle format 3 in `_data/crucible/`, written by `crucible publish` in the Crucible
   repo (that repo's `docs/bundle-format.md`; schemas in `crucible/schemas/`): `catalog/v<N>.json`
   per suite, and one file per run (`runs/<month>/`), score record (`scores/<month>/`) and status
@@ -58,5 +60,18 @@ served by GitHub Pages at www.schaferandrew.com).
   first paint, with a loading and an error state; `crucible/details.json` (full score records) and
   `crucible-data/outputs/<run_uuid>.txt` are fetched only when a run is opened. Below 640 px every table is one card per row (leaderboard, matrix, heatmap, model
   detail), and only one layout is ever on the page; check both 1400 px and 375 px after any change.
-- The page logic is `assets/js/crucible.js`, styles `_sass/pages/_crucible.scss`, pages
-  `crucible.html` and `crucible-about.html`.
+- Pages: `/crucible/` (`crucible.html`), `/crucible/about/`, and three detail pages routed by the hash:
+  `/crucible/task/#<task-id>`, `/crucible/compare/#<slug>,<slug>`, and one model hierarchy:
+  `/crucible/model/` (publishers), `/crucible/model/#<maker>` (a publisher's models),
+  `/crucible/model/#<maker>/<model>` (`#-/<model>` when the maker is unknown), with variant and
+  deployment as `&variant=`/`&deployment=` params. Each page is `crucible-<page>.html` with its own
+  `assets/js/crucible-<page>.js` and `_sass/pages/_crucible-<page>.scss`. Everything they share (loading,
+  suite selection, the record join and counting rules, leaderboard rows, formatting, the run detail
+  panel, the router and URL helpers) is in `assets/js/crucible-core.js` (`window.CrucibleCore`); a page
+  never re-implements the join. Main page styles are `_sass/pages/_crucible.scss`.
+- Publisher means the maker, the lab that trained the model: a run's `model.origin.maker` (Crucible 3.5.0
+  on), else inferred from the prefix of `model.base` and shown as inferred. `model.publisher` is the
+  weight packager (mlx-community, lmstudio-community...), never the maker. There's no maker label list:
+  makers show as recorded. Wherever a model appears, its maker links to its publisher page
+  (`/crucible/model/#<maker>`). Where the packager matters, the page says "Packaged by <model.publisher>".
+- Setups are a variant (quant/format, reasoning, and harness where a mode has several: changes the answer) on a deployment (machine or provider, local or cloud: changes speed and cost). Quality compares variants; speed and cost compare deployments of one variant. An A/B only differs in one variant setting on one recorded deployment, over tasks both sides finished; a timeout or error is reliability, not a 0 in a comparison (the suite's scores keep their rule); a run with no recorded machine is its own "machine not recorded" deployment, left out of A/Bs and speed and cost; no headline difference on fewer than C.MIN_PAIRED_TASKS shared tasks or when one task drives most of it.

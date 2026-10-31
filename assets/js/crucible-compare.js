@@ -197,9 +197,12 @@
       var rows = ctx.chosen.map(function (s, k) {
         var bad = [];
         shared.forEach(function (t, i) { if (cell[k][i].bad.length) bad.push({ task: t, k: cell[k][i].bad.length, n: cell[k][i].runs, runs: cell[k][i].bad }); });
+        // Decode speed: a property of the deployment, the median over its finished runs of the paired tasks
+        var fin = [];
+        idx.forEach(function (i) { fin = fin.concat(cell[k][i].fin); });
         return {
           mean: C.mean(score[k]), top: score[k].filter(function (v, j) { return v + TIE >= tops[j]; }).length,
-          median: C.median(time[k]), cost: C.mean(cost[k]), bad: bad
+          median: C.median(time[k]), tps: C.tpsOf(fin), finished: fin.length, cost: C.mean(cost[k]), bad: bad
         };
       });
       // Runs from a machine that wasn't recorded: listed, never used
@@ -224,8 +227,9 @@
       var places = [];
       ctx.chosen.forEach(function (s) { var l = depLabel(s.cfg); if (places.indexOf(l) === -1) places.push(l); });
       return (mixedWhere() ? 'These times come from local machines and a cloud provider' : 'These times come from different ' + (ctx.chosen[0].cfg.local ? 'machines' : 'providers')) +
-        ' (' + places.join('; ') + '), so a gap in time may be the hardware, not the model.';
+        ' (' + places.join('; ') + '), so a gap in time or decode speed may be the hardware, not the model.';
     }
+    function tpsText(r) { return r.tps.value === null ? dash() : C.fmtTps(r.tps.value); }
     function costCell(r, s) {
       if (r.cost === null) return dash();
       return fmtCost(r.cost, s.cfg.local);
@@ -257,6 +261,7 @@
           C.kvRow(li, 'Top score on', r.top + ' of ' + n);
           C.kvRow(li, 'Finished', dnfCell(r));
           C.kvRow(li, 'Median time per task' + (differ ? ' · ' + depLabel(s.cfg) : ''), timeText(r.median));
+          C.kvRow(li, 'Decode speed' + (differ ? ' · ' + depLabel(s.cfg) : ''), tpsText(r));
           if (s.cfg.local) C.kvRow(li, '≈ Electricity per task', costCell(r, s));
           else C.kvRow(li, 'Billed per task', costCell(r, s));
         });
@@ -270,6 +275,7 @@
       head.appendChild(el('th', { scope: 'col', class: 'cmp-num' }, 'Top score on'));
       head.appendChild(el('th', { scope: 'col', class: 'cmp-num' }, 'Finished'));
       head.appendChild(el('th', { scope: 'col', class: 'cmp-num' }, 'Median time per task'));
+      head.appendChild(el('th', { scope: 'col', class: 'cmp-num', title: 'Output tokens per second of generation, prompt processing excluded: a property of the deployment' }, 'Decode speed'));
       if (anyLocal) head.appendChild(el('th', { scope: 'col', class: 'cmp-num', title: 'Local runs aren\'t billed: this is time × the machine\'s power × the electricity price' }, '≈ Electricity per task'));
       if (anyCloud) head.appendChild(el('th', { scope: 'col', class: 'cmp-num', title: 'API cost per task, billed' }, 'Billed per task'));
       table.appendChild(el('thead')).appendChild(head);
@@ -287,6 +293,8 @@
         tr.appendChild(el('td', { class: 'cmp-num cmp-wrap' + (r.bad.length ? ' is-bad' : '') }, dnfCell(r)));
         var tt = tr.appendChild(el('td', { class: 'cmp-num', title: 'Median over shared finished tasks, on ' + depLabel(s.cfg) }, timeText(r.median)));
         if (differ) tt.appendChild(el('span', { class: 'cmp-sub-line' }, depLabel(s.cfg)));
+        var ts = tr.appendChild(el('td', { class: 'cmp-num', title: C.tpsTitle(r.tps, r.finished) + ', on ' + depLabel(s.cfg) }, tpsText(r)));
+        if (differ) ts.appendChild(el('span', { class: 'cmp-sub-line' }, depLabel(s.cfg)));
         var tip = D.costTitle({ local: s.cfg.local, cfg: s.cfg });
         if (anyLocal) tr.appendChild(el('td', { class: 'cmp-num', title: tip }, s.cfg.local ? costCell(r, s) : dash()));
         if (anyCloud) tr.appendChild(el('td', { class: 'cmp-num', title: tip }, s.cfg.local ? dash() : costCell(r, s)));
@@ -717,7 +725,7 @@
             ': a difference can\'t be put down to any one of them.');
         }
         if (deploymentsDiffer()) ctx.notes.push('They also run on different ' + (mixedWhere() ? 'machines and providers (local and cloud)' : ctx.chosen[0].cfg.local ? 'machines' : 'providers') +
-          ', so times are labelled by deployment and local electricity is never set against cloud billing.');
+          ', so times and decode speeds are labelled by deployment (a gap in either may be the hardware, not the model) and local electricity is never set against cloud billing.');
       }
 
       C.breadcrumb(document.getElementById('cmp-crumbs'), ['Compare setups']);

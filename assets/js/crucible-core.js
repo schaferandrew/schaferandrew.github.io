@@ -1672,13 +1672,17 @@
       // Speed and cost: only on the same recorded machine or provider (two variants there), or
       // between two recorded deployments of one variant; never with an unrecorded one
       var speedKind = !bothRecorded ? null : sameVariant && !sameDeployment ? 'deployments' : sameDeployment ? 'variants' : null;
+      // ratio: the median of the per-task time ratios (b / a), not the ratio of the two medians;
+      // faster / slower: on how many of the n timed tasks b took less / more time than a
       var ratios = paired.map(function (p) { return p.a.time && p.b.time ? p.b.time / p.a.time : null; });
+      var timed = ratios.filter(function (r) { return r !== null; });
       var speed = {
         comparable: !!speedKind, kind: speedKind,
         // local and cloud times are both wall-clock, but never on one unlabelled axis
         sameKind: bothRecorded && a.deployment.local === b.deployment.local,
         a: median(paired.map(function (p) { return p.a.time; })), b: median(paired.map(function (p) { return p.b.time; })),
-        ratio: median(ratios),
+        ratio: median(ratios), n: timed.length,
+        faster: timed.filter(function (r) { return r < 1; }).length, slower: timed.filter(function (r) { return r > 1; }).length,
         reason: speedKind ? null : !bothRecorded ? 'A machine or provider wasn\'t recorded, or a side pools several.' : 'Different variants on different deployments: a time difference can\'t be put down to either.'
       };
       var costKind = function (s) { return s.deployment ? s.deployment.costKind : null; };

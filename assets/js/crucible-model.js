@@ -112,7 +112,7 @@
     function order(entries) {
       var ran = entries.filter(function (e) { return e.best; });
       var ranked = ran.filter(function (e) { return V.isRanked(e.best); }).sort(function (a, b) {
-        return b.best.head.score - a.best.head.score || (a.model.name < b.model.name ? -1 : 1);
+        return b.best.overall.score - a.best.overall.score || (a.model.name < b.model.name ? -1 : 1);
       });
       var rest = ran.filter(function (e) { return !V.isRanked(e.best); }).sort(function (a, b) { return S.betterConfig(a.best, b.best); });
       return { ranked: ranked, rest: rest, none: entries.filter(function (e) { return !e.best; }) };
@@ -154,8 +154,8 @@
       V = S.view(pubMode);
       var ord = order(models.map(function (m) { return entryFor(m, pubMode); }));
       $('pub-table-heading').hidden = false;
-      $('pub-sub').textContent = S.modeInfo(pubMode).label + ' section. Each model\'s best variant, ranked by ' + V.head().label +
-        ' score, and the deployment (machine or provider) it mostly ran on; time and cost belong to that deployment. Models with less than ' +
+      $('pub-sub').textContent = S.modeInfo(pubMode).label + ' section. Each model\'s best variant, chosen and ranked by ' + V.aggInfo().label +
+        ' score as on the leaderboard' + (V.showAgg() ? ' (' + V.aggTierNames() + ' combined, each tier weighted by its number of tasks)' : '') + ', and the deployment (machine or provider) it mostly ran on; time and cost belong to that deployment. Models with less than ' +
         pct(S.COVERAGE_MIN) + ' of the section\'s tasks run come after the rest.';
       renderModels(ord);
       renderPubCompare(ord);
@@ -168,7 +168,7 @@
       var table = $('pub-table'), narrow = $('crucible-pub-narrow');
       table.innerHTML = '';
       narrow.innerHTML = '';
-      var tiers = V.TIERS, all = ord.ranked.concat(ord.rest);
+      var tiers = scoreCols(), all = ord.ranked.concat(ord.rest);
       if (C.isNarrow()) { renderCards(narrow, ord, tiers); return; }
       var head = el('tr');
       ['Model', 'Best variant', 'Coverage'].concat(tiers.map(function (t) { return t.label; }), ['Deployment', 'Median time', 'Cost', '']).forEach(function (t, i) {
@@ -204,6 +204,9 @@
       });
       if (!all.length && !ord.none.length) body.appendChild(el('tr')).appendChild(el('td', { colspan: 7 + tiers.length, class: 'crucible-not-run' }, 'No models.'));
     }
+
+    // The overall score's column first (when the section has several tiers), then each tier
+    function scoreCols() { return (V.showAgg() ? [V.aggInfo()] : []).concat(V.TIERS); }
 
     // Below 640 px: a card per model with its scores, coverage bar and View model button
     function renderCards(box, ord, tiers) {
@@ -257,7 +260,7 @@
       var list = chartData ? chartData.ranked.concat(chartData.rest) : [];
       wrap.hidden = !list.length || !V;
       if (wrap.hidden) return;
-      var H = V.head();
+      var H = V.aggInfo();
       $('pub-chart-heading').textContent = H.label + ' score per model';
       $('pub-chart-sub').textContent = H.label + ' score of each model\'s best variant, 0 to 10. Labels read score · tasks run / tasks in the section.';
       var legend = $('pub-legend');
@@ -285,13 +288,13 @@
         var a = svg('a', { href: D.modelUrl(e.model.bases[0]) });
         a.appendChild(svg('text', narrow ? { class: 'crucible-pub-lbl', x: x0, y: ty } : { class: 'crucible-pub-lbl', x: left - 8, y: ty, 'text-anchor': 'end' }, e.model.name));
         g.appendChild(a);
-        if (s.head.score === null) {
+        if (s.overall.score === null) {
           g.appendChild(svg('text', { class: 'crucible-pub-none', x: x0 + 4, y: narrow ? by + 13 : ty }, 'no ' + H.label + ' tasks run yet'));
           return;
         }
-        var w = Math.max(1, s.head.score / 10 * barMax), pale = s.inProgress || s.head.partial;
+        var w = Math.max(1, s.overall.score / 10 * barMax), pale = s.inProgress || s.overall.partial;
         g.appendChild(svg('rect', { x: x0, y: by, width: w, height: 16, rx: 3, fill: COLORS[s.local ? 'local' : 'cloud'], 'fill-opacity': pale ? 0.35 : 1 }));
-        g.appendChild(svg('text', { class: 'crucible-pub-val', x: x0 + w + 6, y: by + 12 }, fmtScore(s.head.score) + ' · ' + s.progress.done + '/' + s.progress.total));
+        g.appendChild(svg('text', { class: 'crucible-pub-val', x: x0 + w + 6, y: by + 12 }, fmtScore(s.overall.score) + ' · ' + s.progress.done + '/' + s.progress.total));
       });
       box.appendChild(g);
     }
@@ -448,7 +451,8 @@
     function renderTiles(s) {
       var box = $('model-tiles');
       box.innerHTML = '';
-      var head = V.head(), r = s.tier[head.id];
+      var head = V.head(), r = s.tier[head.id], o = s.overall;
+      if (V.showAgg()) tile(box, V.aggInfo().label, o.score !== null ? fmtScore(o.score) : NONE, V.aggTierNames() + ' combined' + (o.partial ? ' (partial)' : ''));
       tile(box, head.label, r && r.score !== null ? fmtScore(r.score) : NONE, r ? r.scored + ' of ' + r.total + ' tasks' + (r.partial ? ' (partial)' : '') : 'no scored task');
       V.TIERS.forEach(function (t) {
         if (t.id === head.id) return;
@@ -490,12 +494,16 @@
       return span;
     }
     function costCell(d) {
-      var t = fmtCost(d.cost.value, d.local);
-      return d.cost.value === null ? NONE : t + (d.local ? ' (electricity est.)' : ' (billed)');
+      return d.cost.value === null ? NONE : fmtCost(d.cost.value, d.local);
     }
     function timeCell(d) {
       if (d.time !== null) return fmtSeconds(d.time);
       return d.timeAll !== null ? fmtSeconds(d.timeAll) + ' (none finished)' : NONE;
+    }
+    // Decode speed on this deployment: median tok/s over its finished runs that recorded it
+    function tpsCell(d) {
+      if (!d.tps || d.tps.value === null) return NONE;
+      return C.fmtTps(d.tps.value) + ' (' + d.tps.n + ' run' + (d.tps.n === 1 ? '' : 's') + ')';
     }
     // 20m 00s (1200 s): a timeout's limit is easier to recognize in seconds
     function secs(v) { v = C.num(v, null); return v === null ? NONE : v >= 60 ? fmtSeconds(v) + ' (' + Math.round(v) + ' s)' : fmtSeconds(v); }
@@ -503,7 +511,7 @@
 
     function renderDeployments(sel, deps, dep) {
       var local = deps.some(function (d) { return d.local; }), cloud = deps.some(function (d) { return !d.local; });
-      $('cm-deps-sub').textContent = 'Where this variant ran: speed, cost and reliability belong to a deployment, not to the variant. Median time is per task over finished runs. ' +
+      $('cm-deps-sub').textContent = 'Where this variant ran: speed, cost and reliability belong to a deployment, not to the variant. Median time is per task over finished runs; decode speed (output tokens per second of generation, prompt processing excluded) is the median over finished runs that recorded it, and depends on the machine. ' +
         (local && cloud ? 'Local cost is an electricity estimate (≈), cloud cost is what the provider billed; the two are never on one scale. ' : local ? 'Cost is an electricity estimate (≈): local runs aren’t billed. ' : 'Cost is what the provider billed. ') +
         (deps.length > 1 ? 'Select a deployment to look at its A/B.' : '');
       var table = $('cm-deps'), narrow = $('cm-deps-narrow');
@@ -511,7 +519,7 @@
       narrow.innerHTML = '';
       function pick(d) { go({ deployment: d.key, variant: sel.variant.slug, mode: V.mode }); }
       var head = el('tr');
-      ['Deployment', 'Packaged by', 'Runs', 'Finished', 'Timed out', 'Errors', 'Median time per task', 'Cost per task'].forEach(function (t, i) {
+      ['Deployment', 'Packaged by', 'Runs', 'Finished', 'Timed out', 'Errors', 'Median time / task', 'Decode speed', 'Cost / task'].forEach(function (t, i) {
         head.appendChild(el('th', { scope: 'col', class: i >= 2 && i <= 5 ? 'is-num' : '' }, t));
       });
       table.appendChild(el('thead')).appendChild(head);
@@ -527,7 +535,8 @@
           tr.appendChild(el('td', { class: 'is-num' + (i >= 2 && n ? ' is-bad' : '') }, String(n)));
         });
         tr.appendChild(el('td', {}, timeCell(d)));
-        tr.appendChild(el('td', {}, costCell(d)));
+        tr.appendChild(el('td', { title: C.tpsTitle(d.tps, d.finished) }, tpsCell(d)));
+        tr.appendChild(el('td', { title: d.local ? 'Electricity estimate: local runs aren’t billed' : 'Billed by the provider' }, costCell(d)));
       });
       var ul = narrow.appendChild(el('ul', { class: 'crucible-cards' }));
       deps.forEach(function (d) {
@@ -541,7 +550,8 @@
         C.kvRow(li, 'Packaged by', packagerText(d));
         C.kvRow(li, 'Runs', d.runs + ' · ' + d.finished + ' finished · ' + d.timedOut + ' timed out · ' + d.errors + ' errors');
         C.kvRow(li, 'Median time', timeCell(d));
-        C.kvRow(li, 'Cost', costCell(d));
+        C.kvRow(li, 'Decode speed', tpsCell(d));
+        C.kvRow(li, d.local ? 'Cost (electricity est.)' : 'Cost (billed)', costCell(d));
       });
       C.applyLayout(['cm-deps']);
 
@@ -587,7 +597,7 @@
       head.appendChild(el('th', { scope: 'col' }, ''));
       head.appendChild(el('th', { scope: 'col' }, 'Coverage'));
       head.appendChild(el('th', { scope: 'col' }, dims.length ? dims.map(function (d) { return D.dimension(d).label; }).join(' · ') : 'Variant'));
-      V.TIERS.forEach(function (t) { head.appendChild(el('th', { scope: 'col', class: 'is-tier' }, t.label)); });
+      scoreCols().forEach(function (t) { head.appendChild(el('th', { scope: 'col', class: 'is-tier' }, t.label)); });
       head.appendChild(el('th', { scope: 'col', class: 'is-num' }, 'Deployments'));
       table.appendChild(el('thead')).appendChild(head);
       var body = table.appendChild(el('tbody'));
@@ -605,7 +615,7 @@
         cb.addEventListener('change', function () { toggle(s, cb.checked); });
         tr.appendChild(el('td')).appendChild(C.coverageBar(s, S));
         tr.appendChild(el('td', {}, label(s)));
-        V.TIERS.forEach(function (t) { S.tierCell(s, t, tr.appendChild(el('td', { class: 'is-tier' }))); });
+        scoreCols().forEach(function (t) { S.tierCell(s, t, tr.appendChild(el('td', { class: 'is-tier' }))); });
         tr.appendChild(el('td', { class: 'is-num' }, String(nd)));
 
         var li = ul.appendChild(el('li', { class: 'crucible-card' + (on ? ' is-selected' : '') }));
@@ -614,7 +624,7 @@
         b.addEventListener('click', pick);
         if (on) title.appendChild(el('span', { class: 'crucible-tag' }, 'selected'));
         li.appendChild(el('div', { class: 'cm-card-cov' })).appendChild(C.coverageBar(s, S));
-        V.TIERS.forEach(function (t) {
+        scoreCols().forEach(function (t) {
           var v = el('span', { class: 'crucible-kv-value' });
           S.tierCell(s, t, v);
           C.kvRow(li, t.label, v);
@@ -649,6 +659,18 @@
         li.appendChild(link(C.taskUrl(x.task.id), C.taskName(x.task)));
         li.appendChild(document.createTextNode(': ' + name + ' didn’t finish ' + x.k + ' of ' + x.n + ' run' + (x.n === 1 ? '' : 's') + ' (' + D.outcomeText(r.run) + ' after ' + secs(r.run.elapsed_s) + ').'));
       });
+    }
+
+    // How b's time per task compares with a's, task by task: the ratio is the median of the
+    // per-task ratios, so it's named as such, never set beside the two medians as their ratio
+    function speedPhrase(sp, bText) {
+      var r = sp.ratio, n = sp.n;
+      if (r === null || !n) return '';
+      var f = r >= 1 ? r : 1 / r, word = r > 1 ? 'slower' : 'faster', k = r > 1 ? sp.slower : sp.faster;
+      if (f < 1.05) return ' Task by task, the two take about the same time at the median.';
+      var times = (f < 10 ? f.toFixed(1) : String(Math.round(f))) + '×';
+      var where = k === n ? (n === 1 ? 'on the one timed task' : 'on every one of the ' + n + ' timed tasks') : 'on ' + k + ' of ' + n + ' timed tasks';
+      return ' ' + C.cap(bText) + ' is ' + word + ' ' + where + ', by ' + times + ' at the median task.';
     }
 
     function renderAB(mode, sel, dep) {
@@ -713,9 +735,8 @@
       var notes = $('cm-ab-notes');
       var summary = cmp.sentence(aText, bText);
       if (cmp.speed.comparable && cmp.speed.a !== null && cmp.speed.b !== null) {
-        var f = cmp.speed.ratio === null ? null : cmp.speed.ratio >= 1 ? cmp.speed.ratio : 1 / cmp.speed.ratio;
-        summary += ' On ' + dep.label + ' the median time per shared task is ' + fmtSeconds(cmp.speed.b) + ' with ' + bText + ' against ' + fmtSeconds(cmp.speed.a) + ' with ' + aText +
-          (f !== null && f >= 1.05 ? ' (' + (f < 10 ? f.toFixed(1) : Math.round(f)) + '× ' + (cmp.speed.ratio > 1 ? 'slower' : 'faster') + ')' : '') + '.';
+        summary += ' On ' + dep.label + ' the median time per shared task is ' + fmtSeconds(cmp.speed.b) + ' with ' + bText + ' against ' + fmtSeconds(cmp.speed.a) + ' with ' + aText + '.' +
+          speedPhrase(cmp.speed, bText);
       }
       $('cm-ab-summary').textContent = summary;
 

@@ -65,10 +65,17 @@
     var ta = a.time === null ? Infinity : a.time, tb = b.time === null ? Infinity : b.time;
     return ta - tb;
   }
+  // Each model's best setup is the leaderboard's: the core's S.betterConfig on the setups' section
+  // stats (the overall score), among the setups that ran this task; then ranked by score here
   function bestPerModel(list) {
-    var seen = {}, out = [];
-    list.slice().sort(byScore).forEach(function (e) { if (!seen[e.model]) { seen[e.model] = true; out.push(e); } });
-    return out;
+    var V = S.view(task.mode), by = {}, order = [];
+    list.forEach(function (e) {
+      if (!by[e.model]) { by[e.model] = []; order.push(e.model); }
+      by[e.model].push(e);
+    });
+    return order.map(function (k) {
+      return by[k].slice().sort(function (a, b) { return S.betterConfig(V.stats(a.cfg), V.stats(b.cfg)) || byScore(a, b); })[0];
+    }).sort(byScore);
   }
 
   // Per-check results of one run, grouped (core's D.runGroups); null until details.json loads
@@ -396,8 +403,8 @@
     wrap.innerHTML = '';
     wrap.appendChild(el('h2', { class: 'crucible-heading' }, 'Best performers'));
     var models = bestPerModel(entries), list = state.showAll ? entries.slice().sort(byScore) : models;
-    wrap.appendChild(el('p', { class: 'crucible-sub' }, (state.showAll ? 'Every setup' : 'Each model\'s best setup') +
-      ', ranked by score, then time. Check squares are from the setup\'s latest counted run. Select a row for its runs, checks and output.' +
+    wrap.appendChild(el('p', { class: 'crucible-sub' }, (state.showAll ? 'Every setup' : 'Each model\'s best setup (the one the leaderboard ranks it by, on its ' + S.view(task.mode).aggInfo().label + ' score)') +
+      ', ranked by score on this task, then time. Check squares are from the setup\'s latest counted run. Select a row for its runs, checks and output.' +
       (detailsState === 'loading' ? ' Loading checks…' : '')));
     var cols = checkColumns();
     var wide = wrap.appendChild(el('div', { class: 'crucible-scroll crucible-perf-wide' }));

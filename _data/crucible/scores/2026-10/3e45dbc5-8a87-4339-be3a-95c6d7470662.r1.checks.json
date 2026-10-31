@@ -1,0 +1,107 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "3e45dbc5-8a87-4339-be3a-95c6d7470662",
+ "rubric_version": 1,
+ "rubric_hash": "5944fb9d7568cdce",
+ "method": "checks",
+ "scored_at": "2026-10-31T04:01:41.775017+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 6,
+  "total": 6,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "equator_capricorn",
+   "type": "required_patterns",
+   "group": "Equator and Capricorn",
+   "label": "Answer 1 is Brazil.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "red_sea_gulf",
+   "type": "required_patterns",
+   "group": "Red Sea and Gulf",
+   "label": "Answer 2 is Saudi Arabia.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "northern_capital",
+   "type": "required_patterns",
+   "group": "Northernmost capital",
+   "label": "Answer 3 is Reykjavík (Nuuk's Greenland isn't sovereign).",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "time_zones",
+   "type": "required_patterns",
+   "group": "Most time zones",
+   "label": "Answer 4 is France.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "closest_state",
+   "type": "required_patterns",
+   "group": "Closest state",
+   "label": "Answer 5 is Maine.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "one_neighbor",
+   "type": "required_patterns",
+   "group": "One neighbor",
+   "label": "Answer 6 is Lesotho.",
+   "passed": true,
+   "detail": "1/1 found"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Equator and Capricorn",
+   "passed": 1,
+   "total": 1,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Red Sea and Gulf",
+   "passed": 1,
+   "total": 1,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Northernmost capital",
+   "passed": 1,
+   "total": 1,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Most time zones",
+   "passed": 1,
+   "total": 1,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Closest state",
+   "passed": 1,
+   "total": 1,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "One neighbor",
+   "passed": 1,
+   "total": 1,
+   "detail": "1/1 found"
+  }
+ ]
+}

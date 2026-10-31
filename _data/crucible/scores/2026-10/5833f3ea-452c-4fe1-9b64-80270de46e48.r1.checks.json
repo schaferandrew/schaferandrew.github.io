@@ -1,0 +1,93 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "5833f3ea-452c-4fe1-9b64-80270de46e48",
+ "rubric_version": 1,
+ "rubric_hash": "f6ab32399662966b",
+ "method": "checks",
+ "scored_at": "2026-10-31T03:45:06.596187+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 8,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 8.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "inclusion_exclusion",
+   "type": "required_patterns",
+   "group": "Inclusion-exclusion",
+   "label": "Answer 1 is 3809.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "modular",
+   "type": "required_patterns",
+   "group": "Modular power",
+   "label": "Answer 2 is 49.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "tiling",
+   "type": "required_patterns",
+   "group": "Tiling",
+   "label": "Answer 3 is 2731.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "dice",
+   "type": "required_patterns",
+   "group": "Dice",
+   "label": "Answer 4 is 37/216.",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "tuesday_boy",
+   "type": "required_patterns",
+   "group": "Tuesday boy",
+   "label": "Answer 5 is 13/27.",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*5[.)]\\s*.*\\b13\\s*/\\s*27\\b"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Inclusion-exclusion",
+   "passed": 2,
+   "total": 2,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Modular power",
+   "passed": 2,
+   "total": 2,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Tiling",
+   "passed": 2,
+   "total": 2,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Dice",
+   "passed": 2,
+   "total": 2,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Tuesday boy",
+   "passed": 0,
+   "total": 2,
+   "detail": "0/1 found; missing: (?im)^\\W*5[.)]\\s*.*\\b13\\s*/\\s*27\\b"
+  }
+ ]
+}

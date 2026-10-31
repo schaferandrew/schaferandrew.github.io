@@ -1,0 +1,51 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "07d020bf-48bf-4f2a-a62c-1900b108513e",
+ "rubric_version": 1,
+ "rubric_hash": "49bc3014358a2314",
+ "method": "checks",
+ "scored_at": "2026-10-31T05:17:40.608596+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 0,
+  "total": 2,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "flour",
+   "type": "required_patterns",
+   "group": "Flour",
+   "label": "Answer 1 is 750 g.",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*1[.)]\\s*.*\\b750\\s*(g|grams)\\b"
+  },
+  {
+   "id": "sale_price",
+   "type": "required_patterns",
+   "group": "Sale price",
+   "label": "Answer 2 is $71.91.",
+   "passed": false,
+   "detail": "0/1 found; missing: (?im)^\\W*2[.)]\\s*.*\\$?\\s*71\\.91\\b"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Flour",
+   "passed": 0,
+   "total": 1,
+   "detail": "0/1 found; missing: (?im)^\\W*1[.)]\\s*.*\\b750\\s*(g|grams)\\b"
+  },
+  {
+   "id": "Sale price",
+   "passed": 0,
+   "total": 1,
+   "detail": "0/1 found; missing: (?im)^\\W*2[.)]\\s*.*\\$?\\s*71\\.91\\b"
+  }
+ ]
+}

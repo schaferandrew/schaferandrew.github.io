@@ -1,0 +1,16 @@
+Two clear errors need fixing:
+
+- "louder then she remembered" should be "louder than she remembered" (*than* for comparison, *then* for time).
+- "talking to fast" should be "talking too fast" (*too* meaning "excessively").
+
+Everything else is grammatical, and several choices look deliberate, so I left them alone and flagged them. These are the fragment "Not waiting for her, exactly.", the em dash after "Still", the sentence-initial "And", and the comma before "or" in the last line. The comma is technically unnecessary, but it creates a hesitation that suits the line.
+
+CORRECTED:
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder than she remembered it, all brakes shrieking and people talking too fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+POSSIBLY INTENTIONAL:
+"Not waiting for her, exactly.": A sentence fragment, but it works as a deliberate self-correcting beat, so I left it.
+"That would have been too kind.": A complete sentence, noted only because it continues the clipped rhythm of the fragments around it. No change was needed.
+"Still—she was back.": The em dash after "Still" creates a pause or turn in thought. A comma would also work, but the dash seems a stylistic choice.
+"And she didn't know": Starting a sentence with "And" is acceptable in this voice and adds emphasis.
+"laugh, or leave": The comma before "or" is not required, but it adds a hesitation that mirrors Mara's indecision, so I kept it.

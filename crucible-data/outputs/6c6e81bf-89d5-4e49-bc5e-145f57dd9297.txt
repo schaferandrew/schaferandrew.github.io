@@ -1,0 +1,14 @@
+The response has three sentences:
+1. "The Millbrook library board voted... evening access."
+2. "The change is funded by a $40,000 grant... no further money is found."
+3. "Two board members opposed the decision over staffing concerns."
+
+That fails the exactly-two-sentences requirement, so 0 of 3 there.
+
+Accuracy: the claims are supported. "62% of residents asked for evening access" matches "62% said evening access was their top request", though it drops the "top request" wording, which is a minor loss. "Extend weekend hours to 8 p.m." is accurate. "Covers one year" is accurate. "Revisit it next winter" is accurate. "Over staffing concerns" matches "staffing shortages". I see no invented details, so full marks of 4, or 3.5 at most for the slight softening of "top request".
+
+Key points: the hours extension, funding limit, and survey are all covered, so 3 of 3.
+
+Total: 0 + 4 + 3 = 7. I take off a little for the survey wording nuance, but I'll keep it at 7.
+
+GRADE: 7

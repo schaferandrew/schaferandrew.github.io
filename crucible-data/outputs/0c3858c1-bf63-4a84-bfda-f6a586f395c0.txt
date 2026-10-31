@@ -1,0 +1,22 @@
+**Accurate:**
+- 1: The Battle of Hastings was fought in 1066.
+- 4: The Declaration of Independence was adopted on July 4, 1776.
+- 5: The Bastille was stormed on July 14, 1789.
+- 8: India became independent in August 1947 (August 15).
+- 9: Apollo 11 landed on the Moon in July 1969 (July 20).
+- 11: Germany was reunified on October 3, 1990, the year after the Wall fell in 1989. This holds even though item 10 gives the wrong year for the Wall's fall.
+- 12: Mandela was elected President in 1994, by the National Assembly after the April elections, and took office in May.
+
+**Inaccurate:**
+- 2: Magna Carta was sealed by King John, not Richard, in 1215.
+- 3: Columbus first reached the Americas in 1492. In 1493 he was returning to Spain and then set out on his second voyage.
+- 6: Waterloo was in 1815. 1812 was Napoleon's invasion of Russia.
+- 7: The Titanic sank in April 1912.
+- 10: The Berlin Wall fell in November 1989.
+
+ERRORS:
+2: John
+3: 1492
+6: 1815
+7: 1912
+10: 1989

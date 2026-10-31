@@ -1,0 +1,23 @@
+Reasoning:
+1.  **Subject Line**: "Refund for order 84721" is grammatically acceptable as a noun phrase, but adding "Request" makes it a complete sentence fragment suitable for a subject line, improving clarity.
+2.  **Subject-Verb Agreement**: "one of the two items were damaged" contains a common error. When using "one of the [plural noun]," the verb must be singular ("was").
+3.  **Missing Verb**: "The box was clearly crush on one side" is missing the verb "to be." It should be "was clearly crushed."
+4.  **Spelling**: "havent" is missing an apostrophe and should be "haven't."
+5.  **Punctuation**: The sentence "The box was clearly crush on one side, and the mug inside has a crack through the handle." is a compound sentence. While the comma before "and" is technically correct, the lack of a period after the previous sentence ("...anything back.") creates a run-on structure in the flow. I will ensure standard spacing and punctuation around the periods.
+6.  **Subject-Verb Agreement (Plural)**: "which seem to have passed" refers to "5-7 business days" (plural), so the verb "seem" is actually correct here. No change needed.
+7.  **Style**: The tone is polite but direct. No major stylistic changes are required to improve professionalism without altering the meaning or increasing apologetic language.
+
+ERRORS:
+were → was
+crush → crushed
+havent → haven't
+
+CORRECTED:
+Subject: Refund Request for Order 84721
+
+Hi Support,
+
+I am writing because my order arrived three days late, and one of the two items was damaged. I contacted support last week but I haven't heard anything back. The box was clearly crushed on one side, and the mug inside has a crack through the handle. I would like a refund for the mug, but please let me know if you need pictures of it. Also, your website says refunds are processed in 5-7 business days, which seem to have passed already for my earlier request. Can you tell me what the status is? Thanks for your help.
+
+STYLE:
+Consider changing "Hi Support" to "Dear Support Team" for a slightly more formal greeting, though "Hi Support" is acceptable.

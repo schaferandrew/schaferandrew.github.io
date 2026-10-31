@@ -1,0 +1,41 @@
+I've completed the incident investigation, fix, tests, and postmortem. Here's a summary.
+
+## Root cause (one v1.8.0 change, two defects)
+
+`apps/api/src/middleware/responseCache.ts` was introduced in v1.8.0 (`deploy.log`: cache active at 16:42:10.634):
+
+1. **Cache key was only `req.originalUrl`** — no viewer. Personalized endpoints (`/articles`, `/articles/:slug`, `/profiles/:username`, and effectively `/articles/feed`) contain `favorited`/`favoritesCount`/`following`, so the first viewer to populate a key set those fields for everyone.
+2. **No invalidation on writes** — `PUT`/`DELETE` articles, favorite/unfavorite, follow/unfollow, and article creation left entries behind, so edits and deletions stayed readable for up to the 60s TTL.
+
+Both confirmed in the logs:
+- First affected request `2026-10-23T16:44:15.179Z` rid 0031302 (`user1287` served the list stored for `user0638` at 16:44:05.346, `age=9s`).
+- Priya's edit: store 18:57:12 → `PUT` 18:57:21 → readers served old body 18:57:26/:33.
+- Tomasz's delete: store 20:07:14 → `DELETE` 20:07:18 → readers still got `200` at 20:07:29/:39; first `404` only at 02:14:38 after TTL.
+
+## Fix
+
+`responseCache.ts` now:
+- scopes every key by viewer (`u<id>::<url>` / `anon::<url>`), decoding the token itself since it runs before route auth;
+- invalidates after every successful write:
+  - article create/update/delete and favorite/unfavorite → all viewers' article entries + tags;
+  - follow/unfollow → acting viewer's profile/article entries;
+  - `PUT /user` → all article/profile entries (author name is embedded);
+- sets `Vary: Authorization`.
+
+`createApp(db, options)` and `server.ts` are untouched.
+
+## Tests
+
+Added 7 regression tests in `apps/api/test/responseCache.test.ts` (all failed before the fix, pass after): cross-user article, anonymous→signed-in article, per-user list, per-viewer follow, edit, delete, favorite/unfavorite. `realworld.contract.test.ts` is unmodified and green; full suite: API 28/28, web 7/7, typecheck clean.
+
+## Postmortem
+
+`incident/POSTMORTEM.md` starts with:
+```
+Deploy: 16:42:10
+First affected request: 16:44:15
+First report: 18:06:01
+Affected users: 371
+```
+
+**371** distinct signed-in users were served another signed-in user's personalized data (427 responses), counted by replaying the access log's `cache=MISS`/`cache=HIT` fields as a 60s cache and comparing requester vs. stored-entry owner on personalized endpoints only. The broader count including anonymous-stored responses is 481 (noted in the document). The postmortem includes the log-derived timeline, root cause, counting method, impact, fix, and follow-ups (shared cross-instance invalidation being the main residual risk).

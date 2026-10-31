@@ -1,0 +1,32 @@
+All done. Here's my summary.
+
+## What was fixed
+
+**1. Delete confirmation keyboard trap / silent dialog** (`apps/web/src/components/ConfirmDialog.tsx`)
+- Replaced the two `onClick` `<div>`s with native `<button>`s.
+- Added the WAI-ARIA modal dialog pattern: `role="dialog"`, `aria-modal="true"`, `aria-labelledby`/`aria-describedby` (title is now an `<h2>`), so opening is announced.
+- Focus moves into the dialog (onto **Cancel**), Tab/Shift+Tab are trapped inside, **Escape** cancels, and focus returns to the element that opened the dialog when it closes.
+
+**2. "Read more" mouse-only / no feedback** (`ReadMore.tsx`)
+- Replaced the click-only `<span>` with a native `<button>`.
+- Added `aria-expanded` and `aria-controls` (pointing at the body text), so state changes are announced and the controlled content is programmatically associated.
+
+**3. Tag filter mouse-only** (`TagFilter.tsx`)
+- Replaced the custom `div` trigger/menu with a native labelled `<select>` (label "Filter by tag", "All tags" + one `<option>` per tag). Keyboard operation, announcement as a list of choices, and the selected value are all provided by the platform.
+
+**4. Unnamed favorite button** (`FavoriteButton.tsx`)
+- Added an `aria-label` that names the action and count (`Favorite article, 3 favorites` / `Unfavorite article, 4 favorites`); the icon is `aria-hidden`. Existing `aria-pressed` still conveys on/off.
+
+**5. Form errors not connected** (`pages/EditorPage.tsx`)
+- Each field now gets `aria-invalid` and `aria-describedby` pointing at its error message; error messages get ids and `role="alert"` so they're announced and read when focusing the field.
+
+**6. Silent status confirmation** (`Toast.tsx`)
+- Added `role="status"` + `aria-live="polite"`.
+
+## Tests added
+`ConfirmDialog.test.tsx`, `ReadMore.test.tsx`, `TagFilter.test.tsx`, `EditorPage.test.tsx`, `Toast.test.tsx`, plus extra cases in `FavoriteButton.test.tsx`. They cover keyboard operation (Tab/trap, Escape, Enter), focus management/restoration, `aria-expanded`/`aria-controls`, accessible names, `aria-invalid`/`aria-describedby`, and `role="status"`. A shared `test/a11y.ts` runs axe-core on each widget (with `color-contrast` disabled, since jsdom has no layout). All existing tests still pass: **API 19/19, web 30/30, typecheck clean, production build succeeds.**
+
+## Couldn't verify without a real screen reader
+- Exact VoiceOver/NVDA phrasing and timing for the dialog announcement, `aria-expanded` toggles, and the polite `role="status"` toast.
+- Whether the revealed "Read more" text is auto-read versus requiring the user to continue navigating (I used the standard APG disclosure semantics, so the expansion is announced; the text is immediately after the focused button in the DOM).
+- Real colour-contrast, which axe cannot compute in jsdom (no visual change was made, so this is unchanged from before).

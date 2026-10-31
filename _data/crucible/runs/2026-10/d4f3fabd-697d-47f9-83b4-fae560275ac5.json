@@ -1,0 +1,89 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "d4f3fabd-697d-47f9-83b4-fae560275ac5",
+ "run_path": "openrouter_deepseek_deepseek-v4.1-flash/interest-calculator-cli/20261031_043855",
+ "legacy_run_id": null,
+ "started_at": "2026-10-31T04:38:55.256532+00:00",
+ "ended_at": "2026-10-31T04:39:46.758018+00:00",
+ "elapsed_s": 51.25,
+ "task": {
+  "id": "interest-calculator-cli",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "89de4378a797689c",
+  "rubric_hash": "f45237ead95e5fe5",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/deepseek/deepseek-v4.1-flash",
+  "base": "deepseek/deepseek-v4.1-flash",
+  "publisher": "deepseek",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek/deepseek-v4.1-flash|deepseek|api|-",
+  "display": "deepseek-v4.1-flash",
+  "origin": {
+   "maker": "deepseek",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": 11,
+  "tests_failed": 0,
+  "tool_calls": 13,
+  "tokens_in": 78974,
+  "tokens_out": 10746,
+  "model_responses": 9,
+  "ttft_s": 1.361,
+  "ttft_avg_s": 1.414,
+  "response_time_avg_s": 5.184,
+  "output_tokens_per_s": 316.7,
+  "cost_usd": 0.01464,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/d4f3fabd-697d-47f9-83b4-fae560275ac5.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "9ae9187",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:61429cbd55cab443f9da4d84b58651adc14d5bb8a6a7a64e20d78a1ee45712a1",
+  "submitter": null,
+  "verification": null
+ }
+}

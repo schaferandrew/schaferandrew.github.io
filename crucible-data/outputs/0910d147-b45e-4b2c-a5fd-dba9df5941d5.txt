@@ -1,0 +1,27 @@
+Here are the key ideas for each problem.
+
+1.  Factor \(N = 2^7 \cdot 3^4 \cdot 7^2 \cdot 13\). By CRT, count solutions of \(x^{12}\equiv 1\) modulo each prime power and multiply. For odd prime powers the unit group is cyclic, giving \(\gcd(12,\varphi(p^k))\) solutions: \(6,6,12\) respectively. For \(2^7\) the group is \(C_2\times C_{32}\); solving \(x^{12}\equiv1\) yields \(8\) solutions. The product is \(8\cdot6\cdot6\cdot12 = 3456\).
+
+2.  Use inclusion–exclusion by gluing identical letters into blocks. With \(4,3,2,2\) letters, the count is
+\[
+\sum_{j_A=0}^{3}\sum_{j_B=0}^{2}\sum_{j_C=0}^{1}\sum_{j_D=0}^{1}
+(-1)^{j_A+j_B+j_C+j_D}\binom{3}{j_A}\binom{2}{j_B}\binom{1}{j_C}\binom{1}{j_D}
+\frac{(11-j_A-j_B-j_C-j_D)!}{(4-j_A)!\,(3-j_B)!\,(2-j_C)!\,(2-j_D)!}=6516.
+\]
+
+3.  Condition on the previous roll. Let \(f(i)\) be the expected remaining rolls after rolling \(i\). Setting up six linear equations using the prime-sum condition on a die gives \(f(1)=115/61,\dots\). The expected total is
+\(1+\frac1{6}\sum f(i)=1279/366\), so \(m+n=1279+366=1645\).
+
+4.  Model valid subsets as binary strings of length \(20\) with no two \(1\)s at distance \(1\) or \(4\). Use a DP with \(3\)-bit states (or equivalently an \(8\)-state automaton). The transition counts produce the sequence \(1,2,3,5,8,11,17,25,\dots\), and the \(20\)th term is \(4881\).
+
+5.  Working prime by prime, the number of ordered triples \((x,y,z)\) with \(\operatorname{lcm}=N\) and \(\gcd=1\) is \(\prod_p 6e_p = 12\,960\). Subtract the \(48\) ordered triples with a repeated element (these come from coprime factorizations \(d\cdot e=N\)), leaving \(12\,912\) ordered triples with distinct entries. Divide by \(6\) for strict ordering: \(12\,912/6 = 2152\).
+
+6.  Without the forbidden point, the number of paths staying below \(y=x\) from \((0,0)\) to \((12,8)\) is \(\binom{20}{8}-\binom{20}{7}=48\,450\). Paths through \((5,3)\) split into a good prefix \((0,0)\to(5,3)\), counted by \(\binom{8}{3}-\binom{8}{2}=28\), and a good suffix \((5,3)\to(12,8)\), counted by reflection as \(\binom{12}{5}-\binom{12}{2}=726\). Subtract \(28\cdot726=20\,328\) from the total to get \(48\,450-20\,328 = 28\,122\).
+
+ANSWERS:
+1: 3456
+2: 6516
+3: 1645
+4: 4881
+5: 2152
+6: 28122

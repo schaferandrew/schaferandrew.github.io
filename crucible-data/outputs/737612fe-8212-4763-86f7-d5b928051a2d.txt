@@ -1,0 +1,14 @@
+From clues 5 and 4: Dave likes red, Carol likes yellow.  
+Clue 3 says green is in chair 1. Since Dave is red and Carol is yellow, chair 1 must be either Alice or Bob.
+
+If Bob were in chair 1 with green, then Alice would be the only remaining person who could like blue. But clue 1 says Alice sits immediately to the left of the blue-liker, which would require Alice to sit to the left of herself — impossible. So Bob is not chair 1.
+
+Therefore Alice is in chair 1 with green. Since Alice sits immediately left of the blue-liker, chair 2 must be blue. The only remaining person for blue is Bob, so Bob is in chair 2.
+
+Dave likes red and Carol likes yellow, with Carol somewhere to the right of Dave. The remaining chairs are 3 and 4, so Dave must be in chair 3 and Carol in chair 4.
+
+Chair 1: Alice, green  
+Chair 2: Bob, blue  
+Chair 3: Dave, red  
+Chair 4: Carol, yellow  
+ANSWER: Dave

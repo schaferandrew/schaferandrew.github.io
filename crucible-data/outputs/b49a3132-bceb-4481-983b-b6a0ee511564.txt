@@ -1,0 +1,15 @@
+1. To find the flour needed for 10 people, we first determine the flour per person: \( \frac{300 \text{ g}}{4} = 75 \text{ g/person} \). Then, for 10 people: \( 75 \text{ g/person} \times 10 \text{ people} = 750 \text{ g} \).
+
+```
+1. Flour needed for 10 people: 750 g
+```
+
+2. The discount amount is \( 84.60 \times 0.15 = 12.69 \). The sale price is \( 84.60 - 12.69 = 71.91 \). Rounded to the nearest cent, it is $71.91.
+
+```
+2. Sale price of the jacket: $71.91
+```
+
+### ANSWERS
+1. 750 g
+2. $71.91

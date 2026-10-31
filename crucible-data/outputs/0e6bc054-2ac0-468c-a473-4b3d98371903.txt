@@ -1,0 +1,11 @@
+Done. I computed all valid meeting starts from the calendar JSON and saved `slots.json`.
+
+**Summary:**
+- Window: Mon 2026-08-31 09:00 → Mon 2026-09-07 17:00 America/Chicago, 60-min meetings starting on :00/:30, within 9:00–17:00, no overlap (back-to-back allowed).
+- **85 valid slots** found (weekdays + both weekend days + the free final Monday).
+- **Top 3** chosen from weekdays, placed back-to-back against existing meetings to minimize gaps, and clear of the first/last available hour:
+  1. `2026-09-03T12:00` — right after Alex's 11:00–12:00 interview
+  2. `2026-09-04T13:00` — ends exactly when Alex's 14:00 project review begins
+  3. `2026-09-02T14:00` — right after Jamie's 13:00–14:00 budget meeting
+
+`slots.json` is valid JSON with all 85 `valid_slots` and exactly 3 `top3` entries, each start present in `valid_slots`.

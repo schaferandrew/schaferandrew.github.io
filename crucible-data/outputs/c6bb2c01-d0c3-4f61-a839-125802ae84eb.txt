@@ -1,0 +1,9 @@
+Puzzle A is inconsistent, so the stated “exactly one solution” condition cannot hold. The four 7-letter slots force one of two arrangements:
+
+- If 4-Across is COURAGE and 4-Down is COUNCIL, then 7-Across and 10-Across are both forced to be PROBE.
+- In the other arrangement, 7-Across is ELBOW and 2-Across is forced to be DEALT. But 8-Across and 10-Across must then use DEALT and SWAMP, leaving no valid way to place DEALT.
+
+Thus the puzzles as given have no valid complete answer block.
+
+ANSWERS:
+No valid solution: Puzzle A is inconsistent.

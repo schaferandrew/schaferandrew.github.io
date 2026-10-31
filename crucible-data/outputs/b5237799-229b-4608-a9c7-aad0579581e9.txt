@@ -1,0 +1,127 @@
+ I need to finish solving Puzzle A and then Puzzle B. Let's continue.
+
+I've assigned 1D = CUBIC. Check 1D[5] = C (last letter). That equals 6A[1] = C? Wait 6A is COUNT: C O U N T. 6A[1]=C. Yes matches.
+
+All constraints satisfied. Good.
+
+Now we must verify that all 18 words used exactly once:
+Used:
+1A CANDY
+1D CUBIC
+2A UPSET
+2D UNCLE
+3D THREW
+4A COUNCIL
+4D COURAGE
+5D LIBRARY
+6A COUNT
+7A ELBOW
+8A SWAMP
+8D SQUAD
+9D PROBE
+10A DEALT
+11D TWIST
+12A ECONOMY
+13A DRIVE
+14A SHIRT
+
+List of original words:
+5 letters: CANDY, COUNT, CUBIC, DEALT, DRIVE, ELBOW, PROBE, SHIRT, SQUAD, SWAMP, THREW, TWIST, UNCLE, UPSET. All accounted for.
+7 letters: COUNCIL, COURAGE, ECONOMY, LIBRARY. All accounted for.
+
+So Case 1 works perfectly. Did we need to check Case 2 for uniqueness? The puzzle says exactly one solution, so likely Case 2 fails or yields same? Let's see quickly if Case 2 also works or leads to contradiction, to be thorough. But probably not needed. Since puzzle says unique solution and we found one consistent assignment, it must be the unique one. However, let's verify if Case 2 could also work to ensure no double solution. If so, maybe I made an error. Let's check.
+
+Case 2: 4A=COURAGE, 4D=COUNCIL, 5D=ECONOMY, 12A=LIBRARY.
+
+Then: 4A[5]=A => 2D[3]=A. But we need a 5-letter word with A in position 3. Remaining words with pos3=A: DEALT, SWAMP. So 2D is DEALT or SWAMP. Also 4D[3]=U => 6A[3]=U (same as before, COUNT or SQUAD). 4D[5]=C => 8A[3]=C. Any remaining words with C pos3? CUBIC? Wait words with pos3=C: Let's check list: CANDY N, COUNT U, CUBIC B, DEALT A, DRIVE I, ELBOW B, PROBE O, SHIRT I, SQUAD U, SWAMP A, THREW R, TWIST I, UNCLE C, UPSET S. So UNCLE has C at pos3! So 2D could be UNCLE (but 2D pos3=A required; UNCLE pos3=C, not A). So for pos3=C, 8A would need C at pos3; candidates: UNCLE (U N C...)? Wait UNCLE pos3=C. So 8A could be UNCLE? But UNCLE is available. Let's keep open.
+
+Also 5D=ECONOMY, 5D[3]=O => 7A[3]=O. 5-letter words with O at pos3: PROBE. So 7A = PROBE. Then 7A[1] = P. But 7A[1] = 2D[5]. So 2D[5] = P. 2D is DEALT or SWAMP. Neither ends with P. DEALT ends T, SWAMP ends P! Wait SWAMP ends with P. Actually SWAMP: S W A M P. Positions: 1 S,2 W,3 A,4 M,5 P. Yes 2D[5]=P. So 2D = SWAMP? But SWAMP pos3=A. Yes. So 2D = SWAMP. Then 2D[1]=S => 2A[1]=S. 2A must be a 5-letter word starting with S: from list, SHIRT, SQUAD, SWAMP (used), maybe others? CANDY C, COUNT C, etc. So 2A is SHIRT or SQUAD.
+
+2A intersects 3D at 2A[5] = 3D[1].
+3D[5] = 7A[5] =? 7A=PROBE, 7A[5]=E. So 3D ends with E. Words ending with E: DRIVE, ELBOW (used?), PROBE (used as 7A), maybe others? Let's list all 5-letter words ending with E: DRIVE, ELBOW, PROBE, UNCLE (but as 2D?), UPSET ends T, etc. Actually ELBOW ends W? No ELBOW ends W. Wait I need to be careful.
+
+5-letter words ending in E: DRIVE, PROBE, ELBOW? No ELBOW ends W. UNCLE ends E, UPSET ends T. CUBIC ends C. CANDY ends Y. COUNT ends T. DEALT ends T. THREW ends W. TWIST ends T. SWAMP ends P. SHIRT ends T. SQUAD ends D.
+
+So words ending in E: DRIVE, PROBE, UNCLE. Also maybe? Let's check list: CANDY, COUNT, CUBIC, DEALT, DRIVE, ELBOW, PROBE, SHIRT, SQUAD, SWAMP, THREW, TWIST, UNCLE, UPSET. Yes only DRIVE, PROBE, UNCLE end with E.
+
+In Case 2, 7A=PROBE (ends E), 2D=SWAMP (ends P), 3D must end with E. Could be DRIVE or UNCLE.
+
+Now 2A = SHIRT or SQUAD. 2A[5] = last letter. SHIRT ends T, SQUAD ends D. So 3D[1] = T or D.
+
+If 3D = DRIVE, first letter D. Then 2A[5]=D => 2A = SQUAD (ends D). Then 2A = SQUAD (starts S). Good. Then 2D=SWAMP (starts S), 2A=SQUAD (starts S). But note 2D[1] = 2A[1] = S, okay.
+
+If 3D = UNCLE, first letter U. Then 2A[5]=U? But 2A is SHIRT or SQUAD, neither ends with U. So 3D must be DRIVE. Then 3D letters: D R I V E.
+
+Now 3D[1]=D = 2A[5], so 2A must end with D. SQUAD ends D. So 2A = SQUAD.
+
+Now we used: 4A=COURAGE, 4D=COUNCIL, 5D=ECONOMY, 12A=LIBRARY, 2D=SWAMP, 7A=PROBE, 3D=DRIVE, 2A=SQUAD.
+
+Now 8A[3]=C. Candidates for pos3=C: UNCLE (U N C L E). That's the only one left? Let's see remaining words: from original 14: used SWAMP, SQUAD, PROBE, DRIVE. Left: CANDY, COUNT, CUBIC, DEALT, ELBOW, SHIRT, THREW, TWIST, UNCLE, UPSET. And maybe others? Wait 14 total: CANDY, COUNT, CUBIC, DEALT, DRIVE, ELBOW, PROBE, SHIRT, SQUAD, SWAMP, THREW, TWIST, UNCLE, UPSET. Used: SWAMP, SQUAD, PROBE, DRIVE. Left: CANDY, COUNT, CUBIC, DEALT, ELBOW, SHIRT, THREW, TWIST, UNCLE, UPSET. Also we have 6A with pos3=U => COUNT or ? Actually 6A[3]=U. Options: COUNT, ? We used SWAMP and SQUAD but aren't they used? Wait 6A uses another. Let's continue systematically.
+
+8A[3]=C. Among remaining, UNCLE has C at pos3. Any others? CUBIC pos3=B. So only UNCLE. Thus 8A = UNCLE. Then 8A[1]=U => 8D[1]=U. 8A[5]=E => 9D[1]=E.
+
+Now 9D is a 5-letter word starting with E. Among remaining: ELBOW (starts E, but pos1=E). Any other? UPSET starts U. So 9D = ELBOW? Wait ELBOW is 5 letters. Starting with E. Yes. Could be ELBOW. But 9D[3] = required = 12A[3] = LIBRARY pos3 = B. ELBOW pos3 = B! (E L B O W). So 9D = ELBOW works: pos1=E, pos3=B. Good.
+
+Then 9D[3]=B matches 12A[3]=B. 9D[5]=W => 13A[5]=W.
+
+Now remaining words: CANDY, COUNT, CUBIC, DEALT, SHIRT, THREW, TWIST, UPSET. (EIGHT words). Slots remaining: 1A,1D,6A,8D,10A,11D,13A,14A. That's 8 slots.
+
+Now 8D is a 5-letter word starting with U (from 8A[1]=U? Wait 8A=UNCLE, 8A[1]=U, so 8D[1]=U). Among remaining words starting with U: UPSET. (UNCLE used). So 8D = UPSET. Then 8D[5]=T => 13A[1]=T.
+
+Now 6A[3] = U (from 4D[3]=U). Remaining words with U at pos3: COUNT (O U ? Actually COUNT: C O U N T, pos3=U). Any other? THREW has R at pos3. CANDY N, CUBIC B, DEALT A, SHIRT I, TWIST I, UPSET used. So 6A = COUNT. Then 6A[1]=C => 1D[5]=C.
+
+Now 1D is a 5-letter word ending with C. Remaining: CUBIC (C U B I C). That's the only one ending with C. So 1D = CUBIC. Then 1D[1]=C => 1A[1]=C.
+
+1A must be a 5-letter word starting with C. Remaining: CANDY. (COUNT used). So 1A = CANDY.
+
+Now remaining words: DEALT, SHIRT, THREW, TWIST. Slots: 10A, 11D, 13A, 14A.
+
+10A[3] = A (from 5D[5]=O? Wait 5D is ECONOMY. 5D[5]=O. But earlier we said 10A[3]=5D[5] because intersection at (7,9). Let's check: 5D rows3-9 col9. 5D positions: [1]=(3,9)=E? Wait 5D=ECONOMY. 5D[1]=E at (3,9). 5D[5]=O at (7,9). 10A is row7 cols7-11: [1]=(7,7), [2]=(7,8), [3]=(7,9), [4]=(7,10), [5]=(7,11). So 10A[3] = 5D[5] = O. NOT A. Wait in Case 1, 5D was LIBRARY, so 5D[5]=A. In Case 2, 5D=ECONOMY, so 5D[5]=O. So 10A[3] must be O.
+
+Among remaining words: DEALT (pos3=A), SHIRT (I), THREW (R), TWIST (I). None have O at pos3! So Case 2 fails. Great, so unique solution is Case 1.
+
+Thus Puzzle A solved.
+
+Now Puzzle B.
+
+Puzzle B grid:
+
+Row1: . . . # # # . . . . .
+Row2: # # . # # # . # . # #
+Row3: . . . # . . . . . # .
+Row4: . # # # # # . # . # .
+Row5: . . . . . . . # . . .
+Row6: # # . # . # . # . # #
+Row7: . . . # . . . . . . .
+Row8: . # . # . # # # # # .
+Row9: . # . . . . . # . . .
+Row10:# # . # . # # # . # #
+Row11:. . . . . # # # . . .
+
+Let's index carefully.
+
+Row1: col1 ., col2 ., col3 ., col4 #, col5 #, col6 #, col7 ., col8 ., col9 ., col10 ., col11 .
+Row2: col1 #, col2 #, col3 ., col4 #, col5 #, col6 #, col7 ., col8 #, col9 ., col10 #, col11 #
+Row3: col1 ., col2 ., col3 ., col4 #, col5 ., col6 ., col7 ., col8 ., col9 ., col10 #, col11 .
+Row4: col1 ., col2 #, col3 #, col4 #, col5 #, col6 #, col7 ., col8 #, col9 ., col10 #, col11 .
+Row5: col1 ., col2 ., col3 ., col4 ., col5 ., col6 ., col7 ., col8 #, col9 ., col10 ., col11 .
+Row6: col1 #, col2 #, col3 ., col4 #, col5 ., col6 #, col7 ., col8 #, col9 ., col10 #, col11 #
+Row7: col1 ., col2 ., col3 ., col4 #, col5 ., col6 ., col7 ., col8 ., col9 ., col10 ., col11 .
+Row8: col1 ., col2 #, col3 ., col4 #, col5 ., col6 #, col7 #, col8 #, col9 #, col10 #, col11 .
+Row9: col1 ., col2 #, col3 ., col4 ., col5 ., col6 ., col7 ., col8 #, col9 ., col10 ., col11 .
+Row10:col1 #, col2 #, col3 ., col4 #, col5 ., col6 #, col7 #, col8 #, col9 ., col10 #, col11 #
+Row11:col1 ., col2 ., col3 ., col4 ., col5 ., col6 #, col7 #, col8 #, col9 ., col10 ., col11 .
+
+Slots listed:
+15-ACROSS (3): row1, col1 => (1,1)-(1,3). Length 3.
+16-DOWN (3): row1, col3 => (1,3),(2,3),(3,3). Are they all '.'? Row2 col3 '.' yes. Row3 col3 '.' yes. Row4 col3 '#', so length 3. Good.
+17-ACROSS (5): row1, col7 => (1,7)-(1,11). Row1 col6 '#', col12 out. Length 5? Wait cols7-11 gives 5 cells: (1,7) ., (1,8) ., (1,9) ., (1,10) ., (1,11) . Yes length 5.
+17-DOWN (7): row1, col7 => col7 rows1-7? Let's check: row1 col7 ., row2 col7 ., row3 col7 ., row4 col7 ., row5 col7 ., row6 col7 ., row7 col7 ., row8 col7 #? Row8 col7 '#'. So rows1-7 length 7. Good.
+18-DOWN (7): row1, col9 => col9 rows1-? Let's trace: row1 col9 ., row2 col9 ., row3 col9 ., row4 col9 ., row5 col9 ., row6 col9 ., row7 col9 ., row8 col9 #? Row8: ". # . # . # # # # # .". col9 '#'. So rows1-7 length 7. Good.
+19-ACROSS (3): row3, col1 => (3,1),(3,2),(3,3). Row3 col4 #. So length 3.
+19-DOWN (3): row3, col1 => col1 rows3-5? Let's check: row3 col1 ., row4 col1 ., row5 col1 ., row6 col1 #. So length 3. Yes rows3,4,5.
+20-ACROSS (5): row3, col5 => (3,5)-(3,9). Row3 col4 #, col10 #. Wait row3: ". . . # . . . . . # .". So cols5-9 are dots length 5. Yes.
+21-DOWN (3): row3, col11 => col11 rows3-5? Row3 col11 ., row4 col11 ., row5 col11 ., row6 col11 #. So rows3,4,5. Good.
+22-ACROSS (7): row5, col1 => (5,1)-(5,7). Row5 col8 #. So length 7.
+23-DOWN (7): row5, col3 => col3 rows5-11? Check: row5 col3 ., row6 col3 ., row7 col3 ., row8 col3 ., row9 col3 ., row10 col3 ., row11 col3 ., row12 out. So length 7. Good.
+24-DOWN (7): row5, col5 => col5 rows5-? Row5 col5 .,

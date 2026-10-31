@@ -1,0 +1,76 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "a3dbcfcf-7285-4914-8267-6dc34e599e9d",
+ "rubric_version": 2,
+ "rubric_hash": "63748bedb94bf1b8",
+ "method": "checks",
+ "scored_at": "2026-10-31T05:17:44.307366+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 6.0,
+  "total": 6,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "capitals",
+   "type": "items",
+   "group": "Capitals",
+   "label": "Each country line names its capital and nothing else: Australia: Canberra, Canada: Ottawa, Brazil: Brasília, Nigeria: Abuja, Türkiye: Ankara, Switzerland: Bern; one item per country.",
+   "passed": true,
+   "detail": "6/6 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "australia",
+     "label": "Australia is Canberra",
+     "passed": true,
+     "detail": "got Canberra"
+    },
+    {
+     "id": "canada",
+     "label": "Canada is Ottawa",
+     "passed": true,
+     "detail": "got Ottawa"
+    },
+    {
+     "id": "brazil",
+     "label": "Brazil is Brasília",
+     "passed": true,
+     "detail": "got Brasília"
+    },
+    {
+     "id": "nigeria",
+     "label": "Nigeria is Abuja",
+     "passed": true,
+     "detail": "got Abuja"
+    },
+    {
+     "id": "turkiye",
+     "label": "Türkiye is Ankara",
+     "passed": true,
+     "detail": "got Ankara"
+    },
+    {
+     "id": "switzerland",
+     "label": "Switzerland is Bern",
+     "passed": true,
+     "detail": "got Bern"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Capitals",
+   "passed": 6.0,
+   "total": 6,
+   "detail": "6/6 items"
+  }
+ ]
+}

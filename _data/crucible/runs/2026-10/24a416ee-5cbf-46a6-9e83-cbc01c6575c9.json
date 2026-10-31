@@ -1,0 +1,92 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "24a416ee-5cbf-46a6-9e83-cbc01c6575c9",
+ "run_path": "openrouter_openai_gpt-6-luna@reasoning-off/proofread-literary-paragraph/20261031_034444",
+ "legacy_run_id": null,
+ "started_at": "2026-10-31T03:44:44.605172+00:00",
+ "ended_at": "2026-10-31T03:44:55.534597+00:00",
+ "elapsed_s": 10.91,
+ "task": {
+  "id": "proofread-literary-paragraph",
+  "version": 2,
+  "rubric_version": 3,
+  "content_hash": "9d22ee63b2c772a5",
+  "rubric_hash": "056064e7a4ede298",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/openai/gpt-6-luna",
+  "base": "openai/gpt-6-luna",
+  "publisher": "openai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "off",
+   "resolved": "off"
+  },
+  "context_loaded": null,
+  "variant_key": "openai/gpt-6-luna|openai|api|-",
+  "display": "gpt-6-luna",
+  "origin": {
+   "maker": "openai",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "OpenAI",
+   "quant": null
+  },
+  "resolved_model": "openai/gpt-6-luna"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 237,
+  "tokens_out": 207,
+  "model_responses": 1,
+  "ttft_s": 1.009,
+  "ttft_avg_s": 1.009,
+  "response_time_avg_s": 2.449,
+  "output_tokens_per_s": 143.8,
+  "cost_usd": 0.0,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 0
+ },
+ "output_ref": "outputs/24a416ee-5cbf-46a6-9e83-cbc01c6575c9.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "9ae9187",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:41c9b390f2837877f8086bfe5ce9ca0c3f9488fa6604e560a670635ffe9cc9a3",
+  "submitter": null,
+  "verification": null
+ }
+}

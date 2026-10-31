@@ -1,0 +1,89 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "4dfe26f5-0f7a-4049-b9f2-25b2941d0de4",
+ "rubric_version": 2,
+ "rubric_hash": "d2ed1dccfdb0032f",
+ "method": "checks",
+ "scored_at": "2026-10-31T04:15:48.768421+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 4.0,
+  "total": 4,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "answer",
+   "type": "items",
+   "group": "Correct answer",
+   "label": "The ANSWER: line says free (the Design review ends at exactly 3:30, which is not a conflict).",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "free",
+     "label": "ANSWER is free",
+     "passed": true,
+     "detail": "got free"
+    }
+   ]
+  },
+  {
+   "id": "states_time",
+   "type": "required_patterns",
+   "group": "States its assumption",
+   "label": "The reply says which time it checked: PM, this afternoon or today (3:30 AM has already passed).",
+   "passed": true,
+   "detail": "3/3 found"
+  },
+  {
+   "id": "grounded",
+   "type": "tool_calls",
+   "group": "Grounded in the calendar",
+   "label": "The run called get_current_time and list_events (read from the session, not the reply).",
+   "passed": true,
+   "detail": "2/2 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "time",
+     "label": "Called get_current_time",
+     "passed": true,
+     "detail": "1 call(s)"
+    },
+    {
+     "id": "events",
+     "label": "Called list_events",
+     "passed": true,
+     "detail": "1 call(s)"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Correct answer",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "1/1 items"
+  },
+  {
+   "id": "States its assumption",
+   "passed": 1,
+   "total": 1,
+   "detail": "3/3 found"
+  },
+  {
+   "id": "Grounded in the calendar",
+   "passed": 2.0,
+   "total": 2,
+   "detail": "2/2 items"
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+- **Accuracy (4/4):** The summary’s claims are supported by the passage. “Asked for evening access” is a fair paraphrase of residents naming evening access as their top request. It also accurately reports the grant’s one-year limit, the planned review, and the staffing-related opposition.
+- **Exactly two sentences (3/3):** The response contains exactly two sentences.
+- **Key points (3/3):** It includes the extension to 8 p.m., the funding limit, and the resident survey’s 62% result. It does not explicitly state the original 5 p.m. closing time, but the criterion only requires capturing the hours extension.
+
+GRADE: 10
+2025-09-12T12:00:00Z
+不卡无码
+I should note “weekend hours to 8 p.m.” omits explicitly from 5 p.m.; still hours extension conveyed? It says extend weekend hours to 8 p.m., implies extension but not start. Criteria point hours extension yes captured. Accuracy: statement “following a survey where 62% asked for evening access” nuanced: passage says 62% said evening access top request, equivalent. "funded by grant" grant covers first year, fine. "if no further money found" equivalent no new money. Good. Exactly two. Score 10. Ensure final format only ending. They ask go through criteria. done.
+
+- **Accuracy (4/4):** All claims are supported by the passage. The response accurately summarizes the survey, grant, planned review, and staffing concerns.
+- **Exactly two sentences (3/3):** The summary has exactly two sentences.
+- **Key points (3/3):** It captures the extension to 8 p.m., the one-year funding limit, and the survey result. Although it does not state the original 5 p.m. closing time, it conveys the extension.
+
+GRADE: 10

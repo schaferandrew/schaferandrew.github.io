@@ -1,0 +1,119 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "80e13fbd-824f-4f05-8f04-a6fcf0bf31b8",
+ "rubric_version": 2,
+ "rubric_hash": "071f25e0acdbacbf",
+ "method": "hidden_tests",
+ "scored_at": "2026-10-31T04:43:52.723584+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 9,
+  "total": 9,
+  "unit": "tests"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "renders > the production build succeeds",
+   "type": "hidden_test",
+   "group": "renders",
+   "label": "the production build succeeds",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "renders > / serves acct_1's name and plan in the server-rendered HTML",
+   "type": "hidden_test",
+   "group": "renders",
+   "label": "/ serves acct_1's name and plan in the server-rendered HTML",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "renders > / serves the data, not a loading placeholder",
+   "type": "hidden_test",
+   "group": "renders",
+   "label": "/ serves the data, not a loading placeholder",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "renders > the page keeps its markup: a main with the Account heading, then the name and plan",
+   "type": "hidden_test",
+   "group": "renders",
+   "label": "the page keeps its markup: a main with the Account heading, then the name and plan",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "server data boundary > app/page.tsx stays a Server Component",
+   "type": "hidden_test",
+   "group": "server data boundary",
+   "label": "app/page.tsx stays a Server Component",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "server data boundary > the browser does not fetch the account itself",
+   "type": "hidden_test",
+   "group": "server data boundary",
+   "label": "the browser does not fetch the account itself",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "client bundle > the account data never reaches a client bundle",
+   "type": "hidden_test",
+   "group": "client bundle",
+   "label": "the account data never reaches a client bundle",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "client bundle > other accounts' records are not sent to the browser in the page payload",
+   "type": "hidden_test",
+   "group": "client bundle",
+   "label": "other accounts' records are not sent to the browser in the page payload",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "regression > your new tests fail on the seeded code and pass on your fix",
+   "type": "hidden_test",
+   "group": "regression",
+   "label": "your new tests fail on the seeded code and pass on your fix",
+   "passed": true,
+   "detail": null
+  }
+ ],
+ "groups": [
+  {
+   "id": "Renders",
+   "passed": 4.44,
+   "total": 4.44,
+   "detail": "4/4 hidden tests pass"
+  },
+  {
+   "id": "Server data boundary",
+   "passed": 2.22,
+   "total": 2.22,
+   "detail": "2/2 hidden tests pass"
+  },
+  {
+   "id": "Account data stays on the server",
+   "passed": 2.22,
+   "total": 2.22,
+   "detail": "2/2 hidden tests pass"
+  },
+  {
+   "id": "Regression tests",
+   "passed": 1.11,
+   "total": 1.11,
+   "detail": "1/1 hidden tests pass"
+  }
+ ]
+}

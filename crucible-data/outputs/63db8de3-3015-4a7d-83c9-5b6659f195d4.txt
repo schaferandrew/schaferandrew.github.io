@@ -1,0 +1,21 @@
+## Report
+
+**Test user:** `testuser`
+
+1. Started the app with `npm start` and navigated to `http://localhost:3456/login.html`.
+2. First login attempt with the skill's documented credentials (`testuser` / `correctpassword`) failed:
+   - `POST /api/login` returned **HTTP 401** `{"error":"invalid_credentials"}`
+   - Login page would display: **“Invalid username or password.”**
+3. Diagnosed the failure as **Wrong Password** (the account was active, so it was not the deactivated-account or stale-cookie mode).
+4. Followed the skill's password-reset recovery flow using the provided APIs/pages:
+   - Requested a reset for `testuser` via `/api/reset-password-request`; received a valid reset URL/token.
+   - Submitted the token and a new password via `/api/reset-password`; reset returned `{"success":true}`.
+5. Re-logged in with `testuser` / `correctpassword`:
+   - `POST /api/login` returned **HTTP 200** `{"success":true,"redirect":"/dashboard.html"}`.
+6. Verified the authenticated dashboard:
+   - `GET /dashboard.html` returned **HTTP 200**.
+   - `GET /api/dashboard` returned `{"user":"testuser","dashboardMessage":"Welcome to your dashboard!"}`.
+
+The audit log confirms the sequence: failed login with `invalid_credentials` → `reset_requested` → `password_reset` → `login_success` → `dashboard_ok`. No authentication bypass was used and no application code was modified.
+
+FAILURE: Wrong Password

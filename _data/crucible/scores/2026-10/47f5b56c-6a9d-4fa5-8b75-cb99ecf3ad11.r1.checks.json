@@ -1,0 +1,161 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "47f5b56c-6a9d-4fa5-8b75-cb99ecf3ad11",
+ "rubric_version": 1,
+ "rubric_hash": "2502acca0cb631ef",
+ "method": "checks",
+ "scored_at": "2026-10-31T03:53:25.019815+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 6.0,
+  "total": 6,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "pile_no_repeat",
+   "type": "items",
+   "group": "Prime pile, no repeat",
+   "label": "Answer 1 is 18 (second-player starts 1, 9, 13, 17, 25, then 26, 34, 42 + 17k; 23 if the no-repeat rule is ignored).",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "pile_no_repeat",
+     "label": "Answer 1 is 18",
+     "passed": true,
+     "detail": "got 18"
+    }
+   ]
+  },
+  {
+   "id": "pin_row_moves",
+   "type": "items",
+   "group": "Pin row first moves",
+   "label": "Answer 2 is 9 (of 43 first moves; Grundy values of rows pair up, with a 6 at 22 and 23 pins).",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "pin_row_moves",
+     "label": "Answer 2 is 9",
+     "passed": true,
+     "detail": "got 9"
+    }
+   ]
+  },
+  {
+   "id": "token_geography",
+   "type": "items",
+   "group": "Token on a graph",
+   "label": "Answer 3 is 40 (the first player wins from 1, 2, 3, 4, 9, 10 and 11: exactly the vertices every maximum matching covers).",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "token_geography",
+     "label": "Answer 3 is 40",
+     "passed": true,
+     "detail": "got 40"
+    }
+   ]
+  },
+  {
+   "id": "knights_total",
+   "type": "items",
+   "group": "Knights and knaves",
+   "label": "Answer 4 is 17 (five consistent assignments with 4, 5, 3, 3 and 2 knights).",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "knights_total",
+     "label": "Answer 4 is 17",
+     "passed": true,
+     "detail": "got 17"
+    }
+   ]
+  },
+  {
+   "id": "house_grid",
+   "type": "items",
+   "group": "Six-house grid",
+   "label": "Answer 5 is 516423 (Odile 5, Bram 1, Tamsin 6, Kofi 4, Lior 2, Wren 3).",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "house_grid",
+     "label": "Answer 5 is 516423",
+     "passed": true,
+     "detail": "got 516423"
+    }
+   ]
+  },
+  {
+   "id": "talk_schedules",
+   "type": "items",
+   "group": "Talk schedules",
+   "label": "Answer 6 is 122 (by brute force over all 5040 orders; 42 if 'at least 2 between' is read as exactly 2).",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "talk_schedules",
+     "label": "Answer 6 is 122",
+     "passed": true,
+     "detail": "got 122"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Prime pile, no repeat",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "1/1 items"
+  },
+  {
+   "id": "Pin row first moves",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "1/1 items"
+  },
+  {
+   "id": "Token on a graph",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "1/1 items"
+  },
+  {
+   "id": "Knights and knaves",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "1/1 items"
+  },
+  {
+   "id": "Six-house grid",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "1/1 items"
+  },
+  {
+   "id": "Talk schedules",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "1/1 items"
+  }
+ ]
+}

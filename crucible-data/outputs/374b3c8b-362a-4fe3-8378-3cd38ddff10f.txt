@@ -1,0 +1,16 @@
+Using game-theoretic and constraint reasoning:
+
+1. Losing starting counts for the pile are 1, 9, 17, 18, 26, 27, 35, 36, 44, 45, 53, 54, 62, 63, 71, 72, 80, 81, 89, 90, 98, 99 → 22 values.
+2. There are 9 first moves that leave a P-position.
+3. Winning start vertices are 1, 2, 3, 4, 9, 10, 11; sum = 40.
+4. The 5 consistent knight/knave assignments have knight totals 3, 3, 4, 2, 5; total = 17.
+5. The unique house assignment is Odile 5, Bram 1, Tamsin 6, Kofi 2, Lior 3, Wren 4 → 516234.
+6. Counting valid schedules gives 122.
+
+ANSWERS:
+1: 22
+2: 9
+3: 40
+4: 17
+5: 516234
+6: 122

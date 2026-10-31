@@ -1,0 +1,92 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "0951b9d7-0290-45bf-bb8b-65c3ac7e9315",
+ "run_path": "openrouter_moonshotai_kimi-k2.6/logic-and-game-puzzles/20261031_040201",
+ "legacy_run_id": null,
+ "started_at": "2026-10-31T04:02:01.157581+00:00",
+ "ended_at": "2026-10-31T04:10:35.787002+00:00",
+ "elapsed_s": 514.62,
+ "task": {
+  "id": "logic-and-game-puzzles",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "8104a48508bbe599",
+  "rubric_hash": "2502acca0cb631ef",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/moonshotai/kimi-k2.6",
+  "base": "moonshotai/kimi-k2.6",
+  "publisher": "moonshotai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "moonshotai/kimi-k2.6|moonshotai|api|-",
+  "display": "kimi-k2.6",
+  "origin": {
+   "maker": "moonshotai",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "Venice",
+   "quant": null
+  },
+  "resolved_model": "moonshotai/kimi-k2.6"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "context_limit",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 1670,
+  "tokens_out": 65536,
+  "model_responses": 1,
+  "ttft_s": 1.062,
+  "ttft_avg_s": 1.062,
+  "response_time_avg_s": 514.332,
+  "output_tokens_per_s": 127.7,
+  "cost_usd": 0.361671,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 111892
+ },
+ "output_ref": null,
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "9ae9187",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:416e6e292425f3207841ecb264f726e99d4ea2f48ad65ff6886d68e6b2961a45",
+  "submitter": null,
+  "verification": null
+ }
+}

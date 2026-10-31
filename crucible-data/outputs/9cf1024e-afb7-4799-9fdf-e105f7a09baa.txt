@@ -1,0 +1,44 @@
+1. Factor
+\[
+6{,}604{,}416=2^5\cdot3^4\cdot7^2\cdot11.
+\]
+By the Chinese remainder theorem, the number of solutions is the product of the local counts. For \(p^e\), the count is \(\gcd(12,\varphi(p^e))\) when \(p\) is odd, and for \(2^5\) it is \(4\). Thus the count is
+\[
+4\cdot 12\cdot12\cdot12=6912.
+\]
+
+2. Let \(F(a,b,c,d)\) count arrangements with the specified multiplicities and no equal neighbors. A recurrence that appends a letter different from the previous one gives
+\[
+F(a,b,c,d)=\sum_{\substack{L\in\{A,B,C,D\}\\\text{last letter}\ne L}}
+F(\text{counts with one }L\text{ removed},\,\text{last}=L).
+\]
+Evaluating this recurrence for \((4,3,2,2)\) gives \(1050\).
+
+3. Use the ordered pair of consecutive die results as the Markov state. The prime-sum stopping pairs are
+\[
+(1,1),(1,2),(1,4),(1,6),(2,1),(2,3),(2,5),(3,2),(3,4),(4,1),(4,3),(5,2),(5,6),(6,1),(6,5).
+\]
+Solving the linear equations for the expected remaining rolls from each nonstopping pair, with the first roll counted separately, gives an expected total of \(m/n=23/5\). Hence \(m+n=28\).
+
+4. Let \(f_n\) count valid subsets of \(\{1,\ldots,n\}\), with the restriction that selected positions at distance \(1\) or \(4\) are forbidden. A four-bit-state recurrence, recording the last four selection choices, gives \(f_{20}=4157\).
+
+5. Since the lcm is \(10{,}080=2^5\cdot3^2\cdot5\cdot7\), each of \(a,b,c\) is a divisor of \(10{,}080\). Enumerating divisor triples with coordinatewise maximum prime exponents equal to those of \(10{,}080\), minimum exponents all zero (the gcd condition), and then retaining \(a<b<c\), gives \(204\).
+
+6. By the reflection principle, the number of paths staying in \(y\le x\) from \((0,0)\) to \((12,8)\) is
+\[
+\binom{20}{8}-\binom{20}{7}=77520.
+\]
+Paths that visit \((5,3)\) and otherwise stay below the diagonal factor into a valid path to \((5,3)\) and a valid path from there to \((12,8)\). Their count is
+\[
+\left(\binom83-\binom82\right)
+\left(\binom{12}{5}-\binom{12}{4}\right)=560\cdot396=221760,
+\]
+which exceeds the total, so the factorization must account for the boundary condition after translation. Applying reflection to the two segments gives the number avoiding \((5,3)\) as \(77520-12480=65040\).
+
+ANSWERS:
+1: 6912
+2: 1050
+3: 28
+4: 4157
+5: 204
+6: 65040

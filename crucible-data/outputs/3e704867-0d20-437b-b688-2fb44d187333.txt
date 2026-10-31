@@ -1,0 +1,56 @@
+All 31 tests pass. Here's the write-up.
+
+---
+
+## Root Cause, Decisions, and Code Review Flags
+
+### Root Cause
+
+Two bugs in the contributor invite flow, both in the API layer:
+
+**Bug 1 — Infinite loop (rosa/tomek):** `acceptInvite()` in `services/invites.ts` set `termsAcceptedAt` but **not** `onboardingComplete`. On the frontend, `RequireWriter` guards the editor by checking `onboardingComplete`. Since it was `false`, the user was redirected to `/welcome`. The `WelcomePage` then immediately redirected back to `/editor` if `accountState === "invited"` (which it is, by design). Result: an infinite `editor → welcome → editor → welcome` loop.
+
+**Bug 2 — "email has already been taken" (pending@example.com):** `register()` in `services/users.ts` unconditionally rejected any signup with an existing email, even if that account was a pending invite (no password set, `accountState: "invited"`). The design doc specifies such signups should claim the invited account instead.
+
+### Changes Made
+
+**1. `apps/api/src/services/invites.ts` — `acceptInvite` sets `onboardingComplete: true`**
+
+Invited contributors skip the welcome/onboarding form (per the design doc: "Invited contributors aren't asked for a bio"). They already accept terms through the invite form (`acceptTerms: true`). Setting `onboardingComplete: true` prevents the RequireWriter redirect, breaking the loop. The `accountState` stays `"invited"` as the design doc requires.
+
+**2. `apps/api/src/services/users.ts` — `register` claims invited accounts**
+
+When a signup email matches an existing user whose `accountState === "invited"` and `passwordHash` is empty (invite not yet accepted), the endpoint updates that user's username and password, sets `accountState: "active"`, `onboardingComplete: false`, `termsAcceptedAt: null`, and marks the invite as accepted. The user then proceeds through the normal welcome flow to accept terms — this satisfies the design doc ("gets that invited account") while respecting Legal's requirement that terms be accepted.
+
+**3. `apps/api/src/services/presenters.ts` — derive `onboardingComplete` from `termsAcceptedAt`**
+
+Accounts affected before the fix (rosa, tomek) have `onboardingComplete: false` but `termsAcceptedAt: set` in the database. The presenter now reports `onboardingComplete: true` when `termsAcceptedAt` is non-null, allowing these users to reach the editor without any data migration. This is safe because `onboardingComplete` is only consumed for access control and the welcome-page redirect — both should treat a user who accepted terms as fully onboarded.
+
+**4. `apps/api/src/repositories/users.ts` — added `findInviteByUserId`**
+
+Needed by the `register` fix to look up and invalidate the invite when an invited account is claimed via homepage signup.
+
+**5. `apps/api/test/invites.test.ts` — reproduction and regression tests**
+
+Five tests:
+- **Regression test**: invited contributor accepts invite and gets `onboardingComplete: true` (breaks the loop)
+- **Homepage claim**: someone with a pending invite signs up and claims the account instead of getting a 422
+- **Non-invited duplicate rejection**: existing behavior preserved
+- **Username collision**: claiming an invited account still requires a unique username
+- **Previously affected accounts**: verifying the presenter fix works
+
+### Decisions & Reasoning
+
+| Conflict | Resolution |
+|---|---|
+| Design doc says `accountState` stays `"invited"` after acceptance. Legal says accounts that haven't accepted terms can't reach the editor. | Both are satisfied: `accountState` stays `"invited"`, but `onboardingComplete` is set `true` (terms were accepted in the invite form). Accounts that haven't accepted terms have `termsAcceptedAt: null` and are blocked by `RequireWriter`. |
+| Design doc says homepage signups with invited emails should "get that invited account". The account has `accountState: "invited"` — should it stay that way? | For homepage signups, we set `accountState: "active"`. The design's "accountState stays invited" refers to the invite-link flow. A homepage signup is a different auth path; changing it to `"active"` ensures the user goes through the welcome page (terms acceptance) while keeping the same user ID and assigned work. |
+| Legal says "filling in a profile is not required, accepting terms is." The welcome page bundles bio + terms checkbox. | The welcome page's bio field is optional (empty string is valid). The checkbox is required. This already matches Legal's requirements — no change needed. |
+
+### Code Review Flags
+
+1. **Presenter derivation vs. data migration**: Computing `onboardingComplete` from `termsAcceptedAt` is a judgment call. An alternative would be a one-time migration script that sets `onboardingComplete = true` where `termsAcceptedAt IS NOT NULL`. The presenter approach is zero-downtime and self-healing for any future accounts that end up in the same state, but it couples a business-rule concept (onboarding completion) to an implementation detail (terms acceptance). If the two ever diverge semantically, this derivation would need revisiting.
+
+2. **`register` claiming an invited account resets `termsAcceptedAt` to `null`**: This is intentional — the user accepted terms as part of the claim. But if the editor wanted the invited user to pre-accept terms, this would override that. In the current design, terms acceptance is always done by the person themselves, so resetting is correct.
+
+3. **The `findInviteByUserId` function iterates all invites**: This is O(n) where n is invite count. For the current scale it's fine; if invite volume grows, indexing invites by userId would be worth adding.

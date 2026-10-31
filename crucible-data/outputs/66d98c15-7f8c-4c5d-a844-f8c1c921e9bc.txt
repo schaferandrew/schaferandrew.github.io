@@ -1,0 +1,45 @@
+1. Factor
+\[
+6{,}604{,}416=2^7\cdot3^4\cdot7^2\cdot13.
+\]
+By the Chinese remainder theorem, the number of solutions is the product of the local root counts. For odd prime powers, that count is \(\gcd(12,\varphi(p^k))\), giving \(6,6,12\) for \(3^4,7^2,13\). The units modulo \(2^7\) form \(C_2\times C_{32}\), giving \(2\cdot\gcd(12,32)=8\) roots. Thus the total is \(8\cdot6\cdot6\cdot12=3456\).
+
+2. Label the copies temporarily and use inclusion–exclusion on events that a same-letter pair is adjacent. For a letter with \(r\) copies, the valid selected-edge contributions form the polynomials
+\[
+P_4(t)=1-12t+36t^2-24t^3,\quad
+P_3(t)=1-6t+6t^2,\quad
+P_2(t)=1-2t.
+\]
+Their product is \(1-20t+150t^2-540t^3+984t^4-864t^5+288t^6\). Weighting the coefficient of \(t^j\) by \((11-j)!\) gives \(4{,}371{,}840\) labeled arrangements. Divide by \(4!3!2!2!=576\), yielding \(7590\).
+
+3. Let \(E_i\) be the expected number of additional rolls when the current roll is \(i\). Continuing-roll transitions give
+\[
+\begin{aligned}
+5E_1-E_3-E_5&=6,&5E_2-E_4-E_6&=6,\\
+5E_3-E_1-E_5-E_6&=6,&5E_4-E_2-E_5-E_6&=6,\\
+5E_5-E_1-E_3-E_4&=6,&5E_6-E_2-E_3-E_4&=6.
+\end{aligned}
+\]
+Adding the reduced equations gives \(E_3+E_4+E_5+E_6=144/13\), and the first two equations then give \(E_1+E_2=(12+144/13)/5\). Including the first roll, the expected total is \(47/13\), so \(m+n=60\).
+
+4. Let \(g_n\) count valid subsets of \(\{1,\dots,n\}\) whose largest element is \(n\). Then
+\[
+g_n=1+\sum_{k=1}^{n-2}g_k-\mathbf1_{n\ge5}g_{n-4}.
+\]
+Iterating gives \(\sum_{n=1}^{20}g_n=8659\). Including the empty set, the answer is \(8660\).
+
+5. The prime exponents of \(10{,}080\) are \(5,2,1,1\). For exponent \(e\), the three exponents must have maximum \(e\) and minimum \(0\), giving \((e+1)^3-2e^3+(e-1)^3=6e\) assignments. Thus there are \(6^4(5\cdot2\cdot1\cdot1)=2592\) ordered triples. For any specified equal pair, there are \(2^4=16\) assignments satisfying the conditions; the three equal-pair cases are disjoint. Removing these 48 triples leaves \(2544\) ordered triples with distinct entries. Dividing by \(6\) gives \(424\).
+
+6. The number of paths staying at or below the diagonal is
+\[
+\binom{20}{8}-\binom{20}{7}=48{,}450.
+\]
+A valid prefix to \((5,3)\) can be chosen in \(\binom83-\binom82=28\) ways. From \((5,3)\), the number of valid suffixes is \(\binom{12}{5}-\binom{12}{2}=726\), by reflecting paths that cross the boundary. Hence \(28\cdot726=20{,}328\) paths visit \((5,3)\), leaving \(28{,}122\).
+
+ANSWERS:
+1: 3456
+2: 7590
+3: 60
+4: 8660
+5: 424
+6: 28122

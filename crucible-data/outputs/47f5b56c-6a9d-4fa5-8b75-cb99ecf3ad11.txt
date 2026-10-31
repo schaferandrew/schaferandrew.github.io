@@ -1,0 +1,43 @@
+I worked each problem out by hand from the rules as stated; the key steps are below.
+
+**1. Token game (answer 18).** Let G(n) be the set of good moves from n tokens, meaning moves m for which the opponent, facing n−m with m forbidden, loses. The mover at n loses exactly when G(n) is empty (if the first move is unrestricted). Computing G(n) upward, the positions with G empty are 1, 9, 13, 17, 25, 26, 34, and then they repeat with period 17 from n = 25. Within 1 to 100 these are 1, 9, 13, 17, 25, 26, 34, 42, 43, 51, 59, 60, 68, 76, 77, 85, 93, 94, which is 18 values.
+
+**2. Pins (answer 9).** Treat each run of standing pins as a heap and compute Grundy values for removing 2 or 3 adjacent pins, with the remainder split into two heaps. For heaps 0 to 22 the values are 0, 0, 1, 1, 2, 2, 3, 3, 1, 1, 4, 4, 3, 3, 2, 2, 1, 1, 4, 4, 2, 2, 6. A first move wins when the two resulting heaps have equal Grundy values.
+- Knocking down 2 pins leaves heaps (10,11) or (11,10), which gives 2 winning moves.
+- Knocking down 3 pins leaves heaps (a, 20−a) with a = 3, 5, 7, 10, 13, 15, 17, which gives 7 winning moves.
+
+The total is 9.
+
+**3. Token on a graph (answer 40).** This is undirected vertex geography. The first player wins from v exactly when v lies in every maximum matching. The graph has a matching of size 5, for example 6-10, 3-9, 2-4, 5-11, 1-7, so the maximum is 5, which leaves one vertex unmatched. The vertices that some maximum matching can leave unmatched are exactly those whose removal leaves a perfect matching: 5, 6, 7 and 8. The winning starting vertices are therefore 1, 2, 3, 4, 9, 10 and 11, whose sum is 40.
+
+**4. Knights and knaves (answer 17).** The statements of A, B and D reduce to a ⇔ (f = d) and b = ¬f. Splitting on f, a and d gives five consistent assignments, each listed by its knights:
+- {A, D, F, G, H}: 5 knights
+- {F, G}: 2 knights
+- {A, B, G, H}: 4 knights
+- {B, C, D}: 3 knights
+- {B, D, G}: 3 knights
+
+The total is 5 + 2 + 4 + 3 + 3 = 17.
+
+**5. Houses (answer 516423).** Odile is in 5, so the teal house is 3. The archivist must be in house 5, since the other positions force a conflict with kvass in house 4 or with the ferret and heron positions. The final arrangement is:
+
+| House | Person | Color | Pet | Drink | Job |
+|---|---|---|---|---|---|
+| 1 | Bram | lilac | axolotl | cocoa | farrier |
+| 2 | Lior | maroon | tortoise | lassi | glazier |
+| 3 | Wren | teal | ferret | kefir | cartographer |
+| 4 | Kofi | ochre | heron | kvass | luthier |
+| 5 | Odile | slate | hamster | mate | archivist |
+| 6 | Tamsin | ivory | gecko | cider | beekeeper |
+
+I checked every clue (a) to (x) against this table. In the order Odile, Bram, Tamsin, Kofi, Lior, Wren the houses are 5, 1, 6, 4, 2, 3.
+
+**6. Talks (answer 122).** The conditions on P, S and R force the order S < P < R in slots, with P − S ≥ 2 and P ≠ 5. That leaves P in slot 3, 4 or 6. For each placement of (S, P, R), I counted the choices of T (at least 3 slots from R) and Q (not in slot 1 or 3) among the free slots, then multiplied by 2 for the order of U and V. The counts are 30 for P in slot 3, 44 for P in slot 4 and 48 for P in slot 6, giving 122.
+
+ANSWERS:
+1: 18
+2: 9
+3: 40
+4: 17
+5: 516423
+6: 122

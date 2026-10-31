@@ -1,0 +1,112 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "01f464d4-7c77-47fa-af85-a2727f296f28",
+ "run_path": "openrouter_deepseek_deepseek-v4.1-flash/calendar-team-of-16/20261031_050741",
+ "legacy_run_id": null,
+ "started_at": "2026-10-31T05:07:41.749521+00:00",
+ "ended_at": "2026-10-31T05:08:56.686251+00:00",
+ "elapsed_s": 74.62,
+ "task": {
+  "id": "calendar-team-of-16",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "b3eb371da517cb6a",
+  "rubric_hash": "28b2d02d8b0aedf0",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/deepseek/deepseek-v4.1-flash",
+  "base": "deepseek/deepseek-v4.1-flash",
+  "publisher": "deepseek",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek/deepseek-v4.1-flash|deepseek|api|-",
+  "display": "deepseek-v4.1-flash",
+  "origin": {
+   "maker": "deepseek",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": {
+   "reason": "Contaminated: the agent read files in crucible's checkout outside its workspace (see leaks).",
+   "marked_at": "2026-10-31T05:08:56.800847+00:00"
+  },
+  "leaks": [
+   "/Users/schafer/Developer/crucible",
+   "/Users/schafer/Developer/crucible/crucible",
+   "/Users/schafer/Developer/crucible/crucible/checks.py",
+   "/Users/schafer/Developer/crucible/crucible/checks.py,",
+   "/Users/schafer/Developer/crucible/crucible/mc,",
+   "/Users/schafer/Developer/crucible/crucible/mcp_servers",
+   "/Users/schafer/Developer/crucible/crucible/mcp_servers/",
+   "/Users/schafer/Developer/crucible/crucible/mcp_servers/calen,",
+   "/Users/schafer/Developer/crucible/crucible/mcp_servers/calendar_server.py",
+   "/Users/schafer/Developer/crucible/crucible/mcp_servers/calendar_server.py\\",
+   "/Users/schafer/Developer/crucible/fixtures/mock-calen,",
+   "/Users/schafer/Developer/crucible/fixtures/mock-calendar",
+   "/Users/schafer/Developer/crucible/fixtures/mock-calendar/",
+   "/Users/schafer/Developer/crucible/fixtures/mock-calendar/forge.json",
+   "/Users/schafer/Developer/crucible/fixtures/mock-calendar/forge.json\\n",
+   "/Users/schafer/Developer/crucible/graders/mock-calendar/buil,",
+   "/Users/schafer/Developer/crucible/graders/mock-calendar/build.py",
+   "/Users/schafer/Developer/crucible/tasks/calendar-team-of-16.,",
+   "/Users/schafer/Developer/crucible/tasks/calendar-team-of-16.yaml"
+  ]
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 34,
+  "tokens_in": 847040,
+  "tokens_out": 10431,
+  "model_responses": 28,
+  "ttft_s": 0.573,
+  "ttft_avg_s": 0.65,
+  "response_time_avg_s": 1.449,
+  "output_tokens_per_s": 466.3,
+  "cost_usd": 0.027721,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/01f464d4-7c77-47fa-af85-a2727f296f28.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "9ae9187",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:203e856410c46d9b7933c19498df0a852b28562f5411e6a213ba500eb0a59e66",
+  "submitter": null,
+  "verification": null
+ }
+}

@@ -1,0 +1,183 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "ceeae567-b096-479a-841d-4edcc85be31d",
+ "rubric_version": 2,
+ "rubric_hash": "f66e11cca0e3815d",
+ "method": "checks",
+ "scored_at": "2026-10-31T05:18:02.259161+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 0,
+  "total": 21,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "order",
+   "type": "items",
+   "group": "Order",
+   "label": "Puts the events in order, oldest first: Magna Carta, Gutenberg Bible, French Revolution, First World War, Moon landing, Berlin Wall; one item per pair of events (15).",
+   "passed": false,
+   "detail": "no ORDER: block",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "order:Magna Carta<Gutenberg Bible",
+     "label": "Magna Carta before Gutenberg Bible",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "order:Magna Carta<French Revolution",
+     "label": "Magna Carta before French Revolution",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "order:Magna Carta<First World War",
+     "label": "Magna Carta before First World War",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "order:Magna Carta<Moon landing",
+     "label": "Magna Carta before Moon landing",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "order:Magna Carta<Berlin Wall",
+     "label": "Magna Carta before Berlin Wall",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "order:Gutenberg Bible<French Revolution",
+     "label": "Gutenberg Bible before French Revolution",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "order:Gutenberg Bible<First World War",
+     "label": "Gutenberg Bible before First World War",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "order:Gutenberg Bible<Moon landing",
+     "label": "Gutenberg Bible before Moon landing",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "order:Gutenberg Bible<Berlin Wall",
+     "label": "Gutenberg Bible before Berlin Wall",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "order:French Revolution<First World War",
+     "label": "French Revolution before First World War",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "order:French Revolution<Moon landing",
+     "label": "French Revolution before Moon landing",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "order:French Revolution<Berlin Wall",
+     "label": "French Revolution before Berlin Wall",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "order:First World War<Moon landing",
+     "label": "First World War before Moon landing",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "order:First World War<Berlin Wall",
+     "label": "First World War before Berlin Wall",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "order:Moon landing<Berlin Wall",
+     "label": "Moon landing before Berlin Wall",
+     "passed": false,
+     "detail": "no answer block"
+    }
+   ]
+  },
+  {
+   "id": "years",
+   "type": "items",
+   "group": "Years",
+   "label": "Gives each event its year, on its own line: Magna Carta 1215, Gutenberg Bible 1450-1456, French Revolution 1789, First World War 1914, Moon landing 1969, Berlin Wall 1989; one item per event.",
+   "passed": false,
+   "detail": "no ORDER: block",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "magna",
+     "label": "Magna Carta dated 1215",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "gutenberg",
+     "label": "Gutenberg Bible dated 1450-1456",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "french",
+     "label": "French Revolution dated 1789",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "ww1",
+     "label": "First World War dated 1914",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "moon",
+     "label": "Moon landing dated 1969",
+     "passed": false,
+     "detail": "no answer block"
+    },
+    {
+     "id": "wall",
+     "label": "Berlin Wall dated 1989",
+     "passed": false,
+     "detail": "no answer block"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Order",
+   "passed": 0.0,
+   "total": 15,
+   "detail": "no ORDER: block"
+  },
+  {
+   "id": "Years",
+   "passed": 0.0,
+   "total": 6,
+   "detail": "no ORDER: block"
+  }
+ ]
+}

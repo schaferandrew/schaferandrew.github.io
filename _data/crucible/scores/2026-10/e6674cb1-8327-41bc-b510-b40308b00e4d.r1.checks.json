@@ -1,0 +1,161 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "e6674cb1-8327-41bc-b510-b40308b00e4d",
+ "rubric_version": 1,
+ "rubric_hash": "72028ed7b1732171",
+ "method": "checks",
+ "scored_at": "2026-10-31T03:22:39.804528+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 0,
+  "total": 6,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "power_congruence",
+   "type": "items",
+   "group": "Power congruence",
+   "label": "Answer 1 is 3456 (N = 2^7 x 3^4 x 7^2 x 13; 8 x 6 x 6 x 12 solutions, the units mod 128 are not cyclic).",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "power_congruence",
+     "label": "Answer 1 is 3456",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  },
+  {
+   "id": "no_adjacent_letters",
+   "type": "items",
+   "group": "Letters apart",
+   "label": "Answer 2 is 6516 (of 69,300 arrangements).",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "no_adjacent_letters",
+     "label": "Answer 2 is 6516",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  },
+  {
+   "id": "prime_sum_rolls",
+   "type": "items",
+   "group": "Dice expectation",
+   "label": "Answer 3 is 1645 (the expected number of rolls is 1279/366).",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "prime_sum_rolls",
+     "label": "Answer 3 is 1645",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  },
+  {
+   "id": "difference_free_subsets",
+   "type": "items",
+   "group": "Difference-free subsets",
+   "label": "Answer 4 is 4867 (including the empty set; a, a+2, a+4 is ruled out too).",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "difference_free_subsets",
+     "label": "Answer 4 is 4867",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  },
+  {
+   "id": "lcm_gcd_triples",
+   "type": "items",
+   "group": "LCM and GCD triples",
+   "label": "Answer 5 is 2152 ((12,960 ordered - 48 with two equal) / 6).",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "lcm_gcd_triples",
+     "label": "Answer 5 is 2152",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  },
+  {
+   "id": "restricted_paths",
+   "type": "items",
+   "group": "Restricted lattice paths",
+   "label": "Answer 6 is 28122 (48,450 ballot paths minus 28 x 726 through (5, 3)).",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "restricted_paths",
+     "label": "Answer 6 is 28122",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Power congruence",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Letters apart",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Dice expectation",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Difference-free subsets",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "LCM and GCD triples",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Restricted lattice paths",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no answer to check"
+  }
+ ]
+}

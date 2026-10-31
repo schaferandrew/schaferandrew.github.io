@@ -1,0 +1,37 @@
+Invited contributors can now get to the editor, and rosa and tomek are fixed without anyone editing their data. All tests pass, including the unmodified contract suite.
+
+**Root cause**
+- Accepting an invite recorded the contributor's terms acceptance (`termsAcceptedAt`) but left `onboardingComplete` as `false`.
+- The web route guard `RequireWriter` sent every account with `onboardingComplete: false` to `/welcome`.
+- `WelcomePage` sent every account with `accountState: "invited"` back to `/editor`.
+- The two redirects bounced the browser back and forth forever, which is the flashing and "page isn't responding" that rosa and tomek saw.
+- The invite-acceptance flow never exercised the guard, so nothing caught it.
+
+**Fix and decisions**
+- **Terms decide access.** `presentUser` now derives `onboardingComplete` from `termsAcceptedAt !== null`. Legal says terms are the gate and a bio is not.
+- **Existing accounts heal on read.** rosa and tomek already have `termsAcceptedAt` set, so they work on their next request. Their stored `onboardingComplete` flag is still stale, but nothing reads it anymore.
+- **Invite acceptance sets the flag too.** `acceptInvite` now also sets `onboardingComplete`, so newly stored rows are consistent.
+- **Welcome page.** I removed the invited-account redirect to `/editor`, so the loop can't recur. A user who has already accepted the terms is sent to `/editor`.
+- **Regular sign-ups are unchanged.** They still land on the welcome screen, and accepting the terms there is required.
+- **No claiming a pending invite by signing up.**
+  - `docs/invites.md` says signing up with an invited email should hand over the invited account, but the current code never did that.
+  - I left it unimplemented: email isn't verified, so anyone could take over an invited account and its assigned work just by typing the address.
+  - It also would skip the terms step Legal requires.
+  - Instead, the error for a pending-invite email now says an invitation was sent and to use the link in the invite email.
+
+**Tests**
+- `apps/api/test/invites.test.ts` covers:
+  - accepting an invite;
+  - an account stored with the stale flag;
+  - regular sign-up and onboarding;
+  - onboarding rejected without accepted terms;
+  - sign-up on a pending invite's email.
+- `apps/web/test/onboardingFlow.test.tsx` covers the editor and welcome redirects.
+- I ran the API tests against the old code and three of them failed. I did not run the web tests against the old code.
+- I wrote the tests after the fix and stashed the source changes to confirm they fail without it, rather than writing them first.
+
+**For code review**
+- **pending@example.com is still stuck.** The signup error now points to the invite link, but the person says the email went to spam. The real fix is a "resend invite" action for editors, which I didn't build.
+- **The terms gate isn't enforced on the server.** Only the web guard keeps users without accepted terms out of the editor. `POST /articles` doesn't check terms, and enforcing it would break the contract suite, which publishes right after sign-up. Legal's "must not be able to reach the editor" is therefore only met in the UI. This needs a decision on how to change the contract.
+- **Redundant column.** The `onboardingComplete` column is now redundant and could be dropped.
+- **Design doc is out of date.** `docs/invites.md` still describes the claim-on-signup behavior and the "no terms needed" idea, and should be updated.

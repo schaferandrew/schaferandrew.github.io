@@ -1,0 +1,16 @@
+Reasoning: I'll place each event by its well-known date.
+
+- Magna Carta was sealed by King John in 1215, in the medieval period.
+- The Gutenberg Bible was printed around 1455, in the mid-15th century.
+- The French Revolution began in 1789, with the storming of the Bastille as its symbolic start.
+- World War I began in 1914.
+- The first Moon landing (Apollo 11) took place in 1969.
+- The Berlin Wall fell in 1989.
+
+ORDER:
+1. The signing of Magna Carta — 1215
+2. The printing of the Gutenberg Bible — c. 1455
+3. The start of the French Revolution — 1789
+4. The start of the First World War — 1914
+5. The first Moon landing — 1969
+6. The fall of the Berlin Wall — 1989

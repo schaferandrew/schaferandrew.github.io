@@ -1,0 +1,22 @@
+Done. Everything is implemented and passing.
+
+## What I built
+
+**Package `interest/`**
+- `interest/core.py` — `calculate()` models interest credited at the end of each compounding period (`annual_rate / periods_per_year` on the balance at that moment), with contributions added at the end of their month/year interval *after* same-moment interest. Handles 1/4/12/365 periods per year, partial-period durations (e.g. 6 months compounded annually), and rounds results to cents.
+- `interest/cli.py` — argparse-based CLI with validation and readable/JSON output.
+- `interest/__main__.py` — enables `python -m interest`.
+
+**Flags** — all required/optional flags implemented, including the mutually exclusive `--years`/`--months`, paired `--contribution`/`--contribution-frequency`, and `--json`.
+
+**Errors** — invalid/negative/contradictory input exits non-zero with a short stderr message (argparse or `parser.error`), never a traceback.
+
+**Tests `tests/test_interest.py`** — 11 tests covering the known 5% 10-year annual case (1628.89), zero interest, monthly compounding, contributions at both frequencies, annual compounding + monthly contributions, partial-year duration, JSON shape, and 10 invalid-input cases.
+
+**README.md** — requirements, run instructions, options table, examples, error behavior, and test commands.
+
+Verification:
+- `python -m pytest tests -q` → 11 passed
+- `python -m unittest discover -s tests -q` → OK
+
+Sample known value: `python -m interest --principal 1000 --rate 5 --years 10 --compound annually` → final balance `1,628.89`.

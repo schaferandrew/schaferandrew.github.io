@@ -1,0 +1,148 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "4c92d1d7-a8d3-41c1-a9f5-f3264a94811c",
+ "rubric_version": 3,
+ "rubric_hash": "6ebad5dfa2fc77b6",
+ "method": "checks",
+ "scored_at": "2026-10-31T05:07:10.565470+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 11.0,
+  "total": 11,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "sections",
+   "type": "items",
+   "group": "Sections in order",
+   "label": "The reply has a ## heading for Weather, Outstanding work, Emails, Calendar, News and Top 3 things to do today, in that order; one item per section.",
+   "passed": true,
+   "detail": "6/6 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "order:weather",
+     "label": "Weather section in order",
+     "passed": true,
+     "detail": "line 1"
+    },
+    {
+     "id": "order:outstanding-work",
+     "label": "Outstanding work section in order",
+     "passed": true,
+     "detail": "line 11"
+    },
+    {
+     "id": "order:emails",
+     "label": "Emails section in order",
+     "passed": true,
+     "detail": "line 19"
+    },
+    {
+     "id": "order:calendar",
+     "label": "Calendar section in order",
+     "passed": true,
+     "detail": "line 31"
+    },
+    {
+     "id": "order:news",
+     "label": "News section in order",
+     "passed": true,
+     "detail": "line 45"
+    },
+    {
+     "id": "order:top-3-things-to-do-today",
+     "label": "Top 3 things to do today section in order",
+     "passed": true,
+     "detail": "line 54"
+    }
+   ]
+  },
+  {
+   "id": "top3",
+   "type": "items",
+   "group": "Top 3 has three items",
+   "label": "The Top 3 section holds exactly three list items (sub-bullets under an item do not count).",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "count",
+     "label": "Top 3 has exactly 3 items",
+     "passed": true,
+     "detail": "3 entries"
+    }
+   ]
+  },
+  {
+   "id": "must_act",
+   "type": "items",
+   "group": "Must-act items surfaced",
+   "label": "The brief mentions each must-act item: the 10:00 Vendor demo overlapping the 9:30 Planning (named together with a word like conflict or overlap), the Q3 expense report due at 5 PM, and the client's unanswered question about the proposal timeline. If none of the three is mentioned, the score is capped at 5.",
+   "passed": true,
+   "detail": "3/3 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "conflict",
+     "label": "Flags the Planning / Vendor demo conflict",
+     "passed": true,
+     "detail": "2/2 mentioned"
+    },
+    {
+     "id": "deadline:reminder-q3-expense-report-due-wednesday",
+     "label": "Mentions Reminder: Q3 expense report due Wednesday 5 PM",
+     "passed": true,
+     "detail": "mentioned"
+    },
+    {
+     "id": "unanswered:question-about-the-proposal-timeline",
+     "label": "Mentions Question about the proposal timeline",
+     "passed": true,
+     "detail": "mentioned"
+    }
+   ]
+  },
+  {
+   "id": "grounded",
+   "type": "grounded_numbers",
+   "group": "Numbers from the sources",
+   "label": "Every figure of 11 or more in the reply appears in the mock weather, email, calendar or news data (list numbers and small counts are ignored; whole hours also count as 24-hour times).",
+   "passed": true,
+   "detail": "every figure is in the sources"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Sections in order",
+   "passed": 6.0,
+   "total": 6,
+   "detail": "6/6 items"
+  },
+  {
+   "id": "Top 3 has three items",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "1/1 items"
+  },
+  {
+   "id": "Must-act items surfaced",
+   "passed": 3.0,
+   "total": 3,
+   "detail": "3/3 items"
+  },
+  {
+   "id": "Numbers from the sources",
+   "passed": 1,
+   "total": 1,
+   "detail": "every figure is in the sources"
+  }
+ ]
+}

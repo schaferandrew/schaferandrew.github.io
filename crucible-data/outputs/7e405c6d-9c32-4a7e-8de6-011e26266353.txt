@@ -1,0 +1,15 @@
+ERRORS:
+one of the two items were damaged → one of the two items was damaged
+havent → haven't
+crush → crushed
+
+CORRECTED:
+Subject: Refund for order 84721
+
+Hi Support,
+I am writing because my order arrived three days late, and one of the two items was damaged. I contacted support last week but I haven't heard anything back. The box was clearly crushed on one side, and the mug inside has a crack through the handle. I would like a refund for the mug, but please let me know if you need pictures of it. Also, your website says refunds are processed in 5-7 business days, which seem to have passed already for my earlier request. Can you tell me what the status is? Thanks for your help.
+
+STYLE:
+Consider using an en dash in “5–7” for typographic consistency.
+Consider “I’m writing because” instead of “I am writing because” for a slightly more concise tone.
+Consider “Could you tell me the status?” instead of “Can you tell me what the status is?” for a more concise phrasing.

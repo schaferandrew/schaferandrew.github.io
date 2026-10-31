@@ -1,0 +1,23 @@
+## Emails
+
+- **Project update – Q3 review completed** (alex@example.com, 10:30 AM): The Q3 review is complete and ahead of schedule; Alex wants to discuss the results in your planning meeting.
+- **Reminder: Q3 expense report due Wednesday 5 PM** (finance@example.com, 2:15 PM): Submit your Q3 expense report by **5:00 PM today** or it will be paid with next month's payroll.
+- **Question about the proposal timeline** (client@example.com, 4:45 PM): The client needs confirmation on whether the revised proposal can be delivered by **Friday** before they brief their team. Reply when you can.
+- **Meeting notes from yesterday** (jamie@example.com, 9:00 AM): Notes from your 1-on-1 covering career goals, next-quarter priorities, and team building.
+
+## Calendar
+
+- **9:30–10:30 AM – Planning**, Room B (alex@example.com)
+- **10:00–11:00 AM – Vendor demo**, Zoom (vendor@example.com) — *overlaps with Planning*
+- **1:00–2:00 PM – Budget meeting**, Conference Room A (jamie@example.com)
+- **Deadline: Q3 expense report due by 5:00 PM**
+
+## News
+
+- **Twin Cities Tech Conference Returns** (StarTribune, high): The annual conference returns to Minneapolis with 50+ speakers on AI, startup funding, and emerging tech. Registration opens this Friday.
+- **Maplewood Park Renovation Complete** (Pioneer Press, medium): Renovations finished ahead of schedule with new walking trails and a playground; grand reopening is Saturday.
+- **State Fair Attendance Drops Slightly** (StarTribune, low): Minnesota State Fair attendance fell 3% this year, attributed to cooler-than-average weather.
+
+## Spanish practice
+
+Hoy es miércoles y tienes un día bastante ocupado. A las nueve y media tienes la reunión de planificación, pero a las diez también hay una demostración de un proveedor, así que tendrás que elegir o dividir tu tiempo. Después, a la una, tienes la reunión de presupuesto con Jamie. No olvides enviar tu informe de gastos del tercer trimestre antes de las cinco de la tarde, porque si no, lo pagarán el próximo mes. También deberías responder al cliente sobre la propuesta revisada: necesita una respuesta antes del viernes. Por suerte, el tiempo en Saint Paul sigue siendo agradable, y el fin de semana reabre el parque Maplewood con nuevos senderos para caminar.

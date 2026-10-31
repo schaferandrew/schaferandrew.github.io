@@ -1,0 +1,15 @@
+Both `npm test` (36 passing) and `npm run build` succeed, and the prerendered `/contact` HTML contains all the required form ids.
+
+## What was wrong
+
+1. **Build failure:** `app/contact/LeadForm.tsx` was a Server Component with an `onSubmit` handler. Next.js 14 can't pass event handlers from a server component, so static generation of `/contact` timed out.
+2. **Unusable inputs:** the form was "controlled" with a module-level `values` object that `onChange` mutated without ever triggering a re-render, so typed text never appeared.
+3. **No validation anywhere:** the form only fired a bare `POST`, and `app/api/leads/route.ts` saved whatever it received — no trimming, no email normalization, no required-field checks, and any input was accepted.
+
+## What I changed
+
+- **`app/contact/LeadForm.tsx`** — added `"use client"`, real `useState`-backed controlled fields, `noValidate` to suppress browser popups, and shared validation. On problems it renders each field error (`lead-*-error`), sets `aria-invalid`/`aria-describedby`, focuses the first bad field, keeps typed values, and sends nothing. On success it POSTs normalized JSON and swaps the form for `#lead-success`. Enter submits (Shift+Enter keeps a newline in the textarea).
+- **`lib/leadValidation.ts`** (new) — pure, client-safe validation: trims every field, treats whitespace/missing company as `""`, and normalizes email to trimmed+lowercased. Email acceptance covers spaces, capitals, plus addressing, dots, subdomains, hyphenated labels and long TLDs; validation enforces exactly one `@`, no spaces or empty dot segments, alphanumeric/inner-hyphen labels, and a ≥2-letter TLD.
+- **`app/api/leads/route.ts`** — now the authority: safely parses JSON, validates/normalizes, returns `422 {errors}` and saves nothing on problems, otherwise `201 {lead: <saved lead>}`.
+- **`lib/leads.ts`** — reuses the shared `Lead` type.
+- Added tests: `lib/leadValidation.test.ts`, `app/api/leads/route.test.ts`, `app/contact/LeadForm.test.tsx`.

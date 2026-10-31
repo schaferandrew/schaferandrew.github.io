@@ -1,0 +1,105 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "80e13fbd-824f-4f05-8f04-a6fcf0bf31b8",
+ "run_path": "openrouter_deepseek_deepseek-v4.1-flash/nextjs-server-data-boundary/20261031_044111",
+ "legacy_run_id": null,
+ "started_at": "2026-10-31T04:41:19.389457+00:00",
+ "ended_at": "2026-10-31T04:43:41.686324+00:00",
+ "elapsed_s": 142.06,
+ "task": {
+  "id": "nextjs-server-data-boundary",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "f5196c62d3613d53",
+  "rubric_hash": "071f25e0acdbacbf",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/deepseek/deepseek-v4.1-flash",
+  "base": "deepseek/deepseek-v4.1-flash",
+  "publisher": "deepseek",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek/deepseek-v4.1-flash|deepseek|api|-",
+  "display": "deepseek-v4.1-flash",
+  "origin": {
+   "maker": "deepseek",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": {
+   "reason": "Contaminated: the agent read files in crucible's checkout outside its workspace (see leaks).",
+   "marked_at": "2026-10-31T04:43:52.725217+00:00"
+  },
+  "leaks": [
+   "/Users/schafer/Developer/crucible,",
+   "/Users/schafer/Developer/crucible/graders/nextjs-server-data-boundary",
+   "/Users/schafer/Developer/crucible/graders/nextjs-server-data-boundary/boundary.grader.test.ts",
+   "/Users/schafer/Developer/crucible/graders/nextjs-server-data-boundary/expected.json;",
+   "/Users/schafer/Developer/crucible/graders/nextjs-server-data-boundary/expected.json\\n/Users/schafer/Developer/crucible/graders/nextjs-server-data-boundary/grader.yaml\\n/Users/schafer/Developer/crucible/graders/nextjs-server-data-boundary/boundary.grader.test.ts\\n/Users/schafer/Developer/crucible/graders/nextjs-server-data-boundary/solution/app/page.test.tsx\\n/Users/schafer/Developer/crucible/graders/nextjs-server-data-boundary/solution/app/page.tsx\\n/Users/schafer/Developer/crucible/graders/nextjs-server-data-boundary/solution/lib/accounts.ts\\n",
+   "/Users/schafer/Developer/crucible/graders/nextjs-server-data-boundary/grader.yaml;",
+   "/Users/schafer/Developer/crucible/graders/nextjs-server-data-boundary/solution/app/page.test.tsx",
+   "/Users/schafer/Developer/crucible/graders/nextjs-server-data-boundary/solution/app/page.tsx;",
+   "/Users/schafer/Developer/crucible/graders/nextjs-server-data-boundary/solution/lib/accounts.ts;",
+   "/Users/schafer/Developer/crucible/tasks/nextjs-server-da,",
+   "/Users/schafer/Developer/crucible/tasks/nextjs-server-data-boundary.yaml;",
+   "/Users/schafer/Developer/crucible/tasks/nextjs-server-data-boundary.yaml\\n/Users/schafer/Developer/crucible/graders/nextjs-server-data-boundary\\n/Users/schafer/.crucible/workspaces/openrouter_deepseek_deepseek-v4.1-flash_nextjs-server-data-boundary_20261031_044111\\n---machine---\\n{\\n"
+  ]
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 27,
+  "tokens_in": 252103,
+  "tokens_out": 14527,
+  "model_responses": 19,
+  "ttft_s": 1.69,
+  "ttft_avg_s": 2.491,
+  "response_time_avg_s": 5.952,
+  "output_tokens_per_s": 220.9,
+  "cost_usd": 0.008726,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/80e13fbd-824f-4f05-8f04-a6fcf0bf31b8.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "9ae9187",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:df370dbfe42d8d00c8f8bc52309ee91f68ebe2bb10b3f6c3eaf4efb7dc34de25",
+  "submitter": null,
+  "verification": null
+ }
+}

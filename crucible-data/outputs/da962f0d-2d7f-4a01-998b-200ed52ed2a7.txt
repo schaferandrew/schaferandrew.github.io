@@ -1,0 +1,17 @@
+## Summary
+
+**Root cause.** When a session expired (the build's TTL is 30s) or was otherwise invalid, `GET /api/dashboard` returned **HTTP 200** with `{user: null, dashboardMessage: ""}`. The dashboard page treated any falsy `data.user` by explicitly clearing both fields to `''`, producing the intermittent blank state. It was intermittent because it depended on whether the dashboard loaded before or after the 30s expiry.
+
+I reproduced this end-to-end: logged in via the real UI in headless Chrome, waited past the TTL, reloaded the dashboard, and observed a blank DOM while the network tab showed `200 /api/dashboard` with a null user and no console errors. Server-side curl confirmed the same.
+
+**Fix.**
+- `server.js` — `/api/dashboard` now returns **401** with `error`, `user: null`, and an empty message for `no_session` / `stale_session` / `expired_session`, so clients can distinguish auth failure from an empty dashboard.
+- `public/dashboard.html` — on 401/403 (or a null user) it redirects to `/login.html` instead of blanking; network errors leave placeholders rather than silently clearing the page.
+
+**Verification.**
+- Re-ran the browser harness after the fix: after expiry, `/api/dashboard` → `401`, final path `/login.html`, login form present — no blank state.
+- Added regression tests:
+  - `server.test.js`: unauthenticated dashboard request → 401; session advanced past TTL → 401 `expired_session`.
+  - `dashboard.test.js` (new, jsdom): renders the page with a stubbed API, asserts a valid session renders normally and an expired (401) session triggers navigation rather than blanking.
+- Confirmed the new client test fails against the original `dashboard.html`, proving it guards the bug.
+- `npm test`: **2 files, 11 tests, all passing.**

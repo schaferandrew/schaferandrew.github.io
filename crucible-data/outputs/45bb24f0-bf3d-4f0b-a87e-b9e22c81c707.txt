@@ -1,0 +1,11 @@
+I saved `slots.json` in the working directory. It lists 82 valid start times across the window, weekend included.
+
+I generated the slots with a script that checks every half-hour start from 9:00 to 16:00 on each of the eight days. A slot counts only if it doesn't overlap any busy event of either person. Back-to-back is allowed. I didn't open the saved file again to check it.
+
+The top three are all weekday 2:00 PM starts, and each one sits right next to an existing meeting so it leaves no gap:
+
+1. **Tuesday 2026-09-01 at 14:00** ends exactly when Alex's customer call starts at 15:00.
+2. **Wednesday 2026-09-02 at 14:00** starts right after Jamie's budget meeting ends at 14:00.
+3. **Thursday 2026-09-03 at 14:00** ends as Jamie's review starts at 15:00.
+
+I read "avoid the first or last available hour of the day" as ruling out each day's earliest and latest open slots, so I skipped options like Tuesday 10:00 and Wednesday 10:30 even though they also touch a meeting.

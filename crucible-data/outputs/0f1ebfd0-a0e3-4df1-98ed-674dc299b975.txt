@@ -1,0 +1,42 @@
+Done. Everything is green: `npm run typecheck` passes, and the full suite is **38 API tests + 12 web tests** passing. The RealWorld contract test is byte-for-byte unmodified.
+
+## What I changed
+
+**Shared (`packages/shared`)**
+- `types.ts`: added `ArticleStatus`, and `status` + `reviewComment` to `Article`; added `UserArticleListQuery`.
+- `validation.ts`: `createArticleSchema` now accepts an optional `status`; added `rejectArticleSchema` requiring a non-blank `review.comment`.
+
+**API**
+- `db.ts`: `ArticleRow` carries `status` and `reviewComment`.
+- `repositories/articles.ts`: `listArticles` supports status filtering and oldest/newest order; `popularTags` only counts published articles; added `updateArticleReviewState`.
+- `services/articles.ts`: status-aware `createArticle`; public listing/feed pinned to `published`; new `listUserArticles`, `reviewQueue`, `submitArticle`, `approveArticle`, `rejectArticle`; visibility gate on `getArticle`; favorite/unfavorite restricted to published.
+- `services/comments.ts`: comments require a published article.
+- `services/presenters.ts`: emits `status`/`reviewComment`, and defensively nulls feedback on published articles.
+- `routes/articles.ts`: `/articles/review-queue` (registered before `:slug`), `submit`/`approve`/`reject` routes.
+- `routes/users.ts`: `GET /user/articles` with status validation.
+- `app.ts` + `server.ts`: `createApp(db, { editors })` and `EDITORS` env parsing.
+- New `editors.ts` for username-based editor checks.
+
+**Web**
+- `api/client.ts`: editor/workflow methods and draft-aware `createArticle`.
+- New `ReviewPage` (approve/send-back with mandatory feedback) and `MyArticlesPage` (status, feedback, submit drafts, status filter).
+- `EditorPage` gets a “Save as Draft” action; `App.tsx` wires routes/nav.
+
+## Conflicts resolved (and why)
+
+- **Public author listing vs. author’s own drafts.** `GET /api/articles?author=X` stays published-only so anonymous and other users never learn a draft exists; authors get everything from `GET /api/user/articles`.
+- **Tags as derived data.** `GET /api/tags` counts only published articles, otherwise tag names/counts would leak unapproved work.
+- **Unknown/unapproved slug.** Returns **404**, not 403, so an outsider can’t even confirm existence. The author (any status) and editors (any status, so reviews/feedback work) pass the gate.
+- **Feedback privacy.** Rejections overwrite `reviewComment`; approval clears it; the presenter also refuses to emit a comment once `status === "published"`.
+- **Permission precedes transition validity.** A non-editor gets 403 even when the transition is also invalid; an editor can’t approve/reject their own article (403).
+- **Create status.** `"draft"` is honored; absent or `"published"` publishes immediately (existing clients unchanged); `"in_review"` is 422.
+
+## Would flag in code review
+
+- No feedback history: each rejection overwrites `reviewComment`. If “conversation” needs an audit trail, add a `review_events` table and return the thread.
+- Editors can read any draft via `GET /articles/:slug`, broader than the queue. Trusted, but easy to tighten to `in_review` only.
+- No `editor` flag on `User`, so the web shows the Review link to all signed-in users and relies on the 403 message.
+- Review queue includes an editor’s own in-review articles (they can’t act on them); could filter client-side.
+- Last-write-wins on transitions; no optimistic concurrency if two editors act at once.
+- `updatedAt` bumps on status changes (harmless, but worth knowing).
+- Web UI is deliberately minimal; no rich editor and no reply-to-feedback flow.

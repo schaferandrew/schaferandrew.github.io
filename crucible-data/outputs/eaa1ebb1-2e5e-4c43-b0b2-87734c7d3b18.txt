@@ -1,0 +1,36 @@
+1. Count multiples of 3, plus multiples of 7, minus twice multiples of 21:  
+\[
+\left\lfloor\frac{10000}{3}\right\rfloor+\left\lfloor\frac{10000}{7}\right\rfloor-2\left\lfloor\frac{10000}{21}\right\rfloor
+=3333+1428-952=3809.
+\]
+
+2. Since \(7^4=2401\equiv 1\pmod{100}\), and \(2026\equiv 2\pmod 4\),  
+\[
+7^{2026}\equiv 7^2=49\pmod{100}.
+\]
+
+3. Let \(f(n)\) be the number of tilings of a \(2\times n\) board. Then  
+\[
+f(n)=f(n-1)+2f(n-2),
+\]
+with \(f(0)=1\), \(f(1)=1\). Computing to \(n=12\):
+\[
+f(12)=2731.
+\]
+
+4. The largest die is exactly 4 iff all dice are \(\le 4\) and not all are \(\le 3\):
+\[
+\frac{4^3-3^3}{6^3}=\frac{64-27}{216}=\frac{37}{216}.
+\]
+
+5. There are \(14\) equally likely birth-type outcomes per child: boy/girl and 7 weekdays. Event “at least one boy born on Tuesday” occurs in \(14^2-13^2=27\) ordered cases. Among these, both children are boys in \(7^2-6^2=13\) cases.  
+\[
+\frac{13}{27}.
+\]
+
+ANSWERS
+1. 3809
+2. 49
+3. 2731
+4. 37/216
+5. 13/27

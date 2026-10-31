@@ -1,0 +1,11 @@
+Criterion 1 (Correct complexity, 4): The response states O(n log n), not O(log n). The criterion is not met. 0/4.
+
+Criterion 2 (Explanation, 3): The response mentions "repeatedly checks the middle element," but never says that each step halves the search range. It attributes the complexity to sorting. Partial credit for the middle-element mention is arguably unwarranted because the explanation is wrong. 0/3.
+
+Criterion 3 (Precondition, 2): The response says binary search works on any array, sorted or not. This directly contradicts the requirement that the input be sorted. 0/2.
+
+Criterion 4 (Clarity, 1): The answer is clearly organised and easy to read, but it is wrong in content. The criterion is about clarity and organisation, so some credit is possible. I give 0.5/1.
+
+Total: 0.5/10.
+
+GRADE: 0.5

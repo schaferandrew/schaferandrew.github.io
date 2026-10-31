@@ -1,0 +1,76 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "cdfae2d9-2a56-43ce-96fa-f3ff7ee3bd7d",
+ "rubric_version": 2,
+ "rubric_hash": "63748bedb94bf1b8",
+ "method": "checks",
+ "scored_at": "2026-10-31T05:07:53.563419+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 0,
+  "total": 6,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "capitals",
+   "type": "items",
+   "group": "Capitals",
+   "label": "Each country line names its capital and nothing else: Australia: Canberra, Canada: Ottawa, Brazil: Brasília, Nigeria: Abuja, Türkiye: Ankara, Switzerland: Bern; one item per country.",
+   "passed": false,
+   "detail": "0/6 items; failed: australia (got Canberra, Canada: Ottawa, Brazil: Brasília, Nigeria: Abuja, Türkiye: Ankara, Switzerland: Bern), canada (not in the block), brazil (not in the block), nigeria (not in the block), turkiye (not in the block), switzerland (not in the block)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "australia",
+     "label": "Australia is Canberra",
+     "passed": false,
+     "detail": "got Canberra, Canada: Ottawa, Brazil: Brasília, Nigeria: Abuja, Türkiye: Ankara, Switzerland: Bern"
+    },
+    {
+     "id": "canada",
+     "label": "Canada is Ottawa",
+     "passed": false,
+     "detail": "not in the block"
+    },
+    {
+     "id": "brazil",
+     "label": "Brazil is Brasília",
+     "passed": false,
+     "detail": "not in the block"
+    },
+    {
+     "id": "nigeria",
+     "label": "Nigeria is Abuja",
+     "passed": false,
+     "detail": "not in the block"
+    },
+    {
+     "id": "turkiye",
+     "label": "Türkiye is Ankara",
+     "passed": false,
+     "detail": "not in the block"
+    },
+    {
+     "id": "switzerland",
+     "label": "Switzerland is Bern",
+     "passed": false,
+     "detail": "not in the block"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Capitals",
+   "passed": 0.0,
+   "total": 6,
+   "detail": "0/6 items; failed: australia (got Canberra, Canada: Ottawa, Brazil: Brasília, Nigeria: Abuja, Türkiye: Ankara, Switzerland: Bern), canada (not in the block), brazil (not in the block), nigeria (not in the block), turkiye (not in the block), switzerland (not in the block)"
+  }
+ ]
+}

@@ -1,0 +1,88 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "63db8de3-3015-4a7d-83c9-5b6659f195d4",
+ "rubric_version": 2,
+ "rubric_hash": "13b36751db77b664",
+ "method": "checks",
+ "scored_at": "2026-10-31T04:41:11.287698+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 10.0,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "session",
+   "type": "audit_log",
+   "group": "Ended with a valid session",
+   "label": "The app's audit log shows a login as testuser whose session then served the dashboard and was not logged out afterwards. Without it the score is capped at 3.",
+   "passed": true,
+   "detail": "login_success then dashboard_ok"
+  },
+  {
+   "id": "reset_flow",
+   "type": "audit_log",
+   "group": "Recovered through the reset flow",
+   "label": "The audit log shows the documented reset flow for testuser (reset requested, password reset with the token, then a login), in that order.",
+   "passed": true,
+   "detail": "reset_requested then password_reset then login_success"
+  },
+  {
+   "id": "code_untouched",
+   "type": "workspace_unchanged",
+   "group": "Used the app, not its code",
+   "label": "server.js, public/, SKILL.md and accounts.json are exactly as seeded (git diff against the seeded commit), and the audit log shows the app was used. Otherwise the score is capped at 3.",
+   "passed": true,
+   "detail": "as seeded"
+  },
+  {
+   "id": "failure_mode",
+   "type": "items",
+   "group": "Names the failure mode",
+   "label": "The last FAILURE: line names the seeded failure mode, wrong password (the skill's name for it is enough).",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "mode",
+     "label": "FAILURE names the seeded mode (wrong password)",
+     "passed": true,
+     "detail": "got Wrong Password"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Ended with a valid session",
+   "passed": 3,
+   "total": 3,
+   "detail": "login_success then dashboard_ok"
+  },
+  {
+   "id": "Recovered through the reset flow",
+   "passed": 3,
+   "total": 3,
+   "detail": "reset_requested then password_reset then login_success"
+  },
+  {
+   "id": "Used the app, not its code",
+   "passed": 1,
+   "total": 1,
+   "detail": "as seeded"
+  },
+  {
+   "id": "Names the failure mode",
+   "passed": 3.0,
+   "total": 3,
+   "detail": "1/1 items"
+  }
+ ]
+}

@@ -1,0 +1,61 @@
+Both puzzles were solved by matching the crossing letters of the long words first, then filling the short slots from the leftover words.
+
+**Puzzle A**
+
+- The four 7-letter slots (4-ACROSS, 4-DOWN, 5-DOWN, 12-ACROSS) form a loop of shared corner letters. 4-ACROSS and 4-DOWN share a first letter, so they must be COUNCIL and COURAGE. Their last letters then force LIBRARY and ECONOMY into 5-DOWN and 12-ACROSS.
+- If 4-ACROSS is COURAGE, then 7-ACROSS and 10-ACROSS both need PROBE, which is impossible. So 4-ACROSS = COUNCIL, 4-DOWN = COURAGE, 5-DOWN = LIBRARY and 12-ACROSS = ECONOMY.
+- 2-DOWN has C as its third letter, which gives UNCLE. It starts 2-ACROSS with U (UPSET) and ends in E, so 7-ACROSS starts with E (ELBOW). 3-DOWN starts with T and ends in W, giving THREW.
+- 9-DOWN has O as its third letter (from ECONOMY), giving PROBE. That makes 8-ACROSS SWAMP and 10-ACROSS DEALT.
+- DEALT ends in T, so 11-DOWN is TWIST. PROBE ends in E, so 13-ACROSS is DRIVE, and 8-DOWN (S…D) is SQUAD.
+- 6-ACROSS needs U as its third letter, giving COUNT. That leaves SHIRT for 14-ACROSS (ending in T), and CUBIC (1-DOWN, ending in C) and CANDY (1-ACROSS).
+
+**Puzzle B**
+
+- 17-ACROSS and 17-DOWN share a first letter, and 17-DOWN must start with A, so it is ANOTHER or APRICOT. The ALIKE/IMAGINE option fails because 25-ACROSS would need to start with I. So 17-ACROSS = APPLY, 18-DOWN = PLASTIC and 20-ACROSS = AROMA. That makes 17-DOWN ANOTHER, and 22-ACROSS (ending in H) PUBLISH.
+- 27-ACROSS has R as its third letter and C as its fifth, giving APRICOT. Then 24-DOWN has A as its third letter, giving IMAGINE, and 23-DOWN is BARGAIN.
+- 29-ACROSS is ALIKE (A at column 3, I at column 5) and 31-ACROSS is OUNCE.
+- 19-DOWN ends in P, so it is TOP. 26-ACROSS ends in R. If it were TAR, 26-DOWN would be a fifth T-word, and only four T-words exist. So 26-ACROSS = CAR and 26-DOWN = COG.
+- 30-ACROSS and 30-DOWN share a first letter, so they are ANY and APT. Only ANY across works, because 28-DOWN would otherwise have to end in T. So 30-ACROSS = ANY, 30-DOWN = APT, 28-DOWN = TOY, and 32-ACROSS starts with T.
+- The remaining crossings force 16-DOWN = FAN, 19-ACROSS = TEN, 15-ACROSS = ELF, 21-DOWN = ONE, 25-ACROSS = TIE and 32-ACROSS = TAR.
+
+ANSWERS:
+1-ACROSS: CANDY
+1-DOWN: CUBIC
+2-ACROSS: UPSET
+2-DOWN: UNCLE
+3-DOWN: THREW
+4-ACROSS: COUNCIL
+4-DOWN: COURAGE
+5-DOWN: LIBRARY
+6-ACROSS: COUNT
+7-ACROSS: ELBOW
+8-ACROSS: SWAMP
+8-DOWN: SQUAD
+9-DOWN: PROBE
+10-ACROSS: DEALT
+11-DOWN: TWIST
+12-ACROSS: ECONOMY
+13-ACROSS: DRIVE
+14-ACROSS: SHIRT
+15-ACROSS: ELF
+16-DOWN: FAN
+17-ACROSS: APPLY
+17-DOWN: ANOTHER
+18-DOWN: PLASTIC
+19-ACROSS: TEN
+19-DOWN: TOP
+20-ACROSS: AROMA
+21-DOWN: ONE
+22-ACROSS: PUBLISH
+23-DOWN: BARGAIN
+24-DOWN: IMAGINE
+25-ACROSS: TIE
+26-ACROSS: CAR
+26-DOWN: COG
+27-ACROSS: APRICOT
+28-DOWN: TOY
+29-ACROSS: ALIKE
+30-ACROSS: ANY
+30-DOWN: APT
+31-ACROSS: OUNCE
+32-ACROSS: TAR

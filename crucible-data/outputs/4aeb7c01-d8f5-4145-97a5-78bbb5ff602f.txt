@@ -1,0 +1,6 @@
+Done. The morning brief is written to `morning-brief.md` with all four required sections:
+
+- **Emails** — Q3 review update from Alex, 1-on-1 notes from Jamie, expense report deadline from Finance (due 5 PM today), and the client's proposal timeline question
+- **Calendar** — Today's events (Planning at 9:30, Vendor demo at 10:00 — with a note about the 30-min overlap — Budget meeting at 1 PM) plus upcoming Thursday/Friday events
+- **News** — Top story about the Twin Cities Tech Conference (registration opens Friday), Maplewood Park renovation, State Fair attendance, and today's weather (68°F, partly cloudy)
+- **Spanish practice** — A single paragraph in Spanish tying together today's busy agenda, the expense report deadline, the client proposal, and the pleasant fall weather

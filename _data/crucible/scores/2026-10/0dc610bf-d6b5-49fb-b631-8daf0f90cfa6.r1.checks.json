@@ -1,0 +1,218 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "0dc610bf-d6b5-49fb-b631-8daf0f90cfa6",
+ "rubric_version": 1,
+ "rubric_hash": "f542332fa2498e17",
+ "method": "checks",
+ "scored_at": "2026-10-31T04:14:17.724617+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 24.0,
+  "total": 24,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "puzzle_a_rows",
+   "type": "items",
+   "group": "Classic sudoku",
+   "label": "Answers 1 to 9 are the rows of solved Puzzle A (classic 9x9, 25 givens), top to bottom: 481296753, 762835149, 395741862, 518964237, 947312586, 236578491, 173459628, 624183975, 859627314; one item per row.",
+   "passed": true,
+   "detail": "9/9 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "a_row1",
+     "label": "Answer 1 (Puzzle A row 1) is 481296753",
+     "passed": true,
+     "detail": "got 481296753"
+    },
+    {
+     "id": "a_row2",
+     "label": "Answer 2 (Puzzle A row 2) is 762835149",
+     "passed": true,
+     "detail": "got 762835149"
+    },
+    {
+     "id": "a_row3",
+     "label": "Answer 3 (Puzzle A row 3) is 395741862",
+     "passed": true,
+     "detail": "got 395741862"
+    },
+    {
+     "id": "a_row4",
+     "label": "Answer 4 (Puzzle A row 4) is 518964237",
+     "passed": true,
+     "detail": "got 518964237"
+    },
+    {
+     "id": "a_row5",
+     "label": "Answer 5 (Puzzle A row 5) is 947312586",
+     "passed": true,
+     "detail": "got 947312586"
+    },
+    {
+     "id": "a_row6",
+     "label": "Answer 6 (Puzzle A row 6) is 236578491",
+     "passed": true,
+     "detail": "got 236578491"
+    },
+    {
+     "id": "a_row7",
+     "label": "Answer 7 (Puzzle A row 7) is 173459628",
+     "passed": true,
+     "detail": "got 173459628"
+    },
+    {
+     "id": "a_row8",
+     "label": "Answer 8 (Puzzle A row 8) is 624183975",
+     "passed": true,
+     "detail": "got 624183975"
+    },
+    {
+     "id": "a_row9",
+     "label": "Answer 9 (Puzzle A row 9) is 859627314",
+     "passed": true,
+     "detail": "got 859627314"
+    }
+   ]
+  },
+  {
+   "id": "puzzle_b_rows",
+   "type": "items",
+   "group": "Anti-knight sudoku",
+   "label": "Answers 10 to 18 are the rows of solved Puzzle B (anti-knight 9x9, 20 givens), top to bottom: 257419638, 469835217, 318267594, 172596843, 695348172, 843721956, 584972361, 721653489, 936184725; one item per row.",
+   "passed": true,
+   "detail": "9/9 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "b_row1",
+     "label": "Answer 10 (Puzzle B row 1) is 257419638",
+     "passed": true,
+     "detail": "got 257419638"
+    },
+    {
+     "id": "b_row2",
+     "label": "Answer 11 (Puzzle B row 2) is 469835217",
+     "passed": true,
+     "detail": "got 469835217"
+    },
+    {
+     "id": "b_row3",
+     "label": "Answer 12 (Puzzle B row 3) is 318267594",
+     "passed": true,
+     "detail": "got 318267594"
+    },
+    {
+     "id": "b_row4",
+     "label": "Answer 13 (Puzzle B row 4) is 172596843",
+     "passed": true,
+     "detail": "got 172596843"
+    },
+    {
+     "id": "b_row5",
+     "label": "Answer 14 (Puzzle B row 5) is 695348172",
+     "passed": true,
+     "detail": "got 695348172"
+    },
+    {
+     "id": "b_row6",
+     "label": "Answer 15 (Puzzle B row 6) is 843721956",
+     "passed": true,
+     "detail": "got 843721956"
+    },
+    {
+     "id": "b_row7",
+     "label": "Answer 16 (Puzzle B row 7) is 584972361",
+     "passed": true,
+     "detail": "got 584972361"
+    },
+    {
+     "id": "b_row8",
+     "label": "Answer 17 (Puzzle B row 8) is 721653489",
+     "passed": true,
+     "detail": "got 721653489"
+    },
+    {
+     "id": "b_row9",
+     "label": "Answer 18 (Puzzle B row 9) is 936184725",
+     "passed": true,
+     "detail": "got 936184725"
+    }
+   ]
+  },
+  {
+   "id": "puzzle_c_rows",
+   "type": "items",
+   "group": "Irregular 6x6 sudoku",
+   "label": "Answers 19 to 24 are the rows of solved Puzzle C (irregular 6x6, 5 givens), top to bottom: 142356, 653421, 526143, 315264, 234615, 461532; one item per row.",
+   "passed": true,
+   "detail": "6/6 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "c_row1",
+     "label": "Answer 19 (Puzzle C row 1) is 142356",
+     "passed": true,
+     "detail": "got 142356"
+    },
+    {
+     "id": "c_row2",
+     "label": "Answer 20 (Puzzle C row 2) is 653421",
+     "passed": true,
+     "detail": "got 653421"
+    },
+    {
+     "id": "c_row3",
+     "label": "Answer 21 (Puzzle C row 3) is 526143",
+     "passed": true,
+     "detail": "got 526143"
+    },
+    {
+     "id": "c_row4",
+     "label": "Answer 22 (Puzzle C row 4) is 315264",
+     "passed": true,
+     "detail": "got 315264"
+    },
+    {
+     "id": "c_row5",
+     "label": "Answer 23 (Puzzle C row 5) is 234615",
+     "passed": true,
+     "detail": "got 234615"
+    },
+    {
+     "id": "c_row6",
+     "label": "Answer 24 (Puzzle C row 6) is 461532",
+     "passed": true,
+     "detail": "got 461532"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Classic sudoku",
+   "passed": 9.0,
+   "total": 9,
+   "detail": "9/9 items"
+  },
+  {
+   "id": "Anti-knight sudoku",
+   "passed": 9.0,
+   "total": 9,
+   "detail": "9/9 items"
+  },
+  {
+   "id": "Irregular 6x6 sudoku",
+   "passed": 6.0,
+   "total": 6,
+   "detail": "6/6 items"
+  }
+ ]
+}

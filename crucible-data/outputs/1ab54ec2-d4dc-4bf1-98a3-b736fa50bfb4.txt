@@ -1,0 +1,9 @@
+GRADE: 9
+
+Reasoning:
+- **Correctness (5)**: The function correctly identifies palindromes by ignoring case and non-alphanumeric characters.
+- **Ignores case and non-alphanumeric characters (2)**: Both are handled appropriately in the code.
+- **Examples (2)**: Two example calls with correct results are shown.
+- **Concise (1)**: The response gets to the point without unnecessary preamble or padding.
+
+The final line is exactly as requested.

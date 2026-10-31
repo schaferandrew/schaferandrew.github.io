@@ -1,0 +1,65 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "7c52d693-3cf0-4688-96d3-3ba5e3f641f7",
+ "rubric_version": 2,
+ "rubric_hash": "93b038f024a752e9",
+ "method": "checks",
+ "scored_at": "2026-10-31T04:35:01.700784+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 10,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "says_red",
+   "type": "required_patterns",
+   "group": "Correct answer",
+   "label": "Says US fire trucks are red (lime-yellow or white variants can be mentioned too).",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "red_first",
+   "type": "required_patterns",
+   "group": "Red is the answer",
+   "label": "Red is the first color it names (other colors mentioned afterward as variants are fine).",
+   "passed": true,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "brief",
+   "type": "non_empty",
+   "group": "Brief",
+   "label": "Answers in a sentence or two (at most 60 words).",
+   "passed": true,
+   "detail": "18 words"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Correct answer",
+   "passed": 7,
+   "total": 7,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Red is the answer",
+   "passed": 2,
+   "total": 2,
+   "detail": "1/1 found"
+  },
+  {
+   "id": "Brief",
+   "passed": 1,
+   "total": 1,
+   "detail": "18 words"
+  }
+ ]
+}

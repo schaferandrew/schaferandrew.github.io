@@ -1,0 +1,10 @@
+I fixed only the clear errors: “then” → “than” and “to” → “too.” I left the fragments, em dash, sentence-initial “And,” and comma before “or” as potentially stylistic.
+
+CORRECTED:
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder than she remembered it, all brakes shrieking and people talking too fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+POSSIBLY INTENTIONAL:
+"Not waiting for her, exactly.": sentence fragment may be deliberate for rhythm and emphasis.
+"That would have been too kind.": sentence fragment may be deliberate for voice and rhythm.
+"Still—she was back.": fragment and em dash may be intentional for dramatic pause.
+"And she didn't know whether to laugh, or leave.": sentence-initial "And" may be deliberate; the comma before "or" may be a rhythmic pause.

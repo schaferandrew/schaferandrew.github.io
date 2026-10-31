@@ -1,0 +1,42 @@
+All tests pass (41 total: 31 API, 10 web) and the contract test is untouched. Here's a summary.
+
+## What I changed
+
+### API
+
+**Cursor module** — `apps/api/src/cursor.ts` (new)
+- Base64url payload `{v, e(endpoint), q(query fingerprint), t(createdAt ms), i(id)}` plus an HMAC-SHA256 signature.
+- `decodeCursor` verifies the signature with `timingSafeEqual`, then checks the endpoint and query fingerprint; any failure throws `422 {errors:{cursor:[...]}}`.
+- `positionAfter` returns the first row strictly after a position in `(createdAt desc, id desc)` order.
+
+**Repositories**
+- `repositories/articles.ts`: `listArticles` now accepts an optional cursor and returns `{rows, count, nextPosition}`. Cursor paging selects strictly after the last page's position, so concurrent inserts above the cursor and deletes below it can't shift the window. Offset path is unchanged when no cursor.
+- `repositories/comments.ts`: `commentsForArticle` gained optional `limit`/`cursor` with the same keyset logic; without `limit` it still returns everything.
+
+**Services** return raw listings with `nextPosition`: `services/articles.ts` (`ArticleListing`), `services/comments.ts` (`CommentListing`).
+
+**Routes** — `routes/pagination.ts` + `routes/articles.ts`
+- `?cursor=` vs `?offset=`: both → 422; malformed/tampered → 422.
+- Cursor is bound to the endpoint and a fingerprint of the filters (`tag`/`author`/`favorited`; feed is bound to the viewer; comments to the article slug). Mismatch → 422.
+- Mint `nextCursor` (opaque string or `null`); `articlesCount` remains the full filtered total.
+
+### Shared
+`ArticlesResponse`/`CommentsResponse` gained `nextCursor: string | null`; `ArticleListQuery` gained `cursor`; added `CommentListQuery`.
+
+### Web
+- `ArticleList` now keeps loaded articles and shows a "Load more" button driven by `nextCursor` (hidden on the last page). It powers home tabs and both profile tabs.
+- `ArticlePage` comments load the same way ("Load more comments").
+- `client.ts` `comments`/`feed` accept cursors and return the full response.
+- Removed the numbered `Pagination` component.
+
+### Tests
+- New `apps/api/test/cursor-pagination.test.ts`: no-skip/no-repeat under concurrent create/delete/favorite, offset parity, feed and comment paging, malformed/tampered cursor, cross-filter/cross-endpoint/cross-article/cross-viewer rejection, cursor+offset.
+- New `apps/web/test/ArticlePage.test.tsx`; rewrote `ArticleList.test.tsx` for load-more accumulation; updated the `page()` helper.
+
+## Code review flags
+
+1. **Cursor secret**: `CURSOR_SECRET` falls back to a hardcoded development string. Production must set it; otherwise cursors are forgeable by anyone with the source. I'd add a startup assertion in production builds.
+2. **Statefulness**: cursors embed a position, not a snapshot. If a `favorited=` filter gains an item *older* than the cursor between requests, it won't appear — unavoidable for keyset paging on a mutable membership filter; worth documenting the guarantee as "items present at the first request are not skipped or repeated".
+3. **Feed viewer binding** means switching users mid-pagination yields a 422 rather than silently paging someone else's follow graph (intentional).
+4. `limit=0` still yields an empty page with `nextCursor: null` (matches pre-existing offset behavior); if clients can send it, consider rejecting 0 for cursor paging.
+5. `ArticlePage`'s `api.article` effect isn't cancellation-guarded (pre-existing); a rapid slug change could briefly show the previous article.

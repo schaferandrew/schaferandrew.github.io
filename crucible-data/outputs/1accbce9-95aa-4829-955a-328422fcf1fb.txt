@@ -1,0 +1,33 @@
+I've completed the task. Here's the write-up.
+
+## Root cause
+
+Two separate bugs combined to lock invited contributors out:
+
+1. **The editor guard used the wrong field.** `RequireWriter` gated on `user.onboardingComplete` (the bio/profile screen), while `acceptInvite` set `termsAcceptedAt` but never `onboardingComplete`. Meanwhile `WelcomePage` had a special case that redirected `accountState === "invited"` users to `/editor`. So an invited contributor bounced: editor → welcome → editor → welcome, forever. That's the "flashing"/unresponsive tab.
+
+2. **A pending invite blocked homepage sign-up.** `register` treated *any* existing row with the email as "taken", including an invite-created account that had no password and whose invite was never accepted. So `pending@example.com` got "email has already been taken" and then had no password to sign in with.
+
+The design doc and Legal disagreed on the gate: the design implied `onboardingComplete`/`accountState`, Legal says the requirement is terms acceptance and that a profile is *not* required. I followed Legal.
+
+## Decisions
+
+- **Gate the editor on `termsAcceptedAt`, not `onboardingComplete`** (`RequireWriter`). Legal: "every account that can publish must have accepted the current contributor terms… accepting the terms is required; filling in a profile is not." This also fixes already-broken accounts (rosa/tomek) with no data migration — they already have `termsAcceptedAt` set from `acceptInvite`, just `onboardingComplete: false`.
+- **`WelcomePage` now keys off terms acceptance** instead of `accountState`. A user who accepted terms (invite form) skips onboarding and goes to the editor; everyone else sees the terms form. This removes the redirect loop rather than patching around it.
+- **Invited accounts are still not asked for a bio** — the bio field is hidden for `accountState === "invited"`, but the terms checkbox remains, so the fallback (homepage-claim) path still satisfies Legal.
+- **`register` claims a pending-invite account** (unaccepted invite + no password) by filling in its username/password in place, preserving the editor's assigned work. `accountState` stays `"invited"` (design: editors use it to identify invite-originated contributors), and `termsAcceptedAt` stays null so they still must accept terms. I mark the invite accepted on claim so the account can't be claimed again.
+- **No API-level publish gate.** Legal's actionable sentence is "must not be able to reach the editor," and the contract suite (which must stay unmodified) creates articles as freshly registered users who have not accepted terms. I intentionally left article creation ungated to keep the RealWorld contract intact.
+
+## Tests
+
+- `apps/api/test/invites.test.ts` — accepting an invite records `termsAcceptedAt`; homepage sign-up claims a pending invite (same row, no duplicate) and can log in; a claimed invite can't be re-claimed; normal duplicate-email still 422; duplicate invites still rejected.
+- `apps/web/test/contributorAccess.test.tsx` — invited+terms user reaches the editor; unaccepted user is sent to welcome; terms-accepted-but-no-profile user reaches the editor; an invited user is not asked for a bio while a regular user is.
+
+I confirmed both new test files are **red against the original source** (2 API + 3 web failures) and green after the fix. Existing suites: all 24 API and 13 web tests pass, `realworld.contract.test.ts` untouched, `npm run typecheck` clean.
+
+## Code review flags
+
+- `passwordHash === ""` is used as "invited, unclaimed" sentinel; the explicit `markInviteAccepted` on claim is the real guard, but the sentinel is somewhat implicit. A dedicated `claimedAt`/state column would be clearer if this ever moves to a real DB.
+- Anyone who knows an invited email can claim a pending invite. That's the design's explicit intent (so work isn't lost), but it's worth confirming with security.
+- `findPendingInviteForUser` is a linear scan; fine for the in-memory store, but a real schema should index `invites(user_id, accepted_at)`.
+- The design doc still describes `accountState`/bio semantics; it should be updated to state that write access is gated on `termsAcceptedAt` per Legal, so the two docs stop drifting.

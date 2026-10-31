@@ -1,0 +1,10 @@
+
+
+I found two events on Tuesday, September 1, 2026:
+
+1. **"Design review"**: 14:00 - 15:30 (ends at exactly 3:30 PM)
+2. **"Customer call"**: 16:00 - 17:00 (starts at 4:00 PM)
+
+At 3:30 PM, the "Design review" event ends, and the next event doesn't begin until 4:00 PM. Therefore, the user is free starting from 3:30 PM.
+
+ANSWER: free

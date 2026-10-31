@@ -1,0 +1,12 @@
+I checked free/busy for all 16 Platform teammates (you plus 15) from Aug 31 to Sep 14, in Central Time. I counted Marcus's New York hours too, so I avoided anything late in his day.
+
+- **Tue Sep 1, 13:00–14:00:** Everyone is free. It falls after the usual 10:30 block most of the team has and clear of lunch conflicts.
+- **Tue Sep 8, 11:00–12:00:** Everyone is free. It's one of the few gaps that day.
+- **Wed Sep 2, 09:00–10:00:** Everyone is free, but it's early. It's 10:00 for Marcus in New York.
+
+Other possible slots: Sep 1 at 13:30, and Sep 9 at 15:00. Sep 3–4 are packed. Priya is out Sep 10–11, and Ben is busy all day Sep 14.
+
+OPTIONS:
+2026-09-01 13:00 America/Chicago
+2026-09-08 11:00 America/Chicago
+2026-09-02 09:00 America/Chicago

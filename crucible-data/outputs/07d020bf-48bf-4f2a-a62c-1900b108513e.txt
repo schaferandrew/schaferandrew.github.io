@@ -1,0 +1,23 @@
+**ANSWERS**
+
+1. **A bread recipe for 4 people uses 300 g of flour. How much flour for 10 people?**
+   - To find out how much flour is needed for 10 people, we can set up a proportion:
+     \[
+     \frac{300 \text{ g}}{4 \text{ people}} = \frac{x \text{ g}}{10 \text{ people}}
+     \]
+   - Solving for \( x \):
+     \[
+     x = 300 \times \frac{10}{4} = 750 \text{ g}
+     \]
+
+2. **A jacket costs $84.60 and is 15% off. What is the sale price, to the cent?**
+   - First, calculate the discount amount:
+     \[
+     \text{Discount Amount} = 84.60 \times 0.15 = 12.69
+     \]
+   - Subtract the discount from the original price to get the sale price:
+     \[
+     \text{Sale Price} = 84.60 - 12.69 = 71.91
+     \]
+
+**END OF WORKING**

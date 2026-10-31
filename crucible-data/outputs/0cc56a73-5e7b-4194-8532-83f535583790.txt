@@ -1,0 +1,52 @@
+All 57 tests pass (50 API + 7 web). The existing `realworld.contract.test.ts` remains green and unmodified. Here's a summary of all changes.
+
+---
+
+## Summary of Changes
+
+### Files Modified
+
+| File | Change |
+|------|--------|
+| `packages/shared/src/types.ts` | Added `ArticleStatus` type, `status` and `reviewComment` to `Article` |
+| `packages/shared/src/validation.ts` | Added optional `status: "draft"` to `createArticleSchema`, added `rejectArticleSchema` |
+| `apps/api/src/db.ts` | Added `status` & `reviewComment` to `ArticleRow`, added `editors: Set<string>` to `Db` |
+| `apps/api/src/repositories/articles.ts` | Status-aware `insertArticle`, added `listArticlesForReview` (oldest first), `listArticlesByUser` (by author + optional status filter), `listArticles` now accepts optional status filter |
+| `apps/api/src/services/presenters.ts` | `presentArticle` includes `status` and `reviewComment` (latter hidden from non-author/non-editor viewers) |
+| `apps/api/src/services/articles.ts` | Added `submitForReview`, `approveArticle`, `rejectArticle`, `reviewQueue`, `myArticles`. Updated `getArticle` for visibility rules. Updated `listArticlesForQuery` and `feed` to only return published articles. |
+| `apps/api/src/routes/articles.ts` | Added `POST /articles/:slug/submit`, `POST /articles/:slug/approve`, `POST /articles/:slug/reject`, `GET /articles/review-queue` |
+| `apps/api/src/routes/users.ts` | Added `GET /user/articles` with optional `?status=` filter |
+| `apps/api/src/app.ts` | `createApp` now accepts `{ editors?: string[] }` as second argument; propagates editors to DB |
+| `apps/api/src/server.ts` | Reads comma-separated `EDITORS` env var and passes to `createApp` |
+| `apps/api/test/helpers.ts` | Updated `createArticle` return type to include `status` and `reviewComment` |
+| `apps/api/test/editorial-review.test.ts` | **31 new tests** covering the full editorial workflow |
+
+### Files Unchanged
+- `apps/api/test/realworld.contract.test.ts` — **kept green and unmodified**
+- All web app files — only the shared types changed (backward-compatible addition of fields)
+
+### Design Decisions & Rationale
+
+1. **Visibility rules for drafts** — `GET /api/articles` and `GET /api/articles/feed` only return `published` articles. `GET /api/articles/:slug` returns 404 for non-published articles unless the caller is the author or an editor (for `in_review`). This prevents the public from discovering unapproved work while letting workflow participants access what they need.
+
+2. **Editors cannot see arbitrary drafts** — Editors may only see `in_review` articles (for the review queue). Once an article is rejected it goes back to `draft`, and only its author can see it until resubmitted. This respects the principle that editors review only what's been *submitted* for review.
+
+3. **Self-approval prevention** — `approve` and `reject` both check that the editor is not the article author, returning 422. Non-editors get 403 when trying to approve/reject.
+
+4. **Review comment privacy** — `reviewComment` is only exposed in the JSON when the viewer is the article's author or an editor. For everyone else it's `null`. Published articles always have `null` (comments are cleared on submit/approve).
+
+5. **Backward compatibility** — Existing articles created without a `status` field default to `published`, preserving current behavior. The new fields are appended to the `Article` JSON shape without changing existing fields. The contract test verifies all original fields remain present.
+
+6. **`reviewComment` is a single string, not a conversation** — The brief says "Feedback is a conversation" but the API spec says `reviewComment: string | null`. I implemented what the API contract defines: a single comment string set on rejection, cleared on resubmit. A conversation thread would need a separate resource.
+
+### What I'd Flag in Code Review
+
+- **Comments on non-published articles** — `GET /api/articles/:slug/comments` currently lists comments on any article, but non-published articles are 404'd by `getArticle` before they reach the comments route. Comments are "derived from" the article, so this is correct — but adding an explicit guard at the comment service level would be more defense-in-depth.
+
+- **Tag listing could leak article existence** — `GET /api/tags` counts tags across all articles, including drafts. If a tag only exists on a draft article, the tag still shows up in the tag listing, leaking the tag name. For stricter privacy, `popularTags` should only count published articles. This wasn't in the explicit requirements but is worth calling out.
+
+- **Feed pagination for editors** — The review queue pagination uses offset/limit which, with `oldest first` ordering, works correctly. But if new articles enter the review queue while someone is paging through it, items could shift. This is an accepted tradeoff for the current design.
+
+- **No rate limiting or spam protection** — New endpoints with write operations (submit/approve/reject) have no rate limiting. For production, these should be behind appropriate throttling.
+
+- **Editor config at app start** — Editors are loaded once at startup from the `EDITORS` env var. There's no runtime mechanism to add/remove editors without restarting. For a real system, you'd want this in the database with admin API endpoints.

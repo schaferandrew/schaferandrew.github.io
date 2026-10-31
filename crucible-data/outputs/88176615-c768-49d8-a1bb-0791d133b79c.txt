@@ -1,0 +1,50 @@
+1. Let \(L_n\) be the set of previous move sizes for which the position with \(n\) tokens is losing for the player to move. For \(n\ge 7\), form
+\[
+B_n=\{m\in\{2,3,5,7\}:m\in L_{n-m}\}.
+\]
+Then \(L_n\) is the full set if \(B_n\) is empty, the singleton \(B_n\) if it has one element, and empty if it has at least two. Starting from \(L_0=L_1=\{2,3,5,7\}\), this gives \(L_9=L_{13}=\{2,3,5,7\}\), and thereafter the sets repeat every four values: full set, \(\{5\}\), empty, empty. The second player wins precisely when the first player has no move to a losing position. This occurs at \(n=1\) and at \(n=9,13,\ldots,97\), for a total of \(24\).
+
+2. Treat each uninterrupted segment of standing pins as a heap. If \(g(j)\) is its Grundy number, then
+\[
+g(j)=\operatorname{mex}\{g(a)\mathbin{\oplus}g(j-k- a): k\in\{2,3\},\ 0\le a\le j-k\}.
+\]
+The values \(g(0),\ldots,g(21)\) are
+\[
+0,0,1,1,2,2,3,3,1,1,4,4,3,3,2,2,1,1,0,4,2,2.
+\]
+After removing two pins, the two remaining segment lengths sum to \(21\); exactly two such moves leave Grundy xor \(0\). After removing three pins, the lengths sum to \(20\); exactly seven moves leave xor \(0\). Thus \(2+7=9\) first moves win.
+
+3. In undirected vertex geography, the second player can use a perfect matching of the unvisited vertices to answer each move with its matched partner. The matching test gives perfect matchings after deleting each of \(5,6,7,8\); deleting any other vertex leaves no perfect matching. So the first player wins from \(1,2,3,4,9,10,11\), whose sum is \(40\).
+
+4. Write each islander’s type as a bit, with 1 for knight. The equations from A, D and E force \(E=0\). The remaining equations give exactly these assignments, in A-to-H order:
+\[
+\text{NKKKNNNN},\quad
+\text{NKNKNNKN},\quad
+\text{NNNNNKKN},\quad
+\text{KKNNNNKK},\quad
+\text{KNNKNKKK}.
+\]
+Their knight counts are \(3,3,2,4,5\), totaling \(17\).
+
+5. The unique solution by house number is:
+
+| House | Person | Color | Pet | Drink | Job |
+|---:|---|---|---|---|---|
+| 1 | Bram | lilac | axolotl | cocoa | farrier |
+| 2 | Lior | maroon | tortoise | lassi | glazier |
+| 3 | Wren | teal | ferret | kefir | cartographer |
+| 4 | Kofi | ochre | heron | kvass | luthier |
+| 5 | Odile | slate | hamster | mate | archivist |
+| 6 | Tamsin | ivory | gecko | cider | beekeeper |
+
+Thus the requested number is \(536421\).
+
+6. The ordering conditions force \(S<P<R\), with \(P-S\ge2\). For each possible triple of slots \((S,P,R)\), count the legal slots for \(T\), where \(|T-R|\ge3\), and then the available allowed slots \(2,4,5,6,7\) for \(Q\). Summing the available \(Q\)-slots over all triples and \(T\)-slots gives \(47\). The remaining talks \(U,V\) can occupy their two slots in \(2\) ways, giving \(47\cdot2=94\).
+
+ANSWERS:
+1: 24
+2: 9
+3: 40
+4: 17
+5: 536421
+6: 94

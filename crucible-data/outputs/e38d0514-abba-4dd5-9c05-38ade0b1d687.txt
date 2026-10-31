@@ -1,0 +1,16 @@
+**Reasoning**
+
+- Clues 4 and 5 give Carol yellow and Dave red. That leaves green and blue for Alice and Bob.
+- Alice sits immediately left of the blue person (clue 1), so she can't be the blue person herself. Alice is therefore green and Bob is blue.
+- Green sits in chair 1 (clue 3), so Alice is in chair 1. Bob, being blue, sits immediately to her right, in chair 2.
+- Carol and Dave are left with chairs 3 and 4. Carol must sit to the right of Dave, who likes red (clue 4), so Dave is in chair 3 and Carol in chair 4.
+- Clue 2 holds, since Bob is in chair 2, not chair 4.
+
+**Ambiguity check:** "Immediately to the left" could be read as left from the seated row's viewpoint or from an observer facing the row. I used the stated convention, chairs numbered 1 to 4 from left to right, so "left" means a lower chair number. Likewise, "somewhere to the right" means a higher chair number. With these readings the solution is unique.
+
+Chair 1: Alice, green
+Chair 2: Bob, blue
+Chair 3: Dave, red
+Chair 4: Carol, yellow
+
+ANSWER: Dave

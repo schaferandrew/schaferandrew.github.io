@@ -1,0 +1,26 @@
+**1. Savings account**
+- Monthly rate = 4% / 12 = 0.003333…
+- Number of periods = 12 × 3 = 36
+- Value = 5000 × (1.0033333…)^36 = 5000 × 1.127272…
+- Value ≈ 5636.359, which rounds to **$5,636.36**
+
+**2. Flooring**
+- Area with waste = 1,850 × 1.10 = 2,035 sq ft
+- Boxes = 2,035 / 23.5 = 86.6
+- Partial boxes can't be bought, so round up to **87 boxes**.
+
+**3. Gas cost**
+- Gallons = 412 / 34 = 12.1176…
+- Cost = 12.1176… × 3.89 = 1602.68 / 34 = 47.1376…
+- Rounded to the cent, that is **$47.14**.
+
+**4. Dinner split**
+- Tip = 0.18 × 172.00 = 30.96
+- Total = 186.40 + 30.96 = 217.36
+- Each person pays 217.36 / 4 = **$54.34**
+
+## ANSWERS
+1. $5,636.36
+2. 87 boxes
+3. $47.14
+4. $54.34 per person

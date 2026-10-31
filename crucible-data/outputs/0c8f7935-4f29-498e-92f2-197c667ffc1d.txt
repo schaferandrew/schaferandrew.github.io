@@ -1,0 +1,9 @@
+GRADE: 9
+
+This response meets all the criteria:
+- Correctness (5): The function returns the right answer for all inputs.
+- Ignores case and non-alphanumeric characters (2): Both are handled.
+- Examples (2): Two example calls are shown with correct results.
+- Concise (1): The response gets to the point without unneeded preamble or padding.
+
+The final line is: "The function lowercases every alphanumeric character, drops everything else, and compares the result with its reverse."

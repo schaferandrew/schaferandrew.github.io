@@ -1,0 +1,297 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "fbae8951-d4b4-4040-89be-0f3ccd8299e4",
+ "rubric_version": 1,
+ "rubric_hash": "879e9754aac89329",
+ "method": "checks",
+ "scored_at": "2026-10-31T03:42:45.154371+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 3.0,
+  "total": 40,
+  "unit": "points"
+ },
+ "score": 0.75,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "puzzle_a",
+   "type": "items",
+   "group": "Puzzle A",
+   "label": "Puzzle A's 18 slots hold: 1-ACROSS CANDY, 1-DOWN CUBIC, 2-ACROSS UPSET, 2-DOWN UNCLE, 3-DOWN THREW, 4-ACROSS COUNCIL, 4-DOWN COURAGE, 5-DOWN LIBRARY, 6-ACROSS COUNT, 7-ACROSS ELBOW, 8-ACROSS SWAMP, 8-DOWN SQUAD, 9-DOWN PROBE, 10-ACROSS DEALT, 11-DOWN TWIST, 12-ACROSS ECONOMY, 13-ACROSS DRIVE, 14-ACROSS SHIRT; one item per slot.",
+   "passed": false,
+   "detail": "2/18 items; failed: 1-across (got DRIVE), 1-down (got DEALT), 2-across (got SHIRT), 2-down (got SQUAD), 3-down (got UNCLE), 4-across (got ECONOMY)",
+   "share": 0.1111,
+   "items": [
+    {
+     "id": "1-across",
+     "label": "1-ACROSS is CANDY",
+     "passed": false,
+     "detail": "got DRIVE"
+    },
+    {
+     "id": "1-down",
+     "label": "1-DOWN is CUBIC",
+     "passed": false,
+     "detail": "got DEALT"
+    },
+    {
+     "id": "2-across",
+     "label": "2-ACROSS is UPSET",
+     "passed": false,
+     "detail": "got SHIRT"
+    },
+    {
+     "id": "2-down",
+     "label": "2-DOWN is UNCLE",
+     "passed": false,
+     "detail": "got SQUAD"
+    },
+    {
+     "id": "3-down",
+     "label": "3-DOWN is THREW",
+     "passed": false,
+     "detail": "got UNCLE"
+    },
+    {
+     "id": "4-across",
+     "label": "4-ACROSS is COUNCIL",
+     "passed": false,
+     "detail": "got ECONOMY"
+    },
+    {
+     "id": "4-down",
+     "label": "4-DOWN is COURAGE",
+     "passed": true,
+     "detail": "got COURAGE"
+    },
+    {
+     "id": "5-down",
+     "label": "5-DOWN is LIBRARY",
+     "passed": true,
+     "detail": "got LIBRARY"
+    },
+    {
+     "id": "6-across",
+     "label": "6-ACROSS is COUNT",
+     "passed": false,
+     "detail": "got TWIST"
+    },
+    {
+     "id": "7-across",
+     "label": "7-ACROSS is ELBOW",
+     "passed": false,
+     "detail": "got CANDY"
+    },
+    {
+     "id": "8-across",
+     "label": "8-ACROSS is SWAMP",
+     "passed": false,
+     "detail": "got PROBE"
+    },
+    {
+     "id": "8-down",
+     "label": "8-DOWN is SQUAD",
+     "passed": false,
+     "detail": "got CUBIC"
+    },
+    {
+     "id": "9-down",
+     "label": "9-DOWN is PROBE",
+     "passed": false,
+     "detail": "got COUNT"
+    },
+    {
+     "id": "10-across",
+     "label": "10-ACROSS is DEALT",
+     "passed": false,
+     "detail": "got SWAMP"
+    },
+    {
+     "id": "11-down",
+     "label": "11-DOWN is TWIST",
+     "passed": false,
+     "detail": "got ELBOW"
+    },
+    {
+     "id": "12-across",
+     "label": "12-ACROSS is ECONOMY",
+     "passed": false,
+     "detail": "got COUNCIL"
+    },
+    {
+     "id": "13-across",
+     "label": "13-ACROSS is DRIVE",
+     "passed": false,
+     "detail": "got THREW"
+    },
+    {
+     "id": "14-across",
+     "label": "14-ACROSS is SHIRT",
+     "passed": false,
+     "detail": "got UPSET"
+    }
+   ]
+  },
+  {
+   "id": "puzzle_b",
+   "type": "items",
+   "group": "Puzzle B",
+   "label": "Puzzle B's 22 slots hold: 15-ACROSS ELF, 16-DOWN FAN, 17-ACROSS APPLY, 17-DOWN ANOTHER, 18-DOWN PLASTIC, 19-ACROSS TEN, 19-DOWN TOP, 20-ACROSS AROMA, 21-DOWN ONE, 22-ACROSS PUBLISH, 23-DOWN BARGAIN, 24-DOWN IMAGINE, 25-ACROSS TIE, 26-ACROSS CAR, 26-DOWN COG, 27-ACROSS APRICOT, 28-DOWN TOY, 29-ACROSS ALIKE, 30-ACROSS ANY, 30-DOWN APT, 31-ACROSS OUNCE, 32-ACROSS TAR; one item per slot.",
+   "passed": false,
+   "detail": "1/22 items; failed: 15-across (got ONE), 16-down (got APT), 17-across (got OUNCE), 17-down (got APRICOT), 18-down (got ANOTHER), 19-across (got TAR)",
+   "share": 0.0455,
+   "items": [
+    {
+     "id": "15-across",
+     "label": "15-ACROSS is ELF",
+     "passed": false,
+     "detail": "got ONE"
+    },
+    {
+     "id": "16-down",
+     "label": "16-DOWN is FAN",
+     "passed": false,
+     "detail": "got APT"
+    },
+    {
+     "id": "17-across",
+     "label": "17-ACROSS is APPLY",
+     "passed": false,
+     "detail": "got OUNCE"
+    },
+    {
+     "id": "17-down",
+     "label": "17-DOWN is ANOTHER",
+     "passed": false,
+     "detail": "got APRICOT"
+    },
+    {
+     "id": "18-down",
+     "label": "18-DOWN is PLASTIC",
+     "passed": false,
+     "detail": "got ANOTHER"
+    },
+    {
+     "id": "19-across",
+     "label": "19-ACROSS is TEN",
+     "passed": false,
+     "detail": "got TAR"
+    },
+    {
+     "id": "19-down",
+     "label": "19-DOWN is TOP",
+     "passed": false,
+     "detail": "got TEN"
+    },
+    {
+     "id": "20-across",
+     "label": "20-ACROSS is AROMA",
+     "passed": false,
+     "detail": "got APPLY"
+    },
+    {
+     "id": "21-down",
+     "label": "21-DOWN is ONE",
+     "passed": false,
+     "detail": "got CAR"
+    },
+    {
+     "id": "22-across",
+     "label": "22-ACROSS is PUBLISH",
+     "passed": false,
+     "detail": "got IMAGINE"
+    },
+    {
+     "id": "23-down",
+     "label": "23-DOWN is BARGAIN",
+     "passed": false,
+     "detail": "got PLASTIC"
+    },
+    {
+     "id": "24-down",
+     "label": "24-DOWN is IMAGINE",
+     "passed": false,
+     "detail": "got PUBLISH"
+    },
+    {
+     "id": "25-across",
+     "label": "25-ACROSS is TIE",
+     "passed": false,
+     "detail": "got ELF"
+    },
+    {
+     "id": "26-across",
+     "label": "26-ACROSS is CAR",
+     "passed": false,
+     "detail": "got FAN"
+    },
+    {
+     "id": "26-down",
+     "label": "26-DOWN is COG",
+     "passed": true,
+     "detail": "got COG"
+    },
+    {
+     "id": "27-across",
+     "label": "27-ACROSS is APRICOT",
+     "passed": false,
+     "detail": "got BARGAIN"
+    },
+    {
+     "id": "28-down",
+     "label": "28-DOWN is TOY",
+     "passed": false,
+     "detail": "got TOP"
+    },
+    {
+     "id": "29-across",
+     "label": "29-ACROSS is ALIKE",
+     "passed": false,
+     "detail": "got AROMA"
+    },
+    {
+     "id": "30-across",
+     "label": "30-ACROSS is ANY",
+     "passed": false,
+     "detail": "got TOY"
+    },
+    {
+     "id": "30-down",
+     "label": "30-DOWN is APT",
+     "passed": false,
+     "detail": "got TIE"
+    },
+    {
+     "id": "31-across",
+     "label": "31-ACROSS is OUNCE",
+     "passed": false,
+     "detail": "got ALIKE"
+    },
+    {
+     "id": "32-across",
+     "label": "32-ACROSS is TAR",
+     "passed": false,
+     "detail": "got ANY"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Puzzle A",
+   "passed": 2.0,
+   "total": 18,
+   "detail": "2/18 items; failed: 1-across (got DRIVE), 1-down (got DEALT), 2-across (got SHIRT), 2-down (got SQUAD), 3-down (got UNCLE), 4-across (got ECONOMY)"
+  },
+  {
+   "id": "Puzzle B",
+   "passed": 1.0,
+   "total": 22,
+   "detail": "1/22 items; failed: 15-across (got ONE), 16-down (got APT), 17-across (got OUNCE), 17-down (got APRICOT), 18-down (got ANOTHER), 19-across (got TAR)"
+  }
+ ]
+}

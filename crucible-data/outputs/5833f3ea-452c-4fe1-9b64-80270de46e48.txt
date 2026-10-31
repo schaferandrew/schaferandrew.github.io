@@ -1,0 +1,12 @@
+1. Numbers divisible by 3 or 7: \(3333+1428-476=4285\). Of these, \(476\) are divisible by 21, so the count is \(3809\).
+2. Since \(7^4\equiv 1\pmod{100}\), \(7^{2026}\equiv 7^2=49\pmod{100}\).
+3. Let \(a_n\) count tilings of a \(2\times n\) board. The first section is either a vertical domino, two horizontal dominoes, or a \(2\times2\) square, giving \(a_n=a_{n-1}+2a_{n-2}\), with \(a_0=1,\ a_1=1\). Thus \(a_n=(2^{n+1}+(-1)^n)/3\), so \(a_{12}=2731\).
+4. All dice are at most 4, but not all are at most 3: \((4^3-3^3)/6^3=37/216\).
+5. There are \(4^2-3^2=7\) equally likely outcomes meeting the condition; 4 have two boys. The probability is \(4/7\).
+
+## ANSWERS
+1. 3809
+2. 49
+3. 2731
+4. 37/216
+5. 4/7

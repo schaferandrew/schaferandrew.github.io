@@ -1,0 +1,58 @@
+## Weather
+**Saint Paul, MN — Wednesday, September 2, 2026**
+
+- **Now:** 68°F, partly cloudy, humidity 65%, wind 8 mph
+- **Today:** High 68°F / low 55°F, partly cloudy, 10% chance of precipitation, wind 8 mph
+- **Tomorrow:** Sunny, high 74°F
+- **Friday:** Scattered showers, 30% chance, high 71°F
+
+No weather-related disruptions expected today. Friday's showers may matter if you have outdoor plans around the project review.
+
+## Outstanding work
+Open items left by yesterday's emails:
+
+- **Q3 expense report — due today at 5:00 PM.** Finance's reminder states that late reports are paid with next month's payroll. This is the only hard deadline today.
+- **Client proposal timeline — unanswered.** The client asked you to confirm whether the revised proposal can be delivered by Friday and needs an answer before briefing their team. No reply is visible in yesterday's mail.
+- **Q3 review results — discussion pending.** Alex reports the review is complete and ahead of schedule and wants to discuss results in the planning meeting. This is an agenda item for today's 9:30 AM Planning session, not a separate task.
+- **Meeting notes from yesterday's 1-on-1** — informational; no action requested.
+
+## Emails
+Four messages received yesterday (September 1):
+
+| From | Subject | Status / action |
+|---|---|---|
+| finance@example.com | Reminder: Q3 expense report due Wednesday 5 PM | **Action required today.** Hard deadline 5:00 PM. |
+| client@example.com | Question about the proposal timeline | **Unanswered.** Client needs confirmation on Friday delivery before briefing their team. |
+| alex@example.com | Project update - Q3 review completed | Informational; results to be discussed at today's Planning meeting. |
+| jamie@example.com | Meeting notes from yesterday | Informational; no action requested. |
+
+No source was unavailable.
+
+## Calendar
+**Today (September 2):**
+
+- **9:30–10:30 AM — Planning**, Room B (alex@example.com)
+- **10:00–11:00 AM — Vendor demo**, Zoom (alex@example.com, vendor@example.com)
+- **1:00–2:00 PM — Budget meeting**, Conference Room A (jamie@example.com)
+
+**Conflicts and flags:**
+
+- **Double-booking:** Planning (9:30–10:30) overlaps the Vendor demo (10:00–11:00) from 10:00 to 10:30 AM. You are listed on both.
+- **Unclear attendance:** The Budget meeting lists only jamie@example.com, not you. Confirm whether you are expected.
+
+**Later this week (for awareness):** Interview Thu 11:00 AM–12:00 PM, Workshop Fri 9:00–11:00 AM, Project review Fri 2:00–3:00 PM.
+
+## News
+Saint Paul / Twin Cities:
+
+- **Twin Cities Tech Conference returns** — 50+ speakers on AI, startup funding, and emerging tech. **Registration opens this Friday.** *(High importance)*
+- **Maplewood Park renovation complete** — new walking trails and playground; grand reopening Saturday. *(Medium)*
+- **State Fair attendance down 3%** — cooler-than-average weather cited. *(Low)*
+
+Only the tech conference has a near-term action attached (Friday registration). The park reopening is a weekend option; the State Fair item needs no follow-up.
+
+## Top 3 things to do today
+
+1. **Reply to the client** confirming whether the revised proposal will be delivered by Friday — they need it before briefing their team.
+2. **Submit your Q3 expense report before 5:00 PM** to avoid payment slipping to next month's payroll.
+3. **Resolve the 10:00–10:30 AM overlap** between Planning and the Vendor demo — decide which to attend live and arrange coverage or a follow-up for the other.

@@ -1,0 +1,5 @@
+- Accuracy (4/4): All claims are supported by the passage. The summary accurately mentions the vote, March start, 8 p.m. weekend extension, 62% survey result, $40,000 grant covering one year, possible revisit next winter, and two board members opposing due to staffing concerns.
+- Exactly two sentences (0/3): The response contains three sentences, not exactly two.
+- Key points (3/3): It captures the hours extension, the funding limit, and the resident survey.
+
+GRADE: 7

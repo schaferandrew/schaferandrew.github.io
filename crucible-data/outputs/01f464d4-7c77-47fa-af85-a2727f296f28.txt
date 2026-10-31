@@ -1,0 +1,8 @@
+I pulled the free/busy for all 16 Platform team members (including Marcus, who works New York hours, so his day ends at 4 PM Central) and intersected them across each person's 9–5 weekday, excluding the Labor Day holiday and Priya's out-of-office 9/10–9/11.
+
+The best common hours are the earliest fully-free 60-minute windows. Note that two of the candidates (9/1 13:00 and 9/1 13:30) overlap the same protected window, but each is a valid start. I also avoided the 4–5 PM trap window on 9/8, which is empty on every calendar but falls outside Marcus's New York business hours.
+
+OPTIONS:
+2026-09-01 13:00 CDT
+2026-09-01 13:30 CDT
+2026-09-02 09:00 CDT

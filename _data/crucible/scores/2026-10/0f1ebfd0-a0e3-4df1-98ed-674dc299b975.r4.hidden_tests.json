@@ -1,0 +1,255 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "0f1ebfd0-a0e3-4df1-98ed-674dc299b975",
+ "rubric_version": 4,
+ "rubric_hash": "045074375d3af88a",
+ "method": "hidden_tests",
+ "scored_at": "2026-10-31T05:02:57.877136+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 23,
+  "total": 26,
+  "unit": "tests"
+ },
+ "score": 8.85,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "contract > publishes immediately without a status",
+   "type": "hidden_test",
+   "group": "contract",
+   "label": "publishes immediately without a status",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "contract > draft -> in_review -> published",
+   "type": "hidden_test",
+   "group": "contract",
+   "label": "draft -> in_review -> published",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "contract > reject returns to draft with feedback the author sees",
+   "type": "hidden_test",
+   "group": "contract",
+   "label": "reject returns to draft with feedback the author sees",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "contract > rejects transitions that don't apply with 422",
+   "type": "hidden_test",
+   "group": "contract",
+   "label": "rejects transitions that don't apply with 422",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "contract > only editors approve or reject",
+   "type": "hidden_test",
+   "group": "contract",
+   "label": "only editors approve or reject",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "contract > review queue: in_review oldest first, editors only",
+   "type": "hidden_test",
+   "group": "contract",
+   "label": "review queue: in_review oldest first, editors only",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "contract > own articles of every status",
+   "type": "hidden_test",
+   "group": "contract",
+   "label": "own articles of every status",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "contract > own articles: newest first, filtered by status, nobody else's",
+   "type": "hidden_test",
+   "group": "contract",
+   "label": "own articles: newest first, filtered by status, nobody else's",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "contract > only the author submits a draft",
+   "type": "hidden_test",
+   "group": "contract",
+   "label": "only the author submits a draft",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rules: unapproved work stays private > the article list doesn't show it, signed in or out",
+   "type": "hidden_test",
+   "group": "rules: unapproved work stays private",
+   "label": "the article list doesn't show it, signed in or out",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rules: unapproved work stays private > filtering by its author doesn't show it",
+   "type": "hidden_test",
+   "group": "rules: unapproved work stays private",
+   "label": "filtering by its author doesn't show it",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rules: unapproved work stays private > filtering by its tag doesn't show it",
+   "type": "hidden_test",
+   "group": "rules: unapproved work stays private",
+   "label": "filtering by its tag doesn't show it",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rules: unapproved work stays private > filtering by who favorited it doesn't show it",
+   "type": "hidden_test",
+   "group": "rules: unapproved work stays private",
+   "label": "filtering by who favorited it doesn't show it",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rules: unapproved work stays private > a follower's feed doesn't show it",
+   "type": "hidden_test",
+   "group": "rules: unapproved work stays private",
+   "label": "a follower's feed doesn't show it",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rules: unapproved work stays private > tag counts don't reveal it",
+   "type": "hidden_test",
+   "group": "rules: unapproved work stays private",
+   "label": "tag counts don't reveal it",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rules: unapproved work stays private > direct access 404s for anyone who can't see it",
+   "type": "hidden_test",
+   "group": "rules: unapproved work stays private",
+   "label": "direct access 404s for anyone who can't see it",
+   "passed": false,
+   "detail": "Error: expected 404 \"Not Found\", got 200 \"OK\""
+  },
+  {
+   "id": "rules: unapproved work stays private > its comments 404 for anyone who can't see it",
+   "type": "hidden_test",
+   "group": "rules: unapproved work stays private",
+   "label": "its comments 404 for anyone who can't see it",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rules: unapproved work stays private > favoriting it 404s for anyone who can't see it",
+   "type": "hidden_test",
+   "group": "rules: unapproved work stays private",
+   "label": "favoriting it 404s for anyone who can't see it",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rules: unapproved work stays private > editing or deleting it 404s for anyone who can't see it, as for an article that doesn't exist",
+   "type": "hidden_test",
+   "group": "rules: unapproved work stays private",
+   "label": "editing or deleting it 404s for anyone who can't see it, as for an article that doesn't exist",
+   "passed": false,
+   "detail": "Error: expected 404 \"Not Found\", got 403 \"Forbidden\""
+  },
+  {
+   "id": "rules: unapproved work stays private > its author sees it, and editors see what's in review",
+   "type": "hidden_test",
+   "group": "rules: unapproved work stays private",
+   "label": "its author sees it, and editors see what's in review",
+   "passed": false,
+   "detail": "Error: expected 200 \"OK\", got 404 \"Not Found\""
+  },
+  {
+   "id": "rules: found in the brief, not the contract > no one approves their own work, even an editor",
+   "type": "hidden_test",
+   "group": "rules: found in the brief, not the contract",
+   "label": "no one approves their own work, even an editor",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rules: found in the brief, not the contract > no one rejects their own work either",
+   "type": "hidden_test",
+   "group": "rules: found in the brief, not the contract",
+   "label": "no one rejects their own work either",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rules: found in the brief, not the contract > authors see why each article was sent back in their own list",
+   "type": "hidden_test",
+   "group": "rules: found in the brief, not the contract",
+   "label": "authors see why each article was sent back in their own list",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rules: found in the brief, not the contract > feedback never reaches the public, even after publishing",
+   "type": "hidden_test",
+   "group": "rules: found in the brief, not the contract",
+   "label": "feedback never reaches the public, even after publishing",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rules: found in the brief, not the contract > renaming an article under review keeps it in review and in the queue",
+   "type": "hidden_test",
+   "group": "rules: found in the brief, not the contract",
+   "label": "renaming an article under review keeps it in review and in the queue",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "regression > your new tests fail on the seeded code and pass on your fix",
+   "type": "hidden_test",
+   "group": "regression",
+   "label": "your new tests fail on the seeded code and pass on your fix",
+   "passed": true,
+   "detail": null
+  }
+ ],
+ "groups": [
+  {
+   "id": "Client contract",
+   "passed": 3.46,
+   "total": 3.46,
+   "detail": "9/9 hidden tests pass"
+  },
+  {
+   "id": "Unapproved work stays private",
+   "passed": 3.08,
+   "total": 4.23,
+   "detail": "8/11 hidden tests pass"
+  },
+  {
+   "id": "Rules found, not given",
+   "passed": 1.92,
+   "total": 1.92,
+   "detail": "5/5 hidden tests pass"
+  },
+  {
+   "id": "Regression tests",
+   "passed": 0.38,
+   "total": 0.38,
+   "detail": "1/1 hidden tests pass"
+  }
+ ]
+}

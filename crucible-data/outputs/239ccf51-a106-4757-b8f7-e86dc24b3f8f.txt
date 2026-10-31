@@ -1,0 +1,42 @@
+## Weather
+**Facts (Saint Paul, today):** Partly cloudy, high 68°F, low 55°F, 10% chance of precipitation, wind 8 mph. It's 68°F now.
+- Thursday is sunny with a high of 74°F. Friday has scattered showers (30%) and wind of 12 mph.
+
+**Recommendation:** No rain gear is needed today.
+
+## Outstanding work
+Yesterday's emails left these items open:
+- **Q3 expense report:** Finance needs it by **5:00 PM today**. If you miss the cutoff, it's paid with next month's payroll.
+- **Client proposal timeline:** The client asked you to confirm whether the revised proposal can be delivered by **Friday**. They need the answer before briefing their team. Nothing shows that you've replied.
+- **Alex's Q3 review:** The review is complete, and Alex wants to discuss the results in the planning meeting. This is today at 9:30 AM, so come prepared.
+- **Jamie's 1-on-1 notes:** These are informational only. They cover career goals, next-quarter priorities and team building. No action was requested.
+
+## Emails
+Yesterday's emails, in order of urgency:
+1. **finance@example.com, Q3 expense report:** Due today at 5 PM. Action needed.
+2. **client@example.com, proposal timeline:** Unanswered. It needs a reply today, because the question is about a Friday delivery.
+3. **alex@example.com, Q3 review completed:** For discussion in today's planning meeting. No reply is needed.
+4. **jamie@example.com, 1-on-1 notes:** FYI only.
+
+## Calendar
+**Today (Wed, Sept 2, Central time):**
+- 9:30–10:30 AM: Planning (Room B, with Alex)
+- 10:00–11:00 AM: Vendor demo (Zoom)
+- 1:00–2:00 PM: Budget meeting (Conference Room A, with Jamie)
+
+**Conflict:** Planning and the Vendor demo overlap from 10:00 to 10:30 AM. Both list Alex or a vendor as attendees, and Planning is the meeting where Alex's Q3 review is to be discussed.
+**Recommendation:** Decide which to attend. You could leave Planning early, join the demo late, or ask the vendor to reschedule or share a recording. I can't tell from the sources which matters more.
+
+**Coming up:**
+- Thursday: 9:00 AM Standup, 11:00 AM Interview (Conference Room B)
+- Friday: 9–11 AM Workshop, 2 PM Project review. Friday is also the client's proposal deadline.
+
+## News
+- **Twin Cities Tech Conference** (high importance): Registration opens this Friday. The conference covers AI and startup funding. Nothing in the sources links it to your work.
+- **Maplewood Park renovation** (medium): The grand reopening is Saturday.
+- **State Fair attendance** (low): Attendance fell 3%. This doesn't need any action.
+
+## Top 3 things to do today
+1. **Submit the Q3 expense report before the 5 PM deadline.** Do it early in the day, since a miss delays payment by a month.
+2. **Reply to the client about Friday's proposal delivery.** Confirm the date only if you can meet it. They're waiting on your answer.
+3. **Resolve the 10:00 AM conflict between Planning and the Vendor demo.** Do this before 9:30 and review Alex's Q3 results before the meeting.

@@ -1,0 +1,8 @@
+Checked against standard historical dates and names. Corrections needed for items 2, 3, 6, 7, and 10.
+
+ERRORS:
+2: King John
+3: 1492
+6: 1815
+7: 1912
+10: 1989

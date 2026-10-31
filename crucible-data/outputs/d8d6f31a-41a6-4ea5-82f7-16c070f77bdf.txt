@@ -1,0 +1,13 @@
+Jamie's calendar shows busy blocks only, so I compared those against yours for Monday to Friday, 9:00–17:00 Central.
+
+- **Monday and Tuesday:** There is no shared one-hour gap.
+- **Wednesday:** You're both free from 15:30 to 17:00.
+- **Thursday:** You're both free 11:00–12:00, 13:00–14:00 and 16:00–17:00.
+- **Friday:** You're both free 10:30–12:00 and 15:00–17:00.
+
+I put Thursday 11:00 first because it's mid-day and sits between your other commitments with buffer on each side. Friday 10:30 and Wednesday 15:30 are the backups.
+
+OPTIONS:
+2026-09-03 11:00 America/Chicago
+2026-09-04 10:30 America/Chicago
+2026-09-02 15:30 America/Chicago

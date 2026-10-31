@@ -1,0 +1,214 @@
+ Let's systematically solve Puzzle A and B.
+
+---
+
+**PUZZLE A**
+
+**Key deductions from intersections:**
+
+- The four 7-letter slots are 4-ACROSS, 4-DOWN, 5-DOWN, 12-ACROSS.
+- 4-ACROSS and 4-DOWN share their first letter (the only common intersection of two 7-letter words starting with the same letter).  
+  Possible 7-letter words: COUNCIL, COURAGE, ECONOMY, LIBRARY.  
+  Two C-words, one E, one L.  
+  Therefore **4-ACROSS** and **4-DOWN** must be **COUNCIL** and **COURAGE** in some order.
+
+- 4-ACROSS position 7 (row 3, col 9) = 5-DOWN position 1.  
+  Let 5-DOWN = X. Then X[1] = 4-ACROSS[7].
+
+- 12-ACROSS position 1 (row 9, col 3) = 4-DOWN position 7.  
+  So 12-ACROSS[1] = 4-DOWN[7].
+
+- 12-ACROSS position 7 (row 9, col 9) = 5-DOWN position 7.  
+  So 12-ACROSS[7] = 5-DOWN[7].
+
+Test **4-ACROSS = COURAGE** and **4-DOWN = COUNCIL**:
+- COURAGE: C O U R A G **E**  → 5-DOWN[1] = E, but no 7-letter word starts with E and ends appropriately. 5-DOWN would need to be ECONOMY. Then 12-ACROSS[7] must equal ECONOMY[7] = Y. 12-ACROSS must start with 4-DOWN[7] = COUNCI**L** → L. No 7-letter word is LxxxxY (doesn't match LIBRARY). So this fails.
+
+Test **4-ACROSS = COUNCIL** and **4-DOWN = COURAGE**:
+- COUNCIL ends in **L** → 5-DOWN[1] = L → 5-DOWN = **LIBRARY**.
+- 4-DOWN (COURAGE) ends in **E** → 12-ACROSS[1] = E.
+- 5-DOWN (LIBRARY) ends in **Y** → 12-ACROSS[7] = Y.
+- The only remaining 7-letter word starting with E and ending in Y is **ECONOMY** — fits perfectly.
+- Check 12-ACROSS position 3 = 9-DOWN[3]. ECONOMY[3] = O. Not yet constrained.
+
+So we have:
+- **4-ACROSS = COUNCIL**
+- **4-DOWN = COURAGE**
+- **5-DOWN = LIBRARY**
+- **12-ACROSS = ECONOMY**
+
+Now use these to place 5-letter words.
+
+From intersections:
+- **1-DOWN** [1] = 1-ACROSS [1]
+- **1-DOWN** [5] = 6-ACROSS [1]
+- **6-ACROSS** [3] = 4-DOWN [3] = **U** (C O **U** R A G E)
+  → 6-ACROSS has pattern ? ? U ? ?.
+- **8-DOWN** [1] = 8-ACROSS [1]
+- **8-DOWN** [5] = 13-ACROSS [1]
+- **9-DOWN** [1] = 8-ACROSS [5]
+- **9-DOWN** [3] = 12-ACROSS [3] = **O** (E C **O** N O M Y)
+  → 9-DOWN has pattern ? ? O ? ?.
+- **9-DOWN** [5] = 13-ACROSS [5]
+- **13-ACROSS** [1] = 8-DOWN [5]; [5] = 9-DOWN [5]
+
+Also:
+- **2-DOWN** [1] = 2-ACROSS [1]
+- **2-DOWN** [3] = 4-ACROSS [5] = **C** (C O U N **C** I L)
+  → 2-DOWN pattern ? ? C ? ?.
+- **2-DOWN** [5] = 7-ACROSS [1]
+- **3-DOWN** [1] = 2-ACROSS [5]
+- **3-DOWN** [5] = 7-ACROSS [5]
+- **7-ACROSS** [3] = 5-DOWN [3] = **B** (L I **B** R A R Y)
+  → 7-ACROSS pattern ? ? B ? ?.
+- **7-ACROSS** [1] = 2-DOWN [5]; [5] = 3-DOWN [5]
+- **10-ACROSS** [3] = 5-DOWN [5] = **R** (L I B R A R **Y**? Wait position 5 = R? Let's count: L(1) I(2) B(3) R(4) A(5) R(6) Y(7). Yes [5]=A? Wait no: 1:L, 2:I, 3:B, 4:R, 5:A, 6:R, 7:Y. Let's recount LIBRARY: L-I-B-R-A-R-Y. Position 5=A. Wait 5-DOWN positions: row3 L, row4 I, row5 B, row6 R, row7 A, row8 R, row9 Y. So [5]=A. But 10-ACROSS intersects 5-DOWN at row7, which is position 5 of 5-DOWN. So 10-ACROSS[3] = A. My earlier note said R, apologies. Let's correct:
+  - 5-DOWN: row3(1)L, row4(2)I, row5(3)B, row6(4)R, row7(5)A, row8(6)R, row9(7)Y.
+  - 10-ACROSS[3] (row7,col9) = 5-DOWN[5] = **A**.
+  → 10-ACROSS pattern ? ? A ? ?.
+
+- **11-DOWN** [1] = 10-ACROSS [5]
+- **11-DOWN** [5] = 14-ACROSS [5]
+
+Now let's list 5-letter words and their checked positions.
+
+**Words:** CANDY, COUNT, CUBIC, DEALT, DRIVE, ELBOW, PROBE, SHIRT, SQUAD, SWAMP, THREW, TWIST, UNCLE, UPSET.
+
+We need to place:
+- 1-A (? ? ? ? ?), 2-A (? ? ? ? ?), 6-A (? ? U ? ?), 7-A (? ? B ? ?), 8-A (? ? ? ? ?), 10-A (? ? A ? ?), 13-A (? ? ? ? ?), 14-A (? ? ? ? ?)
+- 1-D, 2-D (??C??), 3-D, 8-D, 9-D (??O??), 11-D (all 5 letters)
+
+Notice 6-A[3]=U. Which 5-letter word has U in position 3 (1-indexed)?  
+Check: CUBIC (C-U-B-I-C) pos3=B no. COUNT pos3=U! (C-O-**U**-N-T). Any others?  
+CANDY no. CUBIC pos3=B. DEALT no. DRIVE no. ELBOW no (E-L-B-O-W). PROBE no. SHIRT no. SQUAD pos3=A. SWAMP no. THREW no. TWIST no. UNCLE no. UPSET no.  
+So **6-ACROSS = COUNT**.
+
+Then 6-A: C O U N T.
+- 1-DOWN[5] = 6-A[1] = **C**.
+- 4-DOWN[3] = 6-A[3] = **U** (already satisfied).
+
+1-DOWN pattern: [1]=1-A[1], [5]=C. And 1-D[1]=1-A[1].
+
+1-A is across row1 col1-5. It intersects 1-D only at [1]. Other cells are unchecked. So 1-A is any 5-letter word, and 1-D is any 5-letter word starting with same letter as 1-A and ending with C.
+
+Let's see which words end with C? Among the 5-letter list: CUBIC, SQUAD? No D. CUBIC ends with C. Also none other? Let's check: CANDY, COUNT, CUBIC, DEALT, DRIVE, ELBOW, PROBE, SHIRT, SQUAD, SWAMP, THREW, TWIST, UNCLE, UPSET. Only **CUBIC** ends with C. So **1-DOWN = CUBIC**.
+
+Then 1-D: C U B I C. So [1]=C. Thus **1-ACROSS[1] = C**.
+
+1-A is a 5-letter word starting with C. Options: CANDY, COUNT (used), CUBIC (used). So **1-ACROSS = CANDY**.
+
+Now 2-DOWN has pattern [3]=C. So a 5-letter word with C in position 3. Candidates: UNCLE (U-N-C-L-E) yes. CUBIC used. SQUAD? No. TWIST? No. PROBE? No. UPSET? No. Any other? Let's scan: CANDY, COUNT, CUBIC, DEALT, DRIVE, ELBOW, PROBE, SHIRT, SQUAD, SWAMP, THREW, TWIST, UNCLE, UPSET.  
+UNCLE has C in pos3. Any other? Maybe none. So **2-DOWN = UNCLE**.
+
+Then:
+- 2-D[1] = U → **2-ACROSS[1] = U**.
+- 2-D[5] = E → **7-ACROSS[1] = E**.
+
+2-A starts with U. From remaining words: UPSET starts with U. Any other? None. So **2-ACROSS = UPSET**.
+Then 2-A: U P S E T.
+- 2-A[5] = T → **3-DOWN[1] = T**. So 3-D starts with T.
+- 7-A[1] = E. 7-A pattern: E ? B ? ?. Which word starts with E and has B in position 3? ELBOW (E-L-B-O-W)! Check: E(1) L(2) B(3) O(4) W(5). Yes. So **7-ACROSS = ELBOW**.
+
+Then 7-A: E L B O W.
+- 7-A[5]=W → **3-DOWN[5] = W**.
+- 7-A[3]=B → we already used B from LIBRARY, good.
+
+3-DOWN starts with T, ends with W. Remaining 5-letter words: Let's list used: CANDY, COUNCIL, COUNT, COURAGE, CUBIC, ECONOMY, ELBOW, LIBRARY, UNCLE, UPSET.  
+Remaining: DEALT, DRIVE, PROBE, SHIRT, SQUAD, SWAMP, THREW, TWIST.  
+Which starts with T and ends with W? **THREW** (T H R E W)! Yes. So **3-DOWN = THREW**.
+
+Now look at 8-DOWN:
+- 8-D[1] = 8-A[1]
+- 8-D[5] = 13-A[1]
+Remaining words: DEALT, DRIVE, PROBE, SHIRT, SQUAD, SWAMP, TWIST.
+Also 9-DOWN:
+- 9-D[1] = 8-A[5]
+- 9-D[3] = 12-A[3] = O (ECONOMY: E C **O** N O M Y → position 3 is O). Wait 12-A[3] = ECONOMY[3] = **O**.
+- 9-D[5] = 13-A[5]
+
+So 9-D pattern: [3]=O. Which remaining 5-letter word has O in position 3?  
+Check: PROBE (P R O B E) → O in pos3. Yes!  
+SWAMP (S W A M P) no. SHIRT no. SQUAD (S Q U A D) no. DEALT no. DRIVE (D R I V E) no. TWIST no.  
+So **9-DOWN = PROBE**.
+
+Then:
+- 9-D[1] = P → **8-ACROSS[5] = P**.
+- 9-D[5] = E → **13-ACROSS[5] = E**.
+
+8-A pattern: [1]=8-D[1], [3]=4-D[5] = **A** (COURAGE: C O U R **A** G E), [5]=P. So pattern ? ? A ? P.
+Which remaining word has A in pos3 and P in pos5?  
+Check: SWAMP (S W **A** M **P**) → yes! And DRIVE? (D R I V E) no. DEALT? no. SHIRT? no. SQUAD? no. TWIST? no.  
+So **8-ACROSS = SWAMP**.
+
+Then 8-A: S W A M P.
+- 8-D[1] = S → **8-DOWN starts with S**.
+- 8-D[5] = 13-A[1].
+Remaining 5-letter words now: DEALT, DRIVE, SHIRT, SQUAD, TWIST.
+And 8-D starts with S. Options starting with S: SHIRT, SQUAD.  
+13-A[1] = 8-D[5]. So if 8-D is SHIRT, 13-A[1]=T. If 8-D is SQUAD, 13-A[1]=D.
+
+13-A pattern: [1]=?, [5]=E. Remaining words with E in pos5:  
+DEALT (pos5=T). DRIVE (E). SHIRT (T). SQUAD (D). TWIST (T).  
+Wait we need pos5=E. The only remaining word ending in E is **DRIVE**! (D R I V **E**)  
+Wait, TWIST ends T. DEALT ends T. So DRIVE is the only one left ending in E. But we haven't placed DRIVE yet. So **13-ACROSS = DRIVE**.
+
+Then 13-A: D R I V E. So 13-A[1]=D. Thus **8-DOWN[5] = D**.
+Then 8-D starts with S and ends with D. From remaining {SHIRT, SQUAD, ... wait SHIRT ends T, SQUAD ends D}. So **8-DOWN = SQUAD**.
+
+Then 8-D: S Q U A D. Check: pos1=S yes; pos5=D yes. It doesn't have any other checked letters; all good.
+
+Now remaining across: 10-A (? ? A ? ?), 14-A (? ? ? ? ?). Remaining words: DEALT, SHIRT, TWIST. (and DRIVE used, SQUAD used, SWAMP used... let's track: used CANDY, COUNT, CUBIC, ELBOW, PROBE, SWAMP, SQUAD, DRIVE, UPSET, THREW, UNCLE. Remaining: DEALT, SHIRT, TWIST.)
+
+10-A pattern [3]=A. Check remaining:
+- DEALT: pos3=A (D E **A** L T) → yes.
+- SHIRT: pos3=I → no.
+- TWIST: pos3=I → no.
+So **10-ACROSS = DEALT**.
+
+Then 10-A: D E A L T.
+- 10-A[5] = T → **11-DOWN[1] = T**.
+
+11-DOWN starts with T. Remaining words: SHIRT, TWIST. Both start with T? SHIRT starts S. TWIST starts T. So **11-DOWN = TWIST**.
+Then 11-D: T W I S T. [5]=T. So **14-ACROSS[5] = T**.
+Remaining word: **SHIRT**. So **14-ACROSS = SHIRT**.
+Check: SHIRT ends with T, yes.
+
+Let's verify all intersections:
+- 10-A (DEALT) [3]=A matches 5-D (LIBRARY) [5]=A. Yes.
+- 11-D (TWIST) [5]=T matches 14-A (SHIRT) [5]=T. Yes.
+- 7-A (ELBOW) [3]=B matches 5-D (LIBRARY) [3]=B. Yes.
+- 14-A (SHIRT) [5]=T matches 11-D [5]=T. Yes.
+- 2-D (UNCLE) [3]=C matches 4-A (COUNCIL) [5]=C. Yes.
+- 4-D (COURAGE) [5]=A matches 8-A (SWAMP) [3]=A. Yes.
+- 8-D (SQUAD) [1]=S matches 8-A (SWAMP) [1]=S. Yes.
+- 13-A (DRIVE) [5]=E matches 9-D (PROBE) [5]=E. Yes.
+- 13-A (DRIVE) [1]=D matches 8-D (SQUAD) [5]=D. Yes.
+- 12-A (ECONOMY) [3]=O matches 9-D (PROBE) [3]=O. Yes.
+
+Everything checks out.
+
+**Puzzle A Solution:**
+1-ACROSS: CANDY
+1-DOWN: CUBIC
+2-ACROSS: UPSET
+2-DOWN: UNCLE
+3-DOWN: THREW
+4-ACROSS: COUNCIL
+4-DOWN: COURAGE
+5-DOWN: LIBRARY
+6-ACROSS: COUNT
+7-ACROSS: ELBOW
+8-ACROSS: SWAMP
+8-DOWN: SQUAD
+9-DOWN: PROBE
+10-ACROSS: DEALT
+11-DOWN: TWIST
+12-ACROSS: ECONOMY
+13-ACROSS: DRIVE
+14-ACROSS: SHIRT
+
+---
+
+**PUZZLE B**
+
+Grid:

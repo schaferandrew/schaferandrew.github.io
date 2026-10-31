@@ -1,0 +1,123 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "b738bcf5-700d-42e3-b7be-80b94f1f1a77",
+ "rubric_version": 2,
+ "rubric_hash": "44543ae2a21316cd",
+ "method": "checks",
+ "scored_at": "2026-10-31T04:02:26.604651+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 11.0,
+  "total": 11,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "all_found",
+   "type": "items",
+   "group": "All anachronisms found",
+   "label": "The ANACHRONISMS line includes c (Gettysburg, July), f (telephone, 1876), g (barbed wire, 1874), j (West Virginia, June 20) and k (draft riots, July); one item per letter.",
+   "passed": true,
+   "detail": "5/5 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "found:C",
+     "label": "C listed",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "found:F",
+     "label": "F listed",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "found:G",
+     "label": "G listed",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "found:J",
+     "label": "J listed",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "found:K",
+     "label": "K listed",
+     "passed": true,
+     "detail": "listed"
+    }
+   ]
+  },
+  {
+   "id": "no_false_flags",
+   "type": "items",
+   "group": "Nothing period-correct flagged",
+   "label": "The ANACHRONISMS line leaves out a, b, d, e, h, i (all possible by June 10, 1863); one item per letter.",
+   "passed": true,
+   "detail": "6/6 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "left_out:A",
+     "label": "A left out",
+     "passed": true,
+     "detail": "not listed"
+    },
+    {
+     "id": "left_out:B",
+     "label": "B left out",
+     "passed": true,
+     "detail": "not listed"
+    },
+    {
+     "id": "left_out:D",
+     "label": "D left out",
+     "passed": true,
+     "detail": "not listed"
+    },
+    {
+     "id": "left_out:E",
+     "label": "E left out",
+     "passed": true,
+     "detail": "not listed"
+    },
+    {
+     "id": "left_out:H",
+     "label": "H left out",
+     "passed": true,
+     "detail": "not listed"
+    },
+    {
+     "id": "left_out:I",
+     "label": "I left out",
+     "passed": true,
+     "detail": "not listed"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "All anachronisms found",
+   "passed": 5.0,
+   "total": 5,
+   "detail": "5/5 items"
+  },
+  {
+   "id": "Nothing period-correct flagged",
+   "passed": 6.0,
+   "total": 6,
+   "detail": "6/6 items"
+  }
+ ]
+}

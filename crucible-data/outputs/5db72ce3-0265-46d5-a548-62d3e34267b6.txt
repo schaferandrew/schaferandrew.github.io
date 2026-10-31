@@ -1,0 +1,27 @@
+1. For the first game, track both the pile size and the number taken on the preceding turn. Let \(W_k\) be the set of previous move sizes from which the player to move wins with \(k\) tokens remaining. For \(k=1\), every previous move size is losing, since no move is possible. For \(k\ge2\), a state is winning exactly when some legal move leaves a losing state. Applying this recurrence for \(k=1,\ldots,100\), and allowing all four choices on the first move, gives **45** starting values for which the first player loses.
+
+2. A position of fallen pins splits the remaining pins into independent contiguous runs. The Sprague–Grundy value of a run of length \(m\) is the mex of the nim-sums left by removing two or three consecutive pins. Evaluating these values for lengths up to 23, a first move wins precisely when the two or three resulting runs have nonzero nim-sum. Counting the possible starting positions for each winning pair or triple gives **30** winning first moves.
+
+3. A winning starting vertex is one from which the first player has a winning move in the game of paths that never revisit a vertex. Checking the finite path tree for the given graph gives winning starts **1, 2, 4, 5, 6, 8, 9, 10, 11**, whose sum is **66**.
+
+4. Write each person’s type as 1 for knight and 0 for knave. Each person’s type must equal the truth value of their statement. Substituting the statements gives exactly two consistent assignments:
+\[
+(A,B,C,D,E,F,G,H)=(0,0,0,1,1,0,1,1)
+\]
+and
+\[
+(A,B,C,D,E,F,G,H)=(1,1,1,0,0,1,0,0).
+\]
+Each has four knights, so the requested total is **8**.
+
+5. Translating each clue into house-position constraints and applying them to the six distinct people, colors, pets, drinks, and jobs gives the unique arrangement. The occupants of houses 1 through 6 are **Lior, Bram, Kofi, Wren, Odile, Tamsin**, respectively. The requested six-digit number is **235641**.
+
+6. Since S is before P and P is strictly between R and S, the order must be \(R<P<S\). Also S and P cannot be consecutive. Enumerating placements with \(R\) and \(T\) at least three slots apart, while enforcing the restrictions on Q and P, leaves **36** schedules.
+
+ANSWERS:
+1: 45
+2: 30
+3: 66
+4: 8
+5: 235641
+6: 36

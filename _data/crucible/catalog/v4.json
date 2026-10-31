@@ -1,0 +1,3015 @@
+{
+ "format_version": 3,
+ "format_revision": 1,
+ "suite": {
+  "id": "v4",
+  "version": "4.0",
+  "cut_at": "2026-10-31",
+  "status": "current",
+  "changelog_url": "https://github.com/schaferandrew/crucible/blob/main/SUITE_CHANGELOG.md#suite-v4"
+ },
+ "crucible_version": "3.6.1",
+ "scoring_policy": {
+  "coverage_min": 0.75,
+  "in_progress_below": 0.75,
+  "repeat_aggregate": "mean"
+ },
+ "modes": [
+  {
+   "id": "chat",
+   "label": "Chat",
+   "blurb": "one API call, no tools",
+   "order": 1
+  },
+  {
+   "id": "agentic",
+   "label": "Agentic",
+   "blurb": "an agent harness with tools and a workspace",
+   "order": 2
+  }
+ ],
+ "areas": [
+  {
+   "id": "writing",
+   "label": "Writing",
+   "mode": "chat",
+   "order": 1
+  },
+  {
+   "id": "math",
+   "label": "Math & logic",
+   "mode": "chat",
+   "order": 2
+  },
+  {
+   "id": "geography",
+   "label": "Geography",
+   "mode": "chat",
+   "order": 3
+  },
+  {
+   "id": "history",
+   "label": "History",
+   "mode": "chat",
+   "order": 4
+  },
+  {
+   "id": "general",
+   "label": "General knowledge",
+   "mode": "chat",
+   "order": 5
+  },
+  {
+   "id": "evals",
+   "label": "Evals",
+   "mode": "chat",
+   "order": 6
+  },
+  {
+   "id": "coding",
+   "label": "Coding",
+   "mode": "agentic",
+   "order": 1
+  },
+  {
+   "id": "research",
+   "label": "Research",
+   "mode": "agentic",
+   "order": 2
+  },
+  {
+   "id": "everyday",
+   "label": "Everyday",
+   "mode": "agentic",
+   "order": 3
+  }
+ ],
+ "categories": [
+  {
+   "id": "coding_build",
+   "label": "Coding build",
+   "weight": 0.1
+  },
+  {
+   "id": "coding_debug",
+   "label": "Coding debug",
+   "weight": 0.1
+  },
+  {
+   "id": "coding_repo",
+   "label": "Coding repo",
+   "weight": 0.1
+  },
+  {
+   "id": "browser_tool",
+   "label": "Browser tool",
+   "weight": 0.1
+  },
+  {
+   "id": "writing",
+   "label": "Writing",
+   "weight": 0.1
+  },
+  {
+   "id": "everyday",
+   "label": "Everyday",
+   "weight": 0.1
+  },
+  {
+   "id": "reasoning",
+   "label": "Reasoning",
+   "weight": 0.05
+  },
+  {
+   "id": "structured_data",
+   "label": "Structured data",
+   "weight": 0.05
+  },
+  {
+   "id": "long_agent",
+   "label": "Long agent",
+   "weight": 0.05
+  },
+  {
+   "id": "home_maintenance",
+   "label": "Home maintenance",
+   "weight": 0.05
+  },
+  {
+   "id": "math",
+   "label": "Math",
+   "weight": 0.05
+  },
+  {
+   "id": "geography",
+   "label": "Geography",
+   "weight": 0.05
+  },
+  {
+   "id": "history",
+   "label": "History",
+   "weight": 0.05
+  },
+  {
+   "id": "evals",
+   "label": "Evals",
+   "weight": 0.05
+  }
+ ],
+ "tiers": [
+  {
+   "id": "spark",
+   "label": "Spark",
+   "blurb": "the basics, a pass/fail gate",
+   "order": 1,
+   "role": "gate",
+   "gate": {
+    "mean": 8,
+    "min": 5
+   }
+  },
+  {
+   "id": "temper",
+   "label": "Temper",
+   "blurb": "everyday work, the headline score",
+   "order": 2,
+   "role": "headline"
+  },
+  {
+   "id": "forge",
+   "label": "Forge",
+   "blurb": "frontier-level work, slow",
+   "order": 3,
+   "role": "stretch"
+  }
+ ],
+ "harnesses": [
+  {
+   "id": "opencode",
+   "label": "opencode",
+   "modes": [
+    "agentic"
+   ]
+  },
+  {
+   "id": "pi",
+   "label": "pi",
+   "modes": [
+    "agentic"
+   ]
+  },
+  {
+   "id": "direct",
+   "label": "direct",
+   "modes": [
+    "chat"
+   ]
+  }
+ ],
+ "tasks": [
+  {
+   "id": "accessibility-audit-fixes",
+   "name": "Accessibility audit fixes",
+   "aliases": [
+    "CODE-15"
+   ],
+   "mode": "agentic",
+   "area": "coding",
+   "category": "browser_tool",
+   "tier": "temper",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 3,
+   "weight": 0.033333,
+   "scoring": {
+    "method": "hidden_tests",
+    "unit": "tests",
+    "total": 39,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Dialog",
+     "label": "Dialog",
+     "max_score": null
+    },
+    {
+     "id": "Read more",
+     "label": "Read more",
+     "max_score": null
+    },
+    {
+     "id": "Tag filter",
+     "label": "Tag filter",
+     "max_score": null
+    },
+    {
+     "id": "Button names",
+     "label": "Button names",
+     "max_score": null
+    },
+    {
+     "id": "Form errors",
+     "label": "Form errors",
+     "max_score": null
+    },
+    {
+     "id": "Status messages",
+     "label": "Status messages",
+     "max_score": null
+    },
+    {
+     "id": "Regression tests",
+     "label": "Regression tests",
+     "max_score": null
+    },
+    {
+     "id": "Existing tests still pass",
+     "label": "Existing tests still pass",
+     "max_score": null
+    },
+    {
+     "id": "Contract suite untouched",
+     "label": "Contract suite untouched",
+     "max_score": null
+    }
+   ],
+   "summary": "This is Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, and shared types in packages/shared.",
+   "prompt": "This is Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, and shared types in packages/shared. Read README.md first.\n\nConduit just failed an external accessibility audit, and we can't sign a public-sector contract until it passes. The auditor's summary is in docs/accessibility-audit.md. Fix every finding in the web app so keyboard and screen reader users can do everything mouse users can.\n\nConstraints:\n- Keep the visual design the same.\n- Keep each component's name, file and props as they are (other teams import them); change their internals freely.\n- Prefer native HTML elements and behavior; where a custom widget is genuinely needed, follow the WAI-ARIA Authoring Practices pattern for it.\n- Don't fix one finding in a way that creates another.\n- axe-core is installed in apps/web. Add tests that would have caught each finding (keyboard interaction and announcements, not only axe), and keep every existing test passing.\n\nFinish with a summary of each finding, what you changed, and anything you couldn't verify without a real screen reader.",
+   "rules": [],
+   "added_in": "v2"
+  },
+  {
+   "id": "blank-dashboard-debug",
+   "name": "Blank dashboard after login",
+   "aliases": [
+    "CODE-5"
+   ],
+   "mode": "agentic",
+   "area": "coding",
+   "category": "browser_tool",
+   "tier": "forge",
+   "status": "active",
+   "version": 2,
+   "rubric_version": 2,
+   "weight": 0.033333,
+   "scoring": {
+    "method": "hidden_tests",
+    "unit": "tests",
+    "total": 13,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Expired sessions are rejected",
+     "label": "Expired sessions are rejected",
+     "max_score": null
+    },
+    {
+     "id": "Login prompt, not a blank page",
+     "label": "Login prompt, not a blank page",
+     "max_score": null
+    },
+    {
+     "id": "Normal sessions still work",
+     "label": "Normal sessions still work",
+     "max_score": null
+    },
+    {
+     "id": "Regression tests",
+     "label": "Regression tests",
+     "max_score": null
+    },
+    {
+     "id": "Existing tests still pass",
+     "label": "Existing tests still pass",
+     "max_score": null
+    }
+   ],
+   "summary": "Open the local application in a real browser and diagnose why the dashboard intermittently shows a blank state after login.",
+   "prompt": "Open the local application in a real browser and diagnose why the dashboard intermittently shows a blank state after login. Reproduce the issue, inspect the browser console and network requests, identify the failing request or client-side error, and fix the underlying application code. Verify the fix in the browser and add an automated regression test.\n\nThe app starts with `npm start` on http://localhost:3456 (the test accounts are in SKILL.md). Login sessions in this build last 30 seconds, so the blank state shows up whenever the dashboard is loaded a little after logging in. `npm test` runs the repo's tests.",
+   "rules": [],
+   "added_in": "v2"
+  },
+  {
+   "id": "cache-leak-incident",
+   "name": "Cache leak incident",
+   "aliases": [
+    "CODE-13"
+   ],
+   "mode": "agentic",
+   "area": "coding",
+   "category": "coding_debug",
+   "tier": "forge",
+   "status": "active",
+   "version": 3,
+   "rubric_version": 4,
+   "weight": 0.033333,
+   "scoring": {
+    "method": "hidden_tests",
+    "unit": "tests",
+    "total": 17,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Per-viewer fields",
+     "label": "Per-viewer fields",
+     "max_score": null
+    },
+    {
+     "id": "Writes visible immediately",
+     "label": "Writes visible immediately",
+     "max_score": null
+    },
+    {
+     "id": "Postmortem lines",
+     "label": "Postmortem lines",
+     "max_score": null
+    },
+    {
+     "id": "Regression tests",
+     "label": "Regression tests",
+     "max_score": null
+    },
+    {
+     "id": "Existing tests still pass",
+     "label": "Existing tests still pass",
+     "max_score": null
+    },
+    {
+     "id": "Contract suite untouched",
+     "label": "Contract suite untouched",
+     "max_score": null
+    }
+   ],
+   "summary": "You're on call for Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, shared code in packages/shared.",
+   "prompt": "You're on call for Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, shared code in packages/shared. Read README.md first.\n\nSupport escalated this ticket this morning:\n\n  \"Since yesterday's deploy, several users report that articles show as 'favorited' when they never favorited them, and the follow button shows the wrong state on author profiles. Two authors also say edits to their articles don't show up for a while, and one says a deleted article was still readable. It isn't consistent: refreshing sometimes fixes it.\"\n\nThe production logs from the last two days are in incident/logs/ (API access log, application log, deploy log). They're large, so search them rather than reading them end to end. incident/ticket-notes.md has what support collected.\n\nDo all of the following:\n1. Find the root cause (or causes) and confirm each one against the logs.\n2. Fix it properly in the code. Keep the intent of the change that introduced it if that intent is sound, and don't just revert or disable things wholesale. Keep createApp(db, options) and the way server.ts calls it working as they do today, with the options it takes now: our other tooling builds the app through it.\n3. Add regression tests that fail before your fix and pass after it. Keep every existing test passing, including apps/api/test/realworld.contract.test.ts, unmodified.\n4. Write incident/POSTMORTEM.md covering: a timeline with timestamps taken from the logs (deploy, first affected request, first user report), the root cause, how many distinct users were served another user's personalized data (count it from the logs, and say how you counted), impact, the fix, and follow-up actions.\n\nStart the postmortem with these four lines, exactly in this form, with times as HH:MM:SS (UTC, from the logs) and a whole number of users:\n\n  Deploy: HH:MM:SS\n  First affected request: HH:MM:SS\n  First report: HH:MM:SS\n  Affected users: <n>\n\n\"First affected request\" is the first request served from stored data that was built for a different signed-in user. Count signed-in users only, or, if you also count responses stored by anonymous requests, say so in the postmortem.",
+   "rules": [],
+   "added_in": "v2"
+  },
+  {
+   "id": "calendar-free-at-330",
+   "name": "Am I free at 3:30?",
+   "aliases": [
+    "TASK-4"
+   ],
+   "mode": "agentic",
+   "area": "everyday",
+   "category": "everyday",
+   "tier": "spark",
+   "status": "active",
+   "version": 2,
+   "rubric_version": 2,
+   "weight": 0.025,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 4,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Correct answer",
+     "label": "Correct answer",
+     "max_score": 1
+    },
+    {
+     "id": "States its assumption",
+     "label": "States its assumption",
+     "max_score": 1
+    },
+    {
+     "id": "Grounded in the calendar",
+     "label": "Grounded in the calendar",
+     "max_score": 2
+    }
+   ],
+   "summary": "Am I free at 3:30?",
+   "prompt": "Am I free at 3:30?\n\nExplain your reasoning first if it helps. Then end your reply with this block, and nothing after it:\n\nANSWER: free|busy\n\nWrite `free` or `busy` after the colon, and nothing else on that line. Say in your reasoning which day and time you checked.",
+   "rules": [
+    "The ANSWER: line says free (the Design review ends at exactly 3:30, which is not a conflict).",
+    "The reply says which time it checked: PM, this afternoon or today (3:30 AM has already passed).",
+    "The run called get_current_time and list_events (read from the session, not the reply)."
+   ],
+   "added_in": "v2"
+  },
+  {
+   "id": "calendar-hour-with-jamie",
+   "name": "An hour with Jamie",
+   "aliases": [
+    "TASK-5"
+   ],
+   "mode": "agentic",
+   "area": "everyday",
+   "category": "long_agent",
+   "tier": "temper",
+   "status": "active",
+   "version": 2,
+   "rubric_version": 2,
+   "weight": 0.016667,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 4,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Valid options",
+     "label": "Valid options",
+     "max_score": 1
+    },
+    {
+     "id": "Two or three options",
+     "label": "Two or three options",
+     "max_score": 1
+    },
+    {
+     "id": "Reads event status and time",
+     "label": "Reads event status and time",
+     "max_score": 2
+    }
+   ],
+   "summary": "I need to meet up with Jamie for an hour sometime this week for work.",
+   "prompt": "I need to meet up with Jamie for an hour sometime this week for work. Find a time that works for both of us.\n\nExplain your reasoning first if it helps. Then end your reply with this block, and nothing after it:\n\nOPTIONS:\nYYYY-MM-DD HH:MM <time zone>\n\nOne line per option, in 24-hour time, with a time zone abbreviation or name (for example CDT or America/Chicago). Give two or three options, best first.",
+   "rules": [
+    "Every OPTIONS line is a 60-minute start that is free for both people inside weekday 9-5 and after now (computed from the dataset), with no repeats. Any other option caps the score at 4.",
+    "The OPTIONS block has two or three lines.",
+    "At least one valid option is Thursday 13:00 or on Friday (it needs Alex's declined and transparent events read as not blocking), and no option is before Monday 8:30 AM."
+   ],
+   "added_in": "v2"
+  },
+  {
+   "id": "calendar-team-of-16",
+   "name": "An hour for a team of 16",
+   "aliases": [
+    "TASK-6"
+   ],
+   "mode": "agentic",
+   "area": "everyday",
+   "category": "long_agent",
+   "tier": "forge",
+   "status": "active",
+   "version": 2,
+   "rubric_version": 2,
+   "weight": 0.016667,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 5,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Valid options",
+     "label": "Valid options",
+     "max_score": 1
+    },
+    {
+     "id": "Exactly three options",
+     "label": "Exactly three options",
+     "max_score": 1
+    },
+    {
+     "id": "Handles the constraints",
+     "label": "Handles the constraints",
+     "max_score": 2
+    },
+    {
+     "id": "Identifies the team",
+     "label": "Identifies the team",
+     "max_score": 1
+    }
+   ],
+   "summary": "Find an hour in the next two weeks for a work meeting with everyone on my team.",
+   "prompt": "Find an hour in the next two weeks for a work meeting with everyone on my team. Give me your top three options.\n\nExplain your reasoning first if it helps. Then end your reply with this block, and nothing after it:\n\nOPTIONS:\nYYYY-MM-DD HH:MM <time zone>\n\nOne line per option, in 24-hour time, with a time zone abbreviation or name (for example CDT or America/Chicago). Give exactly three options, best first.",
+   "rules": [
+    "Every OPTIONS line is a 60-minute start free for all 16 Platform calendars inside each person's 9-5 weekday (computed from the dataset), with no repeats. Any other option caps the score at 4.",
+    "The OPTIONS block has exactly three lines.",
+    "No option falls on Labor Day (9/7) or on 9/10-9/11, and none ends after 16:00 Central (Marcus works 9-5 in New York).",
+    "The run's get_freebusy calls (read from the session) named all 15 Platform calendars other than the user's own."
+   ],
+   "added_in": "v2"
+  },
+  {
+   "id": "capitals-not-largest-city",
+   "name": "Capitals, not the largest city",
+   "aliases": [
+    "GEOG-1"
+   ],
+   "mode": "chat",
+   "area": "geography",
+   "category": "geography",
+   "tier": "spark",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 2,
+   "weight": 0.016667,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 6,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Capitals",
+     "label": "Capitals",
+     "max_score": 6
+    }
+   ],
+   "summary": "What is the capital of each of these countries?",
+   "prompt": "What is the capital of each of these countries? Answer with one line per country, in the form `Country: Capital`.\n\nAustralia, Canada, Brazil, Nigeria, Türkiye, Switzerland",
+   "rules": [
+    "Each country line names its capital and nothing else: Australia: Canberra, Canada: Ottawa, Brazil: Brasília, Nigeria: Abuja, Türkiye: Ankara, Switzerland: Bern; one item per country."
+   ],
+   "added_in": "v4"
+  },
+  {
+   "id": "cold-window-advice",
+   "name": "Cold room by a window",
+   "aliases": [
+    "KNOW-7"
+   ],
+   "mode": "chat",
+   "area": "general",
+   "category": "home_maintenance",
+   "tier": "temper",
+   "status": "retired",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "judge",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Correct differential diagnosis",
+     "label": "Correct differential diagnosis",
+     "max_score": 3
+    },
+    {
+     "id": "Non-destructive tests",
+     "label": "Non-destructive tests",
+     "max_score": 2
+    },
+    {
+     "id": "Repair prioritization",
+     "label": "Repair prioritization",
+     "max_score": 3
+    },
+    {
+     "id": "Cost/common-sense judgment",
+     "label": "Cost/common-sense judgment",
+     "max_score": 1
+    },
+    {
+     "id": "Avoids premature replacement",
+     "label": "Avoids premature replacement",
+     "max_score": 1
+    }
+   ],
+   "summary": "One room is much colder near an exterior window during winter.",
+   "prompt": "One room is much colder near an exterior window during winter. Help me determine whether the problem is air leakage, poor glazing, a failed seal, or simply cold surfaces creating a downdraft. Give me inexpensive diagnostic tests I can do today, followed by repairs ranked from temporary/cheap to permanent/expensive. Do not assume the window needs replacement.",
+   "rules": [],
+   "added_in": null
+  },
+  {
+   "id": "competition-math",
+   "name": "Competition counting and probability",
+   "aliases": [
+    "MATH-3"
+   ],
+   "mode": "chat",
+   "area": "math",
+   "category": "math",
+   "tier": "temper",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": 0.016667,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Inclusion-exclusion",
+     "label": "Inclusion-exclusion",
+     "max_score": 2
+    },
+    {
+     "id": "Modular power",
+     "label": "Modular power",
+     "max_score": 2
+    },
+    {
+     "id": "Tiling",
+     "label": "Tiling",
+     "max_score": 2
+    },
+    {
+     "id": "Dice",
+     "label": "Dice",
+     "max_score": 2
+    },
+    {
+     "id": "Tuesday boy",
+     "label": "Tuesday boy",
+     "max_score": 2
+    }
+   ],
+   "summary": "Five problems, each with a single exact answer.",
+   "prompt": "Five problems, each with a single exact answer. Several have a tempting wrong answer, so check your reasoning before you commit. Give fractions in lowest terms.\n\n1. How many integers from 1 to 10,000 inclusive are divisible by 3 or by 7, but not by 21?\n2. What is the remainder when 7^2026 is divided by 100?\n3. In how many ways can a 2 x 12 board be tiled with 1 x 2 dominoes (placed either way) and 2 x 2 squares?\n4. Three fair six-sided dice are rolled. What is the probability that the largest number shown is exactly 4?\n5. A family has two children. You learn that at least one of them is a boy who was born on a Tuesday. Assuming each child is equally likely to be a boy or a girl and to be born on any day of the week, independently, what is the probability that both children are boys?\n\nEnd with a section headed ANSWERS, one line per question in the form `1. <answer>`.",
+   "rules": [
+    "Answer 1 is 3809.",
+    "Answer 2 is 49.",
+    "Answer 3 is 2731.",
+    "Answer 4 is 37/216.",
+    "Answer 5 is 13/27."
+   ],
+   "added_in": "v4"
+  },
+  {
+   "id": "cursor-pagination",
+   "name": "Cursor pagination",
+   "aliases": [
+    "CODE-12"
+   ],
+   "mode": "agentic",
+   "area": "coding",
+   "category": "coding_repo",
+   "tier": "forge",
+   "status": "active",
+   "version": 2,
+   "rubric_version": 4,
+   "weight": 0.033333,
+   "scoring": {
+    "method": "hidden_tests",
+    "unit": "tests",
+    "total": 55,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Cursor correctness",
+     "label": "Cursor correctness",
+     "max_score": null
+    },
+    {
+     "id": "Validation and safety",
+     "label": "Validation and safety",
+     "max_score": null
+    },
+    {
+     "id": "Backward compatibility",
+     "label": "Backward compatibility",
+     "max_score": null
+    },
+    {
+     "id": "Web app",
+     "label": "Web app",
+     "max_score": null
+    },
+    {
+     "id": "Regression tests",
+     "label": "Regression tests",
+     "max_score": null
+    },
+    {
+     "id": "Existing tests still pass",
+     "label": "Existing tests still pass",
+     "max_score": null
+    },
+    {
+     "id": "Contract suite untouched",
+     "label": "Contract suite untouched",
+     "max_score": null
+    }
+   ],
+   "summary": "This is Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, and shared types and validation in packages/shared.",
+   "prompt": "This is Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, and shared types and validation in packages/shared. Read README.md first.\n\nOffset pagination is breaking down: when articles are published or deleted while someone is paging, they see duplicates or miss articles entirely. Migrate the article lists, the feed and comments to cursor pagination, without breaking existing clients.\n\nAPI\n- GET /api/articles (with any of its filters) and GET /api/articles/feed accept `cursor` alongside `limit`. Responses gain `nextCursor`: an opaque string for the next page, or null on the last page. `articlesCount` keeps meaning the total that matches the filters.\n- Paging with cursors must never skip or repeat an article, even when articles are created, deleted or favorited between page requests. Order stays newest first.\n- Cursors are opaque to clients and must not be forgeable into something else: a malformed or tampered cursor is a 422 with the usual error envelope ({ \"errors\": { \"cursor\": [...] } }).\n- A cursor is only valid for the query that produced it. Using it with different filters (tag, author, favorited) or on a different endpoint is a 422.\n- Sending both cursor and offset is a 422.\n- Offset pagination keeps working exactly as before when no cursor is sent: apps/api/test/realworld.contract.test.ts must stay green and unmodified.\n- GET /api/articles/:slug/comments gains the same cursor paging (`limit`, `cursor`, `nextCursor`), newest first. Without limit or cursor it returns every comment, as today.\n\nWeb app\n- Replace numbered pagination with a \"Load more\" button on every article list (home tabs and profile tabs), driven by nextCursor. Loaded articles stay on screen; the button disappears on the last page.\n- Comments on the article page load the same way.\n\nShared types must describe the new response fields. Add tests that prove the no-skip/no-duplicate guarantee under concurrent writes, the validation rules and the new web behavior, and keep every existing test passing. When you're done, summarize what you changed and anything you'd flag in code review.",
+   "rules": [],
+   "added_in": "v2"
+  },
+  {
+   "id": "editorial-review-workflow",
+   "name": "Editorial review workflow",
+   "aliases": [
+    "CODE-11"
+   ],
+   "mode": "agentic",
+   "area": "coding",
+   "category": "coding_repo",
+   "tier": "forge",
+   "status": "active",
+   "version": 3,
+   "rubric_version": 4,
+   "weight": 0.033333,
+   "scoring": {
+    "method": "hidden_tests",
+    "unit": "tests",
+    "total": 26,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Client contract",
+     "label": "Client contract",
+     "max_score": null
+    },
+    {
+     "id": "Unapproved work stays private",
+     "label": "Unapproved work stays private",
+     "max_score": null
+    },
+    {
+     "id": "Rules found, not given",
+     "label": "Rules found, not given",
+     "max_score": null
+    },
+    {
+     "id": "Regression tests",
+     "label": "Regression tests",
+     "max_score": null
+    },
+    {
+     "id": "Existing tests still pass",
+     "label": "Existing tests still pass",
+     "max_score": null
+    },
+    {
+     "id": "Contract suite untouched",
+     "label": "Contract suite untouched",
+     "max_score": null
+    }
+   ],
+   "summary": "This is Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, and shared types and validation in packages/shared.",
+   "prompt": "This is Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, and shared types and validation in packages/shared. Read README.md first.\n\nProduct brief: editorial review\n\nWe're adding an editorial step before articles go public. Authors write drafts, send them for review, and editors either approve them or send them back with feedback. The rules that matter:\n\n- The public must never see work that hasn't been approved. Not the article, not that it exists, not anything derived from it.\n- Editors review other people's work. No one approves their own.\n- Feedback is a conversation between the author and the editors. Nobody else should ever see it.\n- Authors need to see where each of their articles stands and why something was sent back.\n- Existing RealWorld clients must keep working. apps/api/test/realworld.contract.test.ts must stay green and unmodified.\n\nThe mobile team has already built against this client contract, so match it exactly:\n- Article JSON gains `status` (\"draft\", \"in_review\" or \"published\") and `reviewComment` (string or null).\n- POST /api/articles accepts an optional \"status\": \"draft\". Without it, articles publish immediately, as today.\n- POST /api/articles/:slug/submit (draft to in_review), POST /api/articles/:slug/approve (in_review to published) and POST /api/articles/:slug/reject with body { \"review\": { \"comment\": \"...\" } } (in_review back to draft). Each returns { article }. Transitions that don't apply are a 422 in the usual error envelope; callers who aren't allowed get 403.\n- GET /api/articles/review-queue: what editors need to review, oldest first, as { articles, articlesCount }.\n- GET /api/user/articles: the signed-in user's own articles of every status, newest first, with an optional ?status= filter.\n- Editors are configured by username: createApp(db, { editors: [\"ada\"] }), and server.ts reads a comma-separated EDITORS environment variable.\n\nOn the web app, editors need a screen to work through the review queue, and authors need to see their articles' status and feedback and submit drafts. Keep it simple: the API rules are what matter.\n\nSome of this brief may conflict with how the app behaves today. Where it does, choose the option that keeps existing clients working and keeps unapproved work private, and explain each call you made. Add tests for the rules, keep every existing test passing, and finish with a summary of what you changed and what you'd flag in code review.",
+   "rules": [],
+   "added_in": "v2"
+  },
+  {
+   "id": "explain-enshittification",
+   "name": "Explain enshittification",
+   "aliases": [
+    "KNOW-2"
+   ],
+   "mode": "chat",
+   "area": "general",
+   "category": "everyday",
+   "tier": "temper",
+   "status": "retired",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "judge",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Accurate definition",
+     "label": "Accurate definition",
+     "max_score": 3
+    },
+    {
+     "id": "Mechanism",
+     "label": "Mechanism",
+     "max_score": 2
+    },
+    {
+     "id": "Examples",
+     "label": "Examples",
+     "max_score": 2
+    },
+    {
+     "id": "Boundaries/limitations",
+     "label": "Boundaries/limitations",
+     "max_score": 2
+    },
+    {
+     "id": "Clarity",
+     "label": "Clarity",
+     "max_score": 1
+    }
+   ],
+   "summary": "Explain the concept of \"enshittification\" to an intelligent adult who has heard the word but doesn't know the theory behind it.",
+   "prompt": "Explain the concept of \"enshittification\" to an intelligent adult who has heard the word but doesn't know the theory behind it. Start with a one-sentence definition, then explain the mechanism in plain English, give two concrete examples, explain what the concept does and does not claim, and briefly discuss criticisms or limitations. Avoid jargon unless you define it.",
+   "rules": [],
+   "added_in": null
+  },
+  {
+   "id": "explain-solar-panels",
+   "name": "Explain solar panels",
+   "aliases": [
+    "KNOW-3"
+   ],
+   "mode": "chat",
+   "area": "general",
+   "category": "everyday",
+   "tier": "temper",
+   "status": "retired",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "judge",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Technical accuracy",
+     "label": "Technical accuracy",
+     "max_score": 4
+    },
+    {
+     "id": "Causal chain",
+     "label": "Causal chain",
+     "max_score": 3
+    },
+    {
+     "id": "Intuitive explanation",
+     "label": "Intuitive explanation",
+     "max_score": 2
+    },
+    {
+     "id": "Avoids misleading analogy",
+     "label": "Avoids misleading analogy",
+     "max_score": 1
+    }
+   ],
+   "summary": "Explain how a typical photovoltaic solar panel turns sunlight into usable electricity.",
+   "prompt": "Explain how a typical photovoltaic solar panel turns sunlight into usable electricity. Start at the photon level, then move through the semiconductor, DC electricity, inverter, and household/grid use. Explain why panel output changes with sunlight and temperature. Assume I have basic science knowledge. Use one intuitive analogy, but clearly label what the analogy gets wrong.",
+   "rules": [],
+   "added_in": null
+  },
+  {
+   "id": "fact-check-history",
+   "name": "Fact-check twelve history claims",
+   "aliases": [
+    "HIST-2"
+   ],
+   "mode": "chat",
+   "area": "history",
+   "category": "history",
+   "tier": "temper",
+   "status": "active",
+   "version": 2,
+   "rubric_version": 2,
+   "weight": 0.016667,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 17,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Errors found",
+     "label": "Errors found",
+     "max_score": 5
+    },
+    {
+     "id": "Corrections",
+     "label": "Corrections",
+     "max_score": 5
+    },
+    {
+     "id": "Accurate claims left alone",
+     "label": "Accurate claims left alone",
+     "max_score": 7
+    }
+   ],
+   "summary": "Fact-check these claims before they go in a newsletter.",
+   "prompt": "Fact-check these claims before they go in a newsletter. Some of them are wrong and some are right.\n\n1. The Battle of Hastings was fought in 1066.\n2. In 1215, King Richard sealed Magna Carta at Runnymede.\n3. Christopher Columbus first reached the Americas in 1493.\n4. The United States Declaration of Independence was adopted on July 4, 1776.\n5. Crowds in Paris stormed the Bastille in July 1789.\n6. Napoleon was finally defeated at the Battle of Waterloo in 1812.\n7. The Titanic sank in April 1913.\n8. India gained independence from Britain in August 1947.\n9. Neil Armstrong and Buzz Aldrin landed on the Moon in July 1969.\n10. The Berlin Wall fell in November 1991.\n11. Germany was reunified in the year after the Berlin Wall fell.\n12. Nelson Mandela was elected President of South Africa in 1994.\n\nExplain your reasoning first if it helps. Then end your reply with this block, and nothing after it:\n\nERRORS:\n<number>: <corrected value>\n\nOne line per inaccurate numbered item, and none for accurate ones. Give only the corrected value (a year,\nnumber or name), not a sentence. If every item is accurate, write `ERRORS: none`.",
+   "rules": [
+    "Lists each inaccurate claim (2, 3, 6, 7 and 10) in the ERRORS: block; one item per line.",
+    "Corrects each one to its value alone: 2 to (King) John, 3 to 1492, 6 to 1815, 7 to 1912, 10 to 1989; one item per correction.",
+    "Leaves the accurate claims (1, 4, 5, 8, 9, 11 and 12) out of the ERRORS: block; one item per claim."
+   ],
+   "added_in": "v2"
+  },
+  {
+   "id": "fill-in-crossword-grids",
+   "name": "Fill-in crossword grids",
+   "aliases": [],
+   "mode": "chat",
+   "area": "math",
+   "category": "reasoning",
+   "tier": "forge",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": 0.0125,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 40,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Puzzle A",
+     "label": "Puzzle A",
+     "max_score": 18
+    },
+    {
+     "id": "Puzzle B",
+     "label": "Puzzle B",
+     "max_score": 22
+    }
+   ],
+   "summary": "Two fill-in crosswords.",
+   "prompt": "Two fill-in crosswords. In each grid, # is a block and . is an empty cell. Rows are numbered 1 to 11 from the top and columns 1 to 11 from the left. Each slot is a run of empty cells, given by its label, its length and its first cell; ACROSS slots run left to right and DOWN slots top to bottom. Place every word of a puzzle's list in exactly one of its slots so that every slot holds a word of its length and crossing slots agree on their shared letter. Each puzzle has exactly one solution.\n\nPuzzle A\n\n. . . . . # . . . . .\n. # # # # # . # # # .\n. # . . . . . . . # .\n. # . # # # . # . # .\n. . . . . # . . . . .\n# # . # # # # # . # #\n. . . . . # . . . . .\n. # . # . # # # . # .\n. # . . . . . . . # .\n. # # # . # # # # # .\n. . . . . # . . . . .\n\nSlots:\n1-ACROSS (5): row 1, column 1\n1-DOWN (5): row 1, column 1\n2-ACROSS (5): row 1, column 7\n2-DOWN (5): row 1, column 7\n3-DOWN (5): row 1, column 11\n4-ACROSS (7): row 3, column 3\n4-DOWN (7): row 3, column 3\n5-DOWN (7): row 3, column 9\n6-ACROSS (5): row 5, column 1\n7-ACROSS (5): row 5, column 7\n8-ACROSS (5): row 7, column 1\n8-DOWN (5): row 7, column 1\n9-DOWN (5): row 7, column 5\n10-ACROSS (5): row 7, column 7\n11-DOWN (5): row 7, column 11\n12-ACROSS (7): row 9, column 3\n13-ACROSS (5): row 11, column 1\n14-ACROSS (5): row 11, column 7\n\nWords (18):\n5 letters: CANDY, COUNT, CUBIC, DEALT, DRIVE, ELBOW, PROBE, SHIRT, SQUAD, SWAMP, THREW, TWIST, UNCLE, UPSET\n7 letters: COUNCIL, COURAGE, ECONOMY, LIBRARY\n\nPuzzle B (its slot numbers continue from Puzzle A)\n\n. . . # # # . . . . .\n# # . # # # . # . # #\n. . . # . . . . . # .\n. # # # # # . # . # .\n. . . . . . . # . . .\n# # . # . # . # . # #\n. . . # . . . . . . .\n. # . # . # # # # # .\n. # . . . . . # . . .\n# # . # . # # # . # #\n. . . . . # # # . . .\n\nSlots:\n15-ACROSS (3): row 1, column 1\n16-DOWN (3): row 1, column 3\n17-ACROSS (5): row 1, column 7\n17-DOWN (7): row 1, column 7\n18-DOWN (7): row 1, column 9\n19-ACROSS (3): row 3, column 1\n19-DOWN (3): row 3, column 1\n20-ACROSS (5): row 3, column 5\n21-DOWN (3): row 3, column 11\n22-ACROSS (7): row 5, column 1\n23-DOWN (7): row 5, column 3\n24-DOWN (7): row 5, column 5\n25-ACROSS (3): row 5, column 9\n26-ACROSS (3): row 7, column 1\n26-DOWN (3): row 7, column 1\n27-ACROSS (7): row 7, column 5\n28-DOWN (3): row 7, column 11\n29-ACROSS (5): row 9, column 3\n30-ACROSS (3): row 9, column 9\n30-DOWN (3): row 9, column 9\n31-ACROSS (5): row 11, column 1\n32-ACROSS (3): row 11, column 9\n\nWords (22):\n3 letters: ANY, APT, CAR, COG, ELF, FAN, ONE, TAR, TEN, TIE, TOP, TOY\n5 letters: ALIKE, APPLY, AROMA, OUNCE\n7 letters: ANOTHER, APRICOT, BARGAIN, IMAGINE, PLASTIC, PUBLISH\n\nExplain your reasoning first if it helps. Then end your reply with this block, and nothing after it:\n\nANSWERS:\n<slot>: <word>\n\nOne line per slot, in the order listed, Puzzle A then Puzzle B in the same block. Give only the answer (a word), not a sentence.",
+   "rules": [
+    "Puzzle A's 18 slots hold: 1-ACROSS CANDY, 1-DOWN CUBIC, 2-ACROSS UPSET, 2-DOWN UNCLE, 3-DOWN THREW, 4-ACROSS COUNCIL, 4-DOWN COURAGE, 5-DOWN LIBRARY, 6-ACROSS COUNT, 7-ACROSS ELBOW, 8-ACROSS SWAMP, 8-DOWN SQUAD, 9-DOWN PROBE, 10-ACROSS DEALT, 11-DOWN TWIST, 12-ACROSS ECONOMY, 13-ACROSS DRIVE, 14-ACROSS SHIRT; one item per slot.",
+    "Puzzle B's 22 slots hold: 15-ACROSS ELF, 16-DOWN FAN, 17-ACROSS APPLY, 17-DOWN ANOTHER, 18-DOWN PLASTIC, 19-ACROSS TEN, 19-DOWN TOP, 20-ACROSS AROMA, 21-DOWN ONE, 22-ACROSS PUBLISH, 23-DOWN BARGAIN, 24-DOWN IMAGINE, 25-ACROSS TIE, 26-ACROSS CAR, 26-DOWN COG, 27-ACROSS APRICOT, 28-DOWN TOY, 29-ACROSS ALIKE, 30-ACROSS ANY, 30-DOWN APT, 31-ACROSS OUNCE, 32-ACROSS TAR; one item per slot."
+   ],
+   "added_in": "v4"
+  },
+  {
+   "id": "fire-truck-color",
+   "name": "Fire truck color",
+   "aliases": [
+    "KNOW-1"
+   ],
+   "mode": "chat",
+   "area": "general",
+   "category": "everyday",
+   "tier": "spark",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 2,
+   "weight": 0.025,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Correct answer",
+     "label": "Correct answer",
+     "max_score": 7
+    },
+    {
+     "id": "Red is the answer",
+     "label": "Red is the answer",
+     "max_score": 2
+    },
+    {
+     "id": "Brief",
+     "label": "Brief",
+     "max_score": 1
+    }
+   ],
+   "summary": "What color are firetrucks in the US?",
+   "prompt": "What color are firetrucks in the US? Answer in one or two sentences.",
+   "rules": [
+    "Says US fire trucks are red (lime-yellow or white variants can be mentioned too).",
+    "Red is the first color it names (other colors mentioned afterward as variants are fine).",
+    "Answers in a sentence or two (at most 60 words)."
+   ],
+   "added_in": "v1"
+  },
+  {
+   "id": "furnace-wont-start-advice",
+   "name": "Furnace won't start",
+   "aliases": [
+    "KNOW-8"
+   ],
+   "mode": "chat",
+   "area": "general",
+   "category": "home_maintenance",
+   "tier": "temper",
+   "status": "retired",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "judge",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Safe sequence",
+     "label": "Safe sequence",
+     "max_score": 3
+    },
+    {
+     "id": "Covers common simple causes",
+     "label": "Covers common simple causes",
+     "max_score": 2
+    },
+    {
+     "id": "Uses observations intelligently",
+     "label": "Uses observations intelligently",
+     "max_score": 2
+    },
+    {
+     "id": "Clear stop/escalation conditions",
+     "label": "Clear stop/escalation conditions",
+     "max_score": 3
+    }
+   ],
+   "summary": "My forced-air furnace won't start when the thermostat calls for heat.",
+   "prompt": "My forced-air furnace won't start when the thermostat calls for heat. Before I call someone, give me a safe homeowner-level diagnostic checklist. Include thermostat/power checks, filter considerations, service-switch checks, error-light observations, and a clear boundary for what I should not attempt myself. Explain why each check matters.",
+   "rules": [],
+   "added_in": null
+  },
+  {
+   "id": "geography-trick-questions",
+   "name": "Geography trick questions",
+   "aliases": [
+    "GEOG-3"
+   ],
+   "mode": "chat",
+   "area": "geography",
+   "category": "geography",
+   "tier": "temper",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": 0.016667,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 6,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Equator and Capricorn",
+     "label": "Equator and Capricorn",
+     "max_score": 1
+    },
+    {
+     "id": "Red Sea and Gulf",
+     "label": "Red Sea and Gulf",
+     "max_score": 1
+    },
+    {
+     "id": "Northernmost capital",
+     "label": "Northernmost capital",
+     "max_score": 1
+    },
+    {
+     "id": "Most time zones",
+     "label": "Most time zones",
+     "max_score": 1
+    },
+    {
+     "id": "Closest state",
+     "label": "Closest state",
+     "max_score": 1
+    },
+    {
+     "id": "One neighbor",
+     "label": "One neighbor",
+     "max_score": 1
+    }
+   ],
+   "summary": "Six geography questions, each with a single answer.",
+   "prompt": "Six geography questions, each with a single answer. The obvious answer is wrong for several of them. Give a one-sentence justification for each.\n\n1. Which country is crossed by both the Equator and the Tropic of Capricorn?\n2. Which country has coastline on both the Red Sea and the Persian Gulf?\n3. What is the northernmost capital city of a sovereign state?\n4. Counting overseas territories, which country spans the most time zones?\n5. Which US state is closest to mainland Africa?\n6. Apart from the microstates inside Italy, which is the only landlocked country that borders exactly one other country?\n\nEnd with a section headed ANSWERS, one line per question in the form `1. <answer>`.",
+   "rules": [
+    "Answer 1 is Brazil.",
+    "Answer 2 is Saudi Arabia.",
+    "Answer 3 is Reykjavík (Nuuk's Greenland isn't sovereign).",
+    "Answer 4 is France.",
+    "Answer 5 is Maine.",
+    "Answer 6 is Lesotho."
+   ],
+   "added_in": "v2"
+  },
+  {
+   "id": "grade-binary-search-answer",
+   "name": "Grade a binary search answer",
+   "aliases": [
+    "EVAL-3"
+   ],
+   "mode": "chat",
+   "area": "evals",
+   "category": "evals",
+   "tier": "temper",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": 0.016667,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Grade accuracy",
+     "label": "Grade accuracy",
+     "max_score": 10
+    }
+   ],
+   "summary": "You are an expert evaluator.",
+   "prompt": "You are an expert evaluator. Below is a task that was given to an AI agent, the criteria its response must be judged against, and the response the agent produced. Judge the response strictly against the criteria: do not reward confidence, length or polish the criteria do not ask for, and do not penalise things they do not mention. The criteria list the points available; your grade is the total the response earns out of 10 (half points allowed).\n\nGo through the criteria one by one with your reasoning, then end your reply with exactly one final line in this format:\nGRADE: <number from 0 to 10>\n\n## TASK GIVEN TO THE AGENT\nWhat is the time complexity of binary search, and why?\n\n## CRITERIA\n- Correct complexity (4): states O(log n).\n- Explanation (3): explains that each step halves the remaining search range.\n- Precondition (2): states that the input must already be sorted.\n- Clarity (1): the answer is clear and well organised.\n\n## AGENT RESPONSE\nBinary search has a time complexity of O(n log n). This is because the algorithm first sorts the array, which takes O(n log n) time, and then repeatedly checks the middle element to locate the target. Since the sort dominates, the total complexity is O(n log n). Binary search therefore works on any array, sorted or not, which makes it a very flexible choice.\n\nIn summary: binary search = O(n log n), works on any input.",
+   "rules": [
+    "The grade is close to the reference grade: full points for an exact match, fewer the farther off it is (a bell curve), none when it is missing."
+   ],
+   "added_in": "v1"
+  },
+  {
+   "id": "grade-palindrome-function",
+   "name": "Grade a palindrome function",
+   "aliases": [
+    "EVAL-1"
+   ],
+   "mode": "chat",
+   "area": "evals",
+   "category": "evals",
+   "tier": "spark",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": 0.016667,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Grade accuracy",
+     "label": "Grade accuracy",
+     "max_score": 10
+    }
+   ],
+   "summary": "You are an expert evaluator.",
+   "prompt": "You are an expert evaluator. Below is a task that was given to an AI agent, the criteria its response must be judged against, and the response the agent produced. Judge the response strictly against the criteria: do not reward confidence, length or polish the criteria do not ask for, and do not penalise things they do not mention. The criteria list the points available; your grade is the total the response earns out of 10 (half points allowed).\n\nGo through the criteria one by one with your reasoning, then end your reply with exactly one final line in this format:\nGRADE: <number from 0 to 10>\n\n## TASK GIVEN TO THE AGENT\nWrite a Python function `is_palindrome(s)` that returns True if the string reads the same forwards and backwards, ignoring case and any non-alphanumeric characters. Show two example calls.\n\n## CRITERIA\n- Correctness (5): the function returns the right answer for all inputs.\n- Ignores case and non-alphanumeric characters (2): both are handled.\n- Examples (2): two example calls are shown with correct results.\n- Concise (1): the response gets to the point without unneeded preamble or padding.\n\n## AGENT RESPONSE\nGreat question! Palindromes are a classic programming exercise, and there are many ways to approach them. Before diving in, it is worth recalling that a palindrome is a sequence that reads the same in both directions, such as \"level\" or \"racecar\". Many people solve this by reversing the string, and that is the approach I will take here, after first cleaning the input so that case and punctuation do not matter.\n\n```python\ndef is_palindrome(s):\n    cleaned = [c.lower() for c in s if c.isalnum()]\n    return cleaned == cleaned[::-1]\n\nprint(is_palindrome(\"A man, a plan, a canal: Panama\"))  # True\nprint(is_palindrome(\"Hello, world\"))                    # False\n```\n\nThe function lowercases every alphanumeric character, drops everything else, and compares the result with its reverse.",
+   "rules": [
+    "The grade is close to the reference grade: full points for an exact match, fewer the farther off it is (a bell curve), none when it is missing."
+   ],
+   "added_in": "v1"
+  },
+  {
+   "id": "grade-two-sentence-summary",
+   "name": "Grade a two-sentence summary",
+   "aliases": [
+    "EVAL-2"
+   ],
+   "mode": "chat",
+   "area": "evals",
+   "category": "evals",
+   "tier": "temper",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": 0.016667,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Grade accuracy",
+     "label": "Grade accuracy",
+     "max_score": 10
+    }
+   ],
+   "summary": "You are an expert evaluator.",
+   "prompt": "You are an expert evaluator. Below is a task that was given to an AI agent, the criteria its response must be judged against, and the response the agent produced. Judge the response strictly against the criteria: do not reward confidence, length or polish the criteria do not ask for, and do not penalise things they do not mention. The criteria list the points available; your grade is the total the response earns out of 10 (half points allowed).\n\nGo through the criteria one by one with your reasoning, then end your reply with exactly one final line in this format:\nGRADE: <number from 0 to 10>\n\n## TASK GIVEN TO THE AGENT\nSummarize the following passage in exactly two sentences.\n\n\"The Millbrook library board voted on Tuesday to extend weekend opening hours from 5 p.m. to 8 p.m., starting in March. The change follows a survey in which 62% of residents said evening access was their top request. Funding will come from a $40,000 grant, which covers only the first year; the board said it will revisit the schedule next winter if no new money is found. Two board members opposed the vote, citing staffing shortages.\"\n\n## CRITERIA\n- Accuracy (4): every claim in the summary is supported by the passage, with no invented details.\n- Exactly two sentences (3): the summary is exactly two sentences long.\n- Key points (3): it captures the hours extension, the funding limit, and the resident survey.\n\n## AGENT RESPONSE\nThe Millbrook library board voted to extend weekend hours to 8 p.m. starting in March, following a survey where 62% of residents asked for evening access. The change is funded by a $40,000 grant that covers one year, and the board will revisit it next winter if no further money is found. Two board members opposed the decision over staffing concerns.",
+   "rules": [
+    "The grade is close to the reference grade: full points for an exact match, fewer the farther off it is (a bell curve), none when it is missing."
+   ],
+   "added_in": "v1"
+  },
+  {
+   "id": "household-money-math",
+   "name": "Household money math",
+   "aliases": [
+    "MATH-2"
+   ],
+   "mode": "chat",
+   "area": "math",
+   "category": "math",
+   "tier": "temper",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 2,
+   "weight": 0.016667,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 4,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Compound interest",
+     "label": "Compound interest",
+     "max_score": 1
+    },
+    {
+     "id": "Boxes",
+     "label": "Boxes",
+     "max_score": 1
+    },
+    {
+     "id": "Gas cost",
+     "label": "Gas cost",
+     "max_score": 1
+    },
+    {
+     "id": "Split bill",
+     "label": "Split bill",
+     "max_score": 1
+    }
+   ],
+   "summary": "Everyday money and measurement questions.",
+   "prompt": "Everyday money and measurement questions. Show your working, and round only at the end.\n\n1. I put $5,000 in a savings account paying 4% a year, compounded monthly. What is it worth after exactly 3 years, to the cent?\n2. I'm flooring a 1,850 sq ft space. Flooring comes in boxes of 23.5 sq ft and I need 10% extra for waste. How many boxes do I buy?\n3. A 412-mile road trip in a car that gets 34 miles per gallon, with gas at $3.89 a gallon. What does the gas cost, to the cent?\n4. Dinner came to $186.40 including tax; the pre-tax amount was $172.00. We tip 18% on the pre-tax amount and split the total four ways. What does each person pay, to the cent?\n\nEnd with a section headed ANSWERS, one line per question in the form `1. <answer>`.",
+   "rules": [
+    "Answer 1 is $5,636.36 (monthly compounding, 36 periods).",
+    "Answer 2 is 87 boxes (2,035 sq ft, rounded up).",
+    "Answer 3 is $47.14.",
+    "Answer 4 is $54.34 each (tip on the pre-tax amount, added to the taxed total)."
+   ],
+   "added_in": "v2"
+  },
+  {
+   "id": "interest-calculator-cli",
+   "name": "Interest calculator CLI",
+   "aliases": [
+    "CODE-1b"
+   ],
+   "mode": "agentic",
+   "area": "coding",
+   "category": "coding_build",
+   "tier": "temper",
+   "status": "active",
+   "version": 2,
+   "rubric_version": 2,
+   "weight": 0.1,
+   "scoring": {
+    "method": "hidden_tests",
+    "unit": "tests",
+    "total": 38,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Compound-interest math",
+     "label": "Compound-interest math",
+     "max_score": null
+    },
+    {
+     "id": "Output",
+     "label": "Output",
+     "max_score": null
+    },
+    {
+     "id": "Input validation",
+     "label": "Input validation",
+     "max_score": null
+    },
+    {
+     "id": "Own tests",
+     "label": "Own tests",
+     "max_score": null
+    },
+    {
+     "id": "README",
+     "label": "README",
+     "max_score": null
+    }
+   ],
+   "summary": "Build a command-line compound-interest calculator in Python 3, standard library only (no third-party packages).",
+   "prompt": "Build a command-line compound-interest calculator in Python 3, standard library only (no third-party packages). Work in the current directory: the package goes in interest/ and the tool runs from this directory as `python -m interest`.\n\nFlags\n- --principal AMOUNT (required): the starting balance, zero or more.\n- --rate PERCENT (required): the annual interest rate in percent, so 5 means 5%. Zero or more.\n- --years N or --months N: the time, a positive whole number. Give exactly one of them.\n- --compound {annually,quarterly,monthly,daily} (required): 1, 4, 12 or 365 compounding periods a year.\n- --contribution AMOUNT and --contribution-frequency {monthly,annually} (optional, but given together): that amount, greater than zero, is added at the end of every month or every year.\n- --json: print JSON instead of the summary.\n\nInterest is credited at the end of each compounding period (the annual rate divided by the periods a year, applied to the balance at that moment). A contribution is added at the end of its period, after any interest credited at that same moment.\n\nOutput\n- By default, print a readable summary showing the principal, total contributions, interest earned and final balance.\n- With --json, print one JSON object and nothing else: {\"principal\": ..., \"total_contributions\": ..., \"interest_earned\": ..., \"final_balance\": ...}, each a number rounded to cents.\n\nErrors\n- Invalid, negative or contradictory input (a value that is not a number, a negative amount, both --years and --months or neither, a contribution without a frequency or the reverse, an unknown compounding or frequency) exits with a non-zero status and a short message on stderr, not a traceback.\n\nTests and docs\n- Write automated tests in tests/ (pytest or unittest) covering ordinary cases, zero interest, monthly compounding, recurring contributions at both frequencies, invalid input and a known expected-value case. They must pass when run from this directory.\n- Write README.md with how to run the tool and command examples.",
+   "rules": [],
+   "added_in": "v1"
+  },
+  {
+   "id": "interest-cli-open-ended",
+   "name": "Interest CLI (open-ended)",
+   "aliases": [
+    "CODE-1"
+   ],
+   "mode": "agentic",
+   "area": "coding",
+   "category": "coding_build",
+   "tier": "temper",
+   "status": "retired",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "judge",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Requirements captured without being reminded",
+     "label": "Requirements captured without being reminded",
+     "max_score": 2
+    },
+    {
+     "id": "Correct financial math",
+     "label": "Correct financial math",
+     "max_score": 3
+    },
+    {
+     "id": "Input validation",
+     "label": "Input validation",
+     "max_score": 2
+    },
+    {
+     "id": "Tests",
+     "label": "Tests",
+     "max_score": 2
+    },
+    {
+     "id": "UX / docs",
+     "label": "UX / docs",
+     "max_score": 1
+    }
+   ],
+   "summary": "Create a CLI tool for calculating interest, similar in spirit to a consumer interest calculator such as interest.gov.",
+   "prompt": "Create a CLI tool for calculating interest, similar in spirit to a consumer interest calculator such as interest.gov. Decide what inputs, outputs, and useful features the tool should provide. Make it easy to use and include tests and documentation.",
+   "rules": [],
+   "added_in": "v1"
+  },
+  {
+   "id": "invite-signup-loop",
+   "name": "Invite sign-up loop",
+   "aliases": [
+    "CODE-14"
+   ],
+   "mode": "agentic",
+   "area": "coding",
+   "category": "coding_debug",
+   "tier": "forge",
+   "status": "active",
+   "version": 2,
+   "rubric_version": 3,
+   "weight": 0.033333,
+   "scoring": {
+    "method": "hidden_tests",
+    "unit": "tests",
+    "total": 22,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "No one gets stuck",
+     "label": "No one gets stuck",
+     "max_score": null
+    },
+    {
+     "id": "Terms before writing",
+     "label": "Terms before writing",
+     "max_score": null
+    },
+    {
+     "id": "Invited sign-ups",
+     "label": "Invited sign-ups",
+     "max_score": null
+    },
+    {
+     "id": "Regular accounts unchanged",
+     "label": "Regular accounts unchanged",
+     "max_score": null
+    },
+    {
+     "id": "Regression tests",
+     "label": "Regression tests",
+     "max_score": null
+    },
+    {
+     "id": "Existing tests still pass",
+     "label": "Existing tests still pass",
+     "max_score": null
+    },
+    {
+     "id": "Contract suite untouched",
+     "label": "Contract suite untouched",
+     "max_score": null
+    }
+   ],
+   "summary": "This is Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, and shared types in packages/shared.",
+   "prompt": "This is Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, and shared types in packages/shared. Read README.md first.\n\nSupport has escalated a problem with contributor invites: invited contributors can't start the work their editors assigned them. incident/support-notes.md has what they collected. The feature's design is in docs/invites.md, and Legal's requirements are in docs/legal-contributor-terms.md.\n\nFind out what's going on and fix it properly:\n- Invited contributors should be able to get to the editor, and regular sign-ups should keep working exactly as they do today.\n- Accounts that are already affected must work after the fix, without anyone editing data by hand.\n- Where the design doc, Legal's requirements and the current behavior disagree, Legal's requirements are the authority: implement the behavior they require, and explain your reasoning.\n- Reproduce the problem in a test before you fix it, and add tests that would have caught it. Keep every existing test passing, including apps/api/test/realworld.contract.test.ts, unmodified.\n\nFinish with a short write-up: the root cause, the decisions you made and why, and anything you'd flag in code review.",
+   "rules": [],
+   "added_in": "v2"
+  },
+  {
+   "id": "landlocked-countries",
+   "name": "Landlocked countries",
+   "aliases": [
+    "GEOG-2"
+   ],
+   "mode": "chat",
+   "area": "geography",
+   "category": "geography",
+   "tier": "temper",
+   "status": "active",
+   "version": 2,
+   "rubric_version": 2,
+   "weight": 0.016667,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 23,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "All landlocked found",
+     "label": "All landlocked found",
+     "max_score": 11
+    },
+    {
+     "id": "Coastal countries on the right line",
+     "label": "Coastal countries on the right line",
+     "max_score": 11
+    },
+    {
+     "id": "Doubly landlocked",
+     "label": "Doubly landlocked",
+     "max_score": 1
+    }
+   ],
+   "summary": "Which of these countries are landlocked (no coastline on the open ocean or a sea connected to it)?",
+   "prompt": "Which of these countries are landlocked (no coastline on the open ocean or a sea connected to it)?\n\nCroatia, Bolivia, Slovenia, Kazakhstan, Eritrea, Austria, Jordan, Laos, Mozambique, Paraguay, Bosnia and Herzegovina, Serbia, Vietnam, Ethiopia, Togo, Uzbekistan, Zambia, Iraq, Hungary, DR Congo, Mongolia, Belgium\nThen say which one of them is doubly landlocked (surrounded only by landlocked countries).\n\nAnswer in exactly three lines:\nLandlocked: <countries, comma-separated>\nNot landlocked: <countries, comma-separated>\nDoubly landlocked: <country>",
+   "rules": [
+    "Lists each of the 11 landlocked countries on the Landlocked line, and not on the Not landlocked line: Bolivia, Kazakhstan, Austria, Laos, Paraguay, Serbia, Ethiopia, Uzbekistan, Zambia, Hungary, Mongolia; one item per country.",
+    "Lists each coastal country on the Not landlocked line, and not on the Landlocked line: Croatia, Eritrea, Mozambique, Vietnam, Slovenia, Jordan, Bosnia and Herzegovina, Togo, Iraq, DR Congo, Belgium; one item per country.",
+    "The doubly landlocked country is Uzbekistan."
+   ],
+   "added_in": "v2"
+  },
+  {
+   "id": "letter-from-1863",
+   "name": "Anachronisms in an 1863 letter",
+   "aliases": [
+    "HIST-3"
+   ],
+   "mode": "chat",
+   "area": "history",
+   "category": "history",
+   "tier": "temper",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 2,
+   "weight": 0.016667,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 11,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "All anachronisms found",
+     "label": "All anachronisms found",
+     "max_score": 5
+    },
+    {
+     "id": "Nothing period-correct flagged",
+     "label": "Nothing period-correct flagged",
+     "max_score": 6
+    }
+   ],
+   "summary": "A letter has turned up, dated June 10, 1863, written by a farmer in Ohio.",
+   "prompt": "A letter has turned up, dated June 10, 1863, written by a farmer in Ohio. It mentions the following. Which of them could the writer NOT have known about or done on that date? Explain each briefly.\n\na) The Emancipation Proclamation taking effect this New Year's Day\nb) The siege of Vicksburg dragging on\nc) News of Lee's defeat at Gettysburg\nd) The telegraph bringing news from Washington\ne) The Monitor's fight with the Merrimack last year\nf) A cousin in Cleveland who telephoned with the news\ng) Fencing the north pasture with barbed wire\nh) Mathew Brady's photographs of the dead at Antietam\ni) Stonewall Jackson's death last month\nj) West Virginia, which joined the Union last month\nk) The draft riots in New York\n\nFinish with one line listing only the anachronisms, as letters in alphabetical order:\nANACHRONISMS: <letters, comma-separated>",
+   "rules": [
+    "The ANACHRONISMS line includes c (Gettysburg, July), f (telephone, 1876), g (barbed wire, 1874), j (West Virginia, June 20) and k (draft riots, July); one item per letter.",
+    "The ANACHRONISMS line leaves out a, b, d, e, h, i (all possible by June 10, 1863); one item per letter."
+   ],
+   "added_in": "v2"
+  },
+  {
+   "id": "live-weather-open-ended",
+   "name": "Live weather (open-ended)",
+   "aliases": [
+    "RSCH-2"
+   ],
+   "mode": "agentic",
+   "area": "research",
+   "category": "everyday",
+   "tier": "temper",
+   "status": "retired",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "judge",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Source selection",
+     "label": "Source selection",
+     "max_score": 3
+    },
+    {
+     "id": "Current conditions reported",
+     "label": "Current conditions reported",
+     "max_score": 2
+    },
+    {
+     "id": "Historical comparison",
+     "label": "Historical comparison",
+     "max_score": 3
+    },
+    {
+     "id": "Attribution and honesty",
+     "label": "Attribution and honesty",
+     "max_score": 2
+    }
+   ],
+   "summary": "What is the current weather in Saint Paul, MN right now?",
+   "prompt": "What is the current weather in Saint Paul, MN right now? Find a reliable, machine-readable source yourself — fetch live conditions, then compare today's temperature with the historical average for this date (find historical data yourself as well). Report: current temperature and conditions, the historical average, and whether today is typical or an outlier. Cite the sources you used and briefly explain why you trusted them.\nIf a source fails or blocks you, adapt rather than giving up — but never invent data.",
+   "rules": [],
+   "added_in": "v1"
+  },
+  {
+   "id": "logic-and-game-puzzles",
+   "name": "Logic and game puzzles",
+   "aliases": [],
+   "mode": "chat",
+   "area": "math",
+   "category": "reasoning",
+   "tier": "forge",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": 0.0125,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 6,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Prime pile, no repeat",
+     "label": "Prime pile, no repeat",
+     "max_score": 1
+    },
+    {
+     "id": "Pin row first moves",
+     "label": "Pin row first moves",
+     "max_score": 1
+    },
+    {
+     "id": "Token on a graph",
+     "label": "Token on a graph",
+     "max_score": 1
+    },
+    {
+     "id": "Knights and knaves",
+     "label": "Knights and knaves",
+     "max_score": 1
+    },
+    {
+     "id": "Six-house grid",
+     "label": "Six-house grid",
+     "max_score": 1
+    },
+    {
+     "id": "Talk schedules",
+     "label": "Talk schedules",
+     "max_score": 1
+    }
+   ],
+   "summary": "Six logic and game problems, each with a single exact answer that is a positive integer.",
+   "prompt": "Six logic and game problems, each with a single exact answer that is a positive integer. None of them is a published puzzle, so work each one out from the rules as stated. In every game, both players play perfectly.\n\n1. A pile starts with n tokens. Two players take turns, and on each turn the player to move removes 2, 3, 5 or 7 tokens from the pile (never more than the pile holds). A player may not remove the same number of tokens that the opponent removed on the immediately preceding turn; the first move of the game has no such restriction. A player who cannot make a legal move loses, even if tokens remain. For how many starting values n with 1 ≤ n ≤ 100 can the second player (the one who does not move first) force a win?\n\n2. Twenty-three pins stand in a row in positions 1 to 23. Two players take turns. On each turn the player to move knocks down either two standing pins in positions i and i+1, or three standing pins in positions i, i+1 and i+2. Fallen pins stay down, and the gap a fallen pin leaves is never closed up, so pins on either side of a gap are not next to each other. A player who cannot make a legal move loses. A first move is identified by the set of positions it knocks down, so a move and its mirror image are different moves. Of all the possible first moves, how many let the first player force a win?\n\n3. An undirected graph has vertices 1 to 11 and these 15 edges: 1–2, 1–7, 1–8, 1–11, 2–3, 2–4, 3–4, 3–9, 4–9, 4–11, 5–10, 5–11, 6–10, 7–11, 8–10. A token is placed on a starting vertex, which counts as visited. Two players take turns, the first player moving first. On each turn the player to move slides the token along an edge to a vertex that has not been visited yet, and that vertex becomes visited. A player who cannot move loses. Find every starting vertex from which the first player can force a win. What is the sum of those vertices' numbers?\n\n4. Eight islanders, A to H, are each either a knight, whose statements are all true, or a knave, whose statements are all false. Each makes one statement. \"The same type\" means both knights or both knaves. A speaker who names himself in a group is counted in that group. \"If X is a knight, then Y is a knave\" is false only when X and Y are both knights.\n  - A says: \"B and D are different types.\"\n  - B says: \"F is a knave.\"\n  - C says: \"E and G are the same type.\"\n  - D says: \"A and F are the same type.\"\n  - E says: \"Exactly 2 of A, D and F are knights.\"\n  - F says: \"Exactly 2 of E, F and G are knights.\"\n  - G says: \"If C is a knight, then D is a knave.\"\n  - H says: \"A and E are different types.\"\n  An assignment of knight or knave to each of the eight is consistent when every knight's statement is true and every knave's statement is false. Find every consistent assignment, then add up the number of knights over all of them. (For example, if there were exactly two consistent assignments, one with 3 knights and one with 4, the answer would be 7.) What is that total?\n\n5. Six houses stand in a row, numbered 1 to 6 from left to right. One person lives in each: Odile, Bram, Tamsin, Kofi, Lior and Wren. Each house is painted a different color (teal, ochre, maroon, ivory, slate and lilac), and each person owns a different pet (ferret, gecko, heron, axolotl, tortoise and hamster), drinks a different drink (kefir, cider, mate, lassi, cocoa and kvass) and has a different job (glazier, cartographer, luthier, beekeeper, archivist and farrier). \"Next to\" means in adjacent houses, and \"to the left\" means in a lower-numbered house. These clues have exactly one solution:\n  (a) Kofi lives in an even-numbered house.\n  (b) The archivist and the person in the ivory house are different people.\n  (c) The archivist lives immediately to the left of the person who drinks cider.\n  (d) Exactly one house separates the heron owner and the person in the maroon house.\n  (e) The person in the teal house and the person in the ivory house are different people who do not live next to each other.\n  (f) Exactly one house separates Wren and the person who drinks cocoa.\n  (g) Lior lives somewhere to the left of the ferret owner.\n  (h) Exactly one house separates the cartographer and the archivist.\n  (i) Exactly one house separates the person in the teal house and Odile.\n  (j) The tortoise owner lives somewhere to the left of the archivist.\n  (k) The axolotl owner lives somewhere to the left of Lior.\n  (l) The person in the ochre house lives somewhere to the left of the person in the slate house.\n  (m) The person who drinks mate lives immediately to the left of the gecko owner.\n  (n) The person who drinks kefir does not live in house 1.\n  (o) Exactly one house separates the person who drinks lassi and the luthier.\n  (p) The person who drinks lassi lives next to Wren.\n  (q) The tortoise owner and the glazier are the same person.\n  (r) The tortoise owner lives next to the ferret owner.\n  (s) The axolotl owner lives next to the person in the maroon house.\n  (t) The person who drinks kvass lives in house 4.\n  (u) The farrier lives somewhere to the left of Tamsin.\n  (v) Tamsin does not live in house 4.\n  (w) Odile lives in house 5.\n  (x) The person in the maroon house lives next to the person in the lilac house.\n  Write the house numbers of Odile, Bram, Tamsin, Kofi, Lior and Wren, in that order, as one six-digit number (for example, 123456 would mean Odile in house 1, Bram in house 2, and so on). What is that number?\n\n6. Seven talks, P, Q, R, S, T, U and V, are scheduled into seven consecutive slots numbered 1 to 7, one talk per slot. \"Between\" means strictly between, in slot order. How many different schedules satisfy all of these conditions?\n  - At least 2 other talks are scheduled between R and T.\n  - Q is not in slot 1 or slot 3.\n  - S is scheduled before P (not necessarily immediately before).\n  - P and S are not in consecutive slots.\n  - P is scheduled somewhere between R and S (in either order of those two).\n  - P is not in slot 5.\n\nExplain your reasoning first if it helps. Then end your reply with this block, and nothing after it:\n\nANSWERS:\n<number>: <answer>\n\nOne line per numbered question, in order. Give only the answer (a number, name or letter), not a sentence.",
+   "rules": [
+    "Answer 1 is 18 (second-player starts 1, 9, 13, 17, 25, then 26, 34, 42 + 17k; 23 if the no-repeat rule is ignored).",
+    "Answer 2 is 9 (of 43 first moves; Grundy values of rows pair up, with a 6 at 22 and 23 pins).",
+    "Answer 3 is 40 (the first player wins from 1, 2, 3, 4, 9, 10 and 11: exactly the vertices every maximum matching covers).",
+    "Answer 4 is 17 (five consistent assignments with 4, 5, 3, 3 and 2 knights).",
+    "Answer 5 is 516423 (Odile 5, Bram 1, Tamsin 6, Kofi 4, Lior 2, Wren 3).",
+    "Answer 6 is 122 (by brute force over all 5040 orders; 42 if 'at least 2 between' is read as exactly 2)."
+   ],
+   "added_in": "v4"
+  },
+  {
+   "id": "login-recovery",
+   "name": "Log in and recover",
+   "aliases": [
+    "CODE-4"
+   ],
+   "mode": "agentic",
+   "area": "coding",
+   "category": "browser_tool",
+   "tier": "temper",
+   "status": "active",
+   "version": 2,
+   "rubric_version": 2,
+   "weight": 0.033333,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Ended with a valid session",
+     "label": "Ended with a valid session",
+     "max_score": 3
+    },
+    {
+     "id": "Recovered through the reset flow",
+     "label": "Recovered through the reset flow",
+     "max_score": 3
+    },
+    {
+     "id": "Used the app, not its code",
+     "label": "Used the app, not its code",
+     "max_score": 1
+    },
+    {
+     "id": "Names the failure mode",
+     "label": "Names the failure mode",
+     "max_score": 3
+    }
+   ],
+   "summary": "Use the provided site skill to log into the application as the designated test user.",
+   "prompt": "Use the provided site skill to log into the application as the designated test user. If login fails, diagnose the reason and use the recovery procedure described by the skill. You may clear cookies or reset the test password programmatically when appropriate. Do not bypass authentication or modify application code. End on the authenticated dashboard and report exactly what happened.\n\nFinish your report with one line, `FAILURE: <mode>`, naming the failure mode you diagnosed, using the skill's name for it (Wrong Password, Deactivated Account or Stale/Invalid Cookies), or `FAILURE: none` if the first login worked.",
+   "rules": [
+    "The app's audit log shows a login as testuser whose session then served the dashboard and was not logged out afterwards. Without it the score is capped at 3.",
+    "The audit log shows the documented reset flow for testuser (reset requested, password reset with the token, then a login), in that order.",
+    "server.js, public/, SKILL.md and accounts.json are exactly as seeded (git diff against the seeded commit), and the audit log shows the app was used. Otherwise the score is capped at 3.",
+    "The last FAILURE: line names the seeded failure mode, wrong password (the skill's name for it is enough)."
+   ],
+   "added_in": "v1"
+  },
+  {
+   "id": "login-recovery-repeat",
+   "name": "Log in and recover, again",
+   "aliases": [
+    "CODE-4b"
+   ],
+   "mode": "agentic",
+   "area": "coding",
+   "category": "browser_tool",
+   "tier": "temper",
+   "status": "retired",
+   "version": 2,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "judge",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Reads/uses the skill correctly",
+     "label": "Reads/uses the skill correctly",
+     "max_score": 2
+    },
+    {
+     "id": "Diagnoses failure mode",
+     "label": "Diagnoses failure mode",
+     "max_score": 2
+    },
+    {
+     "id": "Uses browser correctly",
+     "label": "Uses browser correctly",
+     "max_score": 2
+    },
+    {
+     "id": "Uses recovery path appropriately",
+     "label": "Uses recovery path appropriately",
+     "max_score": 2
+    },
+    {
+     "id": "Ends authenticated",
+     "label": "Ends authenticated",
+     "max_score": 1
+    },
+    {
+     "id": "Does not cheat/bypass auth",
+     "label": "Does not cheat/bypass auth",
+     "max_score": 1
+    }
+   ],
+   "summary": "Repeat the task from a fresh browser state.",
+   "prompt": "Repeat the task from a fresh browser state. This time, do not assume the first login attempt will work. Handle whatever normal failure mode you encounter using the site's documented procedures.",
+   "rules": [],
+   "added_in": "v1"
+  },
+  {
+   "id": "morning-brief-priorities",
+   "name": "Morning brief, prioritized",
+   "aliases": [
+    "TASK-3"
+   ],
+   "mode": "agentic",
+   "area": "everyday",
+   "category": "long_agent",
+   "tier": "temper",
+   "status": "active",
+   "version": 3,
+   "rubric_version": 3,
+   "weight": 0.016667,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 11,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Sections in order",
+     "label": "Sections in order",
+     "max_score": 6
+    },
+    {
+     "id": "Top 3 has three items",
+     "label": "Top 3 has three items",
+     "max_score": 1
+    },
+    {
+     "id": "Must-act items surfaced",
+     "label": "Must-act items surfaced",
+     "max_score": 3
+    },
+    {
+     "id": "Numbers from the sources",
+     "label": "Numbers from the sources",
+     "max_score": 1
+    }
+   ],
+   "summary": "Today is Wednesday, September 2, 2026.",
+   "prompt": "Today is Wednesday, September 2, 2026. Produce my morning brief using only the supplied sources for weather, email, calendar and news. If a source is unavailable, say so instead of inventing information.\n\nWrite the brief as Markdown with exactly these `##` sections, in this order:\n\n## Weather\n## Outstanding work\n## Emails\n## Calendar\n## News\n## Top 3 things to do today\n\n\"Outstanding work\" is whatever yesterday's emails left open. In every section, prioritize what actually requires attention today rather than summarizing everything: highlight conflicts, deadlines, unanswered messages and actions, and keep facts separate from recommendations. \"Top 3 things to do today\" is a numbered list of exactly three items.",
+   "rules": [
+    "The reply has a ## heading for Weather, Outstanding work, Emails, Calendar, News and Top 3 things to do today, in that order; one item per section.",
+    "The Top 3 section holds exactly three list items (sub-bullets under an item do not count).",
+    "The brief mentions each must-act item: the 10:00 Vendor demo overlapping the 9:30 Planning (named together with a word like conflict or overlap), the Q3 expense report due at 5 PM, and the client's unanswered question about the proposal timeline. If none of the three is mentioned, the score is capped at 5.",
+    "Every figure of 11 or more in the reply appears in the mock weather, email, calendar or news data (list numbers and small counts are ignored; whole hours also count as 24-hour times)."
+   ],
+   "added_in": "v1"
+  },
+  {
+   "id": "morning-brief-spanish",
+   "name": "Morning brief with Spanish practice",
+   "aliases": [
+    "TASK-2"
+   ],
+   "mode": "agentic",
+   "area": "everyday",
+   "category": "everyday",
+   "tier": "spark",
+   "status": "active",
+   "version": 2,
+   "rubric_version": 3,
+   "weight": 0.025,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 16,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Sections in order",
+     "label": "Sections in order",
+     "max_score": 4
+    },
+    {
+     "id": "Last section is Spanish",
+     "label": "Last section is Spanish",
+     "max_score": 1
+    },
+    {
+     "id": "The rest is English",
+     "label": "The rest is English",
+     "max_score": 3
+    },
+    {
+     "id": "Yesterday's emails",
+     "label": "Yesterday's emails",
+     "max_score": 4
+    },
+    {
+     "id": "Today's events",
+     "label": "Today's events",
+     "max_score": 3
+    },
+    {
+     "id": "News",
+     "label": "News",
+     "max_score": 1
+    }
+   ],
+   "summary": "Today is Wednesday, September 2, 2026.",
+   "prompt": "Today is Wednesday, September 2, 2026. Create my morning brief from the supplied sources: the important emails I received yesterday, today's calendar events, and the important news where I live.\n\nWrite the brief as Markdown with exactly these `##` sections, in this order:\n\n## Emails\n## Calendar\n## News\n## Spanish practice\n\nThe first three sections are in English. The last section is a single paragraph in Spanish, relevant to the content of the day, to help me keep practicing. Put nothing after it.",
+   "rules": [
+    "The reply has a ## heading for Emails, Calendar, News and Spanish practice, in that order; one item per section.",
+    "The Spanish practice section is Spanish: Spanish function words (de, la, que, el, en...) are at least 15% of its words and more than twice the share of English ones. If it is not, the score is capped at 5.",
+    "The Emails, Calendar and News sections are English (not Spanish by the same function-word test).",
+    "Each of yesterday's four email subjects in fixtures/mock-data is mentioned (the title, or most of its distinctive words together; a summary naming the Q3 expense report, Jamie's notes or the revised proposal counts), one item per email.",
+    "Each of the three calendar events on 2026-09-02 (Planning, Vendor demo, Budget meeting) is mentioned, one item per event.",
+    "At least one of the three headlines in fixtures/mock-data is mentioned."
+   ],
+   "added_in": "v1"
+  },
+  {
+   "id": "multi-step-competition-math",
+   "name": "Multi-step competition math",
+   "aliases": [],
+   "mode": "chat",
+   "area": "math",
+   "category": "math",
+   "tier": "forge",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": 0.016667,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 6,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Power congruence",
+     "label": "Power congruence",
+     "max_score": 1
+    },
+    {
+     "id": "Letters apart",
+     "label": "Letters apart",
+     "max_score": 1
+    },
+    {
+     "id": "Dice expectation",
+     "label": "Dice expectation",
+     "max_score": 1
+    },
+    {
+     "id": "Difference-free subsets",
+     "label": "Difference-free subsets",
+     "max_score": 1
+    },
+    {
+     "id": "LCM and GCD triples",
+     "label": "LCM and GCD triples",
+     "max_score": 1
+    },
+    {
+     "id": "Restricted lattice paths",
+     "label": "Restricted lattice paths",
+     "max_score": 1
+    }
+   ],
+   "summary": "Six problems, each with a single exact answer that is a positive integer.",
+   "prompt": "Six problems, each with a single exact answer that is a positive integer. Work carefully: every one has a step where a plausible shortcut gives a wrong number.\n\n1. Let N = 6,604,416. How many integers x with 1 ≤ x ≤ N satisfy x^12 ≡ 1 (mod N)?\n\n2. The eleven letters A, A, A, A, B, B, B, C, C, D, D are arranged in a row. Copies of the same letter are indistinguishable. How many distinct arrangements have no two identical letters next to each other?\n\n3. A fair six-sided die is rolled repeatedly, and the rolling stops as soon as the last two rolls add up to a prime number. The expected total number of rolls, counting the first roll and the last, is m/n with m and n coprime positive integers. What is m + n?\n\n4. How many subsets of {1, 2, 3, ..., 20}, counting the empty set, contain no two elements that differ by exactly 1 or by exactly 4?\n\n5. How many triples (a, b, c) of positive integers with a < b < c satisfy lcm(a, b, c) = 10,080 and gcd(a, b, c) = 1?\n\n6. A path from (0, 0) to (12, 8) is made of unit steps, each either right (x goes up by 1) or up (y goes up by 1). How many such paths never visit a point with y > x, and never visit the point (5, 3)?\n\nExplain your reasoning first if it helps. Then end your reply with this block, and nothing after it:\n\nANSWERS:\n<number>: <answer>\n\nOne line per numbered question, in order. Give only the answer (a number, name or letter), not a sentence.",
+   "rules": [
+    "Answer 1 is 3456 (N = 2^7 x 3^4 x 7^2 x 13; 8 x 6 x 6 x 12 solutions, the units mod 128 are not cyclic).",
+    "Answer 2 is 6516 (of 69,300 arrangements).",
+    "Answer 3 is 1645 (the expected number of rolls is 1279/366).",
+    "Answer 4 is 4867 (including the empty set; a, a+2, a+4 is ruled out too).",
+    "Answer 5 is 2152 ((12,960 ordered - 48 with two equal) / 6).",
+    "Answer 6 is 28122 (48,450 ballot paths minus 28 x 726 through (5, 3))."
+   ],
+   "added_in": "v4"
+  },
+  {
+   "id": "names-for-one-character",
+   "name": "Names for one character",
+   "aliases": [
+    "WRIT-2b"
+   ],
+   "mode": "chat",
+   "area": "writing",
+   "category": "writing",
+   "tier": "temper",
+   "status": "active",
+   "version": 2,
+   "rubric_version": 4,
+   "weight": 0.02,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 6,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "The list",
+     "label": "The list",
+     "max_score": 4
+    },
+    {
+     "id": "The top five",
+     "label": "The top five",
+     "max_score": 2
+    }
+   ],
+   "summary": "Generate 20 names for a 34-year-old woman who grew up in a working-class family in the upper Midwest, is highly intelligent, dryly funny, ambitious, and emotionally guarded.",
+   "prompt": "Generate 20 names for a 34-year-old woman who grew up in a working-class family in the upper Midwest, is highly intelligent, dryly funny, ambitious, and emotionally guarded. Her family background is Polish-American. The novel is contemporary literary fiction. Avoid names that feel stereotypical or caricatured for the character's heritage. Say briefly why each name fits, and pick the strongest five.\n\nExplain your reasoning first if it helps. Then end your reply with these two blocks, in this order, and nothing after them:\n\nNAMES:\n<number>. <First Last> — <reason>\n\nTOP FIVE:\n<number>. <First Last>\n\nNAMES has 20 numbered lines, each a different name and a short reason. TOP FIVE has the five strongest, each one taken from the NAMES list.",
+   "rules": [
+    "The NAMES: block has 20 numbered lines, no name twice, a reason (at least three words after a dash) on every line, and no famous or caricature name (blocklist) among the names.",
+    "The TOP FIVE: block has exactly five names, each one in the NAMES: list."
+   ],
+   "added_in": "v1"
+  },
+  {
+   "id": "navbar-hamburger-menu",
+   "name": "Navbar hamburger menu",
+   "aliases": [
+    "CODE-2b"
+   ],
+   "mode": "agentic",
+   "area": "coding",
+   "category": "coding_debug",
+   "tier": "temper",
+   "status": "retired",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "judge",
+    "unit": "points",
+    "total": 15,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "No horizontal overflow",
+     "label": "No horizontal overflow",
+     "max_score": 2
+    },
+    {
+     "id": "Desktop remains correct",
+     "label": "Desktop remains correct",
+     "max_score": 2
+    },
+    {
+     "id": "Mobile behavior",
+     "label": "Mobile behavior",
+     "max_score": 2
+    },
+    {
+     "id": "Accessible toggle/state",
+     "label": "Accessible toggle/state",
+     "max_score": 2
+    },
+    {
+     "id": "Tests",
+     "label": "Tests",
+     "max_score": 1
+    },
+    {
+     "id": "Minimal/sensible diff",
+     "label": "Minimal/sensible diff",
+     "max_score": 1
+    },
+    {
+     "id": "Visual bugs / design",
+     "label": "Visual bugs / design",
+     "max_score": 5
+    }
+   ],
+   "summary": "Now make the mobile experience explicitly use a hamburger menu.",
+   "prompt": "Now make the mobile experience explicitly use a hamburger menu. On mobile widths, the primary links should be hidden behind the menu and become accessible via a clearly labeled and keyboard-accessible toggle. Keep the desktop experience as normal links. Add tests that verify both states.",
+   "rules": [],
+   "added_in": "v1"
+  },
+  {
+   "id": "news-briefing-from-feeds",
+   "name": "News briefing from feeds",
+   "aliases": [
+    "KNOW-4"
+   ],
+   "mode": "chat",
+   "area": "general",
+   "category": "everyday",
+   "tier": "temper",
+   "status": "active",
+   "version": 2,
+   "rubric_version": 2,
+   "weight": 0.025,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 22,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Each source cited once, stories merged",
+     "label": "Each source cited once, stories merged",
+     "max_score": 9
+    },
+    {
+     "id": "Stale item left out",
+     "label": "Stale item left out",
+     "max_score": 2
+    },
+    {
+     "id": "Opinion marked",
+     "label": "Opinion marked",
+     "max_score": 1
+    },
+    {
+     "id": "Story facts exact",
+     "label": "Story facts exact",
+     "max_score": 9
+    },
+    {
+     "id": "Nothing invented",
+     "label": "Nothing invented",
+     "max_score": 1
+    }
+   ],
+   "summary": "Below are this morning's items from my news feeds, all for Tuesday, March 10, for Port Ardmore.",
+   "prompt": "Below are this morning's items from my news feeds, all for Tuesday, March 10, for Port Ardmore. Write me a briefing from them.\n\n- Lead with the most important stories, and cover each story once even when several outlets report it.\n- Keep every figure, name and status exactly as the sources give it. Where sources disagree, say so and attribute each version by name in the text (who said it). Where a later report corrects an earlier one, use the correction.\n- Keep opinion separate from reporting: the opinion column is not a news report. Leave out anything that isn't from today.\n- Use only these sources; don't add background from elsewhere.\n\nWrite the briefing as prose, with one paragraph per story and no lists, tables or headings. Every paragraph ends with the sources it used, in square brackets, like `[S1, S2]`, and each source is cited once in the whole briefing. A story told by several sources is one paragraph that ends with all of them. The opinion column belongs in the paragraph of the story it argues about; mark it as opinion inside the brackets, as in `[S1, S2, S9 opinion]`. Don't list sources anywhere else and don't cite one you leave out.\n\n--- [S1] Ardmore Ledger, March 10, 7:05 a.m. ---\nCITY COUNCIL APPROVES TRANSIT LEVY. The Port Ardmore City Council voted 7-2 late Monday to approve a $41.6 million transit levy spread over ten years. The money will fund three new bus routes and a rebuild of the Fulton Street station. Council member Ines Varga, who voted no, said the city had not published a cost estimate for households. The levy still needs a second reading on March 24.\n\n--- [S2] Lakeshore Public Radio, March 10, 8:20 a.m. ---\nPort Ardmore's council backed the transit levy on a 7-2 vote. Mayor Theo Brandt called it \"the biggest investment in buses this city has made in a generation.\" Collection would begin July 1 if the levy passes its second reading.\n\n--- [S3] Statewide Wire, March 10, 6:10 a.m. ---\nWAREHOUSE FIRE ON KETTLE STREET. A fire broke out early Tuesday at a vacant warehouse on Kettle Street in Port Ardmore. Two firefighters were injured, according to an initial report from the scene. The cause is under investigation.\n\n--- [S4] Lakeshore Public Radio, March 10, 11:40 a.m. ---\nUPDATE, Kettle Street fire: Fire Chief Ama Mensah said one firefighter was treated for smoke inhalation and released; earlier reports that two firefighters were injured were incorrect. Crews had the fire under control by 9:15 a.m. The cause remains under investigation.\n\n--- [S5] Ardmore Ledger, March 10, 9:30 a.m. ---\nRALLY AT CITY HALL. Supporters of a proposed rent stabilization ordinance rallied outside City Hall on Monday evening. Ledger reporters at the scene estimated the crowd at about 300.\n\n--- [S6] Lakeshore Public Radio, March 10, 9:45 a.m. ---\nOrganizers of Monday's rent stabilization rally said more than 1,000 people attended. Police estimated the crowd at 400.\n\n--- [S7] Statewide Wire, March 10, 10:00 a.m. ---\nTEACHER PAY BILL HEADS TO GOVERNOR. The state legislature passed a bill raising the minimum teacher salary to $48,500, by votes of 39-28 in the Senate and 81-52 in the House. Governor Lena Ruiz is expected to sign it this week, a spokesperson said. The increase would take effect in the fall term.\n\n--- [S8] Global Dispatch, March 10, 5:50 a.m. ---\nThe central bank of Veloria raised its benchmark interest rate by 0.25 percentage points to 3.75%, its third increase this year, citing inflation of 4.1%.\n\n--- [S9] The Ardmore Bugle, opinion, March 10 ---\nCOLUMN: THE LEVY IS A TAX GRAB. Columnist Rob Haddad argues that the transit levy will cost a typical household $900 a year and that the council rushed the vote. \"Nobody asked the people paying for it,\" he writes.\n\n--- [S10] Ardmore Ledger, March 3 ---\nSCHOOL BOARD RESULTS. Delphine Okoro won the open seat on the Port Ardmore school board with 52% of the vote.",
+   "rules": [
+    "Cites each of the nine sources from today exactly once: S1, S2 and S9 together in one paragraph (the levy), S3 and S4 together (the fire), S5 and S6 together (the rally), and S7 and S8 each in a paragraph of their own; one item per source.",
+    "Leaves out the week-old school board item: S10 is not cited, and neither Okoro nor \"school board\" appears.",
+    "Marks the Bugle column as opinion in its citation, as in [S9 opinion].",
+    "In the paragraph found by its citations: the levy has $41.6 million and the 7-2 vote; the fire has the corrected count of one firefighter; the rally gives all three estimates, each attributed (about 300 to the Ledger or its reporters, more than 1,000 to organizers, 400 to police); the teacher pay bill is \"expected to sign\" and not signed; the rate story has 3.75% and 0.25. One item per fact.",
+    "Every number in the briefing appears in the sources (whole numbers under 11 aside), so no figure was invented or altered."
+   ],
+   "added_in": "v2"
+  },
+  {
+   "id": "nextjs-course",
+   "name": "Teach me Next.js",
+   "aliases": [
+    "CODE-6"
+   ],
+   "mode": "agentic",
+   "area": "coding",
+   "category": "coding_build",
+   "tier": "temper",
+   "status": "retired",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "judge",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Curriculum coherence",
+     "label": "Curriculum coherence",
+     "max_score": 2
+    },
+    {
+     "id": "Technical accuracy",
+     "label": "Technical accuracy",
+     "max_score": 3
+    },
+    {
+     "id": "Appropriate level",
+     "label": "Appropriate level",
+     "max_score": 2
+    },
+    {
+     "id": "Exercises/checkpoints",
+     "label": "Exercises/checkpoints",
+     "max_score": 2
+    },
+    {
+     "id": "Interactive teaching behavior",
+     "label": "Interactive teaching behavior",
+     "max_score": 1
+    }
+   ],
+   "summary": "Teach me Next.js as a practical course for an experienced frontend engineer who already knows React and TypeScript.",
+   "prompt": "Teach me Next.js as a practical course for an experienced frontend engineer who already knows React and TypeScript. Design a course that builds from fundamentals into real application architecture. Include a sequence of lessons, exercises, small projects, checkpoints, and common mistakes. Start with Lesson 1 only. Teach interactively: explain the concept, show a small example, give me a short exercise, and wait for my answer before continuing. Adapt later lessons based on my answers.",
+   "rules": [],
+   "added_in": "v1"
+  },
+  {
+   "id": "nextjs-server-data-boundary",
+   "name": "Next.js server data boundary",
+   "aliases": [
+    "CODE-3"
+   ],
+   "mode": "agentic",
+   "area": "coding",
+   "category": "coding_repo",
+   "tier": "temper",
+   "status": "active",
+   "version": 2,
+   "rubric_version": 2,
+   "weight": 0.033333,
+   "scoring": {
+    "method": "hidden_tests",
+    "unit": "tests",
+    "total": 9,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Renders",
+     "label": "Renders",
+     "max_score": null
+    },
+    {
+     "id": "Server data boundary",
+     "label": "Server data boundary",
+     "max_score": null
+    },
+    {
+     "id": "Account data stays on the server",
+     "label": "Account data stays on the server",
+     "max_score": null
+    },
+    {
+     "id": "Regression tests",
+     "label": "Regression tests",
+     "max_score": null
+    }
+   ],
+   "summary": "The app is supposed to show the account name and plan for acct_1, but it doesn't work correctly.",
+   "prompt": "The app is supposed to show the account name and plan for acct_1, but it doesn't work correctly. Diagnose the issue and fix it using an idiomatic modern Next.js approach. Preserve the intent of the existing component structure where practical. Add or update tests so the bug is covered.",
+   "rules": [],
+   "added_in": "v1"
+  },
+  {
+   "id": "novel-character-names",
+   "name": "Character names for a novel",
+   "aliases": [
+    "WRIT-2"
+   ],
+   "mode": "chat",
+   "area": "writing",
+   "category": "writing",
+   "tier": "temper",
+   "status": "retired",
+   "version": 1,
+   "rubric_version": 3,
+   "weight": null,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Answered",
+     "label": "Answered",
+     "max_score": 1
+    },
+    {
+     "id": "Twenty names",
+     "label": "Twenty names",
+     "max_score": 3
+    },
+    {
+     "id": "Distinct",
+     "label": "Distinct",
+     "max_score": 2
+    },
+    {
+     "id": "Each described",
+     "label": "Each described",
+     "max_score": 2
+    },
+    {
+     "id": "No famous names",
+     "label": "No famous names",
+     "max_score": 2
+    }
+   ],
+   "summary": "Give me 20 character names for a contemporary novel.",
+   "prompt": "Give me 20 character names for a contemporary novel. Do not use famous fictional characters, celebrities, or obvious fantasy-generator names. Make the list varied in sound, age, gender, and social background. Add one short sentence describing the feel of each name.",
+   "rules": [
+    "Produces a substantive answer (at least 60 words).",
+    "Lists at least 20 names as list items.",
+    "No name appears twice in the list of 20 (a later recap of favorites is fine).",
+    "Every name is followed by a short description (after a dash or colon).",
+    "Uses no famous fictional characters or celebrities (checked against a blocklist)."
+   ],
+   "added_in": "v1"
+  },
+  {
+   "id": "order-historical-events",
+   "name": "Put events in order",
+   "aliases": [
+    "HIST-1"
+   ],
+   "mode": "chat",
+   "area": "history",
+   "category": "history",
+   "tier": "spark",
+   "status": "active",
+   "version": 2,
+   "rubric_version": 2,
+   "weight": 0.016667,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 21,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Order",
+     "label": "Order",
+     "max_score": 15
+    },
+    {
+     "id": "Years",
+     "label": "Years",
+     "max_score": 6
+    }
+   ],
+   "summary": "Put these events in chronological order, oldest first, and give the year of each.",
+   "prompt": "Put these events in chronological order, oldest first, and give the year of each.\n\n- The first Moon landing\n- The signing of Magna Carta\n- The fall of the Berlin Wall\n- The start of the First World War\n- The printing of the Gutenberg Bible\n- The start of the French Revolution\n\nExplain your reasoning first if it helps. Then end your reply with this block, and nothing after it:\n\nORDER:\n1. <event> — <year>\n\nOne line per event, oldest first, numbered from 1. Give only the event and its year, not a sentence.",
+   "rules": [
+    "Puts the events in order, oldest first: Magna Carta, Gutenberg Bible, French Revolution, First World War, Moon landing, Berlin Wall; one item per pair of events (15).",
+    "Gives each event its year, on its own line: Magna Carta 1215, Gutenberg Bible 1450-1456, French Revolution 1789, First World War 1914, Moon landing 1969, Berlin Wall 1989; one item per event."
+   ],
+   "added_in": "v4"
+  },
+  {
+   "id": "proofread-customer-email",
+   "name": "Proofread a customer email",
+   "aliases": [
+    "WRIT-1a"
+   ],
+   "mode": "chat",
+   "area": "writing",
+   "category": "writing",
+   "tier": "spark",
+   "status": "active",
+   "version": 2,
+   "rubric_version": 5,
+   "weight": 0.02,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 13,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Errors found",
+     "label": "Errors found",
+     "max_score": 3
+    },
+    {
+     "id": "Errors fixed",
+     "label": "Errors fixed",
+     "max_score": 3
+    },
+    {
+     "id": "Keeps the facts",
+     "label": "Keeps the facts",
+     "max_score": 5
+    },
+    {
+     "id": "Keeps the customer's tone",
+     "label": "Keeps the customer's tone",
+     "max_score": 1
+    },
+    {
+     "id": "Errors kept apart from style",
+     "label": "Errors kept apart from style",
+     "max_score": 1
+    }
+   ],
+   "summary": "Proofread the email below for grammar, spelling and punctuation errors.",
+   "prompt": "Proofread the email below for grammar, spelling and punctuation errors. Distinguish clearly between objective errors and optional style improvements. Do not change the facts or make the customer sound more apologetic than the original.\n\nSubject: Refund for order 84721\n\nHi Support,\nI am writing because my order arrived three days late, and one of the two items were damaged. I contacted support last week but I havent heard anything back. The box was clearly crush on one side, and the mug inside has a crack through the handle. I would like a refund for the mug, but please let me know if you need pictures of it. Also, your website says refunds are processed in 5-7 business days, which seem to have passed already for my earlier request. Can you tell me what the status is? Thanks for your help.\n\nExplain your reasoning first if it helps. Then end your reply with these three blocks, in this order, and nothing after them:\n\nERRORS:\n<original> → <fix>\n\nCORRECTED:\n<the full corrected email>\n\nSTYLE:\n<optional suggestion>\n\nERRORS has one line per objective error, giving the original words and the fixed words only; optional style changes do not belong there. CORRECTED holds the whole email with the errors fixed and the facts unchanged. STYLE has one line per optional suggestion, or `STYLE: none`.",
+   "rules": [
+    "Lists each of the three errors in the ERRORS: block as <original> → <fix>: havent → haven't, crush → crushed, and 'items were damaged' → 'was damaged'; one item per error.",
+    "Fixes each error in the CORRECTED: email: haven't, crushed, and 'one of the two items was damaged'; one item per error.",
+    "Keeps the five facts in the CORRECTED: email: order 84721, three days late, 5-7 business days, the mug and its handle; one item per fact.",
+    "Adds no apology to the CORRECTED: email (no 'sorry', 'apologize' or 'regret').",
+    "Lists only the three real errors (havent, crush and 'items were damaged') in the ERRORS: block; a style suggestion (a comma before 'but', 'seem' or 'seems', the greeting, the en dash) listed there fails."
+   ],
+   "added_in": "v1"
+  },
+  {
+   "id": "proofread-economics-essay",
+   "name": "Proofread an economics essay",
+   "aliases": [
+    "WRIT-1c"
+   ],
+   "mode": "chat",
+   "area": "writing",
+   "category": "writing",
+   "tier": "temper",
+   "status": "active",
+   "version": 2,
+   "rubric_version": 3,
+   "weight": 0.02,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 18,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Language errors fixed",
+     "label": "Language errors fixed",
+     "max_score": 3
+    },
+    {
+     "id": "Overstatements flagged",
+     "label": "Overstatements flagged",
+     "max_score": 6
+    },
+    {
+     "id": "Accurate sentences left alone",
+     "label": "Accurate sentences left alone",
+     "max_score": 9
+    }
+   ],
+   "summary": "Proofread this economics essay.",
+   "prompt": "Proofread this economics essay. Its sentences are numbered, one claim each. Do two separate jobs. First, find the objective language errors (spelling, grammar, agreement, word choice). Second, flag sentences whose claims, terminology or wording are overstated, imprecise, unclear or misleading. Do not rewrite the author's argument into your own argument, and flag a sentence only when something in it is actually wrong with the claim or the wording.\n\n1. Inflation is when prices go up because the government prints too much money.\n2. The Consumer Price Index (CPI) measures inflation by tracking the prices of a basket of goods and services that households buy.\n3. The prices in the basket is weighted by how much households spend on each item.\n4. When CPI rises above 2% annually, the Federal Reserve is legally required to raise interest rates.\n5. The Federal Reserve's long-run inflation goal is 2%.\n6. A central bank can lose it's credibility if it keeps missing its inflation target.\n7. Many economists estimate that the natural rate of unemployment in the United States is around 4%.\n8. Anyone unemployed above that rate is either lazy or the victim of bad policy.\n9. Quantitative easing is a policy in which a central bank buys long-term securities to lower long-term interest rates.\n10. The Federal Reserve began large-scale asset purchases in late 2008.\n11. Quantitative easing, which is basically just printing money, inevitably causes hyperinflation.\n12. Raising interest rates makes loans more expensive then they were before.\n13. Japan's economy stagnated after its asset price bubble burst in the early 1990s.\n14. Japan's experience with deflation in the 1990s proves that monetary policy is completely ineffective at stimulating demand.\n15. Supply-side economics holds that lower taxes encourage production and investment.\n16. The Reagan administration cut the top federal income tax rate sharply in the 1980s.\n17. The federal budget deficit grew during the 1980s.\n18. Supply-side economics has been definitively debunked by the Reagan tax cuts, which increased the deficit without growing the economy at all.\n\nExplain your reasoning first if it helps. Then end your reply with these two blocks, and nothing after them:\n\nERRORS:\n<number>: <corrected value>\n\nFLAGS:\n<number>: <overstated|imprecise|unclear|misleading>\n\nOne line per numbered sentence with a language error in ERRORS, and none for the others. Give only the corrected value (a word or short phrase), not a sentence. One line per numbered sentence you flag in FLAGS, with the one word that says what is wrong with it. If there is nothing for a block, write `ERRORS: none` or `FLAGS: none`.",
+   "rules": [
+    "Fixes each planted language error with its corrected word alone: 3 \"is\" to \"are\", 6 \"it's\" to \"its\", 12 \"then\" to \"than\"; one item per fix.",
+    "Flags each planted overstatement in the FLAGS: block, with any of the four labels: 1 (Inflation is when ... because), 4 (legally required), 8 (lazy), 11 (inevitably causes hyperinflation), 14 (proves ... completely ineffective), 18 (definitively debunked ... at all); one item per sentence.",
+    "Leaves the accurate sentences (2, 5, 7, 9, 10, 13, 15, 16 and 17) out of the FLAGS: block; one item per sentence."
+   ],
+   "added_in": "v1"
+  },
+  {
+   "id": "proofread-literary-paragraph",
+   "name": "Proofread a literary paragraph",
+   "aliases": [
+    "WRIT-1b"
+   ],
+   "mode": "chat",
+   "area": "writing",
+   "category": "writing",
+   "tier": "temper",
+   "status": "active",
+   "version": 2,
+   "rubric_version": 3,
+   "weight": 0.02,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 8,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Fixes the errors",
+     "label": "Fixes the errors",
+     "max_score": 2
+    },
+    {
+     "id": "Keeps the author's voice",
+     "label": "Keeps the author's voice",
+     "max_score": 5
+    },
+    {
+     "id": "Flags intent",
+     "label": "Flags intent",
+     "max_score": 1
+    }
+   ],
+   "summary": "Proofread the paragraph below for grammar, spelling, punctuation, and obvious usage problems.",
+   "prompt": "Proofread the paragraph below for grammar, spelling, punctuation, and obvious usage problems. Preserve the author's voice, rhythm, imagery, and intentional fragments. Flag anything that may be intentional rather than silently changing it.\n\nMara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder then she remembered it, all brakes shrieking and people talking to fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.\n\nExplain your reasoning first if it helps. Then end your reply with these two blocks, in this order, and nothing after them:\n\nCORRECTED:\n<the full paragraph>\n\nPOSSIBLY INTENTIONAL:\n<quoted words>: <why you left them as written>\n\nCORRECTED holds the whole paragraph with only the clear errors fixed. POSSIBLY INTENTIONAL has one line per choice you left as written because it may be deliberate, or `POSSIBLY INTENTIONAL: none`.",
+   "rules": [
+    "Fixes 'louder then' to 'louder than' and 'talking to fast' to 'talking too fast' in the CORRECTED: paragraph; one item each.",
+    "Keeps these verbatim in the CORRECTED: paragraph: 'Not waiting for her, exactly.', 'That would have been too kind.', 'And she didn't know whether to laugh, or leave.' (comma included), the dash in 'Still—she was back' and 'smelled like rain, hot asphalt, and somebody's breakfast'; one item each.",
+    "Lists at least one intentional choice (a fragment, the dash, the comma in 'laugh, or leave' or the opening imagery) in the POSSIBLY INTENTIONAL: block, not changed silently."
+   ],
+   "added_in": "v1"
+  },
+  {
+   "id": "react-lead-form",
+   "name": "React lead form",
+   "aliases": [
+    "CODE-16"
+   ],
+   "mode": "agentic",
+   "area": "coding",
+   "category": "coding_debug",
+   "tier": "temper",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": 0.033333,
+   "scoring": {
+    "method": "hidden_tests",
+    "unit": "tests",
+    "total": 43,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Renders",
+     "label": "Renders",
+     "max_score": null
+    },
+    {
+     "id": "Typing",
+     "label": "Typing",
+     "max_score": null
+    },
+    {
+     "id": "Submit",
+     "label": "Submit",
+     "max_score": null
+    },
+    {
+     "id": "Required fields",
+     "label": "Required fields",
+     "max_score": null
+    },
+    {
+     "id": "Badly formed email",
+     "label": "Badly formed email",
+     "max_score": null
+    },
+    {
+     "id": "Email accepted as typed",
+     "label": "Email accepted as typed",
+     "max_score": null
+    },
+    {
+     "id": "Email saved strictly",
+     "label": "Email saved strictly",
+     "max_score": null
+    }
+   ],
+   "summary": "This is the website for Brightline Windows, a small Next.js 14 (App Router) app.",
+   "prompt": "This is the website for Brightline Windows, a small Next.js 14 (App Router) app. Read README.md first.\n\nThe quote request form at /contact is broken: the page fails to build, and even in development you can't type into the fields. Fix it, then finish the form so it's ready for real customers.\n\nKeep these element ids exactly; our end-to-end tests use them:\n- the form: `lead-form`; the fields: `lead-name`, `lead-email`, `lead-company`, `lead-message`; the submit button: `lead-submit`\n- an error for a field: `lead-name-error`, `lead-email-error`, `lead-message-error`, rendered only while that field has an error\n- after a successful submission: an element with id `lead-success` in place of the form\n\nWhat the form must do:\n1. /contact builds with `npm run build` and its HTML, form included, is rendered on the server. Keep `app/contact/LeadForm.tsx` as the form's default export.\n2. Every field shows what's typed into it. Tab moves through the fields in order, then to the button, and Enter in a field submits.\n3. Name, email and message are required; company is optional. A field holding only spaces counts as empty.\n4. On submit with problems: show each problem field's error (use the app's own messages, not the browser's popups), mark the field `aria-invalid=\"true\"` with `aria-describedby` pointing at its error, move focus to the first field with an error, keep everything the user typed, and send nothing.\n5. With no problems, POST the lead as JSON (`name`, `email`, `company`, `message`) to /api/leads. Show `lead-success` only when the API accepts it; otherwise keep the form and what was typed.\n\nEmail: be accommodating about what people type and strict about what's saved.\n- Accept what real people type: surrounding spaces, capital letters, plus addressing (`name+tag@`), dots in the name, subdomains, hyphens in domain names and long or new top-level domains.\n- Save one canonical form: trimmed and lowercased. Never save an address that isn't valid: one `@`, nothing empty around a dot, no spaces, domain labels of letters, digits and inner hyphens, and a top-level domain of at least two letters.\n\nThe API (app/api/leads/route.ts) is the authority, because not every client is this form:\n- It trims every field, saves a missing company as an empty string, normalizes the email as above, and answers 201 with `{ \"lead\": <the saved lead> }`.\n- For any problem it answers 422 with `{ \"errors\": { \"<field>\": \"<message>\" } }` and saves nothing.\n\nDon't add dependencies, and only change files under app/ and lib/ (tests can go there too); package.json, the lockfile and the config files stay as they are. Run `npm test` and `npm run build` before you finish, and end with a short summary of what was wrong and what you changed.",
+   "rules": [],
+   "added_in": "v2"
+  },
+  {
+   "id": "recipe-and-discount",
+   "name": "Recipe scaling and a discount",
+   "aliases": [
+    "MATH-1"
+   ],
+   "mode": "chat",
+   "area": "math",
+   "category": "math",
+   "tier": "spark",
+   "status": "retired",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 2,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Flour",
+     "label": "Flour",
+     "max_score": 1
+    },
+    {
+     "id": "Sale price",
+     "label": "Sale price",
+     "max_score": 1
+    }
+   ],
+   "summary": "Two quick calculations.",
+   "prompt": "Two quick calculations. Show your working briefly.\n\n1. A bread recipe for 4 people uses 300 g of flour. How much flour for 10 people?\n2. A jacket costs $84.60 and is 15% off. What is the sale price, to the cent?\n\nEnd with a section headed ANSWERS, one line per question in the form `1. <answer>`.",
+   "rules": [
+    "Answer 1 is 750 g.",
+    "Answer 2 is $71.91."
+   ],
+   "added_in": null
+  },
+  {
+   "id": "responsive-navbar-open-ended",
+   "name": "Responsive navbar (open-ended)",
+   "aliases": [
+    "CODE-2"
+   ],
+   "mode": "agentic",
+   "area": "coding",
+   "category": "coding_debug",
+   "tier": "temper",
+   "status": "retired",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "judge",
+    "unit": "points",
+    "total": 15,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "No horizontal overflow",
+     "label": "No horizontal overflow",
+     "max_score": 2
+    },
+    {
+     "id": "Desktop remains correct",
+     "label": "Desktop remains correct",
+     "max_score": 2
+    },
+    {
+     "id": "Mobile behavior",
+     "label": "Mobile behavior",
+     "max_score": 2
+    },
+    {
+     "id": "Accessible toggle/state",
+     "label": "Accessible toggle/state",
+     "max_score": 2
+    },
+    {
+     "id": "Tests",
+     "label": "Tests",
+     "max_score": 1
+    },
+    {
+     "id": "Minimal/sensible diff",
+     "label": "Minimal/sensible diff",
+     "max_score": 1
+    },
+    {
+     "id": "Visual bugs / design",
+     "label": "Visual bugs / design",
+     "max_score": 5
+    }
+   ],
+   "summary": "The navbar in this app isn't responsive.",
+   "prompt": "The navbar in this app isn't responsive. Make it work correctly across desktop and mobile widths. Preserve the existing visual identity and navigation destinations. Add or update tests as appropriate.",
+   "rules": [],
+   "added_in": "v1"
+  },
+  {
+   "id": "river-haiku-banned-words",
+   "name": "River haiku without water",
+   "aliases": [
+    "WRIT-3"
+   ],
+   "mode": "chat",
+   "area": "writing",
+   "category": "writing",
+   "tier": "spark",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 2,
+   "weight": 0.02,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "No forbidden words",
+     "label": "No forbidden words",
+     "max_score": 4
+    },
+    {
+     "id": "Is a haiku",
+     "label": "Is a haiku",
+     "max_score": 3
+    },
+    {
+     "id": "Evokes a river",
+     "label": "Evokes a river",
+     "max_score": 3
+    }
+   ],
+   "summary": "Give me a haiku about rivers.",
+   "prompt": "Give me a haiku about rivers.\nDon't mention water, waves, ripples, wet, or bank.",
+   "rules": [
+    "Never uses water, waves, ripples, wet or bank in any form (riverbank, waterfall, wavy, wetland...).",
+    "Answers with exactly three lines (a haiku, nothing around it).",
+    "Uses at least one river image (current, stone, bend, heron, flow, valley...)."
+   ],
+   "added_in": "v4"
+  },
+  {
+   "id": "running-toilet-advice",
+   "name": "Running toilet",
+   "aliases": [
+    "KNOW-6"
+   ],
+   "mode": "chat",
+   "area": "general",
+   "category": "home_maintenance",
+   "tier": "temper",
+   "status": "retired",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "judge",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Diagnostic logic",
+     "label": "Diagnostic logic",
+     "max_score": 4
+    },
+    {
+     "id": "Practical steps",
+     "label": "Practical steps",
+     "max_score": 3
+    },
+    {
+     "id": "Safety",
+     "label": "Safety",
+     "max_score": 1
+    },
+    {
+     "id": "Part identification",
+     "label": "Part identification",
+     "max_score": 1
+    },
+    {
+     "id": "Escalation",
+     "label": "Escalation",
+     "max_score": 1
+    }
+   ],
+   "summary": "My toilet has started running continuously.",
+   "prompt": "My toilet has started running continuously. It still flushes normally. Give me a diagnostic sequence that starts with the simplest checks, explains what each observation means, and tells me which parts are commonly adjustable versus replaceable. Include what to do if the shutoff valve is stuck and how to avoid making the problem worse.",
+   "rules": [],
+   "added_in": null
+  },
+  {
+   "id": "seating-logic-puzzle",
+   "name": "Seating logic puzzle",
+   "aliases": [
+    "MATH-4"
+   ],
+   "mode": "chat",
+   "area": "math",
+   "category": "reasoning",
+   "tier": "temper",
+   "status": "active",
+   "version": 3,
+   "rubric_version": 3,
+   "weight": 0.0125,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 5,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Full seating",
+     "label": "Full seating",
+     "max_score": 4
+    },
+    {
+     "id": "Correct answer",
+     "label": "Correct answer",
+     "max_score": 1
+    }
+   ],
+   "summary": "You are given a puzzle you have not seen before.",
+   "prompt": "You are given a puzzle you have not seen before. Solve it carefully and explain the reasoning. If the wording is ambiguous, identify the ambiguity rather than silently choosing an interpretation.\n\nFour friends — Alice, Bob, Carol, and Dave — sit in a row of four chairs numbered 1 to 4 from left to right. Each friend has a different favorite color: red, blue, green, or yellow. Use these clues to determine who sits in chair 3:\n\n1. Alice sits immediately to the left of the person who likes blue.\n2. Bob does not sit in chair 4.\n3. The person who likes green sits in chair 1.\n4. Carol likes yellow and sits somewhere to the right of the person who likes red.\n5. Dave likes red.\n\nEnd with the full seating, one line per chair in the form `Chair 1: <name>, <color>`, then a last line `ANSWER: <name of the person in chair 3>`.",
+   "rules": [
+    "The full seating is right, one item per chair (name and colour): Alice green in 1, Bob blue in 2, Dave red in 3, Carol yellow in 4.",
+    "The last line names Dave as the person in chair 3."
+   ],
+   "added_in": "v1"
+  },
+  {
+   "id": "sink-leak-advice",
+   "name": "Leak under the sink",
+   "aliases": [
+    "KNOW-5"
+   ],
+   "mode": "chat",
+   "area": "general",
+   "category": "home_maintenance",
+   "tier": "temper",
+   "status": "retired",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "judge",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Immediate damage control",
+     "label": "Immediate damage control",
+     "max_score": 2
+    },
+    {
+     "id": "Safe isolation",
+     "label": "Safe isolation",
+     "max_score": 2
+    },
+    {
+     "id": "Diagnostic sequence",
+     "label": "Diagnostic sequence",
+     "max_score": 3
+    },
+    {
+     "id": "Differentiates likely sources",
+     "label": "Differentiates likely sources",
+     "max_score": 2
+    },
+    {
+     "id": "Escalation criteria",
+     "label": "Escalation criteria",
+     "max_score": 1
+    }
+   ],
+   "summary": "I opened the cabinet under my kitchen sink and found a slow leak.",
+   "prompt": "I opened the cabinet under my kitchen sink and found a slow leak. The cabinet floor is damp, but I can't tell where the water starts. Walk me through what to do in the next 10 minutes, how to isolate the source without making things worse, what I should photograph/check, and when I should shut off the water and call a plumber. Distinguish a supply-line leak, drain leak, and leak from the faucet body. Assume I am a reasonably handy homeowner but not a plumber.",
+   "rules": [],
+   "added_in": null
+  },
+  {
+   "id": "sudoku-variants",
+   "name": "Sudoku variants",
+   "aliases": [],
+   "mode": "chat",
+   "area": "math",
+   "category": "reasoning",
+   "tier": "forge",
+   "status": "active",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": 0.0125,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 24,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Classic sudoku",
+     "label": "Classic sudoku",
+     "max_score": 9
+    },
+    {
+     "id": "Anti-knight sudoku",
+     "label": "Anti-knight sudoku",
+     "max_score": 9
+    },
+    {
+     "id": "Irregular 6x6 sudoku",
+     "label": "Irregular 6x6 sudoku",
+     "max_score": 6
+    }
+   ],
+   "summary": "Three logic puzzles, each with exactly one solution.",
+   "prompt": "Three logic puzzles, each with exactly one solution. Solve each one, filling in every blank (shown as .), and report the rows of the solved grids.\n\nPuzzle A is a 9x9 sudoku: fill the grid so that every row, every column and every 3x3 box contains each of the digits 1 to 9 exactly once. Spaces and blank lines in the drawing only mark the boxes.\n\n```\n..1 ... ..3\n7.. .3. .4.\n.9. .41 .62\n\n5.. ... .37\n.4. ... ..6\n... 5.8 ...\n\n... 4.. .2.\n6.. ..3 ..5\n8.9 6.. ...\n```\n\nPuzzle B is a 9x9 anti-knight sudoku: the same rules as Puzzle A, plus one more. Two cells a chess knight's move apart (two cells along a row or column and then one cell at a right angle, such as row 1 column 1 and row 2 column 3, or row 1 column 1 and row 3 column 2) never contain the same digit.\n\n```\n.5. .1. ...\n... ..5 ...\n31. ..7 ..4\n\n... ... 84.\n... .4. ...\n.4. ... ...\n\n... 972 ...\n... 6.. ..9\n.3. ..4 7.5\n```\n\nPuzzle C is a 6x6 irregular sudoku: every row and every column contains each of the digits 1 to 6 exactly once, and so does each of the six regions. The region map has the same layout as the grid, and cells with the same letter (U to Z) are in the same region.\n\nGrid:\n```\n..2...\n......\n...1.3\n....6.\n..4...\n......\n```\n\nRegion map:\n```\nUUUVVV\nWUUVVX\nWWUVXX\nYWXXXZ\nYWWZZZ\nYYYYZZ\n```\n\nQuestions 1 to 9 are the rows of solved Puzzle A, top to bottom. Questions 10 to 18 are the rows of solved Puzzle B, top to bottom. Questions 19 to 24 are the rows of solved Puzzle C, top to bottom. Answer each with that row's digits from left to right, written as one number with no spaces or separators: nine digits for Puzzles A and B (such as 123456789), six for Puzzle C (such as 123456).\n\nExplain your reasoning first if it helps. Then end your reply with this block, and nothing after it:\n\nANSWERS:\n<number>: <answer>\n\nOne line per numbered question, in order. Give only the answer (a number, name or letter), not a sentence.",
+   "rules": [
+    "Answers 1 to 9 are the rows of solved Puzzle A (classic 9x9, 25 givens), top to bottom: 481296753, 762835149, 395741862, 518964237, 947312586, 236578491, 173459628, 624183975, 859627314; one item per row.",
+    "Answers 10 to 18 are the rows of solved Puzzle B (anti-knight 9x9, 20 givens), top to bottom: 257419638, 469835217, 318267594, 172596843, 695348172, 843721956, 584972361, 721653489, 936184725; one item per row.",
+    "Answers 19 to 24 are the rows of solved Puzzle C (irregular 6x6, 5 givens), top to bottom: 142356, 653421, 526143, 315264, 234615, 461532; one item per row."
+   ],
+   "added_in": "v4"
+  },
+  {
+   "id": "todays-local-news",
+   "name": "Today's local news",
+   "aliases": [
+    "RSCH-1"
+   ],
+   "mode": "agentic",
+   "area": "research",
+   "category": "everyday",
+   "tier": "temper",
+   "status": "retired",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "judge",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Factual accuracy",
+     "label": "Factual accuracy",
+     "max_score": 3
+    },
+    {
+     "id": "Recency",
+     "label": "Recency",
+     "max_score": 2
+    },
+    {
+     "id": "Prioritization",
+     "label": "Prioritization",
+     "max_score": 2
+    },
+    {
+     "id": "Source quality/citations",
+     "label": "Source quality/citations",
+     "max_score": 2
+    },
+    {
+     "id": "Clear distinction between fact and analysis",
+     "label": "Clear distinction between fact and analysis",
+     "max_score": 1
+    }
+   ],
+   "summary": "Give me today's news briefing for Saint Paul, MN.",
+   "prompt": "Give me today's news briefing for Saint Paul, MN. Cover local, state, national, and global news. Prioritize events that happened or materially changed today. For each item, give: what happened, why it matters, and the source. Distinguish reported facts from analysis. Avoid repeating the same story across sections. Give me the five most important stories first, then a short section of other notable developments.",
+   "rules": [],
+   "added_in": "v1"
+  },
+  {
+   "id": "two-calendar-slots-json",
+   "name": "Meeting slots from two calendars (JSON file, no MCP)",
+   "aliases": [
+    "TASK-1"
+   ],
+   "mode": "agentic",
+   "area": "everyday",
+   "category": "structured_data",
+   "tier": "temper",
+   "status": "active",
+   "version": 3,
+   "rubric_version": 2,
+   "weight": 0.05,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 14,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Valid slots listed",
+     "label": "Valid slots listed",
+     "max_score": 8
+    },
+    {
+     "id": "No slot overlaps an event",
+     "label": "No slot overlaps an event",
+     "max_score": 1
+    },
+    {
+     "id": "No slot outside the window",
+     "label": "No slot outside the window",
+     "max_score": 1
+    },
+    {
+     "id": "Valid JSON",
+     "label": "Valid JSON",
+     "max_score": 1
+    },
+    {
+     "id": "Exactly three recommendations",
+     "label": "Exactly three recommendations",
+     "max_score": 1
+    },
+    {
+     "id": "Recommendations are valid",
+     "label": "Recommendations are valid",
+     "max_score": 1
+    },
+    {
+     "id": "Explanations",
+     "label": "Explanations",
+     "max_score": 1
+    }
+   ],
+   "summary": "Find every time that works for a meeting between Alex and Jamie, using the supplied calendar JSON (calendar-fixture.json) as the source of truth.",
+   "prompt": "Find every time that works for a meeting between Alex and Jamie, using the supplied calendar JSON (calendar-fixture.json) as the source of truth.\n\nThe window runs from Monday 2026-08-31 09:00 to Monday 2026-09-07 17:00, America/Chicago time (-05:00), and includes the weekend. A meeting is 60 minutes, starts on the hour or half hour, runs entirely between 9:00 AM and 5:00 PM local time, and must not overlap any busy event of either person (back-to-back is fine). Do not infer availability outside the window.\n\nThen pick the three best options: prefer weekdays, minimize gaps between existing meetings, and avoid the first or last available hour of the day.\n\nSave your answer as slots.json in your working directory. It must be valid JSON in exactly this shape:\n\n{\"valid_slots\": [\"YYYY-MM-DDTHH:MM\", ...], \"top3\": [{\"start\": \"YYYY-MM-DDTHH:MM\", \"explanation\": \"...\"}, ...]}\n\n`valid_slots` lists the start of every valid meeting in the window (weekends included), in local time with no offset. `top3` has exactly three entries, best first, each with a start from `valid_slots` and a one- or two-sentence explanation. Only slots.json is scored.",
+   "rules": [
+    "slots.json parses as a JSON object (a code fence around it is tolerated, prose around it is not).",
+    "For each of the 8 days Aug 31 to Sep 7, valid_slots lists every start where a 60-minute meeting fits for Alex and Jamie (half hours inside 9-5, computed from the fixture) and none that overlaps an event; one item per day.",
+    "None of the starts in valid_slots or top3 overlaps an event of either person. Any overlap caps the score at 5.",
+    "Every start listed is on the half hour inside 9-5 within the window (nothing at 16:30, 08:30, 09:15 or after Sep 7).",
+    "top3 is a list of exactly three entries.",
+    "Every top3 start is one of the true slots, with no repeats. The order of the three is not scored.",
+    "Every top3 entry has a non-empty explanation string."
+   ],
+   "added_in": "v1"
+  },
+  {
+   "id": "weather-vs-normal",
+   "name": "Weather against the normal",
+   "aliases": [
+    "RSCH-2b"
+   ],
+   "mode": "agentic",
+   "area": "research",
+   "category": "everyday",
+   "tier": "spark",
+   "status": "retired",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "judge",
+    "unit": "points",
+    "total": 10,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Live fetch from JSON API",
+     "label": "Live fetch from JSON API",
+     "max_score": 3
+    },
+    {
+     "id": "Current conditions reported",
+     "label": "Current conditions reported",
+     "max_score": 3
+    },
+    {
+     "id": "Historical comparison",
+     "label": "Historical comparison",
+     "max_score": 3
+    },
+    {
+     "id": "Source attribution",
+     "label": "Source attribution",
+     "max_score": 1
+    }
+   ],
+   "summary": "What is the current weather in Saint Paul, MN right now?",
+   "prompt": "What is the current weather in Saint Paul, MN right now? Fetch it live from a machine-readable JSON API (no key required) — use one of:\n  - Open-Meteo (one call): https://api.open-meteo.com/v1/forecast?latitude=44.9537&longitude=-93.09&current_weather=true&temperature_unit=fahrenheit&timezone=America%2FChicago\n  - NWS latest observation: https://api.weather.gov/stations/KSTP/observations/latest (include a User-Agent header, e.g. curl -A \"crucible-benchmark\")\n\nThen compare today's temperature with the historical average for this date. Use one of:\n  - Open-Meteo archive (whole range in one call — filter rows matching today's month/day across years and average): https://archive-api.open-meteo.com/v1/archive?latitude=44.9537&longitude=-93.09&start_date=2016-09-03&end_date=2025-09-03&daily=temperature_2m_max&temperature_unit=fahrenheit (adjust dates to today's month/day)\n  - NOAA NCEI 1991-2020 daily normals: https://www.ncei.noaa.gov/access/services/data/v1?dataset=normals-daily&stations=USW00014922&startDate=<today>&endDate=<today>&units=standard&format=json\n\nReport: current temperature and conditions, the historical average, and whether today is typical or an outlier. Cite the endpoints you used. Do not scrape HTML weather sites; these JSON endpoints are the sources of truth.",
+   "rules": [],
+   "added_in": "v1"
+  }
+ ]
+}

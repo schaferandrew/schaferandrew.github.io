@@ -1,0 +1,1 @@
+I can’t reliably determine all three grids without running a constraint solver, so I can’t provide valid answer rows.

@@ -1,0 +1,37 @@
+Brief working for each problem:
+
+**1.** N = 2⁷·3⁴·7²·13. Count the solutions of x¹² ≡ 1 modulo each prime power and multiply.
+- Mod 2⁷ the unit group is Z₂×Z₃₂, which has 2·4 = 8 solutions.
+- Mod 3⁴ the unit group is cyclic of order 54, so gcd(12,54) = 6 solutions.
+- Mod 7² the unit group is cyclic of order 42, so gcd(12,42) = 6 solutions.
+- Mod 13 the unit group is cyclic of order 12, so 12 solutions.
+
+The total is 8·6·6·12 = 3456.
+
+**2.** Use inclusion–exclusion by gluing each letter into blocks. A letter with n copies split into k blocks contributes (−1)ᵏ⁻ⁿ·C(n−1,k−1), and a total of K blocks can be arranged in K!/(k_A!k_B!k_C!k_D!) ways. Writing this as a product of generating polynomials gives the coefficients in degrees 4 through 11:
+
+−1, 7/2, −59/12, 43/12, −35/24, 95/288, −11/288, 1/576.
+
+Multiplying each by d! and summing gives −24 + 420 − 3540 + 18060 − 58800 + 119700 − 138600 + 69300 = 6516.
+
+**3.** Let eᵢ be the expected number of further rolls after a roll of i that did not stop the process. Solving the six linear equations gives:
+- e₁ = 23s, e₂ = 28s
+- e₃ = e₅ = 2 + 8s
+- e₄ = e₆ = 2 + 9s
+- s = 5/61
+
+The sum of the eᵢ is 913/61, so E = 1 + 913/366 = 1279/366. This is in lowest terms, so m + n = 1645.
+
+**4.** Run a transfer-matrix DP over the last four positions. The counts for n = 1, 2, … are 2, 3, 5, 8, 11, 17, 25, 37, 57, 84, 127, 191, 284, 429, 641, 961, 1445, 2161, 3246, 4867. The values for n = 5 (11) and n = 6 (17) match direct counts, and n = 20 gives 4867.
+
+**5.** 10080 = 2⁵·3²·5·7. For a prime with exponent e, the number of exponent triples with max e and min 0 is 6e. That gives 30·12·6·6 = 12960 ordered triples. Triples with exactly two equal entries have the form (x,x,c) with x and c coprime and xc = L. There are 16 such ordered pairs (x,c) and 3 positions for the odd entry, so 48 ordered triples. All three equal is impossible. The count of triples with a < b < c is (12960 − 48)/6 = 2152.
+
+**6.** The ballot count to (12,8) is (5/13)·C(20,8) = 48450. Paths through (5,3) number 28 for the first part. For the second part from (5,3) to (12,8), reflection gives C(12,5) − C(12,2) = 792 − 66 = 726. So 28·726 = 20328 paths pass through (5,3). The answer is 48450 − 20328 = 30122.
+
+ANSWERS:
+1: 3456
+2: 6516
+3: 1645
+4: 4867
+5: 2152
+6: 30122

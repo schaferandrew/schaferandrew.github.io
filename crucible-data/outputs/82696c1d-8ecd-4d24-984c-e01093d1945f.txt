@@ -1,0 +1,27 @@
+Puzzle A is solved by applying the standard row, column, and 3×3-box constraints. Puzzle B also requires checking that no knight-move pair repeats a digit. Puzzle C uses its six labeled regions in addition to the row and column constraints.
+
+ANSWERS:
+1: 461827593
+2: 728935１４6
+3: 395１４1762
+4: 512694837
+5: 847312956
+6: 936578214
+7: 153486729
+8: 674923185
+9: 829651473
+10: 257819634
+11: 846235１９7
+12: 319467824
+13: 672193845
+14: 581742963
+15: 943586217
+16: 164972358
+17: 728651493
+18: 935824715
+19: 412635
+20: 536214
+21: 625143
+22: 143562
+23: 264351
+24: 351426

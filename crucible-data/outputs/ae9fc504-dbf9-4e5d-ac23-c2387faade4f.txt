@@ -1,0 +1,26 @@
+Editorial review is implemented across the API, shared types and web app. The contract suite passes unmodified, and the full API and web suites pass. The new API tests are in `apps/api/test/editorial.test.ts`, with a few web tests in `apps/web/test/MyArticles.test.tsx`.
+
+## What I changed
+- **Shared:** articles gain `status` and `reviewComment`. Create accepts only `status: "draft"`; any other value is a 422. A new schema validates the reject body.
+- **API rules:** `services/policy.ts` holds `isEditor`, `canView` and `canSeeFeedback`, and the workflow lives in `services/articles.ts`.
+- **Endpoints:** `submit`, `approve`, `reject`, `review-queue` and `/user/articles` follow your contract.
+- **Editors:** `createApp(db, { editors })` takes usernames, and `server.ts` reads the comma-separated `EDITORS` variable.
+- **Web:** a "Save as Draft" button, a My Articles page (status, feedback, submit, status filter) and a Review Queue page (approve, or send back with feedback). The Review Queue nav link shows only for editors; the app detects them by whether the queue request returns 403.
+
+## Calls I made
+1. **Create without `status` still publishes immediately.** This conflicts with "the public never sees unapproved work", but the contract test and existing clients require it, and only drafts go through review. Review is therefore opt-in for the author, which is the biggest thing to flag.
+2. **404 instead of 403 for articles you can't see.** A stranger who gets 403 on someone's draft has learned it exists. So the order is 404 (can't see it), then 403 (wrong role), then 422 (wrong state). A non-editor calling approve on an in-review article they don't own gets 404; the author gets 403.
+3. **Everything derived from an article is gated.** Lists, feed, tag and author filters, `favorited=`, `/tags`, comments and favorites all cover published articles only. Listings default to published, so a new query path is safe unless it opts out.
+4. **Slugs.** If a draft took the slug `my-title`, a later public "My Title" would become `my-title-2` and reveal the draft. Unpublished articles now get a random-suffix slug, and approval re-issues a clean slug. A draft's link changes when it's approved.
+5. **Editors can see only `in_review` articles, never drafts.** The review queue excludes your own articles, and approve and reject return 403 on your own work. Review permission is checked before the reject body is validated.
+6. **`reviewComment` is shown only to the author and editors.** Approval clears it. Editing an in-review article is a 422, so an editor approves exactly what they read.
+7. **Review queue order.** It is oldest first by when the article was submitted, not when it was created.
+8. **Unpublished articles can't be favorited or commented on** (422).
+
+## For code review
+- **Editors are matched by username.** Whoever registers or renames to `ada` becomes an editor, so register editor accounts first, and consider matching on user id or email. Renaming works for an editor too.
+- **`createApp` stores the editors set on `db`.** Two apps sharing one `Db` would overwrite each other's set.
+- **Approved articles keep their original `createdAt`.** A draft written long ago lands deep in the public list, so a `publishedAt` field may be needed.
+- **Editing a published article doesn't go back through review.**
+- **Storage is in memory.** The new state (`status`, `reviewComment`, `submittedAt`) needs a migration in a real database.
+- **Stale queue page.** The web review page doesn't refresh, so an article another editor already approved stays on screen until reload.

@@ -1,0 +1,27 @@
+Two kinds of problem turned up.
+
+**Language errors**
+- Sentence 3: the subject "prices" is plural, so the verb should be "are", not "is".
+- Sentence 6: "it's" (it is) should be the possessive "its".
+- Sentence 12: "more expensive then" should be "than", since this is a comparison.
+
+**Claims and wording**
+- Sentence 1: This defines inflation only as a result of money printing. Inflation is a sustained rise in the general price level and can have other causes, such as demand or supply shocks. The wording is imprecise.
+- Sentence 4: The Fed has a dual mandate (stable prices and maximum employment) and a 2% longer-run goal. No law requires it to raise rates when CPI passes 2%. This is misleading.
+- Sentence 8: This claims that unemployment above the natural rate comes down to either laziness or bad policy. That ignores cyclical, frictional and structural causes. It is overstated.
+- Sentence 11: "Inevitably causes hyperinflation" is far too strong. QE in the US and Japan did not produce hyperinflation. "Basically just printing money" also oversimplifies, but the main problem is the overstated claim.
+- Sentence 14: One episode cannot "prove" that monetary policy is "completely ineffective". This is overstated.
+- Sentence 18: The Reagan tax cuts cannot "definitively debunk" a whole school of thought. The economy also did grow in the 1980s, so "without growing the economy at all" is wrong. This is overstated.
+
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: imprecise
+4: misleading
+8: overstated
+11: overstated
+14: overstated
+18: overstated

@@ -1,0 +1,13 @@
+**1. Flour for 10 people**
+Flour per person = 300 g ÷ 4 = 75 g
+For 10 people: 75 g × 10 = 750 g
+
+**2. Sale price**
+Discount = 15% of $84.60 = 0.15 × 84.60 = $12.69
+Sale price = 84.60 − 12.69 = $71.91
+
+(Check: 0.85 × 84.60 = 71.91 ✓)
+
+## ANSWERS
+1. 750 g
+2. $71.91

@@ -121,10 +121,22 @@
 
   // Namespaces that repackage other labs' weights; never a maker. Mirrors Crucible's origin.PACKAGERS.
   var PACKAGERS = ['mlx-community', 'lmstudio-community', 'unsloth', 'bartowski'];
+  // Bases recorded without a maker prefix (LM Studio keys, GGUF or MLX names, the opencode model),
+  // whose maker the site knows. Hand-kept: runs are immutable and predate model.origin. Keyed by base.
+  var KNOWN_BASE_MAKERS = {
+    'laguna-xs-2.1': 'poolside',
+    'qwen2.5-0.5b-instruct': 'qwen',
+    'qwen2.5-1.5b-instruct': 'qwen',
+    'granite-4.2-3b-mlx@4bit': 'ibm',
+    'deepseek-v4.1-flash-free': 'deepseek',
+    'mlx-community/muse-glimmer-30b': 'meta'
+  };
   // The maker inferred from a model base, for runs without model.origin: the part before its '/',
   // with a leading '~' (a provider's "latest" alias) dropped; null when there is none or it's a packager.
+  // A base in KNOWN_BASE_MAKERS (matched in full, packager prefix included) takes its listed maker.
   function makerFromBase(base) {
     var b = String(base || '').replace(/^~/, ''), i = b.indexOf('/');
+    if (KNOWN_BASE_MAKERS.hasOwnProperty(b)) return KNOWN_BASE_MAKERS[b];
     var m = i > 0 ? b.slice(0, i).toLowerCase() : null;
     return m && PACKAGERS.indexOf(m) === -1 ? m : null;
   }

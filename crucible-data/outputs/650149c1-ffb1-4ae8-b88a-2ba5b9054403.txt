@@ -1,0 +1,5 @@
+The email from alex@example.com was received yesterday at 10:30 on September 1, 2026. The body of the email was:
+
+"The Q3 review is now complete and ahead of schedule. Let's discuss the results in our planning meeting."
+
+The message has been saved to a temp file.

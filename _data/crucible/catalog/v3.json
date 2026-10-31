@@ -1,14 +1,14 @@
 {
  "format_version": 3,
- "format_revision": 0,
+ "format_revision": 1,
  "suite": {
   "id": "v3",
   "version": "3.0",
   "cut_at": "2026-10-30",
-  "status": "current",
+  "status": "past",
   "changelog_url": "https://github.com/schaferandrew/crucible/blob/main/SUITE_CHANGELOG.md#suite-v3"
  },
- "crucible_version": "3.5.0",
+ "crucible_version": "3.6.1",
  "scoring_policy": {
   "coverage_min": 0.75,
   "in_progress_below": 0.75,
@@ -564,7 +564,7 @@
    "rules": [
     "Each country line names its capital and nothing else: Australia: Canberra, Canada: Ottawa, Brazil: Brasília, Nigeria: Abuja, Türkiye: Ankara, Switzerland: Bern; one item per country."
    ],
-   "added_in": null
+   "added_in": "v4"
   },
   {
    "id": "cold-window-advice",
@@ -674,7 +674,7 @@
     "Answer 4 is 37/216.",
     "Answer 5 is 13/27."
    ],
-   "added_in": null
+   "added_in": "v4"
   },
   {
    "id": "cursor-pagination",
@@ -976,7 +976,7 @@
     "Puzzle A's 18 slots hold: 1-ACROSS CANDY, 1-DOWN CUBIC, 2-ACROSS UPSET, 2-DOWN UNCLE, 3-DOWN THREW, 4-ACROSS COUNCIL, 4-DOWN COURAGE, 5-DOWN LIBRARY, 6-ACROSS COUNT, 7-ACROSS ELBOW, 8-ACROSS SWAMP, 8-DOWN SQUAD, 9-DOWN PROBE, 10-ACROSS DEALT, 11-DOWN TWIST, 12-ACROSS ECONOMY, 13-ACROSS DRIVE, 14-ACROSS SHIRT; one item per slot.",
     "Puzzle B's 22 slots hold: 15-ACROSS ELF, 16-DOWN FAN, 17-ACROSS APPLY, 17-DOWN ANOTHER, 18-DOWN PLASTIC, 19-ACROSS TEN, 19-DOWN TOP, 20-ACROSS AROMA, 21-DOWN ONE, 22-ACROSS PUBLISH, 23-DOWN BARGAIN, 24-DOWN IMAGINE, 25-ACROSS TIE, 26-ACROSS CAR, 26-DOWN COG, 27-ACROSS APRICOT, 28-DOWN TOY, 29-ACROSS ALIKE, 30-ACROSS ANY, 30-DOWN APT, 31-ACROSS OUNCE, 32-ACROSS TAR; one item per slot."
    ],
-   "added_in": null
+   "added_in": "v4"
   },
   {
    "id": "fire-truck-color",
@@ -1648,7 +1648,7 @@
     "Answer 5 is 516423 (Odile 5, Bram 1, Tamsin 6, Kofi 4, Lior 2, Wren 3).",
     "Answer 6 is 122 (by brute force over all 5040 orders; 42 if 'at least 2 between' is read as exactly 2)."
    ],
-   "added_in": null
+   "added_in": "v4"
   },
   {
    "id": "login-recovery",
@@ -1935,7 +1935,7 @@
     "Answer 5 is 2152 ((12,960 ordered - 48 with two equal) / 6).",
     "Answer 6 is 28122 (48,450 ballot paths minus 28 x 726 through (5, 3))."
    ],
-   "added_in": null
+   "added_in": "v4"
   },
   {
    "id": "names-for-one-character",
@@ -2292,7 +2292,7 @@
     "Puts the events in order, oldest first: Magna Carta, Gutenberg Bible, French Revolution, First World War, Moon landing, Berlin Wall; one item per pair of events (15).",
     "Gives each event its year, on its own line: Magna Carta 1215, Gutenberg Bible 1450-1456, French Revolution 1789, First World War 1914, Moon landing 1969, Berlin Wall 1989; one item per event."
    ],
-   "added_in": null
+   "added_in": "v4"
   },
   {
    "id": "proofread-customer-email",
@@ -2516,7 +2516,7 @@
    "area": "math",
    "category": "math",
    "tier": "spark",
-   "status": "provisional",
+   "status": "retired",
    "version": 1,
    "rubric_version": 1,
    "weight": null,
@@ -2652,7 +2652,7 @@
     "Answers with exactly three lines (a haiku, nothing around it).",
     "Uses at least one river image (current, stone, bend, heron, flow, valley...)."
    ],
-   "added_in": null
+   "added_in": "v4"
   },
   {
    "id": "running-toilet-advice",
@@ -2840,7 +2840,7 @@
     "Answers 10 to 18 are the rows of solved Puzzle B (anti-knight 9x9, 20 givens), top to bottom: 257419638, 469835217, 318267594, 172596843, 695348172, 843721956, 584972361, 721653489, 936184725; one item per row.",
     "Answers 19 to 24 are the rows of solved Puzzle C (irregular 6x6, 5 givens), top to bottom: 142356, 653421, 526143, 315264, 234615, 461532; one item per row."
    ],
-   "added_in": null
+   "added_in": "v4"
   },
   {
    "id": "todays-local-news",

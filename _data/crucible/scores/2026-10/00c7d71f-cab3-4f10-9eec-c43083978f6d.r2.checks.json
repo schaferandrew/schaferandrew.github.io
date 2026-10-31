@@ -1,0 +1,115 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "00c7d71f-cab3-4f10-9eec-c43083978f6d",
+ "rubric_version": 2,
+ "rubric_hash": "3a7f59dac961798f",
+ "method": "checks",
+ "scored_at": "2026-10-31T05:29:56.463129+00:00",
+ "crucible_version": "3.6.2",
+ "raw": {
+  "passed": 0,
+  "total": 4,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "interest",
+   "type": "items",
+   "group": "Compound interest",
+   "label": "Answer 1 is $5,636.36 (monthly compounding, 36 periods).",
+   "passed": false,
+   "detail": "no ANSWERS: block",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "interest",
+     "label": "Answer 1 is $5,636.36",
+     "passed": false,
+     "detail": "no answer block"
+    }
+   ]
+  },
+  {
+   "id": "boxes",
+   "type": "items",
+   "group": "Boxes",
+   "label": "Answer 2 is 87 boxes (2,035 sq ft, rounded up).",
+   "passed": false,
+   "detail": "no ANSWERS: block",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "boxes",
+     "label": "Answer 2 is 87 boxes",
+     "passed": false,
+     "detail": "no answer block"
+    }
+   ]
+  },
+  {
+   "id": "gas",
+   "type": "items",
+   "group": "Gas cost",
+   "label": "Answer 3 is $47.14.",
+   "passed": false,
+   "detail": "no ANSWERS: block",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "gas",
+     "label": "Answer 3 is $47.14",
+     "passed": false,
+     "detail": "no answer block"
+    }
+   ]
+  },
+  {
+   "id": "split",
+   "type": "items",
+   "group": "Split bill",
+   "label": "Answer 4 is $54.34 each (tip on the pre-tax amount, added to the taxed total).",
+   "passed": false,
+   "detail": "no ANSWERS: block",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "split",
+     "label": "Answer 4 is $54.34",
+     "passed": false,
+     "detail": "no answer block"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Compound interest",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no ANSWERS: block"
+  },
+  {
+   "id": "Boxes",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no ANSWERS: block"
+  },
+  {
+   "id": "Gas cost",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no ANSWERS: block"
+  },
+  {
+   "id": "Split bill",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no ANSWERS: block"
+  }
+ ]
+}

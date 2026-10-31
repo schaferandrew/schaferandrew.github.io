@@ -1,0 +1,89 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "3f68b223-738e-460f-8fbc-386d01ca8208",
+ "rubric_version": 2,
+ "rubric_hash": "d2ed1dccfdb0032f",
+ "method": "checks",
+ "scored_at": "2026-10-31T05:29:56.425784+00:00",
+ "crucible_version": "3.6.2",
+ "raw": {
+  "passed": 0,
+  "total": 4,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": 2.5,
+ "passed": false,
+ "items": [
+  {
+   "id": "answer",
+   "type": "items",
+   "group": "Correct answer",
+   "label": "The ANSWER: line says free (the Design review ends at exactly 3:30, which is not a conflict).",
+   "passed": false,
+   "detail": "0/1 items; failed: free (got free|busy)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "free",
+     "label": "ANSWER is free",
+     "passed": false,
+     "detail": "got free|busy"
+    }
+   ]
+  },
+  {
+   "id": "states_time",
+   "type": "required_patterns",
+   "group": "States its assumption",
+   "label": "The reply says which time it checked: PM, this afternoon or today (3:30 AM has already passed).",
+   "passed": false,
+   "detail": "0/3 found; missing: \\bp\\.?m\\b, afternoon, today"
+  },
+  {
+   "id": "grounded",
+   "type": "tool_calls",
+   "group": "Grounded in the calendar",
+   "label": "The run called get_current_time and list_events (read from the session, not the reply).",
+   "passed": false,
+   "detail": "0/2 items; failed: time (not called), events (not called)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "time",
+     "label": "Called get_current_time",
+     "passed": false,
+     "detail": "not called"
+    },
+    {
+     "id": "events",
+     "label": "Called list_events",
+     "passed": false,
+     "detail": "not called"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Correct answer",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: free (got free|busy)"
+  },
+  {
+   "id": "States its assumption",
+   "passed": 0,
+   "total": 1,
+   "detail": "0/3 found; missing: \\bp\\.?m\\b, afternoon, today"
+  },
+  {
+   "id": "Grounded in the calendar",
+   "passed": 0.0,
+   "total": 2,
+   "detail": "0/2 items; failed: time (not called), events (not called)"
+  }
+ ]
+}

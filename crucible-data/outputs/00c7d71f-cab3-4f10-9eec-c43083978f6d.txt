@@ -1,0 +1,51 @@
+1. To calculate the value of $5,000 after 3 years with monthly compounding interest at 4%, we use the formula for compound interest:
+   \[
+   A = P (1 + \frac{r}{n})^{nt}
+   \]
+   where \(P\) is the principal amount ($5,000), \(r\) is the annual interest rate (0.04), \(n\) is the number of times interest is compounded per year (12), and \(t\) is the time the money is invested for in years (3).
+
+   Plugging in the values:
+   \[
+   A = 5000 \left(1 + \frac{0.04}{12}\right)^{12 \times 3} = 5000 \left(1 + 0.003333\right)^{36}
+   \]
+   \[
+   A = 5000 \times (1.003333)^{36} \approx 5000 \times 1.124978 \approx 5624.89
+   \]
+
+   To the nearest cent, it is worth approximately $5624.89.
+
+2. To determine how many boxes of flooring are needed to cover a 1,850 sq ft space with an extra 10% waste, we first calculate the total area that needs to be covered:
+   \[
+   \text{Total area} = 1850 - (1850 \times 0.1) = 1850 - 185 = 1665 \text{ sq ft}
+   \]
+
+   Each box covers 23.5 sq ft, so the number of boxes needed is:
+   \[
+   \text{Number of boxes} = \frac{1665}{23.5} \approx 70.48
+   \]
+   Since we can't buy a fraction of a box, we round up to the next whole number:
+   \[
+   \text{Number of boxes} = 71
+   \]
+
+   To the nearest cent, you need to buy 71 boxes.
+
+3. To calculate the cost of gas for a 412-mile trip at $3.89 per gallon and including a 10% tip:
+   \[
+   \text{Total cost} = 412 \times 3.89 \times (1 + 0.10) = 412 \times 3.89 \times 1.10
+   \]
+   \[
+   \text{Total cost} = 412 \times 4.279 = 1756.828
+   \]
+
+   To the nearest cent, the gas costs approximately $1756.83.
+
+4. To calculate the total cost of dinner including tax and splitting it into four ways:
+   \[
+   \text{Total cost} = 186.40 + (186.40 \times 0.18) = 186.40 + 33.912 = 210.312
+   \]
+   \[
+   \text{Cost per person} = \frac{210.312}{4} = 52.578
+   \]
+
+   To the nearest cent, each person pays approximately $52.58.

@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "00c7d71f-cab3-4f10-9eec-c43083978f6d",
+ "run_path": "lmstudio_qwen2.5-0.5b-instruct/household-money-math/20261031_052620",
+ "legacy_run_id": null,
+ "started_at": "2026-10-31T05:26:20.491893+00:00",
+ "ended_at": "2026-10-31T05:26:32.548421+00:00",
+ "elapsed_s": 11.23,
+ "task": {
+  "id": "household-money-math",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "7f6f5246841ce00c",
+  "rubric_hash": "3a7f59dac961798f",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/qwen2.5-0.5b-instruct",
+  "base": "qwen2.5-0.5b-instruct",
+  "publisher": "Qwen",
+  "artifact": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+  "format": "gguf",
+  "quant": "Q8_0",
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": 32768,
+  "variant_key": "qwen2.5-0.5b-instruct|Qwen|gguf|q8_0",
+  "display": "qwen2.5-0.5b-instruct · Q8_0",
+  "origin": {
+   "maker": null,
+   "base_repo": null,
+   "params": 630000000,
+   "active_params": null,
+   "source": "gguf"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Ironwood",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m1-pro-32gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 32.0,
+  "cpu": "Apple M1 Pro",
+  "offload": null,
+  "label": "Ironwood"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 252,
+  "tokens_out": 765,
+  "model_responses": 1,
+  "ttft_s": 0.236,
+  "ttft_avg_s": 0.236,
+  "response_time_avg_s": 11.224,
+  "output_tokens_per_s": 69.6,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 0
+ },
+ "output_ref": "outputs/00c7d71f-cab3-4f10-9eec-c43083978f6d.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "7b7c096",
+  "crucible_dirty": true,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:7a06a89e03261a42742eb5ea7e574a69f9bc68ac796f170447b0df7b665e9449",
+  "submitter": null,
+  "verification": null
+ }
+}

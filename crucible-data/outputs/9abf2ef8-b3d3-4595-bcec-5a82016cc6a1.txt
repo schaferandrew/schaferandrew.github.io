@@ -1,0 +1,44 @@
+To solve this puzzle, let's analyze each clue step by step:
+
+1. **Alice sits immediately to the left of the person who likes blue.**
+   - This means Alice cannot be in chairs 2 or 4.
+
+2. **Bob does not sit in chair 4.**
+   - Bob can only be in chairs 1, 2, or 3.
+
+3. **The person who likes green sits in chair 1.**
+   - Green is the color of Carol's favorite.
+
+4. **Carol likes yellow and sits somewhere to the right of the person who likes red.**
+   - Yellow is the color of Dave's favorite.
+   - Red is the color of Alice's favorite.
+   - Since Carol likes yellow, she must be in chair 3 (because if she were in chair 1 or 2, she would not like yellow).
+
+5. **Dave likes red.**
+   - This means Dave cannot sit in chairs 2 or 4.
+
+Now let's use these clues to determine who sits in chair 3:
+
+- Since Carol likes yellow and is in chair 3, Carol must be sitting next to Alice.
+- Bob does not sit in chair 4, so he can only be in chairs 1 or 2.
+- The person who likes green (Carol) is in chair 1. Therefore, the person who likes blue (Alice) cannot be in chair 1.
+- Since Carol likes yellow and is in chair 3, Alice must be sitting next to Bob.
+- Dave likes red, so he can sit in either chair 2 or 4.
+
+Given these constraints:
+- If Alice sits in chair 3, then Bob must sit in chairs 1 or 2 (since Carol likes yellow).
+- Since Carol likes yellow and is in chair 3, Bob cannot be in chair 4.
+- Therefore, Bob must be in chair 1.
+- Dave likes red, so he can sit in either chair 2 or 4.
+
+Since Alice sits next to Bob, and both are sitting in chairs 1 and 3:
+- The only remaining option is that Carol sits in chair 2 (because if she were in chair 1, she would not like yellow).
+
+Thus, the seating arrangement is:
+```
+Chair 1: Dave, Red
+Chair 2: Carol, Yellow
+Chair 3: Alice, Blue
+Chair 4: Bob, Green
+ANSWER: Alice of chair 3
+```

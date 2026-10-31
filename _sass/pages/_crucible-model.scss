@@ -369,6 +369,12 @@
   }
 
   .cm-deps {
+    // Nine columns: headers wrap so the table fits the page instead of scrolling
+    thead th {
+      white-space: normal;
+      vertical-align: bottom;
+    }
+
     th.is-num,
     td.is-num {
       text-align: right;

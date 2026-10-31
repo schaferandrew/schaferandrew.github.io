@@ -121,6 +121,8 @@
   function start(payload) {
     var FB = payload.fallbacks || {};
     var FB_MODES = FB.modes || {}, FB_TIERS = FB.tiers || {}, FB_AREAS = FB.areas || {}, FB_METHODS = FB.scoring_methods || {};
+    // The overall score's sort key: tier IDs are kebab-case slugs, so it can't collide with one
+    var AGG = '_overall', AGG_LABEL = (FB.aggregate || {}).label || 'Overall';
     var store = collect(payload);
     var skippedNote = store.skipped ? 'Some results were published with a newer Crucible than this page understands, so they are not shown.' : '';
     if (!store.catalogs.length) {
@@ -211,6 +213,10 @@
       values = values.filter(function (v) { return v !== null && v !== undefined; });
       if (!values.length) return null;
       return values.reduce(function (a, b) { return a + b; }, 0) / values.length;
+    }
+
+    function listPhrase(items) {
+      return items.length < 3 ? items.join(' and ') : items.slice(0, -1).join(', ') + ' and ' + items[items.length - 1];
     }
 
     function median(values) {
@@ -515,7 +521,8 @@
 
     var state = {
       suite: suiteId(CURRENT), mode: '', harness: 'best', where: 'all', hw: 'all', showInProgress: false,
-      scatter: 'time', sort: null, detailRow: null, detailCfg: null, compare: [], open: {}
+      scatter: 'time', sort: null, detailRow: null, detailCfg: null, compare: [], open: {},
+      exclude: {}  // tier ID -> true: tiers the reader left out of the overall score
     };
     var S = null;
     var suiteCache = {};
@@ -525,12 +532,13 @@
       state.suite = suiteId(cat);
       S = suiteCache[state.suite] = suiteCache[state.suite] || buildSuite(cat);
       if (!S.MODES.some(function (m) { return m.id === state.mode; })) state.mode = S.MODES[0] ? S.MODES[0].id : '';
-      if (!state.sort || (!S.tierSeen[state.sort.key] && ['time', 'cost', 'model'].indexOf(state.sort.key) === -1)) state.sort = { key: S.HEAD, dir: -1 };
+      if (!state.sort || (!S.tierSeen[state.sort.key] && [AGG, 'time', 'tps', 'cost', 'model'].indexOf(state.sort.key) === -1)) state.sort = { key: AGG, dir: -1 };
     }
 
-    // The hash holds the section, the suite and the compared setups: #agentic&suite=v2&compare=a,b
+    // The hash holds the section, the suite, the tiers left out of the overall score and the
+    // compared setups: #agentic&suite=v2&exclude=forge&compare=a,b
     function readHash() {
-      var out = { mode: null, suite: null, compare: null };
+      var out = { mode: null, suite: null, compare: null, exclude: null };
       location.hash.replace(/^#/, '').split('&').forEach(function (part) {
         if (!part) return;
         var i = part.indexOf('=');
@@ -538,6 +546,7 @@
         var k = part.slice(0, i), v = decodeURIComponent(part.slice(i + 1));
         if (k === 'suite') out.suite = v;
         else if (k === 'compare') out.compare = v ? v.split(',').filter(Boolean) : [];
+        else if (k === 'exclude') out.exclude = v ? v.split(',').filter(Boolean) : [];
       });
       return out;
     }
@@ -546,10 +555,14 @@
       if (h.mode) state.mode = h.mode;
       useSuite(h.suite && catalogById(h.suite) ? h.suite : state.suite);
       if (h.compare) state.compare = h.compare.slice(0, MAX_COMPARE);
+      state.exclude = {};
+      (h.exclude || []).forEach(function (id) { state.exclude[id] = true; });
     }
     function writeHash() {
       var parts = [encodeURIComponent(state.mode)];
       if (state.suite !== suiteId(CURRENT)) parts.push('suite=' + encodeURIComponent(state.suite));
+      var excluded = MODE_TIERS.filter(function (t) { return state.exclude[t.id]; }).map(function (t) { return encodeURIComponent(t.id); });
+      if (excluded.length && aggTiers().length < MODE_TIERS.length) parts.push('exclude=' + excluded.join(','));
       if (state.compare.length) parts.push('compare=' + state.compare.map(encodeURIComponent).join(','));
       var hash = '#' + parts.join('&');
       if (location.hash !== hash && history.replaceState) history.replaceState(null, '', hash);
@@ -585,12 +598,22 @@
       // A tier with no active task in this section has no column here
       MODE_TIERS = S.TIERS.filter(function (t) { return tiers.indexOf(t.id) !== -1; });
       if (!MODE_TIERS.length) MODE_TIERS = [S.HEADLINE];
-      var keyOk = MODE_TIERS.some(function (t) { return t.id === state.sort.key; }) || ['time', 'tps', 'cost', 'model'].indexOf(state.sort.key) !== -1;
+      var keyOk = MODE_TIERS.some(function (t) { return t.id === state.sort.key; }) || [AGG, 'time', 'tps', 'cost', 'model'].indexOf(state.sort.key) !== -1;
       if (!keyOk) state.sort = { key: modeHead().id, dir: -1 };
     }
     var MODE_TIERS = [];
     function modeHead() { return MODE_TIERS.filter(function (t) { return t.id === S.HEAD; })[0] || MODE_TIERS.filter(function (t) { return t.role !== 'gate'; })[0] || MODE_TIERS[0]; }
     function modeStretch() { return MODE_TIERS.filter(function (t) { return t.id !== S.HEAD && t.role !== 'gate'; }); }
+    // The tiers in the overall score: this section's, less those the reader left out (never none)
+    function aggTiers() {
+      var on = MODE_TIERS.filter(function (t) { return !state.exclude[t.id]; });
+      return on.length ? on : MODE_TIERS;
+    }
+    function aggAll() { return aggTiers().length === MODE_TIERS.length; }
+    function aggTierNames() { return listPhrase(aggTiers().map(function (t) { return t.label; })); }
+    // A section with one tier has no overall column: that tier is the overall score
+    function showAgg() { return MODE_TIERS.length > 1; }
+    function aggInfo() { return { id: AGG, label: showAgg() ? AGG_LABEL : MODE_TIERS[0].label }; }
 
     // Harnesses in this mode: only the catalog's. A run through any other harness never counts,
     // so it isn't offered as a filter; the model detail still lists the run as not counted
@@ -692,6 +715,26 @@
     function timeOf(runs) { return median(runs.map(function (i) { return num(i.run.elapsed_s, null); })); }
     function costOf(cfg, runs) { return mean(runs.map(function (i) { return runCost(i.run); })); }
 
+    // Overall score: the chosen tiers' scores, each weighted by its number of tasks (so three Spark
+    // tasks don't count as much as twelve Temper ones). Partial when
+    // any of those tiers is partial or unscored, so a setup that skipped a tier is never ranked on
+    // the rest; leave that tier out to rank it.
+    function aggregate(tierResults) {
+      var list = aggTiers().map(function (t) { return tierResults[t.id] || null; });
+      var scored = list.filter(function (r) { return r && r.score !== null; });
+      var mins = scored.map(function (r) { return r.min; }).filter(function (v) { return v !== null; });
+      var result = {
+        score: scored.length ? scored.reduce(function (n, r) { return n + r.score * r.total; }, 0) /
+          scored.reduce(function (n, r) { return n + r.total; }, 0) : null,
+        coverage: mean(list.map(function (r) { return r ? r.coverage : 0; })) || 0,
+        scored: list.reduce(function (n, r) { return n + (r ? r.scored : 0); }, 0),
+        total: list.reduce(function (n, r) { return n + (r ? r.total : 0); }, 0),
+        min: mins.length ? Math.min.apply(null, mins) : null
+      };
+      result.partial = result.score !== null && list.some(function (r) { return !r || r.score === null || r.partial; });
+      return result;
+    }
+
     var statsCache = {};
     function stats(cfg) {
       if (statsCache[cfg.key]) return statsCache[cfg.key];
@@ -699,9 +742,9 @@
       var active = orderedTasks.filter(function (t) { return t.status === 'active'; });
       var done = active.filter(function (t) { return countedMean(cfg, t.id) !== null; }).length;
       var progress = { done: done, total: active.length, share: active.length ? done / active.length : 0 };
-      var tier = {}, verdict = {}, provisionalOf = {};
+      var tier = {}, verdict = {}, provisionalOf = {}, all = {};
       S.TIERS.forEach(function (t) {
-        var result = tierScore(cfg, t.id);
+        var result = all[t.id] = tierScore(cfg, t.id);
         if (t.id === S.HEAD || t.role === 'gate') tier[t.id] = result;
         else {
           tier[t.id] = result.total ? result : null;
@@ -710,28 +753,29 @@
         }
         if (gateOf(t.id)) verdict[t.id] = gateVerdict(result, gateOf(t.id));
       });
+      var overall = aggregate(all);
       var ran = Object.keys(S.cells[cfg.key] || {}).some(function (id) { return modeTaskIds[id]; });
       return (statsCache[cfg.key] = {
         cfg: cfg, local: cfg.local, ran: ran, tier: tier, verdict: verdict, provisional: provisionalOf,
-        head: tier[S.HEAD], time: timeOf(runs), tps: tpsOf(runs), cost: costOf(cfg, runs), runs: runs.length,
+        head: tier[S.HEAD], overall: overall, time: timeOf(runs), tps: tpsOf(runs), cost: costOf(cfg, runs), runs: runs.length,
         progress: progress, inProgress: !meets(progress.share, S.IN_PROGRESS_BELOW)
       });
     }
 
-    // Best configuration: among setups whose headline tier meets the catalog's coverage_min, the
-    // highest headline score; only when none does, the one with the most scored tasks. A near-empty
-    // setup never beats a covered one. Never stitched per task: every number is one setup's.
+    // Best configuration: among setups whose overall score isn't partial, the highest overall
+    // score; only when none is, the one with the most scored tasks. A near-empty setup never beats
+    // a covered one. Never stitched per task: every number is one setup's.
     function betterConfig(a, b) {
-      var ca = a.head.score !== null && meets(a.head.coverage, S.COVERAGE_MIN);
-      var cb = b.head.score !== null && meets(b.head.coverage, S.COVERAGE_MIN);
+      var ca = a.overall.score !== null && !a.overall.partial;
+      var cb = b.overall.score !== null && !b.overall.partial;
       if (ca !== cb) return ca ? -1 : 1;
       if (ca) {
-        if (a.head.score !== b.head.score) return b.head.score - a.head.score;
+        if (a.overall.score !== b.overall.score) return b.overall.score - a.overall.score;
         if (a.progress.done !== b.progress.done) return b.progress.done - a.progress.done;
         return b.runs - a.runs;
       }
       if (a.progress.done !== b.progress.done) return b.progress.done - a.progress.done;
-      var sa = a.head.score === null ? -1 : a.head.score, sb = b.head.score === null ? -1 : b.head.score;
+      var sa = a.overall.score === null ? -1 : a.overall.score, sb = b.overall.score === null ? -1 : b.overall.score;
       if (sa !== sb) return sb - sa;
       return b.runs - a.runs;
     }
@@ -753,6 +797,7 @@
     }
 
     function tierValue(s, id) {
+      if (id === AGG) return s.overall.score;
       var result = s.tier[id];
       if (result && result.score !== null) return result.score;
       return s.provisional[id] ? s.provisional[id].score : null;
@@ -773,13 +818,15 @@
       var showAll = showingInProgress(all);
       var list = all.filter(function (s) { return showAll || !s.inProgress; });
       var sort = state.sort;
-      var tierKey = S.tierSeen[sort.key] === true;
+      var tierKey = S.tierSeen[sort.key] === true || sort.key === AGG;
+      function resultOf(s) { return sort.key === AGG ? s.overall : s.tier[sort.key]; }
       return list.sort(function (a, b) {
         if (a.ran !== b.ran) return a.ran ? -1 : 1;
         if (a.inProgress !== b.inProgress) return a.inProgress ? 1 : -1;
         if (tierKey) {
-          var pa = !a.tier[sort.key] || a.tier[sort.key].partial || a.tier[sort.key].score === null;
-          var pb = !b.tier[sort.key] || b.tier[sort.key].partial || b.tier[sort.key].score === null;
+          var ra = resultOf(a), rb = resultOf(b);
+          var pa = !ra || ra.partial || ra.score === null;
+          var pb = !rb || rb.partial || rb.score === null;
           if (pa !== pb) return pa ? 1 : -1;
         }
         var va = sortValue(sort.key, a), vb = sortValue(sort.key, b);
@@ -920,9 +967,34 @@
         : state.showInProgress && hidden
         ? '* In progress: fewer than ' + share + ' of this section\'s scored tasks done. Listed last and not ranked.'
         : (hidden ? hidden + ' model' + (hidden === 1 ? '' : 's') + ' with fewer than ' + share + ' of this section\'s scored tasks done ' + (hidden === 1 ? 'is' : 'are') + ' hidden.' : '');
+      renderAggToggle();
       segmented('scatter-toggle', [
         { value: 'time', label: 'Time per task' }, { value: 'cost', label: 'Cost per task' }
       ], state.scatter, function (m) { state.scatter = m; render(); });
+    }
+
+    // Which tiers the overall score includes: one toggle per tier, at least one always on
+    function renderAggToggle() {
+      var bar = document.getElementById('agg-bar'), group = document.getElementById('agg-toggle');
+      bar.hidden = !showAgg();
+      group.innerHTML = '';
+      if (!showAgg()) return;
+      document.getElementById('agg-label').textContent = AGG_LABEL + ' includes';
+      var on = aggTiers();
+      MODE_TIERS.forEach(function (t) {
+        var pressed = on.indexOf(t) !== -1, last = pressed && on.length === 1;
+        var b = el('button', { type: 'button', class: 'crucible-segment', 'aria-pressed': pressed }, (pressed ? '✓ ' : '') + t.label);
+        b.title = last ? 'The ' + AGG_LABEL + ' score needs at least one tier' : (pressed ? 'Leave ' : 'Add ') + t.label + (pressed ? ' out of ' : ' to ') + 'the ' + AGG_LABEL + ' score';
+        if (last) b.setAttribute('aria-disabled', 'true');
+        b.addEventListener('click', function () {
+          if (last) return;
+          if (pressed) state.exclude[t.id] = true;
+          else delete state.exclude[t.id];
+          render();
+        });
+        group.appendChild(b);
+      });
+      document.getElementById('agg-note').textContent = aggAll() ? '' : 'Showing ' + aggTierNames() + ' only.';
     }
 
     // ---- Takeaways and notes ---------------------------------------------
@@ -944,21 +1016,21 @@
     function renderTakeaways(list) {
       var ul = document.getElementById('crucible-takeaways');
       ul.innerHTML = '';
-      var H = S.HEADLINE;
-      var ranked = list.filter(function (s) { return s.head && s.head.score !== null && !s.head.partial && !s.inProgress; })
-        .sort(function (a, b) { return b.head.score - a.head.score; });
+      var H = aggInfo();
+      var ranked = list.filter(function (s) { return s.overall.score !== null && !s.overall.partial && !s.inProgress; })
+        .sort(function (a, b) { return b.overall.score - a.overall.score; });
       var lines = [];
       if (ranked.length) {
         var top = ranked.slice(0, 2).map(function (s) { return s.label; });
-        var what = H.blurb ? H.blurb + ' (' + H.label + ')' : 'the ' + H.label + ' tasks';
+        var what = showAgg() ? 'on ' + aggTierNames() + ' together' : 'the ' + H.label + ' tasks';
         lines.push(top.join(' and ') + (top.length > 1 ? ' lead ' : ' leads ') + what + (filterPhrase() ? ' ' + filterPhrase() : '') + '.');
         var local = ranked.filter(function (s) { return s.local; })[0];
         if (local && state.where !== 'cloud') {
-          lines.push('The best local model is ' + local.label + ' at ' + fmtScore(local.head.score) + ', on ' + configLabel(local.cfg) + '.');
+          lines.push('The best local model is ' + local.label + ' at ' + fmtScore(local.overall.score) + ', on ' + configLabel(local.cfg) + '.');
         }
         var priced = ranked.filter(function (s) { return !s.local && s.cost; });
         if (priced.length > 1) {
-          var value = priced.slice().sort(function (a, b) { return b.head.score / b.cost - a.head.score / a.cost; })[0];
+          var value = priced.slice().sort(function (a, b) { return b.overall.score / b.cost - a.overall.score / a.cost; })[0];
           lines.push(value.label + ' gives the most ' + H.label + ' score per dollar (' + fmtUsd(value.cost) + ' per task).');
         }
       }
@@ -973,17 +1045,16 @@
     }
 
     function renderLeaderboardNote() {
-      var H = S.HEADLINE;
-      var parts = ['Ranked by ' + H.label + ' score (0–10).'];
+      var parts = [showAgg()
+        ? 'Ranked by ' + AGG_LABEL + ' score (0–10): the ' + aggTierNames() + ' scores combined, each tier weighted by its number of tasks. ' +
+          'Choose which tiers it includes above; a model missing one of them isn\'t ranked until you leave that tier out.'
+        : 'Ranked by ' + aggInfo().label + ' score (0–10).'];
       MODE_TIERS.forEach(function (t) {
-        if (t.id === S.HEAD) return;
-        parts.push(gateOf(t.id)
-          ? t.label + ' is a pass/fail gate: a ' + t.label + ' score of at least ' + gateOf(t.id).mean + ', with no task below ' + gateOf(t.id).min + '.'
-          : t.label + ' is scored separately and never blended in.');
+        if (gateOf(t.id)) parts.push(t.label + ' is also a pass/fail gate: a ' + t.label + ' score of at least ' + gateOf(t.id).mean + ', with no task below ' + gateOf(t.id).min + '.');
       });
       parts.push('Each row is one model at one reasoning level, local or cloud, scored by its single best setup (named under it); "best of N setups" lists the others.' +
         ' Repeat runs are averaged. Cloud providers usually serve full precision, so a row shows what a model can do, not what it does on your hardware.');
-      parts.push('A hatched bar means fewer than ' + pct(S.COVERAGE_MIN) + ' of that tier\'s tasks were scored. Select a column to sort.');
+      parts.push('A hatched bar means fewer than ' + pct(S.COVERAGE_MIN) + ' of that tier\'s tasks were scored' + (showAgg() ? ' (for ' + AGG_LABEL + ', that one of its tiers is short)' : '') + '. Select a column to sort.');
       document.getElementById('leaderboard-sub').textContent = parts.join(' ');
       var stretch = modeStretch().filter(function (t) { return !gateOf(t.id); })[0];
       document.getElementById('detail-outline-note').textContent = stretch ? ' (a thick outline is ' + stretch.label + ')' : '';
@@ -994,14 +1065,15 @@
     // Every tier reads the same: a 0-10 score, the bar, and 'n/m tasks'. The gate result (pass or
     // fail) and 'partial' or 'provisional' are small markers on that cell, not a different cell.
     function tierCellContent(s, t, into) {
-      var result = s.tier[t.id], prov = s.provisional[t.id];
+      var isAgg = t.id === AGG;
+      var result = isAgg ? s.overall : s.tier[t.id], prov = isAgg ? null : s.provisional[t.id];
       var counted = result && result.score !== null;
       var score = counted ? result.score : prov && prov.score !== null ? prov.score : null;
       if (score === null) { into.appendChild(el('span', { class: 'crucible-lb-none' }, NONE)); return; }
       var partial = counted && result.partial;
       var provisional = !counted;
       var scored = counted ? result.scored : prov.scored, total = counted ? result.total : prov.total;
-      var cellEl = el('span', { class: 'crucible-tier-cell' + (provisional ? ' is-provisional' : '') });
+      var cellEl = el('span', { class: 'crucible-tier-cell' + (provisional ? ' is-provisional' : '') + (isAgg ? ' is-overall' : '') });
       var bar = el('span', { class: 'crucible-lb-bar' + (partial ? ' is-partial' : '') + (provisional ? ' is-provisional' : '') });
       var fill = el('span', { class: 'crucible-lb-fill' + (s.local ? ' is-local' : '') });
       fill.style.width = (score * 10) + '%';
@@ -1014,14 +1086,14 @@
       if (verdict === 'pass' || verdict === 'fail') {
         markers.appendChild(el('span', { class: 'crucible-verdict is-' + verdict, title: t.label + ' gate: ' + verdict }, verdict === 'pass' ? '✓ pass' : '✕ fail'));
       }
-      if (partial) markers.appendChild(el('span', { class: 'crucible-lb-note', title: 'Fewer than ' + pct(S.COVERAGE_MIN) + ' of this tier\'s tasks were scored' }, 'partial'));
+      if (partial) markers.appendChild(el('span', { class: 'crucible-lb-note', title: isAgg ? 'A tier in this score has fewer than ' + pct(S.COVERAGE_MIN) + ' of its tasks scored' : 'Fewer than ' + pct(S.COVERAGE_MIN) + ' of this tier\'s tasks were scored' }, 'partial'));
       else if (provisional) markers.appendChild(el('span', { class: 'crucible-lb-note', title: 'Provisional tasks don\'t count toward rankings' }, 'provisional'));
       if (markers.firstChild) cellEl.appendChild(markers);
       into.appendChild(cellEl);
     }
 
     function rankLabel(s, rank) {
-      return s.ran && !s.inProgress && s.head.score !== null && !s.head.partial ? String(rank) : '';
+      return s.ran && !s.inProgress && s.overall.score !== null && !s.overall.partial ? String(rank) : '';
     }
     function costLabel(s) { return fmtCost(s.cost, s.local); }
     function costTitle(s) {
@@ -1060,6 +1132,9 @@
       actions.appendChild(compareButton(s.cfg));
     }
 
+    // The overall score first (when there's more than one tier), then each tier
+    function scoreColumns() { return (showAgg() ? [aggInfo()] : []).concat(MODE_TIERS); }
+
     var currentList = [];
     function renderLeaderboard(list) {
       renderLeaderboardNote();
@@ -1068,7 +1143,7 @@
       if (isNarrow()) { renderLeaderboardCards(list); return; }
       document.getElementById('crucible-lb-narrow').innerHTML = '';
       var columns = [{ key: null, label: '#' }, { key: 'model', label: 'Model and best setup' }]
-        .concat(MODE_TIERS.map(function (t) { return { key: t.id, label: t.label }; }))
+        .concat(scoreColumns().map(function (t) { return { key: t.id, label: t.label, title: t.id === AGG ? aggTierNames() + ', weighted by number of tasks' : t.blurb ? cap(t.blurb) : '' }; }))
         .concat([{ key: 'time', label: 'Time / task' }, { key: 'tps', label: 'tok/s', title: 'Decode speed: output tokens per second of generation (median)' }, { key: 'cost', label: 'Cost / task' }]);
       var head = el('tr');
       columns.forEach(function (c) {
@@ -1091,8 +1166,8 @@
       var body = table.appendChild(el('tbody'));
       var rank = 0;
       function scoreCells(row, s) {
-        MODE_TIERS.forEach(function (t) {
-          var td = el('td', { class: 'crucible-lb-bar-cell' });
+        scoreColumns().forEach(function (t) {
+          var td = el('td', { class: 'crucible-lb-bar-cell' + (t.id === AGG ? ' is-overall' : '') + (state.exclude[t.id] && showAgg() ? ' is-excluded' : '') });
           tierCellContent(s, t, td);
           row.appendChild(td);
         });
@@ -1140,7 +1215,7 @@
       var bar = el('div', { class: 'crucible-lb-sortbar' });
       bar.appendChild(el('label', { for: 'crucible-lb-sort' }, 'Sort by'));
       var select = el('select', { id: 'crucible-lb-sort', class: 'crucible-select' });
-      MODE_TIERS.map(function (t) { return [t.id, t.label]; }).concat([['time', 'Time / task'], ['tps', 'Decode speed'], ['cost', 'Cost / task'], ['model', 'Model']]).forEach(function (o) {
+      scoreColumns().map(function (t) { return [t.id, t.label]; }).concat([['time', 'Time / task'], ['tps', 'Decode speed'], ['cost', 'Cost / task'], ['model', 'Model']]).forEach(function (o) {
         var opt = el('option', { value: o[0] }, o[1]);
         if (o[0] === state.sort.key) opt.selected = true;
         select.appendChild(opt);
@@ -1152,9 +1227,9 @@
       var ul = box.appendChild(el('ul', { class: 'crucible-lb-cards' }));
       var rank = 0;
       function scoreRows(card, s) {
-        var tierList = MODE_TIERS.slice().sort(function (x, y) { return (y.id === state.sort.key) - (x.id === state.sort.key); });
+        var tierList = scoreColumns().sort(function (x, y) { return (y.id === state.sort.key) - (x.id === state.sort.key); });
         tierList.forEach(function (t) {
-          var row = card.appendChild(el('div', { class: 'crucible-lb-card-score' + (t.id === state.sort.key ? ' is-sorted' : '') }));
+          var row = card.appendChild(el('div', { class: 'crucible-lb-card-score' + (t.id === state.sort.key ? ' is-sorted' : '') + (state.exclude[t.id] && showAgg() ? ' is-excluded' : '') }));
           row.appendChild(el('span', { class: 'crucible-lb-card-label' }, t.label));
           tierCellContent(s, t, row);
         });
@@ -1197,15 +1272,16 @@
       var tooltip = document.getElementById('crucible-tooltip');
       container.innerHTML = '';
       tooltip.hidden = true;
-      var H = S.HEADLINE, measure = state.scatter;
+      var H = aggInfo(), measure = state.scatter;
       document.getElementById('scatter-measure-label').textContent = measure === 'time' ? 'time' : 'cost';
       function xOf(s) { return measure === 'time' ? s.time : s.cost; }
 
-      var points = list.filter(function (s) { var x = xOf(s); return s.head && s.head.score !== null && x !== null && x > 0; });
-      var skippedLocal = measure === 'cost' && list.some(function (s) { return s.local && s.head.score !== null && s.cost === null; });
+      var points = list.filter(function (s) { var x = xOf(s); return s.overall.score !== null && x !== null && x > 0; });
+      var skippedLocal = measure === 'cost' && list.some(function (s) { return s.local && s.overall.score !== null && s.cost === null; });
+      var what = H.label + ' score' + (showAgg() && !aggAll() ? ' (' + aggTierNames() + ')' : '');
       document.getElementById('scatter-sub').textContent = measure === 'time'
-        ? H.label + ' score against median time per task, for each row\'s best setup. Up and to the left is better: the shaded corner is faster and better than the median, and the line joins models nothing else beats on both.'
-        : H.label + ' score against average cost per task: the API bill for cloud models, the estimated electricity for local ones. Up and to the left is better.' +
+        ? what + ' against median time per task, for each row\'s best setup. Up and to the left is better: the shaded corner is faster and better than the median, and the line joins models nothing else beats on both.'
+        : what + ' against average cost per task: the API bill for cloud models, the estimated electricity for local ones. Up and to the left is better.' +
           (skippedLocal ? ' Local setups on hardware with no power figure are left off.' : '');
       // The legend sits above the plot, never over the points
       var legend = document.getElementById('crucible-scatter-legend');
@@ -1236,9 +1312,9 @@
 
       var root = svg('svg', {
         class: 'crucible-chart-svg', width: width, height: height, viewBox: '0 0 ' + width + ' ' + height, role: 'img',
-        'aria-label': H.label + ' score against ' + (measure === 'time' ? 'time' : 'cost') + ' per task. The leaderboard has the same numbers.'
+        'aria-label': what + ' against ' + (measure === 'time' ? 'time' : 'cost') + ' per task. The leaderboard has the same numbers.'
       });
-      var medX = median(xs), medY = median(points.map(function (s) { return s.head.score; }));
+      var medX = median(xs), medY = median(points.map(function (s) { return s.overall.score; }));
       root.appendChild(svg('rect', { class: 'crucible-quadrant', x: m.left, y: m.top, width: Math.max(0, x(medX) - m.left), height: Math.max(0, y(medY) - m.top) }));
       [0, 5, 10].forEach(function (v) {
         root.appendChild(svg('line', { class: v ? 'crucible-grid' : 'crucible-baseline', x1: m.left, x2: width - m.right, y1: y(v), y2: y(v) }));
@@ -1258,10 +1334,10 @@
 
       var sorted = points.slice().sort(function (a, b) { return xOf(a) - xOf(b); });
       var frontier = [], best = -1;
-      sorted.forEach(function (s) { if (s.head.score > best) { frontier.push(s); best = s.head.score; } });
+      sorted.forEach(function (s) { if (s.overall.score > best) { frontier.push(s); best = s.overall.score; } });
       if (frontier.length > 1) {
         root.appendChild(svg('path', { class: 'crucible-frontier', d: frontier.map(function (s, i) {
-          return (i ? 'L' : 'M') + x(xOf(s)).toFixed(1) + ' ' + y(s.head.score).toFixed(1);
+          return (i ? 'L' : 'M') + x(xOf(s)).toFixed(1) + ' ' + y(s.overall.score).toFixed(1);
         }).join(' ') }));
       }
       // Wide: name the points (all of them when few, else the frontier). Narrow: number every
@@ -1270,12 +1346,12 @@
       var key = document.getElementById('crucible-scatter-key');
       key.innerHTML = '';
       key.hidden = !narrow;
-      var byScore = points.slice().sort(function (a, b) { return b.head.score - a.head.score || xOf(a) - xOf(b); });
+      var byScore = points.slice().sort(function (a, b) { return b.overall.score - a.overall.score || xOf(a) - xOf(b); });
       points.forEach(function (s) {
-        var px = x(xOf(s)), py = y(s.head.score);
+        var px = x(xOf(s)), py = y(s.overall.score);
         var color = s.local ? COLORS.local : COLORS.cloud;
-        root.appendChild(svg('circle', { class: 'crucible-dot' + (s.head.partial ? ' is-uncounted' : ''), cx: px, cy: py, r: 6,
-          fill: s.head.partial ? '#fff' : color, stroke: s.head.partial ? color : '#fff' }));
+        root.appendChild(svg('circle', { class: 'crucible-dot' + (s.overall.partial ? ' is-uncounted' : ''), cx: px, cy: py, r: 6,
+          fill: s.overall.partial ? '#fff' : color, stroke: s.overall.partial ? color : '#fff' }));
         if (narrow) {
           root.appendChild(svg('text', { class: 'crucible-point-label crucible-point-num', x: px + 8, y: py - 7 }, String(byScore.indexOf(s) + 1)));
         } else if (labelAll || frontier.indexOf(s) !== -1) {
@@ -1288,7 +1364,7 @@
           tooltip.innerHTML = '';
           tooltip.appendChild(el('div', { class: 'crucible-tooltip-title' }, s.label + ' · ' + s.cfg.where));
           tooltip.appendChild(el('div', { class: 'crucible-tooltip-note' }, configLabel(s.cfg)));
-          tooltip.appendChild(el('div', {}, H.label + ' ' + fmtScore(s.head.score) + (s.head.partial ? ' (partial)' : '')));
+          tooltip.appendChild(el('div', {}, H.label + ' ' + fmtScore(s.overall.score) + (s.overall.partial ? ' (partial)' : '')));
           tooltip.appendChild(el('div', {}, 'Time per task ' + fmtSeconds(s.time) + ' · cost ' + costLabel(s)));
           tooltip.hidden = false;
           var left = px + 14;
@@ -1306,7 +1382,7 @@
           var sw = li.appendChild(el('span', { class: 'crucible-scatter-swatch', 'aria-hidden': 'true' }));
           sw.style.background = s.local ? COLORS.local : COLORS.cloud;
           li.appendChild(el('strong', {}, (i + 1) + ' '));
-          li.appendChild(document.createTextNode(s.label + ' · ' + fmtScore(s.head.score) + (s.head.partial ? ' (partial)' : '') + ' · ' + (measure === 'time' ? fmtSeconds(s.time) : costLabel(s))));
+          li.appendChild(document.createTextNode(s.label + ' · ' + fmtScore(s.overall.score) + (s.overall.partial ? ' (partial)' : '') + ' · ' + (measure === 'time' ? fmtSeconds(s.time) : costLabel(s))));
         });
       }
     }
@@ -2164,9 +2240,10 @@
 
     // Links to #chat, #agentic&suite=v2 or a compare URL switch views without a reload
     window.addEventListener('hashchange', function () {
-      var before = [state.mode, state.suite, state.compare.join(',')].join('|');
+      function key() { return [state.mode, state.suite, state.compare.join(','), Object.keys(state.exclude).sort().join(',')].join('|'); }
+      var before = key();
       applyHash();
-      if ([state.mode, state.suite, state.compare.join(',')].join('|') !== before) render();
+      if (key() !== before) render();
     });
 
     var shownNarrow = isNarrow();

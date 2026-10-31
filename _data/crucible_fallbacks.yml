@@ -17,6 +17,11 @@ modes:
     blurb: An agent harness with tools and a workspace
     order: 2
 
+# The overall score: the section's tier scores combined, each weighted by its number of tasks. The
+# leaderboard ranks by it, and the page lets the reader leave tiers out of it.
+aggregate:
+  label: Overall
+
 tiers:
   spark:
     label: Spark

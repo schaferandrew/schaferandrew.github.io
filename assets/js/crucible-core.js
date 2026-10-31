@@ -16,6 +16,11 @@
   // Two identities on the scatter: local (the point of Crucible) and cloud (the reference)
   C.COLORS = { local: '#2a78d6', cloud: '#eb6834' };
   C.MAX_COMPARE = 4;
+  // Rule 5, a display rule like the fallbacks: a paired comparison gets a "scores X higher/lower"
+  // headline only on at least MIN_PAIRED_TASKS shared finished tasks, and only when no single task
+  // accounts for more than MAX_TASK_SHARE of the summed difference. Otherwise: "differ on k of n".
+  C.MIN_PAIRED_TASKS = 5;
+  C.MAX_TASK_SHARE = 0.5;
   C.BASE = '/crucible/';
 
   // ---- Small helpers -----------------------------------------------------
@@ -1510,6 +1515,22 @@
         });
         return { V: V, variant: v, deployment: dep, cfg: cfg, runs: runs, unrecorded: unrecorded, label: rowLabel(v.cfgs[0]) };
       };
+      V.pairedComparison = function (a, b) { return D.pairedComparison(a.V ? a : V.side(a), b.V ? b : V.side(b)); };
+
+      // A/B candidates for a variant on one recorded deployment: the model's other variants on the
+      // same deployment that differ in exactly one answer-changing setting and share a task.
+      // [{ variant, dim, comparison }], fewest-dimension first in S.variantDims order.
+      V.abCandidates = function (v, dep) {
+        v = variantOf(v); dep = deploymentOf(dep);
+        if (!v || !dep || !dep.recorded) return [];
+        var dims = S.variantDims(modeId), a = V.side({ variant: v, deployment: dep });
+        return V.variants(function (o) { return o.base === v.base && o !== v; }).map(function (s) {
+          var diff = D.variantDiff(v, s.variant);
+          if (diff.length !== 1 || dims.indexOf(diff[0]) === -1) return null;
+          var cmp = D.pairedComparison(a, V.side({ variant: s.variant, deployment: dep }));
+          return cmp.shared.length ? { variant: s.variant, dim: diff[0], comparison: cmp } : null;
+        }).filter(Boolean).sort(function (x, y) { return dims.indexOf(x.dim) - dims.indexOf(y.dim); });
+      };
       return V;
     }
 
@@ -1522,6 +1543,123 @@
     };
     // The suite the hash's suite= parameter selects, else the current one
     D.selectedSuite = function () { return D.suite(parseHash().params.suite || null); };
+
+    // ---- Paired comparison: two sides, task by task ---------------------------
+
+    // D.pairedComparison(a, b): two sides from V.side (the same view), compared on the tasks both
+    // ran at the suite's task version (eligible runs). A run that didn't finish (timed out, harness
+    // error) is reliability, not quality: it's listed in didNotFinish and left out of the task's
+    // score; a task is in the score difference only when both sides have a finished, scored run of
+    // it. Runs on a machine that wasn't recorded are never compared: they're listed in unrecorded.
+    // The headline sentence follows rule 5 (C.MIN_PAIRED_TASKS, C.MAX_TASK_SHARE). Differences are
+    // b minus a.
+    D.pairedComparison = function (a, b) {
+      var V = a.V, S = V.S;
+      var differs = D.variantDiff(a.variant, b.variant);
+      var dims = S.variantDims(V.mode);
+      var sameVariant = a.variant === b.variant;
+      var bothRecorded = !!(a.deployment && b.deployment && a.deployment.recorded && b.deployment.recorded);
+      var sameDeployment = bothRecorded && a.deployment.key === b.deployment.key;
+      var shared = [], pairs = [], dnf = { a: [], b: [] };
+      function sideOf(list) {
+        var fin = list.filter(function (i) { return runOutcome(i.run) === 'finished' && i.score !== null; });
+        return {
+          runs: list.length, finished: fin.length, entries: list,
+          agg: agg(fin.map(function (i) { return i.score; })),
+          score: fin.length ? mean(fin.map(function (i) { return i.score; })) : null,
+          time: median(fin.map(function (i) { return num(i.run.elapsed_s, null); })),
+          cost: mean(list.map(function (i) { return runCost(i.run); }))
+        };
+      }
+      V.orderedTasks.forEach(function (t) {
+        var ra = a.runs[t.id], rb = b.runs[t.id];
+        if (t.status !== 'active' || !ra || !rb) return;
+        shared.push(t);
+        [['a', ra], ['b', rb]].forEach(function (p) {
+          var bad = p[1].filter(function (i) { return runOutcome(i.run) !== 'finished'; });
+          if (bad.length) dnf[p[0]].push({ task: t, k: bad.length, n: p[1].length, runs: bad });
+        });
+        var pa = sideOf(ra), pb = sideOf(rb);
+        var counted = pa.score !== null && pb.score !== null;
+        pairs.push({ task: t, a: pa, b: pb, counted: counted, diff: counted ? pb.score - pa.score : null });
+      });
+      var paired = pairs.filter(function (p) { return p.counted; });
+      var n = paired.length, total = paired.reduce(function (s, p) { return s + p.diff; }, 0);
+      var meanDiff = n ? total / n : null;
+      var differing = paired.filter(function (p) { return Math.abs(p.diff) >= 0.05; });
+      var driver = paired.slice().sort(function (x, y) { return Math.abs(y.diff) - Math.abs(x.diff); })[0] || null;
+      var same = n > 0 && Math.abs(meanDiff) < 0.05;
+      var reason = null;
+      if (n < C.MIN_PAIRED_TASKS) reason = 'few-tasks';
+      else if (!same && Math.abs(driver.diff) > C.MAX_TASK_SHARE * Math.abs(total)) reason = 'one-task';
+      var headline = {
+        allowed: !reason, reason: reason, n: n, k: differing.length, meanDiff: meanDiff, same: same,
+        driver: reason === 'one-task' ? driver : null
+      };
+
+      // Speed and cost: only on the same recorded machine or provider (two variants there), or
+      // between two recorded deployments of one variant; never with an unrecorded one
+      var speedKind = !bothRecorded ? null : sameVariant && !sameDeployment ? 'deployments' : sameDeployment ? 'variants' : null;
+      var ratios = paired.map(function (p) { return p.a.time && p.b.time ? p.b.time / p.a.time : null; });
+      var speed = {
+        comparable: !!speedKind, kind: speedKind,
+        // local and cloud times are both wall-clock, but never on one unlabelled axis
+        sameKind: bothRecorded && a.deployment.local === b.deployment.local,
+        a: median(paired.map(function (p) { return p.a.time; })), b: median(paired.map(function (p) { return p.b.time; })),
+        ratio: median(ratios),
+        reason: speedKind ? null : !bothRecorded ? 'A machine or provider wasn\'t recorded, or a side pools several.' : 'Different variants on different deployments: a time difference can\'t be put down to either.'
+      };
+      var costKind = function (s) { return s.deployment ? s.deployment.costKind : null; };
+      var cost = {
+        a: { kind: costKind(a), value: mean(paired.map(function (p) { return p.a.cost; })) },
+        b: { kind: costKind(b), value: mean(paired.map(function (p) { return p.b.cost; })) },
+        sameKind: costKind(a) !== null && costKind(a) === costKind(b), comparable: !!speedKind && costKind(a) === costKind(b)
+      };
+      function reliability(side, key) {
+        var all = [];
+        pairs.forEach(function (p) { all = all.concat(p[key].entries); });
+        var c = function (k) { return all.filter(function (i) { return runOutcome(i.run) === k; }).length; };
+        return { runs: all.length, finished: c('finished'), timedOut: c('timed_out'), errors: c('error'), tasksNotFinished: dnf[key].length, tasks: shared.length };
+      }
+      function unrecordedList(side) {
+        return side.unrecorded.map(function (i) {
+          return {
+            task: i.task, uuid: i.uuid, run: i.run, outcome: runOutcome(i.run), outcomeText: outcomeText(i.run),
+            elapsed: num(i.run.elapsed_s, null), score: i.score, shared: shared.indexOf(i.task) !== -1,
+            deployment: DEPLOYMENT_OF_RUN[i.uuid]
+          };
+        });
+      }
+      var labels = differs.map(function (d) { return D.dimension(d).label.toLowerCase(); });
+      var out = {
+        a: a, b: b, differs: differs, sameVariant: sameVariant, sameDeployment: sameDeployment,
+        // Rule 2: an A/B is one answer-changing setting apart, on the same recorded deployment
+        ab: differs.length === 1 && dims.indexOf(differs[0]) !== -1 && sameDeployment,
+        note: differs.length > 1 ? 'These differ in ' + (labels.length > 2 ? labels.slice(0, -1).join(', ') + ' and ' + labels[labels.length - 1] : labels.join(' and ')) +
+          ': a difference can\'t be put down to either.' : '',
+        shared: shared, pairs: pairs, paired: paired, meanDiff: meanDiff, headline: headline,
+        didNotFinish: dnf, reliability: { a: reliability(a, 'a'), b: reliability(b, 'b') },
+        unrecorded: { a: unrecordedList(a), b: unrecordedList(b) }, speed: speed, cost: cost
+      };
+      // The summary sentence: a "scores X higher/lower" headline only when rule 5 allows it, else
+      // "differ on k of n"; b is the subject
+      out.sentence = function (nameA, nameB) {
+        if (!n) return shared.length ? 'No task both finished, of the ' + shared.length + ' both ran.' : 'No task in common.';
+        var on = ' on ' + n + ' shared finished task' + (n === 1 ? '' : 's');
+        if (headline.allowed) {
+          return same ? nameB + ' scores the same as ' + nameA + on + '.'
+            : nameB + ' scores ' + Math.abs(meanDiff).toFixed(1) + (meanDiff > 0 ? ' higher' : ' lower') + ' than ' + nameA + ' on average' + on + '.';
+        }
+        return nameA + ' and ' + nameB + ' differ on ' + differing.length + ' of ' + n + ' shared finished task' + (n === 1 ? '' : 's') +
+          (headline.driver ? ' (' + taskName(headline.driver.task) + ' accounts for most of the difference)' : '') + '.';
+      };
+      // "didn't finish on k of n" for side 'a' or 'b', '' when it finished every shared task
+      out.dnfText = function (key) {
+        var k = dnf[key].length;
+        return k ? 'didn\'t finish on ' + k + ' of ' + shared.length : '';
+      };
+      return out;
+    };
 
     // ---- Runs: score detail, checks and output, loaded on demand ---------
 

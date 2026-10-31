@@ -291,7 +291,8 @@
       rules.forEach(function (r) { ul.appendChild(el('li', {}, typeof r === 'string' ? r : (r && (r.label || r.id)) || '')); });
     }
     if (crit.length) {
-      how.appendChild(el('p', { class: 'crucible-task-label' }, t.scoring_method === 'hidden_tests' ? 'Test groups' : 'Criteria'));
+      var critFb = ((D.FB || {}).scoring_methods || {})[t.scoring_method];
+      how.appendChild(el('p', { class: 'crucible-task-label' }, (critFb && critFb.criteria_label) || 'Criteria'));
       var cl = how.appendChild(el('ul', { class: 'crucible-task-rules' }));
       crit.forEach(function (c) {
         var li = cl.appendChild(el('li', {}, c.label || c.id || ''));
@@ -415,7 +416,9 @@
       row.appendChild(el('td', {})).appendChild(modelLink(e.cfg));
       var setup = row.appendChild(el('td', { class: 'crucible-task-setup' }));
       setup.appendChild(C.whereTag(e.cfg));
-      setup.appendChild(document.createTextNode(' ' + (e.cfg.level !== 'default' ? 'reasoning ' + e.cfg.level + ' · ' : '') + D.configLabel(e.cfg)));
+      setup.appendChild(document.createTextNode(' ' + D.variantLabel(D.variantOf(e.cfg), { harness: S.variantDims(task.mode).indexOf('harness') !== -1 })));
+      setup.appendChild(document.createTextNode(' '));
+      setup.appendChild(el('span', { class: 'crucible-sub' }, D.deploymentLabel(D.deploymentOf(e.cfg))));
       var sc = row.appendChild(el('td', { class: 'is-num' })), sb = scoreButton(e);
       sc.appendChild(sb);
       cols.forEach(function (k) { row.appendChild(el('td', { class: 'crucible-task-checkcell' })).appendChild(checkSquare(e, k)); });
@@ -432,7 +435,8 @@
       title.appendChild(modelLink(e.cfg));
       title.appendChild(C.whereTag(e.cfg));
       li.appendChild(el('p', {})).appendChild(makerNode(e.cfg));
-      li.appendChild(el('p', { class: 'crucible-config-line' }, (e.cfg.level !== 'default' ? 'reasoning ' + e.cfg.level + ' · ' : '') + D.configLabel(e.cfg)));
+      var cfgLine = li.appendChild(el('p', { class: 'crucible-config-line' }, D.variantLabel(D.variantOf(e.cfg), { harness: S.variantDims(task.mode).indexOf('harness') !== -1 }) + ' '));
+      cfgLine.appendChild(el('span', { class: 'crucible-sub' }, D.deploymentLabel(D.deploymentOf(e.cfg))));
       var top = li.appendChild(el('div', { class: 'crucible-task-card-score' }));
       var cb = scoreButton(e);
       top.appendChild(cb);
@@ -472,10 +476,11 @@
     chart.innerHTML = '';
     var pts = entries.filter(function (e) { var v = mm.of(e); return v !== null && v > 0; });
     var skipped = entries.length - pts.length;
-    wrap.querySelector('.crucible-task-scatter-note').textContent = pts.length
+    wrap.querySelector('.crucible-task-scatter-note').textContent = (pts.length
       ? 'Score against ' + mm.axis.toLowerCase() + ', log scale. Up and to the left is better. Each dot is a setup; the best setup of each model is named.' +
         (skipped ? ' ' + plural(skipped, 'setup') + ' left off (' + (state.measure === 'cost' ? 'local hardware with no power figure, or no cost recorded' : 'not recorded') + ').' : '')
-      : 'Nothing to plot: none of these setups recorded this measure.';
+      : 'Nothing to plot: none of these setups recorded this measure.') +
+      ' Times and costs come from different machines and providers, so read them as each setup\'s own, not as a like-for-like speed test.';
     if (!pts.length) return;
     var width = Math.max(280, chart.clientWidth || 600), narrow = width < 500, height = narrow ? 300 : 340;
     var m = narrow ? { top: 16, right: 14, bottom: 44, left: 32 } : { top: 16, right: 24, bottom: 44, left: 44 };

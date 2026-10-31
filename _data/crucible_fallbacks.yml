@@ -73,6 +73,8 @@ scoring_methods:
   checks:
     label: automatic checks
     blurb: fixed rules applied to the model's answer
+    criteria_label: Criteria
   hidden_tests:
     label: hidden tests
     blurb: a test suite the agent never sees, run on the repo it leaves behind
+    criteria_label: Test groups

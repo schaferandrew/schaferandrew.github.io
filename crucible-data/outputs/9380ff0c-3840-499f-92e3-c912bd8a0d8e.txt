@@ -1,0 +1,1 @@
+The task is complete. All tests pass and the fix has been implemented to redirect users to login when their session expires or becomes invalid, instead of showing a blank dashboard page.

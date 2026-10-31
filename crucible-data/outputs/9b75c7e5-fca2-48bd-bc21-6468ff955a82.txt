@@ -1,0 +1,3 @@
+The response accurately reflects all claims from the passage, with no invented details, so it earns full Accuracy (4). However, the summary contains three sentences instead of exactly two, which fails the sentence‑count criterion and receives zero points for that. It does capture the key points—hours extension, funding limit, and resident survey—so it earns full Key points (3). The total is 7 out of 10.
+
+GRADE: 7

@@ -1,0 +1,87 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "f52eb4ac-3175-4d3e-906a-526264a29632",
+ "rubric_version": 3,
+ "rubric_hash": "ba4027243454539b",
+ "method": "checks",
+ "scored_at": "2026-10-30T21:54:52.862852+00:00",
+ "crucible_version": "3.5.0",
+ "raw": {
+  "passed": 0,
+  "total": 5,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "seating",
+   "type": "items",
+   "group": "Full seating",
+   "label": "The full seating is right, one item per chair (name and colour): Alice green in 1, Bob blue in 2, Dave red in 3, Carol yellow in 4.",
+   "passed": false,
+   "detail": "0/4 items; failed: chair1 (not in the block), chair2 (not in the block), chair3 (not in the block), chair4 (not in the block)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "chair1",
+     "label": "Chair 1 is Alice, green",
+     "passed": false,
+     "detail": "not in the block"
+    },
+    {
+     "id": "chair2",
+     "label": "Chair 2 is Bob, blue",
+     "passed": false,
+     "detail": "not in the block"
+    },
+    {
+     "id": "chair3",
+     "label": "Chair 3 is Dave, red",
+     "passed": false,
+     "detail": "not in the block"
+    },
+    {
+     "id": "chair4",
+     "label": "Chair 4 is Carol, yellow",
+     "passed": false,
+     "detail": "not in the block"
+    }
+   ]
+  },
+  {
+   "id": "answer",
+   "type": "items",
+   "group": "Correct answer",
+   "label": "The last line names Dave as the person in chair 3.",
+   "passed": false,
+   "detail": "0/1 items; failed: answer (not in the block)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "answer",
+     "label": "Chair 3 is Dave",
+     "passed": false,
+     "detail": "not in the block"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Full seating",
+   "passed": 0.0,
+   "total": 4,
+   "detail": "0/4 items; failed: chair1 (not in the block), chair2 (not in the block), chair3 (not in the block), chair4 (not in the block)"
+  },
+  {
+   "id": "Correct answer",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: answer (not in the block)"
+  }
+ ]
+}

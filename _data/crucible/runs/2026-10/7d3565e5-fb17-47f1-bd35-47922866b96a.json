@@ -1,0 +1,89 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "7d3565e5-fb17-47f1-bd35-47922866b96a",
+ "run_path": "lmstudio_laguna-xs-2.1/calendar-free-at-330/20261030_182509",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T18:25:09.889688+00:00",
+ "ended_at": "2026-10-30T18:25:22.275983+00:00",
+ "elapsed_s": 11.94,
+ "task": {
+  "id": "calendar-free-at-330",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "6d145f996bd1436b",
+  "rubric_hash": "d2ed1dccfdb0032f",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "lmstudio/laguna-xs-2.1",
+  "base": "laguna-xs-2.1",
+  "publisher": "poolside",
+  "artifact": null,
+  "format": "gguf",
+  "quant": "Q4_K_M",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 262144,
+  "variant_key": "laguna-xs-2.1|poolside|gguf|q4_k_m",
+  "display": "laguna-xs-2.1 · Q4_K_M"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 3,
+  "tokens_in": 13221,
+  "tokens_out": 601,
+  "model_responses": 4,
+  "ttft_s": 3.688,
+  "ttft_avg_s": 1.153,
+  "response_time_avg_s": 2.86,
+  "cost_usd": 0,
+  "cost_source": "pi_estimate",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/7d3565e5-fb17-47f1-bd35-47922866b96a.txt",
+ "provenance": {
+  "crucible_version": "3.4.2",
+  "crucible_commit": "06d4398",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Duskfall",
+  "source": "crucible-run",
+  "content_hash": "sha256:d24da1f674046c08031652ce56ad4300a4bc896088dfc077a218528b03622900",
+  "submitter": null,
+  "verification": null
+ }
+}

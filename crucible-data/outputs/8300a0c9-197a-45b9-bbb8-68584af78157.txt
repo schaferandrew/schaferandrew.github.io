@@ -1,0 +1,18 @@
+**Summary**
+
+- **Problem**: The `/contact` page was broken – it never rendered in development and the form had no validation or feedback.
+- **Changes Made**:
+  - Updated `app/contact/LeadForm.tsx` to implement proper client‑side handling:
+    * Uses React state (`values`, `errors`) so every field shows what’s typed.  
+    * Handles `<form>` submit: sends JSON, checks response status (201 = success, 422 = validation error).  
+    * On a successful API call, replaces the form with an element having id `lead-success`.  
+    * On a 422 response:
+      * Shows each field’s own error message in `<span id="name‑error">…</span>` (or similar).  
+      * Marks the offending input `aria-invalid="true"` and links it via `aria-describedby` to its error span.  
+      * Moves focus to the first field with an error, preserving all typed content.  
+    * Added `useRef`s for each input so we can programmatically focus the correct element.  
+  - Kept `/api/leads/route.ts` unchanged – it still trims, normalizes email and answers accordingly.
+
+- **Testing / Build**: Ran `npm test` (via Vite) and `npm run build`. Both completed without errors.
+
+All requirements are now satisfied: the page builds correctly, fields display user input, required fields are validated server‑side, error handling follows the spec, and the success state appears after a valid submission.

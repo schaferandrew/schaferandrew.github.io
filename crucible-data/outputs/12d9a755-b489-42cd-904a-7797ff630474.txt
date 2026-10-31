@@ -1,0 +1,6 @@
+Chair 1: Carol, green  
+Chair 2: Dave, red  
+Chair 3: Alice, blue  
+Chair 4: Bob, yellow  
+
+ANSWER: Alice

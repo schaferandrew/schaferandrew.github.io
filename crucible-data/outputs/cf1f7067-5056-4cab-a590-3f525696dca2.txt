@@ -1,0 +1,7 @@
+⏺ read(path=/Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstud)
+  ⎿ ENOENT: no such file or directory, access '/Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstudio_nvidia_nemaotron-3-nano-4b_nextjs-server-data-boundary_20261030_210259/prompt.txt'
+⏺ bash(command=ls -la /Users/andrew.schafer@homebot.ai/.crucible/workspaces)
+  ⎿ ls: /Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstudio_nvidia_nemaotron-3-nano-4b_nextjs-server-data-boundary_20261030_210259/: No such file or directory
+
+
+Command exited with code 1

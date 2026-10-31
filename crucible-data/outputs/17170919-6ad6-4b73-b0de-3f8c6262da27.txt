@@ -1,0 +1,5 @@
+Accuracy: 4 – All claims are supported by the passage; no invented details.  
+Exactly two sentences: 3 – The response contains exactly two sentences.  
+Key points: 3 – It includes the hours extension, funding limit, and resident survey.  
+
+GRADE: 10

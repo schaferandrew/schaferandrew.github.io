@@ -72,7 +72,8 @@
   "response_time_avg_s": 54.015,
   "cost_usd": 0,
   "cost_source": "pi_estimate",
-  "reasoning_chars": null
+  "reasoning_chars": null,
+  "output_tokens_per_s": 23.2
  },
  "output_ref": "outputs/da12157c-40d0-4cd1-9751-27f0d01cf163.txt",
  "provenance": {
@@ -82,7 +83,7 @@
   "machine_id": "m_f554f42a74a5",
   "machine_label": "Ironwood",
   "source": "crucible-run",
-  "content_hash": "sha256:0099ad885f201c1699899c7e2623dbcd6ec49fc5a3a6b70c6805d5c81b12e1c7",
+  "content_hash": "sha256:e855474ba3fbbea1f042293909087a980ad895dc2b34f5b15d66bfbaaff9ccc0",
   "submitter": null,
   "verification": null
  }

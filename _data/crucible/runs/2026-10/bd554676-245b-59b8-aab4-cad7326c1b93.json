@@ -63,7 +63,8 @@
   "ttft_avg_s": 3.007,
   "response_time_avg_s": 6.483,
   "cost_usd": 0.004787,
-  "cost_source": "openrouter_billed"
+  "cost_source": "openrouter_billed",
+  "output_tokens_per_s": 132.8
  },
  "output_ref": "outputs/bd554676-245b-59b8-aab4-cad7326c1b93.txt",
  "provenance": {
@@ -73,7 +74,7 @@
   "machine_id": "m_09df208c24c5",
   "machine_label": "Ironwood",
   "source": "crucible-migrate",
-  "content_hash": "sha256:48b8d131816e78960752eb696f044a10b6c8c8565dbacc71b28fad22490ca233",
+  "content_hash": "sha256:fe5b200e5ce616083f1a5c19297ed302d5c5ca26bcea480c16038949826a9bc1",
   "submitter": null,
   "verification": null
  }

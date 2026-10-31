@@ -1,0 +1,186 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "baa17d67-0c79-4d53-8d07-e84850e53e77",
+ "rubric_version": 5,
+ "rubric_hash": "bae4e4c306c407ff",
+ "method": "checks",
+ "scored_at": "2026-10-30T21:52:37.633623+00:00",
+ "crucible_version": "3.5.0",
+ "raw": {
+  "passed": 8.0,
+  "total": 13,
+  "unit": "points"
+ },
+ "score": 6.15,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "errors_listed",
+   "type": "items",
+   "group": "Errors found",
+   "label": "Lists each of the three errors in the ERRORS: block as <original> → <fix>: havent → haven't, crush → crushed, and 'items were damaged' → 'was damaged'; one item per error.",
+   "passed": false,
+   "detail": "1/3 items; failed: havent (0/1 found), agreement (0/1 found)",
+   "share": 0.3333,
+   "items": [
+    {
+     "id": "havent",
+     "label": "havent listed with its fix",
+     "passed": false,
+     "detail": "0/1 found"
+    },
+    {
+     "id": "crush",
+     "label": "crush listed with its fix",
+     "passed": true,
+     "detail": "1/1 found"
+    },
+    {
+     "id": "agreement",
+     "label": "items were damaged listed with its fix",
+     "passed": false,
+     "detail": "0/1 found"
+    }
+   ]
+  },
+  {
+   "id": "errors_fixed",
+   "type": "items",
+   "group": "Errors fixed",
+   "label": "Fixes each error in the CORRECTED: email: haven't, crushed, and 'one of the two items was damaged'; one item per error.",
+   "passed": false,
+   "detail": "1/3 items; failed: havent (0/1 found), agreement (0/1 found)",
+   "share": 0.3333,
+   "items": [
+    {
+     "id": "havent",
+     "label": "havent fixed in the email",
+     "passed": false,
+     "detail": "0/1 found"
+    },
+    {
+     "id": "crush",
+     "label": "crush fixed in the email",
+     "passed": true,
+     "detail": "1/1 found"
+    },
+    {
+     "id": "agreement",
+     "label": "items were damaged fixed in the email",
+     "passed": false,
+     "detail": "0/1 found"
+    }
+   ]
+  },
+  {
+   "id": "facts_kept",
+   "type": "items",
+   "group": "Keeps the facts",
+   "label": "Keeps the five facts in the CORRECTED: email: order 84721, three days late, 5-7 business days, the mug and its handle; one item per fact.",
+   "passed": true,
+   "detail": "5/5 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "order",
+     "label": "Order 84721 kept",
+     "passed": true,
+     "detail": "1/1 found"
+    },
+    {
+     "id": "late",
+     "label": "Three days late kept",
+     "passed": true,
+     "detail": "1/1 found"
+    },
+    {
+     "id": "refunds",
+     "label": "5-7 business days kept",
+     "passed": true,
+     "detail": "1/1 found"
+    },
+    {
+     "id": "mug",
+     "label": "The mug kept",
+     "passed": true,
+     "detail": "1/1 found"
+    },
+    {
+     "id": "handle",
+     "label": "The handle kept",
+     "passed": true,
+     "detail": "1/1 found"
+    }
+   ]
+  },
+  {
+   "id": "tone_kept",
+   "type": "items",
+   "group": "Keeps the customer's tone",
+   "label": "Adds no apology to the CORRECTED: email (no 'sorry', 'apologize' or 'regret').",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "no_apology",
+     "label": "No apology added",
+     "passed": true,
+     "detail": "none found"
+    }
+   ]
+  },
+  {
+   "id": "errors_only",
+   "type": "items",
+   "group": "Errors kept apart from style",
+   "label": "Lists only the three real errors (havent, crush and 'items were damaged') in the ERRORS: block; a style suggestion (a comma before 'but', 'seem' or 'seems', the greeting, the en dash) listed there fails.",
+   "passed": false,
+   "detail": "0/1 items; failed: no_style_items (2/3 entries match; not: which seem to have passed already for my earlier request. → )",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "no_style_items",
+     "label": "Only the three errors in ERRORS",
+     "passed": false,
+     "detail": "2/3 entries match; not: which seem to have passed already for my earlier request. → "
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Errors found",
+   "passed": 1.0,
+   "total": 3,
+   "detail": "1/3 items; failed: havent (0/1 found), agreement (0/1 found)"
+  },
+  {
+   "id": "Errors fixed",
+   "passed": 1.0,
+   "total": 3,
+   "detail": "1/3 items; failed: havent (0/1 found), agreement (0/1 found)"
+  },
+  {
+   "id": "Keeps the facts",
+   "passed": 5.0,
+   "total": 5,
+   "detail": "5/5 items"
+  },
+  {
+   "id": "Keeps the customer's tone",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "1/1 items"
+  },
+  {
+   "id": "Errors kept apart from style",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: no_style_items (2/3 entries match; not: which seem to have passed already for my earlier request. → )"
+  }
+ ]
+}

@@ -1,0 +1,40 @@
+Good - I only set `onboardingComplete: true` and `termsAcceptedAt`, not changing `accountState`. That's correct according to the design doc.
+
+But wait - now there's a potential issue! Let me trace through the flow again for an invited user who accepted via InvitePage:
+
+1. Accept invite -> accountState="invited", onboardingComplete=true, termsAcceptedAt set
+2. User navigates to /editor
+3. RequireWriter checks onboardingComplete (true) -> allows access ✓
+
+But what about WelcomePage? If they somehow end up there:
+1. useEffect checks `user?.accountState === "invited"` (true!) -> navigate to /editor
+
+This could cause issues! Let me check if the flow works...
+
+Actually, thinking about this more carefully - after accepting an invite via InvitePage, the user is navigated directly to /editor. So they shouldn't land on WelcomePage at all! The only way they'd see WelcomePage is:
+1. If they try to access it manually (unlikely)
+2. Or if there's some redirect happening
+
+But wait - what about the case where someone clicks an invite link, accepts via InvitePage, but then their token expires or something? Let me check...
+
+Actually, I think the issue might be with my test expectations. Let me look at the WelcomePage useEffect more carefully:
+
+```tsx
+useEffect(() => {
+    if (user?.accountState === "invited") navigate("/editor", { replace: true });
+  }, [user, navigate]);
+```
+
+This runs whenever `user` changes. But for invited users who accepted via InvitePage:
+- accountState is still "invited"
+- onboardingComplete is now true (after my fix)
+
+So if they somehow end up on /welcome page, the useEffect would redirect them to /editor because accountState === "invited". This seems correct!
+
+But wait - what about users who sign up from homepage with email of pending invite? Let me trace:
+1. User goes to signup page, enters email of pending invite
+2. My fix in register() converts invited account -> accountState="active", onboardingComplete=true
+3. They're redirected to /welcome (because RegisterPage navigates there)
+4. WelcomePage checks `if (!user.onboardingComplete)` - but it's true! So they go straight to "/"
+
+Hmm, this might cause issues... Let me look at RegisterPage again:</think>Let me check the RegisterPage to understand the full flow:

@@ -1,0 +1,2 @@
+⏺ read(path=/Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstud, offset=1, limit=20)
+  ⎿ ENOENT: no such file or directory, access '/Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstudio_nvidia_nvidia_nemotron-3-nano-4b_accessibility-audit-fixes_20261030_210015/docs/accessibility-

@@ -1,0 +1,10 @@
+The station was louder then she remembered it, all brakes shrieking and people talking to fast.
+
+CORRECTED:
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder than she remembered it, all brakes shrieking and people talking too fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+POSSIBLY INTENTIONAL:
+then: because "than" is more natural in this context than "then"
+talking to fast: because the fragment "to fast" creates a rhythmic, breathless feel that matches the urgency of the scene
+
+CORRECTED holds the whole paragraph with only the clear errors fixed. POSSIBLY INTENTIONAL has one line per choice you left as written because it may be deliberate, or `POSSIBLY INTENTIONAL: none`.

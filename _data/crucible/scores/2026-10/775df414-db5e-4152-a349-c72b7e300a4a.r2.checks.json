@@ -1,0 +1,176 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "775df414-db5e-4152-a349-c72b7e300a4a",
+ "rubric_version": 2,
+ "rubric_hash": "0fdc5051fcd23767",
+ "method": "checks",
+ "scored_at": "2026-10-30T21:54:52.816222+00:00",
+ "crucible_version": "3.5.0",
+ "raw": {
+  "passed": 14.0,
+  "total": 17,
+  "unit": "points"
+ },
+ "score": 8.24,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "errors_found",
+   "type": "items",
+   "group": "Errors found",
+   "label": "Lists each inaccurate claim (2, 3, 6, 7 and 10) in the ERRORS: block; one item per line.",
+   "passed": false,
+   "detail": "4/5 items; failed: listed:2 (not listed)",
+   "share": 0.8,
+   "items": [
+    {
+     "id": "listed:2",
+     "label": "Line 2 listed",
+     "passed": false,
+     "detail": "not listed"
+    },
+    {
+     "id": "listed:3",
+     "label": "Line 3 listed",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "listed:6",
+     "label": "Line 6 listed",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "listed:7",
+     "label": "Line 7 listed",
+     "passed": true,
+     "detail": "listed"
+    },
+    {
+     "id": "listed:10",
+     "label": "Line 10 listed",
+     "passed": true,
+     "detail": "listed"
+    }
+   ]
+  },
+  {
+   "id": "corrections",
+   "type": "items",
+   "group": "Corrections",
+   "label": "Corrects each one to its value alone: 2 to (King) John, 3 to 1492, 6 to 1815, 7 to 1912, 10 to 1989; one item per correction.",
+   "passed": false,
+   "detail": "4/5 items; failed: king (not in the block)",
+   "share": 0.8,
+   "items": [
+    {
+     "id": "king",
+     "label": "Line 2 corrected to King John",
+     "passed": false,
+     "detail": "not in the block"
+    },
+    {
+     "id": "columbus",
+     "label": "Line 3 corrected to 1492",
+     "passed": true,
+     "detail": "got 1492"
+    },
+    {
+     "id": "waterloo",
+     "label": "Line 6 corrected to 1815",
+     "passed": true,
+     "detail": "got 1815"
+    },
+    {
+     "id": "titanic",
+     "label": "Line 7 corrected to 1912",
+     "passed": true,
+     "detail": "got 1912"
+    },
+    {
+     "id": "berlin_wall",
+     "label": "Line 10 corrected to 1989",
+     "passed": true,
+     "detail": "got 1989"
+    }
+   ]
+  },
+  {
+   "id": "accurate_kept",
+   "type": "items",
+   "group": "Accurate claims left alone",
+   "label": "Leaves the accurate claims (1, 4, 5, 8, 9, 11 and 12) out of the ERRORS: block; one item per claim.",
+   "passed": false,
+   "detail": "6/7 items; failed: listed:11 (listed)",
+   "share": 0.8571,
+   "items": [
+    {
+     "id": "listed:1",
+     "label": "Line 1 left out",
+     "passed": true,
+     "detail": "not listed"
+    },
+    {
+     "id": "listed:4",
+     "label": "Line 4 left out",
+     "passed": true,
+     "detail": "not listed"
+    },
+    {
+     "id": "listed:5",
+     "label": "Line 5 left out",
+     "passed": true,
+     "detail": "not listed"
+    },
+    {
+     "id": "listed:8",
+     "label": "Line 8 left out",
+     "passed": true,
+     "detail": "not listed"
+    },
+    {
+     "id": "listed:9",
+     "label": "Line 9 left out",
+     "passed": true,
+     "detail": "not listed"
+    },
+    {
+     "id": "listed:11",
+     "label": "Line 11 left out",
+     "passed": false,
+     "detail": "listed"
+    },
+    {
+     "id": "listed:12",
+     "label": "Line 12 left out",
+     "passed": true,
+     "detail": "not listed"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Errors found",
+   "passed": 4.0,
+   "total": 5,
+   "detail": "4/5 items; failed: listed:2 (not listed)"
+  },
+  {
+   "id": "Corrections",
+   "passed": 4.0,
+   "total": 5,
+   "detail": "4/5 items; failed: king (not in the block)"
+  },
+  {
+   "id": "Accurate claims left alone",
+   "passed": 6.0,
+   "total": 7,
+   "detail": "6/7 items; failed: listed:11 (listed)"
+  }
+ ]
+}

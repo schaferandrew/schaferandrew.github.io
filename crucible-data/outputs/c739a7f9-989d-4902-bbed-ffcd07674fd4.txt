@@ -1,0 +1,23 @@
+
+**Working (rounded only at the end)**  
+
+1.  $A = 5000\,(1+0.04/12)^{36}$  
+   $(1+0.00333333)^{36}\approx 1.127272$  
+   $A \approx 5000 \times 1.127272 = \$5,636.36$  
+
+2.  Total area needed \(=1850 \times 1.10 = 2035\) sq ft.  
+    Boxes per box size \(=23.5\) sq ft → number of boxes  
+    \(\lceil 2035/23.5\rceil = \lceil 86.8\rceil = 87\) boxes.  
+
+3.  Gallons needed \(=412/34 \approx 12.117647\).  
+    Cost \(=12.117647 \times \$3.89 \approx \$47.14\).  
+
+4.  Tip \(=18\% \times \$172 = \$30.96\).  
+    Total amount \(= \$172 + \$30.96 = \$202.96\).  
+    Split among 4 people: \(\$202.96/4 = \$50.74\) per person.  
+
+ANSWER  
+1. 5636.36  
+2. 87  
+3. 47.14  
+4. 50.74

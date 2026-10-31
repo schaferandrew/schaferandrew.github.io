@@ -1,0 +1,122 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "9c557e27-11c5-41fd-a2a6-4c9b62560b62",
+ "rubric_version": 3,
+ "rubric_hash": "056064e7a4ede298",
+ "method": "checks",
+ "scored_at": "2026-10-30T20:41:58.138984+00:00",
+ "crucible_version": "3.4.2",
+ "raw": {
+  "passed": 6.0,
+  "total": 8,
+  "unit": "points"
+ },
+ "score": 7.5,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "errors_fixed",
+   "type": "items",
+   "group": "Fixes the errors",
+   "label": "Fixes 'louder then' to 'louder than' and 'talking to fast' to 'talking too fast' in the CORRECTED: paragraph; one item each.",
+   "passed": true,
+   "detail": "2/2 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "than",
+     "label": "then fixed to than",
+     "passed": true,
+     "detail": "1/1 found"
+    },
+    {
+     "id": "too",
+     "label": "to fixed to too",
+     "passed": true,
+     "detail": "1/1 found"
+    }
+   ]
+  },
+  {
+   "id": "voice_kept",
+   "type": "items",
+   "group": "Keeps the author's voice",
+   "label": "Keeps these verbatim in the CORRECTED: paragraph: 'Not waiting for her, exactly.', 'That would have been too kind.', 'And she didn't know whether to laugh, or leave.' (comma included), the dash in 'Still—she was back' and 'smelled like rain, hot asphalt, and somebody's breakfast'; one item each.",
+   "passed": false,
+   "detail": "4/5 items; failed: fragment_3 (0/1 found)",
+   "share": 0.8,
+   "items": [
+    {
+     "id": "fragment_1",
+     "label": "Fragment 'Not waiting for her, exactly.' kept",
+     "passed": true,
+     "detail": "1/1 found"
+    },
+    {
+     "id": "fragment_2",
+     "label": "Fragment 'That would have been too kind.' kept",
+     "passed": true,
+     "detail": "1/1 found"
+    },
+    {
+     "id": "fragment_3",
+     "label": "Ending 'laugh, or leave' kept with its comma",
+     "passed": false,
+     "detail": "0/1 found"
+    },
+    {
+     "id": "dash",
+     "label": "The dash in 'Still—she was back' kept",
+     "passed": true,
+     "detail": "1/1 found"
+    },
+    {
+     "id": "imagery",
+     "label": "Opening imagery kept word for word",
+     "passed": true,
+     "detail": "1/1 found"
+    }
+   ]
+  },
+  {
+   "id": "flags_intent",
+   "type": "items",
+   "group": "Flags intent",
+   "label": "Lists at least one intentional choice (a fragment, the dash, the comma in 'laugh, or leave' or the opening imagery) in the POSSIBLY INTENTIONAL: block, not changed silently.",
+   "passed": false,
+   "detail": "0/1 items; failed: listed (0/1 found)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "listed",
+     "label": "At least one intentional choice listed",
+     "passed": false,
+     "detail": "0/1 found"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Fixes the errors",
+   "passed": 2.0,
+   "total": 2,
+   "detail": "2/2 items"
+  },
+  {
+   "id": "Keeps the author's voice",
+   "passed": 4.0,
+   "total": 5,
+   "detail": "4/5 items; failed: fragment_3 (0/1 found)"
+  },
+  {
+   "id": "Flags intent",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: listed (0/1 found)"
+  }
+ ]
+}

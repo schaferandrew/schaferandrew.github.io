@@ -1,0 +1,89 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "41a65980-4eff-43e1-a6aa-4652a2006be1",
+ "run_path": "lmstudio_laguna-xs-2.1/two-calendar-slots-json/20261030_183336",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T18:33:36.804589+00:00",
+ "ended_at": "2026-10-30T18:48:37.722702+00:00",
+ "elapsed_s": 900.4,
+ "task": {
+  "id": "two-calendar-slots-json",
+  "version": 3,
+  "rubric_version": 2,
+  "content_hash": "f768898b61923888",
+  "rubric_hash": "e6394e3e00a41fc7",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "lmstudio/laguna-xs-2.1",
+  "base": "laguna-xs-2.1",
+  "publisher": "poolside",
+  "artifact": null,
+  "format": "gguf",
+  "quant": "Q4_K_M",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 262144,
+  "variant_key": "laguna-xs-2.1|poolside|gguf|q4_k_m",
+  "display": "laguna-xs-2.1 · Q4_K_M"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "timeout",
+  "harness_status": "TIMEOUT",
+  "returncode": 0,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 46,
+  "tokens_in": 2135800,
+  "tokens_out": 41130,
+  "model_responses": 46,
+  "ttft_s": 7.992,
+  "ttft_avg_s": 2.185,
+  "response_time_avg_s": 19.334,
+  "cost_usd": 0,
+  "cost_source": "pi_estimate",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/41a65980-4eff-43e1-a6aa-4652a2006be1.txt",
+ "provenance": {
+  "crucible_version": "3.4.2",
+  "crucible_commit": "06d4398",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Duskfall",
+  "source": "crucible-run",
+  "content_hash": "sha256:33e56eb1e680264ade91cd80d94637ca44e2d16604015af8b74a27215b20b471",
+  "submitter": null,
+  "verification": null
+ }
+}

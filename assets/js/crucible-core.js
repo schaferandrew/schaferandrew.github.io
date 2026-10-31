@@ -10,9 +10,12 @@
   var C = window.CrucibleCore = {};
   var SUPPORTED_FORMAT = 3; // a record or catalog with a higher format_version is skipped, with a notice
   var NONE = '—';
+  // The overall score's id (sort key, tier-cell id): tier IDs are kebab-case slugs, so it can't collide with one
+  var AGG = '_overall';
   var SVG_NS = 'http://www.w3.org/2000/svg';
   C.SUPPORTED_FORMAT = SUPPORTED_FORMAT;
   C.NONE = NONE;
+  C.AGG = AGG;
   // Two identities on the scatter: local (the point of Crucible) and cloud (the reference)
   C.COLORS = { local: '#2a78d6', cloud: '#eb6834' };
   C.MAX_COMPARE = 4;
@@ -84,6 +87,23 @@
     return a.n + ' runs, ' + (a.min === a.max ? 'all ' + fmtScore(a.min) : fmtScore(a.min) + '–' + fmtScore(a.max));
   }
 
+  // Decode speed: a run's output tokens (reasoning included) over its generation time, prompt
+  // processing left out (metrics.output_tokens_per_s). Older runs don't have it; they never count.
+  function runTps(run) { var v = num(((run && run.metrics) || {}).output_tokens_per_s, null); return v !== null && v > 0 ? v : null; }
+  // The median over the runs (entries with .run) that recorded it, with how many did
+  function tpsOf(runs) {
+    var values = (runs || []).map(function (i) { return runTps(i.run); }).filter(function (v) { return v !== null; });
+    return { value: median(values), n: values.length };
+  }
+  function fmtTps(v, bare) { return v === null || v === undefined ? NONE : (v < 10 ? v.toFixed(1) : String(Math.round(v))) + (bare ? '' : ' tok/s'); }
+  function tpsTitle(t, of) {
+    return t && t.n ? 'Decode speed: median of the ' + t.n + (of ? ' of ' + of : '') + ' run' + (t.n === 1 ? '' : 's') + ' that recorded it (output tokens per second of generation, prompt processing excluded)'
+      : 'Decode speed wasn\'t recorded for these runs';
+  }
+  function listPhrase(items) {
+    return items.length < 3 ? items.join(' and ') : items.slice(0, -1).join(', ') + ' and ' + items[items.length - 1];
+  }
+
   // Sequential scale: light to the site's secondary blue. Text flips to white on the dark half.
   function heatStyle(score) {
     if (score === null || score === undefined) return '';
@@ -117,6 +137,7 @@
   [['num', num], ['cap', cap], ['ids', ids], ['meets', meets], ['pct', pct], ['scoreKey', scoreKey], ['mean', mean],
     ['median', median], ['agg', agg], ['bestOf', bestOf], ['fmtScore', fmtScore], ['fmtSeconds', fmtSeconds],
     ['fmtUsd', fmtUsd], ['fmtCost', fmtCost], ['fmtInt', fmtInt], ['fmtDate', fmtDate], ['fmtRepeat', fmtRepeat],
+    ['runTps', runTps], ['tpsOf', tpsOf], ['fmtTps', fmtTps], ['tpsTitle', tpsTitle], ['listPhrase', listPhrase],
     ['heatStyle', heatStyle], ['shortName', shortName], ['slugify', slugify], ['taskName', taskName],
     ['suiteId', suiteId], ['suiteName', suiteName], ['makerFromBase', makerFromBase], ['modelName', modelName]
   ].forEach(function (p) { C[p[0]] = p[1]; });
@@ -417,6 +438,8 @@
     var FB = D.FB = payload.fallbacks || {};
     var FB_MODES = FB.modes || {}, FB_TIERS = FB.tiers || {}, FB_AREAS = FB.areas || {}, FB_METHODS = FB.scoring_methods || {};
     var store = D.store = collect(payload);
+    // The overall score's label (_data/crucible_fallbacks.yml aggregate.label)
+    D.AGG_LABEL = (FB.aggregate || {}).label || 'Overall';
     D.skippedNote = store.skipped ? 'Some results were published with a newer Crucible than this page understands, so they are not shown.' : '';
     // Suites the display settings (_data/crucible_display.yml) hide aren't selectable; if that would
     // hide every suite, all of them stay visible
@@ -894,7 +917,7 @@
       var met = function (f) { return shown.map(function (i) { return num((i.run.metrics || {})[f], null); }); };
       return {
         value: cellValue(c), time: median(shown.map(function (i) { return num(i.run.elapsed_s, null); })),
-        tools: median(met('tool_calls')), tokens: median(met('tokens_out')), cost: mean(shown.map(function (i) { return runCost(i.run); })),
+        tools: median(met('tool_calls')), tokens: median(met('tokens_out')), tps: tpsOf(shown), cost: mean(shown.map(function (i) { return runCost(i.run); })),
         timedOut: shown.some(function (i) { return i.run.outcome && i.run.outcome.timed_out; }), runs: c ? c.all.length : 0, counted: counted.length
       };
     }
@@ -1076,35 +1099,38 @@
           .map(function (k) { return { cfg: CONFIGS[k], cell: S.cells[k][taskId] }; });
       };
 
-      // Best configuration: among setups whose headline tier meets the catalog's coverage_min, the
-      // highest headline score; only when none does, the one with the most scored tasks. A near-empty
-      // setup never beats a covered one. Never stitched per task: every number is one setup's.
+      // Best configuration: among setups whose overall score isn't partial, the highest overall
+      // score; only when none is, the one with the most scored tasks. A near-empty setup never beats
+      // a covered one. Never stitched per task: every number is one setup's. Works on setup stats
+      // (V.stats) and variant stats (V.variantStats) alike; every page picks a best setup with it.
       S.betterConfig = function (a, b) {
-        var ca = a.head.score !== null && meets(a.head.coverage, S.COVERAGE_MIN);
-        var cb = b.head.score !== null && meets(b.head.coverage, S.COVERAGE_MIN);
+        var ca = a.overall.score !== null && !a.overall.partial;
+        var cb = b.overall.score !== null && !b.overall.partial;
         if (ca !== cb) return ca ? -1 : 1;
         if (ca) {
-          if (a.head.score !== b.head.score) return b.head.score - a.head.score;
+          if (a.overall.score !== b.overall.score) return b.overall.score - a.overall.score;
           if (a.progress.done !== b.progress.done) return b.progress.done - a.progress.done;
           return b.runs - a.runs;
         }
         if (a.progress.done !== b.progress.done) return b.progress.done - a.progress.done;
-        var sa = a.head.score === null ? -1 : a.head.score, sb = b.head.score === null ? -1 : b.head.score;
+        var sa = a.overall.score === null ? -1 : a.overall.score, sb = b.overall.score === null ? -1 : b.overall.score;
         if (sa !== sb) return sb - sa;
         return b.runs - a.runs;
       };
 
       // Every tier reads the same: a 0-10 score, the bar, and 'n/m tasks'. The gate result (pass or
       // fail) and 'partial' or 'provisional' are small markers on that cell, not a different cell.
+      // t may be the overall score's column (t.id === C.AGG).
       S.tierCell = function (s, t, into) {
-        var result = s.tier[t.id], prov = s.provisional[t.id];
+        var isAgg = t.id === AGG;
+        var result = isAgg ? s.overall : s.tier[t.id], prov = isAgg ? null : s.provisional[t.id];
         var counted = result && result.score !== null;
         var score = counted ? result.score : prov && prov.score !== null ? prov.score : null;
         if (score === null) { into.appendChild(el('span', { class: 'crucible-lb-none' }, NONE)); return; }
         var partial = counted && result.partial;
         var provisional = !counted;
         var scored = counted ? result.scored : prov.scored, total = counted ? result.total : prov.total;
-        var cellEl = el('span', { class: 'crucible-tier-cell' + (provisional ? ' is-provisional' : '') });
+        var cellEl = el('span', { class: 'crucible-tier-cell' + (provisional ? ' is-provisional' : '') + (isAgg ? ' is-overall' : '') });
         var bar = el('span', { class: 'crucible-lb-bar' + (partial ? ' is-partial' : '') + (provisional ? ' is-provisional' : '') });
         var fill = el('span', { class: 'crucible-lb-fill' + (s.local ? ' is-local' : '') });
         fill.style.width = (score * 10) + '%';
@@ -1117,7 +1143,7 @@
         if (verdict === 'pass' || verdict === 'fail') {
           markers.appendChild(el('span', { class: 'crucible-verdict is-' + verdict, title: t.label + ' gate: ' + verdict }, verdict === 'pass' ? '✓ pass' : '✕ fail'));
         }
-        if (partial) markers.appendChild(el('span', { class: 'crucible-lb-note', title: 'Fewer than ' + pct(S.COVERAGE_MIN) + ' of this tier\'s tasks were scored' }, 'partial'));
+        if (partial) markers.appendChild(el('span', { class: 'crucible-lb-note', title: isAgg ? 'A tier in this score has fewer than ' + pct(S.COVERAGE_MIN) + ' of its tasks scored' : 'Fewer than ' + pct(S.COVERAGE_MIN) + ' of this tier\'s tasks were scored' }, 'partial'));
         else if (provisional) markers.appendChild(el('span', { class: 'crucible-lb-note', title: 'Provisional tasks don\'t count toward rankings' }, 'provisional'));
         if (markers.firstChild) cellEl.appendChild(markers);
         into.appendChild(cellEl);
@@ -1235,17 +1261,56 @@
         return out;
       };
 
-      // A setup in this mode: tier scores, gate verdicts, provisional scores, time, cost, progress
+      // ---- The overall score ----
+
+      // The tiers in the overall score: this section's, less those in `exclude` ({ tierId: true },
+      // the main page's tier toggles), never none. Other pages pass nothing: every tier.
+      V.aggTiers = function (exclude) {
+        var on = V.TIERS.filter(function (t) { return !(exclude && exclude[t.id]); });
+        return on.length ? on : V.TIERS;
+      };
+      V.aggAll = function (exclude) { return V.aggTiers(exclude).length === V.TIERS.length; };
+      V.aggTierNames = function (exclude) { return listPhrase(V.aggTiers(exclude).map(function (t) { return t.label; })); };
+      // A section with one tier has no overall column: that tier is the overall score
+      V.showAgg = function () { return V.TIERS.length > 1; };
+      V.aggInfo = function () { return { id: AGG, label: V.showAgg() ? D.AGG_LABEL : V.TIERS[0].label }; };
+      // The exclusion that has an effect, as a stable cache key ('' when every tier is in)
+      function excludeKey(exclude) {
+        return V.aggAll(exclude) ? '' : V.TIERS.filter(function (t) { return exclude[t.id]; }).map(function (t) { return t.id; }).join(',');
+      }
+      // Overall score: the chosen tiers' scores, each weighted by its number of tasks (so three Spark
+      // tasks don't count as much as twelve Temper ones). Partial when any of those tiers is partial
+      // or unscored, so a setup that skipped a tier is never ranked on the rest; leave that tier out
+      // to rank it. tierResults: tier id -> tierScore result.
+      V.aggregate = function (tierResults, exclude) {
+        var list = V.aggTiers(exclude).map(function (t) { return tierResults[t.id] || null; });
+        var scored = list.filter(function (r) { return r && r.score !== null; });
+        var mins = scored.map(function (r) { return r.min; }).filter(function (v) { return v !== null; });
+        var result = {
+          score: scored.length ? scored.reduce(function (n, r) { return n + r.score * r.total; }, 0) /
+            scored.reduce(function (n, r) { return n + r.total; }, 0) : null,
+          coverage: mean(list.map(function (r) { return r ? r.coverage : 0; })) || 0,
+          scored: list.reduce(function (n, r) { return n + (r ? r.scored : 0); }, 0),
+          total: list.reduce(function (n, r) { return n + (r ? r.total : 0); }, 0),
+          min: mins.length ? Math.min.apply(null, mins) : null
+        };
+        result.partial = result.score !== null && list.some(function (r) { return !r || r.score === null || r.partial; });
+        return result;
+      };
+
+      // A setup in this mode: tier scores, gate verdicts, provisional scores, the overall score (over
+      // the tiers `exclude` leaves in), time, decode speed, cost, progress
       var statsCache = {};
-      V.stats = function (cfg) {
-        if (statsCache[cfg.key]) return statsCache[cfg.key];
+      V.stats = function (cfg, exclude) {
+        var ck = cfg.key + '#' + excludeKey(exclude);
+        if (statsCache[ck]) return statsCache[ck];
         var runs = V.countedRuns(cfg);
         var active = orderedTasks.filter(function (t) { return t.status === 'active'; });
         var done = active.filter(function (t) { return S.countedMean(cfg, t.id) !== null; }).length;
         var progress = { done: done, total: active.length, share: active.length ? done / active.length : 0 };
-        var tier = {}, verdict = {}, provisionalOf = {};
+        var tier = {}, verdict = {}, provisionalOf = {}, all = {};
         S.TIERS.forEach(function (t) {
-          var result = V.tierScore(cfg, t.id);
+          var result = all[t.id] = V.tierScore(cfg, t.id);
           if (t.id === S.HEAD || t.role === 'gate') tier[t.id] = result;
           else {
             tier[t.id] = result.total ? result : null;
@@ -1255,19 +1320,20 @@
           if (S.gateOf(t.id)) verdict[t.id] = gateVerdict(result, S.gateOf(t.id));
         });
         var ran = Object.keys(S.cells[cfg.key] || {}).some(function (id) { return taskIds[id]; });
-        return (statsCache[cfg.key] = {
+        return (statsCache[ck] = {
           cfg: cfg, local: cfg.local, ran: ran, tier: tier, verdict: verdict, provisional: provisionalOf,
-          head: tier[S.HEAD], time: timeOf(runs), cost: costOf(cfg, runs), runs: runs.length,
+          head: tier[S.HEAD], overall: V.aggregate(all, exclude), time: timeOf(runs), tps: tpsOf(runs), cost: costOf(cfg, runs), runs: runs.length,
           progress: progress, inProgress: !meets(progress.share, S.IN_PROGRESS_BELOW)
         });
       };
 
       // One row per base model and reasoning level, across local and cloud, scored by its best
-      // setup; `variants` are its setups, best first. `keep(cfg)` filters the setups considered.
-      V.rows = function (keep) {
+      // setup (by the overall score over the tiers `exclude` leaves in); `variants` are its setups,
+      // best first. `keep(cfg)` filters the setups considered.
+      V.rows = function (keep, exclude) {
         var groups = {};
         V.configs().filter(keep || function () { return true; }).forEach(function (cfg) {
-          (groups[cfg.rowKey] = groups[cfg.rowKey] || []).push(V.stats(cfg));
+          (groups[cfg.rowKey] = groups[cfg.rowKey] || []).push(V.stats(cfg, exclude));
         });
         // A model with no counted run in this suite and section isn't on the board at all
         return Object.keys(groups).filter(function (key) {
@@ -1280,6 +1346,7 @@
       };
 
       function tierValue(s, id) {
+        if (id === AGG) return s.overall.score;
         var result = s.tier[id];
         if (result && result.score !== null) return result.score;
         return s.provisional[id] ? s.provisional[id].score : null;
@@ -1287,20 +1354,23 @@
       function sortValue(key, s) {
         if (key === 'model') return (s.label || rowLabel(s.cfg)).toLowerCase();
         if (key === 'time') return s.time;
+        if (key === 'tps') return s.tps ? s.tps.value : null;
         if (key === 'cost') return s.cost;
         return tierValue(s, key);
       }
       V.tierValue = tierValue;
-      // Leaderboard order for sort { key: tier id | 'model' | 'time' | 'cost', dir: -1 | 1 }: rows with
-      // runs first, in-progress last, partial tier scores after full ones
+      // Leaderboard order for sort { key: C.AGG | tier id | 'model' | 'time' | 'tps' | 'cost', dir: -1 | 1 }:
+      // rows with runs first, in-progress last, partial scores after full ones
       V.sortRows = function (list, sort) {
-        var tierKey = S.tierSeen[sort.key] === true;
+        var tierKey = S.tierSeen[sort.key] === true || sort.key === AGG;
+        function resultOf(s) { return sort.key === AGG ? s.overall : s.tier[sort.key]; }
         return list.sort(function (a, b) {
           if (a.ran !== b.ran) return a.ran ? -1 : 1;
           if (a.inProgress !== b.inProgress) return a.inProgress ? 1 : -1;
           if (tierKey) {
-            var pa = !a.tier[sort.key] || a.tier[sort.key].partial || a.tier[sort.key].score === null;
-            var pb = !b.tier[sort.key] || b.tier[sort.key].partial || b.tier[sort.key].score === null;
+            var ra = resultOf(a), rb = resultOf(b);
+            var pa = !ra || ra.partial || ra.score === null;
+            var pb = !rb || rb.partial || rb.score === null;
             if (pa !== pb) return pa ? 1 : -1;
           }
           var va = sortValue(sort.key, a), vb = sortValue(sort.key, b);
@@ -1312,8 +1382,8 @@
         });
       };
       V.noneFinished = function (rows) { return !rows.some(function (s) { return s.ran && !s.inProgress; }); };
-      // A row is ranked when it ran, has finished and has a full headline score
-      V.isRanked = function (s) { return s.ran && !s.inProgress && s.head.score !== null && !s.head.partial; };
+      // A row is ranked when it ran, has finished and has a full overall score
+      V.isRanked = function (s) { return s.ran && !s.inProgress && s.overall.score !== null && !s.overall.partial; };
 
       V.hasToolCalls = function () {
         return V.configs().some(function (cfg) {
@@ -1332,7 +1402,7 @@
 
       // Setups that ran in this mode, by model name, best setup first within a model
       V.compareCandidates = function () {
-        return V.configs().map(V.stats).filter(function (s) { return s.ran; }).sort(function (a, b) {
+        return V.configs().map(function (cfg) { return V.stats(cfg); }).filter(function (s) { return s.ran; }).sort(function (a, b) {
           var la = rowLabel(a.cfg), lb = rowLabel(b.cfg);
           if (la !== lb) return la < lb ? -1 : 1;
           return S.betterConfig(a, b);
@@ -1358,7 +1428,7 @@
         }).filter(Boolean);
         out.extra = chosen.map(function (s) {
           var runs = V.countedRuns(s.cfg, out.shared);
-          return { time: timeOf(runs), cost: costOf(s.cfg, runs) };
+          return { time: timeOf(runs), tps: tpsOf(runs), cost: costOf(s.cfg, runs) };
         });
         // One setup's counted runs of one shared task, as a mean with n and range
         out.cell = function (s, t) { return agg(S.cellOf(s.cfg, t.id).counted.map(function (i) { return i.score; })); };
@@ -1379,9 +1449,9 @@
         var active = orderedTasks.filter(function (t) { return t.status === 'active'; });
         var done = active.filter(function (t) { return meanOf(t.id) !== null; }).length;
         var progress = { done: done, total: active.length, share: active.length ? done / active.length : 0 };
-        var tier = {}, verdict = {}, provisionalOf = {}, runs = 0;
+        var tier = {}, verdict = {}, provisionalOf = {}, all = {}, runs = 0;
         S.TIERS.forEach(function (t) {
-          var result = tierScoreBy(meanOf, t.id);
+          var result = all[t.id] = tierScoreBy(meanOf, t.id);
           if (t.id === S.HEAD || t.role === 'gate') tier[t.id] = result;
           else {
             tier[t.id] = result.total ? result : null;
@@ -1398,7 +1468,7 @@
         });
         return (variantCache[v.key] = {
           variant: v, cfg: v.cfgs[0], cfgs: v.cfgs, local: v.local, ran: ran, tier: tier, verdict: verdict,
-          provisional: provisionalOf, head: tier[S.HEAD], runs: runs, progress: progress,
+          provisional: provisionalOf, head: tier[S.HEAD], overall: V.aggregate(all), runs: runs, progress: progress,
           inProgress: !meets(progress.share, S.IN_PROGRESS_BELOW), label: rowLabel(v.cfgs[0]),
           areas: V.info.areas.map(function (a) { return V.variantAreaResult(v, a); })
         });
@@ -1452,14 +1522,16 @@
       // tasks, finished, timedOut, errors, time (median over tasks of each task's median finished
       // time), timeAll (the same over every run), cost { kind: 'electricity' | 'billed', value (mean
       // over tasks of each task's mean cost per run; null when none is known), n (runs with a cost) },
-      // packager ("Packaged by …" or '') }
+      // tps (decode speed: median over its finished runs that recorded it, { value, n }), packager
+      // ("Packaged by …" or '') }
       V.deploymentStats = function (v, dep) {
         v = variantOf(v); dep = deploymentOf(dep);
-        var byTask = eligible(v, dep.key), all = [];
+        var byTask = eligible(v, dep.key), all = [], finishedAll = [];
         var taskTimes = [], taskTimesAll = [], taskCosts = [], costN = 0;
         Object.keys(byTask).forEach(function (id) {
           var list = byTask[id], fin = finishedOf(list);
           all = all.concat(list);
+          finishedAll = finishedAll.concat(fin);
           taskTimes.push(median(fin.map(function (i) { return num(i.run.elapsed_s, null); })));
           taskTimesAll.push(median(list.map(function (i) { return num(i.run.elapsed_s, null); })));
           var costs = list.map(function (i) { return runCost(i.run); }).filter(function (c) { return c !== null; });
@@ -1471,7 +1543,7 @@
           deployment: dep, key: dep.key, label: dep.label, local: dep.local, recorded: dep.recorded, variant: v,
           runs: all.length, tasks: Object.keys(byTask).length,
           finished: count('finished'), timedOut: count('timed_out'), errors: count('error'),
-          time: median(taskTimes), timeAll: median(taskTimesAll),
+          time: median(taskTimes), timeAll: median(taskTimesAll), tps: tpsOf(finishedAll),
           cost: { kind: costKindOf(dep), value: mean(taskCosts), n: costN },
           packager: D.packagedBy(v)
         };
@@ -1783,7 +1855,8 @@
       }
       into.appendChild(el('p', { class: 'crucible-detail-meta' }, [
         'ran ' + fmtDate(r.started_at), (out.status || NONE).replace(/_/g, ' ') + (out.timed_out ? ' (timed out)' : ''),
-        'time ' + fmtSeconds(num(r.elapsed_s, null)), met.tool_calls !== null && met.tool_calls !== undefined ? 'tool calls ' + fmtInt(met.tool_calls) : null,
+        'time ' + fmtSeconds(num(r.elapsed_s, null)), runTps(r) !== null ? 'decode ' + fmtTps(runTps(r)) : 'decode speed not recorded',
+        met.tool_calls !== null && met.tool_calls !== undefined ? 'tool calls ' + fmtInt(met.tool_calls) : null,
         'tokens in ' + fmtInt(met.tokens_in), 'out ' + fmtInt(met.tokens_out),
         (info.cfg.local ? 'electricity ' : 'cost ') + fmtCost(runCost(r), info.cfg.local),
         r.endpoint && r.endpoint.upstream && (r.endpoint.upstream.name || r.endpoint.upstream.provider) ? 'routed to ' + (r.endpoint.upstream.name || r.endpoint.upstream.provider) : null,

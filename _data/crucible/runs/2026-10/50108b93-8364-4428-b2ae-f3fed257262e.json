@@ -1,0 +1,90 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "50108b93-8364-4428-b2ae-f3fed257262e",
+ "run_path": "lmstudio_nvidia_nemotron-3-nano-4b/seating-logic-puzzle/20261030_205226",
+ "legacy_run_id": null,
+ "started_at": "2026-10-30T20:52:26.111966+00:00",
+ "ended_at": "2026-10-30T20:52:43.157475+00:00",
+ "elapsed_s": 16.67,
+ "task": {
+  "id": "seating-logic-puzzle",
+  "version": 3,
+  "rubric_version": 3,
+  "content_hash": "4bc46a0e3e4f1478",
+  "rubric_hash": "ba4027243454539b",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/nvidia/nemotron-3-nano-4b",
+  "base": "nvidia/nemotron-3-nano-4b",
+  "publisher": "nvidia",
+  "artifact": null,
+  "format": "gguf",
+  "quant": "Q4_K_M",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 1048576,
+  "variant_key": "nvidia/nemotron-3-nano-4b|nvidia|gguf|q4_k_m",
+  "display": "nemotron-3-nano-4b · Q4_K_M"
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 221,
+  "tokens_out": 1111,
+  "model_responses": 1,
+  "ttft_s": 0.245,
+  "ttft_avg_s": 0.245,
+  "response_time_avg_s": 16.668,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 4203,
+  "output_tokens_per_s": 67.6
+ },
+ "output_ref": "outputs/50108b93-8364-4428-b2ae-f3fed257262e.txt",
+ "provenance": {
+  "crucible_version": "3.4.2",
+  "crucible_commit": "06d4398",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Duskfall",
+  "source": "crucible-run",
+  "content_hash": "sha256:e523f629f8295837320ffe73076295c6abbd715aaff7f470745023591b05723b",
+  "submitter": null,
+  "verification": null
+ }
+}

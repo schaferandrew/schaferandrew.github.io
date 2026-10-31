@@ -1,0 +1,21 @@
+Let me go through each claim one by one:
+
+1. The Battle of Hastings was fought in 1066 - CORRECT (October 14, 1066)
+2. In 1215, King Richard sealed Magna Carta at Runnymede - INCORRECT (It was King John, not Richard)
+3. Christopher Columbus first reached the Americas in 1493 - INCORRECT (1492)
+4. The United States Declaration of Independence was adopted on July 4, 1776 - CORRECT
+5. Crowds in Paris stormed the Bastille in July 1789 - CORRECT
+6. Napoleon was finally defeated at the Battle of Waterloo in 1812 - INCORRECT (1815)
+7. The Titanic sank in April 1913 - INCORRECT (April 1912)
+8. India gained independence from Britain in August 1947 - CORRECT
+9. Neil Armstrong and Buzz Aldrin landed on the Moon in July 1969 - CORRECT
+10. The Berlin Wall fell in November 1991 - INCORRECT (November 1989)
+11. Germany was reunified in the year after the Berlin Wall fell - CORRECT (reunification was October 1990, one year after November 1989)
+12. Nelson Mandela was elected President of South Africa in 1994 - CORRECT
+
+ERRORS:
+2: King John
+3: 1492
+6: 1815
+7: 1912
+10: 1989

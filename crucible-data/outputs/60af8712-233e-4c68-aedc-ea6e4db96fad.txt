@@ -1,0 +1,3 @@
+The agent's summary is accurate, with all claims supported by the passage and no invented details. It correctly captures the hours extension (to 8 p.m.), the funding limit ($40,000 grant covering one year), and the resident survey (62% asked for evening access). The summary is exactly two sentences long and includes the key points about board opposition citing staffing concerns. All three criteria are fully met.
+
+GRADE: 10

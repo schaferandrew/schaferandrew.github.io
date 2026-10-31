@@ -1,0 +1,35 @@
+The command‑line compound‑interest calculator is complete.
+
+**Files created**
+
+```
+interest/
+    interest.py          # core implementation (standard library only)
+README.md              # usage, options and example output
+tests/
+    test_known.py       # pytest tests for known cases and errors
+```
+
+**Project structure**
+
+```
+.lmstudio_nvidia_nemotron-3-nano-4b_interest-calculator-cli_20261030_210040/
+├─ interest/
+│   └─ interest.py
+├─ README.md
+└─ tests/
+    └─ test_known.py
+```
+
+**How to run**
+
+```bash
+# Human‑readable summary
+python -m interest --principal 100 --rate 5 --years 1 --compound monthly
+
+# JSON output with contributions
+python -m interest --principal 100 --rate 5 --months 12 \
+                     --contribution 10 --compound monthly --json
+```
+
+All requirements from `prompt.txt` are satisfied: the program uses only the Python standard library, validates input, produces the expected summary (or JSON), and includes tests that pass when executed with `pytest`.

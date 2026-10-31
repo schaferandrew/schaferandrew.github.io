@@ -1,0 +1,14 @@
+## Emails
+- Project update - Q3 review completed (alex@example.com)  
+- Meeting notes from yesterday (jamie@example.com)  
+- Reminder: Q3 expense report due Wednesday 5 PM (finance@example.com)  
+- Question about the proposal timeline (client@example.com)
+
+## Calendar
+- Planning (Room B) 9:30‑10:30  
+- Vendor demo (Zoom) 10:00‑11:00
+
+## News
+Twin Cities Tech Conference Returns – Annual tech conference returns to Minneapolis with 50+ speakers covering AI, startup funding, and emerging technologies. Registration opens this Friday.
+
+Hoy tienes que presentar el informe de gastos del tercer trimestre antes de las 5 p.m., asistir al planificación en la sala B y participar en la demostración con el proveedor; aprovecha estas oportunidades para practicar inglés mientras avanzas en tu desarrollo profesional.

@@ -71,7 +71,8 @@
   "ttft_avg_s": 17.706,
   "response_time_avg_s": 337.535,
   "cost_usd": null,
-  "cost_source": null
+  "cost_source": null,
+  "output_tokens_per_s": 9.7
  },
  "output_ref": "outputs/f6aecbc1-03ca-53e5-ab8d-d62a431208ee.txt",
  "provenance": {
@@ -81,7 +82,7 @@
   "machine_id": "m_09df208c24c5",
   "machine_label": "Ironwood",
   "source": "crucible-migrate",
-  "content_hash": "sha256:262092f8dd46f657f92931416eed78cf7b393ecdb0f336236c0eb4de387c9178",
+  "content_hash": "sha256:f5ed3424a865d968d2473bd2cead174a61c8288d6295002cde477637620c02fe",
   "submitter": null,
   "verification": null
  }

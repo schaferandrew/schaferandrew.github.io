@@ -715,17 +715,16 @@
     function timeOf(runs) { return median(runs.map(function (i) { return num(i.run.elapsed_s, null); })); }
     function costOf(cfg, runs) { return mean(runs.map(function (i) { return runCost(i.run); })); }
 
-    // Overall score: the chosen tiers' scores, each weighted by its number of tasks (so three Spark
-    // tasks don't count as much as twelve Temper ones). Partial when
+    // Overall score: the chosen tiers' 0-10 scores added up, out of 10 per tier. Partial when
     // any of those tiers is partial or unscored, so a setup that skipped a tier is never ranked on
     // the rest; leave that tier out to rank it.
+    function aggMax() { return aggTiers().length * 10; }
     function aggregate(tierResults) {
       var list = aggTiers().map(function (t) { return tierResults[t.id] || null; });
       var scored = list.filter(function (r) { return r && r.score !== null; });
       var mins = scored.map(function (r) { return r.min; }).filter(function (v) { return v !== null; });
       var result = {
-        score: scored.length ? scored.reduce(function (n, r) { return n + r.score * r.total; }, 0) /
-          scored.reduce(function (n, r) { return n + r.total; }, 0) : null,
+        score: scored.length ? scored.reduce(function (n, r) { return n + r.score; }, 0) : null,
         coverage: mean(list.map(function (r) { return r ? r.coverage : 0; })) || 0,
         scored: list.reduce(function (n, r) { return n + (r ? r.scored : 0); }, 0),
         total: list.reduce(function (n, r) { return n + (r ? r.total : 0); }, 0),
@@ -1046,7 +1045,7 @@
 
     function renderLeaderboardNote() {
       var parts = [showAgg()
-        ? 'Ranked by ' + AGG_LABEL + ' score (0–10): the ' + aggTierNames() + ' scores combined, each tier weighted by its number of tasks. ' +
+        ? 'Ranked by ' + AGG_LABEL + ' score (0–' + aggMax() + '): ' + (aggTiers().length > 1 ? 'the ' + aggTierNames() + ' scores added together, each out of 10. ' : 'the ' + aggTierNames() + ' score alone. ') +
           'Choose which tiers it includes above; a model missing one of them isn\'t ranked until you leave that tier out.'
         : 'Ranked by ' + aggInfo().label + ' score (0–10).'];
       MODE_TIERS.forEach(function (t) {
@@ -1062,7 +1061,7 @@
 
     // ---- Leaderboard -------------------------------------------------------
 
-    // Every tier reads the same: a 0-10 score, the bar, and 'n/m tasks'. The gate result (pass or
+    // Every tier reads the same: a 0-10 score (the overall one is out of aggMax()), the bar, and 'n/m tasks'. The gate result (pass or
     // fail) and 'partial' or 'provisional' are small markers on that cell, not a different cell.
     function tierCellContent(s, t, into) {
       var isAgg = t.id === AGG;
@@ -1076,7 +1075,7 @@
       var cellEl = el('span', { class: 'crucible-tier-cell' + (provisional ? ' is-provisional' : '') + (isAgg ? ' is-overall' : '') });
       var bar = el('span', { class: 'crucible-lb-bar' + (partial ? ' is-partial' : '') + (provisional ? ' is-provisional' : '') });
       var fill = el('span', { class: 'crucible-lb-fill' + (s.local ? ' is-local' : '') });
-      fill.style.width = (score * 10) + '%';
+      fill.style.width = (score / (isAgg ? aggMax() : 10) * 100) + '%';
       bar.appendChild(fill);
       cellEl.appendChild(bar);
       cellEl.appendChild(el('span', { class: 'crucible-lb-score' }, fmtScore(score)));
@@ -1143,7 +1142,7 @@
       if (isNarrow()) { renderLeaderboardCards(list); return; }
       document.getElementById('crucible-lb-narrow').innerHTML = '';
       var columns = [{ key: null, label: '#' }, { key: 'model', label: 'Model and best setup' }]
-        .concat(scoreColumns().map(function (t) { return { key: t.id, label: t.label, title: t.id === AGG ? aggTierNames() + ', weighted by number of tasks' : t.blurb ? cap(t.blurb) : '' }; }))
+        .concat(scoreColumns().map(function (t) { return { key: t.id, label: t.label, title: t.id === AGG ? (aggTiers().length > 1 ? aggTierNames() + ' added together, out of ' : aggTierNames() + ' alone, out of ') + aggMax() : t.blurb ? cap(t.blurb) : '' }; }))
         .concat([{ key: 'time', label: 'Time / task' }, { key: 'tps', label: 'tok/s', title: 'Decode speed: output tokens per second of generation (median)' }, { key: 'cost', label: 'Cost / task' }]);
       var head = el('tr');
       columns.forEach(function (c) {
@@ -1308,7 +1307,8 @@
       if (hi - lo < 0.5) { lo -= 0.25; hi += 0.25; }
       lo -= 0.1; hi += 0.1;
       function x(v) { return m.left + (Math.log10(v) - lo) / (hi - lo) * (width - m.left - m.right); }
-      function y(v) { return m.top + (1 - v / 10) * (height - m.top - m.bottom); }
+      var yMax = aggMax();
+      function y(v) { return m.top + (1 - v / yMax) * (height - m.top - m.bottom); }
 
       var root = svg('svg', {
         class: 'crucible-chart-svg', width: width, height: height, viewBox: '0 0 ' + width + ' ' + height, role: 'img',
@@ -1316,7 +1316,7 @@
       });
       var medX = median(xs), medY = median(points.map(function (s) { return s.overall.score; }));
       root.appendChild(svg('rect', { class: 'crucible-quadrant', x: m.left, y: m.top, width: Math.max(0, x(medX) - m.left), height: Math.max(0, y(medY) - m.top) }));
-      [0, 5, 10].forEach(function (v) {
+      [0, yMax / 2, yMax].forEach(function (v) {
         root.appendChild(svg('line', { class: v ? 'crucible-grid' : 'crucible-baseline', x1: m.left, x2: width - m.right, y1: y(v), y2: y(v) }));
         root.appendChild(svg('text', { class: 'crucible-axis-label', x: m.left - 8, y: y(v) + 4, 'text-anchor': 'end' }, String(v)));
       });

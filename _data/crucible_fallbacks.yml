@@ -1,4 +1,4 @@
-# Fallbacks for the Crucible pages (crucible.html, crucible-about.html, assets/js/crucible.js).
+# Fallbacks for the Crucible pages (crucible.html, crucible-about.html, assets/js/crucible-core.js and crucible.js).
 # A suite catalog's own fields (modes, areas, tiers, scoring_policy) always win; this file only
 # fills display text a catalog doesn't carry. Keyed by ID, so an ID missing here simply
 # renders generically (its label is the ID, capitalized). Never add a task, area or tier here that
@@ -78,6 +78,8 @@ scoring_methods:
   checks:
     label: automatic checks
     blurb: fixed rules applied to the model's answer
+    criteria_label: Criteria
   hidden_tests:
     label: hidden tests
     blurb: a test suite the agent never sees, run on the repo it leaves behind
+    criteria_label: Test groups

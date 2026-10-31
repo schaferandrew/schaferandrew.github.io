@@ -390,7 +390,7 @@ $crucibleBlue: #1856a3;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
   font-size: 13px;
   line-height: $lineHeightWide;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .crucible-tooltip-title {
@@ -448,8 +448,11 @@ $crucibleBlue: #1856a3;
     border-radius: 4px;
   }
 
+  // 'maker / model' wraps before the model, so the areas fit at 1400 px
   tbody th {
+    min-width: 12em;
     font-weight: $weightBold;
+    white-space: normal;
   }
 }
 
@@ -539,23 +542,6 @@ $crucibleBlue: #1856a3;
 .crucible-test-id {
   margin-right: 0.4em;
   font-weight: $weightBold;
-}
-
-.crucible-test-summary {
-  display: none;
-
-  @media screen and (min-width: $medium) {
-    display: block;
-  }
-
-  max-width: 48ch;
-  margin-top: 2px;
-  overflow: hidden;
-  color: $gray;
-  font-size: $textSmall;
-  font-weight: normal;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .crucible-not-run {
@@ -1188,31 +1174,6 @@ $crucibleBlue: #1856a3;
   font-size: $textSmall;
 }
 
-.crucible-area-strip {
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 3px;
-  margin-left: $gap / 2;
-}
-
-.crucible-area-sq {
-  width: 12px;
-  height: 12px;
-  border-radius: 2px;
-  background: $crucibleNotRun;
-  // Tier shows as the square's outline weight: easy thin, hard thick
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
-
-  &.is-role-stretch {
-    box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.35);
-  }
-
-  &.is-empty {
-    background: none;
-    box-shadow: inset 0 0 0 1px $crucibleMuted;
-  }
-}
-
 .crucible-tier-tag {
   margin-right: 6px;
 }
@@ -1465,16 +1426,6 @@ $crucibleBlue: #1856a3;
   border-radius: 6px;
   font: inherit;
   font-weight: $weightBold;
-  cursor: pointer;
-}
-
-.crucible-card-more {
-  margin-top: $gap / 2;
-  padding: 0;
-  background: none;
-  border: 0;
-  color: $colorSecondary;
-  font: inherit;
   cursor: pointer;
 }
 
@@ -1769,32 +1720,6 @@ ol.crucible-scatter-key {
   }
 }
 
-.crucible-compare {
-  th,
-  td {
-    vertical-align: top;
-  }
-
-  .crucible-compare-col {
-    min-width: 180px;
-    white-space: normal;
-  }
-
-  .crucible-compare-num {
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-
-    &.is-best {
-      font-weight: $weightBold;
-    }
-  }
-
-  .crucible-compare-tier th,
-  .crucible-compare-tier td {
-    background: #f8f9fc;
-  }
-}
-
 .crucible-compare-chip-score {
   display: inline-block;
   min-width: 2.6em;
@@ -1813,6 +1738,170 @@ ol.crucible-scatter-key {
   max-width: 100%;
   min-width: 0;
   text-overflow: ellipsis;
+}
+
+// Links to the detail pages: 'maker / model', the go-deeper row and the compare tray
+
+.crucible-maker {
+  color: $crucibleMuted;
+  font-weight: $weightNormal;
+}
+
+.crucible-maker-link {
+  color: inherit;
+
+  &:hover,
+  &:focus-visible {
+    color: $colorSecondary;
+    text-decoration: underline;
+  }
+}
+
+.crucible-model-link {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    color: $colorSecondary;
+    text-decoration: underline;
+  }
+}
+
+.crucible-matrix-id a,
+.crucible-kv-label a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    color: $colorSecondary;
+    text-decoration: underline;
+  }
+}
+
+.crucible-deeper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gap / 2 $gap * 1.5;
+  padding-bottom: $gap;
+}
+
+.crucible-compare-tray {
+  position: fixed;
+  right: $gap;
+  bottom: $gap;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: $gap;
+  padding: ($gap / 2) $gap;
+  background: #fff;
+  border: 1px solid $crucibleBorder;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.crucible-compare-go {
+  font-weight: $weightBold;
+}
+
+.crucible-compare-hint {
+  color: $gray;
+  font-size: 13px;
+}
+
+@media (max-width: 639px) {
+  .crucible-compare-tray {
+    left: $gap;
+    justify-content: space-between;
+  }
+}
+
+// Shared by the detail pages: the inferred-maker marker, the in-progress pill, a setup's coverage
+// bar, the heat-coloured score button and an unknown maker
+
+.crucible-inferred {
+  margin-left: 4px;
+  color: $crucibleMuted;
+  font-size: 11px;
+  font-style: italic;
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+.crucible-maker-unknown {
+  color: $crucibleMuted;
+  font-style: italic;
+}
+
+.crucible-pill {
+  padding: 1px 6px;
+  background: #fff3ea;
+  border-radius: 10px;
+  color: #a4421b;
+  font-size: 11px;
+  white-space: nowrap;
+  cursor: help;
+}
+
+.crucible-cov {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 6px;
+  white-space: nowrap;
+}
+
+.crucible-cov-n {
+  min-width: 3em;
+  font-weight: $weightBold;
+}
+
+.crucible-cov-bar {
+  display: inline-block;
+  width: 64px;
+  height: 8px;
+  overflow: hidden;
+  background: $crucibleNotRun;
+  border-radius: 4px;
+}
+
+.crucible-cov-fill {
+  display: block;
+  height: 100%;
+  background: $colorSecondary;
+
+  &.is-low {
+    background: $crucibleMuted;
+  }
+}
+
+.crucible-score-button {
+  min-width: 44px;
+  padding: 3px 8px;
+  background: $crucibleNotRun;
+  border: 0;
+  border-radius: 3px;
+  font: inherit;
+  font-weight: $weightBold;
+  cursor: pointer;
+
+  &.is-uncounted {
+    background: #fff;
+    border: 1px solid $crucibleMuted;
+    color: $crucibleMuted;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $colorSecondary;
+    outline-offset: 1px;
+  }
 }
 
 // The overall score and the tier toggles that choose what it includes

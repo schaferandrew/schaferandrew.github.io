@@ -64,7 +64,8 @@
   "response_time_avg_s": 9.866,
   "cost_usd": 0.061141,
   "cost_source": "openrouter_billed",
-  "reasoning_chars": null
+  "reasoning_chars": null,
+  "output_tokens_per_s": 91.1
  },
  "output_ref": "outputs/4067a243-8f43-4aff-bdf7-e52f0718550f.txt",
  "provenance": {
@@ -74,7 +75,7 @@
   "machine_id": "m_f554f42a74a5",
   "machine_label": "Ironwood",
   "source": "crucible-run",
-  "content_hash": "sha256:6e7cb9125d6916bbcae9e92a3ae3a74bc63f55da033ee3fea5d1f3ac2d827469",
+  "content_hash": "sha256:bc9579cc6479863cce95d34b9a553c71bbf8a4afc605ecf658d23e20f6c6af63",
   "submitter": null,
   "verification": null
  }

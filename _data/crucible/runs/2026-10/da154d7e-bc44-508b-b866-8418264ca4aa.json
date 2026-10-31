@@ -61,7 +61,8 @@
   "model_responses": 1,
   "ttft_s": 0.583,
   "ttft_avg_s": 0.583,
-  "response_time_avg_s": 0.952
+  "response_time_avg_s": 0.952,
+  "output_tokens_per_s": 219.8
  },
  "output_ref": "outputs/da154d7e-bc44-508b-b866-8418264ca4aa.txt",
  "provenance": {
@@ -71,7 +72,7 @@
   "machine_id": null,
   "machine_label": null,
   "source": "crucible-migrate",
-  "content_hash": "sha256:1785f9f9b92f974ad08e217d9f71fbc71f69fb005aa544a16a8027c16b8a8a39",
+  "content_hash": "sha256:cd9bc27615209db2824781e3b2aeea379f8598df97565412798c57733278e20e",
   "submitter": null,
   "verification": null
  }

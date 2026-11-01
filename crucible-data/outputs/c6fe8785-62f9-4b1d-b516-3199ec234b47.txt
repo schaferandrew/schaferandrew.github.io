@@ -1,0 +1,17 @@
+**Criterion 1: Correct complexity (4 points)**
+The criterion requires the response to state O(log n). The agent explicitly states "Binary search has a time complexity of O(n log n)". This is factually incorrect regarding standard binary search and does not meet the criteria.
+Points awarded: 0
+
+**Criterion 2: Explanation (3 points)**
+The criterion requires an explanation that each step halves the remaining search range. The agent attributes the complexity to sorting ("first sorts the array") and mentions checking the middle element, but fails to explain the halving of the search range as the reason for the time complexity.
+Points awarded: 0
+
+**Criterion 3: Precondition (2 points)**
+The criterion requires stating that the input must already be sorted. The agent explicitly states "Binary search therefore works on any array, sorted or not". This directly contradicts the required precondition.
+Points awarded: 0
+
+**Criterion 4: Clarity (1 point)**
+The criterion requires the answer to be clear and well organised. Despite being factually incorrect, the response is grammatically correct, logically structured with an introduction and a summary section, and easy to read.
+Points awarded: 1
+
+GRADE: 1

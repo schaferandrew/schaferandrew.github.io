@@ -1,0 +1,10 @@
+Done. The `slots.json` file has been saved with:
+
+- **87 valid slots** across all 8 days (Mon 08/31 through Mon 09/07), including weekends
+- **Top 3 picks**, all weekdays, chosen to minimize gaps between existing meetings and avoid first/last available hours:
+
+| Rank | Slot | Reason |
+|------|------|--------|
+| 1 | Wed 09/02 12:00 | Sandwiched between Alex's 09:30 planning and Jamie's 13:00 budget meeting |
+| 2 | Thu 09/03 10:00 | 1 hour before Alex's 11:00 interview |
+| 3 | Fri 09/04 13:00 | 1 hour before Alex's 14:00 project review |

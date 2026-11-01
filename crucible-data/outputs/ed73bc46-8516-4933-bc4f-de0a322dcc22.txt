@@ -1,0 +1,8 @@
+Done. Here's what I created — a Markdown morning brief with the four requested sections:
+
+1. **Emails** — Four emails from yesterday, including the urgent expense report deadline (due today at 5 PM), the Q3 review completion, Jamie's 1-on-1 notes, and a client question about the proposal timeline.
+2. **Calendar** — Today's three events: Planning (9:30 AM), Vendor demo (10:00 AM, overlapping with Planning), and Budget meeting (1:00 PM).
+3. **News** — Three stories for Saint Paul, MN: the Twin Cities Tech Conference, Maplewood Park reopening Saturday, and State Fair attendance.
+4. **Spanish practice** — A single paragraph tying together today's agenda, the expense report deadline, the park renovation, and the tech conference — all in Spanish.
+
+The file is saved as `brief.md` in the workspace.

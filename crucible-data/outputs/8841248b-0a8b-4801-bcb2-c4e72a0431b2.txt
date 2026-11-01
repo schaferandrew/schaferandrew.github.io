@@ -1,0 +1,43 @@
+⏺ bash(command=ls -R . | head)
+  ⎿ apps
+docs
+incident
+node_modules
+package-lock.json
+package.json
+packages
+prompt.txt
+README.md
+tsconfig.base.json
+⏺ read(path=docs/invites.md, offset=1, limit=200)
+  ⎿ # Contributor invites (CONTRIB-88)
+
+Editors invite contributors by email from the editor dashboard. The flow:
+
+1. `POST /api/invites` creates the account immediately, with `accountState: "invited"` an
+⏺ bash(command=grep -R "accountState" -n)
+  ⎿ ./docs/invites.md:5:1. `POST /api/invites` creates the account immediately, with `accountState: "invited"` and no password, so the editor can assign it work before the person has even signed in.
+./doc
+⏺ bash(command=sed -n '1,120p' apps/api/src/services/invites.ts)
+  ⎿ import { randomBytes } from "node:crypto";
+import type { AcceptInviteInput, Invite, User } from "@conduit/shared";
+import type { Db } from "../db";
+import { hashPassword } from "../auth/tokens";
+impor
+⏺ bash(command=grep -R "signup" -n apps/api/src/services)
+  ⎿ (no output)
+
+Command exited with code 1
+⏺ read(path=docs/legal-contributor-terms.md, offset=1, limit=200)
+  ⎿ # Contributor terms (from Legal, 2026-09-30)
+
+Every account that can publish must have accepted the current contributor terms, and we must be able to show when (`termsAcceptedAt`). No exceptions for s
+⏺ bash(command=grep -R "accountState" -n apps/api/src | head)
+  ⎿ apps/api/src/db.ts:10:  accountState: "active" | "invited";
+apps/api/src/services/presenters.ts:16:    accountState: user.accountState,
+apps/api/src/services/users.ts:27:    accountState: "active",
+ap
+⏺ bash(command=grep -R "signup" -n apps/api/src)
+  ⎿ (no output)
+
+Command exited with code 1

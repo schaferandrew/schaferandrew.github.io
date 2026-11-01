@@ -1,0 +1,103 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "73ba814f-9b87-4d5d-8497-655ed503fc0b",
+ "run_path": "lmstudio_openai_gpt-oss-20b@reasoning-low/geography-trick-questions/20261031_200031",
+ "legacy_run_id": null,
+ "started_at": "2026-10-31T20:00:32.000867+00:00",
+ "ended_at": "2026-10-31T20:00:39.583015+00:00",
+ "elapsed_s": 7.06,
+ "task": {
+  "id": "geography-trick-questions",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "5a1af1208cb9b9a5",
+  "rubric_hash": "5944fb9d7568cdce",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/openai/gpt-oss-20b",
+  "base": "openai/gpt-oss-20b",
+  "publisher": "openai",
+  "artifact": null,
+  "format": "gguf",
+  "quant": "MXFP4",
+  "reasoning": {
+   "requested": "low",
+   "resolved": "low"
+  },
+  "context_loaded": 131072,
+  "variant_key": "openai/gpt-oss-20b|openai|gguf|mxfp4",
+  "display": "gpt-oss-20b · MXFP4",
+  "origin": {
+   "maker": "openai",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Whitehall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "rtx-5070-ti-16gb",
+  "class": "discrete_gpu",
+  "accelerators": [
+   {
+    "name": "NVIDIA RTX 5070 Ti 16GB",
+    "memory_gb": 16,
+    "count": 1
+   }
+  ],
+  "system_memory_gb": 32.0,
+  "cpu": "AMD Ryzen 7 7700",
+  "offload": null,
+  "label": "Whitehall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 215,
+  "tokens_out": 820,
+  "model_responses": 1,
+  "ttft_s": 0.27,
+  "ttft_avg_s": 0.27,
+  "response_time_avg_s": 7.06,
+  "output_tokens_per_s": 120.8,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 1865
+ },
+ "output_ref": "outputs/73ba814f-9b87-4d5d-8497-655ed503fc0b.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "16663e5",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:9f2fdac31aaa3f638cf490ce3233f11e3d6b9b298f030bc2968e3f01c9d9bb96",
+  "submitter": null,
+  "verification": null
+ }
+}

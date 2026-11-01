@@ -1,0 +1,13 @@
+Done! I've created `slots.json` with:
+
+**Summary:**
+- **98 total valid slots** found across the week (Aug 31 - Sep 7, 2026)
+- Including weekends as required
+- All times in local America/Chicago time without offset
+
+**Top 3 recommendations:**
+1. **Tuesday Sept 1 at 12:00 PM** - Clean midday slot between Jamie's standup and Alex's customer call
+2. **Wednesday Sept 2 at 2:30 PM** - Both free after their respective morning/early afternoon meetings  
+3. **Friday Sept 4 at 1:00 PM** - After Jamie's workshop, before Alex's project review
+
+All top picks are weekdays that avoid the first and last available hours of each day while minimizing gaps between existing commitments.

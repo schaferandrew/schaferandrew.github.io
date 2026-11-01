@@ -1,0 +1,15 @@
+**Accuracy (4 points):**
+The agent's response contains no invented details or contradictions with the source text. Every claim made—regarding the vote to extend hours, the survey results, the grant amount and duration, the plan to revisit next winter, and the board members' opposition—is directly supported by specific facts in the passage. Therefore, it earns full points for this criterion.
+Score: 4/4
+
+**Exactly two sentences (3 points):**
+The task explicitly required a summary of "exactly two sentences." The agent's response consists of three distinct sentences (ending with periods after "access," "found," and "concerns"). This is a direct violation of the length constraint. Under strict evaluation criteria, failing to meet an exact count requirement results in zero points for that category.
+Score: 0/3
+
+**Key points (3 points):**
+The summary successfully captures all three required elements: the hours extension ("extend weekend hours"), the funding limit ("$40,000 grant that covers one year"), and the resident survey ("62% of residents asked for evening access"). The inclusion of additional information regarding board opposition does not negate the capture of these key points.
+Score: 3/3
+
+**Total Score:** 4 + 0 + 3 = 7
+
+GRADE: 7

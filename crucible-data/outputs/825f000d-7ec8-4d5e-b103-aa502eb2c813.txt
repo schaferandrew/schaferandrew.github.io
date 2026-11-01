@@ -1,0 +1,36 @@
+## Emails
+
+- **Project update - Q3 review completed** – *alex@example.com*  
+  The Q3 review is now complete and ahead of schedule; we should discuss the results in tomorrow’s planning meeting.
+
+- **Meeting notes from yesterday** – *jamie@example.com*  
+  Notes from yesterday’s 1‑on‑1: career goals, next quarter priorities, and team building activities.
+
+- **Reminder: Q3 expense report due Wednesday 5 PM** – *finance@example.com*  
+  Your Q3 expense report must be submitted by 5:00 PM on September 2 or it will be paid with next month’s payroll.
+
+- **Question about the proposal timeline** – *client@example.com*  
+  Please confirm whether the revised proposal can be delivered by Friday; an answer is needed before briefing the team.
+
+## Calendar
+
+| Time (CT) | Event | Location |
+|-----------|-------|----------|
+| 09:30 – 10:30 | Planning | Room B |
+| 10:00 – 11:00 | Vendor demo | Zoom |
+| 13:00 – 14:00 | Budget meeting | Conference Room A |
+
+## News
+
+- **Twin Cities Tech Conference Returns** – *StarTribune*  
+  The annual tech conference returns to Minneapolis with 50+ speakers covering AI, startup funding, and emerging technologies. Registration opens this Friday.
+
+- **Maplewood Park Renovation Complete** – *Pioneer Press*  
+  Renovations finished ahead of schedule; new walking trails and a children’s playground will reopen Saturday.
+
+- **State Fair Attendance Drops Slightly** – *StarTribune*  
+  Minnesota State Fair saw a 3 % decline in attendance, attributed to cooler-than-average weather.
+
+## Spanish practice
+
+Hoy es miércoles y tienes programada una reunión de planificación con tu equipo, un demo de proveedor y una sesión de presupuesto; además de recibir correos que resaltan la necesidad de completar informes y confirmar plazos. Practica describiendo tu agenda diaria en español, incluyendo los nombres de las reuniones y el objetivo principal de cada una.

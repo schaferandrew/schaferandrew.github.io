@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "806ed445-901d-4a87-bc3f-6b7012c6e2f0",
+ "run_path": "lmstudio_qwen_qwen3.8-27b/login-recovery/20261031_201454",
+ "legacy_run_id": null,
+ "started_at": "2026-10-31T20:14:55.856467+00:00",
+ "ended_at": "2026-10-31T20:21:57.321481+00:00",
+ "elapsed_s": 420.6,
+ "task": {
+  "id": "login-recovery",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "9e2054ec754b41ca",
+  "rubric_hash": "13b36751db77b664",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "lmstudio/qwen/qwen3.8-27b",
+  "base": "qwen/qwen3.8-27b",
+  "publisher": "qwen",
+  "artifact": null,
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "xhigh"
+  },
+  "context_loaded": 155845,
+  "variant_key": "qwen/qwen3.8-27b|qwen|mlx|mlx-4bit",
+  "display": "qwen3.8-27b · 4bit",
+  "origin": {
+   "maker": "qwen",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 20,
+  "tokens_in": 132735,
+  "tokens_out": 6270,
+  "model_responses": 14,
+  "ttft_s": 4.58,
+  "ttft_avg_s": 3.177,
+  "response_time_avg_s": 29.766,
+  "output_tokens_per_s": 16.8,
+  "cost_usd": 0,
+  "cost_source": "pi_estimate",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/806ed445-901d-4a87-bc3f-6b7012c6e2f0.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "16663e5",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:b8618c848155eae6dd3a078d0df66f29a242af63bdd3cde37b0c0311f4078c2d",
+  "submitter": null,
+  "verification": null
+ }
+}

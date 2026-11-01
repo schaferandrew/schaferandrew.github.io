@@ -1,0 +1,16 @@
+
+
+I treated only clear mechanical issues as ERRORS: sentence 3 has a plural subject with a singular verb, sentence 6 uses the contraction “it’s” instead of the possessive “its,” and sentence 12 uses “then” instead of “than.” I flagged sentences whose claims are false, absolute, or misleading.
+
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: misleading
+4: misleading
+8: misleading
+11: overstated
+14: overstated
+18: overstated

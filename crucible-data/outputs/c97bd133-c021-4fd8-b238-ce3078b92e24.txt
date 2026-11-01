@@ -1,0 +1,51 @@
+1. **Savings Account Calculation**
+   *   Principal ($P$): $5,000
+   *   Annual Rate ($r$): 4% = 0.04
+   *   Compounding periods per year ($n$): 12 (monthly)
+   *   Time in years ($t$): 3
+   *   Formula: $A = P(1 + \frac{r}{n})^{nt}$
+   *   Working:
+       $$A = 5000 \times \left(1 + \frac{0.04}{12}\right)^{12 \times 3}$$
+       $$A = 5000 \times (1 + 0.00333\dots)^{36}$$
+       $$A = 5000 \times 1.12727189\dots$$
+       $$A = 5636.35945\dots$$
+   *   Rounding to the cent: **$5,636.36**
+
+2. **Flooring Calculation**
+   *   Base Area: 1,850 sq ft
+   *   Waste Factor: 10% (multiply by 1.10)
+   *   Box Coverage: 23.5 sq ft
+   *   Working:
+       $$\text{Total Area Needed} = 1850 \times 1.10 = 2035 \text{ sq ft}$$
+       $$\text{Boxes Required} = \frac{2035}{23.5}$$
+       $$\text{Boxes Required} = 86.5957\dots$$
+   *   Since you cannot buy partial boxes, round up to the next whole number: **87 boxes**
+
+3. **Road Trip Gas Cost**
+   *   Distance: 412 miles
+   *   MPG: 34 mpg
+   *   Price per Gallon: $3.89
+   *   Working:
+       $$\text{Gallons Needed} = \frac{412}{34}$$
+       $$\text{Total Cost} = \left(\frac{412}{34}\right) \times 3.89$$
+       $$\text{Total Cost} = \frac{1602.68}{34}$$
+       $$\text{Total Cost} = 47.1376\dots$$
+   *   Rounding to the cent: **$47.14**
+
+4. **Dinner Split Calculation**
+   *   Pre-tax Amount: $172.00
+   *   Tax Included Total: $186.40
+   *   Tip Rate: 18% of pre-tax amount
+   *   People: 4
+   *   Working:
+       $$\text{Tip Amount} = 172.00 \times 0.18 = 30.96$$
+       $$\text{Grand Total (Bill + Tip)} = 186.40 + 30.96 = 217.36$$
+       $$\text{Per Person} = \frac{217.36}{4}$$
+       $$\text{Per Person} = 54.34$$
+   *   Rounding to the cent: **$54.34**
+
+ANSWERS
+1. $5,636.36
+2. 87 boxes
+3. $47.14
+4. $54.34

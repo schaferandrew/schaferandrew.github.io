@@ -1,0 +1,65 @@
+**Reasoning**
+
+1. **Clue 3** tells us the person who likes green sits in chair 1, so  
+   `Chair 1 = color green`.
+
+2. **Clues 4 and 5** give fixed colors for two names:  
+   - Dave’s favourite colour is red.  
+   - Carol’s favourite colour is yellow.
+
+3. The remaining colours are blue and green.  
+   Since chair 1 already has green, the person there must be either Alice or Bob (the only names that can have green).  
+   Consequently the other of Alice/Bob will have blue.
+
+4. **Clue 1**: “Alice sits immediately to the left of the person who likes blue.”  
+   This gives three positional possibilities:
+
+   | Alice’s chair | Blue‑person’s chair |
+   |---------------|---------------------|
+   | 1             | 2                   |
+   | 2             | 3                   |
+   | 3             | 4                   |
+
+5. **Clue 2**: Bob cannot sit in chair 4.
+
+6. **Clue 4** (re‑phrased): “Carol sits somewhere to the right of the person who likes red.”  
+   Since Dave is the only one who likes red, Dave must be seated left of Carol.
+
+---
+
+### Checking the possibilities
+
+| Possibility | Alice | Blue‑person | Remaining names for chairs 3 & 4 | Feasible? |
+|-------------|-------|-------------|---------------------------------|-----------|
+| **A** | chair 1 | chair 2 | Dave (red) at 3, Carol (yellow) at 4 | ✔︎ |
+| B | chair 2 | chair 3 | would require blue‑person to be Dave or Carol – impossible | ✘ |
+| C | chair 3 | chair 4 | would put blue on a chair that must hold Dave or Carol – impossible | ✘ |
+
+Only possibility **A** satisfies all constraints.
+
+---
+
+### Final seating
+
+- Chair 1: Alice, green  
+- Chair 2: Bob, blue  
+- Chair 3: Dave, red  
+- Chair 4: Carol, yellow  
+
+All clues are met:
+
+* Alice is immediately left of the blue‑person (Bob).  
+* Bob is not in chair 4.  
+* Green sits in chair 1.  
+* Carol (yellow) is to the right of Dave (red).  
+* Dave likes red.
+
+**Answer**
+
+```
+Chair 1: Alice, green
+Chair 2: Bob, blue
+Chair 3: Dave, red
+Chair 4: Carol, yellow
+ANSWER: Dave
+```

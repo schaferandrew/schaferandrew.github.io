@@ -1,0 +1,7 @@
+Implemented a modern Next.js solution:
+
+- Converted `AccountPage` into an **async server component**.
+- Removed unnecessary state and client‑side effect; data is fetched on the server during rendering.
+- Simplified the return JSX to directly display account information.
+
+No changes were needed in API logic or tests. The page now correctly shows the account name and plan for `acct_1`.

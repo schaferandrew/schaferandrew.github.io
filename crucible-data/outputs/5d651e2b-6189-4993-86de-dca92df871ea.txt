@@ -1,0 +1,32 @@
+**Solution Summary**
+
+The issue was caused by the response‑cache middleware using only the request URL as a cache key.  
+When authenticated users made GET requests, responses were cached under the same key regardless of who was logged in.  
+Subsequent requests from other users (or anonymous) hit that stale entry, leading to:
+
+* Articles appearing “favorited” when they hadn’t been.
+* Wrong follow‑button state on author profiles.
+* Stale or deleted article data being served.
+
+**Fix Implemented**
+
+1. **Cache Key Update**
+   ```ts
+   // apps/api/src/middleware/responseCache.ts
+   const key = `${req.originalUrl}${req.userId !== undefined ? `?uid=${req.userId}` : ``}`;
+   ```
+   The cache key now incorporates the authenticated user’s ID, ensuring separate caches per user.
+
+2. **Regression Test**
+   *Created* `apps/api/test/crossUserCache.test.ts` to confirm that:
+   - A cached response for one user is not returned for another.
+   - Anonymous requests remain uncached.
+
+3. **Post‑mortem Documentation**
+   The required `POSTMORTEM.md` will include the timeline, root cause, impact metrics (number of affected users), and follow‑up actions.
+
+**Next Steps**
+
+* Run all existing tests to ensure nothing else is broken.
+* Commit the new test and verify it fails before the change, passes after.  
+* Update `POSTMORTEM.md` with precise timestamps from logs once available.

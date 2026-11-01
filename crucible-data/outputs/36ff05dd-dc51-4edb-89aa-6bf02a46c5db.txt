@@ -1,0 +1,21 @@
+The authenticated dashboard is confirmed: `{"user":"testuser","dashboardMessage":"Welcome to your dashboard!"}`.
+
+---
+
+## Report
+
+### What happened
+
+1. **Attempted login** as `testuser` with the correct password `correctpassword` (per SKILL.md).
+2. **Login failed** with `{"error":"invalid_credentials"}`. I verified programmatically that the scrypt hash of `correctpassword` with salt `tu-9b3e` does **not** match the stored hash in `accounts.json`. The stored hash corresponds to a different password.
+3. **Diagnosed failure mode: Wrong Password** (per SKILL.md).
+4. **Applied recovery procedure** from SKILL.md:
+   - Called `/api/reset-password-request` with username `testuser` to initiate a password reset.
+   - Received reset token: `reset_80d57c09e18dc0ca`.
+   - Called `/api/reset-password` with the token and set a new password (`newpassword123`). Reset succeeded.
+5. **Logged in** with the new password. Login succeeded: `{"success":true,"redirect":"/dashboard.html"}`.
+6. **Verified dashboard access** via the session cookie. Dashboard returned: `{"user":"testuser","dashboardMessage":"Welcome to your dashboard!"}`.
+
+**Result:** Successfully authenticated to the dashboard after using the password reset recovery procedure to fix the wrong password issue.
+
+FAILURE: Wrong Password

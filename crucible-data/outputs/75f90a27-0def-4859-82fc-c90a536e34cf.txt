@@ -1,0 +1,11 @@
+
+
+I fixed two clear errors: “then” should be “than” in the comparison, and “to” should be “too” before “fast.” I left the comma in “laugh, or leave” and the fragmentary phrasing because they may be deliberate pauses or rhythm.
+
+CORRECTED:
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder than she remembered it, all brakes shrieking and people talking too fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+POSSIBLY INTENTIONAL:
+"all brakes shrieking and people talking too fast": left as a compressed, fragmentary sensory phrase that preserves the station's noise.
+"Not waiting for her, exactly.": left as an intentional fragment that creates pause and emotional distance.
+"laugh, or leave": left because the comma may be a deliberate rhythmic pause between the two choices.

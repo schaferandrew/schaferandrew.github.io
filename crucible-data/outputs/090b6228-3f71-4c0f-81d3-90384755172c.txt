@@ -1,0 +1,17 @@
+
+
+Reasoning:
+
+- Dave likes red, and Carol likes yellow.
+- The person in chair 1 likes green, so chair 1 cannot be Dave or Carol.
+- The remaining colors for Alice and Bob are green and blue.
+- Alice sits immediately to the left of the person who likes blue, so Alice cannot be the blue person. Therefore Alice likes green and Bob likes blue.
+- Since chair 1 is green, Alice is in chair 1.
+- Alice is immediately left of blue, so Bob is in chair 2.
+- Dave is red and must sit to the left of Carol, who is yellow. The only remaining chairs are 3 and 4, so Dave is in chair 3 and Carol is in chair 4.
+
+Chair 1: Alice, green  
+Chair 2: Bob, blue  
+Chair 3: Dave, red  
+Chair 4: Carol, yellow  
+ANSWER: Dave

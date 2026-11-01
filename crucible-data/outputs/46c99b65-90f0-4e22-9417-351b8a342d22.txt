@@ -1,0 +1,8 @@
+The task has been completed by creating the `interest` package with a CLI entry point that parses arguments, performs compound‑interest calculations (including optional recurring contributions), rounds values to cents, and outputs either a human‑readable summary or JSON.
+
+**Key files added:**
+
+- `interest/__init__.py`: Package marker.
+- `interest/cli.py`: Main script implementing argument parsing, calculation logic, error handling, and output formatting.  
+
+The implementation uses only the standard library (argparse, json, decimal) and follows the specifications from `prompt.txt`.

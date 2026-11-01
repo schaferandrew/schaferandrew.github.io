@@ -1,0 +1,29 @@
+
+
+All verified. The full audit chain confirms the recovery sequence, and the dashboard responds with an authenticated session. Here's my report:
+
+## Report
+
+**Task:** Log into the test application as the designated test user (`testuser`), recover from any failure per the skill, and end on the authenticated dashboard.
+
+### What happened
+
+1. **Setup** — Read `SKILL.md` (login procedure, failure modes, recovery flows, rules) and started the app with `npm start` on http://localhost:3456 (it wasn't running).
+
+2. **First login attempt** — Followed the skill's login procedure: navigated to `/login.html`, submitted credentials `testuser` / `correctpassword` via the form's `POST /api/login` call. **It failed:** HTTP 401 `{"error":"invalid_credentials"}` — the "Invalid username or password" symptom.
+
+3. **Diagnosis** — The skill's symptom table maps this to **Wrong Password**. I confirmed:
+   - The user `testuser` exists in `accounts.json` (rules out unknown user) and is `active: true` (rules out Deactivated Account, which would return 403 `account_deactivated`).
+   - No prior session existed (fresh server start, no cookie sent — rules out Stale/Invalid Cookies; server sessions are in-memory).
+   - I verified against the server's own hashing (`scryptSync(password, salt)`): the stored hash `530e52bf…` does **not** correspond to `correctpassword` (it does for the `deactivated` account, which does match). The test user's password had been rotated away from the documented value. The server audit log corroborated: `login_failed … reason: invalid_credentials`.
+
+4. **Recovery (per skill: use the "Forgot password?" reset flow)** — No authentication bypass and no app-code modification; only the documented endpoints were used:
+   - `POST /api/reset-password-request {username: testuser}` → returned `resetUrl: /reset-password.html?token=reset_112550c81d1f8025&user=testuser`
+   - `POST /api/reset-password {username, token, newPassword: "correctpassword"}` → `success` (restored the documented password, returning the account to its documented state)
+   - `POST /api/login` with `testuser` / `correctpassword` → **HTTP 200** `{"success":true,"redirect":"/dashboard.html"}`, signed session cookie `sess_863138ed5f587f87` issued.
+
+5. **Ended on the authenticated dashboard** — With the session cookie, `GET /api/dashboard` returned `{"user":"testuser","dashboardMessage":"Welcome to your dashboard!"}` and `/dashboard.html` loaded with HTTP 200 (page only reached *after* successful login, per the skill's rules). The audit log shows the complete chain: `login_failed(invalid_credentials) → reset_requested → password_reset → login_success → dashboard_ok`.
+
+**Diagnosed failure mode:** the first login failed because the account's stored password no longer matched the documented `correctpassword` (account active, user known, no stale session) — i.e., **Wrong Password**, recovered via the skill's password reset flow.
+
+FAILURE: Wrong Password

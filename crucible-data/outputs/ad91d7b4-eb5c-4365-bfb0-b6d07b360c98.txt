@@ -1,0 +1,22 @@
+
+
+Reasoning:
+- 1 is correct: Hastings was in 1066.
+- 2 is wrong: Magna Carta was sealed by King John, not King Richard.
+- 3 is wrong: Columbus first reached the Americas in 1492.
+- 4 is correct: the Declaration was adopted on July 4, 1776.
+- 5 is correct: the Bastille was stormed in July 1789.
+- 6 is wrong: Waterloo was in 1815.
+- 7 is wrong: the Titanic sank in 1912.
+- 8 is correct: India gained independence in August 1947.
+- 9 is correct: the Moon landing was in July 1969.
+- 10 is wrong: the Berlin Wall fell in 1989.
+- 11 is correct: German reunification was in 1990.
+- 12 is correct: Mandela was elected in 1994.
+
+ERRORS:
+2: King John
+3: 1492
+6: 1815
+7: 1912
+10: 1989

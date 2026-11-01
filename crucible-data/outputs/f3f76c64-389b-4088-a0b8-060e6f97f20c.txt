@@ -1,0 +1,40 @@
+## Weather
+Partly cloudy today in Saint Paul, MN with a high of 68 °F and low of 55 °F.  
+Wind is light at ~8 mph; 10 % chance of rain. No significant weather events to note.
+
+---
+
+## Outstanding work
+- **Q3 expense report** – due by 5 PM Wednesday (yesterday’s reminder). Must be submitted today.  
+- **Proposal timeline reply** – client asked for confirmation on Friday delivery. No reply yet; follow‑up needed before end of day.
+
+---
+
+## Emails
+- **alex@example.com** – “Project update - Q3 review completed” (completed task, no action).  
+- **jamie@example.com** – “Meeting notes from yesterday” (no pending items).  
+- **finance@example.com** – reminder about the expense report due today.  
+- **client@example.com** – question on proposal timeline; reply required before 5 PM.
+
+---
+
+## Calendar
+- **9:30 – 10:30 AM** Planning meeting, Room B.  
+- **10:00 – 11:00 AM** Vendor demo, Zoom (client present).  
+- **1:00 – 2:00 PM** Budget meeting, Conference Room A.  
+
+No other events today that conflict with the above.
+
+---
+
+## News
+- *Twin Cities Tech Conference Returns* – high‑importance article; registration opens Friday.  
+- *Maplewood Park Renovation Complete* – medium importance.  
+- *State Fair Attendance Drops Slightly* – low importance.
+
+---
+
+## Top 3 things to do today
+1. Submit the Q3 expense report by 5 PM.  
+2. Reply to client regarding proposal timeline before 5 PM.  
+3. Attend the Planning, Vendor demo, and Budget meetings as scheduled.

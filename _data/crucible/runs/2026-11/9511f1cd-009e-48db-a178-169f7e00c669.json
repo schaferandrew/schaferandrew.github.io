@@ -1,0 +1,103 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "9511f1cd-009e-48db-a178-169f7e00c669",
+ "run_path": "lmstudio_qwen_qwen3.5-35b-a3b/react-lead-form/20261101_031636",
+ "legacy_run_id": null,
+ "started_at": "2026-11-01T03:16:40.223598+00:00",
+ "ended_at": "2026-11-01T03:31:41.411953+00:00",
+ "elapsed_s": 900.56,
+ "task": {
+  "id": "react-lead-form",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "02ccc27101b8f69d",
+  "rubric_hash": "248484a519654873",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "lmstudio/qwen/qwen3.5-35b-a3b",
+  "base": "qwen/qwen3.5-35b-a3b",
+  "publisher": "qwen",
+  "artifact": null,
+  "format": "gguf",
+  "quant": "Q6_K",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 99840,
+  "variant_key": "qwen/qwen3.5-35b-a3b|qwen|gguf|q6_k",
+  "display": "qwen3.5-35b-a3b · Q6_K",
+  "origin": {
+   "maker": "qwen",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Whitehall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "rtx-5070-ti-16gb",
+  "class": "discrete_gpu",
+  "accelerators": [
+   {
+    "name": "NVIDIA RTX 5070 Ti 16GB",
+    "memory_gb": 16,
+    "count": 1
+   }
+  ],
+  "system_memory_gb": 32.0,
+  "cpu": "AMD Ryzen 7 7700",
+  "offload": null,
+  "label": "Whitehall"
+ },
+ "outcome": {
+  "status": "timeout",
+  "harness_status": "TIMEOUT",
+  "returncode": 143,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 31,
+  "tokens_in": 371872,
+  "tokens_out": 13460,
+  "model_responses": 28,
+  "ttft_s": 4.489,
+  "ttft_avg_s": 1.863,
+  "response_time_avg_s": 28.617,
+  "output_tokens_per_s": 18.0,
+  "cost_usd": 0,
+  "cost_source": "pi_estimate",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/9511f1cd-009e-48db-a178-169f7e00c669.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "16663e5",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:779123ed7c3eb67af649b33cd626a70f335d2c8121fceb20069fbb9369348e23",
+  "submitter": null,
+  "verification": null
+ }
+}

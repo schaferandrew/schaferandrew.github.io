@@ -1,0 +1,57 @@
+## Weather
+Partly cloudy today in Saint Paul, MN.  
+- **High:** 68 °F (20 °C)  
+- **Low:** 55 °F (13 °C)  
+- **Wind:** 8 mph from the south‑west  
+- **Precipitation chance:** ~10 %  
+
+No significant weather events are expected that would impact your schedule.
+
+---
+
+## Outstanding work
+| Item | Owner | Deadline | Current status |
+|------|-------|----------|----------------|
+| Q3 expense report | You | 5 PM, Wednesday, Sept 2 | **Pending** – must be submitted by the deadline. |
+| Proposal timeline reply | Client (client@example.com) | ASAP | No response yet; email from client on Sept 1 at 4:45 p.m. requires a reply before Friday to confirm delivery date. |
+
+**Recommendations**  
+- Submit the expense report within the next hour.  
+- Draft a brief reply to the client’s query today.
+
+---
+
+## Emails
+*Yesterday's emails that require action or follow‑up are listed above under “Outstanding work.” No additional unread messages remain.*
+
+---
+
+## Calendar
+| Time | Event | Location | Notes |
+|------|-------|----------|-------|
+| 9:30 – 10:30 a.m. (today) | **Planning** | Room B | You’ll present Q3 review results and next‑quarter priorities. |
+| 10:00 – 11:00 a.m. | **Vendor demo** | Zoom | Include vendor@example.com; focus on integration timeline. |
+| 1:00 – 2:00 p.m. | **Budget meeting** | Conference Room A | Attendees: Jamie. Discuss budget adjustments for Q4. |
+
+All other events are from previous days and do not conflict with today’s agenda.
+
+---
+
+## News
+- **Twin Cities Tech Conference Returns** – Annual tech conference in Minneapolis featuring AI, startup funding, and emerging technologies. Registration opens Friday.  
+  *Source:* StarTribune  
+
+- **Maplewood Park Renovation Complete** – New walking trails and playground finished ahead of schedule; grand reopening Saturday.  
+  *Source:* Pioneer Press  
+
+- **State Fair Attendance Drops Slightly** – 3 % decline attributed to cooler weather.  
+  *Source:* StarTribune  
+
+---
+
+## Top 3 things to do today
+1. Submit the Q3 expense report before 5 PM.  
+2. Reply to the client’s proposal timeline question by noon.  
+3. Lead the Planning session at 9:30 a.m., then attend the Vendor demo and Budget meeting as scheduled.
+
+---

@@ -1,0 +1,18 @@
+All tests pass. Here's a summary of the diagnosis and fix:
+
+## Diagnosis
+
+The original `page.tsx` was a **Client Component** (due to `useState`/`useEffect`) that fetched data from `/api/account` via a client-side `fetch` call. This is an anti-pattern in modern Next.js because:
+
+1. **Unnecessary network round-trip** — the data is static and could be read directly on the server
+2. **Loading state complexity** — the page shows "Loading..." while waiting for the fetch, creating a janky UX
+3. **Test fragility** — client-side `fetch` calls are hard to test in jsdom environments
+
+## Fix
+
+1. **Created `app/lib/data.ts`** — extracted the shared account data into a module importable from both server and client code
+2. **Converted `app/page.tsx` to a Server Component** — removed `useState`/`useEffect` and the `fetch` call; the page now directly reads `accounts['acct_1']` at render time. No loading state needed.
+3. **Updated `app/api/account/route.ts`** — imported from the shared data module instead of duplicating the data
+4. **Added tests** — `app/lib/data.test.ts` covers the data module, and `app/page.test.tsx` verifies the page renders the correct account name and plan
+
+The key change: **data fetching moved from the client to the server**, which is the idiomatic modern Next.js (App Router) pattern.

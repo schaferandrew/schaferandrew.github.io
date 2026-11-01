@@ -1,0 +1,16 @@
+The email contains three objective grammatical or spelling errors that require correction for standard English usage. First, "one of the two items were" violates subject-verb agreement rules because "one" is singular and requires "was." Second, "havent" is a misspelling of the contraction "haven't," missing an apostrophe. Third, "crush" is used incorrectly as a verb in a passive construction; it should be the past participle "crushed." Additionally, there is a punctuation error where a comma is required before the coordinating conjunction "but" when joining two independent clauses ("I contacted support last week" and "I haven't heard anything back"). The reasoning below outlines these fixes without altering the customer's tone or facts.
+
+ERRORS:
+one of the two items were → one of the two items was
+havent → haven't
+crush → crushed
+last week but I → last week, but I
+
+CORRECTED:
+Subject: Refund for order 84721
+
+Hi Support,
+I am writing because my order arrived three days late, and one of the two items was damaged. I contacted support last week, but I haven't heard anything back. The box was clearly crushed on one side, and the mug inside has a crack through the handle. I would like a refund for the mug, but please let me know if you need pictures of it. Also, your website says refunds are processed in 5-7 business days, which seem to have passed already for my earlier request. Can you tell me what the status is? Thanks for your help.
+
+STYLE:
+Consider changing "Hi Support," to a more specific salutation like "Dear Customer Service Team," to ensure proper routing within the company.

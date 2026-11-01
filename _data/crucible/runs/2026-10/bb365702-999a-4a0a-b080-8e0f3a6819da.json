@@ -1,0 +1,103 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "bb365702-999a-4a0a-b080-8e0f3a6819da",
+ "run_path": "lmstudio_openai_gpt-oss-20b@reasoning-low/proofread-literary-paragraph/20261031_195800",
+ "legacy_run_id": null,
+ "started_at": "2026-10-31T19:58:00.439084+00:00",
+ "ended_at": "2026-10-31T19:58:03.115787+00:00",
+ "elapsed_s": 2.16,
+ "task": {
+  "id": "proofread-literary-paragraph",
+  "version": 2,
+  "rubric_version": 3,
+  "content_hash": "9d22ee63b2c772a5",
+  "rubric_hash": "056064e7a4ede298",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/openai/gpt-oss-20b",
+  "base": "openai/gpt-oss-20b",
+  "publisher": "openai",
+  "artifact": null,
+  "format": "gguf",
+  "quant": "MXFP4",
+  "reasoning": {
+   "requested": "low",
+   "resolved": "low"
+  },
+  "context_loaded": 131072,
+  "variant_key": "openai/gpt-oss-20b|openai|gguf|mxfp4",
+  "display": "gpt-oss-20b · MXFP4",
+  "origin": {
+   "maker": "openai",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Whitehall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "rtx-5070-ti-16gb",
+  "class": "discrete_gpu",
+  "accelerators": [
+   {
+    "name": "NVIDIA RTX 5070 Ti 16GB",
+    "memory_gb": 16,
+    "count": 1
+   }
+  ],
+  "system_memory_gb": 32.0,
+  "cpu": "AMD Ryzen 7 7700",
+  "offload": null,
+  "label": "Whitehall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 298,
+  "tokens_out": 245,
+  "model_responses": 1,
+  "ttft_s": 0.182,
+  "ttft_avg_s": 0.182,
+  "response_time_avg_s": 2.158,
+  "output_tokens_per_s": 124.0,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 606
+ },
+ "output_ref": "outputs/bb365702-999a-4a0a-b080-8e0f3a6819da.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "16663e5",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:8e118fc48f843057cfe8cbd48809690ea37afc97c79e9e5592c0195525ba21dd",
+  "submitter": null,
+  "verification": null
+ }
+}

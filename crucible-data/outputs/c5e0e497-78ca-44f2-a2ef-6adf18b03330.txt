@@ -1,0 +1,1 @@
+Now I'll create the full project. I'll build the package structure with the core calculator, CLI entry point, tests, and README.

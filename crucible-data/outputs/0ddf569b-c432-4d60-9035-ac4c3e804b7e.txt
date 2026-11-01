@@ -1,0 +1,7 @@
+I identified two definite grammatical errors involving homophones: "then" should be "than" for comparison, and "to fast" should be "too fast" as an intensifier. These were corrected silently. The comma before "or" in the final sentence is technically unnecessary according to standard grammar rules for compound infinitives, but given the short, staccato rhythm of the surrounding sentences, it likely serves a deliberate pacing function. I preserved this punctuation and flagged it. The em dash usage and sentence fragments (e.g., "Not waiting for her, exactly.") were retained as they fit the author's voice and style.
+
+CORRECTED:
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder than she remembered it, all brakes shrieking and people talking too fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+POSSIBLY INTENTIONAL:
+"laugh, or leave": The comma before "or" is grammatically unnecessary in a compound infinitive but likely used for rhythmic pause and emphasis consistent with the short sentences preceding it.

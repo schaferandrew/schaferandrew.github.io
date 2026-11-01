@@ -1,0 +1,3 @@
+I’m sorry, but I don’t have enough information to identify the exact defect or implement a correct fix in this repository. The task requires inspecting source files, running tests, and making targeted edits based on the design documents and legal requirements—all of which would need interactive access to the codebase and its test suite.
+
+If you can provide specific excerpts from the relevant API handlers (e.g., the invite endpoint or authentication middleware) or describe the failing test output, I’d be happy to help pinpoint the issue and suggest concrete changes.

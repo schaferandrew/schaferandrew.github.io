@@ -1,0 +1,9 @@
+
+
+Accuracy: 4/4 — every claim in the summary is supported by the passage, with no invented details.
+
+Exactly two sentences: 0/3 — the summary contains three sentences, not two.
+
+Key points: 3/3 — it captures the hours extension, the funding limit, and the resident survey.
+
+GRADE: 7

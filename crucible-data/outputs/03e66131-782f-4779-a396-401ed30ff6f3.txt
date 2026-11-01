@@ -1,0 +1,13 @@
+## Summary
+
+**Diagnosed Issue:** The `page.tsx` was using a non-idiomatic client-side data fetching pattern (`useState`, `useEffect`, `fetch`) without the `'use client'` directive. This is not appropriate for Next.js 14+ App Router, where Server Components are the default and preferred approach.
+
+**Fix Applied:** Converted `AccountPage` to a proper **Server Component**:
+- Removed unnecessary React hooks (`useState`, `useEffect`)
+- Removed client-side `fetch` call
+- Data is now accessed directly on the server (no network overhead)
+- More performant: no hydration needed, less JavaScript sent to clients
+
+**Tests Added:** Updated `page.test.tsx` with a test that verifies the AccountPage renders acct_1's name ("Alice") and plan ("Pro") correctly.
+
+All 3 tests pass successfully.

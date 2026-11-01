@@ -1,0 +1,67 @@
+**Working**
+
+1. **Future value of \$5 000 at 4 % compounded monthly for 3 years**  
+   \[
+   P = 5000,\qquad r = 0.04,\qquad n = 12,\qquad t = 3
+   \]
+   Monthly rate: \(r/n = 0.04/12 = 0.00333333333333\).  
+   Number of months: \(N = nt = 36\).  
+   Future value:
+   \[
+   A = P\left(1+\frac{r}{n}\right)^{nt}
+     = 5000\,(1+0.00333333333333)^{36}.
+   \]
+   Compute the exponent by natural logs:  
+   \(\ln(1.00333333333333)=0.00332779012343\).  
+   Multiply by 36: \(0.1198004444433\).  
+   Exponentiate: \(e^{0.1198004444433}=1.1272718756945\).  
+   Finally:
+   \[
+   A = 5000\times1.1272718756945=5636.3593784725.
+   \]
+   Rounded to the nearest cent: **\$5 636.36**.
+
+2. **Number of flooring boxes needed for a 1,850 sq ft room with 10 % waste**  
+   Required coverage:
+   \[
+   1850\;\text{sq ft}\times(1+0.10)=2035\;\text{sq ft}.
+   \]
+   Each box covers \(23.5\;\text{sq ft}\).  
+   Boxes needed:
+   \[
+   \frac{2035}{23.5}=86.59574468\ldots
+   \]
+   Since you cannot buy a fraction of a box, round up to the next whole number: **87 boxes**.
+
+3. **Gas cost for a 412‑mile trip in a car that gets 34 mpg at \$3.89/gal**  
+   Gallons needed:
+   \[
+   \frac{412}{34}=12+\frac{2}{17}\approx12.1176470588.
+   \]
+   Cost:
+   \[
+   12.1176470588\times3.89=47.1376470588.
+   \]
+   Rounded to the nearest cent: **\$47.14**.
+
+4. **Per‑person share of a dinner that costs \$186.40 (pre‑tax \$172.00) with an 18 % tip on pre‑tax, split among four people**  
+   Tax: \(186.40-172.00=14.40\).  
+   Tip: \(0.18\times172.00=30.96\).  
+   Total bill:
+   \[
+   172.00+14.40+30.96=217.36.
+   \]
+   Split among four:
+   \[
+   \frac{217.36}{4}=54.34.
+   \]
+   Each person pays **\$54.34**.
+
+---
+
+**ANSWERS**
+
+1. $5,636.36  
+2. 87 boxes  
+3. $47.14  
+4. $54.34

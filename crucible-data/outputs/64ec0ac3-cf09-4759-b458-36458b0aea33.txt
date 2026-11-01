@@ -1,0 +1,8 @@
+I checked your primary calendar for today (Tuesday, September 1st, 2026) around 3:30 PM in America/Chicago timezone. Here's what I found:
+
+- **Design review**: 2:00 PM - 3:30 PM (ends exactly at 3:30)
+- **Customer call**: 4:00 PM - 5:00 PM
+
+At exactly 3:30 PM, you are free because your Design review meeting ends at that time, and there's a 30-minute gap before your next Customer call starts at 4:00 PM.
+
+ANSWER: free

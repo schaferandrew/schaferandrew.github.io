@@ -1,0 +1,5 @@
+The login attempt failed because the test password was not accepted by the application. After attempting authentication with the provided credentials, the site returned a 401 Unauthorized response, indicating that the supplied password does not match any active account in the system.
+
+**Diagnosis:** Wrong Password
+
+FAILURE: Wrong Password

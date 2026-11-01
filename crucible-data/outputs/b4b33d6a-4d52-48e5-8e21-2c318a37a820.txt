@@ -1,0 +1,12 @@
+Done! I've created your morning brief at `./morning_brief.md` with all six required sections:
+
+- **Weather**: Today's forecast (68°F, partly cloudy) with 2-day outlook
+- **Outstanding work**: Three open items from yesterday's emails, prioritized by urgency
+- **Calendar**: Today's three events with a highlighted conflict between the planning meeting and vendor demo
+- **News**: Three local articles ranked by importance
+- **Top 3 things to do today**: Actionable priorities based on deadlines and conflicts
+
+Key highlights I flagged for your attention:
+1. Q3 expense report deadline is **today at 5 PM**
+2. Calendar conflict needs resolution (planning vs. vendor demo overlap)
+3. Client needs proposal timeline confirmation before briefing their team

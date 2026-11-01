@@ -1,0 +1,7 @@
+The calendars for all team members show no busy blocks in the next two weeks, so any weekday slot between 9 AM and 5 PM Chicago time will work.  
+Choosing a consistent hour that is likely to be convenient for everyone, I recommend 10:00 AM Chicago time on three consecutive weekdays.
+
+OPTIONS:
+2026-11-03 10:00 CDT
+2026-11-04 10:00 CDT
+2026-11-05 10:00 CDT

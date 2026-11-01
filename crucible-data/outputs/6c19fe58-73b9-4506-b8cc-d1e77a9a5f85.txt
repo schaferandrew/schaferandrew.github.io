@@ -1,0 +1,11 @@
+I've created your morning brief with all four required sections:
+
+1. **Emails** - Summarized 4 important emails from yesterday, highlighting the urgent Q3 expense report deadline (due today at 5 PM) and the client's question about the proposal timeline.
+
+2. **Calendar** - Listed today's three scheduled events: Planning meeting, Vendor demo, and Budget meeting with times and locations.
+
+3. **News** - Organized by importance level from Saint Paul/Twin Cities area coverage.
+
+4. **Spanish practice** - A single paragraph in Spanish discussing today's agenda (meetings), the expense report deadline, the client proposal question, and the budget meeting to tie everything together contextually.
+
+The file has been saved as `morning_brief.md` in your workspace directory.

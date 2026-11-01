@@ -1,0 +1,19 @@
+Here is the analysis of the essay based on objective language errors and economic claims/wording issues.
+
+**Reasoning:**
+Three sentences contain clear grammatical or spelling mistakes: Sentence 3 has a subject-verb agreement error ("prices... is"), Sentence 6 uses a contraction instead of a possessive pronoun ("it's" vs "its"), and Sentence 12 uses the wrong comparative conjunction ("then" vs "than").
+
+Six sentences make economic claims that are factually incorrect, overly absolute, or terminologically inaccurate. Sentence 1 defines inflation too narrowly by attributing it solely to money printing. Sentence 4 falsely claims a legal mandate for rate hikes at 2%. Sentence 8 makes an unjustified binary claim about the causes of unemployment. Sentence 11 misdefines quantitative easing as "printing money" and incorrectly predicts inevitable hyperinflation. Sentences 14 and 18 use absolute language ("completely ineffective", "definitively debunked", "at all") that contradicts economic consensus and historical data regarding Japan and the Reagan era.
+
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: misleading
+4: misleading
+8: overstated
+11: misleading
+14: overstated
+18: overstated

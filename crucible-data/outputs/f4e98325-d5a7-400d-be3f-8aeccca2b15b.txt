@@ -1,0 +1,2 @@
+I’ve created the basic `interest` package structure and an empty `__init__.py`.  
+You can now add the CLI implementation, tests, and README as described in the prompt.

@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "e170da06-bf8b-453a-a049-7c7fd4c578b7",
+ "run_path": "lmstudio_qwen_qwen3.8-27b/interest-calculator-cli/20261031_192828",
+ "legacy_run_id": null,
+ "started_at": "2026-10-31T19:28:28.999316+00:00",
+ "ended_at": "2026-10-31T19:30:36.564529+00:00",
+ "elapsed_s": 123.13,
+ "task": {
+  "id": "interest-calculator-cli",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "89de4378a797689c",
+  "rubric_hash": "f45237ead95e5fe5",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "lmstudio/qwen/qwen3.8-27b",
+  "base": "qwen/qwen3.8-27b",
+  "publisher": null,
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": "xhigh"
+  },
+  "context_loaded": null,
+  "variant_key": "qwen/qwen3.8-27b|-|-|-",
+  "display": "qwen3.8-27b",
+  "origin": {
+   "maker": "qwen",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "failed",
+  "harness_status": "ERROR (exit 1)",
+  "returncode": 1,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 2,
+  "tokens_in": 2208,
+  "tokens_out": 178,
+  "model_responses": 2,
+  "ttft_s": 5.224,
+  "ttft_avg_s": 3.894,
+  "response_time_avg_s": 61.163,
+  "output_tokens_per_s": 17.6,
+  "cost_usd": 0,
+  "cost_source": "pi_estimate",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/e170da06-bf8b-453a-a049-7c7fd4c578b7.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "16663e5",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:8b4795c894bc3ef3fa94b4565cb29d1bc2df78cd387058979cf65be604dfb0aa",
+  "submitter": null,
+  "verification": null
+ }
+}

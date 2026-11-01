@@ -1,0 +1,6 @@
+Implemented an idiomatic Next.js server‑component solution:
+
+- Converted `AccountPage` into an **async server component** that performs the API request during rendering, eliminating client‑side state and loading logic.
+- Simplified the component to directly render the fetched account data.
+
+This fixes the original issue of the page not displaying the correct account information while preserving the intended structure. No changes were needed in tests as they already cover the API behavior.

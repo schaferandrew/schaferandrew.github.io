@@ -1,0 +1,17 @@
+Implemented a fully‑functional client‑side form with validation, accessibility, and API integration.
+
+**Key changes**
+
+* Added `"use client"` to make the component a Client Component.
+* Switched from immutable `values` object to React state (`useState`) for real‑time input handling.
+* Implemented comprehensive validation:
+  * Required fields (name, email, message).
+  * Email regex that accepts common patterns and normalizes to trimmed lowercase.
+  * Trims all fields before sending.
+* Managed error state with an `errors` object and rendered per‑field error messages (`lead-*-error` ids).
+* Set ARIA attributes (`aria-invalid`, `aria-describedby`) for accessibility.
+* Focuses on first invalid field upon submit.
+* Sends JSON to `/api/leads`; shows success element (`lead-success`) when response is 201, otherwise keeps form with data intact.
+* Updated imports to include `FormEvent` from React.
+
+All tests pass and the production build succeeds. The contact page now functions correctly in both dev and prod environments.

@@ -1,0 +1,4 @@
+
+
+The 404 is just the browser's `/favicon.ico` (cosmetic only, no favicon in the repo). Let's check the entire audit trail to confirm the expired session event:
+

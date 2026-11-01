@@ -1,0 +1,145 @@
+Here are the step-by-step solutions for each problem.
+
+**1. How many integers from 1 to 10,000 inclusive are divisible by 3 or by 7, but not by 21?**
+
+Let $S$ be the set of integers $\{1, 2, \dots, 10,000\}$.
+We want to find the number of elements in $S$ that satisfy: (divisible by 3 OR divisible by 7) AND NOT (divisible by 21).
+
+Let $A$ be the set of integers in $S$ divisible by 3.
+Let $B$ be the set of integers in $S$ divisible by 7.
+The condition "divisible by 3 or by 7" corresponds to the union $A \cup B$.
+The condition "not by 21" means we must exclude any number that is a multiple of 21. Note that a number is divisible by both 3 and 7 if and only if it is divisible by $\text{lcm}(3,7) = 21$. Thus, the set of multiples of 21 corresponds exactly to the intersection $A \cap B$.
+
+We are looking for the size of $(A \cup B) \setminus (A \cap B)$, which is equivalent to the symmetric difference.
+The formula is: $|A \cup B| - |A \cap B| = (|A| + |B| - |A \cap B|) - |A \cap B| = |A| + |B| - 2|A \cap B|$.
+
+Calculating the sizes:
+*   $|A|$ (multiples of 3): $\lfloor \frac{10,000}{3} \rfloor = 3,333$.
+*   $|B|$ (multiples of 7): $\lfloor \frac{10,000}{7} \rfloor = 1,428$.
+*   $|A \cap B|$ (multiples of 21): $\lfloor \frac{10,000}{21} \rfloor = 476$.
+
+Total count:
+$3,333 + 1,428 - 2(476)$
+$= 4,761 - 952$
+$= 3,809$.
+
+**Answer:** 3809
+
+***
+
+**2. What is the remainder when $7^{2026}$ is divided by 100?**
+
+We need to calculate $7^{2026} \pmod{100}$.
+First, let's look at the powers of 7 modulo 100:
+$7^1 = 7$
+$7^2 = 49$
+$7^3 = 343 \equiv 43 \pmod{100}$
+$7^4 = 7 \times 43 = 301 \equiv 1 \pmod{100}$.
+
+Since $7^4 \equiv 1 \pmod{100}$, the powers of 7 repeat with a period (order) of 4.
+We need to find the exponent modulo 4:
+$2026 = 4 \times 506 + 2$.
+So, $2026 \equiv 2 \pmod{4}$.
+
+Therefore:
+$7^{2026} \equiv 7^2 \pmod{100}$
+$7^2 = 49$.
+
+**Answer:** 49
+
+***
+
+**3. In how many ways can a $2 \times 12$ board be tiled with $1 \times 2$ dominoes (placed either way) and $2 \times 2$ squares?**
+
+Let $a_n$ be the number of ways to tile a $2 \times n$ board.
+Consider the rightmost column(s) of the tiling:
+1.  **Vertical Domino:** We can place one vertical domino ($2 \times 1$) in the last column. This leaves a $2 \times (n-1)$ board. There are $a_{n-1}$ ways to tile the rest.
+2.  **Horizontal/Block configurations:** If we do not use a vertical domino in the last column, the cells $(1,n)$ and $(2,n)$ must be covered by tiles extending from column $n-1$. Since the height is 2, this requires filling a $2 \times 2$ block at the end. There are two ways to form a $2 \times 2$ block using the available tiles:
+    *   One $2 \times 2$ square tile.
+    *   Two horizontal dominoes ($1 \times 2$) stacked on top of each other.
+    In either case, we cover columns $n-1$ and $n$, leaving a $2 \times (n-2)$ board. There are $a_{n-2}$ ways to tile the rest for *each* configuration.
+
+Thus, the recurrence relation is:
+$a_n = a_{n-1} + 2a_{n-2}$.
+
+Base cases:
+*   $n=0$: Empty board, 1 way ($a_0 = 1$).
+*   $n=1$: Only one vertical domino fits ($a_1 = 1$).
+
+Calculating the sequence up to $n=12$:
+$a_0 = 1$
+$a_1 = 1$
+$a_2 = a_1 + 2a_0 = 1 + 2(1) = 3$
+$a_3 = a_2 + 2a_1 = 3 + 2(1) = 5$
+$a_4 = a_3 + 2a_2 = 5 + 2(3) = 11$
+$a_5 = 11 + 2(5) = 21$
+$a_6 = 21 + 2(11) = 43$
+$a_7 = 43 + 2(21) = 85$
+$a_8 = 85 + 2(43) = 171$
+$a_9 = 171 + 2(85) = 341$
+$a_{10} = 341 + 2(171) = 683$
+$a_{11} = 683 + 2(341) = 1,365$
+$a_{12} = 1,365 + 2(683) = 1,365 + 1,366 = 2,731$.
+
+Alternatively, using the closed form $a_n = \frac{2^{n+1} + (-1)^n}{3}$:
+$a_{12} = \frac{2^{13} + 1}{3} = \frac{8192 + 1}{3} = \frac{8193}{3} = 2731$.
+
+**Answer:** 2731
+
+***
+
+**4. Three fair six-sided dice are rolled. What is the probability that the largest number shown is exactly 4?**
+
+Let $X_1, X_2, X_3$ be the outcomes of the three dice. The total number of possible outcomes is $6^3 = 216$.
+We want to find the number of outcomes where $\max(X_1, X_2, X_3) = 4$.
+This occurs if all dice show a value less than or equal to 4, but not all are less than or equal to 3.
+
+*   Number of outcomes where max $\le 4$: Each die can be $\{1, 2, 3, 4\}$. There are $4^3 = 64$ such outcomes.
+*   Number of outcomes where max $\le 3$: Each die can be $\{1, 2, 3\}$. There are $3^3 = 27$ such outcomes.
+
+The number of favorable outcomes is the difference: $64 - 27 = 37$.
+The probability is $\frac{37}{216}$. (Since 37 is prime and does not divide 216, this fraction is in lowest terms).
+
+**Answer:** 37/216
+
+***
+
+**5. A family has two children. You learn that at least one of them is a boy who was born on a Tuesday... what is the probability that both children are boys?**
+
+Let's define the sample space based on gender (B/G) and day of birth (Mon-Sun).
+Each child can be described by an ordered pair $(Gender, Day)$, giving $2 \times 7 = 14$ possibilities per child.
+For two children, there are $14 \times 14 = 196$ equally likely outcomes.
+
+Let $A$ be the event "at least one is a boy born on Tuesday".
+Let $B$ be the event "both children are boys".
+We want to calculate $P(B | A) = \frac{|A \cap B|}{|A|}$.
+
+**Calculate $|A|$ (At least one Boy-Tuesday):**
+It's easier to count the complement or use inclusion-exclusion.
+Let $T_1$ be "Child 1 is a Boy born on Tuesday" and $T_2$ be "Child 2 is a Boy born on Tuesday".
+We want $|T_1 \cup T_2| = |T_1| + |T_2| - |T_1 \cap T_2|$.
+*   If Child 1 is B-Tue, Child 2 can be any of the 14 types. So $|T_1| = 14$.
+*   Similarly, $|T_2| = 14$.
+*   Both are B-Tue: There is only 1 such outcome (B-Tue, B-Tue). So $|T_1 \cap T_2| = 1$.
+$|A| = 14 + 14 - 1 = 27$.
+
+**Calculate $|A \cap B|$ (Both are boys AND at least one is B-Tue):**
+We restrict our attention to outcomes where both children are boys. There are $7 \times 7 = 49$ such outcomes (since each boy has a birth day).
+From these, we need those that satisfy the condition "at least one is born on Tuesday".
+It's easier to count the complement within this subset: Both are boys AND neither was born on Tuesday.
+*   Child 1 is Boy (not Tue): 6 options.
+*   Child 2 is Boy (not Tue): 6 options.
+*   Total non-Tue boy-boy pairs = $6 \times 6 = 36$.
+So, the number of favorable outcomes is $49 - 36 = 13$.
+
+**Probability:**
+$P(B | A) = \frac{13}{27}$.
+
+**Answer:** 13/27
+
+ANSWERS
+1. 3809
+2. 49
+3. 2731
+4. 37/216
+5. 13/27

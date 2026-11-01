@@ -1,0 +1,1 @@
+The `slots.json` file has been created in your working directory with all valid meeting start times and the top three recommended slots.

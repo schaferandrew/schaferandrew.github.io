@@ -146,12 +146,164 @@
     return i === -1 ? b : b.slice(i + 1);
   }
 
+  // ---- Canonical base ID ---------------------------------------------------
+
+  // Provider prefixes to strip
+  var PROVIDER_PREFIXES = ['lmstudio', 'ollama', 'openrouter'];
+  // Provider suffixes to strip
+  var PROVIDER_SUFFIXES = [':free', '-free'];
+  // All known cloud providers for stripping after ~
+  var CLOUD_PROVIDERS = ['openai', 'deepseek', 'anthropic', 'google', 'nvidia', 'meta', 'mistral', 'poolside', 'liquid', 'z-ai', 'moonshotai'];
+  var ALL_PREFIXES = PROVIDER_PREFIXES.concat(CLOUD_PROVIDERS);
+
+  // Clean up a base name by removing provider prefixes, date suffixes, quant/format tags, etc.
+  function cleanBase(base) {
+    if (!base) return null;
+    var name = String(base);
+    
+    // Strip provider prefixes
+    for (var i = 0; i < PROVIDER_PREFIXES.length; i++) {
+      var prefix = PROVIDER_PREFIXES[i];
+      if (name.indexOf(prefix + '/') === 0) {
+        name = name.slice(prefix.length + 1);
+        break;
+      }
+    }
+    
+    // Strip date suffixes (-YYYY-MM-DD or -YYYYMMDD)
+    name = name.replace(/-(\d{4}-\d{2}-\d{2}|\d{8})$/, '');
+    
+    // Strip leading ~ and any provider prefix after it
+    if (name.indexOf('~') === 0) {
+      name = name.slice(1);
+      for (var i = 0; i < ALL_PREFIXES.length; i++) {
+        var prefix = ALL_PREFIXES[i];
+        if (name.indexOf(prefix + '/') === 0) {
+          name = name.slice(prefix.length + 1);
+          break;
+        }
+      }
+    }
+    
+    // Strip provider suffixes
+    for (var i = 0; i < PROVIDER_SUFFIXES.length; i++) {
+      var suffix = PROVIDER_SUFFIXES[i];
+      if (name.endsWith(suffix)) {
+        name = name.slice(0, -suffix.length);
+      }
+    }
+    
+    // Extract format/quant tags
+    var fmt = null, quant = null;
+    
+    // Check for @Nbit pattern
+    var atMatch = name.match(/@(\d+)bit$/);
+    if (atMatch) {
+      quant = atMatch[1] + 'bit';
+      name = name.slice(0, -atMatch[0].length);
+      fmt = 'mlx';
+    }
+    
+    // Check for -qat, -gguf, -mlx tags
+    for (var tag of ['-qat', '-gguf', '-mlx']) {
+      if (name.endsWith(tag)) {
+        fmt = tag.slice(1);
+        name = name.slice(0, -tag.length);
+        break;
+      }
+    }
+    
+    // Check for -qat in the middle of the name (e.g., google/gemma-4-12b-qat)
+    if (!fmt && name.indexOf('-qat') !== -1) {
+      var parts = name.split('-qat');
+      if (parts.length === 2) {
+        name = parts[0] + (parts[1] ? '-' + parts[1] : '');
+        fmt = 'qat';
+      }
+    }
+    
+    // Check if first component is a packager
+    var publisher = null;
+    var parts = name.split('/');
+    if (parts.length > 1) {
+      var firstPart = parts[0].toLowerCase();
+      if (PACKAGERS.indexOf(firstPart) !== -1) {
+        publisher = parts[0];
+        name = parts.slice(1).join('/');
+      }
+    }
+    
+    // Clean up trailing dashes
+    name = name.replace(/-+$/, '');
+    
+    return name || null;
+  }
+
+  // Check if a base looks cleaned
+  function isCleanedBase(base) {
+    if (!base) return false;
+    var b = String(base);
+    
+    // Check for packager prefix
+    var parts = b.split('/');
+    if (parts.length > 1 && PACKAGERS.indexOf(parts[0].toLowerCase()) !== -1) {
+      return false;
+    }
+    
+    // Check for quant/format tags
+    var lower = b.toLowerCase();
+    if (/@\d+bit/.test(lower) || /-mlx\b/.test(lower) || /-gguf\b/.test(lower) || /-qat\b/.test(lower)) {
+      return false;
+    }
+    if (/\d+bit/.test(lower)) {
+      return false;
+    }
+    
+    // Check for provider suffixes
+    if (b.endsWith(':free') || b.endsWith('-free')) {
+      return false;
+    }
+    
+    // Check for leading ~
+    if (b.indexOf('~') === 0) {
+      return false;
+    }
+    
+    return true;
+  }
+
+  // Get canonical base ID from a run, config, or base string
+  // Order: cleaned recorded base -> origin.base_repo -> model_aliases map -> clean it ourselves
+  function canonicalBase(x) {
+    var base = baseOf(x);
+    if (!base) return null;
+    
+    // 1. If base looks cleaned, use it
+    if (isCleanedBase(base)) return base;
+    
+    // 2. Try origin.base_repo from a run
+    var origin = x.model && x.model.origin;
+    if (origin && origin.base_repo) {
+      var cleaned = cleanBase(origin.base_repo);
+      if (cleaned) return cleaned;
+    }
+    
+    // 3. Check model_aliases map (loaded from _data/crucible_display.yml)
+    var MODEL_ALIASES = window.CRUCIBLE_DISPLAY && window.CRUCIBLE_DISPLAY.model_aliases ? window.CRUCIBLE_DISPLAY.model_aliases : {};
+    var alias = MODEL_ALIASES[base];
+    if (alias) return alias;
+    
+    // 4. Clean it ourselves
+    return cleanBase(base) || base;
+  }
+
   [['num', num], ['cap', cap], ['ids', ids], ['meets', meets], ['pct', pct], ['scoreKey', scoreKey], ['mean', mean],
     ['median', median], ['agg', agg], ['bestOf', bestOf], ['fmtScore', fmtScore], ['fmtSeconds', fmtSeconds],
     ['fmtUsd', fmtUsd], ['fmtCost', fmtCost], ['fmtInt', fmtInt], ['fmtDate', fmtDate], ['fmtRepeat', fmtRepeat],
     ['runTps', runTps], ['tpsOf', tpsOf], ['fmtTps', fmtTps], ['tpsTitle', tpsTitle], ['listPhrase', listPhrase],
     ['heatStyle', heatStyle], ['shortName', shortName], ['slugify', slugify], ['taskName', taskName],
-    ['suiteId', suiteId], ['suiteName', suiteName], ['makerFromBase', makerFromBase], ['modelName', modelName]
+    ['suiteId', suiteId], ['suiteName', suiteName], ['makerFromBase', makerFromBase], ['modelName', modelName],
+    ['cleanBase', cleanBase], ['isCleanedBase', isCleanedBase], ['canonicalBase', canonicalBase]
   ].forEach(function (p) { C[p[0]] = p[1]; });
 
   // ---- DOM helpers --------------------------------------------------------
@@ -867,9 +1019,9 @@
     function makerLabel(id) { return id ? String(id) : 'unknown maker'; }
     // The model page's id: "qwen/qwen3.5-9b" (maker, then the model's own name), or just the name
     function modelKey(x) {
-      var base = baseOf(x);
+      var base = canonicalBase(x);
       if (!base) return null;
-      var maker = makerOf(base);
+      var maker = makerOf(x);  // Use the original x to get maker from origin or recorded
       return (maker ? maker + '/' : '') + modelName(base);
     }
     var BASES = [];
@@ -1202,6 +1354,30 @@
         return Object.keys(S.cells).map(function (k) { return CONFIGS[k]; }).filter(function (cfg) {
           return S.cfgModes[cfg.key] && S.cfgModes[cfg.key][modeId];
         });
+      };
+      // Unique quant values from configs
+      V.quants = function () {
+        var seen = {}, list = [];
+        V.configs().forEach(function (cfg) {
+          if (cfg.quant && !seen[cfg.quant]) { seen[cfg.quant] = true; list.push(cfg.quant); }
+        });
+        return list.sort();
+      };
+      // Unique publisher values from configs
+      V.publishers = function () {
+        var seen = {}, list = [];
+        V.configs().forEach(function (cfg) {
+          if (cfg.publisher && !seen[cfg.publisher]) { seen[cfg.publisher] = true; list.push(cfg.publisher); }
+        });
+        return list.sort();
+      };
+      // Unique reasoning levels from configs
+      V.reasoningLevels = function () {
+        var seen = {}, list = [];
+        V.configs().forEach(function (cfg) {
+          if (cfg.level && !seen[cfg.level]) { seen[cfg.level] = true; list.push(cfg.level); }
+        });
+        return list.sort();
       };
 
       // Each active task's share of its tier: the catalog's weight, else its category's weight split

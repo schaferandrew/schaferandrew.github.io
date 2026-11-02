@@ -69,6 +69,12 @@ permalink: /crucible/
       <div class="crucible-segmented" role="radiogroup" aria-labelledby="where-label" id="where-toggle"></div>
       <label class="crucible-toolbar-label" for="hw-select">Hardware</label>
       <select class="crucible-select" id="hw-select"></select>
+      <label class="crucible-toolbar-label" for="quant-select">Quant</label>
+      <select class="crucible-select" id="quant-select"></select>
+      <label class="crucible-toolbar-label" for="publisher-select">Packager</label>
+      <select class="crucible-select" id="publisher-select"></select>
+      <label class="crucible-toolbar-label" for="reasoning-select">Reasoning</label>
+      <select class="crucible-select" id="reasoning-select"></select>
     </div>
     <p class="crucible-sub crucible-progress-note" id="progress-note"></p>
 
@@ -118,5 +124,9 @@ permalink: /crucible/
   <div class="crucible-compare-tray" id="compare-tray" role="status" hidden></div>
 </div>
 
+<script>
+  // Load display settings from Jekyll data
+  window.CRUCIBLE_DISPLAY = {{ site.data.crucible_display | jsonify }};
+</script>
 <script src="/assets/js/crucible-core.js?v={{ site.time | date: '%s' }}"></script>
 <script src="/assets/js/crucible.js?v={{ site.time | date: '%s' }}" data-src="/crucible/data.json?v={{ site.time | date: '%s' }}" data-details="/crucible/details.json?v={{ site.time | date: '%s' }}" data-outputs="/crucible-data/"></script>

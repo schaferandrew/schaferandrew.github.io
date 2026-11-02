@@ -75,5 +75,9 @@ permalink: /crucible/compare/
   </section>
 </div>
 
+<script>
+  // Load display settings from Jekyll data
+  window.CRUCIBLE_DISPLAY = {{ site.data.crucible_display | jsonify }};
+</script>
 <script src="/assets/js/crucible-core.js?v={{ site.time | date: '%s' }}"></script>
 <script src="/assets/js/crucible-compare.js?v={{ site.time | date: '%s' }}" data-src="/crucible/data.json?v={{ site.time | date: '%s' }}" data-details="/crucible/details.json?v={{ site.time | date: '%s' }}" data-outputs="/crucible-data/"></script>

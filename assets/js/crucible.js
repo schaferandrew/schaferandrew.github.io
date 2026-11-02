@@ -24,7 +24,8 @@
     var state = {
       suite: suiteId(CURRENT), mode: '', harness: 'best', where: 'all', hw: 'all', showInProgress: false,
       scatter: 'time', sort: null, open: {},
-      exclude: {}  // tier ID -> true: tiers the reader left out of the overall score
+      exclude: {},  // tier ID -> true: tiers the reader left out of the overall score
+      quant: 'all', publisher: 'all', reasoning: 'all'  // new filters
     };
     var S = null, V = null;
     function useSuite(id) {
@@ -41,7 +42,16 @@
     function readHash() {
       var h = C.parseHash();
       var v = h.params.compare, x = h.params.exclude;
-      return { mode: h.id, suite: h.params.suite || null, compare: v ? v.split(',').filter(Boolean) : [], exclude: x ? x.split(',').filter(Boolean) : [] };
+      return { 
+        mode: h.id, suite: h.params.suite || null, compare: v ? v.split(',').filter(Boolean) : [], 
+        exclude: x ? x.split(',').filter(Boolean) : [],
+        where: h.params.where || 'all',
+        hw: h.params.hw || 'all',
+        harness: h.params.harness || 'best',
+        quant: h.params.quant || 'all',
+        publisher: h.params.publisher || 'all',
+        reasoning: h.params.reasoning || 'all'
+      };
     }
     function redirectCompare(h) {
       if (!h.compare.length) return false;
@@ -54,11 +64,27 @@
       useSuite(h.suite && D.catalogById(h.suite) ? h.suite : state.suite);
       state.exclude = {};
       h.exclude.forEach(function (id) { state.exclude[id] = true; });
+      // Apply new filters from hash
+      if (h.where !== 'all') state.where = h.where;
+      if (h.hw !== 'all') state.hw = h.hw;
+      if (h.harness !== 'best') state.harness = h.harness;
+      if (h.quant !== 'all') state.quant = h.quant;
+      if (h.publisher !== 'all') state.publisher = h.publisher;
+      if (h.reasoning !== 'all') state.reasoning = h.reasoning;
     }
     function writeHash() {
       var hash = C.buildHash(state.mode, { suite: state.suite !== suiteId(CURRENT) ? state.suite : null });
       var excluded = MODE_TIERS.filter(function (t) { return state.exclude[t.id]; }).map(function (t) { return encodeURIComponent(t.id); });
       if (excluded.length && !aggAll()) hash += (hash.length > 1 ? '&' : '') + 'exclude=' + excluded.join(',');
+      // Add new filters to hash
+      var params = [];
+      if (state.where !== 'all') params.push('where=' + encodeURIComponent(state.where));
+      if (state.hw !== 'all') params.push('hw=' + encodeURIComponent(state.hw));
+      if (state.harness !== 'best') params.push('harness=' + encodeURIComponent(state.harness));
+      if (state.quant !== 'all') params.push('quant=' + encodeURIComponent(state.quant));
+      if (state.publisher !== 'all') params.push('publisher=' + encodeURIComponent(state.publisher));
+      if (state.reasoning !== 'all') params.push('reasoning=' + encodeURIComponent(state.reasoning));
+      if (params.length) hash += (hash.length > 1 ? '&' : '') + params.join('&');
       if (location.hash !== hash && history.replaceState) history.replaceState(null, '', hash);
     }
 
@@ -93,6 +119,10 @@
       if (state.where !== 'all' && (state.where === 'local') !== cfg.local) return false;
       if (state.hw !== 'all' && hwValue(cfg) !== state.hw) return false;
       if (state.harness !== 'best' && cfg.harness !== state.harness) return false;
+      // New filters
+      if (state.quant !== 'all' && cfg.quant !== state.quant) return false;
+      if (state.publisher !== 'all' && cfg.publisher !== state.publisher) return false;
+      if (state.reasoning !== 'all' && cfg.level !== state.reasoning) return false;
       return true;
     }
 
@@ -172,6 +202,39 @@
           label: o.value === 'cloud' ? 'Cloud (no hardware)' : (o.value === '-' ? 'Not recorded' : o.value) + (devices.length ? ' (' + devices.join(', ') + ')' : '')
         };
       })), state.hw);
+
+      // Quant filter
+      var quants = V.quants();
+      if (state.quant !== 'all' && quants.indexOf(state.quant) === -1) state.quant = 'all';
+      fillSelect(document.getElementById('quant-select'), [{ value: 'all', label: 'All quant' }].concat(quants.map(function (q) {
+        return { value: q, label: q };
+      })), state.quant);
+
+      // Publisher filter
+      var publishers = V.publishers();
+      if (state.publisher !== 'all' && publishers.indexOf(state.publisher) === -1) state.publisher = 'all';
+      fillSelect(document.getElementById('publisher-select'), [{ value: 'all', label: 'All packagers' }].concat(publishers.map(function (p) {
+        return { value: p, label: p };
+      })), state.publisher);
+
+      // Reasoning filter
+      var reasoningLevels = V.reasoningLevels();
+      if (state.reasoning !== 'all' && reasoningLevels.indexOf(state.reasoning) === -1) state.reasoning = 'all';
+      fillSelect(document.getElementById('reasoning-select'), [{ value: 'all', label: 'All reasoning' }].concat(reasoningLevels.map(function (r) {
+        return { value: r, label: r };
+      })), state.reasoning);
+      document.getElementById('quant-select').addEventListener('change', function () {
+        state.quant = this.value;
+        render();
+      });
+      document.getElementById('publisher-select').addEventListener('change', function () {
+        state.publisher = this.value;
+        render();
+      });
+      document.getElementById('reasoning-select').addEventListener('change', function () {
+        state.reasoning = this.value;
+        render();
+      });
 
       var all = rowsAll();
       var hidden = all.filter(function (s) { return s.ran && s.inProgress; }).length;

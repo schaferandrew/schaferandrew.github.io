@@ -7,6 +7,30 @@
 # that suite back. Nothing is deleted: the catalogs and runs stay in _data/crucible/.
 hidden_suites: [v1, v2]
 
+# Model aliases: maps raw recorded base names to their canonical form. Used for runs
+# recorded before the cleanup logic was added (Crucible 3.7.0+). Keyed by the raw base string.
+# The canonical form is what clean_base_model() would produce.
+model_aliases:
+  # Packager prefix in base
+  "mlx-community/muse-glimmer-30b": "meta/muse-glimmer-30b"
+  
+  # Quant/format tags in base
+  "granite-4.2-3b-mlx@4bit": "ibm/granite-4.2-3b"
+  "google/gemma-4-12b-qat": "google/gemma-4-12b"
+  "google/gemma-4-26b-a4b-qat": "google/gemma-4-26b-a4b"
+  
+  # Missing maker prefix
+  "laguna-xs-2.1": "poolside/laguna-xs-2.1"
+  "qwen2.5-0.5b-instruct": "qwen/qwen2.5-0.5b-instruct"
+  "qwen2.5-1.5b-instruct": "qwen/qwen2.5-1.5b-instruct"
+  "deepseek-v4.1-flash-free": "deepseek/deepseek-v4.1-flash"
+  
+  # Provider suffix
+  "nvidia/nemotron-3-ultra-550b-a55b:free": "nvidia/nemotron-3-ultra-550b-a55b"
+  
+  # Tilde prefix (OpenRouter latest alias)
+  "~openai/gpt-luna-latest": "openai/gpt-luna-latest"
+
 # energy: what a local run costs, since nobody bills it. A local run's cost is its time x its
 # machine's power draw x the price per kWh: an estimate of the electricity used, not the hardware.
 # watts is the whole machine's draw at the wall while it serves a model, keyed by hardware key (the

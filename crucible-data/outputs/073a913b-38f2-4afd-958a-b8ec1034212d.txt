@@ -1,0 +1,16 @@
+Reasoning:
+Language errors are objective spelling/grammar/agreement/word-choice problems. Sentence 3 has subject-verb agreement, sentence 6 has it's/its, sentence 12 has then/than.
+Flags are for claims/wording that are overstated, imprecise, unclear or misleading. Sentences 1, 4 and 8 present false/misleading causal claims. Sentences 11, 14 and 18 make sweeping, unsupported claims.
+
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: misleading
+4: misleading
+8: misleading
+11: overstated
+14: overstated
+18: overstated

@@ -1,0 +1,88 @@
+**Reasoning:**
+
+1. **Inflation is when prices go up because the government prints too much money.**  
+   - *Error:* "because the government prints too much money" is overly simplistic and not always accurate. While money supply can contribute to inflation, it's not the only cause.
+   - *Flag:* Overstated — this sentence oversimplifies inflation and implies a direct causal relationship that isn't always true.
+
+2. **The Consumer Price Index (CPI) measures inflation by tracking the prices of a basket of goods and services that households buy.**  
+   - *Error:* None.
+   - *Flag:* None.
+
+3. **The prices in the basket is weighted by how much households spend on each item.**  
+   - *Error:* Subject-verb disagreement ("prices...is" should be "prices...are").
+   - *Flag:* None.
+
+4. **When CPI rises above 2% annually, the Federal Reserve is legally required to raise interest rates.**  
+   - *Error:* None.
+   - *Flag:* Misleading — the Fed does not have a legal requirement to raise rates just because CPI exceeds 2%; it’s a policy decision based on broader economic conditions.
+
+5. **The Federal Reserve's long-run inflation goal is 2%.**  
+   - *Error:* None.
+   - *Flag:* None.
+
+6. **A central bank can lose it's credibility if it keeps missing its inflation target.**  
+   - *Error:* "it's" should be "its".
+   - *Flag:* None.
+
+7. **Many economists estimate that the natural rate of unemployment in the United States is around 4%.**  
+   - *Error:* None.
+   - *Flag:* None.
+
+8. **Anyone unemployed above that rate is either lazy or the victim of bad policy.**  
+   - *Error:* None.
+   - *Flag:* Overstated — this is a very narrow and overly deterministic view of unemployment.
+
+9. **Quantitative easing is a policy in which a central bank buys long-term securities to lower long-term interest rates.**  
+   - *Error:* None.
+   - *Flag:* None.
+
+10. **The Federal Reserve began large-scale asset purchases in late 2008.**  
+    - *Error:* None.
+    - *Flag:* None.
+
+11. **Quantitative easing, which is basically just printing money, inevitably causes hyperinflation.**  
+    - *Error:* None.
+    - *Flag:* Overstated — QE does not inevitably cause hyperinflation; it depends on many factors.
+
+12. **Raising interest rates makes loans more expensive then they were before.**  
+    - *Error:* "then" should be "than".
+    - *Flag:* None.
+
+13. **Japan's economy stagnated after its asset price bubble burst in the early 1990s.**  
+    - *Error:* None.
+    - *Flag:* None.
+
+14. **Japan's experience with deflation in the 1990s proves that monetary policy is completely ineffective at stimulating demand.**  
+    - *Error:* None.
+    - *Flag:* Overstated — Japan’s case is often cited as an example of limits, but not a complete proof of ineffectiveness.
+
+15. **Supply-side economics holds that lower taxes encourage production and investment.**  
+    - *Error:* None.
+    - *Flag:* None.
+
+16. **The Reagan administration cut the top federal income tax rate sharply in the 1980s.**  
+    - *Error:* None.
+    - *Flag:* None.
+
+17. **The federal budget deficit grew during the 1980s.**  
+    - *Error:* None.
+    - *Flag:* None.
+
+18. **Supply-side economics has been definitively debunked by the Reagan tax cuts, which increased the deficit without growing the economy at all.**  
+    - *Error:* None.
+    - *Flag:* Overstated — this is a highly contested claim and not definitively proven.
+
+---
+
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: overstated
+4: misleading
+8: overstated
+11: overstated
+14: overstated
+18: overstated

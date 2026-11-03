@@ -1,0 +1,14 @@
+Based on the calendar events I found for today (Tuesday, September 1, 2026), I can determine the user's availability at 3:30 PM.
+
+Looking at the events:
+1. Standup: 9:00-9:30 AM
+2. 1:1 with Jamie: 11:00-12:00 PM
+3. Lunch: 12:00-1:00 PM
+4. Design review: 2:00-3:30 PM (This event starts at 2:00 PM and ends at 3:30 PM)
+5. Customer call: 4:00-5:00 PM
+
+The user has a Design review event from 2:00 PM to 3:30 PM, which means at exactly 3:30 PM they would be in the middle of this meeting.
+
+ANSWER: busy
+
+The user is busy on Tuesday, September 1, 2026 at 3:30 PM as they have a Design review meeting scheduled from 2:00 PM to 3:30 PM.

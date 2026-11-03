@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "3c072bfb-1c71-4214-a3f2-ab27b8825d97",
+ "run_path": "lmstudio_meta_muse-glimmer/geography-trick-questions/20261103_033242",
+ "legacy_run_id": null,
+ "started_at": "2026-11-03T03:32:42.974389+00:00",
+ "ended_at": "2026-11-03T03:47:45.291605+00:00",
+ "elapsed_s": 900.01,
+ "task": {
+  "id": "geography-trick-questions",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "5a1af1208cb9b9a5",
+  "rubric_hash": "5944fb9d7568cdce",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/meta/muse-glimmer",
+  "base": "meta/muse-glimmer",
+  "publisher": "meta",
+  "artifact": null,
+  "format": "gguf",
+  "quant": "Q4_K_M",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "high"
+  },
+  "context_loaded": 131072,
+  "variant_key": "meta/muse-glimmer|meta|gguf|q4_k_m",
+  "display": "muse-glimmer · Q4_K_M",
+  "origin": {
+   "maker": "meta",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Ironwood",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m1-pro-32gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 32.0,
+  "cpu": "Apple M1 Pro",
+  "offload": null,
+  "label": "Ironwood"
+ },
+ "outcome": {
+  "status": "timeout",
+  "harness_status": "TIMEOUT",
+  "returncode": 1,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": 1,
+  "ttft_s": 3.671,
+  "ttft_avg_s": 3.671,
+  "response_time_avg_s": 900.004,
+  "output_tokens_per_s": null,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 25928
+ },
+ "output_ref": null,
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "16663e5",
+  "crucible_dirty": true,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:51a3f801646a21f2ade5ac25072b16687bb8a30eb7e6862b37514261d740ee4e",
+  "submitter": null,
+  "verification": null
+ }
+}

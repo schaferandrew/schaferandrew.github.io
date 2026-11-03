@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "a7214d5d-98f7-479c-bbcc-5791c80f8fd6",
+ "run_path": "lmstudio_qwen_qwen3.6-35b-a3b/interest-calculator-cli/20261103_021143",
+ "legacy_run_id": null,
+ "started_at": "2026-11-03T02:11:43.359980+00:00",
+ "ended_at": "2026-11-03T02:26:46.963155+00:00",
+ "elapsed_s": 901.99,
+ "task": {
+  "id": "interest-calculator-cli",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "89de4378a797689c",
+  "rubric_hash": "f45237ead95e5fe5",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "lmstudio/qwen/qwen3.6-35b-a3b",
+  "base": "qwen/qwen3.6-35b-a3b",
+  "publisher": "qwen",
+  "artifact": null,
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 262144,
+  "variant_key": "qwen/qwen3.6-35b-a3b|qwen|mlx|mlx-4bit",
+  "display": "qwen3.6-35b-a3b · 4bit",
+  "origin": {
+   "maker": "qwen",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "timeout",
+  "harness_status": "TIMEOUT",
+  "returncode": 143,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 29,
+  "tokens_in": 126377,
+  "tokens_out": 13640,
+  "model_responses": 13,
+  "ttft_s": 5.895,
+  "ttft_avg_s": 4.005,
+  "response_time_avg_s": 51.996,
+  "output_tokens_per_s": 21.9,
+  "cost_usd": 0,
+  "cost_source": "pi_estimate",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/a7214d5d-98f7-479c-bbcc-5791c80f8fd6.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "16663e5",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:c45dbb70b4decd25dcfd2a8f8ebbffceb80443f6e4d9239c6d27bc9a373e8e21",
+  "submitter": null,
+  "verification": null
+ }
+}

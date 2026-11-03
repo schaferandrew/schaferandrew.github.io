@@ -1,0 +1,12 @@
+Correctness (5): The implementation builds a cleaned list of lowercased alphanumeric characters and compares it to its reverse. This correctly implements a case-insensitive, alphanumeric-only palindrome test for typical inputs. 5/5
+
+Ignores case and non-alphanumeric characters (2): `c.lower()` handles case insensitivity and `c.isalnum()` filters out non-alphanumeric characters. Both requirements are met. 2/2
+
+Examples (2): Two example calls are shown:
+`is_palindrome("A man, a plan, a canal: Panama")` → True
+`is_palindrome("Hello, world")` → False
+Both results are correct. 2/2
+
+Concise (1): The response includes introductory exposition and a concluding explanatory paragraph beyond the function and examples. This is unneeded preamble/padding. 0/1
+
+GRADE: 9

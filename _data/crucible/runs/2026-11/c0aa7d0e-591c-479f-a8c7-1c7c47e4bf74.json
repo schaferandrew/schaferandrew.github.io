@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "c0aa7d0e-591c-479f-a8c7-1c7c47e4bf74",
+ "run_path": "lmstudio_prism-ml_bonsai-27b/geography-trick-questions/20261102_191127",
+ "legacy_run_id": null,
+ "started_at": "2026-11-02T19:11:27.558272+00:00",
+ "ended_at": "2026-11-02T19:26:28.696766+00:00",
+ "elapsed_s": 900.1,
+ "task": {
+  "id": "geography-trick-questions",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "5a1af1208cb9b9a5",
+  "rubric_hash": "5944fb9d7568cdce",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/prism-ml/bonsai-27b",
+  "base": "prism-ml/bonsai-27b",
+  "publisher": "prism-ml",
+  "artifact": null,
+  "format": "mlx",
+  "quant": "2bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 262144,
+  "variant_key": "prism-ml/bonsai-27b|prism-ml|mlx|mlx-2bit",
+  "display": "bonsai-27b · 2bit",
+  "origin": {
+   "maker": "prism-ml",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "timeout",
+  "harness_status": "TIMEOUT",
+  "returncode": 1,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": 1,
+  "ttft_s": 0.573,
+  "ttft_avg_s": 0.573,
+  "response_time_avg_s": 900.091,
+  "output_tokens_per_s": null,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 87844
+ },
+ "output_ref": null,
+ "provenance": {
+  "crucible_version": "3.6.2",
+  "crucible_commit": "16663e5",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Duskfall",
+  "source": "crucible-run",
+  "content_hash": "sha256:bf9b622c83bc6d57adef7621b86be59ad2fa8c7d85b34ca0334818f7f19bd722",
+  "submitter": null,
+  "verification": null
+ }
+}

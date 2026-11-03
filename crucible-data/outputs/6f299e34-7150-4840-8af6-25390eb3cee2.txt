@@ -1,0 +1,169 @@
+I need to work through this step-by-step using the given clues.
+
+Let me start by listing what I know:
+- 4 friends: Alice, Bob, Carol, Dave
+- 4 colors: red, blue, green, yellow
+- 4 chairs numbered 1-4 from left to right
+
+From the clues:
+- Clue 3: Chair 1 person likes green
+- Clue 5: Dave likes red
+- Clue 4: Carol likes yellow and sits to the right of the person who likes red
+- Clue 2: Bob does not sit in chair 4
+- Clue 1: Alice sits immediately to the left of the person who likes blue
+
+Let me work with clue 4 first: Carol likes yellow and sits to the right of the person who likes red.
+Since Dave likes red, Carol sits to the right of Dave.
+
+This means:
+- If Dave is in chair 1, Carol is in chair 2, 3, or 4
+- If Dave is in chair 2, Carol is in chair 3 or 4
+- If Dave is in chair 3, Carol is in chair 4
+- If Dave is in chair 4, this is impossible since Carol must be to the right
+
+From clue 3: Chair 1 person likes green.
+Since Dave likes red (clue 5), Dave is not in chair 1.
+
+So either Alice, Bob, or Carol is in chair 1 and likes green.
+
+From clue 2: Bob does not sit in chair 4.
+
+Let me consider the possibilities systematically:
+
+Since Carol sits to the right of Dave (who likes red), let's check each position for Dave:
+
+If Dave is in chair 1:
+- This contradicts clue 3 (chair 1 person likes green, not red)
+- So Dave is not in chair 1
+
+If Dave is in chair 2:
+- Carol must be in chair 3 or 4
+- Chair 1 person likes green (clue 3)
+- Bob cannot be in chair 4 (clue 2)
+
+If Dave is in chair 3:
+- Carol must be in chair 4
+- Chair 1 person likes green
+- Bob cannot be in chair 4 (clue 2)
+
+If Dave is in chair 4:
+- This would mean Carol is in chair 5 (impossible)
+- So Dave is not in chair 4
+
+Let me try Dave in chair 2:
+- Chair 1: likes green (someone other than Dave)
+- Chair 2: Dave, likes red
+- Chair 3 or 4: Carol, likes yellow
+
+Since Bob cannot be in chair 4, and we have Dave in chair 2:
+- If Bob is in chair 1: Bob likes green
+- If Bob is in chair 3: Bob is not in chair 4 ✓
+
+Let's say Bob is in chair 1:
+- Chair 1: Bob, likes green
+- Chair 2: Dave, likes red
+- Chair 3 or 4: Carol, likes yellow
+
+This leaves Alice for chair 3 or 4.
+
+From clue 1: Alice sits immediately to the left of the person who likes blue.
+This means Alice cannot be in chair 4 (no one to the right).
+So Alice is in chair 3, and the person in chair 4 likes blue.
+
+We have:
+- Chair 1: Bob, green
+- Chair 2: Dave, red  
+- Chair 3: Alice, ?
+- Chair 4: ?, blue
+
+Carol must be in chair 4 (since she's to the right of Dave).
+So:
+- Chair 1: Bob, green
+- Chair 2: Dave, red
+- Chair 3: Alice, yellow (Carol likes yellow)
+- Chair 4: Carol, blue
+
+Wait, let me double-check this with clue 1:
+Alice (chair 3) sits immediately to the left of Carol (chair 4) who likes blue. ✓
+
+But clue 4 says Carol likes yellow, not blue.
+This is a contradiction.
+
+Let me reconsider. The colors are red, blue, green, yellow.
+I have:
+- Chair 1: Bob, green
+- Chair 2: Dave, red
+- Chair 3: Alice, ?
+- Chair 4: Carol, yellow (from clue 4)
+
+So the remaining color (blue) must go to Alice.
+But clue 1 says Alice sits immediately to the left of the blue lover.
+
+If Alice is in chair 3 and likes blue, then the person in chair 4 (Carol) should like blue.
+But Carol likes yellow. This is contradictory.
+
+Let me try Dave in chair 3:
+- Chair 1: likes green
+- Chair 2: ?
+- Chair 3: Dave, likes red
+- Chair 4: Carol, likes yellow
+
+From clue 2: Bob is not in chair 4.
+So Bob is in chair 1 or 2.
+
+If Bob is in chair 1:
+- Chair 1: Bob, green
+- Chair 2: ?
+- Chair 3: Dave, red
+- Chair 4: Carol, yellow
+
+Remaining people: Alice for chair 2.
+
+So:
+- Chair 1: Bob, green
+- Chair 2: Alice, ?
+- Chair 3: Dave, red
+- Chair 4: Carol, yellow
+
+Remaining color: blue
+So Alice likes blue.
+
+Check clue 1: Alice (chair 2) sits immediately to the left of the person who likes blue.
+This would mean the person in chair 3 (Dave) likes blue.
+But Dave likes red. Contradiction.
+
+Let me try Bob in chair 2:
+- Chair 1: ?, green
+- Chair 2: Bob, ?
+- Chair 3: Dave, red
+- Chair 4: Carol, yellow
+
+Remaining people: Alice for chair 1.
+
+So:
+- Chair 1: Alice, green
+- Chair 2: Bob, ?
+- Chair 3: Dave, red
+- Chair 4: Carol, yellow
+
+Remaining color: blue
+So Bob likes blue.
+
+Check clue 1: Alice (chair 1) sits immediately to the left of the person who likes blue.
+Alice is in chair 1, so the person in chair 2 (Bob) should like blue.
+Bob likes blue. ✓
+
+Let me verify all clues:
+1. Alice (chair 1) sits immediately to the left of Bob (chair 2) who likes blue. ✓
+2. Bob does not sit in chair 4. ✓ (Bob is in chair 2)
+3. The person who likes green sits in chair 1. ✓ (Alice likes green)
+4. Carol likes yellow and sits somewhere to the right of the person who likes red.
+   - Carol (chair 4) is to the right of Dave (chair 3) who likes red. ✓
+5. Dave likes red. ✓
+
+Chair 1: Alice, green
+Chair 2: Bob, blue  
+Chair 3: Dave, red
+Chair 4: Carol, yellow
+
+ANSWER: Bob

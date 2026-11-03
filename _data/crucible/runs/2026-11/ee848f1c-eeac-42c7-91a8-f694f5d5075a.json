@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "ee848f1c-eeac-42c7-91a8-f694f5d5075a",
+ "run_path": "lmstudio_meta_muse-glimmer/fire-truck-color/20261103_022752",
+ "legacy_run_id": null,
+ "started_at": "2026-11-03T02:27:52.423895+00:00",
+ "ended_at": "2026-11-03T02:28:27.608909+00:00",
+ "elapsed_s": 33.7,
+ "task": {
+  "id": "fire-truck-color",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "4f544d69ec35ecb1",
+  "rubric_hash": "93b038f024a752e9",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/meta/muse-glimmer",
+  "base": "meta/muse-glimmer",
+  "publisher": "meta",
+  "artifact": null,
+  "format": "gguf",
+  "quant": "Q4_K_M",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "high"
+  },
+  "context_loaded": 131072,
+  "variant_key": "meta/muse-glimmer|meta|gguf|q4_k_m",
+  "display": "muse-glimmer · Q4_K_M",
+  "origin": {
+   "maker": "meta",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Ironwood",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m1-pro-32gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 32.0,
+  "cpu": "Apple M1 Pro",
+  "offload": null,
+  "label": "Ironwood"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 73,
+  "tokens_out": 220,
+  "model_responses": 1,
+  "ttft_s": 2.025,
+  "ttft_avg_s": 2.025,
+  "response_time_avg_s": 33.693,
+  "output_tokens_per_s": 6.9,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 832
+ },
+ "output_ref": "outputs/ee848f1c-eeac-42c7-91a8-f694f5d5075a.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "16663e5",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:5efca7d118606acbd61806ac713c05a556da88c616327743f98da89772812459",
+  "submitter": null,
+  "verification": null
+ }
+}

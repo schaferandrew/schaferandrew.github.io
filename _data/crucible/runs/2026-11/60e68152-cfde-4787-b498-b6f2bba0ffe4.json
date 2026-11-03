@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "60e68152-cfde-4787-b498-b6f2bba0ffe4",
+ "run_path": "lmstudio_qwen_qwen3-coder-30b/nextjs-server-data-boundary/20261103_033123",
+ "legacy_run_id": null,
+ "started_at": "2026-11-03T03:31:28.631877+00:00",
+ "ended_at": "2026-11-03T03:46:30.638039+00:00",
+ "elapsed_s": 900.77,
+ "task": {
+  "id": "nextjs-server-data-boundary",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "f5196c62d3613d53",
+  "rubric_hash": "071f25e0acdbacbf",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "lmstudio/qwen/qwen3-coder-30b",
+  "base": "qwen/qwen3-coder-30b",
+  "publisher": "qwen",
+  "artifact": null,
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": 262144,
+  "variant_key": "qwen/qwen3-coder-30b|qwen|mlx|mlx-4bit",
+  "display": "qwen3-coder-30b · 4bit",
+  "origin": {
+   "maker": "qwen",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "timeout",
+  "harness_status": "TIMEOUT",
+  "returncode": 143,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 26,
+  "tokens_in": 185137,
+  "tokens_out": 4927,
+  "model_responses": 26,
+  "ttft_s": 1.109,
+  "ttft_avg_s": 0.82,
+  "response_time_avg_s": 3.401,
+  "output_tokens_per_s": 73.4,
+  "cost_usd": 0,
+  "cost_source": "pi_estimate",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/60e68152-cfde-4787-b498-b6f2bba0ffe4.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "16663e5",
+  "crucible_dirty": true,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:53ffce2d3df0190498bb1637436b09a2acd5f8fd2d9e0f28f1fb5e89db5e97cb",
+  "submitter": null,
+  "verification": null
+ }
+}

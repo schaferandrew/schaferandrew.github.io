@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "5c2cb728-3cf2-4eb4-87e6-78cbad03456c",
+ "run_path": "lmstudio_prism-ml_bonsai-27b/fact-check-history/20261102_193349",
+ "legacy_run_id": null,
+ "started_at": "2026-11-02T19:33:49.906871+00:00",
+ "ended_at": "2026-11-02T19:36:03.015155+00:00",
+ "elapsed_s": 132.6,
+ "task": {
+  "id": "fact-check-history",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "33f30be6930d812b",
+  "rubric_hash": "0fdc5051fcd23767",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/prism-ml/bonsai-27b",
+  "base": "prism-ml/bonsai-27b",
+  "publisher": "prism-ml",
+  "artifact": null,
+  "format": "mlx",
+  "quant": "2bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 262144,
+  "variant_key": "prism-ml/bonsai-27b|prism-ml|mlx|mlx-2bit",
+  "display": "bonsai-27b · 2bit",
+  "origin": {
+   "maker": "prism-ml",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 327,
+  "tokens_out": 4006,
+  "model_responses": 1,
+  "ttft_s": 0.961,
+  "ttft_avg_s": 0.961,
+  "response_time_avg_s": 132.592,
+  "output_tokens_per_s": 30.4,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 10423
+ },
+ "output_ref": "outputs/5c2cb728-3cf2-4eb4-87e6-78cbad03456c.txt",
+ "provenance": {
+  "crucible_version": "3.6.2",
+  "crucible_commit": "16663e5",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Duskfall",
+  "source": "crucible-run",
+  "content_hash": "sha256:9c116756481babb882e62e888cb04c87502ece07c7f6d780fe9c039192f5a58f",
+  "submitter": null,
+  "verification": null
+ }
+}

@@ -1,0 +1,31 @@
+**Reasoning:**
+
+I'll identify objective errors (grammar, spelling, punctuation) and optional style improvements separately.
+
+Objective errors found:
+1. "one of the two items were" should be "one of the two items was" (subject-verb agreement)
+2. "havent heard" should be "haven't heard" (missing apostrophe in contraction)
+3. "crush" should be "crushed" (past participle needed for passive voice)
+4. "which seem to have passed" should be "which seems to have passed" (subject-verb agreement - "which" is singular)
+
+Style improvements:
+1. "Hi Support" could be more formal as "Dear Support Team"
+2. "I contacted support last week but I havent heard anything back" could be more concise
+3. "which seem to have passed already for my earlier request" could be clearer
+
+**ERRORS:**
+"were" → "was"
+"havent" → "haven't"
+"crush" → "crushed"
+"seem" → "seems"
+
+**CORRECTED:**
+Subject: Refund for order 84721
+
+Hi Support,
+I am writing because my order arrived three days late, and one of the two items was damaged. I contacted support last week but I haven't heard anything back. The box was clearly crushed on one side, and the mug inside has a crack through the handle. I would like a refund for the mug, but please let me know if you need pictures of it. Also, your website says refunds are processed in 5-7 business days, which seems to have passed already for my earlier request. Can you tell me what the status is? Thanks for your help.
+
+**STYLE:**
+"Hi Support" → "Dear Support Team"
+"I contacted support last week but I havent heard anything back" → "I contacted support last week but haven't heard anything back"
+"which seem to have passed already for my earlier request" → "which seems to have passed already for my earlier request"

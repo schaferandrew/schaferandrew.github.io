@@ -1,0 +1,4 @@
+
+
+The issue is that when the dialog opens, the opener capture effect runs after the focus trap effect, so `openerRef.current` captures the Confirm button instead of the trigger. Let me fix the timing:
+

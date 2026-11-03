@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "b2d6fa8d-ff8a-4c9c-bba5-75490c610587",
+ "run_path": "lmstudio_prism-ml_bonsai-27b/cache-leak-incident/20261102_204522",
+ "legacy_run_id": null,
+ "started_at": "2026-11-02T20:45:30.636227+00:00",
+ "ended_at": "2026-11-02T21:05:31.884473+00:00",
+ "elapsed_s": 1200.45,
+ "task": {
+  "id": "cache-leak-incident",
+  "version": 3,
+  "rubric_version": 4,
+  "content_hash": "403fdd42d838cff4",
+  "rubric_hash": "a89eea7caac68e18",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "lmstudio/prism-ml/bonsai-27b",
+  "base": "prism-ml/bonsai-27b",
+  "publisher": "prism-ml",
+  "artifact": null,
+  "format": "mlx",
+  "quant": "2bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 262144,
+  "variant_key": "prism-ml/bonsai-27b|prism-ml|mlx|mlx-2bit",
+  "display": "bonsai-27b · 2bit",
+  "origin": {
+   "maker": "prism-ml",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "ip-192-168-1-162"
+ },
+ "outcome": {
+  "status": "timeout",
+  "harness_status": "TIMEOUT",
+  "returncode": 143,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 79,
+  "tokens_in": 3072902,
+  "tokens_out": 21319,
+  "model_responses": 79,
+  "ttft_s": 4.787,
+  "ttft_avg_s": 2.212,
+  "response_time_avg_s": 14.736,
+  "output_tokens_per_s": 21.5,
+  "cost_usd": 0,
+  "cost_source": "pi_estimate",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/b2d6fa8d-ff8a-4c9c-bba5-75490c610587.txt",
+ "provenance": {
+  "crucible_version": "3.6.2",
+  "crucible_commit": "16663e5",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "ip-192-168-1-162",
+  "source": "crucible-run",
+  "content_hash": "sha256:a867a1d5ec757297f7a2fdd8a0d4fd0bc2854b8ae0a4e8830f58847fe439fe9a",
+  "submitter": null,
+  "verification": null
+ }
+}

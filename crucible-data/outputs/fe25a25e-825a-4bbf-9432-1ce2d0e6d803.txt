@@ -1,0 +1,43 @@
+
+
+# Morning Brief — Wednesday, September 2, 2026
+
+## Weather
+**Saint Paul, MN** — Partly Cloudy, 68°F / 55°F, humidity 65%, wind 8 mph. Only a 10% chance of precipitation today. Tomorrow turns sunny and warmer (74°F), but Thursday brings scattered showers (30% chance).
+
+## Outstanding work
+Yesterday's emails left three action items open:
+
+- **Q3 expense report** — Finance sent an urgent reminder: the report is due **today at 5:00 PM** or it rolls to next month's payroll.
+- **Client proposal timeline** — The client (client@example.com) is waiting for a reply on whether the revised proposal can ship by Friday so they can brief their team.
+- **Q3 review discussion** — Alex confirmed the Q3 review is complete and ahead of schedule; results are expected to be discussed in today's Planning meeting.
+
+Jamie's meeting notes from yesterday's 1-on-1 are informational only and require no follow-up.
+
+## Emails
+Four emails arrived yesterday (Sept 1):
+
+| From | Subject | Action Needed |
+|------|---------|---------------|
+| finance@example.com | **Q3 expense report due Wednesday 5 PM** | **Submit today** — deadline is today |
+| client@example.com | **Question about the proposal timeline** | **Reply** — client needs an answer before briefing their team |
+| alex@example.com | Project update — Q3 review completed | Discuss in today's Planning meeting |
+| jamie@example.com | Meeting notes from yesterday | FYI only |
+
+## Calendar
+Three meetings today:
+
+- **9:30–10:30 AM** — Planning (Room B) — Alex is attending. Expect Q3 review results to be discussed here.
+- **10:00–11:00 AM** — Vendor demo (Zoom) — **Overlap** with Planning (30 min). You'll need to choose which to prioritize or catch portions of each.
+- **1:00–2:00 PM** — Budget meeting (Conference Room A) — Jamie is attending.
+
+## News
+- **Twin Cities Tech Conference Returns** (StarTribune, high importance) — 50+ speakers on AI and startups; registration opens this Friday.
+- **Maplewood Park Renovation Complete** (Pioneer Press, medium) — Grand reopening is Saturday.
+- **State Fair Attendance Drops** (StarTribune, low) — 3% decline, partly due to cooler weather.
+
+## Top 3 things to do today
+
+1. **Submit the Q3 expense report** before 5:00 PM — missing the cutoff delays payment to next month.
+2. **Reply to the client** confirming or negotiating the revised proposal delivery date by Friday — they're waiting to brief their team.
+3. **Navigate the 9:30–11:00 AM block** — attend the Planning meeting and catch the Vendor demo; flag the scheduling conflict to your manager if needed.

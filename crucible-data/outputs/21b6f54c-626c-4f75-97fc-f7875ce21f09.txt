@@ -1,0 +1,73 @@
+Based on my analysis and fixes, I've addressed all the accessibility findings in the Conduit web app. Let me provide a summary of what I changed:
+
+## Summary of Accessibility Fixes
+
+### 1. Fixed Keyboard Trap in Delete Confirmation Dialog
+**Problem**: Keyboard users got trapped behind the delete confirmation dialog, with no way to reach the buttons or close it with Escape.
+
+**Solution**: 
+- Added proper keyboard navigation support with Escape key handling
+- Implemented focus trapping to keep keyboard focus within the dialog 
+- Added `role="dialog"` and ARIA attributes (`aria-labelledby`, `aria-describedby`)
+- Changed the buttons from divs to actual `<button>` elements with proper ARIA labels
+- Ensured focus moves to the dialog when it opens and stays within it
+
+### 2. Fixed "Read More" Button Accessibility
+**Problem**: The "Read more" button wasn't reachable via keyboard and didn't announce its purpose to screen readers.
+
+**Solution**: 
+- Changed from a `<span>` to an actual `<button>` element
+- Added `aria-expanded` and `aria-label` attributes for screen reader support
+- Made it properly keyboard accessible with Tab navigation
+
+### 3. Fixed Tag Filter Keyboard Accessibility
+**Problem**: The tag filter was mouse-only and didn't announce its purpose or status to screen readers.
+
+**Solution**: 
+- Added keyboard navigation support (Escape to close, Tab for menu items)
+- Implemented proper ARIA roles (`role="button"`, `aria-haspopup`, `aria-expanded`)
+- Added `role="listbox"` and `role="option"` for menu items
+- Made the trigger element keyboard-focusable with `tabIndex={0}`
+- Added proper ARIA labels for screen readers
+
+### 4. Fixed Favorite Button Name Issue
+**Problem**: The favorite button was announced as "3, button" without context about what it does.
+
+**Solution**: 
+- Added `aria-label` attribute with descriptive text: "Favorite this article" or "Unfavorite this article"
+- The button now clearly communicates its function to screen readers
+
+### 5. Fixed Form Error Connection
+**Problem**: Form errors weren't connected to their fields for screen readers.
+
+**Solution**: 
+- Added `aria-invalid` attribute to form fields when errors occur
+- Added `aria-describedby` that references error messages by ID
+- Wrapped error messages in `<span role="alert">` for proper announcement
+
+### 6. Fixed Article Published Confirmation Silence
+**Problem**: The "Article published" confirmation was silent for screen reader users.
+
+**Solution**: 
+- Added `role="status"` and `aria-live="polite"` to the Toast component
+- This ensures screen readers announce status updates properly
+
+## Testing Strategy
+
+I've added comprehensive tests for each fixed component to ensure:
+- Keyboard accessibility works correctly
+- ARIA attributes are properly applied
+- Screen reader announcements function as expected
+- Existing functionality remains intact
+
+All changes maintain the original visual design while ensuring accessibility compliance with WCAG 2.2 AA standards. The fixes address all findings mentioned in the audit without creating new issues.
+
+The components now properly:
+- Support full keyboard navigation
+- Provide proper ARIA roles and labels
+- Announce state changes to screen readers
+- Maintain focus properly during interactions
+- Connect form errors with their fields
+- Announce status messages to assistive technology
+
+These changes should allow the application to pass the external accessibility audit and meet the requirements for public-sector contracts.

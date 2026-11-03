@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "4c3d3a47-820d-457d-aa6d-ac4d93f1f6b6",
+ "run_path": "lmstudio_qwen_qwen3.6-35b-a3b/proofread-customer-email/20261102_224444",
+ "legacy_run_id": null,
+ "started_at": "2026-11-02T22:44:44.079463+00:00",
+ "ended_at": "2026-11-02T22:45:39.400915+00:00",
+ "elapsed_s": 54.75,
+ "task": {
+  "id": "proofread-customer-email",
+  "version": 2,
+  "rubric_version": 5,
+  "content_hash": "c41a36c4fafcbd9f",
+  "rubric_hash": "bae4e4c306c407ff",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/qwen/qwen3.6-35b-a3b",
+  "base": "qwen/qwen3.6-35b-a3b",
+  "publisher": "qwen",
+  "artifact": null,
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 262144,
+  "variant_key": "qwen/qwen3.6-35b-a3b|qwen|mlx|mlx-4bit",
+  "display": "qwen3.6-35b-a3b · 4bit",
+  "origin": {
+   "maker": "qwen",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "ip-192-168-1-162"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 303,
+  "tokens_out": 3781,
+  "model_responses": 1,
+  "ttft_s": 2.295,
+  "ttft_avg_s": 2.295,
+  "response_time_avg_s": 54.752,
+  "output_tokens_per_s": 72.1,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 13795
+ },
+ "output_ref": "outputs/4c3d3a47-820d-457d-aa6d-ac4d93f1f6b6.txt",
+ "provenance": {
+  "crucible_version": "3.6.2",
+  "crucible_commit": "16663e5",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "ip-192-168-1-162",
+  "source": "crucible-run",
+  "content_hash": "sha256:fa8c481739b6d6632ccc163034ba91afa4fc7f8e6f09a27de9c37bb76c2cc94d",
+  "submitter": null,
+  "verification": null
+ }
+}

@@ -1,0 +1,50 @@
+1. I put $5,000 in a savings account paying 4% a year, compounded monthly. What is it worth after exactly 3 years, to the cent?
+
+For compound interest: A = P(1 + r/n)^(nt)
+Where:
+- P = $5,000
+- r = 0.04 (4% annual rate)
+- n = 12 (monthly compounding)
+- t = 3 years
+
+A = 5000(1 + 0.04/12)^(12×3)
+A = 5000(1 + 0.003333...)^(36)
+A = 5000(1.003333...)^(36)
+A = 5000(1.12727...)
+A = $5,636.35
+
+2. I'm flooring a 1,850 sq ft space. Flooring comes in boxes of 23.5 sq ft and I need 10% extra for waste. How many boxes do I buy?
+
+First, calculate total area needed including waste:
+Waste = 1,850 × 0.10 = 185 sq ft
+Total area = 1,850 + 185 = 2,035 sq ft
+
+Number of boxes needed:
+2,035 ÷ 23.5 = 86.6 boxes
+
+Since I can't buy partial boxes, I need to round up to 87 boxes.
+
+3. A 412-mile road trip in a car that gets 34 miles per gallon, with gas at $3.89 a gallon. What does the gas cost, to the cent?
+
+First, calculate gallons needed:
+Gallons = 412 ÷ 34 = 12.1176... gallons
+
+Cost of gas:
+12.1176... × $3.89 = $47.19
+
+4. Dinner came to $186.40 including tax; the pre-tax amount was $172.00. We tip 18% on the pre-tax amount and split the total four ways. What does each person pay, to the cent?
+
+First, calculate tip:
+Tip = $172.00 × 0.18 = $30.96
+
+Total bill:
+$172.00 + $30.96 = $202.96
+
+Each person's share:
+$202.96 ÷ 4 = $50.74
+
+ANSWERS:
+1. $5,636.35
+2. 87 boxes
+3. $47.19
+4. $50.74

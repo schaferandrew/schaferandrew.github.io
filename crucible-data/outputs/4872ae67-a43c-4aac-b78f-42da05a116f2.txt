@@ -1,0 +1,15 @@
+
+
+Done. Here's a summary of the analysis:
+
+**85 valid meeting slots** across the week (Monday 8/31 – Monday 9/7), all in America/Chicago local time.
+
+**Top 3 picks** (all on Monday 9/7, the only day with zero events for either person):
+
+| Rank | Slot | Why |
+|------|------|-----|
+| 1 | `2026-09-07T12:30` | Perfectly centered in an 8-hour free block (3.5h before, 3.5h after) |
+| 2 | `2026-09-07T12:00` | Classic midday, 3h before / 4h after in the free block |
+| 3 | `2026-09-07T13:00` | Mid-afternoon, 4h before / 3h after in the free block |
+
+All three satisfy every criterion: weekdays, midday (not first/last hour), and maximally centered in the free block with no gaps. The file is saved as `slots.json`.

@@ -1,0 +1,13 @@
+Accuracy: The summary’s claims are supported by the passage – the board vote to extend weekend hours to 8 p.m. starting in March, the 62% survey result for evening access, the $40,000 grant covering one year with a revisit next winter if no new money is found, and two members opposing over staffing concerns are all present in the source with no invented details. 4/4
+
+Exactly two sentences: The response contains three sentences:
+1. “The Millbrook library board voted to extend weekend hours to 8 p.m. starting in March, following a survey where 62% of residents asked for evening access.”
+2. “The change is funded by a $40,000 grant that covers one year, and the board will revisit it next winter if no further money is found.”
+3. “Two board members opposed the decision over staffing concerns.”
+The requirement is exactly two sentences. 0/3
+
+Key points: The hours extension, the funding limit/one-year grant, and the resident survey with 62% are all captured. 3/3
+
+Total = 4 + 0 + 3 = 7
+
+GRADE: 7

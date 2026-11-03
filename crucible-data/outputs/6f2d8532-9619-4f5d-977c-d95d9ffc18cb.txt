@@ -1,0 +1,11 @@
+
+
+The paragraph is stylistically strong, with deliberate pacing and a clear narrative voice. I corrected two clear usage errors: "then" to "than" (comparative conjunction) and "to" to "too" (adverb modifying "fast"). I left the sentence fragment, the em dash, and the comma before "or" as written, as they serve the narrative rhythm and emotional tone rather than constituting grammatical mistakes. The absolute phrase ("all brakes shrieking...") and the sensory list were also preserved. Below is the corrected version, followed by the flagged stylistic choices.
+
+CORRECTED:
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder than she remembered it, all brakes shrieking and people talking too fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+POSSIBLY INTENTIONAL:
+"Not waiting for her, exactly.": Sentence fragment used for deliberate pacing and emotional emphasis.
+"Still—she was back.": Em dash creates a sharp, breathless pause that matches the character's realization.
+"whether to laugh, or leave.": Comma may be a deliberate rhythmic pause between two options, though it is technically unnecessary.

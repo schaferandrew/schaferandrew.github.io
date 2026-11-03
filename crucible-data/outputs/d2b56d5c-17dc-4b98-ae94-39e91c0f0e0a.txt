@@ -1,0 +1,47 @@
+
+
+1. **3809**
+To find the number of integers from 1 to 10,000 divisible by 3 or 7 but not by 21, we use the Principle of Inclusion-Exclusion.
+- Count of multiples of 3: $\lfloor 10000/3 \rfloor = 3333$
+- Count of multiples of 7: $\lfloor 10000/7 \rfloor = 1428$
+- Count of multiples of 21 (divisible by both): $\lfloor 10000/21 \rfloor = 476$
+The number of integers divisible by 3 or 7 is $3333 + 1428 - 476 = 4285$. Since all multiples of 21 are included in this count, we subtract them to satisfy the "not by 21" condition: $4285 - 476 = 3809$.
+
+2. **49**
+We calculate $7^{2026} \pmod{100}$. Observing powers of 7:
+- $7^1 = 7$
+- $7^2 = 49$
+- $7^3 = 343 \equiv 43 \pmod{100}$
+- $7^4 = 2401 \equiv 1 \pmod{100}$
+Since $7^4 \equiv 1 \pmod{100}$, the powers of 7 repeat every 4. We find the remainder of the exponent: $2026 \div 4 = 506$ with a remainder of 2.
+Thus, $7^{2026} \equiv 7^2 \equiv 49 \pmod{100}$.
+
+3. **2731**
+Let $a_n$ be the number of ways to tile a $2 \times n$ board.
+- A vertical domino ($2 \times 1$) at the end leaves a $2 \times (n-1)$ board ($a_{n-1}$ ways).
+- A $2 \times 2$ square at the end leaves a $2 \times (n-2)$ board ($a_{n-2}$ ways).
+- Two horizontal dominoes ($1 \times 2$) stacked at the end leave a $2 \times (n-2)$ board ($a_{n-2}$ ways).
+The recurrence is $a_n = a_{n-1} + 2a_{n-2}$, with $a_0 = 1, a_1 = 1$.
+The closed form is $a_n = \frac{2^{n+1} + (-1)^n}{3}$.
+For $n=12$: $a_{12} = \frac{2^{13} + 1}{3} = \frac{8192 + 1}{3} = 2731$.
+
+4. **37/216**
+For the maximum of three dice to be exactly 4, all dice must show numbers $\le 4$, and at least one must show 4.
+- Total outcomes where all dice $\le 4$: $4^3 = 64$.
+- Total outcomes where all dice $\le 3$: $3^3 = 27$.
+- Outcomes where max is exactly 4: $64 - 27 = 37$.
+- Total possible outcomes for three dice: $6^3 = 216$.
+Probability is $37/216$.
+
+5. **13/27**
+Let $B_T$ denote a boy born on Tuesday. There are 14 possible states for each child (7 days $\times$ 2 genders), so 196 total outcomes for two children.
+- Condition (at least one $B_T$): Total outcomes minus outcomes with no $B_T$. A child is not $B_T$ in 13 ways. $196 - 13^2 = 196 - 169 = 27$.
+- Target (both boys AND at least one $B_T$): There are 49 (Boy, Boy) outcomes. Those with no $B_T$ (both boys born on other days) are $6 \times 6 = 36$. So, $49 - 36 = 13$.
+Probability is $13/27$.
+
+ANSWERS
+1. 3809
+2. 49
+3. 2731
+4. 37/216
+5. 13/27

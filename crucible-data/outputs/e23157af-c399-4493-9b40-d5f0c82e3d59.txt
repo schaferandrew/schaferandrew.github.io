@@ -1,0 +1,30 @@
+
+
+**Reasoning:**
+I reviewed each sentence for objective grammatical, spelling, or word-choice errors, and then evaluated the economic claims for accuracy, precision, and tone.
+
+*Language Errors:*
+- Sentence 3 contains a subject-verb agreement error: "prices" is plural, so the verb should be "are" instead of "is."
+- Sentence 6 uses the contraction "it's" (it is) where the possessive pronoun "its" is required.
+- Sentence 12 uses "then" (a time adverb) instead of "than" (a comparison word) when comparing loan costs.
+
+*Claim/Wordage Flags:*
+- Sentence 1 defines inflation too narrowly. Inflation is a sustained rise in the general price level, which can stem from supply shocks, demand shifts, or cost-push factors, not solely government money printing.
+- Sentence 4 incorrectly asserts a legal mandate. The Fed operates under a statutory dual mandate (maximum employment and stable prices) and has no legal requirement to raise rates at a specific inflation threshold.
+- Sentence 8 presents a false dichotomy. Unemployment above the natural rate can be cyclical, structural, or frictional, and is not reducible to individual laziness or policy failures alone.
+- Sentence 11 mischaracterizes quantitative easing as "just printing money" (it is primarily an asset swap that expands the central bank's balance sheet) and falsely claims it "inevitably" causes hyperinflation, which contradicts empirical evidence from major advanced economies.
+- Sentence 14 uses absolute language ("completely ineffective") that is contradicted by economic consensus. Japan's experience illustrates a liquidity trap and policy challenges, but does not prove monetary policy is entirely useless.
+- Sentence 18 makes factually incorrect claims. The US economy did grow during the 1980s (despite recessions), and supply-side economics remains a debated framework rather than "definitively debunked."
+
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: imprecise
+4: misleading
+8: misleading
+11: misleading
+14: overstated
+18: misleading

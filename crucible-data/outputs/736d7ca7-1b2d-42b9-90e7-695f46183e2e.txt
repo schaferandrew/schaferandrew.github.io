@@ -1,0 +1,37 @@
+
+
+Let's solve this step-by-step using the clues provided:
+
+1. **Assign known colors to people/chairs:**
+   - Clue 5 states: `Dave likes red.`
+   - Clue 4 states: `Carol likes yellow.`
+   - This leaves `green` and `blue` for Alice and Bob.
+   - Clue 3 states: `The person who likes green sits in chair 1.`
+
+2. **Determine who likes blue:**
+   - Clue 1 says: `Alice sits immediately to the left of the person who likes blue.`
+   - This means Alice cannot be the person who likes blue (you can't sit to the left of yourself). Therefore, `Bob likes blue`.
+   - By elimination, `Alice likes green`.
+
+3. **Place Alice and Bob:**
+   - Since Alice likes green, and Clue 3 says the person who likes green sits in chair 1, `Alice sits in chair 1`.
+   - Clue 1 also says Alice sits immediately to the left of the person who likes blue (Bob). Therefore, `Bob sits in chair 2`.
+   - (Check Clue 2: Bob does not sit in chair 4. This is satisfied since Bob is in chair 2.)
+
+4. **Place Dave and Carol:**
+   - The remaining chairs are 3 and 4. The remaining people are Dave (red) and Carol (yellow).
+   - Clue 4 states: `Carol... sits somewhere to the right of the person who likes red (Dave).`
+   - For Carol to be to the right of Dave, Dave must take the lower-numbered available chair (3) and Carol must take the higher-numbered one (4).
+   - Therefore, `Dave sits in chair 3` and `Carol sits in chair 4`.
+
+All clues are satisfied with this arrangement:
+- Chair 1: Alice (green)
+- Chair 2: Bob (blue)
+- Chair 3: Dave (red)
+- Chair 4: Carol (yellow)
+
+Chair 1: Alice, green
+Chair 2: Bob, blue
+Chair 3: Dave, red
+Chair 4: Carol, yellow
+ANSWER: Dave

@@ -1,0 +1,25 @@
+
+
+Reasoning:
+- Sentence 3: Subject-verb agreement error. The plural subject "prices" requires the plural verb "are" instead of "is".
+- Sentence 6: Possessive pronoun error. "it's" (contraction for "it is") should be the possessive "its".
+- Sentence 12: Homophone error. The comparison requires "than" instead of the temporal adverb "then".
+- Sentence 1: Misleading. It presents a specific causal theory (money supply growth) as the definition of inflation, which is simply a sustained increase in the general price level.
+- Sentence 4: Misleading. The Fed has a 2% target, but there is no legal mandate requiring automatic interest rate hikes when inflation reaches that level.
+- Sentence 8: Misleading. It creates a false dichotomy that ignores standard economic categories of unemployment (frictional, structural, cyclical) and labor market dynamics.
+- Sentence 11: Overstated. The absolute claim "inevitably causes hyperinflation" is extreme and contradicted by empirical evidence from multiple central banks.
+- Sentence 14: Overstated. Claiming monetary policy is "completely ineffective" is an absolute statement that ignores the zero lower bound constraint and other macroeconomic factors.
+- Sentence 18: Overstated. The phrases "definitively debunked" and "without growing the economy at all" are extreme and factually incorrect, as the US economy did experience growth during the 1980s.
+
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: misleading
+4: misleading
+8: misleading
+11: overstated
+14: overstated
+18: overstated

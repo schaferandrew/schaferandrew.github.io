@@ -1,0 +1,51 @@
+
+
+Here is the step-by-step working for each question.
+
+**1. Savings Account Compound Interest**
+*   **Formula:** $A = P(1 + \frac{r}{n})^{nt}$
+*   **Variables:**
+    *   $P$ (Principal) = $5,000
+    *   $r$ (Annual Rate) = 0.04
+    *   $n$ (Compounds per year) = 12
+    *   $t$ (Years) = 3
+*   **Working:**
+    *   $A = 5000(1 + \frac{0.04}{12})^{12 \times 3}$
+    *   $A = 5000(1 + 0.0033333...)^{36}$
+    *   $A = 5000(1.12727187...)$
+    *   $A = 5636.35935...$
+*   **Rounding:** Rounding to the nearest cent.
+*   **Result:** $5,636.36
+
+**2. Flooring Calculation**
+*   **Step 1: Calculate total area needed including waste.**
+    *   $1,850 \text{ sq ft} \times 1.10 \text{ (100\% area + 10\% waste)} = 2,035 \text{ sq ft}$
+*   **Step 2: Calculate number of boxes.**
+    *   $2,035 \text{ sq ft} / 23.5 \text{ sq ft per box} = 86.595744... \text{ boxes}$
+*   **Rounding:** Since you cannot buy partial boxes, you must round up to the next whole number to ensure you have enough material.
+*   **Result:** 87 boxes
+
+**3. Road Trip Gas Cost**
+*   **Step 1: Calculate gallons of gas needed.**
+    *   $412 \text{ miles} / 34 \text{ mpg} = 12.117647... \text{ gallons}$
+*   **Step 2: Calculate total cost.**
+    *   $12.117647... \text{ gallons} \times \$3.89 \text{ per gallon} = \$47.137647...$
+*   **Rounding:** Rounding to the nearest cent.
+*   **Result:** $47.14
+
+**4. Dinner Bill Split**
+*   **Step 1: Calculate the tip amount.**
+    *   Tip is 18% of the pre-tax amount ($172.00).
+    *   $172.00 \times 0.18 = \$30.96$
+*   **Step 2: Calculate the total bill to be paid.**
+    *   Total = (Amount with tax) + (Tip)
+    *   Total = $186.40 + 30.96 = \$217.36$
+*   **Step 3: Split among four people.**
+    *   $217.36 / 4 = \$54.34$
+*   **Result:** $54.34
+
+ANSWERS
+1. $5,636.36
+2. 87 boxes
+3. $47.14
+4. $54.34

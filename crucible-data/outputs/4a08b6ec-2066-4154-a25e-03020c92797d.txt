@@ -1,0 +1,19 @@
+
+
+Here is the step-by-step reasoning:
+
+1. **Assign known colors:** From Clue 5, Dave likes Red. From Clue 4, Carol likes Yellow. This leaves Blue and Green for Alice and Bob.
+2. **Deduce Alice's and Bob's colors:** Clue 1 says Alice sits immediately to the left of the person who likes Blue. This means Alice cannot be the one who likes Blue. Therefore, Alice must like Green, and Bob must like Blue.
+3. **Place Chair 1:** Clue 3 states the person who likes Green sits in Chair 1. Since Alice likes Green, Alice sits in Chair 1.
+4. **Place Chair 2:** Clue 1 also tells us Alice (Chair 1) is immediately to the left of the person who likes Blue. Since Bob likes Blue, Bob sits in Chair 2.
+5. **Place remaining chairs:** We have placed Alice in Chair 1 and Bob in Chair 2. The remaining chairs are 3 and 4, and the remaining people are Dave (Red) and Carol (Yellow).
+6. **Apply relative position clue:** Clue 4 states Carol sits somewhere to the right of the person who likes Red (Dave). This means Dave must be in Chair 3 and Carol in Chair 4.
+7. **Verify remaining clue:** Clue 2 says Bob does not sit in Chair 4. Our arrangement places Bob in Chair 2, so this clue is satisfied.
+
+All clues are consistent with this arrangement.
+
+Chair 1: Alice, Green
+Chair 2: Bob, Blue
+Chair 3: Dave, Red
+Chair 4: Carol, Yellow
+ANSWER: Dave

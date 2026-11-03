@@ -1,0 +1,67 @@
+
+
+**1. Savings Account Calculation**
+To find the future value of the savings account, we use the compound interest formula:
+$$A = P \left(1 + \frac{r}{n}\right)^{nt}$$
+
+*   **P (Principal):** $5,000
+*   **r (Annual Interest Rate):** 0.04 (4%)
+*   **n (Compounding Frequency):** 12 (monthly)
+*   **t (Time in Years):** 3
+
+**Working:**
+1.  Calculate the monthly interest rate: $0.04 / 12 = 0.003333...$
+2.  Calculate the total number of compounding periods: $12 \times 3 = 36$ months.
+3.  Apply the formula:
+    $$A = 5000 \times (1 + 0.003333...)^{36}$$
+    $$A = 5000 \times (1.12727194...)$$
+    $$A = 5636.3597...$$
+4.  Round to the nearest cent: **$5,636.36**
+
+***
+
+**2. Flooring Calculation**
+We need to determine the total area required including waste, then divide by the coverage of a single box.
+
+**Working:**
+1.  **Base Area:** 1,850 sq ft.
+2.  **Waste Allowance:** 10% of 1,850 sq ft = $185$ sq ft.
+3.  **Total Area Needed:** $1,850 + 185 = 2,035$ sq ft.
+4.  **Boxes Required:** Divide total area by box coverage ($23.5$ sq ft).
+    $$2,035 / 23.5 = 86.5957...$$
+5.  Since you cannot purchase a partial box, you must round up to the next whole number to ensure full coverage.
+    **Boxes to buy: 87**
+
+***
+
+**3. Road Trip Gas Cost**
+We calculate the gallons of gas needed and multiply by the price per gallon.
+
+**Working:**
+1.  **Gallons Needed:** Divide distance by miles per gallon (MPG).
+    $$412 \text{ miles} / 34 \text{ mpg} = 12.117647... \text{ gallons}$$
+2.  **Total Cost:** Multiply gallons by price per gallon ($3.89).
+    $$12.117647... \times 3.89 = 47.137647...$$
+3.  Round to the nearest cent: **$47.14**
+
+***
+
+**4. Dinner Bill Split**
+We calculate the tip based on the pre-tax amount, add it to the total bill, and divide by the number of people.
+
+**Working:**
+1.  **Tip Amount:** Calculate 18% of the pre-tax amount ($172.00).
+    $$172.00 \times 0.18 = 30.96$$
+2.  **Total Cost:** Add the tip to the bill (which already includes tax).
+    $$186.40 \text{ (bill)} + 30.96 \text{ (tip)} = 217.36$$
+3.  **Per Person Cost:** Divide the total by 4 people.
+    $$217.36 / 4 = 54.34$$
+4.  Result to the cent: **$54.34**
+
+***
+
+ANSWERS
+1. $5,636.36
+2. 87
+3. $47.14
+4. $54.34

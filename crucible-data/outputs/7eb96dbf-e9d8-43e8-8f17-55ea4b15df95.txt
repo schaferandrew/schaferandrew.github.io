@@ -1,0 +1,11 @@
+
+
+**Accuracy (4):** The summary faithfully reproduces all factual claims from the source passage without adding or distorting information. The extended hours (to 8 p.m. in March), the 62% survey result, the $40,000 grant covering only one year, the winter review condition, and the staffing-related opposition are all directly supported by the text. Score: 4/4.
+
+**Exactly two sentences (3):** The agent's response contains three distinct sentences, each terminated by a period. This explicitly violates the hard constraint requiring the summary to be exactly two sentences long. Score: 0/3.
+
+**Key points (3):** The summary successfully captures all three required elements: the weekend hours extension, the funding limit (one-year grant), and the resident survey results. Score: 3/3.
+
+Total Score: 7/10
+
+GRADE: 7

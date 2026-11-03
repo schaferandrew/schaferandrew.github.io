@@ -92,7 +92,7 @@
 
   .crucible-run-model {
     font-weight: 600;
-    font-size: $textBase;
+    font-size: $textNormal;
     color: $black;
     word-break: break-word;
   }
@@ -104,7 +104,7 @@
   .crucible-run-score {
     font-weight: 600;
     color: $crucibleBlue;
-    font-size: $textBase;
+    font-size: $textNormal;
 
     &.crucible-run-score-none {
       color: $crucibleMuted;
@@ -156,7 +156,7 @@
   // Date
   .crucible-run-date {
     margin-top: $gap / 2;
-    font-size: $textXsmall;
+    font-size: $textSmall;
     color: $crucibleMuted;
     text-align: right;
   }

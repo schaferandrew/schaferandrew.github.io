@@ -1,0 +1,29 @@
+
+
+## Emails
+
+- **Urgent: Q3 expense report due today** — Finance reminded that your Q3 expense report must be submitted by 5:00 PM today. Missing the cutoff means it's pushed to next month's payroll.
+- **Proposal timeline question** — A client is asking whether the revised proposal can be delivered by Friday and needs an answer before briefing their team.
+- **Q3 review completed** — Alex confirmed the Q3 review is done and ahead of schedule; results to be discussed in today's planning meeting.
+- **1-on-1 follow-up** — Jamie shared notes from yesterday's check-in covering career goals, next-quarter priorities, and team-building activities.
+
+## Calendar
+
+Today, Wednesday, September 2:
+
+- **9:30 – 10:30 AM** — Planning (Room B) with Alex
+- **10:00 – 11:00 AM** — Vendor demo (Zoom) with Alex and vendor@example.com
+  ⚠️ *Note: This overlaps with Planning — you'll need to choose or multitask.*
+- **1:00 – 2:00 PM** — Budget meeting (Conference Room A) with Jamie
+
+Upcoming later this week: standup (Thu), interview (Thu), workshop (Fri), and project review (Fri).
+
+## News
+
+- **Twin Cities Tech Conference Returns** *(high)* — The annual conference comes to Minneapolis with 50+ speakers on AI, startup funding, and emerging tech. Registration opens this Friday. Worth checking out if you're in tech.
+- **Maplewood Park Renovation Complete** *(medium)* — New walking trails and a children's playground are ready. Grand reopening is Saturday.
+- **State Fair Attendance Drops Slightly** *(low)* — A 3% decline this year, attributed to cooler-than-average weather.
+
+## Spanish practice
+
+Hoy es miércoles y tienes una agenda bastante llena: comienza con la reunión de planificación a las 9:30, luego tienes una demostración de un proveedor a las 10 — ¡ojo, que se solapa! — y por la tarde, la reunión de presupuesto. No olvides enviar tu informe de gastos antes de las cinco de la tarde, o se retrasará al próximo mes. Por cierto, ¿ya viste que la renovación del Parque Maplewood está lista? La reapertura es el sábado, y dicen que hay nuevos senderos para caminar. Si tienes tiempo libre, el registro para la conferencia de tecnología en Twin Cities abre el viernes; podría ser un buen evento para asistir.

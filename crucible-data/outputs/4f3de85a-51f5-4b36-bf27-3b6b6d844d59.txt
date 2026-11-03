@@ -1,0 +1,52 @@
+
+
+All 32 tests pass (7 test files, 19 API contract tests + 13 web tests). Here's the summary:
+
+---
+
+## Summary of Changes
+
+### Finding 1: Delete confirmation keyboard trap (`ConfirmDialog.tsx` + `ArticlePage.tsx`)
+- **Changed:** Replaced `<div>` buttons with proper `<button type="button">` elements
+- **Added:** `role="dialog"`, `aria-modal="true"`, `aria-labelledby`, `aria-describedby` on the dialog
+- **Added:** Focus trap (Tab/Shift+Tab cycles within dialog)
+- **Added:** Escape key closes the dialog
+- **Added:** `triggerRef` prop to return focus to the "Delete Article" button when the dialog closes
+- **Added:** Focus moves to first button on dialog open
+- **Test:** `ConfirmDialog.test.tsx` (6 tests: ARIA attributes, Escape key, focus trap, focus return, button activation, hidden state)
+
+### Finding 2: "Read more" mouse-only (`ReadMore.tsx`)
+- **Changed:** `<span className="read-more">` → `<button className="read-more" type="button">`
+- **Added:** `aria-expanded` toggling between true/false
+- **Added:** `aria-live="polite"` span announcing "Article expanded. Showing full text." when content is revealed
+- **Test:** `ReadMore.test.tsx` (5 tests: button element, keyboard activation, toggle, aria-expanded, live region)
+
+### Finding 3: Tag filter mouse-only (`TagFilter.tsx`)
+- **Changed:** `<div>` trigger → `<button>` with `aria-haspopup="listbox"`, `aria-expanded`, `aria-controls`
+- **Changed:** `<div>` options → proper WAI-ARIA listbox pattern with `role="listbox"`, `role="option"`, `aria-selected`
+- **Added:** Full keyboard navigation: Enter/Space to open, ArrowDown/Up/Home/End to navigate, Enter/Space to select, Escape to close
+- **Test:** `TagFilter.test.tsx` (8 tests: keyboard open methods, aria-expanded, aria-selected, selection, Escape, arrow navigation)
+
+### Finding 4: Favorite button has no name (`FavoriteButton.tsx`)
+- **Added:** `aria-label` with full context: `"Favorite {title}, {count} favorites"` or `"Unfavorite {title}, {count} favorites"`
+- **Added:** `aria-hidden="true"` on the decorative heart icon
+- **Test:** Added `it("has a descriptive aria-label")` to existing `FavoriteButton.test.tsx`
+
+### Finding 5: Form errors not connected to fields (`EditorPage.tsx`)
+- **Added:** `aria-invalid={Boolean(errors.name)}` on each input/textarea
+- **Added:** `aria-describedby` pointing to the error span's `id` when errors exist
+- **Added:** `id` attributes to error spans (`title-error`, `description-error`, `body-error`)
+- **Added:** `role="alert"` on error spans
+- **Test:** `EditorPage.test.tsx` (2 tests: aria-invalid/aria-describedby structure, alert role)
+
+### Finding 6: Toast is silent (`Toast.tsx`)
+- **Added:** `role="status"` and `aria-live="polite"` to the toast div
+- **Test:** `Toast.test.tsx` (3 tests: role/status, aria-live, disappear on rerender, hidden when null)
+
+### Things that can't be verified without a real screen reader
+1. **ConfirmDialog announcement:** Whether VoiceOver/NVDA actually announces "Delete this article? dialog" when the dialog opens
+2. **ReadMore announcement:** Whether the `aria-live="polite"` region is actually read by screen readers when expanded (depends on screen reader VO mode vs. browse mode)
+3. **TagFilter listbox navigation:** Whether arrow key navigation is announced as "option, javascript, not selected" in screen reader VO mode
+4. **Toast announcement:** Whether `role="status"` with `aria-live="polite"` is actually spoken (NVDA may not announce `role="status"` in all contexts; `role="alert"` would be more aggressive but could be disruptive)
+5. **Error association:** Whether `aria-describedby` is actually read when moving focus to an invalid field (depends on screen reader's error handling)
+6. **Focus trap visual feedback:** Whether the focus ring is visible on the dialog buttons (CSS-dependent)

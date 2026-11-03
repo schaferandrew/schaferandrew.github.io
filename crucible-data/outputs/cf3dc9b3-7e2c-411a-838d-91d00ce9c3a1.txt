@@ -1,0 +1,28 @@
+
+
+All **32 tests pass** (25 API + 7 web). Here's a summary of all deliverables:
+
+## Deliverables Summary
+
+### 1. Root Cause Confirmed ✅
+The `responseCache` middleware (added in v1.8.0) cached GET responses keyed only by `req.originalUrl`, ignoring the `Authorization` header. This caused user-specific data (favorites, follow state, article edits) to leak across authenticated users.
+
+### 2. Fix Implemented ✅
+**File:** `apps/api/src/middleware/responseCache.ts`
+
+The cache key now includes the user's JWT token when present:
+- Authenticated requests: `${req.originalUrl}|t${token}` (unique per user)
+- Anonymous requests: `${req.originalUrl}` (shared cache preserved)
+
+### 3. Regression Tests Added ✅
+**File:** `apps/api/test/responseCache.test.ts` — 4 new tests added (no existing tests modified):
+- **favorited state** — User A doesn't see User B's favorite on `/articles/:slug`
+- **follow state** — User A doesn't see User B's follow on `/profiles/:username`
+- **articles list** — Each user gets their own cache entry on `/articles`
+- **anonymous sharing** — Anonymous users still share the cache for `/api/tags`
+
+### 4. Postmortem Written ✅
+**File:** `incident/POSTMORTEM.md`
+- **481 distinct users** affected
+- Deploy at 16:42:10, first leak at 16:44:15, first report at 18:06:01
+- Root cause, impact, fix, and 5 follow-up actions documented

@@ -1,0 +1,42 @@
+
+
+## Weather
+
+**Saint Paul, MN** — 68°F, Partly Cloudy (humidity 65%, wind 8 mph). Low of 55°F. 10% chance of precipitation today. Sunny tomorrow (74°F), then scattered showers Thursday.
+
+---
+
+## Outstanding work
+
+- **Q3 expense report** — Due **today at 5:00 PM** (finance@example.com). Missing the cutoff means payment rolls to next month's payroll.
+- **Client proposal timeline** — Unanswered reply requested (client@example.com, 4:45 PM yesterday). They need a yes/no on Friday delivery before briefing their team.
+- **Q3 review results** — Alex shared that the review is complete and ahead of schedule; discussion expected in today's planning meeting.
+- **1-on-1 notes** — Jamie sent career goals and Q priorities follow-ups (informational).
+
+---
+
+## Calendar
+
+| Time | Event | Location |
+|------|-------|----------|
+| 9:30–10:30 AM | **Planning** | Room B |
+| 10:00–11:00 AM | **Vendor demo** | Zoom |
+| 1:00–2:00 PM | Budget meeting | Conference Room A |
+
+⚠️ **Conflict:** Planning (9:30–10:30) and Vendor demo (10:00–11:00) overlap by 30 minutes. You'll need to choose which to attend live or catch the other on recording.
+
+---
+
+## News
+
+- **Twin Cities Tech Conference returns** — 50+ speakers on AI, startup funding, and emerging tech. Registration opens Friday. *(StarTribune, high importance)*
+- **Maplewood Park renovation complete** — New walking trails and playground; grand reopening is Saturday. *(Pioneer Press, medium)*
+- **State Fair attendance drops 3%** — Cooler weather cited as a factor. *(StarTribune, low)*
+
+---
+
+## Top 3 things to do today
+
+1. **Submit your Q3 expense report before 5:00 PM** — Hard deadline; late submissions skip this month's payroll.
+2. **Reply to the client's proposal timeline question** — They're waiting to brief their team; a prompt answer sets the right tone.
+3. **Resolve the 9:30 / 10:00 meeting conflict** — Decide whether to attend Planning or the Vendor demo live, and arrange to catch up on the other.

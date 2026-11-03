@@ -1,0 +1,12 @@
+[
+ {
+  "record": "status",
+  "format_version": 3,
+  "run_uuid": "bacc1700-9843-4f68-a655-52cf3d3ef591",
+  "at": "2026-11-03T21:32:25+00:00",
+  "invalid": {
+   "reason": "the 6bit instance was unloaded mid-sweep (LM Link peer_keepalive_timeout); rerun when the instance is back"
+  },
+  "by": "maintainer"
+ }
+]

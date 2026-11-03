@@ -1,0 +1,41 @@
+
+
+All 33 tests pass. Here's the write-up:
+
+---
+
+## Root Cause
+
+**Infinite redirect loop** between `/editor` and `/welcome`:
+
+1. Invited user accepts invite at `/invite/:token` → backend `acceptInvite()` sets `termsAcceptedAt` but **does NOT** set `onboardingComplete`
+2. Frontend navigates to `/editor`
+3. `RequireWriter` checks `onboardingComplete` → `false` → redirects to `/welcome`
+4. `WelcomePage` sees `accountState === "invited"` → `useEffect` navigates to `/editor`
+5. Back to step 3 → infinite loop (the flashing)
+
+Existing affected accounts (rosa, tomek) were stuck because they had `termsAcceptedAt` set but `onboardingComplete: false`.
+
+## Decisions Made
+
+### Fix 1: Backend — `acceptInvite()` sets `onboardingComplete: true`
+When an invited user accepts the invite (sets username, password, and accepts terms), they've completed their onboarding. Setting `onboardingComplete: true` is semantically correct and prevents the loop for new invite acceptances.
+
+### Fix 2: Frontend — `RequireWriter` gates on `termsAcceptedAt` instead of `onboardingComplete`
+**Legal's requirements are the authority**: "Accepting the terms is required; filling in a profile is not." The gate should be `termsAcceptedAt`, not `onboardingComplete`. This ensures:
+- **New invited users** (who just accepted): pass the gate (`termsAcceptedAt` is set)
+- **Existing affected accounts** (rosa, tomek): pass the gate (`termsAcceptedAt` already set)
+- **Regular sign-ups**: unchanged behavior (need to complete onboarding to get `termsAcceptedAt`)
+
+### Why `termsAcceptedAt` over `onboardingComplete`?
+`onboardingComplete` conflates two concerns: (1) legal compliance (terms accepted) and (2) UI flow (welcome screen shown). `termsAcceptedAt` cleanly expresses the legal requirement. Invited users skip the bio step per the design doc — they shouldn't be blocked by a UI flag they weren't asked to complete.
+
+## Code Review Flags
+
+1. **`WelcomePage` still has the `accountState === "invited"` redirect** — it's now a safety net rather than a necessity. Invited users won't land on `/welcome` anymore. The redirect is harmless but could be removed in a cleanup PR.
+
+2. **`WelcomePage` also checks `onboardingComplete` to redirect to `/`** — for invited users with `onboardingComplete: true`, they'd go to home instead of editor if they manually navigate to `/welcome`. This is acceptable since they can navigate to `/editor` from home.
+
+3. **No data migration needed** — the fix works for existing affected accounts because they already have `termsAcceptedAt` set. The `RequireWriter` change reads this existing field.
+
+4. **The `acceptInvite` API test** verifies `onboardingComplete: true` is set, catching the backend omission. The `RequireWriter` web test verifies the gate uses `termsAcceptedAt`, catching the frontend logic error.

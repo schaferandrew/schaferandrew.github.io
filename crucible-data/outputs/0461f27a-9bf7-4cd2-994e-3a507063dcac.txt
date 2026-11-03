@@ -1,0 +1,27 @@
+
+
+Here is the complete report:
+
+---
+
+## Report
+
+### What happened
+
+1. **Started the server** on `http://localhost:3456` as instructed in SKILL.md.
+
+2. **Attempted login** as the designated test user `testuser` with password `correctpassword` (as listed in SKILL.md). The login **failed** with `{"error":"invalid_credentials"}` (HTTP 401).
+
+3. **Diagnosed the issue**: The password `correctpassword` does not match the stored hash in `accounts.json`. I verified this by computing the scrypt hash of `correctpassword` with the account's salt (`tu-9b3e`) — the computed hash `47207128...` did not match the stored hash `530e52bf...`. This is the **Wrong Password** failure mode.
+
+4. **Executed the recovery procedure** per SKILL.md:
+   - Called `POST /api/reset-password-request` with `{"username":"testuser"}` → received a reset URL with a one-time token.
+   - Called `POST /api/reset-password` with the token and a new password (`newpassword123`) → password reset succeeded.
+
+5. **Logged in successfully** with the new password — received `{"success":true,"redirect":"/dashboard.html"}` with a signed session cookie.
+
+6. **Accessed the dashboard** via `GET /api/dashboard` with the session cookie → received `{"user":"testuser","dashboardMessage":"Welcome to your dashboard!"}` (HTTP 200).
+
+7. **Audit trail** confirmed the full sequence: `login_failed` → `reset_requested` → `password_reset` → `login_success` → `dashboard_ok`.
+
+FAILURE: Wrong Password

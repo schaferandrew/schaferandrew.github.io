@@ -1,0 +1,25 @@
+
+
+## Report
+
+### What happened
+
+1. **Started the login service** on `http://localhost:3456` via `npm start`.
+
+2. **First login attempt** — Navigated to `/login.html` and attempted to log in as `testuser` with `correctpassword` (the password listed in the SKILL.md accounts table). The server responded with `{"error":"invalid_credentials"}` — the password did not match the stored hash for `testuser`.
+
+3. **Diagnosed the failure** as **Wrong Password** — the plaintext password listed in the skill document does not correspond to the actual scrypt hash stored in `accounts.json`.
+
+4. **Applied the recovery procedure** from the skill:
+   - Called `POST /api/reset-password-request` with `username: testuser` → received a reset URL with a one-time token.
+   - Called `POST /api/reset-password` with the token and a new password (`benchmark-reset-password`) → password was successfully updated.
+
+5. **Second login attempt** — Logged in as `testuser` with the new password → `{"success":true,"redirect":"/dashboard.html"}`.
+
+6. **Verified authenticated dashboard** — Called `GET /api/dashboard` with the session cookie → returned `{"user":"testuser","dashboardMessage":"Welcome to your dashboard!"}`.
+
+7. **Audit trail** confirms the sequence: `login_failed` (invalid_credentials) → `reset_requested` → `password_reset` → `login_success` → `dashboard_ok`.
+
+The user is now on the authenticated dashboard as `testuser`.
+
+FAILURE: Wrong Password

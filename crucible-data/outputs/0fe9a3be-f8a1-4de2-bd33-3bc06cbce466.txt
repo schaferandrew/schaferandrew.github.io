@@ -1,0 +1,40 @@
+
+
+Build and tests both pass. Here's a summary of what was wrong and what I changed:
+
+---
+
+## Summary
+
+### What was wrong
+
+**Build failure:** `LeadForm.tsx` used `onSubmit` and `onChange` event handlers on a Server Component. Next.js 14 App Router rejects event handlers in Server Components, causing the build to hang and error with *"Event handlers cannot be passed to Client Component."*
+
+**Broken form (couldn't type):** The form used a plain mutable object (`const values = {...}`) instead of React state. `onChange` handlers mutated the object directly, which React never sees — so the UI never re-rendered with what the user typed.
+
+**No validation:** Neither the form nor the API validated inputs. Empty or invalid submissions would pass through silently.
+
+**No error/success UI:** No error messages, no `aria-invalid`, no `lead-success` element, no focus management.
+
+### What I changed (3 files)
+
+**`app/contact/LeadForm.tsx`** — Complete rewrite:
+- Added `"use client"` directive so it can use event handlers in Next.js App Router.
+- Replaced the plain mutable object with 4 `useState` hooks (name, email, company, message) so typing works.
+- Added `errors`, `success`, and `submitting` state for validation feedback and the success message.
+- Added client-side validation on submit (name/email/message required, spaces-only counts as empty).
+- Added `aria-invalid` and `aria-describedby` on error fields, error `<span>` elements with the correct IDs (`lead-name-error`, `lead-email-error`, `lead-message-error`).
+- On submit with errors: shows field errors, moves focus to the first error field, keeps all typed values, sends nothing.
+- On successful API response: shows `<div id="lead-success">` in place of the form.
+- On API error: keeps the form with what was typed and shows API-returned errors.
+- Enter in any field submits the form (native browser behavior — no interception needed).
+
+**`app/api/leads/route.ts`** — Added validation and normalization:
+- Calls `validateLead()` to check required fields and email format; returns 422 with `{ errors }` for any problems.
+- Calls `normalizeLead()` to trim fields, default company to `""`, and normalize email (trimmed + lowercased).
+- Returns 201 with `{ lead: <saved lead> }` on success.
+
+**`lib/leads.ts`** — Added 3 new functions:
+- `validateLead()` — checks name/email/message required, email structural validity.
+- `normalizeLead()` — trims all fields, lowercases email, defaults missing company to `""`.
+- `isValidEmail()` — accepts real-world typing (plus addressing, dots in local part, subdomains, hyphens in domains, long/new TLDs); rejects spaces, ensures exactly one `@`, domain labels of `[a-zA-Z0-9]` with inner hyphens, TLD of 2+ letters.

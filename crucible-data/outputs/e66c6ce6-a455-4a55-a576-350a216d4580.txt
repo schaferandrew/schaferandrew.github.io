@@ -1,0 +1,95 @@
+
+
+All 39 tests pass (19 API + 20 web). Here is the complete summary:
+
+---
+
+## Summary of Accessibility Fixes
+
+### Finding 1: Delete Confirmation Dialog — Keyboard Trap (2.1.1, 2.4.3, 2.1.2, 4.1.2)
+
+**Problem:** The confirmation overlay used `<div>` elements for buttons (not keyboard-interactive), had no `role="dialog"` or ARIA attributes, no Escape key handling, no focus management, and focus was lost on close.
+
+**Changes:**
+- **`ConfirmDialog.tsx`**: Replaced `<div>` action buttons with `<button type="button">`. Added `role="dialog"`, `aria-modal="true"`, `aria-labelledby`, and `aria-describedby`. Added `tabIndex={-1}` for programmatic focus.
+- **`ConfirmDialog.tsx`**: Added Escape key listener to close the dialog.
+- **`ConfirmDialog.tsx`**: Focus moves into the dialog on open, and returns to the trigger button on close.
+- **`ConfirmDialog.tsx`**: Overlay click closes the dialog (clicking the dark background, not the dialog itself).
+- **`ArticlePage.tsx`**: Added `deleteBtnRef` on the "Delete Article" button and passed it as `triggerRef` to `ConfirmDialog`.
+
+**Test:** `test/ConfirmDialog.test.tsx` (7 tests) — ARIA attributes, keyboard-accessible buttons, Escape key, click handlers, overlay dismiss.
+
+---
+
+### Finding 2: "Read More" — Not Keyboard Accessible (2.1.1, 4.1.2, 1.3.1)
+
+**Problem:** The toggle was a `<span>` with an `onClick` handler — unreachable by Tab and invisible to screen readers as an interactive control.
+
+**Changes:**
+- **`ReadMore.tsx`**: Changed `<span>` to `<button type="button">`. Added `aria-expanded` reflecting the expanded state.
+
+**Test:** `test/ReadMore.test.tsx` (6 tests) — Button role, keyboard accessibility, `aria-expanded` state, expand/collapse toggle, short text behavior.
+
+---
+
+### Finding 3: Tag Filter — Mouse-Only (2.1.1, 4.1.2)
+
+**Problem:** The dropdown used `<div>` elements, had no keyboard support, no menu semantics, and no indication of the selected tag.
+
+**Changes:**
+- **`TagFilter.tsx`**: Changed trigger from `<div>` to `<button type="button">` with `aria-haspopup="listbox"`, `aria-expanded`, and `aria-controls`.
+- **`TagFilter.tsx`**: Added `role="listbox"` to the menu, `role="option"` to each tag, and `aria-selected` to indicate the active choice.
+- **`TagFilter.tsx`**: Full keyboard navigation — Enter/Space/ArrowDown/ArrowUp/Escape. Focus management between trigger and options.
+- **`TagFilter.tsx`**: After selecting a tag, focus returns to the trigger button.
+
+**Test:** `test/TagFilter.test.tsx` (10 tests) — Button trigger, ARIA attributes, click open, listbox/option roles, selected state, keyboard Enter, ArrowDown/ArrowUp, Escape close, tag selection.
+
+---
+
+### Finding 4: Favorite Button — No Accessible Name (4.1.2, 1.1.1)
+
+**Problem:** The button had only an icon and count, announced as "3, button" — no indication of what it does or its state.
+
+**Changes:**
+- **`FavoriteButton.tsx`**: Added descriptive `aria-label` like "Favorite My Article (3 favorites)" or "Unfavorite My Article (3 favorites)" depending on state.
+- **`FavoriteButton.tsx`**: Added `aria-hidden="true"` to the decorative heart icon so it doesn't interfere with the accessible name.
+
+**Test:** `test/FavoriteButton.test.tsx` (2 new tests) — Accessible name includes action + article title + count; name changes when favorited.
+
+---
+
+### Finding 5: Form Errors Not Connected to Fields (3.3.1, 1.3.1, 4.1.2)
+
+**Problem:** Error messages appeared visually but weren't linked to their fields. Screen readers didn't announce that a field was invalid or read the error when navigating to it.
+
+**Changes:**
+- **`EditorPage.tsx`**: Added `aria-invalid="true"` to fields with errors, removed when the field is fixed.
+- **`EditorPage.tsx`**: Added `aria-describedby` on inputs pointing to the error element's `id`.
+- **`EditorPage.tsx`**: Added `id` attributes to error spans and `role="alert"` so they are announced by screen readers.
+- **`EditorPage.tsx`**: Errors clear automatically when the user starts typing in the field (better UX).
+- **`EditorPage.tsx`**: On submit failure, focus moves to the first invalid field.
+
+**Test:** `test/EditorPage.test.tsx` (4 tests) — `role="alert"` errors, `aria-invalid`, `aria-describedby` linkage, error clearing on fix.
+
+---
+
+### Finding 6: Toast — Silent Status Message (4.1.3)
+
+**Problem:** The "Article published" toast was visible but screen reader users got nothing — no live region announcement.
+
+**Changes:**
+- **`Toast.tsx`**: Added `role="status"` and `aria-live="polite"` to the toast `<div>`. This causes screen readers to announce the message when it appears, without interrupting the user mid-task.
+
+**Test:** `test/Toast.test.tsx` (3 tests) — `role="status"`, `aria-live="polite"`, not in DOM when null, announces new messages.
+
+---
+
+### What Cannot Be Verified Without a Real Screen Reader
+
+1. **VoiceOver/NVDA/JAWS actual speech output** — The tests verify ARIA attributes and DOM structure, but only a real screen reader can confirm that announcements are read correctly (e.g., that the Toast is announced politely, or that the dialog's `aria-labelledby`/`aria-describedby` produces the right spoken sequence).
+
+2. **Focus order in the ConfirmDialog** — While we've added `tabIndex={-1}` and programmatic focus, the exact tab order within the dialog (dialog → Cancel → Confirm → back to Cancel) should be verified with a real screen reader.
+
+3. **TagFilter listbox keyboard navigation** — The ArrowDown/ArrowUp navigation and the `aria-selected` announcements need real screen reader verification to ensure the selected state is spoken.
+
+4. **Visual design consistency** — The CSS classes are preserved, so the visual design should be identical, but a visual regression check would confirm this.

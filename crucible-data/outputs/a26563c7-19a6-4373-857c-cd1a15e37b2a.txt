@@ -1,0 +1,20 @@
+
+
+All tests pass and the fix is complete. Here's a summary of what was diagnosed and changed:
+
+## Diagnosis
+
+The original `page.tsx` used `useState` and `useEffect` (client-side hooks) to fetch account data from an API route. This has two problems:
+
+1. **Missing `'use client'` directive** — In Next.js App Router, `page.tsx` is a Server Component by default. Using client hooks without the directive causes errors.
+2. **Unnecessary client-server round trip** — Data that's available on the server was being fetched client-side, creating a waterfall (initial "Loading..." render → fetch → re-render).
+
+## Changes Made
+
+| File | Change |
+|---|---|
+| **`app/lib/accounts.ts`** (new) | Extracted shared account data and `getAccount()` lookup function — used by both the page and API route |
+| **`app/page.tsx`** | Converted to a **Server Component** that calls `getAccount('acct_1')` directly — no `useState`, no `useEffect`, no API call needed |
+| **`app/api/account/route.ts`** | Updated to use the shared `getAccount()` from the lib module (eliminates data duplication) |
+| **`app/page.component.test.tsx`** (new) | Added test that renders `AccountPage` and verifies "Name: Alice" and "Plan: Pro" are displayed |
+| **`app/page.test.tsx`** | Preserved existing API route tests (2 tests) |

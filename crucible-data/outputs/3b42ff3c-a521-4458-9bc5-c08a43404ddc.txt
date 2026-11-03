@@ -1,0 +1,4 @@
+
+
+Now I have all 18 calendars. Let me find the best slots by counting how many people are free for each 1-hour option.
+

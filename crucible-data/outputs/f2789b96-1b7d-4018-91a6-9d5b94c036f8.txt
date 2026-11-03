@@ -1,0 +1,27 @@
+
+
+All tests pass and the fix is complete. Here's a summary of what was done:
+
+## Diagnosis
+
+The original `page.tsx` used **client-side data fetching** (`useState` + `useEffect`), which:
+- Made the page a Client Component unnecessarily
+- Delayed rendering until after the client-side fetch completed (showing "Loading..." first)
+- Missed out on Next.js Server Component benefits (streaming, caching, SEO)
+
+## Fix
+
+**`app/page.tsx`** — Converted to an **async Server Component** that fetches data on the server using `async/await`:
+```tsx
+export default async function AccountPage() {
+  const res = await fetch('http://localhost:3000/api/account?id=acct_1');
+  const account = await res.json();
+  return <AccountDisplay account={account} />;
+}
+```
+
+**`app/account-display.tsx`** — Extracted the rendering logic into a pure presentational component (a common Next.js pattern that enables unit testing and keeps the Server Component focused on data fetching).
+
+**Tests** — Split into two files to match environments:
+- `app/api/account/route.test.ts` (`@vitest-environment node`) — Tests the API route directly (2 tests, preserved from original)
+- `app/page.test.tsx` (default `jsdom`) — Tests the `AccountDisplay` component renders correctly with account data (1 new test)

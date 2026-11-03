@@ -1,0 +1,89 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "b0cb7b98-1063-4695-9b55-2909eff79ee1",
+ "rubric_version": 2,
+ "rubric_hash": "d2ed1dccfdb0032f",
+ "method": "checks",
+ "scored_at": "2026-11-03T21:28:28.460157+00:00",
+ "crucible_version": "3.7.1",
+ "raw": {
+  "passed": 0,
+  "total": 4,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": 2.5,
+ "passed": false,
+ "items": [
+  {
+   "id": "answer",
+   "type": "items",
+   "group": "Correct answer",
+   "label": "The ANSWER: line says free (the Design review ends at exactly 3:30, which is not a conflict).",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "free",
+     "label": "ANSWER is free",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  },
+  {
+   "id": "states_time",
+   "type": "required_patterns",
+   "group": "States its assumption",
+   "label": "The reply says which time it checked: PM, this afternoon or today (3:30 AM has already passed).",
+   "passed": false,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "grounded",
+   "type": "tool_calls",
+   "group": "Grounded in the calendar",
+   "label": "The run called get_current_time and list_events (read from the session, not the reply).",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "time",
+     "label": "Called get_current_time",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "events",
+     "label": "Called list_events",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Correct answer",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "States its assumption",
+   "passed": 0,
+   "total": 1,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Grounded in the calendar",
+   "passed": 0.0,
+   "total": 2,
+   "detail": "no answer to check"
+  }
+ ]
+}

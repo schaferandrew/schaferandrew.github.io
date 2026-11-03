@@ -1,0 +1,21 @@
+
+
+The `slots.json` file is complete and valid. Here's a summary:
+
+**85 valid 60-minute slots** across the Aug 31 – Sep 7 window:
+
+| Day | Date | Slots |
+|-----|------|-------|
+| Mon | Aug 31 | 5 (11:00, 11:30, 12:00, 15:30, 16:00) |
+| Tue | Sep 1 | 9 (10:00–14:00) |
+| Wed | Sep 2 | 9 (10:30, 11:00, 11:30, 12:00, 14:00, 14:30, 15:00, 15:30, 16:00) |
+| Thu | Sep 3 | 9 (09:00–10:00, 12:00–14:00, 16:00) |
+| Fri | Sep 4 | 8 (11:00–13:00, 15:00, 15:30, 16:00) |
+| Sat | Sep 5 | 15 (all hours) |
+| Sun | Sep 6 | 15 (all hours) |
+| Mon | Sep 7 | 15 (all hours) |
+
+**Top 3 picks** (all weekdays, midday, between existing meetings):
+1. **Mon Aug 31 12:00** – Between Alex's Team standup (10–11) and Design review (13–14), smallest gap of any slot
+2. **Wed Sep 2 12:00** – Between Alex's Planning (9:30–10:30) and Jamie's Budget meeting (13–14)
+3. **Thu Sep 3 13:00** – Between Alex's Interview (11–12) and Jamie's Review (15–16)

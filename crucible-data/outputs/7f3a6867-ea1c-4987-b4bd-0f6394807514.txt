@@ -1,0 +1,21 @@
+
+
+Done. Here's what was built:
+
+**Package structure:**
+- `interest/__init__.py` — package marker
+- `interest/__main__.py` — CLI entry point (`python -m interest`)
+- `interest/calculator.py` — core calculation logic using `Decimal` for precision
+- `tests/test_interest.py` — 29 tests covering all required cases
+- `README.md` — usage docs with examples
+
+**Key design decisions:**
+- Iterates over months (or days for daily compounding) so contributions at any frequency align correctly with compounding periods
+- All monetary math uses `Decimal` with `ROUND_HALF_UP` for proper cent rounding
+- Errors print to stderr with a short message and exit code 1 — no tracebacks
+
+**Test coverage (29 tests, all passing):**
+- Basic compound interest: annual, quarterly, monthly, daily, zero interest, multi-year
+- Contributions: monthly + monthly compounding, annual + annual compounding, monthly + annual compounding, no contribution
+- Known value case: $5000 at 7% monthly for 10 years → $10,048.31
+- Error handling: missing/negative/invalid principal, rate, years, months, contributions, and contradictory flags — all exit non-zero with clean stderr

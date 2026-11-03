@@ -1,0 +1,40 @@
+
+
+Here's a summary of what I found and fixed:
+
+## Diagnosis
+
+**Root Cause:** The dashboard page (`public/dashboard.html`) had no handling for expired sessions. When the 30-second session expired:
+1. `/api/dashboard` returned `{ user: null, dashboardMessage: "" }` (HTTP 200)
+2. The JavaScript in `dashboard.html` saw `data.user` was falsy and set both `#user` and `#message` to empty strings
+3. Result: a visually blank dashboard
+
+## Fix
+
+**File:** `public/dashboard.html` (line 35)
+
+Changed the `else` branch in `loadDashboard()` from clearing content to redirecting:
+
+```javascript
+// Before (blank screen):
+} else {
+    document.getElementById('user').textContent = '';
+    document.getElementById('message').textContent = '';
+}
+
+// After (redirect to login):
+} else {
+    window.location.href = '/login.html';
+}
+```
+
+## Regression Test
+
+**File:** `server.test.js` — Added `Dashboard > should return empty user when session has expired` which:
+1. Logs in as testuser
+2. Waits 31 seconds for the 30-second session to expire
+3. Verifies the API returns `{ user: null, dashboardMessage: '' }` for the expired session
+
+## Test Results
+
+All 8 tests pass (7 original + 1 new regression test).

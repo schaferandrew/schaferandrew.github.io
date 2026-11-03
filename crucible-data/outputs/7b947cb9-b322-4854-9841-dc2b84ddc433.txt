@@ -1,0 +1,93 @@
+Here are the step-by-step solutions for each question.
+
+### 1. Savings Account Compound Interest
+
+**Formula:** $A = P \left(1 + \frac{r}{n}\right)^{nt}$
+*   $P$ (Principal) = $\$5,000$
+*   $r$ (Annual interest rate) = $4\% = 0.04$
+*   $n$ (Compounding periods per year) = $12$ (monthly)
+*   $t$ (Time in years) = $3$
+
+**Step 1: Calculate the periodic interest rate.**
+$$ \frac{r}{n} = \frac{0.04}{12} = 0.003333... $$
+
+**Step 2: Calculate the total number of compounding periods.**
+$$ nt = 12 \times 3 = 36 $$
+
+**Step 3: Calculate the final amount.**
+$$ A = 5000 \left(1 + \frac{0.04}{12}\right)^{36} $$
+$$ A = 5000 \left(1.003333...\right)^{36} $$
+
+Using a calculator for precision:
+$$ 1.003333...^{36} \approx 1.1272719... $$
+$$ A = 5000 \times 1.1272719... $$
+$$ A \approx 5636.3596... $$
+
+**Step 4: Round to the nearest cent.**
+$$ \$5,636.36 $$
+
+***
+
+### 2. Flooring Calculation
+
+**Step 1: Calculate the total area needed including waste.**
+Base area = $1,850$ sq ft.
+Waste allowance = $10\% = 0.10$.
+Total area required = $1,850 \times (1 + 0.10) = 1,850 \times 1.10$.
+$$ 1,850 \times 1.10 = 2,035 \text{ sq ft} $$
+
+**Step 2: Calculate the number of boxes.**
+Each box covers $23.5$ sq ft.
+$$ \text{Boxes} = \frac{2,035}{23.5} $$
+$$ \text{Boxes} \approx 86.5957... $$
+
+**Step 3: Determine the number of boxes to buy.**
+You cannot buy a fraction of a box. You must round up to the next whole number to ensure you have enough flooring.
+$$ \lceil 86.5957... \rceil = 87 \text{ boxes} $$
+
+***
+
+### 3. Road Trip Gas Cost
+
+**Step 1: Calculate the gallons of gas needed.**
+Distance = $412$ miles.
+Fuel efficiency = $34$ miles per gallon (mpg).
+$$ \text{Gallons} = \frac{412}{34} $$
+$$ \text{Gallons} \approx 12.117647... \text{ gallons} $$
+
+**Step 2: Calculate the total cost.**
+Price per gallon = $\$3.89$.
+$$ \text{Cost} = 12.117647... \times 3.89 $$
+$$ \text{Cost} \approx 47.137647... $$
+
+**Step 3: Round to the nearest cent.**
+$$ \$47.14 $$
+
+***
+
+### 4. Dinner Bill Split
+
+**Step 1: Calculate the tip amount.**
+Pre-tax amount = $\$172.00$.
+Tip rate = $18\% = 0.18$.
+$$ \text{Tip} = 172.00 \times 0.18 $$
+$$ \text{Tip} = 30.96 $$
+
+**Step 2: Calculate the total bill.**
+Total bill = Pre-tax amount + Tax + Tip.
+We are given that the pre-tax amount *including tax* is $\$186.40$.
+So, Total bill = $\$186.40$ (which includes tax) + $\$30.96$ (tip).
+$$ \text{Total Bill} = 186.40 + 30.96 $$
+$$ \text{Total Bill} = 217.36 $$
+
+**Step 3: Split the total among four people.**
+$$ \text{Per Person} = \frac{217.36}{4} $$
+$$ \text{Per Person} = 54.34 $$
+
+***
+
+ANSWERS
+1. $5,636.36
+2. 87
+3. $47.14
+4. $54.34

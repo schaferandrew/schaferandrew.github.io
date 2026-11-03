@@ -1,0 +1,154 @@
+Here are the step-by-step solutions for each problem.
+
+### 1. Integers divisible by 3 or 7, but not by 21
+
+Let $S = \{1, 2, \dots, 10000\}$.
+We want to find the number of integers $n \in S$ such that $n$ is divisible by 3 or 7, but **not** by 21.
+
+Let $A$ be the set of integers in $S$ divisible by 3.
+Let $B$ be the set of integers in $S$ divisible by 7.
+Let $C$ be the set of integers in $S$ divisible by 21.
+
+Note that an integer is divisible by 21 if and only if it is divisible by both 3 and 7. Thus, $C = A \cap B$.
+The condition "divisible by 3 or 7" corresponds to the set $A \cup B$.
+The condition "not by 21" means we exclude elements in $C$.
+So we are looking for the size of the set $(A \cup B) \setminus C$.
+
+Since $C \subseteq A$ and $C \subseteq B$, it follows that $C \subseteq (A \cup B)$.
+Therefore, $(A \cup B) \setminus C = (A \setminus C) \cup (B \setminus C)$.
+Alternatively, using set theory:
+$|(A \cup B) \setminus C| = |A \cup B| - |C|$.
+Using the Principle of Inclusion-Exclusion for $|A \cup B|$:
+$|A \cup B| = |A| + |B| - |A \cap B| = |A| + |B| - |C|$.
+So, the number of desired integers is:
+$N = (|A| + |B| - |C|) - |C| = |A| + |B| - 2|C|$.
+
+Calculate the sizes:
+$|A| = \lfloor \frac{10000}{3} \rfloor = 3333$.
+$|B| = \lfloor \frac{10000}{7} \rfloor = 1428$.
+$|C| = \lfloor \frac{10000}{21} \rfloor = 476$.
+
+$N = 3333 + 1428 - 2(476)$
+$N = 4761 - 952$
+$N = 3809$.
+
+### 2. Remainder when $7^{2026}$ is divided by 100
+
+We need to calculate $7^{2026} \pmod{100}$.
+We can use Euler's Totient Theorem. $\phi(100) = 100(1 - 1/2)(1 - 1/5) = 100(1/2)(4/5) = 40$.
+Since $\gcd(7, 100) = 1$, $7^{40} \equiv 1 \pmod{100}$.
+
+We reduce the exponent 2026 modulo 40:
+$2026 = 40 \times 50 + 26$.
+So, $7^{2026} \equiv 7^{26} \pmod{100}$.
+
+Let's compute powers of 7 modulo 100:
+$7^1 = 7$
+$7^2 = 49$
+$7^3 = 343 \equiv 43$
+$7^4 = 7 \times 43 = 301 \equiv 1$
+
+Wait, $7^4 = 2401$. $2401 = 24 \times 100 + 1$. So $7^4 \equiv 1 \pmod{100}$.
+This is a much simpler cycle. The order of 7 modulo 100 is 4.
+
+We reduce the exponent 2026 modulo 4:
+$2026 = 4 \times 506 + 2$.
+So, $7^{2026} \equiv 7^2 \pmod{100}$.
+$7^2 = 49$.
+
+The remainder is 49.
+
+### 3. Tiling a 2 x 12 board
+
+Let $a_n$ be the number of ways to tile a $2 \times n$ board with $1 \times 2$ dominoes and $2 \times 2$ squares.
+Consider the rightmost end of the board:
+1. If we place a vertical $1 \times 2$ domino, it covers the last column. The remaining board is $2 \times (n-1)$. There are $a_{n-1}$ ways.
+2. If we place two horizontal $1 \times 2$ dominoes, they cover the last two columns. The remaining board is $2 \times (n-2)$. There are $a_{n-2}$ ways.
+3. If we place a $2 \times 2$ square, it covers the last two columns. The remaining board is $2 \times (n-2)$. There are $a_{n-2}$ ways.
+
+So the recurrence relation is:
+$a_n = a_{n-1} + 2a_{n-2}$.
+
+Base cases:
+$a_0 = 1$ (empty board, 1 way)
+$a_1 = 1$ (one vertical domino)
+$a_2 = a_1 + 2a_0 = 1 + 2(1) = 3$ (two vertical, two horizontal, one square).
+
+Let's compute up to $n=12$:
+$a_0 = 1$
+$a_1 = 1$
+$a_2 = 3$
+$a_3 = 3 + 2(1) = 5$
+$a_4 = 5 + 2(3) = 11$
+$a_5 = 11 + 2(5) = 21$
+$a_6 = 21 + 2(11) = 43$
+$a_7 = 43 + 2(21) = 85$
+$a_8 = 85 + 2(43) = 171$
+$a_9 = 171 + 2(85) = 341$
+$a_{10} = 341 + 2(171) = 683$
+$a_{11} = 683 + 2(341) = 1365$
+$a_{12} = 1365 + 2(683) = 1365 + 1366 = 2731$
+
+The number of ways is 2731.
+
+### 4. Probability that the largest number shown is exactly 4
+
+Three fair six-sided dice are rolled. Total outcomes = $6^3 = 216$.
+Let $M$ be the maximum value shown on the three dice. We want $P(M = 4)$.
+
+It is easier to calculate $P(M \le 4)$ and $P(M \le 3)$ and subtract.
+$P(M = 4) = P(M \le 4) - P(M \le 3)$.
+
+The number of outcomes where all dice show values $\le k$ is $k^3$.
+Number of outcomes where max $\le 4$: $4^3 = 64$.
+Number of outcomes where max $\le 3$: $3^3 = 27$.
+
+Number of outcomes where max is exactly 4: $64 - 27 = 37$.
+
+Probability = $\frac{37}{216}$.
+37 is prime and does not divide 216 ($216 = 2^3 \cdot 3^3$). So the fraction is in lowest terms.
+
+### 5. Probability both children are boys, given one is a boy born on Tuesday
+
+This is a variation of the "Boy or Girl Paradox".
+Let $B$ denote Boy, $G$ denote Girl.
+Let $T$ denote Born on Tuesday, $O$ denote Born on other days (6 days).
+Total possibilities for one child: 2 genders $\times$ 7 days = 14 types.
+Total possibilities for two children: $14 \times 14 = 196$.
+
+Let the children be Child 1 and Child 2.
+The condition is: "At least one child is a Boy born on Tuesday" ($B_T$).
+Let $E$ be the event that at least one child is $B_T$.
+Let $F$ be the event that both children are boys.
+
+We want $P(F | E) = \frac{|E \cap F|}{|E|}$.
+
+**Calculate $|E|$ (Number of outcomes with at least one $B_T$):**
+Total outcomes = 196.
+Outcomes with NO $B_T$:
+Each child can be any of the 14 types except $B_T$. So 13 types per child.
+Number of outcomes with no $B_T$ = $13 \times 13 = 169$.
+So, $|E| = 196 - 169 = 27$.
+
+**Calculate $|E \cap F|$ (Outcomes where both are boys AND at least one is $B_T$):**
+If both are boys, each child is a Boy born on some day (7 possibilities).
+Total boy-boy outcomes = $7 \times 7 = 49$.
+We need to exclude boy-boy outcomes where NEITHER is $B_T$.
+If neither is $B_T$, then both are Boys born on non-Tuesday days (6 possibilities each).
+Number of such outcomes = $6 \times 6 = 36$.
+So, $|E \cap F| = 49 - 36 = 13$.
+
+Alternatively, list them:
+1. Child 1 is $B_T$, Child 2 is any Boy ($B_{any}$): 7 outcomes.
+2. Child 2 is $B_T$, Child 1 is any Boy ($B_{any}$): 7 outcomes.
+3. Subtract double counting where both are $B_T$: 1 outcome ($B_T, B_T$).
+Total = $7 + 7 - 1 = 13$.
+
+Probability = $\frac{13}{27}$.
+
+ANSWERS
+1. 3809
+2. 49
+3. 2731
+4. 37/216
+5. 13/27

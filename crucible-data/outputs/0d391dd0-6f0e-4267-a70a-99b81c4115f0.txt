@@ -1,0 +1,162 @@
+Here is the step-by-step reasoning for each problem.
+
+### 1. How many integers from 1 to 10,000 inclusive are divisible by 3 or by 7, but not by 21?
+
+Let $S = \{1, 2, ..., 10000\}$.
+Let $A$ be the set of integers in $S$ divisible by 3.
+Let $B$ be the set of integers in $S$ divisible by 7.
+Let $C$ be the set of integers in $S$ divisible by 21.
+
+Note that $C = A \cap B$, because a number is divisible by 21 if and only if it is divisible by both 3 and 7 (since 3 and 7 are coprime).
+
+The problem asks for the number of elements in $(A \cup B) \setminus C$.
+Using set theory, $|(A \cup B) \setminus C| = |A \cup B| - |C|$.
+Alternatively, we can view this as: (Divisible by 3 only) + (Divisible by 7 only).
+Divisible by 3 only = $|A| - |A \cap B| = |A| - |C|$.
+Divisible by 7 only = $|B| - |A \cap B| = |B| - |C|$.
+Total = $|A| + |B| - 2|C|$.
+
+First, calculate the sizes of these sets using the floor function $\lfloor n/k \rfloor$:
+$|A| = \lfloor \frac{10000}{3} \rfloor = 3333$
+$|B| = \lfloor \frac{10000}{7} \rfloor = 1428$
+$|C| = \lfloor \frac{10000}{21} \rfloor = 476$
+
+Now, apply the formula:
+Total = $3333 + 1428 - 2(476)$
+Total = $4761 - 952$
+Total = $3809$
+
+**Answer:** 3809
+
+### 2. What is the remainder when $7^{2026}$ is divided by 100?
+
+We want to find $7^{2026} \pmod{100}$.
+We can use Euler's Totient Theorem. $\phi(100) = 100(1 - 1/2)(1 - 1/5) = 100(1/2)(4/5) = 40$.
+Since $\gcd(7, 100) = 1$, $7^{40} \equiv 1 \pmod{100}$.
+
+We reduce the exponent 2026 modulo 40:
+$2026 = 40 \times 50 + 26$
+So, $7^{2026} \equiv 7^{26} \pmod{100}$.
+
+Now we calculate $7^{26} \pmod{100}$.
+Let's compute powers of 7 modulo 100:
+$7^1 = 7$
+$7^2 = 49$
+$7^3 = 343 \equiv 43 \equiv -57$ (Let's stick to positive or small negatives) -> $43$
+$7^4 = 7 \times 43 = 301 \equiv 1$
+Wait, $7^4 = 2401$. $2401 \equiv 1 \pmod{100}$.
+This is a very useful cycle. The order of 7 modulo 100 is 4.
+
+Let's verify:
+$7^1 = 7$
+$7^2 = 49$
+$7^3 = 343 \equiv 43$
+$7^4 = 2401 \equiv 01$
+
+Since $7^4 \equiv 1 \pmod{100}$, we can reduce the exponent 26 modulo 4.
+$26 = 4 \times 6 + 2$
+So, $7^{26} = (7^4)^6 \times 7^2 \equiv 1^6 \times 7^2 \equiv 49 \pmod{100}$.
+
+**Answer:** 49
+
+### 3. In how many ways can a 2 x 12 board be tiled with 1 x 2 dominoes (placed either way) and 2 x 2 squares?
+
+Let $a_n$ be the number of ways to tile a $2 \times n$ board.
+Consider the rightmost end of the board (column $n$).
+There are two main ways to fill the last column(s):
+1. Place one vertical domino ($1 \times 2$) in column $n$. This leaves a $2 \times (n-1)$ board. Number of ways: $a_{n-1}$.
+2. Place two horizontal dominoes ($1 \times 2$) stacked on top of each other, covering columns $n-1$ and $n$. This leaves a $2 \times (n-2)$ board. Number of ways: $a_{n-2}$.
+3. Place one $2 \times 2$ square covering columns $n-1$ and $n$. This leaves a $2 \times (n-2)$ board. Number of ways: $a_{n-2}$.
+
+So, the recurrence relation is:
+$a_n = a_{n-1} + a_{n-2} + a_{n-2} = a_{n-1} + 2a_{n-2}$
+
+Base cases:
+$n=0$: Empty board, 1 way ($a_0 = 1$).
+$n=1$: One vertical domino. 1 way ($a_1 = 1$).
+$n=2$:
+- Two vertical dominoes.
+- Two horizontal dominoes.
+- One $2 \times 2$ square.
+Total $a_2 = 1 + 1 + 1 = 3$.
+Check formula: $a_2 = a_1 + 2a_0 = 1 + 2(1) = 3$. Correct.
+
+Calculate up to $n=12$:
+$a_0 = 1$
+$a_1 = 1$
+$a_2 = 3$
+$a_3 = a_2 + 2a_1 = 3 + 2(1) = 5$
+$a_4 = a_3 + 2a_2 = 5 + 2(3) = 11$
+$a_5 = a_4 + 2a_3 = 11 + 2(5) = 21$
+$a_6 = a_5 + 2a_4 = 21 + 2(11) = 43$
+$a_7 = a_6 + 2a_5 = 43 + 2(21) = 85$
+$a_8 = a_7 + 2a_6 = 85 + 2(43) = 171$
+$a_9 = a_8 + 2a_7 = 171 + 2(85) = 341$
+$a_{10} = a_9 + 2a_8 = 341 + 2(171) = 341 + 342 = 683$
+$a_{11} = a_{10} + 2a_9 = 683 + 2(341) = 683 + 682 = 1365$
+$a_{12} = a_{11} + 2a_{10} = 1365 + 2(683) = 1365 + 1366 = 2731$
+
+**Answer:** 2731
+
+### 4. Three fair six-sided dice are rolled. What is the probability that the largest number shown is exactly 4?
+
+Total possible outcomes when rolling 3 dice: $6^3 = 216$.
+
+Let $M$ be the maximum value shown on the three dice. We want $P(M = 4)$.
+It is easier to calculate $P(M \le 4)$ and $P(M \le 3)$ and subtract.
+$P(M = 4) = P(M \le 4) - P(M \le 3)$.
+
+The condition $M \le k$ means all dice show a number from $\{1, 2, ..., k\}$.
+Number of outcomes where all dice are $\le k$ is $k^3$.
+
+Outcomes where all dice $\le 4$: $4^3 = 64$.
+Outcomes where all dice $\le 3$: $3^3 = 27$.
+
+Outcomes where the maximum is exactly 4: $64 - 27 = 37$.
+
+Probability = $\frac{37}{216}$.
+37 is a prime number and does not divide 216 ($216 = 6^3 = 2^3 \cdot 3^3$). So the fraction is in lowest terms.
+
+**Answer:** 37/216
+
+### 5. A family has two children. You learn that at least one of them is a boy who was born on a Tuesday. Assuming each child is equally likely to be a boy or a girl and to be born on any day of the week, independently, what is the probability that both children are boys?
+
+Let $B_T$ denote a Boy born on Tuesday.
+Let $G_D$ denote a Girl born on any day (7 possibilities).
+Let $B_D$ denote a Boy born on any day (7 possibilities).
+
+Total sample space for two children: Each child has $2 \times 7 = 14$ equally likely states (BG, BR, ..., GG, GR... wait, let's list them as (Gender, Day)).
+States: $B_{Mon}, ..., B_{Sun}, G_{Mon}, ..., G_{Sun}$. Total 14 states per child.
+Total pairs: $14 \times 14 = 196$.
+
+Event $E$: At least one child is a Boy born on Tuesday ($B_T$).
+Event $F$: Both children are boys.
+
+We want $P(F | E) = \frac{|E \cap F|}{|E|}$.
+
+**Calculate $|E|$ (Number of families with at least one $B_T$):**
+It is easier to count the complement: Families with NO $B_T$.
+If a child is not $B_T$, they can be any of the other 13 states ($6$ other boy days + $7$ girl days).
+Number of families with no $B_T = 13 \times 13 = 169$.
+Number of families with at least one $B_T = 196 - 169 = 27$.
+So, $|E| = 27$.
+
+**Calculate $|E \cap F|$ (Families with at least one $B_T$ AND both are boys):**
+This means both children are boys, and at least one is born on Tuesday.
+Total boy-boy families: Each child is a boy (7 days each). Total $7 \times 7 = 49$.
+From these 49 boy-boy families, subtract those with NO $B_T$ (i.e., both boys born on non-Tuesday days).
+Non-Tuesday boy days: 6 (Mon, Wed, Thu, Fri, Sat, Sun).
+Boy-boy families with no $B_T = 6 \times 6 = 36$.
+So, boy-boy families with at least one $B_T = 49 - 36 = 13$.
+So, $|E \cap F| = 13$.
+
+Probability = $\frac{13}{27}$.
+
+**Answer:** 13/27
+
+ANSWERS
+1. 3809
+2. 49
+3. 2731
+4. 37/216
+5. 13/27

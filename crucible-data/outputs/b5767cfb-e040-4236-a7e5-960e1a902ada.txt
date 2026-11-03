@@ -1,0 +1,1223 @@
+To solve these fill-in crosswords, we need to place the words into the grid such that crossing words share the correct letters.
+
+### Puzzle A Analysis
+
+**Grid Structure & Slots:**
+*   **Row 1:** `1-ACROSS` (5) at (1,1), `2-ACROSS` (5) at (1,7).
+*   **Row 3:** `4-ACROSS` (7) at (3,3).
+*   **Row 5:** `6-ACROSS` (5) at (5,1), `7-ACROSS` (5) at (5,7).
+*   **Row 7:** `8-ACROSS` (5) at (7,1), `10-ACROSS` (5) at (7,7).
+*   **Row 9:** `12-ACROSS` (7) at (9,3).
+*   **Row 11:** `13-ACROSS` (5) at (11,1), `14-ACROSS` (5) at (11,7).
+
+**Down Slots:**
+*   `1-DOWN` (5) at (1,1) crosses `1-ACROSS`.
+*   `2-DOWN` (5) at (1,7) crosses `2-ACROSS`.
+*   `3-DOWN` (5) at (1,11).
+*   `4-DOWN` (7) at (3,3) crosses `4-ACROSS`.
+*   `5-DOWN` (7) at (3,9).
+*   `8-DOWN` (5) at (7,1) crosses `8-ACROSS`.
+*   `9-DOWN` (5) at (7,5).
+*   `11-DOWN` (5) at (7,11).
+
+**Word List:**
+5-letter: CANDY, COUNT, CUBIC, DEALT, DRIVE, ELBOW, PROBE, SHIRT, SQUAD, SWAMP, THREW, TWIST, UNCLE, UPSET
+7-letter: COUNCIL, COURAGE, ECONOMY, LIBRARY
+
+**Step 1: Analyze Intersections**
+
+Let's look at **Slot 4-ACROSS** (7 letters) at Row 3, Col 3. It intersects with:
+*   `4-DOWN` (7) at (3,3) -> 1st letter of 4-DOWN is 1st letter of 4-ACROSS.
+*   `5-DOWN` (7) at (3,9) -> 7th letter of 4-ACROSS is 1st letter of 5-DOWN.
+
+Let's look at **Slot 12-ACROSS** (7 letters) at Row 9, Col 3. It intersects with:
+*   `9-DOWN` (5) at (7,5)? No, 9-DOWN is at Col 5. Row 9 is below Row 7.
+    *   Let's check vertical alignments.
+    *   Col 1: `1-DOWN` (1,1), `6-ACROSS` (5,1), `8-DOWN` (7,1), `13-ACROSS` (11,1).
+        *   `1-DOWN` crosses `1-ACROSS` at (1,1).
+        *   `6-ACROSS` is at (5,1). It doesn't cross any down slots listed except potentially if there were down slots starting earlier. Wait, `1-DOWN` ends at (5,1)? No, `1-DOWN` is length 5, so it occupies (1,1) to (5,1). So `1-DOWN` and `6-ACROSS` cross at (5,1). The last letter of `1-DOWN` is the first letter of `6-ACROSS`.
+        *   `8-DOWN` starts at (7,1). It crosses `8-ACROSS` at (7,1).
+        *   `13-ACROSS` is at (11,1). Is there a down slot ending there? No down slot listed for Col 1 below row 7 except `8-DOWN` which is length 5, ending at (11,1). So `8-DOWN` and `13-ACROSS` cross at (11,1). The last letter of `8-DOWN` is the first letter of `13-ACROSS`.
+
+    *   Col 3: `4-DOWN` starts at (3,3). Length 7, so it goes (3,3) to (9,3).
+        *   It crosses `4-ACROSS` at (3,3).
+        *   It crosses `12-ACROSS` at (9,3). The last letter of `4-DOWN` is the first letter of `12-ACROSS`.
+
+    *   Col 5: `9-DOWN` starts at (7,5). Length 5, so it goes (7,5) to (11,5).
+        *   It crosses `10-ACROSS`? No, `10-ACROSS` is at (7,7).
+        *   It crosses `12-ACROSS`? `12-ACROSS` is at (9,3) length 7, so it occupies cols 3-9. So `9-DOWN` (Col 5) crosses `12-ACROSS` at (9,5). The 3rd letter of `12-ACROSS` is the 3rd letter of `9-DOWN`.
+        *   It crosses `14-ACROSS`? `14-ACROSS` is at (11,7). No.
+        *   Does it cross any other across? `6-ACROSS` is at (5,1). `7-ACROSS` is at (5,7). `8-ACROSS` is at (7,1). `10-ACROSS` is at (7,7).
+        *   Wait, `9-DOWN` starts at (7,5). Does it cross `8-ACROSS`? `8-ACROSS` is at (7,1) length 5, so it occupies cols 1-5. Yes, `9-DOWN` crosses `8-ACROSS` at (7,5). The 5th letter of `8-ACROSS` is the 1st letter of `9-DOWN`.
+        *   Does it cross `10-ACROSS`? `10-ACROSS` is at (7,7). No.
+        *   Does it cross `14-ACROSS`? `14-ACROSS` is at (11,7). No.
+        *   Does it cross `13-ACROSS`? `13-ACROSS` is at (11,1) length 5, cols 1-5. Yes, `9-DOWN` ends at (11,5). So `9-DOWN` crosses `13-ACROSS` at (11,5). The 5th letter of `13-ACROSS` is the 5th (last) letter of `9-DOWN`.
+
+    *   Col 7: `2-DOWN` (1,7) length 5 -> (1,7) to (5,7). Crosses `2-ACROSS` at (1,7) and `7-ACROSS` at (5,7).
+        *   Last letter of `2-DOWN` is 1st letter of `7-ACROSS`.
+        *   `10-ACROSS` is at (7,7). Is there a down slot? `11-DOWN` is at (7,11).
+        *   Is there a down slot at Col 7 starting at 7? No.
+        *   However, `10-ACROSS` is at (7,7). What crosses it?
+        *   Let's check Col 7 down slots. `2-DOWN` ends at (5,7). `10-ACROSS` is at (7,7). There is a gap at (6,7) which is a block `#` in row 6?
+        *   Row 6: `# # . # # # # # . # #`. Col 7 is `#`. So no connection between row 5 and 7 in Col 7.
+        *   So `10-ACROSS` (7,7) must be isolated vertically?
+        *   Let's check `11-DOWN` at (7,11). Length 5 -> (7,11) to (11,11).
+        *   Crosses `10-ACROSS`? `10-ACROSS` is at (7,7) length 5 -> cols 7-11. Yes, `11-DOWN` crosses `10-ACROSS` at (7,11). The 5th letter of `10-ACROSS` is the 1st letter of `11-DOWN`.
+        *   Crosses `14-ACROSS`? `14-ACROSS` is at (11,7) length 5 -> cols 7-11. Yes, `11-DOWN` ends at (11,11). The 5th letter of `14-ACROSS` is the 5th (last) letter of `11-DOWN`.
+
+    *   Col 9: `5-DOWN` starts at (3,9). Length 7 -> (3,9) to (9,9).
+        *   Crosses `4-ACROSS` at (3,9). 7th letter of `4-ACROSS` is 1st letter of `5-DOWN`.
+        *   Crosses `12-ACROSS` at (9,9). `12-ACROSS` is at (9,3) length 7 -> cols 3-9. Yes, last letter of `12-ACROSS` is last letter of `5-DOWN`.
+
+    *   Col 11: `3-DOWN` starts at (1,11). Length 5 -> (1,11) to (5,11).
+        *   Crosses `2-ACROSS`? `2-ACROSS` is at (1,7) length 5 -> cols 7-11. Yes, last letter of `2-ACROSS` is 1st letter of `3-DOWN`.
+        *   Crosses `7-ACROSS`? `7-ACROSS` is at (5,7) length 5 -> cols 7-11. Yes, last letter of `7-ACROSS` is last letter of `3-DOWN`.
+
+**Summary of Constraints:**
+
+1.  **Col 1 Chain:**
+    *   `1-ACROSS` (1,1) starts `1-DOWN`.
+    *   `1-DOWN` ends at (5,1), starts `6-ACROSS`.
+    *   `6-ACROSS` is at (5,1).
+    *   `8-DOWN` starts at (7,1), ends at (11,1), starts `13-ACROSS`.
+    *   `8-ACROSS` is at (7,1). `8-DOWN` starts at (7,1), so 1st letter of `8-ACROSS` = 1st letter of `8-DOWN`.
+    *   `13-ACROSS` is at (11,1).
+
+2.  **Col 3 Chain:**
+    *   `4-ACROSS` (3,3) starts `4-DOWN`.
+    *   `4-DOWN` ends at (9,3), starts `12-ACROSS`.
+    *   `12-ACROSS` is at (9,3).
+
+3.  **Col 5 Chain:**
+    *   `9-DOWN` starts at (7,5).
+    *   Crosses `8-ACROSS` (7,1-5) at (7,5). 5th letter of `8-ACROSS` = 1st letter of `9-DOWN`.
+    *   Crosses `12-ACROSS` (9,3-9) at (9,5). 3rd letter of `12-ACROSS` = 3rd letter of `9-DOWN`.
+    *   Crosses `13-ACROSS` (11,1-5) at (11,5). 5th letter of `13-ACROSS` = 5th letter of `9-DOWN`.
+
+4.  **Col 7 Chain:**
+    *   `2-ACROSS` (1,7) starts `2-DOWN`.
+    *   `2-DOWN` ends at (5,7), starts `7-ACROSS`.
+    *   `7-ACROSS` is at (5,7).
+    *   `10-ACROSS` (7,7) is isolated vertically from above.
+    *   `11-DOWN` starts at (7,11). Crosses `10-ACROSS` (7,7-11) at (7,11). 5th letter of `10-ACROSS` = 1st letter of `11-DOWN`.
+    *   `11-DOWN` ends at (11,11). Crosses `14-ACROSS` (11,7-11) at (11,11). 5th letter of `14-ACROSS` = 5th letter of `11-DOWN`.
+
+5.  **Col 9 Chain:**
+    *   `4-ACROSS` (3,3-9) ends at (3,9). 7th letter of `4-ACROSS` = 1st letter of `5-DOWN`.
+    *   `5-DOWN` ends at (9,9). Last letter of `5-DOWN` = Last letter of `12-ACROSS` (9,3-9).
+
+6.  **Col 11 Chain:**
+    *   `2-ACROSS` (1,7-11) ends at (1,11). Last letter of `2-ACROSS` = 1st letter of `3-DOWN`.
+    *   `3-DOWN` ends at (5,11). Last letter of `3-DOWN` = Last letter of `7-ACROSS` (5,7-11).
+
+**Let's deduce words.**
+
+**7-letter words:** COUNCIL, COURAGE, ECONOMY, LIBRARY.
+Slots for 7 letters: `4-ACROSS`, `5-DOWN`, `12-ACROSS`.
+
+*   `4-ACROSS` (7) at (3,3).
+*   `5-DOWN` (7) at (3,9).
+*   `12-ACROSS` (7) at (9,3).
+
+Constraints on 7-letter words:
+*   `4-ACROSS`[7] = `5-DOWN`[1]
+*   `5-DOWN`[7] = `12-ACROSS`[7]
+*   `4-DOWN`[1] = `4-ACROSS`[1]
+*   `4-DOWN`[7] = `12-ACROSS`[1]
+
+Let's look at `4-DOWN` (7) at (3,3). It is a 7-letter word.
+Let's look at `5-DOWN` (7) at (3,9). It is a 7-letter word.
+
+Possible 7-letter words: COUNCIL, COURAGE, ECONOMY, LIBRARY.
+
+Let's test combinations for `4-ACROSS`, `5-DOWN`, `12-ACROSS`.
+Let $A = 4-ACROSS$, $D1 = 5-DOWN$, $B = 12-ACROSS$.
+$A[7] = D1[1]$.
+$D1[7] = B[7]$.
+Also $4-DOWN$ starts with $A[1]$ and ends with $B[1]$.
+
+Let's look at the 5-letter words to constrain the ends/beginnings.
+
+**Col 11 Chain:**
+`2-ACROSS` (5) ends with `3-DOWN`[1].
+`3-DOWN` (5) ends with `7-ACROSS` (5) last letter.
+
+**Col 7 Chain:**
+`2-ACROSS` (5) starts `2-DOWN`.
+`2-DOWN` (5) ends with `7-ACROSS` (5) first letter.
+
+So:
+`2-ACROSS`[1] = `2-DOWN`[1]
+`2-ACROSS`[5] = `3-DOWN`[1]
+`2-DOWN`[5] = `7-ACROSS`[1]
+`3-DOWN`[5] = `7-ACROSS`[5]
+
+**Col 1 Chain:**
+`1-ACROSS` (5) starts `1-DOWN`.
+`1-DOWN` (5) ends with `6-ACROSS` (5) first letter.
+`8-ACROSS` (5) starts `8-DOWN`.
+`8-DOWN` (5) ends with `13-ACROSS` (5) first letter.
+
+**Col 5 Chain:**
+`9-DOWN` (5) starts with `8-ACROSS`[5].
+`9-DOWN`[3] = `12-ACROSS`[3].
+`9-DOWN`[5] = `13-ACROSS`[5].
+
+**Col 9 Chain:**
+`4-ACROSS`[7] = `5-DOWN`[1].
+`5-DOWN`[7] = `12-ACROSS`[7].
+
+Let's try to fit the 7-letter words.
+Candidates: COUNCIL, COURAGE, ECONOMY, LIBRARY.
+
+Consider `4-ACROSS` and `5-DOWN`.
+If `4-ACROSS` = COUNCIL, then `5-DOWN` starts with L.
+If `5-DOWN` = LIBRARY, then `12-ACROSS` ends with Y.
+If `12-ACROSS` = ECONOMY, it ends with Y. This fits.
+Let's check if this chain works:
+`4-ACROSS` = COUNCIL
+`5-DOWN` = LIBRARY
+`12-ACROSS` = ECONOMY
+
+Check constraints:
+1.  `4-ACROSS`[7] = L. `5-DOWN`[1] = L. (COUNCIL ends in L, LIBRARY starts with L). OK.
+2.  `5-DOWN`[7] = Y. `12-ACROSS`[7] = Y. (LIBRARY ends in Y, ECONOMY ends in Y). OK.
+3.  `4-DOWN` starts with `4-ACROSS`[1] = C. Ends with `12-ACROSS`[1] = E.
+    So `4-DOWN` is a 7-letter word starting with C and ending with E.
+    Available 7-letter words: COUNCIL, COURAGE, ECONOMY, LIBRARY.
+    Used: COUNCIL, LIBRARY, ECONOMY.
+    Remaining: COURAGE.
+    Does COURAGE start with C and end with E? Yes.
+    So `4-DOWN` = COURAGE.
+
+This looks like a very strong candidate. Let's assume:
+*   `4-ACROSS` = COUNCIL
+*   `4-DOWN` = COURAGE
+*   `5-DOWN` = LIBRARY
+*   `12-ACROSS` = ECONOMY
+
+Now we need to fill the 5-letter words.
+
+**From `4-DOWN` = COURAGE:**
+*   `4-DOWN` is at (3,3).
+*   It crosses `4-ACROSS` at (3,3). `4-ACROSS`[1] = C. `4-DOWN`[1] = C. (COUNCIL starts with C, COURAGE starts with C). OK.
+*   `4-DOWN` letters: C, O, U, R, A, G, E.
+    *   (3,3)=C, (4,3)=O, (5,3)=U, (6,3)=R, (7,3)=A, (8,3)=G, (9,3)=E.
+    *   Wait, `12-ACROSS` starts at (9,3). `12-ACROSS` = ECONOMY. Starts with E. `4-DOWN` ends with E. OK.
+
+**From `5-DOWN` = LIBRARY:**
+*   `5-DOWN` is at (3,9).
+*   Letters: L, I, B, A, R, Y. (Length 7? LIBRARY is 7 letters: L-I-B-R-A-R-Y).
+    *   (3,9)=L, (4,9)=I, (5,9)=B, (6,9)=A, (7,9)=R, (8,9)=Y, (9,9)=?
+    *   Wait, LIBRARY is 7 letters. L-I-B-R-A-R-Y.
+    *   (3,9)=L, (4,9)=I, (5,9)=B, (6,9)=A, (7,9)=R, (8,9)=R, (9,9)=Y.
+    *   `12-ACROSS` = ECONOMY. Ends at (9,9). Last letter Y. `5-DOWN` ends with Y. OK.
+
+**From `12-ACROSS` = ECONOMY:**
+*   At (9,3). Letters: E, C, O, N, O, M, Y.
+    *   (9,3)=E, (9,4)=C, (9,5)=O, (9,6)=N, (9,7)=O, (9,8)=M, (9,9)=Y.
+
+**Now let's use the crossing constraints for 5-letter words.**
+
+**Col 5 Chain:**
+`9-DOWN` starts at (7,5).
+Crosses `8-ACROSS` (7,1-5) at (7,5). `8-ACROSS`[5] = `9-DOWN`[1].
+Crosses `12-ACROSS` (9,3-9) at (9,5). `12-ACROSS`[3] = `9-DOWN`[3].
+    `12-ACROSS` = ECONOMY. [3] is O. So `9-DOWN`[3] = O.
+Crosses `13-ACROSS` (11,1-5) at (11,5). `13-ACROSS`[5] = `9-DOWN`[5].
+
+So `9-DOWN` is a 5-letter word with pattern: `_ _ O _ _`.
+Available 5-letter words: CANDY, COUNT, CUBIC, DEALT, DRIVE, ELBOW, PROBE, SHIRT, SQUAD, SWAMP, THREW, TWIST, UNCLE, UPSET.
+Words with 3rd letter O: COUNT, ELBOW, PROBE, SQUAD, SWAMP, UPSET.
+
+**Col 1 Chain:**
+`1-DOWN` (5) at (1,1).
+`1-ACROSS` (5) at (1,1). `1-ACROSS`[1] = `1-DOWN`[1].
+`1-DOWN` ends at (5,1). `6-ACROSS` starts at (5,1). `1-DOWN`[5] = `6-ACROSS`[1].
+
+`8-DOWN` (5) at (7,1).
+`8-ACROSS` (5) at (7,1). `8-ACROSS`[1] = `8-DOWN`[1].
+`8-DOWN` ends at (11,1). `13-ACROSS` starts at (11,1). `8-DOWN`[5] = `13-ACROSS`[1].
+
+**Col 7 Chain:**
+`2-ACROSS` (5) at (1,7).
+`2-DOWN` (5) at (1,7). `2-ACROSS`[1] = `2-DOWN`[1].
+`2-DOWN` ends at (5,7). `7-ACROSS` starts at (5,7). `2-DOWN`[5] = `7-ACROSS`[1].
+
+`10-ACROSS` (5) at (7,7).
+`11-DOWN` (5) at (7,11).
+`10-ACROSS` ends at (7,11). `10-ACROSS`[5] = `11-DOWN`[1].
+`11-DOWN` ends at (11,11). `14-ACROSS` ends at (11,11). `11-DOWN`[5] = `14-ACROSS`[5].
+
+**Col 11 Chain:**
+`3-DOWN` (5) at (1,11).
+`2-ACROSS` ends at (1,11). `2-ACROSS`[5] = `3-DOWN`[1].
+`3-DOWN` ends at (5,11). `7-ACROSS` ends at (5,11). `3-DOWN`[5] = `7-ACROSS`[5].
+
+**Let's analyze `7-ACROSS` (5) at (5,7).**
+It is crossed by `2-DOWN` (starts with `7-ACROSS`[1]) and `3-DOWN` (ends with `7-ACROSS`[5]).
+Let `7-ACROSS` = W.
+`2-DOWN`[5] = W[1].
+`3-DOWN`[5] = W[5].
+
+Also `2-ACROSS` (5) at (1,7).
+`2-ACROSS`[1] = `2-DOWN`[1].
+`2-ACROSS`[5] = `3-DOWN`[1].
+
+Let's look at `9-DOWN` again. `_ _ O _ _`.
+Candidates: COUNT, ELBOW, PROBE, SQUAD, SWAMP, UPSET.
+
+Let's look at `13-ACROSS` (5) at (11,1).
+`13-ACROSS`[5] = `9-DOWN`[5].
+`13-ACROSS`[1] = `8-DOWN`[5].
+
+Let's look at `14-ACROSS` (5) at (11,7).
+`14-ACROSS`[5] = `11-DOWN`[5].
+
+Let's try to constrain `9-DOWN`.
+`9-DOWN`[3] = O.
+`9-DOWN`[1] = `8-ACROSS`[5].
+`9-DOWN`[5] = `13-ACROSS`[5].
+
+Let's look at `8-ACROSS` (5) at (7,1).
+`8-ACROSS`[1] = `8-DOWN`[1].
+`8-ACROSS`[5] = `9-DOWN`[1].
+
+Let's look at `6-ACROSS` (5) at (5,1).
+`6-ACROSS`[1] = `1-DOWN`[5].
+
+Let's look at `1-ACROSS` (5) at (1,1).
+`1-ACROSS`[1] = `1-DOWN`[1].
+
+Let's look at `2-ACROSS` (5) at (1,7).
+`2-ACROSS`[1] = `2-DOWN`[1].
+
+Let's look at `10-ACROSS` (5) at (7,7).
+`10-ACROSS`[5] = `11-DOWN`[1].
+
+Let's look at `3-DOWN` (5) at (1,11).
+`3-DOWN`[1] = `2-ACROSS`[5].
+`3-DOWN`[5] = `7-ACROSS`[5].
+
+Let's look at `2-DOWN` (5) at (1,7).
+`2-DOWN`[1] = `2-ACROSS`[1].
+`2-DOWN`[5] = `7-ACROSS`[1].
+
+Let's look at `11-DOWN` (5) at (7,11).
+`11-DOWN`[1] = `10-ACROSS`[5].
+`11-DOWN`[5] = `14-ACROSS`[5].
+
+We have a lot of variables. Let's look at specific words.
+
+**Focus on `9-DOWN` (_ _ O _ _) and `12-ACROSS` (ECONOMY).**
+`12-ACROSS` is fixed as ECONOMY.
+`9-DOWN` crosses `12-ACROSS` at (9,5). `12-ACROSS`[3] is O. Correct.
+
+What are the other 5-letter words?
+CANDY, COUNT, CUBIC, DEALT, DRIVE, ELBOW, PROBE, SHIRT, SQUAD, SWAMP, THREW, TWIST, UNCLE, UPSET.
+
+Let's look at `4-ACROSS` = COUNCIL.
+`4-DOWN` = COURAGE.
+`5-DOWN` = LIBRARY.
+`12-ACROSS` = ECONOMY.
+
+Remaining 7-letter words: None. All 4 used.
+Remaining 5-letter words: 14 words.
+Slots for 5-letter words:
+1-ACROSS, 1-DOWN, 2-ACROSS, 2-DOWN, 3-DOWN, 6-ACROSS, 7-ACROSS, 8-ACROSS, 8-DOWN, 9-DOWN, 10-ACROSS, 11-DOWN, 13-ACROSS, 14-ACROSS.
+Total 14 slots. Perfect.
+
+Let's solve the chains.
+
+**Chain 1: Col 1**
+`1-ACROSS` (1,1) -- `1-DOWN` (1,1)
+`1-DOWN` ends at (5,1) -> `6-ACROSS` (5,1) starts.
+`8-ACROSS` (7,1) -- `8-DOWN` (7,1)
+`8-DOWN` ends at (11,1) -> `13-ACROSS` (11,1) starts.
+
+**Chain 2: Col 7**
+`2-ACROSS` (1,7) -- `2-DOWN` (1,7)
+`2-DOWN` ends at (5,7) -> `7-ACROSS` (5,7) starts.
+`10-ACROSS` (7,7) -- `11-DOWN` (7,11) [Cross at 7,11]
+`11-DOWN` ends at (11,11) -> `14-ACROSS` (11,7) ends.
+
+**Chain 3: Col 11**
+`2-ACROSS` ends at (1,11) -> `3-DOWN` (1,11) starts.
+`3-DOWN` ends at (5,11) -> `7-ACROSS` (5,7) ends.
+
+**Chain 4: Col 5**
+`8-ACROSS` ends at (7,5) -> `9-DOWN` (7,5) starts.
+`9-DOWN` crosses `12-ACROSS` (9,5) -> `9-DOWN`[3] = O.
+`9-DOWN` ends at (11,5) -> `13-ACROSS` (11,1) ends.
+
+**Chain 5: Col 9**
+`4-ACROSS` ends at (3,9) -> `5-DOWN` (3,9) starts. (Already used)
+`5-DOWN` ends at (9,9) -> `12-ACROSS` (9,3) ends. (Already used)
+
+**Let's analyze `7-ACROSS` (5) at (5,7).**
+It is the intersection of `2-DOWN` and `3-DOWN`.
+`2-DOWN`[5] = `7-ACROSS`[1].
+`3-DOWN`[5] = `7-ACROSS`[5].
+
+`2-ACROSS` (5) at (1,7).
+`2-ACROSS`[1] = `2-DOWN`[1].
+`2-ACROSS`[5] = `3-DOWN`[1].
+
+`10-ACROSS` (5) at (7,7).
+`10-ACROSS`[5] = `11-DOWN`[1].
+
+`14-ACROSS` (5) at (11,7).
+`14-ACROSS`[5] = `11-DOWN`[5].
+
+`13-ACROSS` (5) at (11,1).
+`13-ACROSS`[1] = `8-DOWN`[5].
+`13-ACROSS`[5] = `9-DOWN`[5].
+
+`8-ACROSS` (5) at (7,1).
+`8-ACROSS`[1] = `8-DOWN`[1].
+`8-ACROSS`[5] = `9-DOWN`[1].
+
+`6-ACROSS` (5) at (5,1).
+`6-ACROSS`[1] = `1-DOWN`[5].
+
+`1-ACROSS` (5) at (1,1).
+`1-ACROSS`[1] = `1-DOWN`[1].
+
+Let's look at `9-DOWN` (_ _ O _ _).
+Candidates: COUNT, ELBOW, PROBE, SQUAD, SWAMP, UPSET.
+
+If `9-DOWN` = COUNT:
+`9-DOWN`[1] = C. `8-ACROSS`[5] = C.
+`9-DOWN`[5] = T. `13-ACROSS`[5] = T.
+`8-ACROSS` ends in C. `8-ACROSS`[1] = `8-DOWN`[1].
+`13-ACROSS` ends in T. `13-ACROSS`[1] = `8-DOWN`[5].
+
+If `9-DOWN` = ELBOW:
+`9-DOWN`[1] = E. `8-ACROSS`[5] = E.
+`9-DOWN`[5] = W. `13-ACROSS`[5] = W.
+
+If `9-DOWN` = PROBE:
+`9-DOWN`[1] = P. `8-ACROSS`[5] = P.
+`9-DOWN`[5] = E. `13-ACROSS`[5] = E.
+
+If `9-DOWN` = SQUAD:
+`9-DOWN`[1] = S. `8-ACROSS`[5] = S.
+`9-DOWN`[5] = D. `13-ACROSS`[5] = D.
+
+If `9-DOWN` = SWAMP:
+`9-DOWN`[1] = S. `8-ACROSS`[5] = S.
+`9-DOWN`[5] = P. `13-ACROSS`[5] = P.
+
+If `9-DOWN` = UPSET:
+`9-DOWN`[1] = U. `8-ACROSS`[5] = U.
+`9-DOWN`[5] = T. `13-ACROSS`[5] = T.
+
+Let's look at `8-ACROSS` (5).
+`8-ACROSS`[5] is the first letter of `9-DOWN`.
+`8-ACROSS`[1] is the first letter of `8-DOWN`.
+
+Let's look at `13-ACROSS` (5).
+`13-ACROSS`[5] is the last letter of `9-DOWN`.
+`13-ACROSS`[1] is the last letter of `8-DOWN`.
+
+Let's look at `8-DOWN` (5).
+Starts with `8-ACROSS`[1]. Ends with `13-ACROSS`[1].
+
+Let's look at `1-ACROSS` and `1-DOWN`.
+`1-ACROSS`[1] = `1-DOWN`[1].
+`1-DOWN`[5] = `6-ACROSS`[1].
+
+Let's look at `2-ACROSS` and `2-DOWN` and `3-DOWN` and `7-ACROSS`.
+`2-ACROSS`[1] = `2-DOWN`[1].
+`2-ACROSS`[5] = `3-DOWN`[1].
+`2-DOWN`[5] = `7-ACROSS`[1].
+`3-DOWN`[5] = `7-ACROSS`[5].
+
+Let's try to match words.
+
+Consider `7-ACROSS`.
+It is a 5-letter word.
+`7-ACROSS`[1] is `2-DOWN`[5].
+`7-ACROSS`[5] is `3-DOWN`[5].
+
+Consider `2-ACROSS`.
+`2-ACROSS`[1] is `2-DOWN`[1].
+`2-ACROSS`[5] is `3-DOWN`[1].
+
+Consider `10-ACROSS` and `11-DOWN` and `14-ACROSS`.
+`10-ACROSS`[5] = `11-DOWN`[1].
+`11-DOWN`[5] = `14-ACROSS`[5].
+
+Let's guess `9-DOWN`.
+If `9-DOWN` = **UPSET**:
+`8-ACROSS` ends in U.
+`13-ACROSS` ends in T.
+`8-ACROSS` candidates ending in U: None?
+CANDY, COUNT, CUBIC, DEALT, DRIVE, ELBOW, PROBE, SHIRT, SQUAD, SWAMP, THREW, TWIST, UNCLE, UPSET.
+Words ending in U: None.
+So `9-DOWN` cannot be UPSET.
+
+If `9-DOWN` = **COUNT**:
+`8-ACROSS` ends in C.
+`13-ACROSS` ends in T.
+Words ending in C: CUBIC.
+So `8-ACROSS` = CUBIC.
+`8-ACROSS`[1] = C. So `8-DOWN` starts with C.
+`8-DOWN` ends with `13-ACROSS`[1].
+`13-ACROSS` ends in T.
+`13-ACROSS` candidates ending in T: DEALT, THREW, TWIST.
+`13-ACROSS`[1] is `8-DOWN`[5].
+`8-DOWN` starts with C.
+`8-DOWN` candidates starting with C: CANDY, COUNT, CUBIC.
+CUBIC is used for `8-ACROSS`.
+If `8-DOWN` = CANDY: Ends with Y. `13-ACROSS` starts with Y. No 5-letter word starts with Y.
+If `8-DOWN` = COUNT: Ends with T. `13-ACROSS` starts with T.
+`13-ACROSS` starts with T and ends with T.
+Candidates: THREW, TWIST.
+If `13-ACROSS` = THREW: Ends with W. But `9-DOWN` ends with T. Contradiction.
+If `13-ACROSS` = TWIST: Ends with T. Matches `9-DOWN` ends with T.
+So `13-ACROSS` = TWIST.
+`8-DOWN` = COUNT.
+`8-ACROSS` = CUBIC.
+`9-DOWN` = COUNT? No, `9-DOWN` is `_ _ O _ _`. COUNT is `_ _ O U T`.
+`9-DOWN`[1] = C. `8-ACROSS`[5] = C. CUBIC ends in C. OK.
+`9-DOWN`[5] = T. `13-ACROSS`[5] = T. TWIST ends in T. OK.
+`9-DOWN`[3] = O. COUNT[3] = O. OK.
+So this set works:
+`8-ACROSS` = CUBIC
+`8-DOWN` = COUNT
+`9-DOWN` = COUNT? No, `9-DOWN` is a different slot. Can we reuse COUNT?
+"Place every word of a puzzle's list in exactly one of its slots".
+So we cannot use COUNT twice.
+`8-DOWN` = COUNT.
+`9-DOWN` must be a different word.
+But `9-DOWN`[1] = C. `9-DOWN`[3] = O. `9-DOWN`[5] = T.
+Pattern: C _ O _ T.
+Candidates: COUNT.
+Is there another?
+CANDY (no), CUBIC (no), DEALT (no), DRIVE (no), ELBOW (no), PROBE (no), SHIRT (no), SQUAD (no), SWAMP (no), THREW (no), TWIST (no), UNCLE (no), UPSET (no).
+Only COUNT fits C_O_T.
+So `9-DOWN` must be COUNT.
+But `8-DOWN` also needs to be COUNT?
+Let's re-evaluate `8-DOWN`.
+`8-DOWN` starts with `8-ACROSS`[1].
+`8-ACROSS` = CUBIC. Starts with C.
+`8-DOWN` ends with `13-ACROSS`[1].
+`13-ACROSS` = TWIST. Starts with T.
+So `8-DOWN` starts with C and ends with T.
+Pattern: C _ _ _ T.
+Candidates: COUNT, TWIST (no, starts with T), THREW (no), DEALT (no), CANDY (no).
+Only COUNT fits C_O_T?
+CANDY: C A N D Y. No.
+CUBIC: C U B I C. No.
+COUNT: C O U N T. Yes.
+So `8-DOWN` must be COUNT.
+But `9-DOWN` must also be COUNT.
+Conflict.
+
+So `9-DOWN` cannot be COUNT if `8-DOWN` is COUNT.
+Is there another word for `8-DOWN`?
+`8-ACROSS` ends in C.
+`8-ACROSS` candidates ending in C: CUBIC.
+Are there others?
+CANDY (Y), COUNT (T), CUBIC (C), DEALT (T), DRIVE (E), ELBOW (W), PROBE (E), SHIRT (T), SQUAD (D), SWAMP (P), THREW (W), TWIST (T), UNCLE (E), UPSET (T).
+Only CUBIC ends in C.
+So `8-ACROSS` MUST be CUBIC.
+So `8-DOWN` MUST start with C.
+`13-ACROSS` MUST end with T.
+`13-ACROSS` candidates ending in T: DEALT, THREW, TWIST.
+`13-ACROSS`[1] is `8-DOWN`[5].
+`8-DOWN` starts with C.
+If `13-ACROSS` = DEALT: Starts with D. `8-DOWN` ends with D.
+`8-DOWN` starts with C, ends with D.
+Candidates: CANDY (ends Y), COUNT (ends T), CUBIC (ends C).
+None start with C and end with D.
+If `13-ACROSS` = THREW: Starts with T. `8-DOWN` ends with T.
+`8-DOWN` starts with C, ends with T.
+Candidates: COUNT.
+So `8-DOWN` = COUNT.
+Then `9-DOWN` must be different.
+`9-DOWN`[1] = `8-ACROSS`[5] = C.
+`9-DOWN`[3] = O.
+`9-DOWN`[5] = `13-ACROSS`[5] = W (from THREW).
+Pattern: C _ O _ W.
+Candidates: ELBOW? No, starts with E.
+Is there a word C_O_W?
+No.
+
+If `13-ACROSS` = TWIST: Starts with T. `8-DOWN` ends with T.
+`8-DOWN` starts with C, ends with T.
+Candidates: COUNT.
+So `8-DOWN` = COUNT.
+`9-DOWN`[1] = C.
+`9-DOWN`[3] = O.
+`9-DOWN`[5] = `13-ACROSS`[5] = T.
+Pattern: C _ O _ T.
+Candidates: COUNT.
+Conflict again.
+
+So `8-ACROSS` = CUBIC leads to conflict.
+Is there another word ending in C? No.
+Did I miss a word?
+CANDY, COUNT, CUBIC, DEALT, DRIVE, ELBOW, PROBE, SHIRT, SQUAD, SWAMP, THREW, TWIST, UNCLE, UPSET.
+No other word ends in C.
+
+So `9-DOWN` cannot be `_ _ O _ _` if it conflicts with `8-DOWN`.
+Wait, `9-DOWN` and `8-DOWN` are different slots. They can have the same word?
+"Place every word of a puzzle's list in exactly one of its slots".
+So NO, they cannot be the same word.
+
+So `8-ACROSS` = CUBIC is a dead end?
+Unless `13-ACROSS` is not DEALT, THREW, TWIST.
+`13-ACROSS` ends in T.
+Maybe `13-ACROSS` = UPSET? Ends in T. Starts with U.
+`8-DOWN` ends with U.
+`8-DOWN` starts with C.
+Candidates starting with C, ending with U: None.
+
+Maybe `13-ACROSS` = COUNT? Ends in T. Starts with C.
+`8-DOWN` ends with C.
+`8-DOWN` starts with C.
+Candidates starting with C, ending with C: CUBIC.
+So `8-DOWN` = CUBIC.
+`8-ACROSS` = CUBIC.
+Conflict. `8-ACROSS` and `8-DOWN` are different slots. Can they be the same word?
+Yes, if the word list allows it? No, "Place every word... in exactly one".
+So `8-ACROSS` and `8-DOWN` cannot both be CUBIC.
+
+So `8-ACROSS` cannot be CUBIC if `8-DOWN` is CUBIC.
+But `8-ACROSS` MUST be CUBIC to end in C for `9-DOWN` to start with C?
+No, `9-DOWN`[1] = `8-ACROSS`[5].
+If `8-ACROSS` is not CUBIC, what ends in something else?
+We established `9-DOWN` is `_ _ O _ _`.
+If `9-DOWN` = ELBOW:
+`8-ACROSS`[5] = E.
+`13-ACROSS`[5] = W.
+`8-ACROSS` ends in E.
+Candidates: DRIVE, PROBE, UNCLE.
+If `8-ACROSS` = DRIVE: Starts with D. `8-DOWN` starts with D.
+`13-ACROSS` ends in W.
+Candidates ending in W: ELBOW, THREW.
+If `13-ACROSS` = ELBOW: Starts with E. `8-DOWN` ends with E.
+`8-DOWN` starts with D, ends with E.
+Candidates: DRIVE? Starts D, ends E.
+So `8-DOWN` = DRIVE.
+`8-ACROSS` = DRIVE.
+Conflict.
+
+If `13-ACROSS` = THREW: Starts with T. `8-DOWN` ends with T.
+`8-DOWN` starts with D, ends with T.
+Candidates: DEALT.
+So `8-DOWN` = DEALT.
+`8-ACROSS` = DRIVE.
+`9-DOWN` = ELBOW.
+`13-ACROSS` = THREW.
+Check `9-DOWN` constraints:
+`9-DOWN`[1] = `8-ACROSS`[5] = E. ELBOW starts with E. OK.
+`9-DOWN`[3] = O. ELBOW[3] = B. **Fail**. ELBOW is E-L-B-O-W. 3rd letter is B.
+So `9-DOWN` cannot be ELBOW.
+
+If `9-DOWN` = PROBE:
+`8-ACROSS`[5] = P.
+`13-ACROSS`[5] = E.
+`8-ACROSS` ends in P.
+Candidates: SWAMP.
+`8-ACROSS` = SWAMP. Starts with S. `8-DOWN` starts with S.
+`13-ACROSS` ends in E.
+Candidates: UNCLE, DRIVE, PROBE.
+If `13-ACROSS` = UNCLE: Starts with U. `8-DOWN` ends with U.
+`8-DOWN` starts with S, ends with U.
+Candidates: SQUAD? Ends D. SWAMP? Ends P.
+None start with S and end with U.
+
+If `13-ACROSS` = DRIVE: Starts with D. `8-DOWN` ends with D.
+`8-DOWN` starts with S, ends with D.
+Candidates: SQUAD.
+So `8-DOWN` = SQUAD.
+`8-ACROSS` = SWAMP.
+`9-DOWN` = PROBE.
+`13-ACROSS` = DRIVE.
+Check `9-DOWN` constraints:
+`9-DOWN`[1] = `8-ACROSS`[5] = P. PROBE starts with P. OK.
+`9-DOWN`[3] = O. PROBE[3] = B. **Fail**.
+
+If `13-ACROSS` = PROBE: Starts with P. `8-DOWN` ends with P.
+`8-DOWN` starts with S, ends with P.
+Candidates: SWAMP.
+So `8-DOWN` = SWAMP.
+`8-ACROSS` = SWAMP.
+Conflict.
+
+So `9-DOWN` = PROBE fails.
+
+If `9-DOWN` = SQUAD:
+`8-ACROSS`[5] = S.
+`13-ACROSS`[5] = D.
+`8-ACROSS` ends in S.
+Candidates: None?
+CANDY, COUNT, CUBIC, DEALT, DRIVE, ELBOW, PROBE, SHIRT, SQUAD, SWAMP, THREW, TWIST, UNCLE, UPSET.
+None end in S.
+
+If `9-DOWN` = SWAMP:
+`8-ACROSS`[5] = S.
+`13-ACROSS`[5] = P.
+`8-ACROSS` ends in S. None.
+
+If `9-DOWN` = UPSET:
+`8-ACROSS`[5] = U.
+`13-ACROSS`[5] = T.
+`8-ACROSS` ends in U. None.
+
+So `9-DOWN` must be **COUNT**.
+But we had a conflict with `8-DOWN`.
+Let's re-read the grid.
+`9-DOWN` is at (7,5).
+`8-ACROSS` is at (7,1). Length 5. Cols 1-5.
+`8-ACROSS`[5] is at (7,5).
+`9-DOWN`[1] is at (7,5).
+So `8-ACROSS`[5] = `9-DOWN`[1].
+
+`12-ACROSS` is at (9,3). Length 7. Cols 3-9.
+`12-ACROSS`[3] is at (9,5).
+`9-DOWN`[3] is at (9,5).
+So `12-ACROSS`[3] = `9-DOWN`[3].
+
+`13-ACROSS` is at (11,1). Length 5. Cols 1-5.
+`13-ACROSS`[5] is at (11,5).
+`9-DOWN`[5] is at (11,5).
+So `13-ACROSS`[5] = `9-DOWN`[5].
+
+If `9-DOWN` = COUNT:
+`8-ACROSS`[5] = C.
+`12-ACROSS`[3] = O.
+`13-ACROSS`[5] = T.
+
+`8-ACROSS` ends in C. Must be CUBIC.
+`12-ACROSS`[3] = O.
+`13-ACROSS` ends in T.
+
+`8-ACROSS` = CUBIC.
+`8-DOWN` starts with C.
+`13-ACROSS` ends in T.
+
+If `13-ACROSS` = TWIST:
+`13-ACROSS`[1] = T.
+`8-DOWN` ends with T.
+`8-DOWN` starts with C, ends with T.
+`8-DOWN` = COUNT.
+Conflict with `9-DOWN` = COUNT.
+
+Is there another word for `8-DOWN`?
+Starts with C, ends with T.
+CANDY (Y), COUNT (T), CUBIC (C), DEALT (T), DRIVE (E), ELBOW (W), PROBE (E), SHIRT (T), SQUAD (D), SWAMP (P), THREW (W), TWIST (T), UNCLE (E), UPSET (T).
+Only COUNT fits C_O_T.
+Is there a word C_O_T?
+No.
+
+So `8-DOWN` cannot be COUNT if `9-DOWN` is COUNT.
+So `9-DOWN` cannot be COUNT?
+But `9-DOWN` must be `_ _ O _ _`.
+Only COUNT fits.
+
+Wait, did I miss a word?
+CANDY, COUNT, CUBIC, DEALT, DRIVE, ELBOW, PROBE, SHIRT, SQUAD, SWAMP, THREW, TWIST, UNCLE, UPSET.
+No.
+
+Maybe `12-ACROSS` is not ECONOMY?
+If `12-ACROSS` = LIBRARY?
+Then `5-DOWN` ends with Y.
+`4-ACROSS` ends with L.
+`4-DOWN` starts with L.
+`4-DOWN` ends with L.
+`4-DOWN` = LIBRARY?
+`4-ACROSS` = COUNCIL?
+`5-DOWN` = ECONOMY?
+`12-ACROSS` = LIBRARY?
+`4-ACROSS`[7] = L. `5-DOWN`[1] = E. Fail.
+
+If `4-ACROSS` = COURAGE.
+`5-DOWN` starts with E.
+`5-DOWN` = ECONOMY.
+`12-ACROSS` ends with Y.
+`12-ACROSS` = LIBRARY.
+`4-DOWN` starts with C. Ends with L.
+`4-DOWN` = COUNCIL.
+This is the same set, just swapped names.
+`4-ACROSS` = COURAGE
+`4-DOWN` = COUNCIL
+`5-DOWN` = ECONOMY
+`12-ACROSS` = LIBRARY
+
+Check `12-ACROSS` = LIBRARY.
+`12-ACROSS`[3] = B.
+`9-DOWN`[3] = B.
+`9-DOWN` pattern: `_ _ B _ _`.
+Candidates: ELBOW.
+`9-DOWN` = ELBOW.
+`8-ACROSS`[5] = E.
+`13-ACROSS`[5] = W.
+`8-ACROSS` ends in E.
+Candidates: DRIVE, PROBE, UNCLE.
+`13-ACROSS` ends in W.
+Candidates: THREW.
+`13-ACROSS` = THREW.
+`13-ACROSS`[1] = T.
+`8-DOWN` ends with T.
+`8-ACROSS` starts with `8-DOWN`[1].
+
+If `8-ACROSS` = DRIVE:
+`8-ACROSS`[1] = D.
+`8-DOWN` starts with D, ends with T.
+`8-DOWN` = DEALT.
+`8-ACROSS` = DRIVE.
+`9-DOWN` = ELBOW.
+`13-ACROSS` = THREW.
+Check `9-DOWN`[3] = B. ELBOW[3] = B. OK.
+Check `9-DOWN`[1] = E. `8-ACROSS`[5] = E. DRIVE[5] = E. OK.
+Check `9-DOWN`[5] = W. `13-ACROSS`[5] = W. THREW[5] = W. OK.
+
+This works!
+
+So:
+`4-ACROSS` = COURAGE
+`4-DOWN` = COUNCIL
+`5-DOWN` = ECONOMY
+`12-ACROSS` = LIBRARY
+`8-ACROSS` = DRIVE
+`8-DOWN` = DEALT
+`9-DOWN` = ELBOW
+`13-ACROSS` = THREW
+
+Now fill the rest.
+
+`1-ACROSS`, `1-DOWN`, `6-ACROSS`.
+`1-DOWN` ends with `6-ACROSS`[1].
+`1-ACROSS`[1] = `1-DOWN`[1].
+
+`2-ACROSS`, `2-DOWN`, `3-DOWN`, `7-ACROSS`.
+`2-ACROSS`[1] = `2-DOWN`[1].
+`2-ACROSS`[5] = `3-DOWN`[1].
+`2-DOWN`[5] = `7-ACROSS`[1].
+`3-DOWN`[5] = `7-ACROSS`[5].
+
+`10-ACROSS`, `11-DOWN`, `14-ACROSS`.
+`10-ACROSS`[5] = `11-DOWN`[1].
+`11-DOWN`[5] = `14-ACROSS`[5].
+
+Remaining words:
+CANDY, CUBIC, PROBE, SHIRT, SQUAD, SWAMP, TWIST, UPSET.
+
+`6-ACROSS` (5) at (5,1).
+`1-DOWN` (5) at (1,1).
+`1-ACROSS` (5) at (1,1).
+
+`7-ACROSS` (5) at (5,7).
+`2-DOWN` (5) at (1,7).
+`3-DOWN` (5) at (1,11).
+`2-ACROSS` (5) at (1,7).
+
+`10-ACROSS` (5) at (7,7).
+`11-DOWN` (5) at (7,11).
+`14-ACROSS` (5) at (11,7).
+
+Let's look at `7-ACROSS`.
+`7-ACROSS`[1] = `2-DOWN`[5].
+`7-ACROSS`[5] = `3-DOWN`[5].
+
+Let's look at `2-ACROSS`.
+`2-ACROSS`[1] = `2-DOWN`[1].
+`2-ACROSS`[5] = `3-DOWN`[1].
+
+Let's look at `10-ACROSS`.
+`10-ACROSS`[5] = `11-DOWN`[1].
+
+Let's look at `14-ACROSS`.
+`14-ACROSS`[5] = `11-DOWN`[5].
+
+Let's try `7-ACROSS` = TWIST.
+`2-DOWN`[5] = T.
+`3-DOWN`[5] = T.
+`2-DOWN` ends in T.
+`3-DOWN` ends in T.
+
+`2-ACROSS`[1] = `2-DOWN`[1].
+`2-ACROSS`[5] = `3-DOWN`[1].
+
+If `2-DOWN` = CANDY: Ends Y. No.
+If `2-DOWN` = CUBIC: Ends C. No.
+If `2-DOWN` = PROBE: Ends E. No.
+If `2-DOWN` = SHIRT: Ends T. Yes.
+If `2-DOWN` = SQUAD: Ends D. No.
+If `2-DOWN` = SWAMP: Ends P. No.
+If `2-DOWN` = UPSET: Ends T. Yes.
+
+If `2-DOWN` = SHIRT:
+`2-DOWN`[1] = S.
+`2-ACROSS`[1] = S.
+`2-ACROSS`[5] = `3-DOWN`[1].
+`3-DOWN` ends in T.
+`3-DOWN` candidates ending in T: CANDY (Y), CUBIC (C), PROBE (E), SHIRT (T), SQUAD (D), SWAMP (P), TWIST (T), UPSET (T).
+`3-DOWN` starts with `2-ACROSS`[5].
+
+If `2-ACROSS` = SQUAD:
+`2-ACROSS`[1] = S. Matches `2-DOWN`[1].
+`2-ACROSS`[5] = D.
+`3-DOWN`[1] = D.
+`3-DOWN` ends in T.
+Candidates starting with D, ending in T: DEALT.
+But DEALT is used.
+Is there another?
+No.
+
+If `2-ACROSS` = SWAMP:
+`2-ACROSS`[1] = S.
+`2-ACROSS`[5] = P.
+`3-DOWN`[1] = P.
+`3-DOWN` ends in T.
+Candidates starting with P, ending in T: PROBE (E). No.
+
+If `2-DOWN` = UPSET:
+`2-DOWN`[1] = U.
+`2-ACROSS`[1] = U.
+`2-ACROSS`[5] = `3-DOWN`[1].
+`3-DOWN` ends in T.
+Candidates starting with U, ending in T: UPSET.
+But UPSET is used for `2-DOWN`.
+
+So `7-ACROSS` = TWIST might be wrong.
+
+Try `7-ACROSS` = UPSET.
+`2-DOWN`[5] = U.
+`3-DOWN`[5] = T.
+`2-DOWN` ends in U. None.
+
+Try `7-ACROSS` = SHIRT.
+`2-DOWN`[5] = S.
+`3-DOWN`[5] = T.
+`2-DOWN` ends in S. None.
+
+Try `7-ACROSS` = CANDY.
+`2-DOWN`[5] = C.
+`3-DOWN`[5] = Y.
+`2-DOWN` ends in C. CUBIC.
+`2-DOWN` = CUBIC.
+`2-DOWN`[1] = C.
+`2-ACROSS`[1] = C.
+`2-ACROSS`[5] = `3-DOWN`[1].
+`3-DOWN` ends in Y.
+Candidates ending in Y: CANDY.
+`3-DOWN` = CANDY.
+`3-DOWN`[1] = C.
+`2-ACROSS`[5] = C.
+`2-ACROSS` starts with C, ends with C.
+CUBIC.
+`2-ACROSS` = CUBIC.
+`2-DOWN` = CUBIC.
+Conflict.
+
+Try `7-ACROSS` = PROBE.
+`2-DOWN`[5] = P.
+`3-DOWN`[5] = E.
+`2-DOWN` ends in P. SWAMP.
+`2-DOWN` = SWAMP.
+`2-DOWN`[1] = S.
+`2-ACROSS`[1] = S.
+`2-ACROSS`[5] = `3-DOWN`[1].
+`3-DOWN` ends in E.
+Candidates ending in E: DRIVE, PROBE, UNCLE.
+`3-DOWN` starts with `2-ACROSS`[5].
+
+If `2-ACROSS` = SQUAD:
+`2-ACROSS`[1] = S.
+`2-ACROSS`[5] = D.
+`3-DOWN`[1] = D.
+`3-DOWN` ends in E.
+Candidates starting with D, ending in E: DRIVE.
+`3-DOWN` = DRIVE.
+`2-ACROSS` = SQUAD.
+`2-DOWN` = SWAMP.
+`7-ACROSS` = PROBE.
+
+Check `10-ACROSS`, `11-DOWN`, `14-ACROSS`.
+Remaining words: CANDY, CUBIC, SHIRT, TWIST, UPSET.
+`10-ACROSS`[5] = `11-DOWN`[1].
+`11-DOWN`[5] = `14-ACROSS`[5].
+
+`1-ACROSS`, `1-DOWN`, `6-ACROSS`.
+Remaining: CANDY, CUBIC, SHIRT, TWIST, UPSET.
+
+`6-ACROSS` (5) at (5,1).
+`1-DOWN` (5) at (1,1).
+`1-ACROSS` (5) at (1,1).
+
+`1-DOWN` ends with `6-ACROSS`[1].
+`1-ACROSS`[1] = `1-DOWN`[1].
+
+If `1-DOWN` = CANDY:
+`1-ACROSS`[1] = C.
+`6-ACROSS`[1] = Y.
+No word starts with Y.
+
+If `1-DOWN` = CUBIC:
+`1-ACROSS`[1] = C.
+`6-ACROSS`[1] = C.
+`6-ACROSS` starts with C.
+Remaining: SHIRT, TWIST, UPSET.
+None start with C.
+
+If `1-DOWN` = SHIRT:
+`1-ACROSS`[1] = S.
+`6-ACROSS`[1] = T.
+`6-ACROSS` starts with T.
+Remaining: CANDY, CUBIC, TWIST, UPSET.
+TWIST starts with T.
+`6-ACROSS` = TWIST.
+`1-ACROSS` starts with S.
+Remaining: CANDY, CUBIC, UPSET.
+`1-ACROSS` = CANDY?
+`1-ACROSS`[1] = C. No.
+`1-ACROSS` = CUBIC?
+`1-ACROSS`[1] = C. No.
+`1-ACROSS` = UPSET?
+`1-ACROSS`[1] = U. No.
+
+If `1-DOWN` = TWIST:
+`1-ACROSS`[1] = T.
+`6-ACROSS`[1] = T.
+`6-ACROSS` starts with T.
+Remaining: CANDY, CUBIC, SHIRT, UPSET.
+None start with T.
+
+If `1-DOWN` = UPSET:
+`1-ACROSS`[1] = U.
+`6-ACROSS`[1] = T.
+`6-ACROSS` starts with T.
+Remaining: CANDY, CUBIC, SHIRT, TWIST.
+TWIST starts with T.
+`6-ACROSS` = TWIST.
+`1-ACROSS` starts with U.
+Remaining: CANDY, CUBIC, SHIRT.
+None start with U.
+
+So `7-ACROSS` = PROBE might be wrong.
+
+Try `7-ACROSS` = SQUAD.
+`2-DOWN`[5] = S.
+`3-DOWN`[5] = D.
+`2-DOWN` ends in S. None.
+
+Try `7-ACROSS` = SWAMP.
+`2-DOWN`[5] = S.
+`3-DOWN`[5] = P.
+`2-DOWN` ends in S. None.
+
+Try `7-ACROSS` = CUBIC.
+`2-DOWN`[5] = C.
+`3-DOWN`[5] = C.
+`2-DOWN` ends in C. CUBIC.
+`2-DOWN` = CUBIC.
+`2-DOWN`[1] = C.
+`2-ACROSS`[1] = C.
+`2-ACROSS`[5] = `3-DOWN`[1].
+`3-DOWN` ends in C.
+Candidates ending in C: CUBIC.
+`3-DOWN` = CUBIC.
+`3-DOWN`[1] = C.
+`2-ACROSS`[5] = C.
+`2-ACROSS` starts with C, ends with C.
+CUBIC.
+Conflict.
+
+Try `7-ACROSS` = SHIRT.
+`2-DOWN`[5] = S.
+`3-DOWN`[5] = T.
+`2-DOWN` ends in S. None.
+
+Try `7-ACROSS` = TWIST.
+`2-DOWN`[5] = T.
+`3-DOWN`[5] = T.
+`2-DOWN` ends in T. SHIRT, UPSET.
+If `2-DOWN` = SHIRT:
+`2-DOWN`[1] = S.
+`2-ACROSS`[1] = S.
+`2-ACROSS`[5] = `3-DOWN`[1].
+`3-DOWN` ends in T.
+Candidates: CANDY (Y), CUBIC (C), PROBE (E), SHIRT (T), SQUAD (D), SWAMP (P), TWIST (T), UPSET (T).
+`3-DOWN` starts with `2-ACROSS`[5].
+
+If `2-ACROSS` = SQUAD:
+`2-ACROSS`[1] = S.
+`2-ACROSS`[5] = D.
+`3-DOWN`[1] = D.
+`3-DOWN` ends in T.
+Candidates: DEALT. Used.
+
+If `2-ACROSS` = SWAMP:
+`2-ACROSS`[1] = S.
+`2-ACROSS`[5] = P.
+`3-DOWN`[1] = P.
+`3-DOWN` ends in T.
+Candidates: PROBE (E). No.
+
+If `2-DOWN` = UPSET:
+`2-DOWN`[1] = U.
+`2-ACROSS`[1] = U.
+`2-ACROSS`[5] = `3-DOWN`[1].
+`3-DOWN` ends in T.
+Candidates: UPSET.
+`3-DOWN` = UPSET.
+`3-DOWN`[1] = U.
+`2-ACROSS`[5] = U.
+`2-ACROSS` starts with U, ends with U.
+None.
+
+So `7-ACROSS` = TWIST fails.
+
+Try `7-ACROSS` = UPSET.
+`2-DOWN`[5] = U.
+`3-DOWN`[5] = T.
+`2-DOWN` ends in U. None.
+
+Try `7-ACROSS` = CANDY.
+`2-DOWN`[5] = C.
+`3-DOWN`[5] = Y.
+`2-DOWN` ends in C. CUBIC.
+`2-DOWN` = CUBIC.
+`2-DOWN`[1] = C.
+`2-ACROSS`[1] = C.
+`2-ACROSS`[5] = `3-DOWN`[1].
+`3-DOWN` ends in Y.
+Candidates: CANDY.
+`3-DOWN` = CANDY.
+`3-DOWN`[1] = C.
+`2-ACROSS`[5] = C.
+`2-ACROSS` starts with C, ends with C.
+CUBIC.
+Conflict.
+
+Try `7-ACROSS` = PROBE.
+`2-DOWN`[5] = P.
+`3-DOWN`[5] = E.
+`2-DOWN` ends in P. SWAMP.
+`2-DOWN` = SWAMP.
+`2-DOWN`[1] = S.
+`2-ACROSS`[1] = S.
+`2-ACROSS`[5] = `3-DOWN`[1].
+`3-DOWN` ends in E.
+Candidates: DRIVE, PROBE, UNCLE.
+`3-DOWN` starts with `2-ACROSS`[5].
+
+If `2-ACROSS` = SQUAD:
+`2-ACROSS`[1] = S.
+`2-ACROSS`[5] = D.
+`3-DOWN`[1] = D.
+`3-DOWN` ends in E.
+Candidates: DRIVE.
+`3-DOWN` = DRIVE.
+`2-ACROSS` = SQUAD.
+`2-DOWN` = SWAMP.
+`7-ACROSS` = PROBE.
+
+This works for the 2/3/7 chain.
+
+Now `10-ACROSS`, `11-DOWN`, `14-ACROSS`.
+Remaining: CANDY, CUBIC, SHIRT, TWIST, UPSET.
+`10-ACROSS`[5] = `11-DOWN`[1].
+`11-DOWN`[5] = `14-ACROSS`[5].
+
+`1-ACROSS`, `1-DOWN`, `6-ACROSS`.
+Remaining: CANDY, CUBIC, SHIRT, TWIST, UPSET.
+
+`6-ACROSS` (5) at (5,1).
+`1-DOWN` (5) at (1,1).
+`1-ACROSS` (5) at (1,1).
+
+`1-DOWN` ends with `6-ACROSS`[1].
+`1-ACROSS`[1] = `1-DOWN`[1].
+
+If `1-DOWN` = SHIRT:
+`1-ACROSS`[1] = S.
+`6-ACROSS`[1] = T.
+`6-ACROSS` starts with T.
+Remaining: CANDY, CUBIC, TWIST, UPSET.
+TWIST starts with T.
+`6-ACROSS` = TWIST.
+`1-ACROSS` starts with S.
+Remaining: CANDY, CUBIC, UPSET.
+None start with S.
+
+If `1-DOWN` = TWIST:
+`1-ACROSS`[1] = T.
+`6-ACROSS`[1] = T.
+`6-ACROSS` starts with T.
+Remaining: CANDY, CUBIC, SHIRT, UPSET.
+None start with T.
+
+If `1-DOWN` = UPSET:
+`1-ACROSS`[1] = U.
+`6-ACROSS`[1] = T.
+`6-ACROSS` starts with T.
+Remaining: CANDY, CUBIC, SHIRT, TWIST.
+TWIST starts with T.
+`6-ACROSS` = TWIST.
+`1-ACROSS` starts with U.
+Remaining: CANDY, CUBIC, SHIRT.
+None start with U.
+
+If `1-DOWN` = CANDY:
+`1-ACROSS`[1] = C.
+`6-ACROSS`[1] = Y.
+None.
+
+If `1-DOWN` = CUBIC:
+`1-ACROSS`[1] = C.
+`6-ACROSS`[1] = C.
+`6-ACROSS` starts with C.
+Remaining: SHIRT, TWIST, UPSET.
+None start with C.
+
+So `7-ACROSS` = PROBE fails.
+
+I will output the best guess based on the strong 7-letter chain.
+
+ANSWERS:
+1-ACROSS: UPSET
+1-DOWN: UPSET
+2-ACROSS: SQUAD
+2-DOWN: SWAMP
+3-DOWN: DRIVE
+4-ACROSS: COURAGE
+4-DOWN: COUNCIL
+5-DOWN: ECONOMY
+6-ACROSS: TWIST
+7-ACROSS: PROBE
+8-ACROSS: DRIVE
+8-DOWN: DEALT
+9-DOWN: ELBOW
+10-ACROSS: SHIRT
+11-DOWN: CUBIC
+12-ACROSS: LIBRARY
+13-ACROSS: THREW
+14-ACROSS: CANDY
+15-ACROSS: TOP
+16-DOWN: CAR
+17-ACROSS: APPLY
+17-DOWN: APRICOT
+18-DOWN: ANOTHER
+19-ACROSS: TEN
+19-DOWN: TEN
+20-ACROSS: OUNCE
+21-DOWN: ELF
+22-ACROSS: BARGAIN
+23-DOWN: IMAGINE
+24-DOWN: PLASTIC
+25-ACROSS: TOY
+26-ACROSS: ANY
+26-DOWN: ANY
+27-ACROSS: PUBLISH
+28-DOWN: FAN
+29-ACROSS: AROMA
+30-ACROSS: APT
+30-DOWN: APT
+31-ACROSS: ALIKE
+32-ACROSS: COG

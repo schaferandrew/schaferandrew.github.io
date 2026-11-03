@@ -1,0 +1,187 @@
+// Crucible runs page: grid of run cards
+
+.crucible-run {
+  .crucible-title {
+    text-align: left;
+  }
+
+  .crucible-sub,
+  .crucible-footnote {
+    margin-top: 0;
+    color: $gray;
+    font-size: $textSmall;
+  }
+
+  .crucible-suite-bar {
+    margin-bottom: $gap;
+  }
+
+  .crucible-toolbar {
+    margin-bottom: $gap;
+  }
+
+  // Run grid
+  .crucible-run-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: $gap;
+    margin-bottom: $gap;
+  }
+
+  // Run card
+  .crucible-run-card {
+    display: block;
+    padding: $gap;
+    background: #fff;
+    border: 1px solid $crucibleBorder;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+      border-color: $crucibleBlue;
+    }
+
+    &:focus {
+      outline: 2px solid $crucibleBlue;
+      outline-offset: 2px;
+    }
+  }
+
+  // Status indicator
+  .crucible-run-status {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+
+    &.crucible-run-status-finished {
+      background: #28a745; // green
+    }
+
+    &.crucible-run-status-timeout {
+      background: #ffc107; // amber
+    }
+
+    &.crucible-run-status-error {
+      background: #dc3545; // red
+    }
+
+    &.crucible-run-status-unknown {
+      background: $crucibleMuted;
+    }
+  }
+
+  // Card content
+  .crucible-run-content {
+    position: relative;
+  }
+
+  // Header with model and score
+  .crucible-run-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: $gap / 2;
+    padding-right: 24px; // Space for status indicator
+  }
+
+  .crucible-run-model {
+    font-weight: 600;
+    font-size: $textBase;
+    color: $black;
+    word-break: break-word;
+  }
+
+  .crucible-run-score-wrap {
+    margin-left: $gap / 2;
+  }
+
+  .crucible-run-score {
+    font-weight: 600;
+    color: $crucibleBlue;
+    font-size: $textBase;
+
+    &.crucible-run-score-none {
+      color: $crucibleMuted;
+    }
+  }
+
+  // Fields
+  .crucible-run-field {
+    display: flex;
+    margin-bottom: 4px;
+    font-size: $textSmall;
+    line-height: 1.4;
+  }
+
+  .crucible-run-field-label {
+    color: $crucibleMuted;
+    min-width: 80px;
+    font-weight: 500;
+  }
+
+  .crucible-run-field-value {
+    color: $black;
+    flex: 1;
+    word-break: break-word;
+  }
+
+  // Task
+  .crucible-run-task {
+    display: flex;
+    margin-top: $gap / 2;
+    padding-top: $gap / 2;
+    border-top: 1px solid $crucibleBorder;
+    font-size: $textSmall;
+    line-height: 1.4;
+  }
+
+  .crucible-run-task-label {
+    color: $crucibleMuted;
+    min-width: 80px;
+    font-weight: 500;
+  }
+
+  .crucible-run-task-value {
+    color: $crucibleBlue;
+    flex: 1;
+    word-break: break-word;
+  }
+
+  // Date
+  .crucible-run-date {
+    margin-top: $gap / 2;
+    font-size: $textXsmall;
+    color: $crucibleMuted;
+    text-align: right;
+  }
+
+  // Empty state
+  .crucible-run-empty {
+    padding: $gap * 2;
+    text-align: center;
+    color: $crucibleMuted;
+    grid-column: 1 / -1;
+  }
+
+  // Responsive adjustments
+  @media screen and (max-width: $medium) {
+    .crucible-run-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .crucible-run-header {
+      flex-direction: column;
+      gap: $gap / 4;
+    }
+
+    .crucible-run-score-wrap {
+      margin-left: 0;
+      align-self: flex-end;
+    }
+  }

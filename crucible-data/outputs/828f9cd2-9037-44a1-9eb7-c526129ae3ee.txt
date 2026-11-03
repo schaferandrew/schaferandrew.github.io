@@ -1,0 +1,31 @@
+**Accuracy (4):**
+The response contains three factual claims derived from the passage:
+1. The board voted to extend weekend hours to 8 p.m. starting in March, following a survey where 62% of residents asked for evening access. (Supported: The passage states the extension is from 5 p.m. to 8 p.m., starts in March, and follows a survey where 62% said evening access was their top request.)
+2. The change is funded by a $40,000 grant that covers one year, and the board will revisit it next winter if no further money is found. (Supported: The passage states funding comes from a $40,000 grant covering only the first year, and the board will revisit the schedule next winter if no new money is found.)
+3. Two board members opposed the decision over staffing concerns. (Supported: The passage states two board members opposed the vote, citing staffing shortages.)
+
+All claims are accurate and supported by the text. No invented details are present. Score: 4/4.
+
+**Exactly two sentences (3):**
+The agent's response consists of three sentences:
+1. "The Millbrook library board voted to extend weekend hours to 8 p.m. starting in March, following a survey where 62% of residents asked for evening access."
+2. "The change is funded by a $40,000 grant that covers one year, and the board will revisit it next winter if no further money is found."
+3. "Two board members opposed the decision over staffing concerns."
+
+The criteria require exactly two sentences. The response has three. Score: 0/3.
+
+**Key points (3):**
+The criteria require capturing three specific points:
+1. Hours extension: Captured ("extend weekend hours to 8 p.m.").
+2. Funding limit: Captured ("funded by a $40,000 grant that covers one year").
+3. Resident survey: Captured ("following a survey where 62% of residents asked for evening access").
+
+All three key points are present. Score: 3/3.
+
+**Total Score:**
+Accuracy: 4
+Exactly two sentences: 0
+Key points: 3
+Total: 7
+
+GRADE: 7

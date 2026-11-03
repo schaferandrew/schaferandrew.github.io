@@ -1,0 +1,11 @@
+
+
+Based on my check of your calendar today (**Tuesday, September 1, 2026**):
+
+- Your "Design review" meeting ends exactly at **3:30 PM**
+- Your next event, "Customer call", doesn't start until **4:00 PM**
+- The free/busy check confirms no busy blocks at 3:30
+
+You have a 30-minute gap between meetings, so you are free at that time.
+
+ANSWER: free

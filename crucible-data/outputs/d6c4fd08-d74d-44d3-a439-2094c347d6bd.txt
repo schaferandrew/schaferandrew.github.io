@@ -1,0 +1,20 @@
+
+
+## Report
+
+**What happened:**
+
+1. **First login attempt failed** — I attempted to log in as `testuser` with the password from the skill (`correctpassword`), but received `invalid_credentials`. This diagnosed as **Wrong Password** mode.
+
+2. **Recovery via password reset flow:**
+   - Navigated to the "Forgot password?" link (`/api/reset-password-request`) with username `testuser`
+   - Received a reset token: `reset_84992db52ef6a7e8`
+   - Used the token to reset the password to `known-password` (`/api/reset-password`)
+
+3. **Second login succeeded** — Logged in with `testuser`/`known-password`, received a valid session cookie and redirect to `/dashboard.html`.
+
+4. **Verified authenticated dashboard access** — Confirmed the session works: `{"user":"testuser","dashboardMessage":"Welcome to your dashboard!"}`
+
+The audit log confirms the full sequence: `login_failed` → `reset_requested` → `password_reset` → `login_success` → `dashboard_ok`.
+
+FAILURE: Wrong Password

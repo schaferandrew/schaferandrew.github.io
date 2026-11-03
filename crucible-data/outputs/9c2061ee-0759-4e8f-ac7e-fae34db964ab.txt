@@ -1,0 +1,46 @@
+
+
+1.  **Counting Integers Divisible by 3 or 7, but not 21**
+    Let $A$ be the set of integers from 1 to 10,000 divisible by 3, and $B$ be the set of integers divisible by 7. We seek $|(A \cup B) \setminus (A \cap B)|$. Since 21 is the least common multiple of 3 and 7, $A \cap B$ contains integers divisible by 21.
+    *   $|A| = \lfloor 10,000 / 3 \rfloor = 3,333$
+    *   $|B| = \lfloor 10,000 / 7 \rfloor = 1,428$
+    *   $|A \cap B| = \lfloor 10,000 / 21 \rfloor = 476$
+    The number of integers divisible by 3 or 7 is $|A \cup B| = |A| + |B| - |A \cap B| = 3,333 + 1,428 - 476 = 4,285$.
+    Subtracting those divisible by 21: $4,285 - 476 = 3,809$.
+
+2.  **Remainder of $7^{2026}$ divided by 100**
+    We calculate $7^{2026} \pmod{100}$. First, we find the order of 7 modulo 100:
+    *   $7^2 = 49$
+    *   $7^3 = 343 \equiv 43 \pmod{100}$
+    *   $7^4 = 2,401 \equiv 1 \pmod{100}$
+    The order is 4. Since $2026 = 4 \times 506 + 2$, we have:
+    $7^{2026} \equiv (7^4)^{506} \cdot 7^2 \equiv 1^{506} \cdot 49 \equiv 49 \pmod{100}$.
+
+3.  **Tiling a $2 \times 12$ Board**
+    Let $a_n$ be the number of ways to tile a $2 \times n$ board. The recurrence is $a_n = a_{n-1} + 2a_{n-2}$, where $a_{n-1}$ accounts for a vertical domino and the two $a_{n-2}$ terms account for a square or two horizontal dominoes.
+    *   $a_0 = 1, a_1 = 1$
+    *   $a_2 = 3, a_3 = 5, a_4 = 11$
+    *   $a_5 = 21, a_6 = 43, a_7 = 85$
+    *   $a_8 = 171, a_9 = 341, a_{10} = 683$
+    *   $a_{11} = 1,365, a_{12} = 2,731$
+    Alternatively, using the closed form $a_n = \frac{2^{n+1} + (-1)^n}{3}$, we get $a_{12} = \frac{8192 + 1}{3} = 2,731$.
+
+4.  **Probability the Largest Number is Exactly 4**
+    For three dice, there are $6^3 = 216$ total outcomes. The largest number is exactly 4 if all dice show a value $\le 4$ and at least one die shows a 4.
+    *   Outcomes where all dice $\le 4$: $4^3 = 64$
+    *   Outcomes where all dice $\le 3$: $3^3 = 27$
+    *   Favorable outcomes: $64 - 27 = 37$
+    The probability is $\frac{37}{216}$.
+
+5.  **Probability Both Children are Boys**
+    Each child has $2 \times 7 = 14$ possible states (Gender, Day). For two children, there are $196$ total outcomes.
+    *   **Condition (At least one Boy-Tuesday):** Total outcomes minus those where neither is a Boy-Tuesday ($13 \times 13 = 169$). $196 - 169 = 27$.
+    *   **Favorable (Both Boys AND at least one Boy-Tuesday):** Total outcomes where both are boys ($7 \times 7 = 49$) minus those where neither is a Boy-Tuesday ($6 \times 6 = 36$). $49 - 36 = 13$.
+    The probability is $\frac{13}{27}$.
+
+ANSWERS
+1. 3809
+2. 49
+3. 2731
+4. 37/216
+5. 13/27

@@ -1,0 +1,18 @@
+
+
+Here's my analysis of both calendars for this week (Aug 31 - Sep 7, 8 AM - 6 PM CDT):
+
+**Busy blocks overlap analysis:**
+- **Aug 31 (Mon):** Both are free 8:00-9:00 AM and 5:00-6:00 PM
+- **Sep 01 (Tue):** Only 8:00-9:00 AM overlap
+- **Sep 02 (Wed):** 8:00-9:00 AM and 3:30 PM-6:00 PM (2.5 hours)
+- **Sep 03 (Thu):** 8:00-9:00 AM, 1:00-2:00 PM, and 4:00-6:00 PM (2 hours)
+- **Sep 04 (Fri):** 8:00-9:00 AM and 3:00 PM-6:00 PM (3 hours)
+- **Sep 05-06 (Weekend):** Both are completely free all day
+
+The best options give the most contiguous free time for both:
+
+OPTIONS:
+2026-09-04 15:00 America/Chicago
+2026-09-03 16:00 America/Chicago
+2026-08-31 17:00 America/Chicago

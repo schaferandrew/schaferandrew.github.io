@@ -1,0 +1,34 @@
+
+
+## Fix Summary
+
+### Root Cause
+The `/api/dashboard` endpoint returned `200 OK` with `{ user: null, dashboardMessage: '' }` for expired/invalid sessions. The client-side code interpreted this as "no data to show" → blank dashboard, instead of redirecting back to login.
+
+### Changes Made
+
+**1. `server.js` - Return 401 for invalid sessions:**
+```diff
+- return res.status(200).json({ user: null, dashboardMessage: '' });
++ return res.status(401).json({ error: 'session_invalid', reason: data.error });
+```
+
+**2. `public/dashboard.html` - Handle 401 with redirect:**
+Added check for expired sessions before processing response:
+```javascript
+if (res.status === 401) {
+    // Session expired - redirect to login
+    window.location.href = '/login.html';
+    return;
+}
+```
+
+**3. `dashboard.test.js` - Added regression tests:**
+- Tests verify server returns 401 (not 200) for invalid sessions
+- Tests verify dashboard.html has proper redirect logic
+- Tests simulate the full flow: login → valid session works → expired session → 401
+
+### Verification
+- ✅ All 14 tests pass (original suite + new regression tests)
+- Valid session → `200` with user data
+- No session / expired session → `401` (client redirects to login)

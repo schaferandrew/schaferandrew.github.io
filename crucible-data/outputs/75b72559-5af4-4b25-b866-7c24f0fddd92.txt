@@ -1,0 +1,8 @@
+
+
+Done! The morning brief has been created at `morning-brief.md` with all four required sections:
+
+- **Emails** — 4 emails from yesterday, including an important deadline reminder for the Q3 expense report due at 5 PM today
+- **Calendar** — Today's events (Planning, Vendor demo with an overlap note, Budget meeting)
+- **News** — 3 articles from Saint Paul/Twin Cities area (Tech Conference, Maplewood Park, State Fair)
+- **Spanish practice** — A single paragraph in Spanish about managing today's priorities, deadlines, and meetings

@@ -1,0 +1,4 @@
+
+
+I need to handle the contract test compatibility - if no status is provided, articles should publish immediately. Let me fix this:
+

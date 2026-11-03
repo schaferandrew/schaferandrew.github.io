@@ -1,0 +1,9 @@
+
+
+Accuracy (4): Every factual claim in the summary is directly supported by the passage. The extension to 8 p.m., March start date, 62% survey result, $40,000 one-year grant, conditional review next winter, and two opposing board members citing staffing are all correctly stated with no hallucinations or added details. (4/4)
+
+Exactly two sentences (3): The response contains three separate sentences, ending with periods after "access," "found," and "concerns." This violates the strict requirement of exactly two sentences. (0/3)
+
+Key points (3): The summary successfully captures all three mandated key points: the weekend hours extension, the one-year funding limit from the grant, and the resident survey results. (3/3)
+
+GRADE: 7

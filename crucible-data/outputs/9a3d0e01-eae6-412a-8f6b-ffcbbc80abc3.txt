@@ -1,0 +1,24 @@
+
+
+**Reasoning:**
+- **Language Errors:** Sentence 3 has a subject-verb agreement error ("prices... is" should be "are"). Sentence 6 uses the contraction for "it is" instead of the possessive pronoun ("it's" should be "its"). Sentence 12 uses the adverb "then" instead of the conjunction "than" for a comparison.
+- **Claim/Wording Flags:** 
+  - Sentence 1 oversimplifies the cause of inflation (it's not solely or always due to money creation by "the government").
+  - Sentence 4 falsely claims a legal trigger for rate hikes; the Fed has no statutory requirement to raise rates when CPI exceeds 2%.
+  - Sentence 8 mischaracterizes the natural rate of unemployment as a moral judgment; it includes frictional and structural unemployment, not just voluntary or policy-induced cases.
+  - Sentence 11 falsely claims QE "inevitably causes hyperinflation"; QE is not simple printing, and hyperinflation is not an inevitable outcome.
+  - Sentence 14 uses absolute language ("proves," "completely ineffective") that overstates Japan's case and ignores partial monetary effects.
+  - Sentence 18 uses absolute language ("definitively debunked," "without growing the economy at all") that contradicts historical GDP growth and ongoing academic debate.
+
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: misleading
+4: misleading
+8: overstated
+11: overstated
+14: overstated
+18: overstated

@@ -1,0 +1,34 @@
+
+
+Done! Here's the summary of what was broken and what was fixed:
+
+## What Was Wrong
+
+| Bug | Location | Impact |
+|-----|----------|--------|
+| **Form state is a plain object** — `values` never triggers re-renders | `LeadForm.tsx` | Users could type into fields but the values never appeared on screen |
+| **No validation** — form submits blindly to API | `LeadForm.tsx` + `route.ts` | Empty/invalid data was sent and saved |
+| **No error display UI** — required `lead-*-error` elements missing | `LeadForm.tsx` | Users never saw what went wrong |
+| **No success state** — required `lead-success` element missing | `LeadForm.tsx` | No confirmation after submission |
+| **No ARIA accessibility** — missing `aria-invalid` and `aria-describedby` | `LeadForm.tsx` | Screen readers couldn't detect errors |
+| **No focus management** on error | `LeadForm.tsx` | Users had to manually find the first invalid field |
+| **No email normalization/validation** in API — no trim, lowercase, or format check | `route.ts` | Emails saved as-typed (with spaces, mixed case) or invalid ones passed through |
+| **No 422 response** for bad data — API always returned 201 | `route.ts` | Bad leads were saved to the database |
+
+## What Was Changed
+
+**`app/contact/LeadForm.tsx`**:
+- Replaced plain `values` object with React `useState` hooks so fields update visibly when typed
+- Added client-side validation for required fields and email format
+- Renders `{lead-name-error, lead-email-error, lead-message-error}` divs conditionally on validation errors
+- Adds `aria-invalid` and `aria-describedby` to invalid fields for accessibility
+- On errors, moves focus to the first invalid field and keeps all typed values intact
+- Returns `lead-success` div (replacing the form) on successful submission
+
+**`app/api/leads/route.ts`**:
+- Trims all fields, lowercases and validates email format
+- Returns `422` with `{ errors: {...} }` for invalid data (saves nothing)
+- Saves missing `company` as an empty string
+- Returns `201` with `{ lead: {...} }` on valid data
+
+**Results**: `npm test` ✓ and `npm run build` ✓.

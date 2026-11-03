@@ -1,0 +1,86 @@
+
+
+Here are the step-by-step solutions for each question.
+
+**1. Savings Account Calculation**
+To find the future value of the savings, we use the compound interest formula: $A = P(1 + \frac{r}{n})^{nt}$
+*   **P (Principal):** $5,000
+*   **r (Annual Rate):** 0.04
+*   **n (Compounds per year):** 12
+*   **t (Years):** 3
+
+$$A = 5000 \left(1 + \frac{0.04}{12}\right)^{(12 \times 3)}$$
+$$A = 5000 (1 + 0.003333...)^{36}$$
+$$A = 5000 (1.127498...)^{36}$$
+$$A = 5000 (1.127498... \text{ [calculated precisely]})$$
+*Note: $(1 + 0.04/12)^{36} \approx 1.12749805$*
+$$A = 5000 \times 1.12749805...$$
+$$A = 5637.49025...$$
+
+Rounding to the nearest cent: **$5,637.49**
+
+***
+
+**2. Flooring Calculation**
+First, calculate the total area needed including the 10% waste factor.
+*   **Base Area:** 1,850 sq ft
+*   **Waste Factor:** 1.10 (100% + 10%)
+
+$$\text{Total Area Needed} = 1850 \times 1.10 = 2,035 \text{ sq ft}$$
+
+Next, divide the total area by the size of one box to find the number of boxes.
+*   **Box Size:** 23.5 sq ft
+
+$$\text{Boxes} = \frac{2035}{23.5}$$
+$$\text{Boxes} = 86.5957...$$
+
+Since you cannot buy a partial box, you must round up to the next whole number.
+**87 boxes**
+
+***
+
+**3. Gas Cost Calculation**
+First, determine how many gallons of gas are needed for the trip.
+*   **Distance:** 412 miles
+*   **MPG:** 34
+
+$$\text{Gallons} = \frac{412}{34}$$
+$$\text{Gallons} = 12.117647...$$
+
+Next, calculate the cost using the price per gallon.
+*   **Price:** $3.89
+
+$$\text{Cost} = 12.117647... \times 3.89$$
+$$\text{Cost} = 47.1376...$$
+
+Rounding to the nearest cent: **$47.14**
+
+***
+
+**4. Dinner Split Calculation**
+First, calculate the tip amount based on the pre-tax total.
+*   **Pre-tax:** $172.00
+*   **Tip Rate:** 18% (0.18)
+
+$$\text{Tip} = 172 \times 0.18 = 30.96$$
+
+Next, add the tip to the total bill (which already includes tax) to find the final amount to be split.
+*   **Total with Tax:** $186.40
+
+$$\text{Final Total} = 186.40 + 30.96 = 217.36$$
+
+Finally, divide by the number of people (4).
+*   **People:** 4
+
+$$\text{Share per person} = \frac{217.36}{4}$$
+$$\text{Share per person} = 54.34$$
+
+**$54.34**
+
+***
+
+ANSWERS
+1. $5,637.49
+2. 87
+3. $47.14
+4. $54.34

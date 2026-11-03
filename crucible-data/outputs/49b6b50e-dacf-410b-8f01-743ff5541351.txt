@@ -1,0 +1,60 @@
+
+
+# Morning Brief — Wednesday, September 2, 2026
+
+## Weather
+
+**Saint Paul, MN — Today: Partly Cloudy, 68°F**
+- Humidity: 65%, Wind: 8 mph
+
+| Date | High / Low | Condition          | Precipitation |
+|------|-----------|--------------------|---------------|
+| Today (Sep 2) | 68 / 55°F | Partly Cloudy | 10% chance |
+| Thu (Sep 3) | 74 / 59°F | Sunny | None |
+| Fri (Sep 4) | 71 / 57°F | Scattered Showers | 30% chance |
+
+## Outstanding work
+
+From yesterday's emails, these items require attention today:
+
+- **🔴 Q3 Expense Report** (finance@example.com) — Deadline: **5:00 PM today**. Late reports are paid with next month's payroll.
+- **Proposal timeline confirmation** (client@example.com) — Client needs a yes/no on Friday delivery before briefing their team. Reply as soon as possible.
+- **Q3 Review discussion** (alex@example.com) — Q3 review is complete and ahead of schedule; planning meeting today covers results.
+
+## Emails
+
+| From | Subject | Key Details / Action Needed |
+|------|---------|----------------------------|
+| finance@example.com | Q3 expense report due Wednesday 5 PM | **Deadline today at 5:00 PM.** Submit before cutoff or pay next month. |
+| client@example.com | Question about the proposal timeline | **Reply today.** Confirm whether revised proposal can ship by Friday. |
+| alex@example.com | Project update — Q3 review completed | Discuss results in today's planning meeting. No action required beyond attendance. |
+| jamie@example.com | Meeting notes from yesterday | 1-on-1 covered career goals, Q3 priorities, team building. Review if needed for follow-up tasks. |
+
+## Calendar
+
+**Today (Wednesday, Sept 2)**
+- **09:30–10:30** — Planning (Room B) with alex@example.com
+- **10:00–11:00** — Vendor demo (Zoom) with vendor@example.com ⚠️ *Overlaps with Planning by 30 min*
+- **13:00–14:00** — Budget meeting (Conference Room A) with jamie@example.com
+
+**Upcoming**
+- **Thu 09:00–10:00** — Standup (Zoom)
+- **Thu 11:00–12:00** — Interview (Conference Room B)
+- **Fri 09:00–11:00** — Workshop (Main Hall)
+- **Fri 14:00–15:00** — Project review (Conference Room A)
+
+**⚠️ Conflict alert:** Planning (09:30–10:30) and Vendor demo (10:00–11:00) overlap. Resolve before starting either session.
+
+## News
+
+| Source | Headline | Summary |
+|--------|----------|---------|
+| StarTribune (high) | Twin Cities Tech Conference Returns | 50+ speakers on AI, startup funding, and emerging tech. Registration opens Friday. |
+| Pioneer Press (med) | Maplewood Park Renovation Complete | New trails and playground added. Grand reopening Saturday. |
+| StarTribune (low) | State Fair Attendance Drops Slightly | 3% decline; cooler weather cited as factor. |
+
+## Top 3 things to do today
+
+1. **Submit Q3 expense report by 5:00 PM** — Missing the deadline costs next month's payroll.
+2. **Reply to client@example.com about proposal timeline** — Client needs a decision before Friday so they can brief their team.
+3. **Resolve the 10:00 AM calendar conflict** — Planning (9:30–10:30) and Vendor demo (10:00–11:00) overlap; pick one or reschedule before both start.

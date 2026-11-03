@@ -1,0 +1,10 @@
+
+
+The paragraph contains two clear grammatical errors that disrupt standard usage: “then” should be “than” in the comparative clause, and “to fast” should be “too fast.” I corrected these while preserving the author’s gritty, urban tone and deliberate pacing. The standalone fragment “Not waiting for her, exactly.” and the em dash in “Still—she was back.” are stylistic choices that create effective pauses and emotional weight, so I left them untouched. The comma before “or leave” was removed in the corrected version for standard syntax (“whether to X or Y”), as it interrupts a correlative construction, though the hesitation might be deliberate.
+
+CORRECTED:
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder than she remembered it, all brakes shrieking and people talking too fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh or leave.
+
+POSSIBLY INTENTIONAL:
+"Not waiting for her, exactly.": Preserved as a standalone fragment to maintain the deliberate pause and emotional contrast with the preceding sentence.
+"Still—she was back.": Preserved the em dash to keep the abrupt, reflective rhythm and emphasis on her return.

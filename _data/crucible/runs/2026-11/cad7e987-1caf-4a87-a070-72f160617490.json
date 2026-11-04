@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "cad7e987-1caf-4a87-a070-72f160617490",
+ "run_path": "lmstudio_google_gemma-4-26b-a4b@reasoning-off/logic-and-game-puzzles/20261104_043235",
+ "legacy_run_id": null,
+ "started_at": "2026-11-04T04:32:35.358689+00:00",
+ "ended_at": "2026-11-04T04:33:15.622798+00:00",
+ "elapsed_s": 39.56,
+ "task": {
+  "id": "logic-and-game-puzzles",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "8104a48508bbe599",
+  "rubric_hash": "2502acca0cb631ef",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/google/gemma-4-26b-a4b",
+  "base": "google/gemma-4-26b-a4b",
+  "publisher": "google",
+  "artifact": "google/gemma-4-26b-a4b",
+  "format": "mlx",
+  "quant": "6bit",
+  "reasoning": {
+   "requested": "off",
+   "resolved": "off"
+  },
+  "context_loaded": 262144,
+  "variant_key": "google/gemma-4-26b-a4b|google|mlx|mlx-6bit",
+  "display": "gemma-4-26b-a4b · 6bit",
+  "origin": {
+   "maker": "google",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 1709,
+  "tokens_out": 2356,
+  "model_responses": 1,
+  "ttft_s": 0.543,
+  "ttft_avg_s": 0.543,
+  "response_time_avg_s": 39.56,
+  "output_tokens_per_s": 60.4,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 0
+ },
+ "output_ref": "outputs/cad7e987-1caf-4a87-a070-72f160617490.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "11e3ed5",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:6b0d3fd11d1f5ef098171435f2cf20b0873fce0c51c26428f8321ef47e9530ea",
+  "submitter": null,
+  "verification": null
+ }
+}

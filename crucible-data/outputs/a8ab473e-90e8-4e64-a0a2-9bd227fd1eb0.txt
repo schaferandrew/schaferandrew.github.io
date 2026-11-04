@@ -1,0 +1,155 @@
+⏺ bash(command=ls -R)
+  ⎿ package.json
+README.md
+src
+
+./node_modules/send/node_modules/debug/node_modules:
+ms
+
+./node_modules/send/node_modules/debug/node_modules/ms:
+index.js
+license.md
+package.json
+readme.md
+
+./node_modules/
+⏺ read(path=README.md)
+  ⎿ # Conduit
+
+A [RealWorld](https://realworld.how) implementation: a Medium-style blogging platform with users, profiles, articles, comments, favorites, follows and tags.
+
+```
+apps/api         Express RE
+⏺ bash(command=find . -name "accessibility-audit.md")
+  ⎿ ./docs/accessibility-audit.md
+⏺ read(path=docs/accessibility-audit.md)
+  ⎿ # Accessibility audit: Conduit web app (summary)
+
+External audit against WCAG 2.2 AA, tested with VoiceOver (macOS Safari), NVDA (Firefox) and keyboard only. Overall result: **fail**. We need to pass 
+⏺ bash(command=find apps/web/src -maxdepth 2)
+  ⎿ apps/web/src
+apps/web/src/App.tsx
+apps/web/src/main.tsx
+apps/web/src/auth
+apps/web/src/auth/AuthContext.tsx
+apps/web/src/components
+apps/web/src/components/ConfirmDialog.tsx
+apps/web/src/components/Pa
+⏺ bash(command=ls -la apps/web/src/components)
+  ⎿ total 64
+drwxr-xr-x@ 10 schafer  staff   320 Oct 26 10:29 .
+drwxr-xr-x@  8 schafer  staff   256 Oct 26 10:29 ..
+-rw-r--r--@  1 schafer  staff  1394 Oct 26 10:29 ArticleList.tsx
+-rw-r--r--@  1 schafer 
+⏺ read(path=apps/web/src/components/ConfirmDialog.tsx)
+  ⎿ interface Props {
+  open: boolean;
+  title: string;
+  message: string;
+  confirmLabel?: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+}
+
+/** Confirmation overlay for destructive actions. */
+⏺ bash(command=grep -r "ConfirmDialog" apps/web/src)
+  ⎿ apps/web/src/components/ConfirmDialog.tsx:export function ConfirmDialog({ open, title, message, confirmLabel = "Delete", onConfirm, onCancel }: Props) {
+apps/web/src/pages/ArticlePage.tsx:import { Con
+⏺ read(path=apps/web/src/components/ReadMore.tsx)
+  ⎿ import { useState } from "react";
+
+interface Props {
+  text: string;
+  /** characters shown before "Read more" */
+  limit?: number;
+}
+
+/** Long article bodies start collapsed. */
+export function ReadM
+⏺ bash(command=ls -R apps/web/test)
+  ⎿ ArticleList.test.tsx
+FavoriteButton.test.tsx
+render.tsx
+setup.ts
+⏺ read(path=apps/web/src/components/FavoriteButton.tsx)
+  ⎿ import type { Article } from "@conduit/shared";
+import { useState } from "react";
+import { api } from "../api/client";
+import { useAuth } from "../auth/AuthContext";
+
+/** Toggles a favorite. Shows the
+⏺ read(path=apps/web/src/components/TagFilter.tsx)
+  ⎿ import { useState } from "react";
+
+interface Props {
+  tags: string[];
+  /** the selected tag, or null for all */
+  value: string | null;
+  onChange: (tag: string | null) => void;
+}
+
+/** "Filter by ta
+⏺ read(path=apps/web/src/pages/EditorPage.tsx)
+  ⎿ import { type FormEvent, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { ApiError, api } from "../api/client";
+import { Toast } from "../compone
+⏺ bash(command=npm test)
+  ⎿ > test
+> npm run test --workspaces --if-present
+
+
+> @conduit/api@1.0.0 test
+> vitest run
+
+
+ RUN  v2.1.9 /Users/schafer/.crucible/workspaces/lmstudio_google_gemma-4-26b-a4b-qat_accessibility-audit-fixe
+⏺ read(path=apps/web/src/components/Toast.tsx)
+  ⎿ import { useEffect, useState } from "react";
+
+/** Brief confirmation ("Article published") that fades after a few seconds. */
+export function Toast({ message }: { message: string | null }) {
+  const [
+⏺ read(path=apps/web/test/FavoriteButton.test.tsx)
+  ⎿ import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { describe, expect, it, vi } from "vitest";
+import { api } from "../src/api/client";
+import
+⏺ edit(edits=[{'newText': 'import { useEffect, useRef } from "react";\n\n, path=apps/web/src/components/ConfirmDialog.tsx)
+  ⎿ Could not find the exact text in apps/web/src/components/ConfirmDialog.tsx. The old text must match exactly including all whitespace and newlines.
+⏺ read(path=apps/web/src/components/ConfirmDialog.tsx)
+  ⎿ interface Props {
+  open: boolean;
+  title: string;
+  message: string;
+  confirmLabel?: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+}
+
+/** Confirmation overlay for destructive actions. */
+⏺ write(content=import { useEffect, useRef } from "react";
+
+interface Props , path=apps/web/src/components/ConfirmDialog.tsx)
+  ⎿ Successfully wrote to apps/web/src/components/ConfirmDialog.tsx
+⏺ read(path=apps/web/test/render.tsx)
+  ⎿ import type { Article, ArticlesResponse } from "@conduit/shared";
+import { render } from "@testing-library/react";
+import type { ReactElement } from "react";
+import { MemoryRouter } from "react-router
+⏺ edit(edits=[{'newText': 'import { useState } from "react";\n\ninterface, path=apps/web/src/components/ReadMore.tsx)
+  ⎿ Could not find the exact text in apps/web/src/components/ReadMore.tsx. The old text must match exactly including all whitespace and newlines.
+⏺ read(path=apps/web/src/components/ReadMore.tsx)
+  ⎿ import { useState } from "react";
+
+interface Props {
+  text: string;
+  /** characters shown before "Read more" */
+  limit?: number;
+}
+
+/** Long article bodies start collapsed. */
+export function ReadM
+⏺ edit(edits=[{'newText': '  <button\n        type="button"\n        clas, path=apps/web/src/components/ReadMore.tsx)
+  ⎿ Could not find the exact text in apps/web/src/components/ReadMore.tsx. The old text must match exactly including all whitespace and newlines.

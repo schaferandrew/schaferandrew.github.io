@@ -1,0 +1,7 @@
+I attempted to log in as `testuser` using the password `correctpassword` as specified in the `SKILL.md` documentation. The login failed with an "Invalid username or password" error. Upon verifying the password hash in `accounts.json`, I confirmed that `correctpassword` is not the correct password for the user. I then proceeded to use the recovery procedure:
+1. Requested a password reset for `testuser`.
+2. Used the provided reset token to set a new password (`newpassword123`).
+3. Successfully logged in with the new password.
+4. Verified access to the authenticated dashboard.
+
+FAILURE: Wrong Password

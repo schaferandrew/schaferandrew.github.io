@@ -1,0 +1,9 @@
+The agent's response is evaluated as follows:
+
+- **Accuracy (4/4):** Every claim made in the summary is directly supported by the passage. The hours, start date, survey percentage, grant amount, duration, and the board's plan to revisit the schedule are all accurate.
+- **Exactly two sentences (0/3):** The agent failed this constraint. The response consists of three distinct sentences.
+- **Key points (3/3):** The summary successfully captures all required elements: the hours extension ("extend weekend hours to 8 p.m."), the funding limit ("$40,000 grant that covers one year"), and the resident survey ("survey where 62% of residents asked for evening access").
+
+The agent failed the negative constraint regarding sentence count, which significantly impacts the score.
+
+GRADE: 7

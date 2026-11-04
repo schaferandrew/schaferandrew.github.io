@@ -1,0 +1,32 @@
+⏺ bash(command=ls -R)
+  ⎿ prompt.txt
+⏺ bash(command=mkdir interest tests)
+  ⎿ (no output)
+⏺ write(content=from fractions import Fraction
+from decimal import Decimal, , path=interest/logic.py)
+  ⎿ Successfully wrote to interest/logic.py
+⏺ write(content=from decimal import Decimal, ROUND_HALF_UP
+from fractions im, path=interest/logic.py)
+  ⎿ Successfully wrote to interest/logic.py
+⏺ write(content=import argparse
+import json
+import sys
+from decimal import D, path=interest/__main__.py)
+  ⎿ Successfully wrote to interest/__main__.py
+⏺ write(content=import unittest
+from decimal import Decimal
+from fractions i, path=tests/test_interest.py)
+  ⎿ Successfully wrote to tests/test_interest.py
+⏺ edit(edits=[{'newText': '    def test_negative_inputs(self):\n        #, path=tests/test_interest.py)
+  ⎿ Could not find the exact text in tests/test_interest.py. The old text must match exactly including all whitespace and newlines.
+⏺ write(content=import unittest
+from decimal import Decimal
+from fractions i, path=tests/test_interest.py)
+  ⎿ Successfully wrote to tests/test_interest.py
+⏺ bash(command=python3 -m unittest tests/test_interest.py)
+  ⎿ ....F.
+======================================================================
+FAIL: test_recurring_contributions_monthly (tests.test_interest.TestInterestCalculator)
+----------------------------------
+⏺ bash(command=python3 -c "from decimal import Decimal; from fractions impo)
+  ⎿ fb=1221.1000, tc=200, ti=21.1000

@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "9be129a6-a55c-4198-9558-9078d9687fb0",
+ "run_path": "lmstudio_google_gemma-4-26b-a4b@reasoning-off/geography-trick-questions/20261104_051322",
+ "legacy_run_id": null,
+ "started_at": "2026-11-04T05:13:22.035283+00:00",
+ "ended_at": "2026-11-04T05:13:35.204381+00:00",
+ "elapsed_s": 12.69,
+ "task": {
+  "id": "geography-trick-questions",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "5a1af1208cb9b9a5",
+  "rubric_hash": "5944fb9d7568cdce",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/google/gemma-4-26b-a4b",
+  "base": "google/gemma-4-26b-a4b",
+  "publisher": "google",
+  "artifact": "google/gemma-4-26b-a4b",
+  "format": "mlx",
+  "quant": "6bit",
+  "reasoning": {
+   "requested": "off",
+   "resolved": "off"
+  },
+  "context_loaded": 262144,
+  "variant_key": "google/gemma-4-26b-a4b|google|mlx|mlx-6bit",
+  "display": "gemma-4-26b-a4b · 6bit",
+  "origin": {
+   "maker": "google",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 167,
+  "tokens_out": 772,
+  "model_responses": 1,
+  "ttft_s": 0.744,
+  "ttft_avg_s": 0.744,
+  "response_time_avg_s": 12.689,
+  "output_tokens_per_s": 64.6,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 0
+ },
+ "output_ref": "outputs/9be129a6-a55c-4198-9558-9078d9687fb0.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "11e3ed5",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:bc922c0ca102e7bf9b260fe23206098eccd5b17fb9a43db2a430f1b79a8df70e",
+  "submitter": null,
+  "verification": null
+ }
+}

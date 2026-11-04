@@ -1,0 +1,94 @@
+⏺ bash(command=ls -F)
+  ⎿ accounts.json
+node_modules/
+package-lock.json
+package.json
+prompt.txt
+public/
+server.js
+server.test.js
+SKILL.md
+vitest.config.mjs
+⏺ read(path=SKILL.md)
+  ⎿ # Login Service Skill
+
+This document describes the login and recovery procedures for the test application.
+
+## Application
+- URL: http://localhost:3456 (start it with `npm start`)
+- Pages: /login.html
+⏺ read(path=package.json)
+  ⎿ {
+  "name": "login-service",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    
+⏺ bash(command=npm start &)
+  ⎿ (no output)
+⏺ bash(command=lsof -i :3456)
+  ⎿ COMMAND   PID    USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+node    36384 schafer   12u  IPv6 0xe4005f037bbb391a      0t0  TCP *:vat (LISTEN)
+⏺ read(path=server.js)
+  ⎿ const express = require('express');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const crypto = require('crypto');
+const fs = require('fs');
+const path = r
+⏺ bash(command=ls public/)
+  ⎿ dashboard.html
+login.html
+reset-password.html
+reset-request.html
+⏺ read(path=public/dashboard.html)
+  ⎿ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body { fo
+⏺ read(path=accounts.json)
+  ⎿ {
+  "sessionTtlSeconds": 30,
+  "users": {
+    "testuser": {
+      "salt": "tu-2f1c",
+      "hash": "19af24384883dbbf9ad3c5670d2abc7a39ad22382756829f8853475e8ae33066",
+      "active": true
+    },
+    "
+⏺ bash(command=curl -X POST -d "username=testuser" -d "password=correctpass)
+  ⎿ % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0     
+⏺ bash(command=sleep 31 && curl -b cookies.txt http://localhost:3456/api/da)
+  ⎿ % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0     
+⏺ read(path=server.test.js)
+  ⎿ import { describe, it, expect } from 'vitest';
+import request from 'supertest';
+import app from './server.js';
+
+// Gives testuser a known password through the reset flow, whatever the account was seed
+⏺ read(path=public/login.html)
+  ⎿ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body { font-f
+⏺ edit(edits=[{'newText': "  if (data.error) {\n    audit('session_invali, path=server.js)
+  ⎿ Successfully replaced 1 block(s) in server.js.

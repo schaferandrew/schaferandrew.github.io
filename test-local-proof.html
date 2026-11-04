@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Local Proof: Date Sorting Fix with Real Data</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            margin: 0; 
+            padding: 20px; 
+            background: #f5f5f5;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #333; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        .test-section { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        .run-card {
+            padding: 15px;
+            margin: 10px 0;
+            background: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+            border-radius: 4px;
+        }
+        .run-card .date {
+            font-weight: bold;
+            color: #2c3e50;
+            font-family: monospace;
+        }
+        .run-card .no-date {
+            color: #999;
+            font-style: italic;
+        }
+        .run-card .uuid {
+            font-size: 0.85em;
+            color: #666;
+            font-family: monospace;
+        }
+        .pass { color: #28a745; font-weight: bold; }
+        .fail { color: #dc3545; font-weight: bold; }
+        .code { 
+            background: #f0f0f0; 
+            padding: 15px; 
+            border-radius: 4px;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+        select, button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover { background: #45a049; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✅ Local Proof: Date Sorting Fix</h1>
+        
+        <div class="test-section">
+            <h2>Test with Realistic Data (including runs without dates)</h2>
+            <p>This simulates the actual Crucible runs dashboard behavior.</p>
+            
+            <div>
+                <label for="sort-select">Sort by:</label>
+                <select id="sort-select">
+                    <option value="date-desc">Newest first</option>
+                    <option value="date-asc">Oldest first</option>
+                </select>
+                <button onclick="sortRuns()">Sort Runs</button>
+            </div>
+            
+            <div id="run-list" style="margin-top: 20px;"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Expected Behavior</h2>
+            <ul>
+                <li><strong>Newest first:</strong> Runs with dates sorted descending (newest to oldest), runs without dates at the END</li>
+                <li><strong>Oldest first:</strong> Runs with dates sorted ascending (oldest to newest), runs without dates at the END</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h2>The Fix (in assets/js/crucible-run.js)</h2>
+            <div class="code">// BEFORE (BUGGY) - null dates sorted to front
+case 'date-desc':
+  return (b.started_at || '') > (a.started_at || '') ? 1 : -1;
+case 'date-asc':
+  return (a.started_at || '') < (b.started_at || '') ? 1 : -1;
+
+// AFTER (FIXED) - null dates always at end
+case 'date-desc':
+  if (!a.started_at && !b.started_at) return 0;
+  if (!a.started_at) return 1;
+  if (!b.started_at) return -1;
+  return b.started_at.localeCompare(a.started_at);
+case 'date-asc':
+  if (!a.started_at && !b.started_at) return 0;
+  if (!a.started_at) return 1;
+  if (!b.started_at) return -1;
+  return a.started_at.localeCompare(b.started_at);</div>
+        </div>
+    </div>
+    
+    <script>
+        // Sample data mimicking real Crucible runs
+        // Some have dates, some don't (null/undefined)
+        const runs = [
+            { run_uuid: 'abc123', started_at: '2024-01-15T10:00:00Z', model: { base: 'gpt-4' } },
+            { run_uuid: 'def456', started_at: '2024-01-01T08:00:00Z', model: { base: 'gpt-4' } },
+            { run_uuid: 'ghi789', started_at: null, model: { base: 'llama-3' } },  // NO DATE
+            { run_uuid: 'jkl012', started_at: '2024-01-10T12:00:00Z', model: { base: 'claude-3' } },
+            { run_uuid: 'mno345', started_at: '2024-01-20T14:00:00Z', model: { base: 'gpt-4' } },
+            { run_uuid: 'pqr678', started_at: undefined, model: { base: 'mistral-2' } },  // NO DATE
+            { run_uuid: 'stu901', started_at: '2024-01-05T09:00:00Z', model: { base: 'llama-3' } }
+        ];
+        
+        let currentSort = 'date-desc';
+        
+        // This is the FIXED sorting logic from crucible-run.js
+        function sortRuns() {
+            currentSort = document.getElementById('sort-select').value;
+            const sorted = runs.slice().sort(function(a, b) {
+                switch (currentSort) {
+                    case 'date-desc':
+                        if (!a.started_at && !b.started_at) return 0;
+                        if (!a.started_at) return 1;
+                        if (!b.started_at) return -1;
+                        return b.started_at.localeCompare(a.started_at);
+                    case 'date-asc':
+                        if (!a.started_at && !b.started_at) return 0;
+                        if (!a.started_at) return 1;
+                        if (!b.started_at) return -1;
+                        return a.started_at.localeCompare(b.started_at);
+                    default:
+                        return 0;
+                }
+            });
+            
+            renderRuns(sorted);
+        }
+        
+        function renderRuns(runsToRender) {
+            const listEl = document.getElementById('run-list');
+            listEl.innerHTML = '';
+            
+            runsToRender.forEach(function(run, index) {
+                const card = document.createElement('div');
+                card.className = 'run-card';
+                
+                const date = run.started_at ? new Date(run.started_at).toISOString().slice(0, 10) : null;
+                const dateEl = document.createElement('div');
+                dateEl.className = 'date';
+                dateEl.textContent = date ? date : 'No date';
+                if (!date) dateEl.classList.add('no-date');
+                
+                const uuidEl = document.createElement('div');
+                uuidEl.className = 'uuid';
+                uuidEl.textContent = run.run_uuid + ' - ' + (run.model.base || 'Unknown');
+                
+                card.appendChild(dateEl);
+                card.appendChild(uuidEl);
+                listEl.appendChild(card);
+            });
+            
+            // Verify the fix
+            verifyFix(runsToRender);
+        }
+        
+        function verifyFix(runsToRender) {
+            // Check if null-dated runs are at the end
+            const nullDatedRuns = runsToRender.filter(r => !r.started_at);
+            const lastRuns = runsToRender.slice(-nullDatedRuns.length);
+            const allNullsAtEnd = nullDatedRuns.length > 0 && 
+                lastRuns.every(r => !r.started_at) &&
+                lastRuns.length === nullDatedRuns.length;
+            
+            const resultEl = document.createElement('div');
+            resultEl.style.marginTop = '15px';
+            resultEl.style.padding = '10px';
+            resultEl.style.borderRadius = '4px';
+            resultEl.style.fontWeight = 'bold';
+            
+            if (allNullsAtEnd) {
+                resultEl.textContent = '✅ PASS: Runs without dates are at the END (not the front)';
+                resultEl.style.background = '#d4edda';
+                resultEl.style.color = '#155724';
+            } else {
+                resultEl.textContent = '❌ FAIL: Runs without dates are NOT at the end';
+                resultEl.style.background = '#f8d7da';
+                resultEl.style.color = '#721c24';
+            }
+            
+            document.getElementById('run-list').appendChild(resultEl);
+        }
+        
+        // Initial render
+        sortRuns();
+    </script>
+</body>
+</html>

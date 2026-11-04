@@ -1,0 +1,16 @@
+I have reviewed your email. The objective errors identified involve subject-verb agreement ("items were" vs "items was"), missing apostrophes ("havent"), incorrect verb tense/form ("crush" vs "crushed"), and subject-verb agreement in the final paragraph ("which seem" vs "which seems").
+
+ERRORS:
+one of the two items were → one of the two items was
+havent → haven't
+crush → crushed
+which seem → which seems
+
+CORRECTED:
+Subject: Refund for order 84721
+
+Hi Support,
+I am writing because my order arrived three days late, and one of the two items was damaged. I contacted support last week but I haven't heard anything back. The box was clearly crushed on one side, and the mug inside has a crack through the handle. I would like a refund for the mug, but please let me know if you need pictures of it. Also, your website says refunds are processed in 5-7 business days, which seems to have passed already for my earlier request. Can you tell me what the status is? Thanks for your help.
+
+STYLE:
+I contacted support last week, but I haven't heard anything back. (Adding a comma before "but" improves flow in a compound sentence)

@@ -1,0 +1,11 @@
+
+
+Done. `slots.json` has been written with:
+
+- **86 valid slots** across all 8 days (Mon 08/31 – Mon 09/07), listed chronologically in America/Chicago local time with no offset
+- **Top 3 picks**, all weekday midday slots that sit between existing busy events:
+  1. **Wed 09/02 12:00** — between Alex's Planning (09:30–10:30) and Jamie's Budget meeting (13:00–14:00)
+  2. **Fri 09/04 12:00** — between Jamie's Workshop (09:00–11:00) and Alex's Project review (14:00–15:00)
+  3. **Thu 09/03 13:00** — between Alex's Interview (11:00–12:00) and Jamie's Review (15:00–16:00)
+
+All three avoid the first/last hours of the day, are on weekdays, and minimize gaps by landing in the middle of existing busy blocks.

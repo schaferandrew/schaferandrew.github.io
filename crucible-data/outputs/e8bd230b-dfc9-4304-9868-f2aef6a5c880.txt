@@ -1,0 +1,9 @@
+To determine the correct order, I have categorized these events by their historical eras. The signing of the Magna Carta is a medieval event from the 13th century. The printing of the Gutenberg Bible represents the transition into the Renaissance in the mid-15th century. The French Revolution is a landmark of the late 18th century. Finally, the remaining events occur in the 20th century: the First World War (early 1900s), the Moon landing (mid-20th century), and the fall of the Berlin Wall (late 20th century).
+
+ORDER:
+1. The signing of Magna Carta — 1215
+2. The printing of the Gutenberg Bible — 1455
+3. The start of the French Revolution — 1789
+4. The start of the First World War — 1914
+5. The first Moon landing — 1969
+6. The fall of the Berlin Wall — 1989

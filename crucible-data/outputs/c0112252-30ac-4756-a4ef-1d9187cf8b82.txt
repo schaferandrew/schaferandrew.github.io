@@ -1,0 +1,35 @@
+
+
+All 9 tests pass. Here's a summary of the diagnosis and fix:
+
+## Root Cause
+
+The dashboard showed a **blank state** after login because of two issues:
+
+1. **Client-side (`public/dashboard.html`)**: When `loadDashboard()` called `/api/dashboard` and the session had expired (TTL is 30 seconds), the API returned `{ user: null, dashboardMessage: '' }`. The client code simply cleared the display fields (`textContent = ''`), leaving the page blank instead of redirecting to login.
+
+2. **Server-side (`server.js`)**: The `/api/dashboard` endpoint returned HTTP 200 with empty data for expired/missing sessions, making it ambiguous whether this was a valid response or an error.
+
+## Fixes Applied
+
+### 1. `public/dashboard.html` — Redirect instead of blank
+Changed the `else` branch in `loadDashboard()` from clearing text to redirecting:
+```js
+// Before: document.getElementById('user').textContent = '';
+// After:  window.location.href = '/login.html';
+```
+
+### 2. `server.js` — Return proper 401 status
+Changed the `/api/dashboard` error response from HTTP 200 to **HTTP 401**:
+```js
+// Before: return res.status(200).json({ user: null, dashboardMessage: '' });
+// After:  return res.status(401).json({ user: null, dashboardMessage: '' });
+```
+
+### 3. `server.test.js` — Added regression tests
+Added a new `describe('Dashboard expired session')` block with 2 tests:
+- **Expired session** → verifies 401 is returned when session TTL has passed
+- **Missing session** → verifies 401 is returned when no session cookie exists
+
+### 4. `server.js` — Exported `sessions` Map
+Added `module.exports.sessions = sessions` to allow tests to manipulate session state for regression testing.

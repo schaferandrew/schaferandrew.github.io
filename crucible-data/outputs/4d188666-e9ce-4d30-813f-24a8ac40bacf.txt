@@ -1,0 +1,36 @@
+
+
+Now here's the write-up:
+
+---
+
+## Write-up
+
+### Root Cause
+
+**Infinite redirect loop between `/editor` and `/welcome` for invited contributors.**
+
+The `RequireWriter` guard on `/editor` checks `user.onboardingComplete` — if `false`, it redirects to `/welcome`. After accepting an invite, `acceptInvite()` set `termsAcceptedAt` but **never set `onboardingComplete: true`**. Meanwhile, `WelcomePage` saw `accountState === "invited"` and redirected back to `/editor`. This created an infinite loop:
+
+```
+/editor → (RequireWriter: onboardingComplete=false) → /welcome
+       → (WelcomePage: accountState="invited")        → /editor  → …
+```
+
+### Decisions Made
+
+1. **Set `onboardingComplete: true` in `acceptInvite()`** — This is the minimal, correct fix. Invited contributors skip the welcome screen by design (per `docs/invites.md: "Invited contributors aren't asked for a bio"`), so they should be treated as if they've completed onboarding.
+
+2. **Legal compliance** — `acceptInvite()` already sets `termsAcceptedAt` when the user checks "I accept the contributor terms." Adding `onboardingComplete: true` alongside it means the editor guard passes only after terms are accepted, satisfying Legal's requirement that "accounts that haven't accepted must not be able to reach the editor."
+
+3. **No existing behavior changed for regular sign-ups** — They still go through the welcome screen, set `onboardingComplete: true` there, and have their `termsAcceptedAt` set. The contract tests all pass unchanged.
+
+4. **No data migration needed** — Existing affected accounts (rosa, tomek) will work immediately because the fix is in the API logic: they can log in with their new passwords, and the client-side routing will no longer loop.
+
+### Code Review Flags
+
+1. **`termsAcceptedAt` should be verified, not assumed.** The `acceptTerms` field is zod-validated as `z.literal(true)`, so it's guaranteed at the API level. But consider adding a server-side assertion or log if the schema ever changes.
+
+2. **The `accountState` stays `"invited"` after acceptance** per the design doc. This is intentional (editors use it to track which contributors came through invites), but it's a subtle state that could cause future bugs if someone assumes `"invited"` means "not yet signed up." A comment or future refactor to a three-state enum (`"pending" | "active" | "invited"`) might help.
+
+3. **The `pending@example.com` case from support** (invited, never clicked link, signed up from homepage) is handled by the design doc's requirement: "Someone who signs up from the homepage with an address that has a pending invite gets that invited account." However, `createInvite()` throws "email has already been taken" if the email exists. The design doc says it should *not* error in this case, but the current implementation does. This is a separate issue from the loop bug and would require `register()` to check for existing invited accounts and merge them. Not addressed here as it's outside the reported incident.

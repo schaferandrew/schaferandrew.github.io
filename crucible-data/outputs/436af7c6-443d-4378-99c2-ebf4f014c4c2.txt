@@ -1,0 +1,16 @@
+I have identified three clear grammatical errors in the text:
+
+1.  **"louder then"**: This is a common misspelling of the comparative "than."
+2.  **"talking to fast"**: This uses the preposition "to" instead of the adverb "too."
+3.  **"laugh, or leave"**: The comma before "or" in this short, two-item predicate is grammatically unnecessary and disrupts the flow of the sentence.
+
+I have preserved the intentional fragments ("Not waiting for her, exactly," "That would have been too kind," and "Still—she was back") as they establish the character's internal rhythm and voice.
+
+CORRECTED:
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder than she remembered it, all brakes shrieking and people talking too fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh or leave.
+
+POSSIBLY INTENTIONAL:
+"Not waiting for her, exactly.": Sentence fragment used for rhythmic emphasis and character voice.
+"That would have been too kind.": Sentence fragment used for dramatic effect.
+"Still—she was back.": Fragment/stylistic use of the em dash to create a pause.
+"And she didn't know whether to laugh or leave.": Starting a sentence with a conjunction to maintain the narrative flow.

@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "f3e090b9-819c-4a97-ab6f-1afa771ab66a",
+ "run_path": "lmstudio_google_gemma-4-26b-a4b@reasoning-off/household-money-math/20261104_041208",
+ "legacy_run_id": null,
+ "started_at": "2026-11-04T04:12:08.483529+00:00",
+ "ended_at": "2026-11-04T04:12:20.327030+00:00",
+ "elapsed_s": 11.34,
+ "task": {
+  "id": "household-money-math",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "7f6f5246841ce00c",
+  "rubric_hash": "3a7f59dac961798f",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/google/gemma-4-26b-a4b",
+  "base": "google/gemma-4-26b-a4b",
+  "publisher": "google",
+  "artifact": "google/gemma-4-26b-a4b",
+  "format": "mlx",
+  "quant": "6bit",
+  "reasoning": {
+   "requested": "off",
+   "resolved": "off"
+  },
+  "context_loaded": 262144,
+  "variant_key": "google/gemma-4-26b-a4b|google|mlx|mlx-6bit",
+  "display": "gemma-4-26b-a4b · 6bit",
+  "origin": {
+   "maker": "google",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 245,
+  "tokens_out": 692,
+  "model_responses": 1,
+  "ttft_s": 0.445,
+  "ttft_avg_s": 0.445,
+  "response_time_avg_s": 11.336,
+  "output_tokens_per_s": 63.5,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 0
+ },
+ "output_ref": "outputs/f3e090b9-819c-4a97-ab6f-1afa771ab66a.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "453ea02",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:975a817d6969e4b343c8531824c6b1ab5bd69664d3d818192753cd5781c3caba",
+  "submitter": null,
+  "verification": null
+ }
+}

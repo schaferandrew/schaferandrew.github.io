@@ -8,7 +8,7 @@
   "status": "current",
   "changelog_url": "https://github.com/schaferandrew/crucible/blob/main/SUITE_CHANGELOG.md#suite-v4"
  },
- "crucible_version": "3.7.1",
+ "crucible_version": "2.2.0",
  "scoring_policy": {
   "coverage_min": 0.75,
   "in_progress_below": 0.75,

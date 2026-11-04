@@ -1,0 +1,22 @@
+Regarding the objective language errors: Sentence 3 has a subject-verb agreement error ("prices... is" should be "prices... are"). Sentence 6 uses the possessive pronoun incorrectly ("it's" should be "its"). Sentence 12 uses the wrong comparative word ("then" should be "than").
+
+Regarding the flags:
+- Sentence 1 is an oversimplification of a complex phenomenon.
+- Sentence 4 is factually incorrect; the Fed has a mandate, but no legal requirement to act at a specific threshold.
+- Sentence 8 uses non-economic, judgmental language ("lazy").
+- Sentence 11 is an overstatement/misleading regarding the "inevitable" outcome of QE.
+- Sentence 14 is an overstatement/misleading regarding the total ineffectiveness of policy.
+- Sentence 18 is an overstatement/misleading regarding the definitive nature of the economic debate.
+
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: imprecise
+4: misleading
+8: unclear
+11: overstated
+14: overstated
+18: overstated

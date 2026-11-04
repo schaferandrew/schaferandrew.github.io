@@ -1,0 +1,4 @@
+
+
+The `createAdaArticle` helper creates published articles by default. The test needs a draft:
+

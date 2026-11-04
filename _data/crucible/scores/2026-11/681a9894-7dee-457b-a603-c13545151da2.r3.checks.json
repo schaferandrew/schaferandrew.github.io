@@ -1,0 +1,221 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "681a9894-7dee-457b-a603-c13545151da2",
+ "rubric_version": 3,
+ "rubric_hash": "01912ad7b66e347c",
+ "method": "checks",
+ "scored_at": "2026-11-04T04:03:28.421446+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 0,
+  "total": 16,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": 5,
+ "passed": false,
+ "items": [
+  {
+   "id": "sections",
+   "type": "items",
+   "group": "Sections in order",
+   "label": "The reply has a ## heading for Emails, Calendar, News and Spanish practice, in that order; one item per section.",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "order:emails",
+     "label": "Emails section in order",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "order:calendar",
+     "label": "Calendar section in order",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "order:news",
+     "label": "News section in order",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "order:spanish-practice",
+     "label": "Spanish practice section in order",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  },
+  {
+   "id": "spanish_last",
+   "type": "items",
+   "group": "Last section is Spanish",
+   "label": "The Spanish practice section is Spanish: Spanish function words (de, la, que, el, en...) are at least 15% of its words and more than twice the share of English ones. If it is not, the score is capped at 5.",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "spanish",
+     "label": "The last section is in Spanish",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  },
+  {
+   "id": "english_rest",
+   "type": "items",
+   "group": "The rest is English",
+   "label": "The Emails, Calendar and News sections are English (not Spanish by the same function-word test).",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "emails",
+     "label": "Emails section is not Spanish",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "calendar",
+     "label": "Calendar section is not Spanish",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "news",
+     "label": "News section is not Spanish",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  },
+  {
+   "id": "emails",
+   "type": "items",
+   "group": "Yesterday's emails",
+   "label": "Each of yesterday's four email subjects in fixtures/mock-data is mentioned (the title, or most of its distinctive words together; a summary naming the Q3 expense report, Jamie's notes or the revised proposal counts), one item per email.",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "email:project-update-q3-review-completed",
+     "label": "Mentions Project update - Q3 review completed",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "email:meeting-notes-from-yesterday",
+     "label": "Mentions Meeting notes from yesterday",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "email:reminder-q3-expense-report-due-wednesday",
+     "label": "Mentions Reminder: Q3 expense report due Wednesday 5 PM",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "email:question-about-the-proposal-timeline",
+     "label": "Mentions Question about the proposal timeline",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  },
+  {
+   "id": "events",
+   "type": "items",
+   "group": "Today's events",
+   "label": "Each of the three calendar events on 2026-09-02 (Planning, Vendor demo, Budget meeting) is mentioned, one item per event.",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "event:planning",
+     "label": "Mentions Planning",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "event:vendor-demo",
+     "label": "Mentions Vendor demo",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "event:budget-meeting",
+     "label": "Mentions Budget meeting",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  },
+  {
+   "id": "news",
+   "type": "items",
+   "group": "News",
+   "label": "At least one of the three headlines in fixtures/mock-data is mentioned.",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "news",
+     "label": "Mentions at least one news item",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Sections in order",
+   "passed": 0.0,
+   "total": 4,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Last section is Spanish",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "The rest is English",
+   "passed": 0.0,
+   "total": 3,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Yesterday's emails",
+   "passed": 0.0,
+   "total": 4,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Today's events",
+   "passed": 0.0,
+   "total": 3,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "News",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no answer to check"
+  }
+ ]
+}

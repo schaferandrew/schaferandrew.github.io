@@ -1,0 +1,58 @@
+To solve this puzzle, let's analyze the clues step-by-step and map out the possibilities for each chair (1, 2, 3, and 4).
+
+### Step 1: Analyze the Clues
+*   **Clue 3:** The person who likes **green** sits in **chair 1**.
+*   **Clue 5:** **Dave** likes **red**.
+*   **Clue 4:** **Carol** likes **yellow** and sits somewhere to the right of the person who likes red (Dave).
+*   **Clue 1:** **Alice** sits immediately to the left of the person who likes **blue**.
+
+### Step 2: Determine Colors and Names
+From Clues 3, 4, and 5, we know the colors for three people:
+*   Chair 1 = Green
+*   Dave = Red
+*   Carol = Yellow
+
+Since there are four colors (Red, Blue, Green, Yellow), and we have assigned Green, Red, and Yellow, the remaining color is **Blue**.
+
+Now let's look at Clue 1: "Alice sits immediately to the left of the person who likes blue."
+This means Alice cannot be the one who likes blue. Since we know:
+*   Dave = Red
+*   Carol = Yellow
+*   Chair 1 = Green
+
+Alice must be the one who likes **Green** (Chair 1).
+If Alice is in Chair 1, the person who likes **Blue** must be in **Chair 2** (because Alice is immediately to her left).
+
+### Step 3: Assigning People to Chairs
+Current status of colors/people:
+*   **Chair 1:** Alice, Green (From Clue 3 and our deduction)
+*   **Chair 2:** [Name], Blue (From Clue 1)
+*   **Chair 3/4:** Dave (Red) and Carol (Yellow)
+
+Now we use Clue 4: "Carol... sits somewhere to the right of the person who likes red (Dave)."
+This means Dave must be in Chair 3 and Carol must be in Chair 4.
+
+Let's check the remaining person: **Bob**.
+The only chair left for Bob is Chair 2.
+
+### Step 4: Final Verification against Clues
+1.  **Alice (Chair 1) is immediately left of Blue (Bob, Chair 2):** Correct.
+2.  **Bob does not sit in chair 4:** Correct (He is in Chair 2).
+3.  **Green sits in chair 1:** Correct (Alice is Green).
+4.  **Carol likes yellow and sits right of Red (Dave):** Correct (Carol is in 4, Dave is in 3).
+5.  **Dave likes red:** Correct.
+
+**Wait, let's double-check the names/colors assignment:**
+*   Chair 1: Alice (Green)
+*   Chair 2: Bob (Blue)
+*   Chair 3: Dave (Red)
+*   Chair 4: Carol (Yellow)
+
+All clues are satisfied.
+
+Chair 1: Alice, green
+Chair 2: Bob, blue
+Chair 3: Dave, red
+Chair 4: Carol, yellow
+
+ANSWER: Dave

@@ -1,0 +1,37 @@
+
+
+---
+
+## Summary
+
+### What was wrong
+
+1. **`LeadForm.tsx` was a Server Component** — Next.js App Router treats `.tsx` files as server components by default. The form used `onSubmit` and `onChange` event handlers, which are client-side only, causing the build to crash with "Event handlers cannot be passed to Client Component props."
+
+2. **Form state didn't work** — The component used a plain mutable object (`const values = { name: "", ... }`) instead of React `useState`. Mutating that object never triggered a re-render, so typing into fields did nothing.
+
+3. **No validation** — There was no field validation at all; any values were blindly sent to the API.
+
+4. **No error handling** — No error messages were displayed, no `aria-invalid`/`aria-describedby` attributes, no focus management on error.
+
+5. **No success state** — There was no `lead-success` element; the form never acknowledged a successful submission.
+
+6. **API route had no validation** — `POST /api/leads` blindly passed everything to `saveLead` without trimming, normalizing emails, or checking required fields. It always returned 201 even for empty/invalid data.
+
+### What I changed
+
+**`app/contact/LeadForm.tsx`** (rewritten):
+- Added `"use client"` directive so it compiles as a client component.
+- Replaced the plain object with proper `useState` hooks for all four fields, plus `errors` and `success` state.
+- Added client-side validation (name, email, message required; company optional; whitespace-only counts as empty).
+- On submit with errors: displays field-specific error messages (`lead-name-error`, `lead-email-error`, `lead-message-error`), sets `aria-invalid="true"` and `aria-describedby`, and moves focus to the first error field.
+- On submit without errors: POSTs JSON to `/api/leads`. On 201, shows `lead-success`. On error (e.g. 422 from the API), displays the API's field errors.
+- Added `onKeyDown` handler: pressing Enter in any field submits the form.
+- All element IDs preserved exactly (`lead-form`, `lead-name`, `lead-email`, `lead-company`, `lead-message`, `lead-submit`, error IDs, `lead-success`).
+
+**`app/api/leads/route.ts`** (rewritten):
+- Trims all fields; saves missing company as `""`.
+- Normalizes email: trims whitespace, lowercases.
+- Validates email strictly: one `@`, non-empty parts, no spaces, domain labels of `[a-zA-Z0-9-]` with inner hyphens only, TLD of 2+ letters. Accepts plus addressing, dots, subdomains, long TLDs.
+- Returns **201** with `{ "lead": <saved lead> }` on success.
+- Returns **422** with `{ "errors": { "<field>": "<message>" } }` on validation failure, saving nothing.

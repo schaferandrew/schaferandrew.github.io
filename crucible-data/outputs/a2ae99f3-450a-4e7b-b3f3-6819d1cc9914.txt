@@ -1,0 +1,10 @@
+
+
+Done. The morning brief has been written to `morning-brief.md` using only the supplied mock-data sources. Here's a summary of what it contains:
+
+- **Weather** — Partly Cloudy, 68°F/55°F, 10% precip.
+- **Outstanding work** — 4 items surfaced from yesterday's emails, prioritized by urgency: the expense report deadline (today at 5 PM) and the unanswered client question both flagged as urgent.
+- **Emails** — 4 emails from Sep 1, tabled by priority.
+- **Calendar** — 3 events today with a noted 30-minute overlap between Planning (9:30) and Vendor demo (10:00).
+- **News** — 3 local articles, filtered to only what's relevant.
+- **Top 3** — Submit expense report, reply to client, resolve the calendar conflict.

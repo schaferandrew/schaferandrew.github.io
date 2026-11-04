@@ -1,0 +1,30 @@
+
+
+All 30 tests pass (23 API, 7 web), including the unmodified `realworld.contract.test.ts`. Here's a summary of everything completed:
+
+---
+
+## Summary
+
+### Root Cause
+The `responseCache` middleware cached responses by URL alone, but endpoints like `/articles/:slug`, `/articles`, and `/profiles/:username` return user-specific data (`favorited`, `following`) that depends on the signed-in user. When User A's response was cached, User B would receive User A's personalized data on their next request to the same URL.
+
+Additionally, the `optionalAuth` middleware ran **after** the cache middleware, so `req.userId` was never available when computing the cache key.
+
+### Fix (3 files changed)
+
+1. **`apps/api/src/middleware/responseCache.ts`** — Cache key now includes user ID: `${req.originalUrl}|u${req.userId}` when authenticated, falling back to URL-only for anonymous requests.
+
+2. **`apps/api/src/app.ts`** — Applied `optionalAuth` at the router level **before** the cache middleware, so `req.userId` is populated when the cache key is computed.
+
+3. **`apps/api/src/routes/articles.ts`** and **`apps/api/src/routes/profiles.ts`** — Removed redundant `optionalAuth` calls from individual routes (now handled at the app level).
+
+### Regression Tests (2 new tests in `apps/api/test/responseCache.test.ts`)
+- **Favorited state leak test** — Verifies two authenticated users see different `favorited` values for the same article
+- **Following state leak test** — Verifies two authenticated users see different `following` values for the same profile
+
+### Postmortem
+Written to `incident/POSTMORTEM.md` with:
+- Timeline from logs (deploy at 16:42:10, first affected request at 16:44:15, first report at 16:48:48)
+- 481 distinct authenticated users served another user's personalized data
+- Impact analysis and follow-up actions

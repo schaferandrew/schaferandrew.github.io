@@ -1,0 +1,5 @@
+To determine if you are free at 3:30 PM on Tuesday, September 1, 2026, I checked your calendar for any scheduled events at that time.
+
+I found an event titled "Design review" that ends at 3:30 PM. Since the event concludes exactly at 3:30 PM, you are considered free starting from that time.
+
+ANSWER: free

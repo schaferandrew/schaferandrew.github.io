@@ -119,9 +119,9 @@
     sorted.sort(function (a, b) {
       switch (currentSort) {
         case 'date-desc':
-          return (b.started_at || '') > (a.started_at || '') ? 1 : -1;
+          return (b.started_at || '').localeCompare(a.started_at || '');
         case 'date-asc':
-          return (a.started_at || '') < (b.started_at || '') ? 1 : -1;
+          return (a.started_at || '').localeCompare(b.started_at || '');
         case 'model':
           var aModel = (a.model && a.model.base) || (a.model && a.model.id) || '';
           var bModel = (b.model && b.model.base) || (b.model && b.model.id) || '';

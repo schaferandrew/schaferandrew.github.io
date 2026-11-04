@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "0dfbb189-230d-4b75-bec3-436f1e26e2d6",
+ "run_path": "lmstudio_liquid_lfm2-24b-a2b/blank-dashboard-debug/20261104_190435",
+ "legacy_run_id": null,
+ "started_at": "2026-11-04T19:04:49.417286+00:00",
+ "ended_at": "2026-11-04T19:04:50.400994+00:00",
+ "elapsed_s": 0.52,
+ "task": {
+  "id": "blank-dashboard-debug",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "1cd54ceb401f0947",
+  "rubric_hash": "c99e9bf61025cb59",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "lmstudio/liquid/lfm2-24b-a2b",
+  "base": "liquid/lfm2-24b-a2b",
+  "publisher": null,
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": null,
+  "variant_key": "liquid/lfm2-24b-a2b|-|-|-",
+  "display": "lfm2-24b-a2b",
+  "origin": {
+   "maker": "liquid",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Mac-168"
+ },
+ "outcome": {
+  "status": "failed",
+  "harness_status": "ERROR (exit 1)",
+  "returncode": 1,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 0,
+  "tokens_in": 0,
+  "tokens_out": 0,
+  "model_responses": 1,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": 0.01,
+  "output_tokens_per_s": null,
+  "cost_usd": 0,
+  "cost_source": "pi_estimate",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/0dfbb189-230d-4b75-bec3-436f1e26e2d6.txt",
+ "provenance": {
+  "crucible_version": "3.7.4",
+  "crucible_commit": "3a782ab",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Mac-168",
+  "source": "crucible-run",
+  "content_hash": "sha256:2fd7114c2bb881233165de26468878b16c7ded078c43e714d05146a7a64b2303",
+  "submitter": null,
+  "verification": null
+ }
+}

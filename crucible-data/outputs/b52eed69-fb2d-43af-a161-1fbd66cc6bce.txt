@@ -1,0 +1,55 @@
+The file path suggests the component is located at `/p/components/AccountDisplay.tsx`. Since the file was not found, you likely need to create it or ensure the correct relative path from the project root.
+
+**Proposed solution:**
+1. Create `/Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstudio_liquid_lfm2-24b-a2b_nextjs-server-data-boundary_20261104_185230/p/components/AccountDisplay.tsx` with the following minimal, idiomatic Next.js component that receives `acct` as a prop and renders the account name and plan:
+
+```tsx
+// /p/components/AccountDisplay.tsx
+import type { NextComponent } from 'next';
+
+type AccountDisplayProps = {
+  acct: { name: string; plan: string } | null;
+};
+
+export const AccountDisplay: NextComponent<AccountDisplayProps> = ({ acct }) => {
+  if (!acct || !acct.name) return <span>Loading…</span>;
+  return (
+    <div>
+      <h2>Account: {acct.name}</h2>
+      <p>Plan: {acct.plan}</p>
+    </div>
+  );
+};
+```
+
+2. Add a test file for unit-testing the component, e.g., `/Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstudio_liquid_lfm2-24b-a2b_nextjs-server-data-boundary_20261104_185230/p/components/AccountDisplay.test.tsx`:
+
+```tsx
+import { render, screen } from '@testing-library/react';
+import { AccountDisplay } from './AccountDisplay';
+
+describe('AccountDisplay', () => {
+  test('renders account name and plan when provided', () => {
+    const mockAcct = { name: 'Acme Inc', plan: 'Pro Plan' };
+    render(<AccountDisplay acct={mockAcct} />);
+    expect(screen.getByText(/Acme Inc/)).toBeInTheDocument();
+    expect(screen.getByText(/Pro Plan/)).toBeInTheDocument();
+  });
+
+  test('shows loading when no data', () => {
+    render(<AccountDisplay acct={null} />);
+    expect(screen.getByText(/Loading…/)).toBeInTheDocument();
+  });
+});
+```
+
+**Why this works:**
+- The component follows Next.js idiomatic patterns (`NextComponent`).
+- Props are typed explicitly.
+- The test covers both the normal render path and the loading fallback.
+
+Make sure the file structure mirrors your real project layout, or adjust imports accordingly. If you need adjustments for a different framework (e.g., App Router), let me know!
+
+**Edit:** If you need the component to fetch data from an API or context, let me know the exact data-fetching strategy and I’ll adapt the solution.
+
+Would you like me to also update the Next.js page that renders this component?

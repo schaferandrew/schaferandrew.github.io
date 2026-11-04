@@ -1,0 +1,51 @@
+## Emails
+### Important Emails Received Yesterday
+
+- **From:** alex@example.com  
+  **Subject:** Project update - Q3 review completed  
+  **Body:** The Q3 review is now complete and ahead of schedule. Let's discuss the results in our planning meeting.  
+  **Time:** 2026-09-01T10:30:00Z
+
+- **From:** jamie@example.com  
+  **Subject:** Meeting notes from yesterday  
+  **Body:** Notes from yesterday's 1-on-1: discussed career goals, next quarter priorities, and team building activities.  
+  **Time:** 2026-09-01T09:00:00Z
+
+- **From:** finance@example.com  
+  **Subject:** Reminder: Q3 expense report due Wednesday 5 PM  
+  **Body:** Your Q3 expense report must be submitted by 5:00 PM on Wednesday, September 2. Reports that miss the cutoff are paid with next month's payroll.  
+  **Time:** 2026-09-01T14:15:00Z
+
+- **From:** client@example.com  
+  **Subject:** Question about the proposal timeline  
+  **Body:** Hi, can you confirm whether the revised proposal can be delivered by Friday? I need an answer before I brief my team. Please reply when you can.  
+  **Time:** 2026-09-01T16:45:00Z
+
+---
+
+## Calendar
+### Today's Schedule (Wednesday, September 2, 2026)
+
+- **10:00 AM – 11:00 AM:** Team stand‑up meeting (Room A)  
+- **2:00 PM – 3:30 PM:** Project review presentation (Conference Room B)  
+- **4:00 PM – 5:00 PM:** One‑on‑one with manager (Office 3)  
+- **9:00 AM – 10:30 AM:** Weekly sprint planning (Conference Room A)
+
+---
+
+## News
+### Local Headlines
+
+- **The city council approves new bike lane on Main Street**  
+  The council voted unanimously to add protected bike lanes on Main and Oak Streets, aiming to reduce traffic accidents and encourage commuting by bicycle.
+
+- **Local library launches free coding workshop for teens**  
+  The downtown library is partnering with a regional tech nonprofit to offer a two‑day intensive workshop introducing HTML, CSS, and basic JavaScript. Registration opens next week.
+
+- **Weather forecast: Sunny with a high of 22°C**  
+  Expect clear skies and mild temperatures throughout the day. A light breeze will keep it comfortable for outdoor activities.
+
+---
+
+## Spanish practice
+Hoy es mi día para practicar español, y el clima está perfecto para salir al parque y hablar con hablantes nativos. Recuerda usar los tiempos pasados y el subjuntivo al expresar deseos o sugerencias. ¡Buena suerte!

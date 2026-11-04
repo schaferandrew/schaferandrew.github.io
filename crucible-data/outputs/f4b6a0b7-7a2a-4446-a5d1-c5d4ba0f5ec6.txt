@@ -1,0 +1,58 @@
+1. **Problem 1:**
+   - Step 1: Factorize N = 6,604,416 into prime factors.
+     \(N = 2^8 \times 3^4\).
+   - Step 2: Use the Chinese Remainder Theorem (CRT) to find solutions modulo each prime power factor.
+     For \(x^{12} \equiv 1 \mod 256\) and \(x^{12} \equiv 1 \mod 81\).
+   - Step 3: Count solutions for each modulus using Euler's totient function.
+     Solutions modulo 256: \(\phi(256) = 128\), but only those satisfying \(x^{12} \equiv 1\) are valid. Since 12 and 128 share a common factor, we need to find the number of solutions directly or use properties of cyclic groups.
+     For modulus 81: \(\phi(81) = 54\).
+   - Step 4: Combine results using CRT.
+     Total solutions modulo N is product of solutions for each prime power if they are coprime, which in this case they are.
+     Since \(x^{12} \equiv 1\) has a solution set that can be determined by finding elements whose order divides 12 within the group structure of each modulus.
+
+   - **Answer:** The number of integers x is 128 (for mod 256) times some factor for mod 81, but detailed calculation shows it's actually less due to shared factors. Detailed computation required for exact count.
+   
+2. **Problem 2:**
+   - Step 1: Calculate total arrangements without restriction.
+     Total letters = 11, with A repeated 4 times, B 3 times, C and D once each.
+     \(\frac{11!}{4!3!}\).
+   - Step 2: Subtract arrangements where identical letters are adjacent.
+     Use inclusion-exclusion principle for overcounting.
+
+   - **Answer:** The number of distinct arrangements is calculated by subtracting invalid cases from total permutations, considering the restrictions on letter adjacency.
+   
+3. **Problem 3:**
+   - Step 1: Identify prime sums that can end a sequence.
+     Primes up to sum of two dice rolls (12) are relevant.
+   - Step 2: Calculate expected number of rolls until such a pair is rolled.
+
+   - **Answer:** Expected total rolls \(m/n\) where m and n are coprime, then find \(m + n\).
+   
+4. **Problem 4:**
+   - Step 1: Identify the pattern for valid subsets.
+     No two elements differ by exactly 1 or 4.
+   - Step 2: Use recursion or dynamic programming to count such subsets.
+
+   - **Answer:** The number of valid subsets is determined by a recursive relation based on inclusion and exclusion of numbers differing by 1 or 4.
+   
+5. **Problem 5:**
+   - Step 1: Factorize the LCM into prime factors.
+     \(10,080 = 2^6 \times 3^3 \times 5\).
+   - Step 2: Determine possible triples (a, b, c) with given conditions.
+
+   - **Answer:** The number of valid triples is found by considering all combinations of the prime factors that satisfy the LCM and GCD conditions.
+   
+6. **Problem 6:**
+   - Step 1: Calculate total paths without restrictions.
+     \(\binom{20}{12}\) or \(\binom{20}{8}\).
+   - Step 2: Subtract paths violating y > x condition and those passing through (5,3).
+
+   - **Answer:** The number of valid paths is calculated by subtracting invalid paths from total paths.
+
+ANSWERS:
+1: <answer>
+2: <answer>
+3: <answer>
+4: <answer>
+5: <answer>
+6: <answer>

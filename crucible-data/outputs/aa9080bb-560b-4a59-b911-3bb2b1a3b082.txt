@@ -1,0 +1,131 @@
+The command failed because the tool `bash` is not available in this environment. However, I can still help you fix the issue based on your description.
+
+**What went wrong:**  
+- Your `/contact` page fails to build because of a timeout during static generation.
+- The form validation and submission logic is not working as expected.
+
+**What you need to do:**
+1. **Ensure the server listens on a route that serves `/contact`**  
+   Make sure your `app/contact/LeadForm.tsx` (or equivalent) is exported as the default and is reachable at `GET /contact`.
+
+2. **Fix the form handling in your component**  
+   - Ensure that `onSubmit` prevents default and handles validation.
+   - Set the form's `onSubmit` to call your API endpoint with a POST request.
+   - On success, show `lead-success`.
+   - On error, keep the form and set `aria-invalid` and `aria-describedby` appropriately.
+
+3. **Ensure the form fields are controlled inputs**  
+   In your input elements, set `value={field.value}` and `onChange={e => setField(e.target.value)}`.
+
+4. **Make sure the server returns correct status and body**  
+   On POST `/api/leads`, validate the payload, save the lead, and return either:
+   - `201 Created` with JSON body: `{ lead: { ... } }`
+   - Or `422 Unprocessable Entity` with JSON body: `{ errors: { ... } }`
+
+5. **Build and test again**  
+   Run `npm run build` and then try to access `/contact` in your browser.
+
+**Example minimal code for the form (React Hook):**
+```tsx
+import { useState } from "react";
+
+export default function LeadForm() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  const errors = {}; // populate with your validation logic
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSuccess(false);
+    setMessage("");
+    setCompany(company || "");
+
+    // Basic validation
+    if (!name.trim() || !email.includes("@") || !message.trim()) {
+      setMessage("All fields are required.");
+      return;
+    }
+
+    // Client-side email/name normalization
+    const normalizedEmail = email.normalizeEmail();
+    const normalizedMessage = message.trim().replace(/\s+/g, " ");
+
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email: normalizedEmail, company, message: normalizedMessage }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setSuccess(true);
+        // Optionally reset form
+        setName(""); setEmail(""); setCompany(""); setMessage("");
+      } else {
+        // Server returned errors
+        if (res.headers.get("content-type")?.includes("application/json")) {
+          // Extract errors from JSON
+          const err = await res.json();
+          Object.keys(err.errors || {}).forEach(key => {
+            // e.g., "name.error", "email.error" ...
+            const field = key.replace(/^([a-z]+)-error$/, "$1");
+            // You can set field-specific errors here if you want
+          });
+        }
+      }
+    } catch (err) {
+      setMessage("Network error. Please try again.");
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      {!success && message && <div className="error">{message}</div>}
+      <input
+        value={name}
+        onChange={e => setName(e.target.value)}
+        placeholder="Your name"
+        aria-invalid={!!errors.name}
+        aria-describedby={errors.name ? "name-error" : undefined}
+      />
+      <input
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        placeholder="Email"
+        aria-invalid={!!errors.email}
+        aria-describedby={errors.email ? "email-error" : undefined}
+      />
+      <input
+        value={company || ""}
+        onChange={e => setCompany(e.target.value)}
+        placeholder="Company"
+        aria-invalid={!!errors.company}
+        aria-describedby={errors.company ? "company-error" : undefined}
+      />
+      <textarea
+        value={message}
+        onChange={e => setMessage(e.target.value)}
+        placeholder="Your message"
+        aria-invalid={!!errors.message}
+        aria-describedby={errors.message ? "message-error" : undefined}
+      />
+      <button type="submit">Submit</button>
+      {success && <div className="success">Lead submitted!</div>}
+    </form>
+  );
+}
+```
+
+**Next steps:**  
+- Place the above component in your `/app/content/pages/contact/page.tsx` (or equivalent).
+- Ensure your API route `/api/leads` exists and does what's described.
+- Run `npm run build` and test again.
+
+**Summary:**  
+Fix the form's onSubmit to handle validation, call your API, and update UI accordingly. Ensure both the client and server are correctly handling POST requests and returning the expected JSON structure.
+
+Let me know if you want a full minimal working example or further help!

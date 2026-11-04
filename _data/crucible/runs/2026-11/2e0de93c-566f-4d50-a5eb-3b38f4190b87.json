@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "2e0de93c-566f-4d50-a5eb-3b38f4190b87",
+ "run_path": "lmstudio_essentialai_rnj-1/household-money-math/20261104_191930",
+ "legacy_run_id": null,
+ "started_at": "2026-11-04T19:19:30.940986+00:00",
+ "ended_at": "2026-11-04T19:19:42.931830+00:00",
+ "elapsed_s": 11.44,
+ "task": {
+  "id": "household-money-math",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "7f6f5246841ce00c",
+  "rubric_hash": "3a7f59dac961798f",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/essentialai/rnj-1",
+  "base": "essentialai/rnj-1",
+  "publisher": "essentialai",
+  "artifact": "essentialai/rnj-1",
+  "format": "gguf",
+  "quant": "Q4_K_M",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 32768,
+  "variant_key": "essentialai/rnj-1|essentialai|gguf|q4_k_m",
+  "display": "rnj-1 · Q4_K_M",
+  "origin": {
+   "maker": "essentialai",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Eclipse",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": null,
+  "class": null,
+  "accelerators": [],
+  "system_memory_gb": null,
+  "cpu": null,
+  "offload": null,
+  "label": "Eclipse"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 236,
+  "tokens_out": 529,
+  "model_responses": 1,
+  "ttft_s": 0.432,
+  "ttft_avg_s": 0.432,
+  "response_time_avg_s": 11.437,
+  "output_tokens_per_s": 48.1,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 0
+ },
+ "output_ref": "outputs/2e0de93c-566f-4d50-a5eb-3b38f4190b87.txt",
+ "provenance": {
+  "crucible_version": "3.7.4",
+  "crucible_commit": "2690a25",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Mac-168",
+  "source": "crucible-run",
+  "content_hash": "sha256:4e36ab9cc426d29b1e32f6d6e202e33c38df8fc2f52bcab91f1b1f270b4cd953",
+  "submitter": null,
+  "verification": null
+ }
+}

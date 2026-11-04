@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "fa179974-4a8c-4ac4-acc8-b4b479fa4314",
+ "run_path": "lmstudio_nvidia_nemotron-3-nano-omni/river-haiku-banned-words/20261104_163329",
+ "legacy_run_id": null,
+ "started_at": "2026-11-04T16:33:29.288666+00:00",
+ "ended_at": "2026-11-04T16:33:42.032328+00:00",
+ "elapsed_s": 12.26,
+ "task": {
+  "id": "river-haiku-banned-words",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "abfd04ef9376bbaa",
+  "rubric_hash": "66b089cf0968cc9e",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/nvidia/nemotron-3-nano-omni",
+  "base": "nvidia/nemotron-3-nano-omni",
+  "publisher": "nvidia",
+  "artifact": "nvidia/nemotron-3-nano-omni",
+  "format": "gguf",
+  "quant": "Q4_K_M",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 100352,
+  "variant_key": "nvidia/nemotron-3-nano-omni|nvidia|gguf|q4_k_m",
+  "display": "nemotron-3-nano-omni · Q4_K_M",
+  "origin": {
+   "maker": "nvidia",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Mac-168"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 39,
+  "tokens_out": 829,
+  "model_responses": 1,
+  "ttft_s": 0.228,
+  "ttft_avg_s": 0.228,
+  "response_time_avg_s": 12.259,
+  "output_tokens_per_s": 68.9,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 2421
+ },
+ "output_ref": "outputs/fa179974-4a8c-4ac4-acc8-b4b479fa4314.txt",
+ "provenance": {
+  "crucible_version": "3.7.4",
+  "crucible_commit": "11e3ed5",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Mac-168",
+  "source": "crucible-run",
+  "content_hash": "sha256:8afa5f86bb3303aeb1b81ba2d3d1e90060e230678f3f9795577b09670fb204ca",
+  "submitter": null,
+  "verification": null
+ }
+}

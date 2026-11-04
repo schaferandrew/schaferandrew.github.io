@@ -1,0 +1,210 @@
+```python
+# Puzzle A: 9x9 Sudoku
+
+def is_valid(board, row, col, num):
+    # Check if the number is not repeated in the current row
+    for x in range(9):
+        if board[row][x] == num:
+            return False
+
+    # Check if the number is not repeated in the current column
+    for x in range(9):
+        if board[x][col] == num:
+            return False
+
+    # Check if the number is not repeated in the 3x3 box
+    startRow = row - row % 3
+    startCol = col - col % 3
+    for i in range(3):
+        for j in range(3):
+            if board[i + startRow][j + startCol] == num:
+                return False
+
+    return True
+
+def solve_sudoku(board):
+    empty = find_empty_location(board)
+    if not empty:
+        return True  # Puzzle solved
+    row, col = empty
+
+    for num in range(1, 10):
+        if is_valid(board, row, col, str(num)):
+            board[row][col] = str(num)
+
+            if solve_sudoku(board):
+                return True
+
+            # Undo the current cell for backtracking
+            board[row][col] = '.'
+
+    return False
+
+def find_empty_location(board):
+    for i in range(9):
+        for j in range(9):
+            if board[i][j] == '.':
+                return (i, j)
+    return None
+
+# Convert the given puzzle into a 2D list
+puzzle_a = [
+    ['.', '.', '1', '.', '.', '.', '.', '.', '3'],
+    ['7', '.', '.', '.', '3', '.', '.', '4', '.'],
+    ['.', '9', '.', '.', '4', '1', '.', '6', '2'],
+
+    ['5', '.', '.', '.', '.', '.', '.', '3', '7'],
+    ['.', '4', '.', '.', '.', '.', '.', '.', '6'],
+    ['.', '.', '.', '5', '.', '8', '.', '.', '.'],
+
+    ['.', '.', '.', '4', '.', '.', '.', '2', '.'],
+    ['6', '.', '.', '.', '.', '3', '.', '.', '5'],
+    ['8', '.', '9', '6', '.', '.', '.', '.', '.']
+]
+
+solve_sudoku(puzzle_a)
+print("Puzzle A:")
+for row in puzzle_a:
+    print(''.join(row))
+
+# Puzzle B: 9x9 Anti-Knight Sudoku
+
+def is_valid_anti_knight(board, row, col, num):
+    # Check if the number is not repeated in the current row
+    for x in range(9):
+        if board[row][x] == num:
+            return False
+
+    # Check if the number is not repeated in the current column
+    for x in range(9):
+        if board[x][col] == num:
+            return False
+
+    # Check if the number is not repeated in the 3x3 box
+    startRow = row - row % 3
+    startCol = col - col % 3
+    for i in range(3):
+        for j in range(3):
+            if board[i + startRow][j + startCol] == num:
+                return False
+
+    # Check anti-knight rule
+    knight_moves = [(2, 1), (1, 2), (-1, 2), (-2, 1),
+                    (-2, -1), (-1, -2), (1, -2), (2, -1)]
+    for move in knight_moves:
+        new_row, new_col = row + move[0], col + move[1]
+        if 0 <= new_row < 9 and 0 <= new_col < 9 and board[new_row][new_col] == num:
+            return False
+
+    return True
+
+def solve_anti_knight_sudoku(board):
+    empty = find_empty_location(board)
+    if not empty:
+        return True  # Puzzle solved
+    row, col = empty
+
+    for num in range(1, 10):
+        if is_valid_anti_knight(board, row, col, str(num)):
+            board[row][col] = str(num)
+
+            if solve_anti_knight_sudoku(board):
+                return True
+
+            # Undo the current cell for backtracking
+            board[row][col] = '.'
+
+    return False
+
+# Convert the given puzzle into a 2D list
+puzzle_b = [
+    ['.', '5', '.', '.', '.', '1', '.', '.', '.'],
+    ['.', '.', '.', '.', '.', '5', '.', '.', '.'],
+    ['3', '1', '.', '.', '.', '7', '.', '.', '4'],
+
+    ['.', '.', '.', '.', '.', '.', '8', '4', '.'],
+    ['.', '.', '.', '.', '4', '.', '.', '.', '.'],
+    ['.', '4', '.', '.', '.', '.', '.', '.', '.'],
+
+    ['.', '.', '.', '9', '7', '2', '.', '.', '.'],
+    ['.', '.', '.', '6', '.', '.', '.', '.', '9'],
+    ['.', '3', '.', '.', '.', '4', '7', '.', '5']
+]
+
+solve_anti_knight_sudoku(puzzle_b)
+print("Puzzle B:")
+for row in puzzle_b:
+    print(''.join(row))
+
+# Puzzle C: 6x6 Irregular Sudoku
+
+def is_valid_irregular(board, row, col, num):
+    # Check if the number is not repeated in the current row
+    for x in range(6):
+        if board[row][x] == num:
+            return False
+
+    # Check if the number is not repeated in the current column
+    for x in range(6):
+        if board[x][col] == num:
+            return False
+
+    # Check if the number is not repeated in the region
+    region_map = [
+        ['U', 'U', 'U', 'V', 'V', 'V'],
+        ['W', 'U', 'U', 'V', 'V', 'X'],
+        ['W', 'W', 'U', 'V', 'X', 'X'],
+        ['Y', 'W', 'X', 'X', 'X', 'Z'],
+        ['Y', 'W', 'W', 'Z', 'Z', 'Z'],
+        ['Y', 'Y', 'Y', 'Z', 'Z', '.']
+    ]
+    region = region_map[row][col]
+    for i in range(6):
+        for j in range(6):
+            if region_map[i][j] == region and board[i][j] == num:
+                return False
+
+    return True
+
+def solve_irregular_sudoku(board, region_map):
+    empty = find_empty_location(board)
+    if not empty:
+        return True  # Puzzle solved
+    row, col = empty
+
+    for num in range(1, 7):
+        if is_valid_irregular(board, row, col, str(num)):
+            board[row][col] = str(num)
+
+            if solve_irregular_sudoku(board, region_map):
+                return True
+
+            # Undo the current cell for backtracking
+            board[row][col] = '.'
+
+    return False
+
+# Convert the given puzzle into a 2D list
+puzzle_c = [
+    ['.', '.', '2', '.', '.', '.'],
+    ['.', '.', '.', '.', '.', '.'],
+    ['.', '.', '.', '1', '.', '3'],
+    ['.', '.', '.', '.', '6', '.'],
+    ['.', '.', '4', '.', '.', '.'],
+    ['.', '.', '.', '.', '.', '.']
+]
+
+region_map = [
+    ['U', 'U', 'U', 'V', 'V', 'V'],
+    ['W', 'U', 'U', 'V', 'V', 'X'],
+    ['W', 'W', 'U', 'V', 'X', 'X'],
+    ['Y', 'W', 'X', 'X', 'X', 'Z'],
+    ['Y', 'W', 'W', 'Z', 'Z', 'Z'],
+    ['Y', 'Y', 'Y', 'Z', 'Z', '.']
+]
+
+solve_irregular_sudoku(puzzle_c, region_map)
+print("Puzzle C:")
+for row in puzzle_c:
+    print(''.join(row))
+```

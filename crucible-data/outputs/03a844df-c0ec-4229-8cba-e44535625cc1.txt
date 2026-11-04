@@ -1,0 +1,35 @@
+1.  **Analyze the Request:**
+    *   Question: "What color are firetrucks in the US?"
+    *   Constraint: "Answer in one or two sentences."
+
+2.  **Retrieve Knowledge:**
+    *   Standard fire truck color in the United States: Red.
+    *   Exceptions/Nuances: While red is the standard, some departments use other colors (e.g., yellow, orange, white, or even green) for specific reasons (visibility, branding, or specific unit types like rescue units). However, the general answer is red.
+
+3.  **Draft the Answer:**
+    *   *Draft 1:* Firetrucks in the US are typically red. However, some departments use different colors for specific vehicles.
+    *   *Draft 2:* In the United States, fire trucks are most commonly painted red to symbolize bravery and visibility. Some departments may use other colors like yellow or white for specific units.
+
+4.  **Refine based on Constraints:**
+    *   The user asked "What color are firetrucks in the US?" (plural/general).
+    *   Constraint: One or two sentences.
+    *   Draft 2 is two sentences and accurate. It covers the main point and acknowledges exceptions without overcomplicating it.
+
+5.  **Final Polish:**
+    *   "Firetrucks in the United States are most commonly painted red, though some departments may use different colors for specific vehicles." -> This is one sentence.
+    *   Let's stick to the most direct answer first.
+    *   "Firetrucks in the US are typically red. However, some fire departments choose different colors for specific units or to improve visibility."
+
+6.  **Final Selection:**
+    "Firetrucks in the United States are most commonly painted red. While red is the standard, some departments may use other colors like yellow or white for specific vehicles."
+
+    *Check against constraints:*
+    *   Is it accurate? Yes.
+    *   Is it one or two sentences? Yes (two sentences).
+
+7.  **Alternative (Simpler):**
+    "Firetrucks in the US are typically red. Some departments may use different colors for specific units, but red remains the standard."
+
+    Let's go with a concise version.
+
+    *Selected Answer:* Firetrucks in the United States are most commonly painted red. While this is the standard, some departments may use other colors for specific vehicles or to improve visibility.</think>Firetrucks in the United States are most commonly painted red. While this is the standard color, some departments may use different colors like yellow or white for specific units or to improve visibility.

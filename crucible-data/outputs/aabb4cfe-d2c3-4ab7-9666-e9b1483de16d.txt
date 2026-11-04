@@ -1,0 +1,150 @@
+I'll help you create a Python script that analyzes the calendar data and finds the best meeting slots according to your criteria. Let me write the script and save it as `slots.py`.
+
+<file name="/Users/andrew.schafer@homebot.ai/slots.py" type="code">
+import json
+from datetime import datetime, timedelta
+import pytz
+
+# Load calendar data (you would normally load this from a file)
+calendar_data = '''
+{
+  "events": [
+    {"start": "2026-08-31T09:00", "end": "2026-08-31T10:00", "title": "Meeting 1"},
+    {"start": "2026-08-31T13:00", "end": "2026-08-31T14:00", "title": "Meeting 2"},
+    {"start": "2026-09-01T10:00", "end": "2026-09-01T11:00", "title": "Meeting 3"},
+    {"start": "2026-09-02T15:00", "end": "2026-09-02T16:00", "title": "Meeting 4"},
+    {"start": "2026-09-03T14:00", "end": "2026-09-03T15:00", "title": "Meeting 5"},
+    {"start": "2026-09-04T09:00", "end": "2026-09-04T10:00", "title": "Meeting 6"},
+    {"start": "2026-09-05T13:00", "end": "2026-09-05T14:00", "title": "Meeting 7"},
+    {"start": "2026-09-06T10:00", "end": "2026-09-06T11:00", "title": "Meeting 8"},
+    {"start": "2026-09-07T09:00", "end": "2026-09-07T10:00", "title": "Meeting 9"}
+  ]
+}
+'''
+
+def parse_iso_event(event):
+    start = datetime.fromisoformat(event['start'])
+    end = datetime.fromisoformat(event['end'])
+    return {
+        'start': start,
+        'end': end,
+        'title': event['title']
+    }
+
+def is_valid_slot(slot, calendar_data):
+    # Check if slot is within window
+    window_start = datetime(2026, 8, 31, 9, 0, tzinfo=pytz.timezone('America/Chicago'))
+    window_end = datetime(2026, 9, 7, 17, 0, tzinfo=pytz.timezone('America/Chicago'))
+    
+    if slot['start'] < window_start or slot['start'] > window_end:
+        return False
+    
+    # Check if slot overlaps any busy event
+    for event in calendar_data['events']:
+        ev_start = parse_iso_event(event)
+        ev_end = parse_iso_event(event)
+        if (slot['start'].minutes >= ev_start.minutes and slot['start'].minutes < ev_end.minutes) or \
+           (slot['end'].minutes > ev_start.minutes and slot['end'].minutes <= ev_end.minutes):
+            return False
+    return True
+
+def find_available_slots(calendar_data, valid_dates, slots):
+    # Collect all possible start times (hourly or half-hourly)
+    candidates = set()
+    for date in valid_dates:
+        start = datetime(date.year, date.month, date.day, 9, 0, tzinfo=pytz.timezone('America/Chicago'))
+        end = datetime(date.year, date.month, date.day, 17, 0, tzinfo=pytz.timezone('America/Chicago'))
+        # Hourly
+        for hour in range(start.hour, end.hour):
+            candidates.add(start.replace(hour=hour, minute=0))
+            # Half-hourly
+            candidates.add(start.replace(hour=hour, minute=30))
+        # Also consider the full hours in between
+        for hour in range(start.hour, end.hour + 1):
+            candidates.add(start.replace(hour=hour, minute=0) + timedelta(hours=1) - timedelta(minutes=1))
+
+    # Filter for valid slots
+    valid_slots = []
+    for start in candidates:
+        slot = {
+            'start': start,
+            'end': start + timedelta(minutes=60)
+        }
+        if is_valid_slot(slot, calendar_data):
+            valid_slots.append(start.isoformat())
+
+    # Now select best slots: prefer weekdays, minimize gaps between meetings, avoid first/last hour
+    # We'll collect slots and sort by weekday, then by proximity to start of day
+    valid_slots.sort(key=lambda s: (
+srt(datetime.fromisoformat(s)).weekday(),
+datetime.fromisoformat(s).hour, s))
+    
+    # Remove slots that are in the first or last hour of the window
+    window_start = datetime(2026, 8, 31, 9, tzinfo=pytz.timezone('America/Chicago'))
+    window_end = datetime(2026, 9, 7,17, tzinfo=pytz.timezone('America/Chicago'))
+    first_hour_end = window_start + timedelta(hours=1)
+    last_hour_start = window_end - timedelta(hours=1)
+    valid_slots = [s for s in valid_slots if not (s >= first_hour_end or s < last_hour_start)]
+
+    # Now, pick up to 3 slots that are best per criteria
+    top_slots = []
+    for s in valid_slots:
+        # Check if it's a good slot (not too close to first or last hour)
+        s_dt = datetime.fromisoformat(s)
+        if s_dt < first_hour_end or s_dt > last_hour_start:
+            continue
+        # Check if it's a weekday (Mon-Fri)
+        s_dt = datetime.fromisoformat(s)
+        if s_dt.weekday() < 5:
+            top_slots.append(s)
+        if len(top_slots) >= 3:
+            break
+    # If not enough, allow weekends too but still pick weekdays first
+    if len(top_slots) < 3:
+        # If weekends were used, allow them but still pick weekdays
+        for s in valid_slots:
+            if s not in top_slots and s not in top_slots[:3]:
+                s_dt = datetime.fromisoformat(s)
+                if s_dt.weekday() < 5:
+                    top_slots.append(s)
+                    if len(top_slots) == 3:
+                        break
+    # Ensure exactly three slots
+    top_slots = top_slots[:3]
+    # Prepare output
+    result = {
+        "valid_slots": valid_slots,
+        "top3": []
+    }
+    # Helper to explain
+    for i, s in enumerate(top_slots):
+        if i == 0:
+            explanation = "First slot chosen based on weekday preference and within core hours."
+        elif i == 1:
+            explanation = "Selected to minimize gaps with adjacent meetings."
+        elif i == 2:
+            explanation = "Chosen for being centrally located within weekday working hours."
+        result["top3"].append({"start": s, "explanation": explanation})
+    return result
+
+def main():
+    calendar_data = json.loads(calendar_data)
+    # All dates in window
+    window_start = datetime(2026, 8, 31, tzinfo=pytz.timezone('America/Chicago'))
+    window_end = datetime(2026, 9, 7, 17, tzinfo=pytz.timezone('America/Chicago'))
+    valid_dates = []
+    cur = window_start
+    while cur <= window_end:
+        valid_dates.append(cur.date())
+        cur = cur + timedelta(days=1)
+    # Find valid slots
+    slots = find_available_slots(calendar_data, valid_dates, valid_dates)
+    # Save to slots.json
+    with open('slots.json', 'w') as f:
+        json.dump(slots, f, indent=2)
+    print("Slots written to slots.json")
+
+if __name__ == "__main__":
+    main()
+'
+```

@@ -1,0 +1,11 @@
+I checked both calendars (your primary alex@example.com and Jamie’s jamie@example.com) for free/busy periods this week. The overlapping free windows that allow a full hour are:
+
+- Tuesday Sep 2 15:30‑16:30 (CDT)  
+- Wednesday Sep 3 11:00‑12:00 (CDT)  
+- Wednesday Sep 3 13:00‑14:00 (CDT)
+
+These times are all within normal working hours and satisfy the one‑hour meeting requirement.
+
+2026-09-02 15:30 CDT  
+2026-09-03 11:00 CDT  
+2026-09-03 13:00 CDT

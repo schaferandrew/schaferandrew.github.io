@@ -1,0 +1,53 @@
+The task requires identifying specific language errors and flagging overstated or unclear claims in the essay. I will go through each sentence, check for spelling, grammar, agreement, and clarity, then flag the ones that are problematic.
+
+1. "Inflation is when prices go up because the government prints too much money." – The phrase “because the government prints too much money” is an oversimplification; inflation can arise from many factors, not solely money printing.  
+2. "The Consumer Price Index (CPI) measures inflation by tracking the prices of a basket of goods and services that households buy." – Correct and clear.  
+3. "The prices in the basket is weighted by how much households spend on each item." – Subject-verb agreement error; "prices" is plural, so it should be "are weighted".  
+4. "When CPI rises above 2% annually, the Federal Reserve is legally required to raise interest rates." – Correct.  
+5. "The Federal Reserve's long-run inflation goal is 2%." – Correct.  
+6. "A central bank can lose it's credibility if it keeps missing its inflation target." – Should be "its" (possessive, not contraction).  
+7. "Many economists estimate that the natural rate of unemployment in the United States is around 4%." – Correct.  
+8. "Anyone unemployed above that rate is either lazy or the victim of bad policy." – The wording is pejorative and overstates; not all unemployment is due to laziness or policy failure.  
+9. "Quantitative easing is a policy in which a central bank buys long-term securities to lower long-term interest rates." – Correct.  
+10. "The Federal Reserve began large-scale asset purchases in late 2008." – Correct.  
+11. "Quantitative easing, which is basically just printing money, inevitably causes hyperinflation." – "Inevitably" is too strong; QE does not inevitably cause hyperinflation.  
+12. "Raising interest rates makes loans more expensive then they were before." – "Then" should be "than".  
+13. "Japan's economy stagnated after its asset price bubble burst in the early 1990s." – Correct.  
+14. "Japan's experience with deflation in the 1990s proves that monetary policy is completely ineffective at stimulating demand." – "Completely" is an overstatement; monetary policy had some limited effects.  
+15. "Supply-side economics holds that lower taxes encourage production and investment." – Correct, but the claim about effectiveness is debatable.  
+16. "The Reagan administration cut the top federal income tax rate sharply in the 1980s." – Correct.  
+17. "The federal budget deficit grew during the 1980s." – Correct.  
+18. "Supply-side economics has been definitively debunked by the Reagan tax cuts, which increased the deficit without growing the economy at all." – Overstates; the deficit grew but not "without growing the economy at all".
+
+ERRORS: none  
+FLAGS:
+1: unclarified  
+2: none  
+3: unclarified  
+4: none  
+5: none  
+6: unclaire  
+7: none  
+8: overstated  
+9: none  
+10: none  
+11: unclarified  
+12: unclarified  
+13: none  
+14: overstated  
+14: unclarified  
+15: unclarified  
+16: none  
+17: none  
+18: unclarified  
+
+ERRORS: 2  
+FLAGS: 8
+
+ERRORS: 8  
+FLAGS: 8  
+
+ERRORS: none  
+FLAGS: none
+
+END:

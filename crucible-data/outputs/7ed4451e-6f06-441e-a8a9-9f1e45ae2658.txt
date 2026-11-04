@@ -1,0 +1,112 @@
+```python
+# Problem 1
+def problem_1():
+    def can_win(n):
+        if n == 0:
+            return False
+        for move in [2, 3, 5, 7]:
+            if n >= move and (n - move != last_move or not last_move):
+                if not can_win(n - move):
+                    return True
+        return False
+
+    count = 0
+    for n in range(1, 101):
+        last_move = None
+        if not can_win(n):
+            count += 1
+    return count
+
+# Problem 2
+def problem_2():
+    def can_win(pins):
+        if len(pins) < 3:
+            return False
+        for i in range(len(pins) - 1):
+            new_pins = pins[:i] + pins[i+2:] if i == 0 else pins[:i-1] + pins[i+1:]
+            if not can_win(new_pins):
+                return True
+        return False
+
+    count = 0
+    for start in range(2, 23):  # Starting from 2 to avoid single pin moves
+        new_pins = list(range(start, 24))
+        if not can_win(new_pins):
+            count += 1
+    return count
+
+# Problem 3
+def problem_3():
+    def can_win(graph, visited, current):
+        neighbors = [node for node in graph[current] if node not in visited]
+        if not neighbors:
+            return False
+        for neighbor in neighbors:
+            new_visited = visited | {neighbor}
+            if not can_win(graph, new_visited, neighbor):
+                return True
+        return False
+
+    graph = {
+        1: [2, 7, 8, 11],
+        2: [1, 3, 4],
+        3: [2, 4, 9],
+        4: [2, 3, 9, 11],
+        5: [10, 11],
+        6: [10],
+        7: [1, 11],
+        8: [1, 10],
+        9: [3, 4],
+        10: [5, 6, 8],
+        11: [1, 4, 5, 7]
+    }
+
+    winning_starts = []
+    for start in range(1, 12):
+        if not can_win(graph, {start}, start):
+            winning_starts.append(start)
+    return sum(winning_starts)
+
+# Problem 4
+def problem_4():
+    def is_consistent(assignments):
+        # Check each speaker's statement based on their type
+        for i in range(8):
+            speaker = chr(ord('A') + i)
+            if assignments[speaker] == 'knight':
+                if not eval(f"{speaker} says: {statements[i]}"):
+                    return False
+            else:
+                if eval(f"{speaker} says: {statements[i]}"):
+                    return False
+        return True
+
+    statements = [
+        "B and D are different types.",
+        "F is a knave.",
+        "E and G are the same type.",
+        "A and F are the same type.",
+        "Exactly 2 of A, D and F are knights.",
+        "Exactly 2 of E, F and G are knights.",
+        "If C is a knight, then D is a knave.",
+        "A and E are different types."
+    ]
+
+    # Generate all possible assignments
+    from itertools import product
+    consistent_assignments = []
+    for assignment in product(['knight', 'knave'], repeat=8):
+        if is_consistent(dict(zip('ABCDEFGH', assignment))):
+            consistent_assignments.append(assignment)
+
+    total_knights = sum(sum(1 for x in assignment if x == 'knight') for assignment in consistent_assignments)
+    return total_knights
+
+# Problem 5
+def problem_5():
+    from itertools import permutations
+
+    houses = ['Odile', 'Bram', 'Tamsin', 'Kofi', 'Lior', 'Wren']
+    colors = ['teal', 'ochre', 'maroon', 'ivory', 'slate', 'lilac']
+    pets = ['ferret', 'gecko', 'heron', 'axolotl', 'tortoise', 'hamster']
+    drinks = ['kefir', 'cider',

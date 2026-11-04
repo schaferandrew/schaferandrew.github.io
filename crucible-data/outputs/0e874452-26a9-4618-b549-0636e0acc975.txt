@@ -1,0 +1,29 @@
+The compound‑interest calculator has been implemented according to the specification:
+
+* **Package structure** – `interest/` contains `__init__.py` and `__main__.py`, making it runnable with `python3 -m interest`.
+* **CLI implementation** – Uses only the standard library (`argparse`, `json`, `sys`).  
+  * Required arguments: `--principal`, `--rate`, and mutually exclusive time specifiers `--years` or `--months`.  
+  * Compounding frequency options: `annually`, `quarterly`, `monthly`, `daily`.  
+  * Optional contributions: `--contribution` amount and `--contribution-frequency` (`monthly`/`annually`).  
+  * Output formats: human‑readable summary by default, JSON with `--json`.
+* **Correct calculation** – The nominal annual rate is converted to a decimal fraction before computing the effective monthly rate, ensuring accurate compounding for any frequency.
+* **Error handling** – Invalid or contradictory input produces a clear error message on stderr and exits with a non‑zero status.
+* **Tests** – `tests/test_interest.py` contains four unit tests that cover basic annual compounding, monthly compounding, recurring contributions, and argument validation. All tests pass (`python3 -m unittest discover -s tests`).
+
+The accompanying `README.md` provides full usage instructions and examples.
+
+You can now run the tool, for example:
+
+```bash
+# Annual compounding, 1 year, $1000 principal, 5 % rate
+python3 -m interest --principal 1000 --rate 5 --years 1 --compound annually
+
+# Monthly contributions, monthly compounding
+python3 -m interest --principal 5000 --rate 4.5 --months 24 \
+    --compound monthly --contribution 100 --contribution-frequency monthly
+
+# JSON output
+python3 -m interest --principal 1000 --rate 3 --years 5 --compound daily --json
+```
+
+All requirements from the `prompt.txt` benchmark task have been satisfied.

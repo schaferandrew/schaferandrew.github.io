@@ -1,0 +1,66 @@
+To solve these crosswords, we need to place each given word into its corresponding slot such that all words fit correctly and intersect at shared letters where necessary.
+
+### Puzzle A
+
+1. **Identify Slots and Words:**
+   - 5-letter slots: 1-ACROSS (row 1, col 1), 2-ACROSS (row 1, col 7), 6-ACROSS (row 5, col 1), 7-ACROSS (row 5, col 7), 8-ACROSS (row 7, col 1), 10-ACROSS (row 7, col 7), 13-ACROSS (row 11, col 1), 14-ACROSS (row 11, col 7)
+   - 5-letter words: CANDY, COUNT, CUBIC, DEALT, DRIVE, ELBOW, PROBE, SHIRT, SQUAD, SWAMP, THREW, TWIST, UNCLE, UPSET
+   - 7-letter slots: 4-ACROSS (row 3, col 3), 12-ACROSS (row 9, col 3)
+   - 7-letter words: COUNCIL, COURAGE, ECONOMY, LIBRARY
+
+2. **Place Words in Slots:**
+   - Start with the longest word that fits a slot and intersects correctly.
+   - For example, "COUNCIL" can fit into the 4-ACROSS (row 3, col 3) slot as it is exactly 7 letters long.
+
+ANSWERS:
+1-ACROSS: CANDY
+2-ACROSS: COUNT
+3-DOWN: CUBIC
+4-ACROSS: COUNCIL
+5-DOWN: DEALT
+6-ACROSS: DRIVE
+7-ACROSS: ELBOW
+8-ACROSS: PROBE
+9-DOWN: SHIRT
+10-ACROSS: SQUAD
+11-DOWN: SWAMP
+12-ACROSS: THREW
+13-ACROSS: TWIST
+14-ACROSS: UNCLE
+
+### Puzzle B
+
+1. **Identify Slots and Words:**
+   - 3-letter slots: 15-ACROSS (row 1, col 1), 19-ACROSS (row 3, col 1), 25-ACROSS (row 5, col 9), 26-ACROSS (row 7, col 1), 30-ACROSS (row 9, col 9), 32-ACROSS (row 11, col 9)
+   - 3-letter words: ANY, APT, CAR, COG, ELF, FAN, ONE, TAR, TEN, TIE, TOP, TOY
+   - 5-letter slots: 17-ACROSS (row 1, col 7), 20-ACROSS (row 3, col 5)
+   - 5-letter words: ALIKE, APPLY, AROMA, OUNCE
+   - 7-letter slots: 22-ACROSS (row 5, col 1), 27-ACROSS (row 7, col 5)
+   - 7-letter words: ANOTHER, APRICOT, BARGAIN, IMAGINE, PLASTIC, PUBLISH
+
+2. **Place Words in Slots:**
+   - Start with the shortest word that fits a slot and intersects correctly.
+   - For example, "ANY" can fit into the 15-ACROSS (row 1, col 1) slot as it is exactly 3 letters long.
+
+ANSWERS:
+15-ACROSS: ANY
+16-DOWN: APT
+17-ACROSS: CAR
+18-DOWN: COG
+19-ACROSS: ELF
+20-ACROSS: FAN
+21-DOWN: ONE
+22-ACROSS: TAR
+23-DOWN: TEN
+24-DOWN: TIE
+25-ACROSS: TOP
+26-ACROSS: TOY
+27-ACROSS: ALIKE
+28-DOWN: APPLY
+29-ACROSS: AROMA
+30-ACROSS: OUNCE
+31-ACROSS: ANOTHER
+32-ACROSS: APRICOT
+
+ANSWERS:
+1-ACROSS: CAND

@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "69832abb-316b-4fa7-9f90-10015a0c89e3",
+ "run_path": "lmstudio_liquid_lfm2-24b-a2b/editorial-review-workflow/20261104_191230",
+ "legacy_run_id": null,
+ "started_at": "2026-11-04T19:12:54.386738+00:00",
+ "ended_at": "2026-11-04T19:13:17.121924+00:00",
+ "elapsed_s": 21.94,
+ "task": {
+  "id": "editorial-review-workflow",
+  "version": 3,
+  "rubric_version": 4,
+  "content_hash": "02dc7545b79f29a4",
+  "rubric_hash": "045074375d3af88a",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "lmstudio/liquid/lfm2-24b-a2b",
+  "base": "liquid/lfm2-24b-a2b",
+  "publisher": "liquid",
+  "artifact": "liquid/lfm2-24b-a2b",
+  "format": "mlx",
+  "quant": "6bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": 128000,
+  "variant_key": "liquid/lfm2-24b-a2b|liquid|mlx|mlx-6bit",
+  "display": "lfm2-24b-a2b · 6bit",
+  "origin": {
+   "maker": "liquid",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Eclipse",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": null,
+  "class": null,
+  "accelerators": [],
+  "system_memory_gb": null,
+  "cpu": null,
+  "offload": null,
+  "label": "Eclipse"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 1,
+  "tokens_in": 5070,
+  "tokens_out": 1758,
+  "model_responses": 2,
+  "ttft_s": 2.05,
+  "ttft_avg_s": 1.33,
+  "response_time_avg_s": 9.863,
+  "output_tokens_per_s": 103.0,
+  "cost_usd": 0,
+  "cost_source": "pi_estimate",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/69832abb-316b-4fa7-9f90-10015a0c89e3.txt",
+ "provenance": {
+  "crucible_version": "3.7.4",
+  "crucible_commit": "3a782ab",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Mac-168",
+  "source": "crucible-run",
+  "content_hash": "sha256:32b341e845e9959869f30dc050c22432d5c24d3b320344667a8935ce672223c0",
+  "submitter": null,
+  "verification": null
+ }
+}

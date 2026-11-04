@@ -1,0 +1,42 @@
+```python
+# Question 1: Compound Interest Calculation
+def calculate_compound_interest(principal, annual_rate, times_compounded_per_year, years):
+    rate_per_period = annual_rate / (times_compounded_per_year * 100)
+    total_periods = times_compounded_per_year * years
+    amount = principal * (1 + rate_per_period) ** total_periods
+    return round(amount, 2)
+
+# Question 2: Flooring Calculation
+def calculate_flooring_boxes(total_sq_ft, box_size_sq_ft, extra_percentage):
+    total_needed_sq_ft = total_sq_ft * (1 + extra_percentage / 100)
+    boxes_needed = -(-total_needed_sq_ft // box_size_sq_ft)  # Ceiling division
+    return int(boxes_needed)
+
+# Question 3: Gas Cost Calculation
+def calculate_gas_cost(total_miles, miles_per_gallon, gas_price_per_gallon):
+    gallons_needed = total_miles / miles_per_gallon
+    total_cost = gallons_needed * gas_price_per_gallon
+    return round(total_cost, 2)
+
+# Question 4: Dinner Splitting with Tip Calculation
+def calculate_dinner_split(pre_tax_amount, tip_percentage, number_of_people):
+    tip_amount = pre_tax_amount * (tip_percentage / 100)
+    total_bill = pre_tax_amount + tip_amount
+    amount_per_person = total_bill / number_of_people
+    return round(amount_per_person, 2)
+
+# Answers to the questions
+answers = [
+    calculate_compound_interest(5000, 4, 12, 3),
+    calculate_flooring_boxes(1850, 23.5, 10),
+    calculate_gas_cost(412, 34, 3.89),
+    calculate_dinner_split(172, 18, 4)
+]
+
+# Display answers
+print("ANSWERS")
+for i, answer in enumerate(answers):
+    print(f"{i + 1}. {answer}")
+```
+
+This Python code calculates the solutions to each of the four questions and prints them out. The `calculate_compound_interest` function computes the future value of an investment using compound interest formula. The `calculate_flooring_boxes` function determines how many boxes are needed for flooring a given area, accounting for extra material. The `calculate_gas_cost` function calculates the total cost of gas for a road trip based on mileage and fuel efficiency. Finally, the `calculate_dinner_split` function computes how much each person pays when splitting a dinner bill including an 18% tip. Each answer is rounded to two decimal places where necessary.

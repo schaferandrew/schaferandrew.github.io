@@ -1,0 +1,8 @@
+To determine the best times for a team meeting, I considered the next 14 days and prioritized weekdays when teams are typically available. The top options balance workday hours across different weeks, avoiding weekends and holidays.
+
+OPTIONS:
+2023-11-07 10:00 America/New_York  
+2023-11-14 10:00 America/New_York  
+2023-11-21 10:00 America/New_York  
+
+OPTIONS:

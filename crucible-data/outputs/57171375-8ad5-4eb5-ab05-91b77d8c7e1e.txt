@@ -1,0 +1,16 @@
+## Emails
+- **Project update - Q3 review completed** (alex@example.com): The Q3 review is now complete and ahead of schedule; discuss the results in our planning meeting.  
+- **Meeting notes from yesterday** (jamie@example.com): Reviewed career goals, next‑quarter priorities, and team‑building activities.  
+- **Reminder: Q3 expense report due Wednesday 5 PM** (finance@example.com): Submit your expense report by 5 PM on Wednesday; late submissions are processed with next month’s payroll.  
+- **Question about the proposal timeline** (client@example.com): Confirm whether the revised proposal can be delivered by Friday.
+
+## Calendar
+- **Planning** – 9:30 AM to 10:30 AM Central Time, Room B.  
+- **Vendor demo** – 10:00 AM to 11:00 AM Central Time, Zoom.
+
+## News
+- **Twin Cities Tech Conference Returns** (StarTribune): Annual tech conference returns to Minneapolis with AI and startup funding topics; registration opens this Friday.  
+- **Maplewood Park Renovation Complete** (Pioneer Press): Renovations finished early, adding new walking trails and a children’s playground; grand reopening is Saturday.
+
+## Spanish practice
+Hoy tengo una reunión de planificación y una demostración de proveedor antes del almuerzo, y después podré asistir al registro del Congreso Tecnológico de los Twin Cities que se acerca este viernes.

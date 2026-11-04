@@ -1,0 +1,41 @@
+```python
+# ERRORS:
+1: "prints"
+2: "measures"
+3: "are weighted"
+4: "above 2%"
+5: (no error)
+6: "it's" -> its
+7: (no error)
+8: "lazy or the victim of bad policy." -> "lazy, or they are victims of bad policy."
+9: (no error)
+10: (no error)
+11: (no error)
+12: "more expensive then" -> "more expensive than"
+13: (no error)
+14: (no error)
+15: (no error)
+16: (no error)
+17: (no error)
+18: "definitively debunked" -> "disproven"
+
+# FLAGS:
+1: none
+2: none
+3: none
+4: none
+5: none
+6: imprecise
+7: none
+8: misleading
+9: none
+10: none
+11: overstated
+12: unclear
+13: none
+14: overstated
+15: none
+16: none
+17: none
+18: overstated
+```

@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "03a844df-c0ec-4229-8cba-e44535625cc1",
+ "run_path": "ollama_lfm2.5_24b@reasoning-off/fire-truck-color/20261104_183825",
+ "legacy_run_id": null,
+ "started_at": "2026-11-04T18:38:25.421450+00:00",
+ "ended_at": "2026-11-04T18:38:30.547146+00:00",
+ "elapsed_s": 5.1,
+ "task": {
+  "id": "fire-truck-color",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "4f544d69ec35ecb1",
+  "rubric_hash": "93b038f024a752e9",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "ollama/lfm2.5:24b",
+  "base": "lfm2.5:24b",
+  "publisher": null,
+  "artifact": null,
+  "format": "gguf",
+  "quant": "Q4_K_M",
+  "reasoning": {
+   "requested": "off",
+   "resolved": "off"
+  },
+  "context_loaded": 32768,
+  "variant_key": "lfm2.5:24b|-|gguf|q4_k_m",
+  "display": "lfm2.5:24b · Q4_K_M",
+  "origin": {
+   "maker": null,
+   "base_repo": null,
+   "params": 23971587712,
+   "active_params": null,
+   "source": "ollama"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "ollama",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Mac-168"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 28,
+  "tokens_out": 560,
+  "model_responses": 1,
+  "ttft_s": 0.159,
+  "ttft_avg_s": 0.159,
+  "response_time_avg_s": 5.097,
+  "output_tokens_per_s": 113.4,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 0
+ },
+ "output_ref": "outputs/03a844df-c0ec-4229-8cba-e44535625cc1.txt",
+ "provenance": {
+  "crucible_version": "3.7.4",
+  "crucible_commit": "11e3ed5",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Mac-168",
+  "source": "crucible-run",
+  "content_hash": "sha256:8772ee6e768286c066785261699998ecaaec5ce9a8e733e0edc0379dcd9d9557",
+  "submitter": null,
+  "verification": null
+ }
+}

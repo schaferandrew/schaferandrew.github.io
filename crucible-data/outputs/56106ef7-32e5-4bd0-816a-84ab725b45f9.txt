@@ -1,0 +1,26 @@
+## Weather  
+Current conditions in Saint Paul, MN: 68°F, Partly Cloudy, 65% humidity, wind at 8 mph.  
+
+## Outstanding work  
+- **Project update - Q3 review**: Completed early; requires discussion in tomorrow’s planning meeting.  
+- **Q3 expense report**: Due today at 5 PM (tomorrow’s deadline). Late submissions will be paid next month.  
+- **Client proposal timeline**: Awaiting confirmation on Friday’s delivery deadline.  
+
+## Emails  
+- **Project update - Q3 review completed** (alex@example.com): “Q3 review now complete; ahead of schedule—discuss in tomorrow’s meeting.”  
+- **Meeting notes from yesterday** (jamie@example.com): “Discussed career goals, next quarter priorities, and team‑building activities.”  
+
+## Calendar  
+- **Today (Sep 2)**: Standup at 9:30 AM (Zoom).  
+- **Sep 3**: Design review at 1:00 PM (Conference Room A).  
+- **Sep 4**: Vendor demo at 10:00 AM (Zoom.  
+
+## News  
+- **Tech conference**: Twin Cities event returns Fri; 50+ speakers on AI, startups, and tech trends.  
+- **Maplewood Park**: Renovations complete; playground and trails open Sat.  
+- **State Fair**: Attendance down 3% this year due to cooler weather.  
+
+## Top 3 things to do today  
+1. Attend the 9:30 AM standup (Zoom) to align on priorities.  
+2. Submit the Q3 expense report by 5 PM today (next day deadline).  
+3. Review the design review agenda and prepare feedback for tomorrow’s session.  

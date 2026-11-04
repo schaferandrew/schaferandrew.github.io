@@ -1,0 +1,63 @@
+We start by placing Carol and Dave using the clues:
+
+- Clue 3 fixes Carol in chair 1 with green.
+- Clue 5 says Dave likes red. 
+- Clue 4 tells us Carol (in chair 1) sits to the left of the person who likes green — but Carol already has green, so “likes green” must refer to someone else. This means the person who likes green sits in chair 1, and Carol is not that person.
+- Clue 1 says Alice sits immediately to the left of the blue-lover. So Alice cannot be in chair 4, and whoever is in chair x+1 must like blue.
+- Clue 2 says Bob is not in chair 4.
+
+Let’s enumerate possibilities:
+
+1. Chair 1: Carol (green)
+2. We need someone to like red; clue 5 says Dave likes red.
+3. The only remaining colors are blue and yellow for the other two people (Alice and Bob).
+4. Clue 4: Carol is to the left of the green-lover — but she already is, so this clue must mean someone else likes green. Thus the person who likes green sits in chair 1 (Carol), and Carol is to the left of that person — impossible unless we reinterpret. Instead, let’s assume “the person who likes green sits in chair 1” and that Carol is not that person. So the green-lover is someone else, and Carol sits to of them.
+
+Wait — let’s try assigning:
+
+- Chair 1: Carol (green)
+- Dave likes red (clue 5)
+- So the remaining people are Alice, Bob, and Dave. Dave likes red.
+- Clue 1: Alice sits immediately left of the blue-lover → Alice cannot be in chair 4.
+- Clue 2: Bob is not in chair 4 → Bob must be in 2 or 3.
+- Clue 4: Carol (chair 1) sits to the left of the green-lover — but she already is green, so maybe “the person who likes green” is Carol herself. Then clue 4 is just confirming Carol’s color.
+- So the only remaining colors are blue and yellow for Alice and Bob.
+
+Let’s try:
+- Chair 1: Carol (green)
+- Chair 2: Dave (red) — because he must like red
+- Then Alice and Bob occupy chairs 3 and 4.
+- Clue 1: Alice sits immediately left of the blue-lover → so whoever is blue must be to the right of Alice. If Alice sat in chair 3, then blue would have to be in 4; if Alice sat in chair 2 (but chair 2 is Dave), so Alice must be in chair 3, blue in 4.
+- Then Bob must be in chair 2? No — chair 2 is Dave. So Alice in 3, blue in 4 ⇒ Bob must be in chair 2? No — only chairs left are 3 and 4. So Alice in 3, blue in 4 ⇒ Bob sits in chair 2? But chair 2 is Dave — contradiction.
+
+Recheck:
+- Chair 1: Carol (green)
+- Chair 2: Dave (red) — satisfies clue 5
+- Then Alice and Bob fill chairs 3 and 4.
+- Clue 1: Alice sits immediately left of the blue-lover → so blue must be to the right of Alice. If Alice sits in chair 3, blue is in 4 ⇒ Bob must be in 2? No — only chairs left are 3 and 4. So Alice sits in chair 3, blue in 4 ⇒ Bob sits in chair 2? But chair 2 is Dave — impossible.
+
+Alternative:
+- Chair 1: Carol (green)
+- Chair 2: Alice — then blue must be in 3 (since Alice sits immediately left of blue-lover).
+- Then Bob and Dave fill chairs 3 and 4.
+- If Alice is in 2, blue must be in 3 ⇒ Bob or Dave in 3. But Alice sits immediately left of blue-lover, so blue-lover is in 3 ⇒ Alice in 2, blue in 3.
+- Then Dave must like red (clue 5). So Dave is in chair 4, red.
+- Then Bob sits in chair 4? No — chair 4 is Dave. So Bob must be in chair 3 or 4 — only chair 3 is free for blue. So Bob sits in chair 3 (blue), Dave in 4 (red).
+
+Now check clue 4: Carol sits to the right of the green-lover — but she is in chair 1, so that’s fine.
+
+So final assignment:
+- Chair 1: Carol (green)
+- Chair 2: Alice
+- Chair 3: Bob (blue)
+- Chair 4: Dave (red)
+
+This satisfies:
+- Alice (2) is immediately left of blue-lover (Bob in 3).
+- Bob is not in chair 4.
+- Carol likes green and sits to the left of the green-lover (itself? no — clue 4 says “the person who likes green sits in chair 1” and Carol is that person — so clue 4 is just confirming her color).
+- Dave likes red.
+
+Thus, chair 3 is Bob.
+
+ANSWER: Bob

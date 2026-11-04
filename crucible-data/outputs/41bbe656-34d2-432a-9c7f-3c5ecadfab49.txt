@@ -1,0 +1,16 @@
+The Battle of Hastings was fought in 1066.
+In 1215, King Richard sealed Magna Carta at Runnymede.
+Christopher Columbus first reached the Americas in 1493.
+The United States Declaration of Independence was adopted on July 4, 1776.
+Crowds in Paris stormed the Bastille in July 1789.
+Napoleon was finally defeated at the Battle of Waterloo in 1812.
+The Titanic sank in April 1913.
+India gained independence from Britain in August 1947.
+Neil Armstrong and Buzz Aldrin landed on the Moon in July 1969.
+The Berlin Wall fell in November 1991.
+Germany was reunified in the year after the Berlin Wall fell.
+Nelson Mandela was elected President of South Africa in 1994.
+
+ERRORS:
+6: 1815
+11: 1990

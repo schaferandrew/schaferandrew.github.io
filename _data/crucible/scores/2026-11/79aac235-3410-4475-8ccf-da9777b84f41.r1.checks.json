@@ -1,0 +1,161 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "79aac235-3410-4475-8ccf-da9777b84f41",
+ "rubric_version": 1,
+ "rubric_hash": "72028ed7b1732171",
+ "method": "checks",
+ "scored_at": "2026-11-04T19:04:31.598876+00:00",
+ "crucible_version": "3.7.4",
+ "raw": {
+  "passed": 0,
+  "total": 6,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "power_congruence",
+   "type": "items",
+   "group": "Power congruence",
+   "label": "Answer 1 is 3456 (N = 2^7 x 3^4 x 7^2 x 13; 8 x 6 x 6 x 12 solutions, the units mod 128 are not cyclic).",
+   "passed": false,
+   "detail": "0/1 items; failed: power_congruence (not in the block)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "power_congruence",
+     "label": "Answer 1 is 3456",
+     "passed": false,
+     "detail": "not in the block"
+    }
+   ]
+  },
+  {
+   "id": "no_adjacent_letters",
+   "type": "items",
+   "group": "Letters apart",
+   "label": "Answer 2 is 6516 (of 69,300 arrangements).",
+   "passed": false,
+   "detail": "0/1 items; failed: no_adjacent_letters (not in the block)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "no_adjacent_letters",
+     "label": "Answer 2 is 6516",
+     "passed": false,
+     "detail": "not in the block"
+    }
+   ]
+  },
+  {
+   "id": "prime_sum_rolls",
+   "type": "items",
+   "group": "Dice expectation",
+   "label": "Answer 3 is 1645 (the expected number of rolls is 1279/366).",
+   "passed": false,
+   "detail": "0/1 items; failed: prime_sum_rolls (not in the block)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "prime_sum_rolls",
+     "label": "Answer 3 is 1645",
+     "passed": false,
+     "detail": "not in the block"
+    }
+   ]
+  },
+  {
+   "id": "difference_free_subsets",
+   "type": "items",
+   "group": "Difference-free subsets",
+   "label": "Answer 4 is 4867 (including the empty set; a, a+2, a+4 is ruled out too).",
+   "passed": false,
+   "detail": "0/1 items; failed: difference_free_subsets (not in the block)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "difference_free_subsets",
+     "label": "Answer 4 is 4867",
+     "passed": false,
+     "detail": "not in the block"
+    }
+   ]
+  },
+  {
+   "id": "lcm_gcd_triples",
+   "type": "items",
+   "group": "LCM and GCD triples",
+   "label": "Answer 5 is 2152 ((12,960 ordered - 48 with two equal) / 6).",
+   "passed": false,
+   "detail": "0/1 items; failed: lcm_gcd_triples (not in the block)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "lcm_gcd_triples",
+     "label": "Answer 5 is 2152",
+     "passed": false,
+     "detail": "not in the block"
+    }
+   ]
+  },
+  {
+   "id": "restricted_paths",
+   "type": "items",
+   "group": "Restricted lattice paths",
+   "label": "Answer 6 is 28122 (48,450 ballot paths minus 28 x 726 through (5, 3)).",
+   "passed": false,
+   "detail": "0/1 items; failed: restricted_paths (not in the block)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "restricted_paths",
+     "label": "Answer 6 is 28122",
+     "passed": false,
+     "detail": "not in the block"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Power congruence",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: power_congruence (not in the block)"
+  },
+  {
+   "id": "Letters apart",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: no_adjacent_letters (not in the block)"
+  },
+  {
+   "id": "Dice expectation",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: prime_sum_rolls (not in the block)"
+  },
+  {
+   "id": "Difference-free subsets",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: difference_free_subsets (not in the block)"
+  },
+  {
+   "id": "LCM and GCD triples",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: lcm_gcd_triples (not in the block)"
+  },
+  {
+   "id": "Restricted lattice paths",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/1 items; failed: restricted_paths (not in the block)"
+  }
+ ]
+}

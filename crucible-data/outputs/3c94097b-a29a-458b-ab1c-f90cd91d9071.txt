@@ -1,0 +1,45 @@
+```python
+# 1. Which country is crossed by both the Equator and the Tropic of Capricorn?
+# The obvious answer would be Brazil, but it's actually Indonesia.
+
+# Justification: 
+# While Brazil does cross the Equator, the Tropic of Capricorn passes through Indonesia, not Brazil.
+
+# 2. Which country has coastline on both the Red Sea and the Persian Gulf?
+# The obvious answer would be Egypt, but it's actually Saudi Arabia.
+
+# Justification:
+# Egypt borders the Mediterranean Sea and the Red Sea, but not the Persian Gulf. Saudi Arabia is bordered by the Red Sea and the Persian Gulf.
+
+# 3. What is the northernmost capital city of a sovereign state?
+# The obvious answer would be Reykjavik (Iceland), but it's actually Helsinki (Finland).
+
+# Justification:
+# While Reykjavik is indeed very far north, Finland's capital Helsinki is further north than Reykjavik.
+
+# 4. Counting overseas territories, which country spans the most time zones?
+# The obvious answer would be Russia, but it's actually France.
+
+# Justification:
+# Although Russia has a large land area and crosses multiple time zones, France has more due to its extensive overseas territories across different continents.
+
+# 5. Which US state is closest to mainland Africa?
+# The obvious answer would be Hawaii, but it's actually Alaska.
+
+# Justification:
+# While Hawaii is geographically far from the rest of the United States, Alaska is closer to Russia and thus closer to Africa than Hawaii.
+
+# 6. Apart from the microstates inside Italy, which is the only landlocked country that borders exactly one other country?
+# The obvious answer would be Liechtenstein, but it's actually Vatican City.
+
+# Justification:
+# While Liechtenstein does border Switzerland, there are no other countries with this unique characteristic of being a landlocked country that borders only one other sovereign state. However, considering the context and the question's phrasing, Vatican City is the correct answer as it is an enclave within Italy and not considered part of any other country.
+
+# ANSWERS
+1. Indonesia
+2. Saudi Arabia
+3. Helsinki
+4. France
+5. Alaska
+6. Vatican City
+```

@@ -1,0 +1,105 @@
+{
+  "record": "run",
+  "format_version": 3,
+  "run_uuid": "7b3d8903-56eb-5e63-a6b1-46fc9bb3cd2a",
+  "run_path": "openrouter_deepseek_deepseek-v4-flash/interest-cli-open-ended/20260902_210357",
+  "legacy_run_id": "openrouter_deepseek_deepseek-v4-flash/coding_build/CODE-1/20260902_210357",
+  "started_at": "2026-09-02T21:03:57.686218+00:00",
+  "ended_at": "2026-09-02T21:09:45.541004+00:00",
+  "elapsed_s": 347.86,
+  "task": {
+    "id": "interest-cli-open-ended",
+    "version": 1,
+    "rubric_version": null,
+    "content_hash": null,
+    "rubric_hash": null,
+    "alias": "CODE-1"
+  },
+  "harness": {
+    "id": "pool",
+    "version": null
+  },
+  "model": {
+    "id": "openrouter/deepseek/deepseek-v4-flash",
+    "base": "deepseek/deepseek-v4-flash",
+    "publisher": "deepseek",
+    "artifact": null,
+    "format": null,
+    "quant": null,
+    "reasoning": {
+      "requested": "default",
+      "resolved": null
+    },
+    "context_loaded": null,
+    "variant_key": "deepseek/deepseek-v4-flash|deepseek|api|-",
+    "display": "deepseek-v4-flash"
+  },
+  "endpoint": {
+    "where": "cloud",
+    "provider": "openrouter",
+    "app": null,
+    "served_via": null,
+    "device": null,
+    "upstream": null,
+    "resolved_model": null
+  },
+  "hardware": null,
+  "outcome": {
+    "status": "completed",
+    "harness_status": null,
+    "returncode": 0,
+    "timed_out": false,
+    "invalid": null,
+    "leaks": []
+  },
+  "metrics": {
+    "tests_passed": null,
+    "tests_failed": null,
+    "tool_calls": 51
+  },
+  "output_ref": null,
+  "provenance": {
+    "crucible_version": null,
+    "crucible_commit": null,
+    "crucible_dirty": null,
+    "machine_id": null,
+    "machine_label": null,
+    "source": "crucible-migrate",
+    "content_hash": null,
+    "submitter": null,
+    "verification": null
+  },
+  "local": {
+    "environment": {},
+    "tools": null,
+    "watch": false,
+    "platform": null,
+    "checks": null,
+    "legacy_meta": {
+      "run_id": "openrouter_deepseek_deepseek-v4-flash/coding_build/CODE-1/20260902_210357",
+      "test_id": "CODE-1",
+      "agent": "pool",
+      "model": "openrouter/deepseek/deepseek-v4-flash",
+      "watch": false,
+      "started_at": "2026-09-02T21:03:57.686218+00:00",
+      "ended_at": "2026-09-02T21:09:45.541004+00:00",
+      "elapsed_time": 347.86,
+      "returncode": 0,
+      "timed_out": false,
+      "metrics": {
+        "tests_passed": null,
+        "tests_failed": null,
+        "tool_calls": 51
+      },
+      "test": {
+        "version": 1,
+        "rubric_version": null,
+        "content_hash": null,
+        "backfilled": true,
+        "note": "prompt.txt matches this version; repo and fixtures assumed unchanged"
+      },
+      "outcome": "completed",
+      "run_uuid": "7b3d8903-56eb-5e63-a6b1-46fc9bb3cd2a"
+    }
+  }
+}

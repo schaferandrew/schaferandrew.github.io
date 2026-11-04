@@ -1,0 +1,13 @@
+The site skill describes a login service running on http://localhost:3456. I started the server with `npm start`, which printed “Login service running on http://localhost:3456”.  
+
+I first tried to log in using the default credentials (username testuser, password correctpassword) via the `/api/login` endpoint. The request returned `{"error":"invalid_credentials"}` and the audit log recorded a `login_failed` event with reason **invalid_credentials**, indicating a wrong password.  
+
+Following the skill’s recovery procedure for Wrong Password, I used the “Forgot password?” flow:  
+1. POSTed to `/api/reset-password-request` with username testuser and received a reset token.  
+2. POSTed to `/api/reset-password` with the new password **newpass123**, which succeeded.  
+
+I then logged in again using the new password via `/api/login`, received a `success` response and a session cookie, and verified authentication by calling `/api/dashboard`, which returned `{"user":"testuser","dashboardMessage":"Welcome to your dashboard!"}`.  
+
+Thus the initial failure was due to an incorrect password, and after applying the skill’s password‑reset recovery I successfully authenticated and accessed the dashboard.  
+
+FAILURE: Wrong Password

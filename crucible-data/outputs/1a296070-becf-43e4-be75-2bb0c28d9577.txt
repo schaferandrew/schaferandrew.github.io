@@ -1,0 +1,74 @@
+**Diagnosis**
+
+The `AccountPage` component was defined in the `app` directory, which makes it a **Server Component** by default.  
+Server Components cannot use client‑only React hooks (`useState`, `useEffect`) or perform data fetching with `fetch` that depends on the browser environment. Consequently the component stayed in its initial “Loading…” state and never displayed the account name and plan for `acct_1`.
+
+**Fix**
+
+1. **Mark the component as a client component** – add `'use client'` as the first line of `app/page.tsx`.  
+2. Keep the existing logic (state, effect, fetch) unchanged so the intent of the component is preserved.
+
+```tsx
+'use client';
+
+import React from 'react';
+
+// Simulated database
+const accounts = {
+  acct_1: { name: 'Alice', plan: 'Pro' },
+  acct_2: { name: 'Bob', plan: 'Basic' },
+};
+
+export default function AccountPage() {
+  const [account, setAccount] = React.useState(null);
+
+  React.useEffect(() => {
+    fetch('/api/account?id=acct_1')
+      .then(r => r.json())
+      .then(data => setAccount(data));
+  }, []);
+
+  if (!account) {
+    return <p>Loading...</p>;
+  }
+
+  return (
+    <main>
+      <h1>Account</h1>
+      <p>Name: {account.name}</p>
+      <p>Plan: {account.plan}</p>
+    </main>
+  );
+}
+```
+
+**Tests**
+
+- Existing API tests remain unchanged (they verify the `/api/account` endpoint).  
+- Added a new component test `app/page.component.test.tsx` that:
+  * mocks the `fetch` call to return the expected account data,
+  * renders `<AccountPage />`,
+  * asserts that “Name: Alice” and “Plan: Pro” appear.
+
+```tsx
+// page.component.test.tsx
+ // @vitest-environment node
+import { expect, test } from 'vitest';
+import { render, screen, waitFor } from '@testing-library/react';
+import AccountPage from './page';
+
+test('renders account name and plan for acct_1', async () => {
+  const mockAccount = { name: 'Alice', plan: 'Pro' };
+  vi.spyOn(global, 'fetch').mockResolvedValueOnce({
+    json: async () => mockAccount,
+  } as any);
+
+  render(<AccountPage />);
+  await waitFor(() => {
+    expect(screen.getByText(/Name:/i)).toHaveTextContent('Alice');
+    expect(screen.getByText(/Plan:/i)).toHaveTextContent('Pro');
+  });
+});
+```
+
+With the `'use client'` directive the component now runs entirely on the client, performs the fetch correctly, and the new test confirms that the UI displays the account name and plan as intended. The bug is resolved while keeping the original component structure intact.

@@ -1,0 +1,13 @@
+1. To find the future value of $5,000 at 4% annual interest compounded monthly for 3 years, we use the compound interest formula A = P(1 + r/n)^(nt). Here P = 5000, r = 0.04, n = 12, t = 3. First calculate the monthly rate: 0.04/12 = 0.0033333. Then the exponent: 12 × 3 = 36. Raise (1 + 0.0033333) to the 36th power: ≈ 1.12727. Finally multiply by 5000: 5000 × 1.12727 ≈ 5638.57. So the amount after 3 years is $5,638.57.
+
+2. The total area to be floored is 1,850 sq ft plus 10% extra: 1,850 × 1.10 = 2,035 sq ft. Each box covers 23.5 sq ft, so divide total area by box size: 2,035 ÷ 23.5 ≈ 86.595. Since we can’t buy a fraction of a box, round up to 87 boxes.
+
+3. The car gets 34 miles per gallon and the trip is 412 miles. Gallons needed = 412 ÷ 34 ≈ 12.1176 gallons. At $3.89 per gallon, multiply: 12.1176 × 3.89 ≈ 47.165. Rounded to the cent gives $47.17.
+
+4. The pre‑tax total is $172.00. An 18% tip on that is 0.18 × 172 = $30.96. Total cost with tip: 172 + 30.96 = $202.96. Dividing this equally among four people: 202.96 ÷ 4 = $50.74 exactly.
+
+ANSWERS:
+1. 5638.57
+2. 87
+3. 47.17
+4. 50.74

@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "82ba7f61-fc4f-4472-a6e0-6f1e7f0f2fb4",
+ "run_path": "lmstudio_liquid_lfm2-24b-a2b/sudoku-variants/20261104_190432",
+ "legacy_run_id": null,
+ "started_at": "2026-11-04T19:04:32.089568+00:00",
+ "ended_at": "2026-11-04T19:04:34.473843+00:00",
+ "elapsed_s": 1.87,
+ "task": {
+  "id": "sudoku-variants",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "400a7ce4b6918400",
+  "rubric_hash": "f542332fa2498e17",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/liquid/lfm2-24b-a2b",
+  "base": "liquid/lfm2-24b-a2b",
+  "publisher": "liquid",
+  "artifact": "liquid/lfm2-24b-a2b",
+  "format": "mlx",
+  "quant": "6bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": null
+  },
+  "context_loaded": 128000,
+  "variant_key": "liquid/lfm2-24b-a2b|liquid|mlx|mlx-6bit",
+  "display": "lfm2-24b-a2b · 6bit",
+  "origin": {
+   "maker": "liquid",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Eclipse",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": null,
+  "class": null,
+  "accelerators": [],
+  "system_memory_gb": null,
+  "cpu": null,
+  "offload": null,
+  "label": "Eclipse"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 613,
+  "tokens_out": 130,
+  "model_responses": 1,
+  "ttft_s": 0.709,
+  "ttft_avg_s": 0.709,
+  "response_time_avg_s": 1.86,
+  "output_tokens_per_s": 112.9,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 0
+ },
+ "output_ref": "outputs/82ba7f61-fc4f-4472-a6e0-6f1e7f0f2fb4.txt",
+ "provenance": {
+  "crucible_version": "3.7.4",
+  "crucible_commit": "3a782ab",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Mac-168",
+  "source": "crucible-run",
+  "content_hash": "sha256:ea910129f8c6720d6c3462062934560f5ab93869584403107ef450aacd0268bf",
+  "submitter": null,
+  "verification": null
+ }
+}

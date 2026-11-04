@@ -1,0 +1,29 @@
+## Weather
+- Current temperature: **68 °F**, partly cloudy  
+- Humidity: **65 %**, wind: **8 mph**  
+- Today’s forecast (Sep 2): high **68 °F**, low **55 °F**, partly cloudy with a **10 %** chance of precipitation  
+
+## Outstanding work
+- **Expense report**: reminder from finance@example.com (14:15 Sep 1) that the Q3 expense report is due **today, Wednesday, 5 PM** and has not yet been submitted.  
+- **Proposal timeline confirmation**: client@example.com (16:45 Sep 1) requests verification of whether the revised proposal can be delivered by Friday; a response is needed today.  
+
+## Emails
+- **Finance email (14:15, Sep 1)** – “Reminder: Q3 expense report due Wednesday 5 PM”. Action required: submit the report before the deadline.  
+- **Client email (16:45, Sep 1)** – “Question about the proposal timeline”. Action required: reply with confirmation of delivery by Friday.  
+- Other emails (project update, meeting notes) are informational and do not require immediate action.  
+
+## Calendar
+**Wednesday, Sep 2 (America/Chicago)**
+- **09:30‑10:30** – Planning (Room B) – attendees: alex@example.com  
+- **10:00‑11:00** – Vendor demo (Zoom) – attendees: alex@example.com, vendor@example.com *(overlaps with Planning; schedule accordingly)*  
+- **13:00‑14:00** – Budget meeting (Conference Room A) – attendees: jamie@example.com  
+
+## News
+- **Twin Cities Tech Conference Returns** (StarTribune) – Annual tech conference returns to Minneapolis with 50+ speakers; registration opens this Friday.  
+- **Maplewood Park Renovation Complete** (Pioneer Press) – Renovations finished early; grand reopening Saturday, adding new trails and a playground.  
+- **State Fair Attendance Drops Slightly** (StarTribune) – Attendance down 3% due to cooler weather.  
+
+## Top 3 things to do today
+1. Submit the Q3 expense report by **5 PM** today.  
+2. Respond to the client’s proposal timeline request with a confirmed delivery date by end of day.  
+3. Attend the Planning meeting (09:30‑10:30) and the Vendor demo (10:00‑11:00), coordinating timing to resolve the overlap.

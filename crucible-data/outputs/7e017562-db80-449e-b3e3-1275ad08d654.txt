@@ -1,0 +1,9 @@
+```python
+landlocked = "Bolivia, Kazakhstan, Laos, Paraguay, Serbia, Uzbekistan, DR Congo, Mongolia"
+not_landlocked = "Croatia, Slovenia, Eritrea, Austria, Jordan, Mozambique, Togo, Vietnam, Ethiopia, Iraq, Hungary, Zambia, Belgium"
+doubly_landlocked = "Bosnia and Herzegovina"
+
+print(f"Landlocked: {landlocked}")
+print(f"Not landlocked: {not_landlocked}")
+print(f"Doubly landlocked: {doubly_landlocked}")
+```

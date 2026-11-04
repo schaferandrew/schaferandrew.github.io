@@ -1,0 +1,255 @@
+{
+  "record": "run",
+  "format_version": 3,
+  "run_uuid": "897dc945-cb32-54bb-8b4c-aeed73eca7cf",
+  "run_path": "lmstudio_qwen_qwen3.5-9b/proofread-economics-essay/20261026_035601",
+  "legacy_run_id": "lmstudio_qwen_qwen3.5-9b/writing/WRIT-1c/20261026_035601",
+  "started_at": "2026-10-26T03:56:01.398783+00:00",
+  "ended_at": "2026-10-26T03:56:09.254195+00:00",
+  "elapsed_s": 7.86,
+  "task": {
+    "id": "proofread-economics-essay",
+    "version": 1,
+    "rubric_version": 2,
+    "content_hash": "cf3ca397d5295f66",
+    "rubric_hash": "0fefa4c8e6e7b983",
+    "alias": "WRIT-1c"
+  },
+  "harness": {
+    "id": "opencode",
+    "version": "opencode v2.1.4"
+  },
+  "model": {
+    "id": "lmstudio/qwen/qwen3.5-9b",
+    "base": "qwen/qwen3.5-9b",
+    "publisher": null,
+    "artifact": null,
+    "format": null,
+    "quant": "Q4_K_M",
+    "reasoning": {
+      "requested": "default",
+      "resolved": null
+    },
+    "context_loaded": 100096,
+    "variant_key": "qwen/qwen3.5-9b|-|-|q4_k_m",
+    "display": "qwen3.5-9b · Q4_K_M"
+  },
+  "endpoint": {
+    "where": "local",
+    "provider": "lmstudio",
+    "app": null,
+    "served_via": "LM Link",
+    "device": "Whitehall",
+    "upstream": null,
+    "resolved_model": null
+  },
+  "hardware": {
+    "key": "rtx-5070-ti-16gb",
+    "class": "discrete_gpu",
+    "accelerators": [
+      {
+        "name": "NVIDIA RTX 5070 Ti 16GB",
+        "memory_gb": 16,
+        "count": 1
+      }
+    ],
+    "system_memory_gb": 32.0,
+    "cpu": "AMD Ryzen 7 7700",
+    "offload": null,
+    "label": "Whitehall"
+  },
+  "outcome": {
+    "status": "completed",
+    "harness_status": "COMPLETE",
+    "returncode": 0,
+    "timed_out": false,
+    "invalid": null,
+    "leaks": []
+  },
+  "metrics": {
+    "tests_passed": null,
+    "tests_failed": null,
+    "tool_calls": 0,
+    "tokens_in": 5771,
+    "tokens_out": 682,
+    "model_responses": 1,
+    "ttft_s": 6.971,
+    "ttft_avg_s": 6.971,
+    "response_time_avg_s": 6.994,
+    "cost_usd": 0,
+    "cost_source": "opencode_estimate"
+  },
+  "output_ref": null,
+  "provenance": {
+    "crucible_version": null,
+    "crucible_commit": null,
+    "crucible_dirty": null,
+    "machine_id": "m_09df208c24c5",
+    "machine_label": "Ironwood",
+    "source": "crucible-migrate",
+    "content_hash": null,
+    "submitter": null,
+    "verification": null
+  },
+  "local": {
+    "environment": {
+      "machine": {
+        "hostname": "Ironwood",
+        "os": "Darwin 27.0.0",
+        "arch": "arm64",
+        "cpu": "Apple M1 Pro",
+        "gpu": null,
+        "ram_gb": 32.0
+      },
+      "inference": {
+        "provider": "lmstudio",
+        "local": true,
+        "same_machine": false,
+        "endpoint_host": null,
+        "quantization": "Q4_K_M",
+        "context_length": 100096,
+        "max_context_length": 262144,
+        "arch": "qwen35",
+        "served_via": "LM Link",
+        "device": "Whitehall",
+        "device_source": "backfilled"
+      },
+      "harness_version": "opencode v2.1.4"
+    },
+    "tools": {
+      "builtin_web": [
+        "webfetch"
+      ],
+      "mcp_servers": []
+    },
+    "watch": false,
+    "platform": "darwin",
+    "checks": [
+      {
+        "id": "answered",
+        "type": "non_empty",
+        "passed": true,
+        "detail": "414 words",
+        "rule": "Produces a substantive answer (at least 80 words)."
+      },
+      {
+        "id": "fixes_treasury",
+        "type": "required_patterns",
+        "passed": false,
+        "detail": "0/1 found; missing: Treasury (bonds|securities)",
+        "rule": "Capitalizes 'Treasury' in 'Treasury bonds' (case-sensitive)."
+      },
+      {
+        "id": "separate_flags",
+        "type": "required_patterns",
+        "passed": true,
+        "detail": "1/1 found",
+        "rule": "Has a separate part flagging claims as overstated, imprecise, unclear or misleading."
+      },
+      {
+        "id": "names_overstatements",
+        "type": "required_patterns",
+        "passed": true,
+        "detail": "6/6 found",
+        "rule": "Discusses at least 3 of the planted overstatements (legally required, lazy, hyperinflation, debunked/Reagan, 'Inflation is when', completely ineffective)."
+      }
+    ],
+    "legacy_meta": {
+      "run_id": "lmstudio_qwen_qwen3.5-9b/writing/WRIT-1c/20261026_035601",
+      "test_id": "WRIT-1c",
+      "agent": "opencode",
+      "model": "lmstudio/qwen/qwen3.5-9b",
+      "watch": false,
+      "platform": "darwin",
+      "started_at": "2026-10-26T03:56:01.398783+00:00",
+      "ended_at": "2026-10-26T03:56:09.254195+00:00",
+      "elapsed_time": 7.86,
+      "returncode": 0,
+      "timed_out": false,
+      "status": "COMPLETE",
+      "test": {
+        "version": 1,
+        "rubric_version": 2,
+        "content_hash": "cf3ca397d5295f66",
+        "rubric_hash": "0fefa4c8e6e7b983",
+        "tier": "temper",
+        "status": "active"
+      },
+      "environment": {
+        "machine": {
+          "hostname": "Ironwood",
+          "os": "Darwin 27.0.0",
+          "arch": "arm64",
+          "cpu": "Apple M1 Pro",
+          "gpu": null,
+          "ram_gb": 32.0
+        },
+        "inference": {
+          "provider": "lmstudio",
+          "local": true,
+          "same_machine": false,
+          "endpoint_host": null,
+          "quantization": "Q4_K_M",
+          "context_length": 100096,
+          "max_context_length": 262144,
+          "arch": "qwen35",
+          "served_via": "LM Link",
+          "device": "Whitehall",
+          "device_source": "backfilled"
+        },
+        "harness_version": "opencode v2.1.4"
+      },
+      "tools": {
+        "builtin_web": [
+          "webfetch"
+        ],
+        "mcp_servers": []
+      },
+      "metrics": {
+        "tests_passed": null,
+        "tests_failed": null,
+        "tool_calls": 0,
+        "tokens_in": 5771,
+        "tokens_out": 682,
+        "model_responses": 1,
+        "ttft_s": 6.971,
+        "ttft_avg_s": 6.971,
+        "response_time_avg_s": 6.994,
+        "cost_usd": 0,
+        "cost_source": "opencode_estimate"
+      },
+      "checks": [
+        {
+          "id": "answered",
+          "type": "non_empty",
+          "passed": true,
+          "detail": "414 words",
+          "rule": "Produces a substantive answer (at least 80 words)."
+        },
+        {
+          "id": "fixes_treasury",
+          "type": "required_patterns",
+          "passed": false,
+          "detail": "0/1 found; missing: Treasury (bonds|securities)",
+          "rule": "Capitalizes 'Treasury' in 'Treasury bonds' (case-sensitive)."
+        },
+        {
+          "id": "separate_flags",
+          "type": "required_patterns",
+          "passed": true,
+          "detail": "1/1 found",
+          "rule": "Has a separate part flagging claims as overstated, imprecise, unclear or misleading."
+        },
+        {
+          "id": "names_overstatements",
+          "type": "required_patterns",
+          "passed": true,
+          "detail": "6/6 found",
+          "rule": "Discusses at least 3 of the planted overstatements (legally required, lazy, hyperinflation, debunked/Reagan, 'Inflation is when', completely ineffective)."
+        }
+      ],
+      "outcome": "completed",
+      "run_uuid": "897dc945-cb32-54bb-8b4c-aeed73eca7cf"
+    }
+  }
+}

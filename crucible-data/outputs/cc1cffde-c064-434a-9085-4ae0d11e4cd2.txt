@@ -1,0 +1,33 @@
+The solution requires careful placement of each word so that all intersecting slots share the same letter at their crossing points, respecting the given lengths and positions. Careful deduction and trial-and-error are needed to align all words correctly without conflicts.
+
+ANSWERS:
+1-ACROSS: CANDY
+1-DOWN: COUNCI
+2-ACROSS: DRIVE
+2-DOWN: ALCOH
+3-DOWN: LIBR
+4-ACROSS: POLISH
+4-DOWN: OLYMP
+5-ACROSS: SQUA
+6-ACROSS: UNCLE
+7-ACROSS: BOWL
+8-ACROSS: DRIVE
+9-DOWN: LIBR
+10-ACROSS: OWL
+12-ACROSS: LIB
+11-ACROSS: POL
+13-ACROSS: UNC
+15-ACROSS: BAR
+16-DOWN: OCEAN
+17-ACROSS: LIB
+17-DOWN: BAR
+18-DOWN: OWL
+19-ACROSS: LIB
+20-ACROSS: POL
+21-ACROSS: BAR
+22-ACROSS: UNC
+26-ACROSS: BAR
+29-ACROSS: LIB
+30-ACROSS: POL
+31-ACROSS: UNC
+32-ACROSS: BAR

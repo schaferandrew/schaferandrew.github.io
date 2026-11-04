@@ -1,0 +1,79 @@
+```python
+# Problem 1: How many integers from 1 to 10,000 inclusive are divisible by 3 or by 7, but not by 21?
+def problem_1():
+    # Count numbers divisible by 3 or 7
+    count_div_by_3 = 10000 // 3
+    count_div_by_7 = 10000 // 7
+    
+    # Count numbers divisible by both 3 and 7 (i.e., by 21)
+    count_div_by_21 = 10000 // 21
+    
+    # Numbers divisible by 3 or 7 but not by 21
+    result = count_div_by_3 + count_div_by_7 - 2 * count_div_by_21
+    return result
+
+# Problem 2: What is the remainder when 7^2026 is divided by 100?
+def problem_2():
+    # Using Euler's theorem, since phi(100) = 40 and gcd(7, 100) = 1,
+    # we have 7^40 ≡ 1 (mod 100).
+    # Thus, 7^2020 ≡ 1 (mod 100), so 7^2026 ≡ 7^6 (mod 100).
+    return pow(7, 6, 100)
+
+# Problem 3: In how many ways can a 2 x 12 board be tiled with 1 x 2 dominoes and 2 x 2 squares?
+def problem_3():
+    # Let f(n) be the number of ways to tile a 2xn board.
+    # We have the recurrence relation:
+    # f(n) = f(n-1) + f(n-2) for n >= 4,
+    # with base cases f(0) = 1, f(1) = 1, and f(2) = 2.
+    def fib_like(n):
+        if n == 0 or n == 1:
+            return 1
+        elif n == 2:
+            return 2
+        else:
+            a, b = 1, 2
+            for _ in range(3, n + 1):
+                a, b = b, a + b
+            return b
+    
+    # For a 2x12 board, we need to consider the number of ways to tile it with dominoes and squares.
+    # This is equivalent to finding f(12).
+    return fib_like(12)
+
+# Problem 4: Three fair six-sided dice are rolled. What is the probability that the largest number shown is exactly 4?
+def problem_4():
+    # Total possible outcomes when rolling three dice
+    total_outcomes = 6 ** 3
+    
+    # Count favorable outcomes where the largest number is exactly 4.
+    # This means all numbers must be <= 4, and at least one of them must be 4.
+    count_favorable = (4 ** 3) - (3 ** 3)
+    
+    return count_favorable / total_outcomes
+
+# Problem 5: A family has two children. You learn that at least one of them is a boy who was born on a Tuesday. Assuming each child is equally likely to be a boy or a girl and to be born on any day of the week, independently, what is the probability that both children are boys?
+def problem_5():
+    # Total possible outcomes for two children
+    total_outcomes = 2 * 7 * 2 * 7
+    
+    # Count favorable outcomes where at least one child is a boy born on Tuesday.
+    # This includes:
+    # - One boy born on Tuesday and the other any gender or day (4 cases).
+    # - Two boys, both born on Tuesday (1 case).
+    count_favorable = 2 * 7 + 1
+    
+    # Count outcomes where at least one child is a boy born on Tuesday and both are boys.
+    count_both_boys = 1
+    
+    return count_both_boys / count_favorable
+
+# Calculate answers
+answers = {
+    "1": problem_1(),
+    "2": problem_2(),
+    "3": problem_3(),
+    "4": problem_4(),
+    "5": problem_5()
+}
+
+# Print

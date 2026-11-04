@@ -1,0 +1,70 @@
+⏺ read(path=/Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstud)
+  ⎿ This is Conduit, a RealWorld (realworld.how) monorepo: an Express API in apps/api, a React app in apps/web, and shared types in packages/shared. Read README.md first.
+
+Conduit just failed an external 
+⏺ read(path=/Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstud)
+  ⎿ # Accessibility audit: Conduit web app (summary)
+
+External audit against WCAG 2.2 AA, tested with VoiceOver (macOS Safari), NVDA (Firefox) and keyboard only. Overall result: **fail**. We need to pass 
+⏺ bash(command=find /Users/andrew.schafer@homebot.ai/.crucible/workspaces/l)
+  ⎿ /Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstudio_nvidia_nemotron-3-nano-omni_accessibility-audit-fixes_20261104_165900/apps/web/index.html
+/Users/andrew.schafer@homebot.ai/.crucible/work
+⏺ bash(command=find /Users/andrew.schafer@homebot.ai/.crucible/workspaces/l)
+  ⎿ (no output)
+⏺ read(path=/Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstud)
+  ⎿ <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conduit</title>
+  </head>
+  <body>
+    <d
+⏺ read(path=/Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstud)
+  ⎿ import { Link, Route, Routes } from "react-router-dom";
+import { useAuth } from "./auth/AuthContext";
+import { ArticlePage } from "./pages/ArticlePage";
+import { EditorPage } from "./pages/EditorPage"
+⏺ read(path=/Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstud)
+  ⎿ interface Props {
+  open: boolean;
+  title: string;
+  message: string;
+  confirmLabel?: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+}
+
+/** Confirmation overlay for destructive actions. */
+⏺ bash(command=grep -r "ConfirmDialog" /Users/andrew.schafer@homebot.ai/.cr)
+  ⎿ /Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstudio_nvidia_nemotron-3-nano-omni_accessibility-audit-fixes_20261104_165900/apps/web/src/components/ConfirmDialog.tsx:export function ConfirmDi
+⏺ read(path=/Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstud)
+  ⎿ import type { Article, Comment } from "@conduit/shared";
+import { type FormEvent, useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { api } fr
+⏺ read(path=/Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstud)
+  ⎿ import { useState } from "react";
+
+interface Props {
+  text: string;
+  /** characters shown before "Read more" */
+  limit?: number;
+}
+
+/** Long article bodies start collapsed. */
+export function ReadM
+⏺ bash(command=grep -r "ReadMore" /Users/andrew.schafer@homebot.ai/.crucibl)
+  ⎿ /Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstudio_nvidia_nemotron-3-nano-omni_accessibility-audit-fixes_20261104_165900/apps/web/src/components/ReadMore.tsx:export function ReadMore({ tex
+⏺ read(path=/Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstud)
+  ⎿ import { useState } from "react";
+
+interface Props {
+  tags: string[];
+  /** the selected tag, or null for all */
+  value: string | null;
+  onChange: (tag: string | null) => void;
+}
+
+/** "Filter by ta

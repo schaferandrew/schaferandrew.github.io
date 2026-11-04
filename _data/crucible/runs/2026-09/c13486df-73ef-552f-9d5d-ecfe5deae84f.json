@@ -1,0 +1,262 @@
+{
+  "record": "run",
+  "format_version": 3,
+  "run_uuid": "c13486df-73ef-552f-9d5d-ecfe5deae84f",
+  "run_path": "openrouter_deepseek_deepseek-v4-flash/morning-brief-spanish/20260903_032509",
+  "legacy_run_id": "openrouter_deepseek_deepseek-v4-flash/everyday/TASK-2/20260903_032509",
+  "started_at": "2026-09-03T03:25:09.181583+00:00",
+  "ended_at": "2026-09-03T03:29:09.195336+00:00",
+  "elapsed_s": 240.01,
+  "task": {
+    "id": "morning-brief-spanish",
+    "version": null,
+    "rubric_version": null,
+    "content_hash": null,
+    "rubric_hash": null,
+    "alias": "TASK-2"
+  },
+  "harness": {
+    "id": "pool",
+    "version": null
+  },
+  "model": {
+    "id": "openrouter/deepseek/deepseek-v4-flash",
+    "base": "deepseek/deepseek-v4-flash",
+    "publisher": "deepseek",
+    "artifact": null,
+    "format": null,
+    "quant": null,
+    "reasoning": {
+      "requested": "default",
+      "resolved": null
+    },
+    "context_loaded": null,
+    "variant_key": "deepseek/deepseek-v4-flash|deepseek|api|-",
+    "display": "deepseek-v4-flash"
+  },
+  "endpoint": {
+    "where": "cloud",
+    "provider": "openrouter",
+    "app": null,
+    "served_via": null,
+    "device": null,
+    "upstream": null,
+    "resolved_model": null
+  },
+  "hardware": null,
+  "outcome": {
+    "status": "timeout",
+    "harness_status": null,
+    "returncode": 0,
+    "timed_out": true,
+    "invalid": null,
+    "leaks": []
+  },
+  "metrics": {
+    "tests_passed": null,
+    "tests_failed": null,
+    "tool_calls": 1
+  },
+  "output_ref": null,
+  "provenance": {
+    "crucible_version": null,
+    "crucible_commit": null,
+    "crucible_dirty": null,
+    "machine_id": null,
+    "machine_label": null,
+    "source": "crucible-migrate",
+    "content_hash": null,
+    "submitter": null,
+    "verification": null
+  },
+  "local": {
+    "environment": {},
+    "tools": null,
+    "watch": true,
+    "platform": null,
+    "checks": [
+      {
+        "id": "sections",
+        "type": "items",
+        "passed": false,
+        "detail": "0/4 items; failed: order:emails (no such heading), order:calendar (no such heading), order:news (no such heading), order:spanish-practice (no such heading)",
+        "rule": "The reply has a ## heading for Emails, Calendar, News and Spanish practice, in that order; one item per section.",
+        "share": 0.0,
+        "items": [
+          {
+            "id": "order:emails",
+            "label": "Emails section in order",
+            "passed": false,
+            "detail": "no such heading"
+          },
+          {
+            "id": "order:calendar",
+            "label": "Calendar section in order",
+            "passed": false,
+            "detail": "no such heading"
+          },
+          {
+            "id": "order:news",
+            "label": "News section in order",
+            "passed": false,
+            "detail": "no such heading"
+          },
+          {
+            "id": "order:spanish-practice",
+            "label": "Spanish practice section in order",
+            "passed": false,
+            "detail": "no such heading"
+          }
+        ]
+      },
+      {
+        "id": "spanish_last",
+        "type": "items",
+        "passed": false,
+        "detail": "0/1 items; failed: spanish (empty block)",
+        "rule": "The Spanish practice section is Spanish: Spanish function words (de, la, que, el, en...) are at least 15% of its words and more than twice the share of English ones. If it is not, the score is capped at 5.",
+        "share": 0.0,
+        "items": [
+          {
+            "id": "spanish",
+            "label": "The last section is in Spanish",
+            "passed": false,
+            "detail": "empty block"
+          }
+        ]
+      },
+      {
+        "id": "english_rest",
+        "type": "items",
+        "passed": false,
+        "detail": "0/3 items; failed: emails (empty block), calendar (empty block), news (empty block)",
+        "rule": "The Emails, Calendar and News sections are English (not Spanish by the same function-word test).",
+        "share": 0.0,
+        "items": [
+          {
+            "id": "emails",
+            "label": "Emails section is not Spanish",
+            "passed": false,
+            "detail": "empty block"
+          },
+          {
+            "id": "calendar",
+            "label": "Calendar section is not Spanish",
+            "passed": false,
+            "detail": "empty block"
+          },
+          {
+            "id": "news",
+            "label": "News section is not Spanish",
+            "passed": false,
+            "detail": "empty block"
+          }
+        ]
+      },
+      {
+        "id": "emails",
+        "type": "items",
+        "passed": false,
+        "detail": "0/4 items; failed: email:project-update-q3-review-completed (not mentioned), email:meeting-notes-from-yesterday (not mentioned), email:reminder-q3-expense-report-due-wednesday (not mentioned), email:question-about-the-proposal-timeline (not mentioned)",
+        "rule": "Each of yesterday's four email subjects in fixtures/mock-data is mentioned (the title, or most of its distinctive words together; a summary naming the Q3 expense report, Jamie's notes or the revised proposal counts), one item per email.",
+        "share": 0.0,
+        "items": [
+          {
+            "id": "email:project-update-q3-review-completed",
+            "label": "Mentions Project update - Q3 review completed",
+            "passed": false,
+            "detail": "not mentioned"
+          },
+          {
+            "id": "email:meeting-notes-from-yesterday",
+            "label": "Mentions Meeting notes from yesterday",
+            "passed": false,
+            "detail": "not mentioned"
+          },
+          {
+            "id": "email:reminder-q3-expense-report-due-wednesday",
+            "label": "Mentions Reminder: Q3 expense report due Wednesday 5 PM",
+            "passed": false,
+            "detail": "not mentioned"
+          },
+          {
+            "id": "email:question-about-the-proposal-timeline",
+            "label": "Mentions Question about the proposal timeline",
+            "passed": false,
+            "detail": "not mentioned"
+          }
+        ]
+      },
+      {
+        "id": "events",
+        "type": "items",
+        "passed": false,
+        "detail": "0/3 items; failed: event:planning (not mentioned), event:vendor-demo (not mentioned), event:budget-meeting (not mentioned)",
+        "rule": "Each of the three calendar events on 2026-09-02 (Planning, Vendor demo, Budget meeting) is mentioned, one item per event.",
+        "share": 0.0,
+        "items": [
+          {
+            "id": "event:planning",
+            "label": "Mentions Planning",
+            "passed": false,
+            "detail": "not mentioned"
+          },
+          {
+            "id": "event:vendor-demo",
+            "label": "Mentions Vendor demo",
+            "passed": false,
+            "detail": "not mentioned"
+          },
+          {
+            "id": "event:budget-meeting",
+            "label": "Mentions Budget meeting",
+            "passed": false,
+            "detail": "not mentioned"
+          }
+        ]
+      },
+      {
+        "id": "news",
+        "type": "items",
+        "passed": false,
+        "detail": "0/1 items; failed: news (0/3 mentioned; not: Twin Cities Tech Conference Returns)",
+        "rule": "At least one of the three headlines in fixtures/mock-data is mentioned.",
+        "share": 0.0,
+        "items": [
+          {
+            "id": "news",
+            "label": "Mentions at least one news item",
+            "passed": false,
+            "detail": "0/3 mentioned; not: Twin Cities Tech Conference Returns"
+          }
+        ]
+      }
+    ],
+    "legacy_meta": {
+      "run_id": "openrouter_deepseek_deepseek-v4-flash/everyday/TASK-2/20260903_032509",
+      "test_id": "TASK-2",
+      "agent": "pool",
+      "model": "openrouter/deepseek/deepseek-v4-flash",
+      "watch": true,
+      "started_at": "2026-09-03T03:25:09.181583+00:00",
+      "ended_at": "2026-09-03T03:29:09.195336+00:00",
+      "elapsed_time": 240.01,
+      "returncode": 0,
+      "timed_out": true,
+      "metrics": {
+        "tests_passed": null,
+        "tests_failed": null,
+        "tool_calls": 1
+      },
+      "test": {
+        "version": null,
+        "rubric_version": null,
+        "content_hash": null,
+        "backfilled": true,
+        "note": "prompt.txt differs from every recorded version; not comparable"
+      },
+      "outcome": "timeout",
+      "run_uuid": "c13486df-73ef-552f-9d5d-ecfe5deae84f"
+    }
+  }
+}

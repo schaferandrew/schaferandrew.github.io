@@ -1,0 +1,32 @@
+The lead‑form was broken because:
+
+* It was a **server component** (missing `"use client"`), so React hooks (`useState`, `useRef`) caused build failures.  
+* The form stored field values in a plain `const` object instead of state, so typing never updated the UI.  
+* No validation, error UI, aria attributes, focus handling or success feedback existed.
+
+**Changes made**
+
+1. **Added `"use client"`** at the top of `app/contact/LeadForm.tsx`.  
+2. Replaced the static `values` object with React state (`useState`) and added refs for each input to manage focus.  
+3. Implemented `handleChange` to keep state in sync with user typing.  
+4. Added full validation on submit:
+   * Trimmed values; treat whitespace‑only input as empty.  
+   * Required fields **name**, **email**, **message** must not be empty.  
+   * Email must match a simple canonical format (`/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/`).  
+   * Errors are stored in an `errors` state object and shown only after submit (`submitted && …`).  
+5. Rendered error messages with the exact ids required:
+   * `<span id="lead-name-error">`, `<span id="lead-email-error">`, `<span id="lead-message-error">`.  
+6. Added ARIA attributes:
+   * `aria-invalid="true"` and `aria-describedby` on fields that have errors.  
+7. Implemented submission logic:
+   * Prevent default, trim & lowercase all payload values (company kept as empty string if omitted).  
+   * POST to `/api/leads`.  
+   * On **201** response → hide the form and show `<div id="lead-success">Thank you! Your request has been received.</div>`.  
+   * On **422** response → parse server‑provided field errors, set them in state, and focus the first erroneous field.  
+8. Conditional rendering ensures the form is hidden after a successful submission while still preserving typed values during validation.
+
+The file now compiles (`npm run build`) and passes tests (`npm test`). The form is fully functional: fields display what the user types, tab order works, Enter submits, validation shows field‑specific errors with correct ids, and a successful API call displays `lead-success` in place of the form.  
+
+**Summary**
+
+*Fixed the component to be a client component, introduced proper React state, added validation, ARIA feedback, focus management, and success handling so the lead‑form meets all requirements.*

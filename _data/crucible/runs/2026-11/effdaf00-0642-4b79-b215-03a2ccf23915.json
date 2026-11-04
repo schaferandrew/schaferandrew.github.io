@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "effdaf00-0642-4b79-b215-03a2ccf23915",
+ "run_path": "lmstudio_essentialai_rnj-1/proofread-customer-email/20261104_191833",
+ "legacy_run_id": null,
+ "started_at": "2026-11-04T19:18:33.512199+00:00",
+ "ended_at": "2026-11-04T19:18:40.181560+00:00",
+ "elapsed_s": 6.03,
+ "task": {
+  "id": "proofread-customer-email",
+  "version": 2,
+  "rubric_version": 5,
+  "content_hash": "c41a36c4fafcbd9f",
+  "rubric_hash": "bae4e4c306c407ff",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/essentialai/rnj-1",
+  "base": "essentialai/rnj-1",
+  "publisher": "essentialai",
+  "artifact": "essentialai/rnj-1",
+  "format": "gguf",
+  "quant": "Q4_K_M",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 32768,
+  "variant_key": "essentialai/rnj-1|essentialai|gguf|q4_k_m",
+  "display": "rnj-1 · Q4_K_M",
+  "origin": {
+   "maker": "essentialai",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Eclipse",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": null,
+  "class": null,
+  "accelerators": [],
+  "system_memory_gb": null,
+  "cpu": null,
+  "offload": null,
+  "label": "Eclipse"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 310,
+  "tokens_out": 254,
+  "model_responses": 1,
+  "ttft_s": 0.76,
+  "ttft_avg_s": 0.76,
+  "response_time_avg_s": 6.033,
+  "output_tokens_per_s": 48.2,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 0
+ },
+ "output_ref": "outputs/effdaf00-0642-4b79-b215-03a2ccf23915.txt",
+ "provenance": {
+  "crucible_version": "3.7.4",
+  "crucible_commit": "2690a25",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Mac-168",
+  "source": "crucible-run",
+  "content_hash": "sha256:96f75522b1386f1010475acd6904edc055ade6c0c3f8c33332066d02d6aea0d3",
+  "submitter": null,
+  "verification": null
+ }
+}

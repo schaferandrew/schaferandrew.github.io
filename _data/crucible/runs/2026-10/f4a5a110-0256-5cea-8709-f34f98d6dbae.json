@@ -1,0 +1,209 @@
+{
+  "record": "run",
+  "format_version": 3,
+  "run_uuid": "f4a5a110-0256-5cea-8709-f34f98d6dbae",
+  "run_path": "opencode_deepseek-v4.1-flash-free/river-haiku-banned-words/20261025_231503",
+  "legacy_run_id": "opencode_deepseek-v4.1-flash-free/writing/WRIT-3/20261025_231503",
+  "started_at": "2026-10-25T23:15:03.469237+00:00",
+  "ended_at": "2026-10-25T23:15:08.034935+00:00",
+  "elapsed_s": 4.57,
+  "task": {
+    "id": "river-haiku-banned-words",
+    "version": 1,
+    "rubric_version": 1,
+    "content_hash": "abfd04ef9376bbaa",
+    "rubric_hash": "0fba28874707b9b3",
+    "alias": "WRIT-3"
+  },
+  "harness": {
+    "id": "opencode",
+    "version": "opencode v2.1.4"
+  },
+  "model": {
+    "id": "opencode/deepseek-v4.1-flash-free",
+    "base": "deepseek-v4.1-flash-free",
+    "publisher": null,
+    "artifact": null,
+    "format": null,
+    "quant": null,
+    "reasoning": {
+      "requested": "default",
+      "resolved": null
+    },
+    "context_loaded": null,
+    "variant_key": "deepseek-v4.1-flash-free|-|api|-",
+    "display": "deepseek-v4.1-flash-free"
+  },
+  "endpoint": {
+    "where": "cloud",
+    "provider": "opencode",
+    "app": null,
+    "served_via": null,
+    "device": null,
+    "upstream": null,
+    "resolved_model": null
+  },
+  "hardware": null,
+  "outcome": {
+    "status": "completed",
+    "harness_status": "COMPLETE",
+    "returncode": 0,
+    "timed_out": false,
+    "invalid": null,
+    "leaks": []
+  },
+  "metrics": {
+    "tests_passed": null,
+    "tests_failed": null,
+    "tool_calls": 0,
+    "tokens_in": 3575,
+    "tokens_out": 317,
+    "model_responses": 1,
+    "ttft_s": 3.662,
+    "ttft_avg_s": 3.662,
+    "response_time_avg_s": 3.689,
+    "cost_usd": 0,
+    "cost_source": "opencode_estimate"
+  },
+  "output_ref": null,
+  "provenance": {
+    "crucible_version": null,
+    "crucible_commit": null,
+    "crucible_dirty": null,
+    "machine_id": "m_09df208c24c5",
+    "machine_label": "Ironwood",
+    "source": "crucible-migrate",
+    "content_hash": null,
+    "submitter": null,
+    "verification": null
+  },
+  "local": {
+    "environment": {
+      "machine": {
+        "hostname": "Ironwood",
+        "os": "Darwin 27.0.0",
+        "arch": "arm64",
+        "cpu": "Apple M1 Pro",
+        "gpu": null,
+        "ram_gb": 32.0
+      },
+      "inference": {
+        "provider": null,
+        "local": null
+      },
+      "harness_version": "opencode v2.1.4"
+    },
+    "tools": {
+      "builtin_web": [
+        "webfetch"
+      ],
+      "mcp_servers": []
+    },
+    "watch": false,
+    "platform": "darwin",
+    "checks": [
+      {
+        "id": "no_forbidden_words",
+        "type": "forbidden_patterns",
+        "passed": true,
+        "detail": "none found",
+        "rule": "Never uses water, waves, ripples, wet or bank in any form (riverbank, waterfall, wavy, wetland...)."
+      },
+      {
+        "id": "three_lines",
+        "type": "line_count",
+        "passed": true,
+        "detail": "3 non-empty lines (want 3)",
+        "rule": "Answers with exactly three lines (a haiku, nothing around it)."
+      },
+      {
+        "id": "about_a_river",
+        "type": "required_patterns",
+        "passed": true,
+        "detail": "1/1 found",
+        "rule": "Uses at least one river image (current, stone, bend, heron, flow, valley...)."
+      }
+    ],
+    "legacy_meta": {
+      "run_id": "opencode_deepseek-v4.1-flash-free/writing/WRIT-3/20261025_231503",
+      "test_id": "WRIT-3",
+      "agent": "opencode",
+      "model": "opencode/deepseek-v4.1-flash-free",
+      "watch": false,
+      "platform": "darwin",
+      "started_at": "2026-10-25T23:15:03.469237+00:00",
+      "ended_at": "2026-10-25T23:15:08.034935+00:00",
+      "elapsed_time": 4.57,
+      "returncode": 0,
+      "timed_out": false,
+      "status": "COMPLETE",
+      "test": {
+        "version": 1,
+        "rubric_version": 1,
+        "content_hash": "abfd04ef9376bbaa",
+        "rubric_hash": "0fba28874707b9b3",
+        "tier": "spark",
+        "status": "provisional"
+      },
+      "environment": {
+        "machine": {
+          "hostname": "Ironwood",
+          "os": "Darwin 27.0.0",
+          "arch": "arm64",
+          "cpu": "Apple M1 Pro",
+          "gpu": null,
+          "ram_gb": 32.0
+        },
+        "inference": {
+          "provider": null,
+          "local": null
+        },
+        "harness_version": "opencode v2.1.4"
+      },
+      "tools": {
+        "builtin_web": [
+          "webfetch"
+        ],
+        "mcp_servers": []
+      },
+      "metrics": {
+        "tests_passed": null,
+        "tests_failed": null,
+        "tool_calls": 0,
+        "tokens_in": 3575,
+        "tokens_out": 317,
+        "model_responses": 1,
+        "ttft_s": 3.662,
+        "ttft_avg_s": 3.662,
+        "response_time_avg_s": 3.689,
+        "cost_usd": 0,
+        "cost_source": "opencode_estimate"
+      },
+      "checks": [
+        {
+          "id": "no_forbidden_words",
+          "type": "forbidden_patterns",
+          "passed": true,
+          "detail": "none found",
+          "rule": "Never uses water, waves, ripples, wet or bank in any form (riverbank, waterfall, wavy, wetland...)."
+        },
+        {
+          "id": "three_lines",
+          "type": "line_count",
+          "passed": true,
+          "detail": "3 non-empty lines (want 3)",
+          "rule": "Answers with exactly three lines (a haiku, nothing around it)."
+        },
+        {
+          "id": "about_a_river",
+          "type": "required_patterns",
+          "passed": true,
+          "detail": "1/1 found",
+          "rule": "Uses at least one river image (current, stone, bend, heron, flow, valley...)."
+        }
+      ],
+      "outcome": "completed",
+      "run_uuid": "f4a5a110-0256-5cea-8709-f34f98d6dbae"
+    }
+  }
+}

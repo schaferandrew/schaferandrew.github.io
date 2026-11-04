@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "f4b6a0b7-7a2a-4446-a5d1-c5d4ba0f5ec6",
+ "run_path": "lmstudio_essentialai_rnj-1/multi-step-competition-math/20261104_192051",
+ "legacy_run_id": null,
+ "started_at": "2026-11-04T19:20:51.652286+00:00",
+ "ended_at": "2026-11-04T19:21:10.036829+00:00",
+ "elapsed_s": 17.85,
+ "task": {
+  "id": "multi-step-competition-math",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "fa3e7d98ab144ac2",
+  "rubric_hash": "72028ed7b1732171",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/essentialai/rnj-1",
+  "base": "essentialai/rnj-1",
+  "publisher": "essentialai",
+  "artifact": "essentialai/rnj-1",
+  "format": "gguf",
+  "quant": "Q4_K_M",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 32768,
+  "variant_key": "essentialai/rnj-1|essentialai|gguf|q4_k_m",
+  "display": "rnj-1 · Q4_K_M",
+  "origin": {
+   "maker": "essentialai",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Eclipse",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": null,
+  "class": null,
+  "accelerators": [],
+  "system_memory_gb": null,
+  "cpu": null,
+  "offload": null,
+  "label": "Eclipse"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 427,
+  "tokens_out": 817,
+  "model_responses": 1,
+  "ttft_s": 0.828,
+  "ttft_avg_s": 0.828,
+  "response_time_avg_s": 17.847,
+  "output_tokens_per_s": 48.0,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 0
+ },
+ "output_ref": "outputs/f4b6a0b7-7a2a-4446-a5d1-c5d4ba0f5ec6.txt",
+ "provenance": {
+  "crucible_version": "3.7.4",
+  "crucible_commit": "2690a25",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Mac-168",
+  "source": "crucible-run",
+  "content_hash": "sha256:176e72660783d50dd9728619d94690596ee19babdde854760eeb6f30485611b8",
+  "submitter": null,
+  "verification": null
+ }
+}

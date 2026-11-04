@@ -1,0 +1,295 @@
+Create the following files in `interest/`:
+
+**interest/__init__.py**
+```python
+"""Command-line compound‑interest calculator."""
+
+import sys
+import argparse
+from datetime import datetime, timedelta
+import json
+import math
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="A command-line compound‑interest calculator."
+    )
+    parser.add_argument("--principal", type=float, required=True,
+                        help="Starting balance (e.g., 1000.00)")
+    parser.add_argument("--rate", type=float, required=True,
+                        help="Annual interest rate in % (e.g., 5 for 5%)")
+    parser.add_argument("--years", type=int, required=False,
+                        help="Time in years (only years or only months)")
+    parser.add_argument("--months", type=int, required=False,
+                        help="Time in months (only years or only months)")
+    parser.add_argument("--compound", type=str, required=True,
+                        choices=["annually", "quarterly", "monthly", "daily"],
+                        help="Compounding periods per year")
+    parser.add_argument("--contribution", type=float, required=False,
+                        help="Contribution per period (e.g., 100.00)")
+    parser.add_argument("--contribution-frequency", type=str, required=False,
+                        choices=["monthly", "annually"], help="Contribution period")
+    parser.add_argument("--json", action="store_true",
+                        help="Print JSON instead of summary")
+    return parser.parse_args()
+
+def format_currency(amount: float) -> str:
+    return f"${amount:,.2f}"
+
+def main():
+    args = parse_args()
+
+    # ----- Validation ---
+    if args.principal < 0:
+        sys.stderr.write("Error: principal must be non‑negative\n")
+        sys.exit(1)
+    if args.years is not None and args.months is not None:
+        sys.stderr.write("Error: cannot specify both --years and --months\n")
+        sys.exit(1)
+    if args.contribution is not None and args.contribution_frequency is None:
+        sys.stderr.write("Error: --contribution-frequency must be specified when --contribution is given\n")
+        sys.exit(1)
+    if args.contribution is not None and args.contribution <= 0:
+        sys.sterrm.write("Error: contribution must be positive\n")
+        sys.exit(1)
+    if args.compound not in ["annually", "quarterly", "monthly", "daily"]:
+        sys.stderr.write("Error: unknown compounding period\n")
+        sys.exit(1)
+
+    # ----- Initialization ---
+    periods = args.years if args.years is not None else args.months or 0
+    if periods == 0:
+        sys.stderr.write("Error: time period must be positive\n")
+        sys.exit(1)
+    if periods == 0 and args.contribution is not None:
+        # No interest, but we still need to add contribution at end
+        pass
+    elif periods == 0 and args.contribution is None:
+        # Only principal
+        pass
+
+    # Determine compounding periods per year and the period index for each step
+    if args.compound == "annually":
+        periods_per_compound = 1
+        compound_periods = [periods]
+    elif args.compound == "quarterly":
+        periods_per_compound = 4
+        compound_periods = [periods]
+    elif args.compound == "monthly":
+        periods_per_compound = 12
+        compound_periods = [periods]
+    elif args.compound == "daily":
+        # Approximate days per year
+        compound_periods = [365]
+        # Note: leap years are ignored for simplicity
+    else:
+        sys.stderr.write("Error: unknown compounding period\n")
+        sys.exit(1)
+
+    # ----- Helper to get the compounding factor per period ---
+    def factor(period):
+        if args.compound == "annually":
+            return 1.0
+        elif args.compound == "quarterly":
+            return (1 + args.rate / 400.0) ** (1, periods_per_compound)
+        elif args.compound == "monthly":
+            return (1 + args.rate / (period * 100.0)) ** (12, periods_per_compound)
+        elif args.compound == "daily":
+            return (1 + args.rate / (period * 365.25 * 100.0)) ** (365, periods_per_compound)
+
+    # ----- Simulation ---
+    total = args.principal
+    total_contrib = 0.0
+    interest_earned = 0.0
+    contributions = []
+    # For monthly compounding we need to track the month index within the year
+    if periods_per_compound == 12:
+        # Monthly compounding: after each month we add contribution if required
+        for m in range(1, periods + 1):
+            # Interest for this period
+            if args.compound in ["annually","quarterly","daily"]:
+                # Interest is added at the end of each compounding period
+                period_interest = total * (factors_per_year / periods_per_compound)
+            elif args.compound == "monthly":
+                period_interest = total * (factors_per_year / 12.0)
+            else:
+                period_interest = total * (factors_per_year / 365.25)
+            total += period_interest
+            # Check if this is a contribution period for the required frequency
+            if args.contribution_frequency and m % (12 if args.compound == "monthly" else 1) == 0:
+                if args.contribution_frequency == "monthly":
+                    total_contrib += args.contribution
+                elif args.contribution_frequency == "annually":
+                    total_contrib += args.contribution * (12 if args.compound == "monthly" else 1)
+            # Add contribution at end of period if required
+            if args.contribution is not None and m in (comp for comp in range(1, compound_periods+1) if comp == 1):
+                total_contrib += args.contribution
+            # Store for JSON dump if needed
+            if getattr(args, f"contribution_frequency_{m}", None) == args.contribution_frequency:
+                contributions.append({
+                    "period": m,
+                    "principal": total_contrib - total,  # before this period
+                    "contribution": args.contribution if m in (comp for comp in range(1, compound_periods+1) if comp == 1) else None,
+                    "balance_before": round(total - period_interest, 2),
+                    "compounded_balance": round(total, 2)
+                })
+    else:
+        # Simplest case: yearly or quarterly
+        for y in range(1, periods + 1):
+            # Interest calculation
+            if args.compound == "annually":
+                period_interest = total * (args.rate / 100.0)
+            elif args.compound == "quarterly":
+                period_interest = total * (args.rate / 400.0)
+            elif args.compound == "monthly":
+                period_interest = total * (args.rate / 1200.0)
+            else:  # daily
+                period_interest = total * (args.rate / (period * 365.25 * 100.0))
+            total += period_interest
+            # Add contribution if required at end of period
+            if args.contribution is not None:
+                total_contrib += args.contribution
+            # Update balance for next period
+            if args.compound == "annually":
+                # yearly compounding: after 12 months
+                if y % 1 == 0:
+                    # contribution added at end of year
+                    pass
+                else:
+                    # monthly compounding: after each month
+                    pass
+
+    # ----- Final output ---
+    if args.json:
+        result = {
+            "principal": round(args.principal, 2),
+            "total_contributions": round(total_contrib, 2),
+            "interest_earned": round(interest_earned if 'interest_earned' in locals() else 0, 2),
+            "final_balance": round(total, 2)
+        }
+    else:
+        # For non-JSON output we want to show the summary
+        # But for --json we must print JSON only
+        if args.json:
+            result = {
+                "principal": round(args.principal, 2),
+                "total_contributions": round(total_contrib, 2),
+                "interest_earned": round(interest_earned if 'interest_earned' in locals() else 0, 2),
+                "final_balance": round(total, 2)
+            }
+            print(json.dumps(result, indent=2))
+        else:
+            # Print human readable summary
+            print(f"Principal: {format_currency(args.principal)}")
+            print(f"Total contributions: {format_currency(total_contrib)}")
+            print(f"Interest earned:   {format_currency(interest_earned)}")
+            print(f"Final balance:    {format_currency(total)}")
+
+if __name__ == "__main__":
+    main()
+```
+
+**interest/tests/test_compound.py**
+```python
+import unittest
+from interest import main
+import sys
+
+class TestCompound(unittest.TestCase):
+    def _run(self, args_str):
+        # Helper to run as if `python -m interest ...`
+        sys.argv = ["interest", args_str]
+        main()
+
+    def test_zero_interest_zero_contrib(self):
+        self._run("--principal 1000 --rate 0 --years 1 --compound annually --contribution 0")
+        # Should print: Principal: $1000.00 ... final_balance: $1000.00
+
+    def test_yearly_compounding(self):
+        self._run("--principal 1000 --rate 5 --years 1 --compound annually")
+        # Should print: Principal: $1000.00 ... final_balance: ~1050.00
+
+    def test_monthly_compounding(self):
+        self._run("--principal 1000 --rate 5 --years 1 --compound monthly")
+        # Should print: Principal: $1000.00 ... final_balance: ~1051.16
+
+    def test_daily_compounding(self):
+        self._run("--principal 1000 --rate 5 --years 1 --compound daily")
+        # Should print: Principal: $1000.00 ... final_balance: ~1051.27
+
+    def test_contrib_monthly(self):
+        self._run("--principal 1000 --rate 5 --years 1 --compound monthly --contribution 50 --contribution-frequency monthly")
+        # Should print: Principal: $1000.00 ... final_balance: ~1051.16 + 50 = 1101.16
+
+    def test_contrib_yearly(self):
+        self._run("--principal 1000 --rate 5 --years 1 --compound annual --contribution 50 --contribution-frequency annually")
+        # Should print: Principal: $1000.00 ... final_balance: ~1101.16
+
+    def test_json_output(self):
+        self._run("--principal 1000 --rate 5 --years 1 --compound monthly --contribution 50 --contribution-frequency monthly --json")
+        # Should print JSON with correct numbers
+
+if __name__ == "__main__":
+    unittest.main()
+```
+
+**interest/README.md**
+```markdown
+# Compound‑Interest Calculator
+
+A command‑line tool that calculates compound interest using only the Python standard library.
+
+## Usage
+
+```bash
+$ python -m interest \
+    --principal 1000 \
+    --rate 5 \               # annual rate in %
+    --years 2 \               # or --months 24
+    --compound monthly \
+    --contribution 50 \
+    --contribution-frequency monthly \
+    [--json                  # print JSON instead of summary
+```
+
+## Flags
+
+- `--principal AMOUNT` – Starting balance.
+- `--rate PERCENT` – Annual interest rate (e.g., 5 for 5%).
+- `--years N` or `--months N` – Duration in whole years or months.
+- `--compound {annually|quarterly|monthly|daily}` – Compounding periods per year.
+- `--contribution AMOUNT` – Optional contribution (must match frequency).
+- `--contribution-frequency {monthly|annually}` – When given, the contribution is added at that interval.
+- `--json` – Print JSON instead of a human‑readable summary.
+
+## Example: Monthly contribution, 2 years
+
+```bash
+$ python -m interest \
+    --principal 1000 \
+    --rate 5 \
+    --years 2 \
+    --compound monthly \
+    --contribution 50 \
+    --contribution-frequency monthly
+```
+
+The tool will add \$50 at the end of each month and apply monthly compounding.
+
+## Running Tests
+
+```bash
+$ python -m pytest tests/
+```
+All tests must pass.
+
+```
+
+To run the calculator:
+
+```bash
+$ mkdir -p interest && cd interest
+python -m interest --help
+```
+
+You can now run the tool as described above.

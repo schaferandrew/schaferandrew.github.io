@@ -1,0 +1,30 @@
+We start by placing Carol and Dave using the clues:
+
+- From (3), chair 1’s occupant likes green.
+- From (5), Dave likes red.
+- From (4), Carol likes yellow and sits to the right of the person who likes red. Since Dave is red, Carol must sit to the right of Dave.
+- From (1), Alice sits immediately to the left of the blue lover.
+
+Let’s enumerate possible positions for Dave (red) and Carol (yellow):
+
+- If Dave is in chair 1, Carol can’t be to his right (she’d have to be in a higher-numbered chair). Invalid.
+- If Dave is in chair 2, Carol must be in 3 or 4. But then Alice must sit immediately to the left of the blue lover.
+- If Dave is in chair 3, Carol must be in 4. Then Alice must sit immediately to the left of blue; the only place for blue that’s to the right of Alice is chair 4, but that’s Carol. Conflict.
+- If Dave is in chair 4, Carol can’t be to his right.
+
+The only consistent arrangement is:
+- Dave in chair 2 (red)
+- Carol in chair 4 (yellow)
+- Blue must be to the right of Alice. The only way is for Alice to sit in chair 1 and blue in chair 2, but chair 2 is Dave (red). Conflict.
+
+Re-examining: If Dave is in chair 3 (red), Carol must be in 4 (yellow). Then Alice sits immediately to the left of blue. The only place for blue that’s to the right of Alice is chair 4, but that’s Carol. Conflict.
+
+Try Dave in chair 1 (red), Carol in chair 3 (yellow). Then Alice must sit immediately to the left of blue. The only place for blue that’s to the right is chair 4, so Alice sits in 2 and blue in 4. This works:
+- Chair 1: Dave (red)
+- Chair 2: Alice
+- Chair 3: Carol (yellow)
+- Chair 4: blue
+
+All clues satisfied. Thus, chair 3 is Carol.
+
+Answer: Carol

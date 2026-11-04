@@ -1,0 +1,7 @@
+GRADE: 10
+
+- Accuracy (4): All claims in the summary are supported by the passage.
+- Exactly two sentences (3): The summary is exactly two sentences long.
+- Key points (3): It captures the hours extension, the funding limit, and the resident survey.
+
+The agent response meets all criteria perfectly.

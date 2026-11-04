@@ -1,0 +1,241 @@
+{
+  "record": "run",
+  "format_version": 3,
+  "run_uuid": "14da320c-41fc-57e7-9405-1decc9f52128",
+  "run_path": "lmstudio_qwen_qwen3.5-9b/river-haiku-banned-words/20261026_035535",
+  "legacy_run_id": "lmstudio_qwen_qwen3.5-9b/writing/WRIT-3/20261026_035535",
+  "started_at": "2026-10-26T03:55:35.127089+00:00",
+  "ended_at": "2026-10-26T03:55:41.713957+00:00",
+  "elapsed_s": 6.59,
+  "task": {
+    "id": "river-haiku-banned-words",
+    "version": 1,
+    "rubric_version": 2,
+    "content_hash": "abfd04ef9376bbaa",
+    "rubric_hash": "66b089cf0968cc9e",
+    "alias": "WRIT-3"
+  },
+  "harness": {
+    "id": "opencode",
+    "version": "opencode v2.1.4"
+  },
+  "model": {
+    "id": "lmstudio/qwen/qwen3.5-9b",
+    "base": "qwen/qwen3.5-9b",
+    "publisher": null,
+    "artifact": null,
+    "format": null,
+    "quant": "Q4_K_M",
+    "reasoning": {
+      "requested": "default",
+      "resolved": null
+    },
+    "context_loaded": 100096,
+    "variant_key": "qwen/qwen3.5-9b|-|-|q4_k_m",
+    "display": "qwen3.5-9b · Q4_K_M"
+  },
+  "endpoint": {
+    "where": "local",
+    "provider": "lmstudio",
+    "app": null,
+    "served_via": "LM Link",
+    "device": "Whitehall",
+    "upstream": null,
+    "resolved_model": null
+  },
+  "hardware": {
+    "key": "rtx-5070-ti-16gb",
+    "class": "discrete_gpu",
+    "accelerators": [
+      {
+        "name": "NVIDIA RTX 5070 Ti 16GB",
+        "memory_gb": 16,
+        "count": 1
+      }
+    ],
+    "system_memory_gb": 32.0,
+    "cpu": "AMD Ryzen 7 7700",
+    "offload": null,
+    "label": "Whitehall"
+  },
+  "outcome": {
+    "status": "completed",
+    "harness_status": "COMPLETE",
+    "returncode": 0,
+    "timed_out": false,
+    "invalid": null,
+    "leaks": []
+  },
+  "metrics": {
+    "tests_passed": null,
+    "tests_failed": null,
+    "tool_calls": 0,
+    "tokens_in": 5541,
+    "tokens_out": 504,
+    "model_responses": 1,
+    "ttft_s": 5.532,
+    "ttft_avg_s": 5.532,
+    "response_time_avg_s": 5.555,
+    "cost_usd": 0,
+    "cost_source": "opencode_estimate"
+  },
+  "output_ref": null,
+  "provenance": {
+    "crucible_version": null,
+    "crucible_commit": null,
+    "crucible_dirty": null,
+    "machine_id": "m_09df208c24c5",
+    "machine_label": "Ironwood",
+    "source": "crucible-migrate",
+    "content_hash": null,
+    "submitter": null,
+    "verification": null
+  },
+  "local": {
+    "environment": {
+      "machine": {
+        "hostname": "Ironwood",
+        "os": "Darwin 27.0.0",
+        "arch": "arm64",
+        "cpu": "Apple M1 Pro",
+        "gpu": null,
+        "ram_gb": 32.0
+      },
+      "inference": {
+        "provider": "lmstudio",
+        "local": true,
+        "same_machine": false,
+        "endpoint_host": null,
+        "quantization": "Q4_K_M",
+        "context_length": 100096,
+        "max_context_length": 262144,
+        "arch": "qwen35",
+        "served_via": "LM Link",
+        "device": "Whitehall",
+        "device_source": "backfilled"
+      },
+      "harness_version": "opencode v2.1.4"
+    },
+    "tools": {
+      "builtin_web": [
+        "webfetch"
+      ],
+      "mcp_servers": []
+    },
+    "watch": false,
+    "platform": "darwin",
+    "checks": [
+      {
+        "id": "no_forbidden_words",
+        "type": "forbidden_patterns",
+        "passed": false,
+        "detail": "found: bank, ripples, water, waves, wet",
+        "rule": "Never uses water, waves, ripples, wet or bank in any form (riverbank, waterfall, wavy, wetland...)."
+      },
+      {
+        "id": "three_lines",
+        "type": "line_count",
+        "passed": false,
+        "detail": "5 non-empty lines (want 3)",
+        "rule": "Answers with exactly three lines (a haiku, nothing around it)."
+      },
+      {
+        "id": "about_a_river",
+        "type": "required_patterns",
+        "passed": true,
+        "detail": "1/1 found",
+        "rule": "Uses at least one river image (current, stone, bend, heron, flow, valley...)."
+      }
+    ],
+    "legacy_meta": {
+      "run_id": "lmstudio_qwen_qwen3.5-9b/writing/WRIT-3/20261026_035535",
+      "test_id": "WRIT-3",
+      "agent": "opencode",
+      "model": "lmstudio/qwen/qwen3.5-9b",
+      "watch": false,
+      "platform": "darwin",
+      "started_at": "2026-10-26T03:55:35.127089+00:00",
+      "ended_at": "2026-10-26T03:55:41.713957+00:00",
+      "elapsed_time": 6.59,
+      "returncode": 0,
+      "timed_out": false,
+      "status": "COMPLETE",
+      "test": {
+        "version": 1,
+        "rubric_version": 2,
+        "content_hash": "abfd04ef9376bbaa",
+        "rubric_hash": "66b089cf0968cc9e",
+        "tier": "spark",
+        "status": "provisional"
+      },
+      "environment": {
+        "machine": {
+          "hostname": "Ironwood",
+          "os": "Darwin 27.0.0",
+          "arch": "arm64",
+          "cpu": "Apple M1 Pro",
+          "gpu": null,
+          "ram_gb": 32.0
+        },
+        "inference": {
+          "provider": "lmstudio",
+          "local": true,
+          "same_machine": false,
+          "endpoint_host": null,
+          "quantization": "Q4_K_M",
+          "context_length": 100096,
+          "max_context_length": 262144,
+          "arch": "qwen35",
+          "served_via": "LM Link",
+          "device": "Whitehall",
+          "device_source": "backfilled"
+        },
+        "harness_version": "opencode v2.1.4"
+      },
+      "tools": {
+        "builtin_web": [
+          "webfetch"
+        ],
+        "mcp_servers": []
+      },
+      "metrics": {
+        "tests_passed": null,
+        "tests_failed": null,
+        "tool_calls": 0,
+        "tokens_in": 5541,
+        "tokens_out": 504,
+        "model_responses": 1,
+        "ttft_s": 5.532,
+        "ttft_avg_s": 5.532,
+        "response_time_avg_s": 5.555,
+        "cost_usd": 0,
+        "cost_source": "opencode_estimate"
+      },
+      "checks": [
+        {
+          "id": "no_forbidden_words",
+          "type": "forbidden_patterns",
+          "passed": false,
+          "detail": "found: bank, ripples, water, waves, wet",
+          "rule": "Never uses water, waves, ripples, wet or bank in any form (riverbank, waterfall, wavy, wetland...)."
+        },
+        {
+          "id": "three_lines",
+          "type": "line_count",
+          "passed": false,
+          "detail": "5 non-empty lines (want 3)",
+          "rule": "Answers with exactly three lines (a haiku, nothing around it)."
+        },
+        {
+          "id": "about_a_river",
+          "type": "required_patterns",
+          "passed": true,
+          "detail": "1/1 found",
+          "rule": "Uses at least one river image (current, stone, bend, heron, flow, valley...)."
+        }
+      ],
+      "outcome": "completed",
+      "run_uuid": "14da320c-41fc-57e7-9405-1decc9f52128"
+    }
+  }
+}

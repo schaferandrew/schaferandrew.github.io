@@ -1,0 +1,9 @@
+```python
+def river_haiku():
+    return "Silent whispers\nThrough the earth's veins,\nNature's song."
+
+# Call the function to get the haiku
+print(river_haiku())
+```
+
+This code defines a function that returns a haiku about rivers without using any of the specified words. The haiku is then printed when the function is called.

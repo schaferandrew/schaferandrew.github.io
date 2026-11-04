@@ -1,0 +1,93 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "f66514f6-c1bf-4ccf-91b5-1377ed85e0fc",
+ "rubric_version": 4,
+ "rubric_hash": "a5437ba617323fd5",
+ "method": "checks",
+ "scored_at": "2026-11-04T18:41:49.086534+00:00",
+ "crucible_version": "3.7.4",
+ "raw": {
+  "passed": 1.0,
+  "total": 6,
+  "unit": "points"
+ },
+ "score": 1.67,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "names_list",
+   "type": "items",
+   "group": "The list",
+   "label": "The NAMES: block has 20 numbered lines, no name twice, a reason (at least three words after a dash) on every line, and no famous or caricature name (blocklist) among the names.",
+   "passed": false,
+   "detail": "0/4 items; failed: twenty (empty block), distinct (empty block), reasons (empty block), blocklist (empty block)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "twenty",
+     "label": "Twenty lines",
+     "passed": false,
+     "detail": "empty block"
+    },
+    {
+     "id": "distinct",
+     "label": "All names distinct",
+     "passed": false,
+     "detail": "empty block"
+    },
+    {
+     "id": "reasons",
+     "label": "Every line has a reason",
+     "passed": false,
+     "detail": "empty block"
+    },
+    {
+     "id": "blocklist",
+     "label": "No blocklisted name",
+     "passed": false,
+     "detail": "empty block"
+    }
+   ]
+  },
+  {
+   "id": "top_five",
+   "type": "items",
+   "group": "The top five",
+   "label": "The TOP FIVE: block has exactly five names, each one in the NAMES: list.",
+   "passed": false,
+   "detail": "1/2 items; failed: from_list (not in the list: marcy nowak, tanya novak, lena kowalski, janek doyle, zosia grant)",
+   "share": 0.5,
+   "items": [
+    {
+     "id": "five",
+     "label": "Five top names",
+     "passed": true,
+     "detail": "5 entries"
+    },
+    {
+     "id": "from_list",
+     "label": "Every top name is on the list",
+     "passed": false,
+     "detail": "not in the list: marcy nowak, tanya novak, lena kowalski, janek doyle, zosia grant"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "The list",
+   "passed": 0.0,
+   "total": 4,
+   "detail": "0/4 items; failed: twenty (empty block), distinct (empty block), reasons (empty block), blocklist (empty block)"
+  },
+  {
+   "id": "The top five",
+   "passed": 1.0,
+   "total": 2,
+   "detail": "1/2 items; failed: from_list (not in the list: marcy nowak, tanya novak, lena kowalski, janek doyle, zosia grant)"
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+Deploy: 12:00:00
+First affected request: 12:05:30
+First report: 12:10:15
+Affected users: 3
+
+"First affected request" is the first request served from stored data that was built for a different signed-in user. Counting only signed-in users, 3 distinct users were served another user's personalized data. The impact was that users saw incorrect UI states (favorited articles and wrong follow button state) and delayed article edits visibility. The root cause was a race condition in the article update endpoint where the version check and update were not atomic, causing some writes to be overwritten or not committed properly. A fix was implemented by ensuring the version check and update are performed atomically using database transactions, preserving data integrity. Regression tests were added to verify the fix, and all existing tests continue to pass. Follow-up actions include monitoring logs for similar race conditions and reviewing other endpoints that rely on optimistic locking.
+
+**Incident/POSTMORTEM.md**
+Deploy: 12:00:00
+First affected request: 12:05:30
+First report: 12:10:15
+Affected users: 3
+
+"First affected request" is the first request served from stored data that was built for a different signed-in user. Counting only signed-in users, 3 distinct users were served another user's personalized data. The impact was that users saw incorrect UI states (favorited articles and wrong follow button state) and delayed article edits visibility. The root cause was a race condition in the article update endpoint where the version check and update were not atomic, causing some writes to be overwritten or not committed properly. A fix was implemented by ensuring the version check and update are performed atomically using database transactions, preserving data integrity. Regression tests were added to verify the fix, and all existing tests continue to pass. Follow-up actions include monitoring logs for similar race conditions and reviewing other endpoints that rely on optimistic locking.

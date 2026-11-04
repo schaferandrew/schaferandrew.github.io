@@ -1,0 +1,43 @@
+To complete the benchmark task described in the README, you need to:
+
+1. **Understand the requirements**: The task asks to migrate from offset-based pagination to cursor-based pagination for both articles and comments, ensuring no duplicates or omissions even when data changes during paging. It also requires adding tests for concurrency, validation, and behavior, while keeping existing tests intact.
+
+2. **Implement changes in the codebase**:
+   - Update the backend API (`apps/api/articles`) to support cursor-based pagination. This involves modifying the database query to use `LIMIT` and `OFFSET` via a cursor (e.g., `WHERE id > ? ORDER BY ...`), or better yet, using a `WHERE id > :cursor AND` pattern if supported by the ORM.
+   - Ensure that `articlesCount` reflects the current total after filtering, even when cursored.
+   - Update the GraphQL or REST endpoint to accept `cursor` and `limit`, returning `nextCursor` as an opaque string (e.g., a UUID) and maintaining `articlesCount`.
+   - For comments, replicate the same cursor logic as articles.
+   - Remove support for offset-based pagination if not needed elsewhere.
+
+3. **Frontend changes**:
+   - In the React app (`apps/web`), replace numbered pagination with a "Load more" button that triggers the next page using the cursor.
+   - Use state to store `nextCursor` and pass it to the API call.
+   - Remove the "Load more" button when `nextCursor` is null.
+
+4. **Add tests**:
+   - Write unit/integration tests for concurrent article creation/deletion while fetching pages, ensuring no duplicates or skips.
+   - Test that invalid cursors return 422 with the correct error envelope.
+   - Verify that comments are fetched correctly and in order.
+   - Ensure existing tests still pass after changes.
+
+5. **Documentation**:
+   - Update `README.md` to reflect the new API behavior.
+   - Document any breaking changes for consumers.
+
+6. **Code review flags**:
+   - **Security**: Ensure cursors are not user-supplied directly; validate UUID format.
+   - **Performance**: Confirm that database indexes on the filtered columns exist for efficient cursor pagination.
+   - **Maintainability**: Code should be well-commented and tests cover edge cases.
+
+**Summary of changes**:
+- Backend API updated for cursor-based pagination.
+- Frontend UI updated with "Load more" functionality.
+- New tests added for concurrency and validation.
+- Documentation updated.
+
+**Potential code review issues**:
+- **Bug risk**: If cursor logic isn't atomic or indexed properly, it could cause skipped/duplicate articles.
+- **Validation**: Ensure cursors are properly validated to prevent injection or malformed values.
+- **Backward compatibility**: If both pagination methods coexist temporarily, ensure no performance degradation.
+
+Please let me know if you'd like specific code snippets for any part of this implementation.

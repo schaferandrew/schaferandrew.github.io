@@ -1,0 +1,49 @@
+The user asks: "What is the capital of each of these countries? Answer with one line per country, in the form `Country: Capital`."
+
+Countries: Australia, Canada, Brazil, Nigeria, Türkiye, Switzerland.
+
+We need to provide capitals:
+
+- Australia: Canberra (not Sydney)
+- Canada: Ottawa
+- Brazil: Brasília
+- Nigeria: Abuja
+- Türkiye: Ankara (the capital of Turkey is Ankara; note that the user wrote "Türkiye" with a special character)
+- Switzerland: Bern
+
+Thus answer lines:
+
+Australia: Canberra
+Canada: Ottawa
+Brazil: Brasília
+Nigeria: Abuja
+Türkiye: Ankara
+Switzerland: Bern
+
+We must ensure each line is separate. The format: `Country: Capital`. So exactly that.
+
+Potential issues: The user wrote "Türkiye". Should we use "Ankara"? Yes.
+
+Check for any nuance: The capital of Australia is Canberra, correct. Canada: Ottawa. Brazil: Brasília (with accent). Nigeria: Abuja. Türkiye: Ankara. Switzerland: Bern.
+
+Thus answer.
+
+We must not add extra text. Provide exactly one line per country.
+
+Potential formatting: Ensure no extra spaces at start or end. Use proper capitalization.
+
+Thus final answer:
+
+Australia: Canberra
+Canada: Ottawa
+Brazil: Brasília
+Nigeria: Abuja
+Türkiye: Ankara
+Switzerland: Bern
+
+That's it.</think>Australia: Canberra  
+Canada: Ottawa  
+Brazil: Brasília  
+Nigeria: Abuja  
+Türkiye: Ankara  
+Switzerland: Bern

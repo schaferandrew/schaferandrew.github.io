@@ -1,0 +1,5 @@
+Let's start by reading the contents of the `prompt.txt` file so we can understand the instructions and context.
+
+<tool=read>
+<parameter=path>/Users/andrew.schafer@homebot.ai/.crucible/workspaces/lmstudio_liquid_lfm2-24b-a2b_invite-signup-loop_20261104_191325/prompt.txt</parameter>
+</tool>

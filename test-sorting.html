@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Date Sorting Fix</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .run-item { padding: 8px; margin: 5px 0; background: #f5f5f5; }
+        .pass { color: green; font-weight: bold; }
+        .fail { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Date Sorting Test</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Oldest First (date-asc)</h2>
+        <p>Expected: 2024-01-01, 2024-01-02, 2024-01-03</p>
+        <div id="test1-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: Newest First (date-desc)</h2>
+        <p>Expected: 2024-01-03, 2024-01-02, 2024-01-01</p>
+        <div id="test2-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: Mixed Dates with Oldest First</h2>
+        <p>Expected: 2024-01-01, 2024-02-15, 2024-03-20, 2024-12-31</p>
+        <div id="test3-result"></div>
+    </div>
+    
+    <script>
+        // Simulate the fixed sorting logic
+        function sortRuns(runs, sortOrder) {
+            return runs.slice().sort(function(a, b) {
+                if (sortOrder === 'date-desc') {
+                    return (b.started_at || '').localeCompare(a.started_at || '');
+                } else if (sortOrder === 'date-asc') {
+                    return (a.started_at || '').localeCompare(b.started_at || '');
+                }
+                return 0;
+            });
+        }
+        
+        // Test 1: Oldest First
+        const test1Runs = [
+            { started_at: '2024-01-03T00:00:00Z' },
+            { started_at: '2024-01-01T00:00:00Z' },
+            { started_at: '2024-01-02T00:00:00Z' }
+        ];
+        const sorted1 = sortRuns(test1Runs, 'date-asc');
+        const result1 = sorted1.map(r => r.started_at.slice(0, 10)).join(', ');
+        const pass1 = result1 === '2024-01-01, 2024-01-02, 2024-01-03';
+        document.getElementById('test1-result').innerHTML = 
+            `<span class="${pass1 ? 'pass' : 'fail'}">${pass1 ? 'PASS' : 'FAIL'}</span>: ${result1}`;
+        
+        // Test 2: Newest First
+        const test2Runs = [
+            { started_at: '2024-01-03T00:00:00Z' },
+            { started_at: '2024-01-01T00:00:00Z' },
+            { started_at: '2024-01-02T00:00:00Z' }
+        ];
+        const sorted2 = sortRuns(test2Runs, 'date-desc');
+        const result2 = sorted2.map(r => r.started_at.slice(0, 10)).join(', ');
+        const pass2 = result2 === '2024-01-03, 2024-01-02, 2024-01-01';
+        document.getElementById('test2-result').innerHTML = 
+            `<span class="${pass2 ? 'pass' : 'fail'}">${pass2 ? 'PASS' : 'FAIL'}</span>: ${result2}`;
+        
+        // Test 3: Mixed dates, oldest first
+        const test3Runs = [
+            { started_at: '2024-12-31T00:00:00Z' },
+            { started_at: '2024-01-01T00:00:00Z' },
+            { started_at: '2024-03-20T00:00:00Z' },
+            { started_at: '2024-02-15T00:00:00Z' }
+        ];
+        const sorted3 = sortRuns(test3Runs, 'date-asc');
+        const result3 = sorted3.map(r => r.started_at.slice(0, 10)).join(', ');
+        const pass3 = result3 === '2024-01-01, 2024-02-15, 2024-03-20, 2024-12-31';
+        document.getElementById('test3-result').innerHTML = 
+            `<span class="${pass3 ? 'pass' : 'fail'}">${pass3 ? 'PASS' : 'FAIL'}</span>: ${result3}`;
+        
+        // Show overall result
+        const allPass = pass1 && pass2 && pass3;
+        document.body.insertAdjacentHTML('afterbegin', 
+            `<div style="padding: 10px; background: ${allPass ? '#d4edda' : '#f8d7da'}; margin-bottom: 20px;">
+                <strong>Overall: ${allPass ? 'ALL TESTS PASSED ✓' : 'SOME TESTS FAILED ✗'}</strong>
+            </div>`);
+    </script>
+</body>
+</html>

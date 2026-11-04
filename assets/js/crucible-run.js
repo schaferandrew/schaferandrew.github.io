@@ -119,9 +119,15 @@
     sorted.sort(function (a, b) {
       switch (currentSort) {
         case 'date-desc':
-          return (b.started_at || '').localeCompare(a.started_at || '');
+          if (!a.started_at && !b.started_at) return 0;
+          if (!a.started_at) return 1;
+          if (!b.started_at) return -1;
+          return b.started_at.localeCompare(a.started_at);
         case 'date-asc':
-          return (a.started_at || '').localeCompare(b.started_at || '');
+          if (!a.started_at && !b.started_at) return 0;
+          if (!a.started_at) return 1;
+          if (!b.started_at) return -1;
+          return a.started_at.localeCompare(b.started_at);
         case 'model':
           var aModel = (a.model && a.model.base) || (a.model && a.model.id) || '';
           var bModel = (b.model && b.model.base) || (b.model && b.model.id) || '';

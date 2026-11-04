@@ -21,9 +21,15 @@ function sortRunsOld(runs, sortOrder) {
 function sortRunsNew(runs, sortOrder) {
     return runs.slice().sort(function(a, b) {
         if (sortOrder === 'date-desc') {
-            return (b.started_at || '').localeCompare(a.started_at || '');
+            if (!a.started_at && !b.started_at) return 0;
+            if (!a.started_at) return 1;
+            if (!b.started_at) return -1;
+            return b.started_at.localeCompare(a.started_at);
         } else if (sortOrder === 'date-asc') {
-            return (a.started_at || '').localeCompare(b.started_at || '');
+            if (!a.started_at && !b.started_at) return 0;
+            if (!a.started_at) return 1;
+            if (!b.started_at) return -1;
+            return a.started_at.localeCompare(b.started_at);
         }
         return 0;
     });
@@ -34,6 +40,15 @@ const testRuns = [
     { run_uuid: 'run-c', started_at: '2024-01-03T10:00:00Z' },
     { run_uuid: 'run-a', started_at: '2024-01-01T10:00:00Z' },
     { run_uuid: 'run-b', started_at: '2024-01-02T10:00:00Z' }
+];
+
+// Test data with null dates
+const testRunsWithNulls = [
+    { run_uuid: 'run-c', started_at: '2024-01-03T10:00:00Z' },
+    { run_uuid: 'run-a', started_at: '2024-01-01T10:00:00Z' },
+    { run_uuid: 'run-null-1', started_at: null },
+    { run_uuid: 'run-b', started_at: '2024-01-02T10:00:00Z' },
+    { run_uuid: 'run-null-2', started_at: undefined }
 ];
 
 console.log('='.repeat(80));
@@ -89,12 +104,45 @@ console.log();
 
 // Summary
 console.log('='.repeat(80));
+console.log('TEST 3: Oldest First with Null Dates');
+console.log('-'.repeat(80));
+
+const oldAscNulls = sortRunsOld(testRunsWithNulls, 'date-asc');
+const newAscNulls = sortRunsNew(testRunsWithNulls, 'date-asc');
+
+console.log('Original order: run-c (Jan 3), run-a (Jan 1), run-null-1 (null), run-b (Jan 2), run-null-2 (undefined)');
+console.log();
+console.log('OLD (buggy) sorting:');
+oldAscNulls.forEach(r => console.log(`  - ${r.run_uuid}: ${r.started_at ? r.started_at.slice(0, 10) : 'null'}`));
+console.log();
+
+console.log('NEW (fixed) sorting:');
+newAscNulls.forEach(r => console.log(`  - ${r.run_uuid}: ${r.started_at ? r.started_at.slice(0, 10) : 'null'}`));
+const nullsAtEndAsc = newAscNulls.slice(-2).every(r => !r.started_at);
+console.log(`  Nulls at end: ${nullsAtEndAsc ? '✓ PASS' : '✗ FAIL'}`);
+console.log();
+
+console.log('TEST 4: Newest First with Null Dates');
+console.log('-'.repeat(80));
+
+const oldDescNulls = sortRunsOld(testRunsWithNulls, 'date-desc');
+const newDescNulls = sortRunsNew(testRunsWithNulls, 'date-desc');
+
+console.log('NEW (fixed) sorting:');
+newDescNulls.forEach(r => console.log(`  - ${r.run_uuid}: ${r.started_at ? r.started_at.slice(0, 10) : 'null'}`));
+const nullsAtEndDesc = newDescNulls.slice(-2).every(r => !r.started_at);
+console.log(`  Nulls at end: ${nullsAtEndDesc ? '✓ PASS' : '✗ FAIL'}`);
+console.log();
+
+console.log('='.repeat(80));
 console.log('SUMMARY');
 console.log('='.repeat(80));
 
 const allTestsPassed = 
     newAsc.map(r => r.started_at.slice(0, 10)).join(' → ') === '2024-01-01 → 2024-01-02 → 2024-01-03' &&
-    newDesc.map(r => r.started_at.slice(0, 10)).join(' → ') === '2024-01-03 → 2024-01-02 → 2024-01-01';
+    newDesc.map(r => r.started_at.slice(0, 10)).join(' → ') === '2024-01-03 → 2024-01-02 → 2024-01-01' &&
+    nullsAtEndAsc &&
+    nullsAtEndDesc;
 
 if (allTestsPassed) {
     console.log('✓ ALL TESTS PASSED - The fix works correctly!');

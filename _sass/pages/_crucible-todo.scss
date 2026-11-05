@@ -1,0 +1,49 @@
+// Crucible "what to run next": a recommendation card and the setups with tasks left
+
+.crucible-todo {
+  .crucible-title { text-align: left; }
+
+  .crucible-sub,
+  .crucible-footnote {
+    margin-top: 0;
+    color: $gray;
+    font-size: $textSmall;
+  }
+
+  .todo-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-size: $textSmall;
+  }
+
+  .todo-pick-card {
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 6px;
+    padding: $gap;
+    margin-bottom: $gap;
+  }
+
+  .todo-pick-why { margin: 0.25em 0 0.75em; font-weight: 600; }
+
+  .todo-num { white-space: nowrap; }
+
+  .todo-table td { vertical-align: top; }
+  .todo-table td:last-child { text-align: left; white-space: normal; min-width: 14em; font-size: $textSmall; }
+  .todo-table td:first-child { white-space: normal; }
+  .todo-tasks li { white-space: normal; }
+
+  .todo-tasks {
+    list-style: none;
+    margin: 0 0 0.5em;
+    padding: 0;
+    font-size: $textSmall;
+
+    li { margin: 0.15em 0; }
+    .todo-why { color: $gray; }
+    .is-timed-out .todo-why,
+    .is-harness-error .todo-why,
+    .is-failed .todo-why { color: #c0392b; }
+    .todo-more { color: $gray; }
+  }
+}

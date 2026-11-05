@@ -66,7 +66,7 @@ served by GitHub Pages at www.schaferandrew.com).
   first paint, with a loading and an error state; `crucible/details.json` (full score records) and
   `crucible-data/outputs/<run_uuid>.txt` are fetched only when a run is opened. Below 640 px every table is one card per row (leaderboard, matrix, heatmap, model
   detail), and only one layout is ever on the page; check both 1400 px and 375 px after any change.
-- Pages: `/crucible/` (`crucible.html`), `/crucible/about/`, and three detail pages routed by the hash:
+- Pages: `/crucible/` (`crucible.html`), `/crucible/about/`, `/crucible/todo/` (setups with scored tasks left, sorted by how easy they are to finish, and a pick of what to run next), and three detail pages routed by the hash:
   `/crucible/task/#<task-id>`, `/crucible/compare/#<slug>,<slug>`, and one model hierarchy:
   `/crucible/model/` (publishers), `/crucible/model/#<maker>` (a publisher's models),
   `/crucible/model/#<maker>/<model>` (`#-/<model>` when the maker is unknown), with variant and

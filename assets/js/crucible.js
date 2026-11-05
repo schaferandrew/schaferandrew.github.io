@@ -775,7 +775,7 @@
     // The other pages keep the suite being looked at
     function renderDeeper() {
       var suite = state.suite !== suiteId(CURRENT) ? C.buildHash(null, { suite: state.suite }) : '';
-      Array.prototype.forEach.call(document.querySelectorAll('#crucible-deeper a'), function (a) {
+      Array.prototype.forEach.call(document.querySelectorAll('.crucible-nav a'), function (a) {
         var base = a.getAttribute('data-base') || a.getAttribute('href');
         a.setAttribute('data-base', base);
         a.setAttribute('href', base + suite);

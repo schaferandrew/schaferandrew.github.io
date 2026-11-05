@@ -66,7 +66,7 @@ served by GitHub Pages at www.schaferandrew.com).
   first paint, with a loading and an error state; `crucible/details.json` (full score records) and
   `crucible-data/outputs/<run_uuid>.txt` are fetched only when a run is opened. Below 640 px every table is one card per row (leaderboard, matrix, heatmap, model
   detail), and only one layout is ever on the page; check both 1400 px and 375 px after any change.
-- Pages: `/crucible/` (`crucible.html`), `/crucible/about/`, and three detail pages routed by the hash:
+- Pages: `/crucible/` (`crucible.html`), `/crucible/about/`, `/crucible/todo/` (setups with scored tasks left, sorted by how easy they are to finish, and a pick of what to run next), and three detail pages routed by the hash:
   `/crucible/task/#<task-id>`, `/crucible/compare/#<slug>,<slug>`, and one model hierarchy:
   `/crucible/model/` (publishers), `/crucible/model/#<maker>` (a publisher's models),
   `/crucible/model/#<maker>/<model>` (`#-/<model>` when the maker is unknown), with variant and
@@ -74,7 +74,9 @@ served by GitHub Pages at www.schaferandrew.com).
   `assets/js/crucible-<page>.js` and `_sass/pages/_crucible-<page>.scss`. Everything they share (loading,
   suite selection, the record join and counting rules, leaderboard rows, formatting, the run detail
   panel, the router and URL helpers) is in `assets/js/crucible-core.js` (`window.CrucibleCore`); a page
-  never re-implements the join. Main page styles are `_sass/pages/_crucible.scss`.
+  never re-implements the join. Main page styles are `_sass/pages/_crucible.scss`. Every page includes
+  `_includes/crucible-nav.html`, the Crucible-only tab strip (not the site navbar): add a new page to its
+  list; the core keeps the reader's `&suite=` on its links.
 - Publisher means the maker, the lab that trained the model: a run's `model.origin.maker` (Crucible 3.5.0
   on), else inferred from the prefix of `model.base` and shown as inferred. `model.publisher` is the
   weight packager (mlx-community, lmstudio-community...), never the maker. There's no maker label list:

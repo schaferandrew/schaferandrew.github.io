@@ -1,0 +1,51 @@
+---
+layout: default
+title: What to run next
+noindex: true
+permalink: /crucible/todo/
+---
+<div class="constrain crucible crucible-todo">
+  {% include crucible-nav.html %}
+  <p class="crucible-breadcrumb" id="todo-crumbs"><a href="/crucible/">Crucible</a> › What to run next</p>
+  <h1 class="crucible-title">What to run next</h1>
+
+  <p class="crucible-status" id="crucible-status" role="status">Loading results…</p>
+
+  <section class="crucible-results" aria-label="Remaining tasks" id="crucible-results" hidden>
+    <div class="crucible-suite-bar">
+      <label class="crucible-toolbar-label" for="suite-select" id="suite-select-label">Suite</label>
+      <select class="crucible-select" id="suite-select"></select>
+      <span class="crucible-suite-line" id="suite-line"></span>
+    </div>
+    <p class="crucible-sub crucible-suite-note" id="suite-note" hidden></p>
+
+    <div class="crucible-toolbar crucible-toolbar-tight" id="todo-mode-bar" hidden>
+      <span class="crucible-toolbar-label" id="todo-mode-label">Section</span>
+      <div class="crucible-segmented" role="radiogroup" aria-labelledby="todo-mode-label" id="todo-mode"></div>
+    </div>
+
+    <h2 class="crucible-heading">Recommended next</h2>
+    <div class="todo-pick" id="todo-pick"></div>
+
+    <h2 class="crucible-heading">Setups with tasks left</h2>
+    <div class="crucible-toolbar crucible-toolbar-tight">
+      <label class="crucible-toolbar-label" for="todo-sort">Sort by</label>
+      <select class="crucible-select" id="todo-sort">
+        <option value="easiest">Easiest to finish</option>
+        <option value="fewest">Fewest tasks left</option>
+        <option value="time">Least estimated time</option>
+        <option value="score">Best score so far</option>
+        <option value="model">Model name</option>
+      </select>
+      <label class="todo-check"><input type="checkbox" id="todo-all"> Every setup, not just each model's best</label>
+    </div>
+    <p class="crucible-sub" id="todo-sub"></p>
+    <div class="crucible-scroll todo-table-wide">
+      <table class="crucible-tests todo-table" id="todo-table"></table>
+    </div>
+    <ul class="crucible-cards" id="todo-table-narrow" hidden></ul>
+  </section>
+</div>
+
+<script src="/assets/js/crucible-core.js?v={{ site.time | date: '%s' }}"></script>
+<script src="/assets/js/crucible-todo.js?v={{ site.time | date: '%s' }}" data-src="/crucible/data.json?v={{ site.time | date: '%s' }}" data-details="/crucible/details.json?v={{ site.time | date: '%s' }}" data-outputs="/crucible-data/"></script>

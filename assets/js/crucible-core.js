@@ -441,6 +441,56 @@
   }
   C.collect = collect;
 
+  // Corrections (bundle corrections.json, from the Crucible repo's corrections.yaml): reviewed fixes
+  // for model fields a run recorded badly. Published runs are never edited, so they're applied here,
+  // once, as the runs are read: a run whose model.base is listed is shown under the corrected base
+  // (and its variant_key with it); a listed maker or publisher fills only a field the run left empty;
+  // a publisher spelling is mapped. What was recorded stays in model.recorded for the run detail.
+  // A format left empty is filled from a quant name that only one format uses (Q4_K_M: gguf,
+  // 4bit: mlx); anything else stays unrecorded.
+  function applyCorrections(store, corr) {
+    var ok = corr && corr.record === 'corrections' && !newer(corr);
+    var byBase = {}, pubs = {};
+    if (ok) {
+      (corr.models || []).forEach(function (c) { if (c && c.base && c.to_base) byBase[c.base] = c; });
+      (corr.publishers || []).forEach(function (c) { if (c && c.from && c.to) pubs[c.from] = c.to; });
+    }
+    function formatOfQuant(q) {
+      q = String(q || '').toLowerCase();
+      if (/^i?q\d(_[a-z0-9]+)*$/.test(q)) return 'gguf';
+      if (/^(mlx-)?\d+bit$/.test(q)) return 'mlx';
+      return null;
+    }
+    Object.keys(store.runs).forEach(function (uuid) {
+      var m = store.runs[uuid].model;
+      if (!m) return;
+      var vk = m.variant_key ? String(m.variant_key).split('|') : null;
+      var recorded = { base: m.base, publisher: m.publisher, format: m.format, maker: m.origin ? m.origin.maker : null };
+      var c = byBase[m.base], changed = false;
+      if (c) {
+        m.base = c.to_base; changed = true;
+        if (vk) vk[0] = c.to_base;
+        if (c.maker && !(m.origin && m.origin.maker)) {
+          m.origin = Object.assign({}, m.origin || {}, { maker: c.maker, source: 'correction' });
+        }
+        if (c.publisher && !m.publisher) { m.publisher = c.publisher; if (vk) vk[1] = c.publisher; }
+      }
+      if (m.publisher && pubs[m.publisher]) {
+        m.publisher = pubs[m.publisher]; changed = true;
+        if (vk) vk[1] = m.publisher;
+      }
+      var local = !(m.variant_key && vk && vk[2] === 'api');
+      if (!m.format && local) {
+        var f = formatOfQuant(m.quant);
+        if (f) { m.format = f; changed = true; if (vk && (vk[2] === '-' || !vk[2])) vk[2] = f; }
+      }
+      if (vk) m.variant_key = vk.join('|');
+      if (changed) m.recorded = recorded;
+      if (c) m.correction = c.reason || '';
+    });
+  }
+  C.applyCorrections = applyCorrections;
+
 
   // ---- Data: everything the records say, joined ---------------------------
 
@@ -450,6 +500,7 @@
     var FB = D.FB = payload.fallbacks || {};
     var FB_MODES = FB.modes || {}, FB_TIERS = FB.tiers || {}, FB_AREAS = FB.areas || {}, FB_METHODS = FB.scoring_methods || {};
     var store = D.store = collect(payload);
+    applyCorrections(store, payload.corrections);
     // The overall score's label (_data/crucible_fallbacks.yml aggregate.label)
     D.AGG_LABEL = (FB.aggregate || {}).label || 'Overall';
     D.skippedNote = store.skipped ? 'Some results were published with a newer Crucible than this page understands, so they are not shown.' : '';
@@ -1881,6 +1932,15 @@
         r.provenance && r.provenance.crucible_version ? 'Crucible ' + r.provenance.crucible_version : null,
         'run ' + info.uuid.slice(0, 8)
       ].filter(Boolean).join(' · ')));
+      var mr = (r.model || {}).recorded;
+      if (mr) {
+        var was = [];
+        if (mr.base !== r.model.base) was.push('model ' + (mr.base || NONE));
+        if (mr.publisher !== r.model.publisher) was.push('packager ' + (mr.publisher || 'not recorded'));
+        if (mr.format !== r.model.format) was.push('format not recorded (read from the quant)');
+        if (was.length) into.appendChild(el('p', { class: 'crucible-detail-meta' }, 'Recorded as ' + was.join(', ') +
+          (r.model.correction ? '; corrected: ' + r.model.correction : '') + '.'));
+      }
     }
 
     // Every run behind one cell, newest first; open one for its score, checks and output

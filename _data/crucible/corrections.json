@@ -1,0 +1,72 @@
+{
+ "record": "corrections",
+ "format_version": 3,
+ "models": [
+  {
+   "base": "granite-4.2-3b-mlx@4bit",
+   "to_base": "ibm-granite/granite-4.2-3b",
+   "maker": "ibm-granite",
+   "reason": "LM Studio key with the format and quant tags; IBM's Granite 4.2 3B (ibm-granite/granite-4.2-3b)"
+  },
+  {
+   "base": "mlx-community/muse-glimmer-30b",
+   "to_base": "meta/muse-glimmer",
+   "maker": "meta",
+   "publisher": "mlx-community",
+   "reason": "mlx-community's conversion of Meta's Muse Glimmer (one size, 29.6B, released as meta-models/Muse-Glimmer-30B), recorded under the packager's namespace"
+  },
+  {
+   "base": "lfm2.5:24b",
+   "to_base": "liquid/lfm2.5-24b-a2b",
+   "maker": "liquid",
+   "reason": "Ollama's lfm2.5:24b is Liquid AI's LFM2.5-24B-A2B (LiquidAI/LFM2.5-24B-A2B); not the older LFM2-24B-A2B (liquid/lfm2-24b-a2b, Ollama lfm2:24b-a2b)"
+  },
+  {
+   "base": "laguna-xs-2.1",
+   "to_base": "poolside/laguna-xs-2.1",
+   "maker": "poolside",
+   "reason": "local key without the maker; the same model as the poolside/laguna-xs-2.1 cloud runs"
+  },
+  {
+   "base": "deepseek-v4.1-flash-free",
+   "to_base": "deepseek/deepseek-v4.1-flash",
+   "maker": "deepseek",
+   "reason": "the free tier of deepseek/deepseek-v4.1-flash, recorded without the maker"
+  },
+  {
+   "base": "nvidia/nemotron-3-ultra-550b-a55b:free",
+   "to_base": "nvidia/nemotron-3-ultra-550b-a55b",
+   "maker": "nvidia",
+   "reason": "OpenRouter's :free tier suffix"
+  },
+  {
+   "base": "~openai/gpt-luna-latest",
+   "to_base": "openai/gpt-luna-latest",
+   "maker": "openai",
+   "publisher": "openai",
+   "reason": "OpenRouter's ~ latest alias prefix"
+  },
+  {
+   "base": "qwen2.5-0.5b-instruct",
+   "to_base": "qwen/qwen2.5-0.5b-instruct",
+   "maker": "qwen",
+   "reason": "local key without the maker"
+  },
+  {
+   "base": "qwen2.5-1.5b-instruct",
+   "to_base": "qwen/qwen2.5-1.5b-instruct",
+   "maker": "qwen",
+   "reason": "local key without the maker"
+  }
+ ],
+ "publishers": [
+  {
+   "from": "Qwen",
+   "to": "qwen"
+  },
+  {
+   "from": "~openai",
+   "to": "openai"
+  }
+ ]
+}

@@ -26,6 +26,12 @@ served by GitHub Pages at www.schaferandrew.com).
   per suite, and one file per run (`runs/<month>/`), score record (`scores/<month>/`) and status
   record (`status/`). Full model outputs are in `crucible-data/outputs/`, outside `_data`. Never
   hand-edit any of it; republish, and run `crucible publish --check` before committing.
+- `_data/crucible/corrections.json` (from the Crucible repo's `corrections.yaml`, written by `crucible
+  publish`) says how to read runs whose model fields were recorded badly. `applyCorrections` in
+  `crucible-core.js` applies it once, as runs are read, and nothing else re-implements it: a listed
+  base is read as its corrected one, a listed maker or publisher fills only an empty field, an empty
+  format is filled from a quant only one format uses, and the run detail says what was recorded.
+  Fix a name there, never in the page or the runs.
 - `_data/crucible_display.yml` holds display settings, read through `crucible/data.json`.
   `hidden_suites` lists suite IDs (a catalog's `suite.id`, e.g. `v1`) the page treats as not
   selectable: they're left out of the suite selector, and a `#…&suite=<id>` link falls back to the

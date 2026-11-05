@@ -1,0 +1,10 @@
+{% comment %}Crucible's own page tabs (not the site navbar). The core script adds the reader's
+&suite= to each link; the current page is marked by its permalink.{% endcomment %}
+{% assign cr_pages = "/crucible/|Leaderboard,/crucible/task/|Tasks,/crucible/model/|Models,/crucible/compare/|Compare,/crucible/run/|Runs,/crucible/todo/|What to run next,/crucible/about/|About" | split: "," %}
+<nav class="crucible-nav" aria-label="Crucible pages">
+  <ul>
+  {% for p in cr_pages %}{% assign kv = p | split: "|" %}
+    <li><a href="{{ kv[0] }}" data-base="{{ kv[0] }}"{% if page.permalink == kv[0] %} aria-current="page"{% endif %}>{{ kv[1] }}</a></li>
+  {% endfor %}
+  </ul>
+</nav>

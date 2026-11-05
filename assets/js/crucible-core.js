@@ -2115,6 +2115,23 @@
   // C.boot({ script, status, ready }): fetches the records (script's data-src), shows a loading
   // and an error state with a retry in `status`, joins them (C.data) and calls ready(D). A page's
   // script tag carries data-src, data-details and data-outputs, as crucible.js's does.
+  // The Crucible page tabs (_includes/crucible-nav.html) keep the suite being looked at
+  function syncNav() {
+    var suite = parseHash().params.suite;
+    Array.prototype.forEach.call(document.querySelectorAll('.crucible-nav a'), function (a) {
+      var base = a.getAttribute('data-base') || a.getAttribute('href');
+      a.setAttribute('href', base + (suite ? buildHash(null, { suite: suite }) : ''));
+    });
+    var cur = document.querySelector('.crucible-nav [aria-current="page"]');
+    // On a phone the strip scrolls sideways: bring the current tab into view
+    var nav = document.querySelector('.crucible-nav');
+    if (cur && nav && nav.scrollWidth > nav.clientWidth) nav.scrollLeft = Math.max(0, cur.offsetLeft - 16);
+  }
+  C.syncNav = syncNav;
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', syncNav);
+  else syncNav();
+  window.addEventListener('hashchange', syncNav);
+
   C.boot = function (opts) {
     var script = opts.script, statusEl = opts.status || document.getElementById('crucible-status');
     function attr(name) { return opts[name] || (script && script.getAttribute('data-' + name)) || null; }

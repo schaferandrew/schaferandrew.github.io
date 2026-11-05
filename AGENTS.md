@@ -74,7 +74,9 @@ served by GitHub Pages at www.schaferandrew.com).
   `assets/js/crucible-<page>.js` and `_sass/pages/_crucible-<page>.scss`. Everything they share (loading,
   suite selection, the record join and counting rules, leaderboard rows, formatting, the run detail
   panel, the router and URL helpers) is in `assets/js/crucible-core.js` (`window.CrucibleCore`); a page
-  never re-implements the join. Main page styles are `_sass/pages/_crucible.scss`.
+  never re-implements the join. Main page styles are `_sass/pages/_crucible.scss`. Every page includes
+  `_includes/crucible-nav.html`, the Crucible-only tab strip (not the site navbar): add a new page to its
+  list; the core keeps the reader's `&suite=` on its links.
 - Publisher means the maker, the lab that trained the model: a run's `model.origin.maker` (Crucible 3.5.0
   on), else inferred from the prefix of `model.base` and shown as inferred. `model.publisher` is the
   weight packager (mlx-community, lmstudio-community...), never the maker. There's no maker label list:

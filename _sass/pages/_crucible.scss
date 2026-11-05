@@ -1780,13 +1780,6 @@ ol.crucible-scatter-key {
   }
 }
 
-.crucible-deeper {
-  display: flex;
-  flex-wrap: wrap;
-  gap: $gap / 2 $gap * 1.5;
-  padding-bottom: $gap;
-}
-
 .crucible-compare-tray {
   position: fixed;
   right: $gap;
@@ -1919,4 +1912,43 @@ ol.crucible-scatter-key {
 .crucible-lb-bar-cell.is-excluded,
 .crucible-lb-card-score.is-excluded {
   opacity: 0.5;
+}
+
+// Crucible's own page tabs, on every Crucible page (_includes/crucible-nav.html)
+.crucible-nav {
+  margin: 0 0 $gap;
+  border-bottom: 1px solid $crucibleBorder;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { display: none; }
+
+  ul {
+    display: flex;
+    gap: $gap * 1.25;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    white-space: nowrap;
+  }
+
+  a {
+    display: block;
+    padding: ($gap / 2) 0;
+    margin-bottom: -1px;
+    border-bottom: 2px solid transparent;
+    color: $gray;
+    font-size: $textSmall;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible { color: $colorSecondary; }
+
+    &[aria-current="page"] {
+      color: inherit;
+      font-weight: 600;
+      border-bottom-color: $colorSecondary;
+    }
+  }
 }

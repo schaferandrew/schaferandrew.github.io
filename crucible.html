@@ -51,18 +51,7 @@ permalink: /crucible/
       <h2 class="crucible-heading">Leaderboard</h2>
       <div class="crucible-segmented" role="radiogroup" aria-label="Which models" id="progress-toggle"></div>
     </div>
-    <div class="crucible-toolbar crucible-toolbar-tight crucible-agg-bar" id="agg-bar" hidden>
-      <span class="crucible-toolbar-label" id="agg-label"></span>
-      <div class="crucible-segmented crucible-agg-toggle" role="group" aria-labelledby="agg-label" id="agg-toggle"></div>
-      <span class="crucible-toolbar-note" id="agg-note"></span>
-    </div>
-    <p class="crucible-sub" id="leaderboard-sub"></p>
-    <div class="crucible-scroll crucible-lb-wide">
-      <table class="crucible-leaderboard" id="crucible-leaderboard"></table>
-    </div>
-    <div class="crucible-lb-narrow" id="crucible-lb-narrow" hidden></div>
-
-    <div class="crucible-toolbar">
+    <div class="crucible-toolbar crucible-filters" id="crucible-filters" role="group" aria-label="Filter the models">
       <span class="crucible-toolbar-group">
         <span class="crucible-toolbar-label" id="harness-label">Harness</span>
         <div class="crucible-segmented" role="radiogroup" aria-labelledby="harness-label" id="harness-toggle"></div>
@@ -93,6 +82,23 @@ permalink: /crucible/
         <select class="crucible-select" id="reasoning-select"></select>
       </span>
     </div>
+    <div class="crucible-filter-summary" id="filter-summary" aria-live="polite"></div>
+    <div class="crucible-toolbar crucible-toolbar-tight crucible-agg-bar" id="agg-bar" hidden>
+      <span class="crucible-toolbar-label" id="agg-label"></span>
+      <div class="crucible-segmented crucible-agg-toggle" role="group" aria-labelledby="agg-label" id="agg-toggle"></div>
+      <span class="crucible-toolbar-note" id="agg-note"></span>
+    </div>
+    <p class="crucible-sub" id="leaderboard-sub"></p>
+    <div class="crucible-scatter-legend" id="crucible-bars-legend" hidden></div>
+    <div class="crucible-chart-wrap">
+      <div class="crucible-chart crucible-bars" id="crucible-bars"></div>
+      <div class="crucible-tooltip" id="crucible-bars-tooltip" hidden></div>
+    </div>
+    <div class="crucible-scroll crucible-lb-wide">
+      <table class="crucible-leaderboard" id="crucible-leaderboard"></table>
+    </div>
+    <div class="crucible-lb-narrow" id="crucible-lb-narrow" hidden></div>
+
     <p class="crucible-sub crucible-progress-note" id="progress-note"></p>
 
     <p class="crucible-caveat" id="crucible-caveat" hidden></p>

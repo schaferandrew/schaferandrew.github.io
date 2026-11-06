@@ -82,8 +82,16 @@ served by GitHub Pages at www.schaferandrew.com).
   weight packager (mlx-community, lmstudio-community...), never the maker. There's no maker label list:
   makers show as recorded. Wherever a model appears, its maker links to its publisher page
   (`/crucible/model/#<maker>`). Where the packager matters, the page says "Packaged by <model.publisher>".
-- The leaderboard's Format, Quant, Packager and Reasoning filters narrow setups before each row's
+- The leaderboard's filters (Harness, Models, Hardware, Format, Quant, Packager, Reasoning) sit in one
+  row above the chart and table and scope everything below them. They narrow setups before each row's
   best setup is picked (`passesFilters` in `crucible.js`), so a row shows its best matching setup or
-  drops out. Their options come from the section's setups (normalized values; "Not recorded" last), a
-  filter with one option is hidden, and they're kept in the hash (`&quant=q4_k_m&reasoning=high`).
+  drops out. They drill down: each filter's options are what the *other* filters leave, with how many
+  rows each would show (counted like the board: in-progress models only when shown), so no choice
+  empties the board; a filter with one option is hidden, and Cloud clears the weights filters. Active
+  filters show as removable chips with "Showing N of M models", and all of them live in the hash
+  (`&where=local&quant=q4_k_m&reasoning=high`).
+- The leaderboard's column chart (`renderBars`) plots the same rows' headline score, best first
+  (partial and in-progress last, like the table), coloured local/cloud as on the scatter, hatched when
+  partial; columns are capped at 24 px in slots of at most 56 px, names angled under the axis with the
+  reasoning level kept ("model · on"). Below 640 px it's one horizontal bar per row with its name above.
 - Setups are a variant (quant/format, reasoning, and harness where a mode has several: changes the answer) on a deployment (machine or provider, local or cloud: changes speed and cost). Quality compares variants; speed and cost compare deployments of one variant. An A/B only differs in one variant setting on one recorded deployment, over tasks both sides finished; a timeout or error is reliability, not a 0 in a comparison (the suite's scores keep their rule); a run with no recorded machine is its own "machine not recorded" deployment, left out of A/Bs and speed and cost; no headline difference on fewer than C.MIN_PAIRED_TASKS shared tasks or when one task drives most of it.

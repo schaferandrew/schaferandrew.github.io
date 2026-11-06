@@ -1969,3 +1969,91 @@ ol.crucible-scatter-key {
     }
   }
 }
+
+// Leaderboard filters: one row above the chart and the table they scope, then what they leave
+.crucible-filters {
+  margin: ($gap / 2) 0 ($gap / 2);
+}
+
+.crucible-filter-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: ($gap / 2);
+  margin-bottom: $gap;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.crucible-filter-count {
+  color: $gray;
+  font-size: $textSmall;
+}
+
+.crucible-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  background: #eef3fa;
+  border: 1px solid #c9d8ee;
+  border-radius: 999px;
+  color: $crucibleBlue;
+  font: inherit;
+  font-size: $textSmall;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: #dfe9f7;
+  }
+}
+
+.crucible-chip-x {
+  font-size: 14px;
+  line-height: 1;
+}
+
+// The leaderboard's column chart
+.crucible-bars {
+  margin-bottom: $gap;
+
+  .crucible-bar {
+    transition: opacity 0.1s;
+
+    &.is-in-progress {
+      opacity: 0.45;
+    }
+
+    &.is-hover {
+      opacity: 0.8;
+    }
+  }
+
+  .crucible-bar-value {
+    fill: $colorPrimary;
+    font-size: 11px;
+    font-weight: $weightBold;
+  }
+
+  .crucible-bar-name {
+    fill: $gray;
+    font-size: 11px;
+  }
+
+  .crucible-hit:focus {
+    outline: none;
+  }
+
+  .crucible-hit:focus-visible {
+    stroke: $crucibleBlue;
+    stroke-width: 2px;
+  }
+}
+
+.crucible-scatter-swatch.is-partial {
+  border-radius: 2px;
+  background: repeating-linear-gradient(135deg, $crucibleMuted 0 2px, #fff 2px 4px);
+}

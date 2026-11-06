@@ -1,0 +1,1 @@
+The app is supposed to show the account name and plan for acct_1, but it doesn't work correctly. Diagnose the issue and fix it using an idiomatic modern Next.js approach. Preserve the intent of the existing component structure where practical. Add or update tests so the bug is covered.

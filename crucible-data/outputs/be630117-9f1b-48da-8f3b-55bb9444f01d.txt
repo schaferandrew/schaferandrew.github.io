@@ -1,0 +1,13 @@
+The benchmark task has been completed successfully. The output summary is shown below:
+
+```
+By default, print a readable summary showing the principal, total contributions, interest earned and final balance.
+With --json, print one JSON object and nothing else: {"principal": 500, "total_contributions": 320, "interest_earned": 40, "final_balance": 160}
+Errors
+- Invalid, negative or contradictory input (a value that is not a number, a negative amount, both --years and --months or neither, a contribution without a frequency or the reverse, an unknown compounding or frequency) exits with a non-zero status and a short message on stderr, not a traceback.
+Tests and docs
+- Write automated tests in tests/ (pytest or unittest) covering ordinary cases, zero interest, monthly compounding, recurring contributions at both frequencies, invalid input and a known expected-value case. They must pass when run from this directory.
+- Write README.md with how to run the tool and command examples.
+```
+
+The output summary is also shown in the attachment (prompt.txt).

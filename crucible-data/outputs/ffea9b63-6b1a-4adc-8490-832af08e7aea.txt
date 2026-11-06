@@ -1,0 +1,20 @@
+
+
+To determine the chronological order, I identified the specific year associated with each historical event:
+
+1.  **The signing of Magna Carta**: Signed on June 15, 1215.
+2.  **The printing of the Gutenberg Bible**: Completed around 1455.
+3.  **The start of the French Revolution**: Generally dated to 1789 (Storming of the Bastille).
+4.  **The start of the First World War**: Began in 1914 (assassination of Archduke Franz Ferdinand).
+5.  **The first Moon landing**: Occurred on July 20, 1969 (Apollo 11).
+6.  **The fall of the Berlin Wall**: Happened on November 9, 1989.
+
+Sorting these years from oldest to newest (1215, 1455, 1789, 1914, 1969, 1989) establishes the correct sequence.
+
+ORDER:
+1. The signing of Magna Carta — 1215
+2. The printing of the Gutenberg Bible — 1455
+3. The start of the French Revolution — 1789
+4. The start of the First World War — 1914
+5. The first Moon landing — 1969
+6. The fall of the Berlin Wall — 1989

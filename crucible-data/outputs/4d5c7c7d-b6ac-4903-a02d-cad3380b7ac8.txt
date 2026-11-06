@@ -1,0 +1,97 @@
+Here is the step-by-step logical deduction to solve the puzzle:
+
+### 1. Analyze the Constraints and Fixed Positions
+*   **Chairs**: 1, 2, 3, 4 (Left to Right).
+*   **People**: Alice, Bob, Carol, Dave.
+*   **Colors**: Red, Blue, Green, Yellow.
+
+**Clue 3**: The person who likes green sits in chair 1.
+*   *Inference*: Chair 1 = Green.
+
+**Clue 5**: Dave likes red.
+*   *Inference*: Since Chair 1 is Green, Dave cannot be in Chair 1. Dave is in one of the other chairs (2, 3, or 4) with the color Red.
+
+**Clue 4**: Carol likes yellow and sits somewhere to the right of the person who likes red.
+*   *Inference*: Since Dave likes Red, Carol sits to the right of Dave.
+*   *Current Status*:
+    *   Chair 1: Green (Someone else)
+    *   Dave: Red (Chair 2, 3, or 4)
+    *   Carol: Yellow (Chair > Dave's chair)
+
+### 2. Determine the Position of Dave and Carol
+From Clue 4, Carol is to the right of Dave. This means Dave cannot be in Chair 4 (because there is no chair to the right of 4).
+*   Possible positions for Dave: Chair 2 or Chair 3.
+*   If Dave is in Chair 2, Carol must be in Chair 3 or 4.
+*   If Dave is in Chair 3, Carol must be in Chair 4.
+
+Let's look at **Clue 1**: Alice sits immediately to the left of the person who likes blue.
+*   *Inference*: The person who likes blue cannot be in Chair 1 (because Chair 1 is Green). Therefore, the person to the left of Blue exists.
+*   This implies the "Blue" person is in Chair 2, 3, or 4.
+*   Consequently, Alice must be in Chair 1, 2, or 3.
+*   Specifically, if Blue is in Chair $X$, Alice is in Chair $X-1$.
+
+**Let's test the scenarios:**
+
+**Scenario A: Dave is in Chair 3.**
+*   If Dave is in Chair 3 (Red), then Carol (Yellow) must be in Chair 4 (since she is to the right of Dave).
+*   Current arrangement:
+    *   Chair 1: Green
+    *   Chair 3: Dave (Red)
+    *   Chair 4: Carol (Yellow)
+*   Who is left for Chair 1 and Chair 2? Alice and Bob.
+*   Who is left for the colors? We have Green (1), Red (3), Yellow (4). The remaining color is Blue, which must go to Chair 2.
+*   So, Chair 2 = Blue.
+*   Apply Clue 1: Alice sits immediately to the left of Blue (Chair 2). So Alice must be in Chair 1.
+*   This leaves Bob for Chair 2.
+*   Check Clue 2: Bob does not sit in chair 4. In this scenario, Bob is in Chair 2. This is valid.
+*   *Resulting Arrangement*:
+    *   Chair 1: Alice, Green
+    *   Chair 2: Bob, Blue
+    *   Chair 3: Dave, Red
+    *   Chair 4: Carol, Yellow
+*   *Check Clue 4 again*: Carol (4) is to the right of Red (3). Valid.
+*   *Check Clue 1 again*: Alice (1) is immediately left of Blue (2). Valid.
+*   This scenario works perfectly.
+
+**Scenario B: Dave is in Chair 2.**
+*   If Dave is in Chair 2 (Red), Carol (Yellow) can be in Chair 3 or 4.
+*   Chair 1 is Green.
+*   Remaining colors for Chairs 3 and 4: Blue and Yellow.
+*   **Sub-case B1**: Carol is in Chair 3 (Yellow). Then Chair 4 must be Blue.
+    *   Apply Clue 1: Alice is immediately left of Blue (Chair 4). So Alice is in Chair 3.
+    *   Conflict: Chair 3 is already occupied by Carol. **Invalid**.
+*   **Sub-case B2**: Carol is in Chair 4 (Yellow). Then Chair 3 must be Blue.
+    *   Apply Clue 1: Alice is immediately left of Blue (Chair 3). So Alice is in Chair 2.
+    *   Conflict: Chair 2 is already occupied by Dave. **Invalid**.
+
+**Conclusion**: Only Scenario A is possible.
+
+### 3. Final Seating Arrangement
+Based on Scenario A:
+*   **Chair 1**: Alice (Green)
+*   **Chair 2**: Bob (Blue)
+*   **Chair 3**: Dave (Red)
+*   **Chair 4**: Carol (Yellow)
+
+Let's double-check all clues against this arrangement:
+1.  *Alice sits immediately to the left of the person who likes blue.*
+    *   Alice is in 1. Blue is in 2. 1 is immediately left of 2. (Pass)
+2.  *Bob does not sit in chair 4.*
+    *   Bob is in 2. (Pass)
+3.  *The person who likes green sits in chair 1.*
+    *   Chair 1 is Green. (Pass)
+4.  *Carol likes yellow and sits somewhere to the right of the person who likes red.*
+    *   Carol is in 4 (Yellow). Red is in 3. 4 is to the right of 3. (Pass)
+5.  *Dave likes red.*
+    *   Dave is in 3 (Red). (Pass)
+
+### 4. Identify the Person in Chair 3
+According to the derived arrangement, the person sitting in Chair 3 is **Dave**.
+
+***
+
+Chair 1: Alice, Green
+Chair 2: Bob, Blue
+Chair 3: Dave, Red
+Chair 4: Carol, Yellow
+ANSWER: Dave

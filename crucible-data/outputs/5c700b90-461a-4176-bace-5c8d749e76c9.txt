@@ -1,0 +1,13 @@
+
+
+Done! I've created the morning brief at `morning_brief.md` with all required sections in the specified order.
+
+**Summary of the brief:**
+- **Weather:** Currently partly cloudy (68°F), with a light shower chance today; sunny tomorrow
+- **Outstanding work:** 4 items from yesterday's emails (Q3 review discussion, meeting notes, expense report deadline, client proposal timeline)
+- **Emails:** Prioritized urgent items (expense report deadline and client response needed today)
+- **Calendar:** 3 events today with a conflict between Planning and Vendor demo (both at 9:30-11:00)
+- **News:** 3 local articles (tech conference, park renovation, State Fair attendance)
+- **Top 3 priorities:** Expense report submission, client response, calendar conflict resolution
+
+The brief keeps facts separate from recommendations and emphasizes deadlines and actions requiring immediate attention.

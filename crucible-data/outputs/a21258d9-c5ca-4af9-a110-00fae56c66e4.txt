@@ -1,0 +1,22 @@
+Here is the fact-check for each claim:
+
+1.  **Correct.** The Battle of Hastings took place on October 14, 1066.
+2.  **Incorrect.** King John sealed the Magna Carta in 1215, not Richard.
+3.  **Incorrect.** Christopher Columbus first reached the Americas in 1492.
+4.  **Correct.** The United States Declaration of Independence was adopted on July 4, 1776.
+5.  **Correct.** Crowds in Paris stormed the Bastille on July 14, 1789.
+6.  **Incorrect.** Napoleon was defeated at the Battle of Waterloo in 1815.
+7.  **Incorrect.** The Titanic sank in April 1912.
+8.  **Correct.** India gained independence from Britain on August 15, 1947.
+9.  **Correct.** Neil Armstrong and Buzz Aldrin landed on the Moon in July 1969.
+10. **Incorrect.** The Berlin Wall fell in November 1989.
+11. **Incorrect.** Germany was reunified in 1990 (the year after the Wall fell in 1989).
+12. **Correct.** Nelson Mandela was elected President of South Africa in 1994.
+
+ERRORS:
+2: 1215
+3: 1492
+6: 1815
+7: 1912
+10: 1989
+11: 1990

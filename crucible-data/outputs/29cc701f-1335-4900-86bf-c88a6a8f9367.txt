@@ -1,0 +1,55 @@
+Excellent! All tests pass. Now let me create a final write-up summarizing the changes and reasoning:
+
+## Root Cause Analysis
+
+The issue was in the interaction between the invite flow and Legal requirements for contributor terms acceptance:
+
+1. **Current behavior**: Invited contributors could accept their invite, which set `termsAcceptedAt` but left `onboardingComplete` as false
+2. **Frontend behavior**: The `WelcomePage` automatically redirected invited users to `/editor` without checking if they had accepted terms
+3. **Legal requirement**: Every account that can publish must have accepted contributor terms before accessing the editor
+
+## Changes Made
+
+### 1. Backend Changes (`apps/api/src/services/invites.ts`)
+- Modified `acceptInvite` function to set both `termsAcceptedAt` and `onboardingComplete: true` when an invited user accepts their invite
+- This ensures that invited users are properly marked as onboarded after accepting terms
+
+### 2. Frontend Changes (`apps/web/src/pages/WelcomePage.tsx`)
+- Updated the `useEffect` in `WelcomePage` to only redirect invited users to `/editor` if they have accepted terms (`user.termsAcceptedAt` check)
+- This prevents invited users from bypassing the terms acceptance requirement
+
+## Requirements Satisfied
+
+1. **Invited contributors can access the editor**: ✅
+   - After accepting an invite with terms acceptance, users are properly marked as onboarded and can access the editor
+
+2. **Regular sign-ups work exactly as before**: ✅
+   - Regular users still go through the onboarding flow where they accept terms to become onboarded
+
+3. **Existing accounts continue to work**: ✅
+   - No manual data editing required; changes are backward compatible
+
+4. **Legal requirements take precedence**: ✅
+   - The implementation now strictly follows Legal's requirement that terms must be accepted before accessing the editor
+
+5. **All existing tests pass**: ✅
+   - All original tests continue to pass, including `realworld.contract.test.ts`
+
+## Testing
+
+Added comprehensive tests to verify:
+- Invited users can accept invites and access the editor when they accept terms
+- Regular sign-ups continue to work as before
+- Users cannot bypass terms acceptance
+- All existing functionality remains intact
+
+## Code Review Considerations
+
+1. **Backward compatibility**: The changes maintain backward compatibility with existing accounts
+2. **Consistency**: Invited users now behave consistently with regular users regarding onboarding requirements
+3. **Legal compliance**: The implementation strictly follows Legal's requirements for terms acceptance
+4. **Minimal changes**: Changes are focused and minimal, reducing the risk of introducing new bugs
+
+The fix ensures that invited contributors can properly start their assigned work while maintaining all existing functionality and legal requirements.
+
+Would you like me to make any additional changes or run any more specific tests?

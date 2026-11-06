@@ -1,0 +1,20 @@
+
+
+**Accuracy (4): 4/4**
+The agent's summary accurately reflects all factual claims in the passage. It correctly identifies the board, the action (vote), the specific hours (8 p.m.), the start date (March), the survey details (62%), the funding amount ($40,000), the funding duration (one year), the future review condition (next winter), and the opposition details (two members, staffing). While it generalizes "staffing shortages" to "staffing concerns" and omits "Tuesday," these are not invented details but rather valid paraphrasing or omissions of non-key details.
+
+**Exactly two sentences (3): 0/3**
+The agent's response contains three distinct sentences, separated by periods.
+1. "The Millbrook library board voted to extend weekend hours to 8 p.m. starting in March, following a survey where 62% of residents asked for evening access."
+2. "The change is funded by a $40,000 grant that covers one year, and the board will revisit it next winter if no further money is found."
+3. "Two board members opposed the decision over staffing concerns."
+The task required "Exactly two sentences." The response violates this constraint by including a third sentence. Strict adherence to the constraint means this criterion receives 0 points.
+
+**Key points (3): 3/3**
+The summary successfully captures all three required key points:
+1.  **Hours extension:** "extend weekend hours to 8 p.m."
+2.  **Funding limit:** "$40,000 grant that covers one year."
+3.  **Resident survey:** "survey where 62% of residents asked for evening access."
+The inclusion of the opposition detail does not penalize the score, as the criteria do not require excluding it.
+
+GRADE: 7

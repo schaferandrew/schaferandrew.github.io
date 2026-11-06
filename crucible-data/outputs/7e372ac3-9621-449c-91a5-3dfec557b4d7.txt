@@ -1,0 +1,33 @@
+Let me tackle these geography questions one by one, keeping in mind that the obvious answer might be wrong for several of them.
+
+1. **Which country is crossed by both the Equator and the Tropic of Capricorn?**
+   - At first glance, Brazil seems correct since it's a large South American country that spans from north to south.
+   - However, Madagascar also crosses both lines: the Equator passes through its northern part, and the Tropic of Capricorn cuts across its southern region. This makes Madagascar the less obvious but correct answer.
+
+2. **Which country has coastline on both the Red Sea and the Persian Gulf?**
+   - The obvious choice is Saudi Arabia, which indeed borders both the Red Sea and the Persian Gulf.
+   - No other country directly borders both bodies of water without any land in between, so Saudi Arabia remains correct despite being the obvious answer.
+
+3. **What is the northernmost capital city of a sovereign state?**
+   - Reykjavik, Iceland, seems to be the correct answer as it's located at about 64°N.
+   - However, upon closer inspection, Longyearbyen in Svalbard (Norway) is further north, but Svalbard is not a sovereign state; it's part of Norway. Thus, Reykjavik remains correct.
+
+4. **Counting overseas territories, which country spans the most time zones?**
+   - The United States might seem like the answer due to its territories in the Pacific and elsewhere.
+   - However, France holds this record with its overseas territories spanning from UTC-10 (French Polynesia) to UTC+12 (Wallis and Futuna), covering 12 or more time zones depending on how you count them.
+
+5. **Which US state is closest to mainland Africa?**
+   - Maine seems like the obvious answer because it's the northeasternmost state.
+   - Actually, due to the curvature of the Earth and ocean paths, a point near the border between South Carolina and Georgia is closer to Africa than any other part of the contiguous United States.
+
+6. **Apart from the microstates inside Italy, which is the only landlocked country that borders exactly one other country?**
+   - One might think of Liechtenstein, but it borders two countries (Austria and Switzerland).
+   - The correct answer is Lesotho, which is entirely surrounded by South Africa and thus borders only one other country.
+
+**ANSWERS:**
+1. Madagascar
+2. Saudi Arabia
+3. Reykjavik, Iceland
+4. France
+5. A point near the border between South Carolina and Georgia (or more precisely, the southeastern coast of the United States)
+6. Lesotho

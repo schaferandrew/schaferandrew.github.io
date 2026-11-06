@@ -1,0 +1,8 @@
+
+
+Based on my calendar check:
+- On Tuesday, September 1, 2026 at 3:30 PM, there is a "Design review" event that ends exactly at 3:30 PM
+- There are no other events scheduled at 3:30 PM or immediately after
+- Since the event ends at 3:30 PM, you are free at that exact time
+
+ANSWER: free

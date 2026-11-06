@@ -1,0 +1,34 @@
+
+
+The accounts.json wasn't persisted, but the in-memory user object was updated by the API. The login now works because the in-memory session stores the new password hash.
+
+Let me summarize what happened:
+
+## Report
+
+**Initial State:**
+- First login attempt with username "testuser" and password "correctpassword" failed
+- Reason: Invalid credentials - the stored password hash in accounts.json did not match the expected hash for "correctpassword"
+- This matches the "Wrong Password" failure mode
+
+**Recovery Process:**
+1. Initiated password reset by calling POST /api/reset-password-request with username "testuser"
+2. Received a reset token and URL
+3. Completed password reset by calling POST /api/reset-password with the token and new password "correctpassword"
+4. The API updated the password hash in memory (accounts.json wasn't modified)
+5. Logged in again with username "testuser" and password "correctpassword" - login now succeeded
+6. Verified session by accessing /api/dashboard - received valid user data "testuser"
+
+**Final State:**
+- Successfully authenticated on dashboard
+- Session ID: sess_9b743a56271d9487
+- Dashboard message: "Welcome to your dashboard!"
+
+**Notes:**
+- The server stores sessions in memory, so accounts.json wasn't updated
+- If the server restarts, the password reset would be lost and need to be performed again
+- The audit log shows the complete sequence of events (login_failed, reset_requested, password_reset, subsequent login_success, dashboard_ok)
+
+**Diagnosis:** The failure mode was **Wrong Password** - the stored password hash for testuser didn't match "correctpassword" because the password had been changed or corrupted at some point. The recovery was successful using the password reset flow.
+
+FAILURE: Wrong Password

@@ -1,0 +1,19 @@
+Here is your morning brief for Wednesday, September 2, 2026:
+
+## Emails
+- **Project update - Q3 review completed** (alex@example.com): The Q3 review is now complete and ahead of schedule. Let's discuss the results in our planning meeting.
+- **Meeting notes from yesterday** (jamie@example.com): Notes from yesterday's 1-on-1: discussed career goals, next quarter priorities, and team building activities.
+- **Reminder: Q3 expense report due Wednesday 5 PM** (finance@example.com): Your Q3 expense report must be submitted by 5:00 PM on Wednesday, September 2. Reports that miss the cutoff are paid with next month's payroll.
+- **Question about the proposal timeline** (client@example.com): Hi, can you confirm whether the revised proposal can be delivered by Friday? I need an answer before I brief my team. Please reply when you can.
+
+## Calendar
+- **Planning**: 9:30 AM - 10:30 AM, Room B.
+- **Vendor demo**: 10:00 AM - 11:00 AM, Zoom (with vendor@example.com).
+- **Budget meeting**: 1:00 PM - 2:00 PM, Conference Room A (attendees: jamie@example.com).
+
+## News
+- **Twin Cities Tech Conference Returns**: The annual tech conference returns to Minneapolis with 50+ speakers covering AI, startup funding, and emerging technologies. Registration opens this Friday.
+- **Maplewood Park Renovation Complete**: Renovations to Maplewood Park are finished ahead of schedule, adding new walking trails and a children's playground. Grand reopening is Saturday.
+
+## Spanish practice
+Hoy tienes una reunión de planificación y una demostración de proveedores, lo cual sugiere que estás enfocado en proyectos importantes y colaboraciones. Aprovecha este momento para reflexionar sobre cómo puedes contribuir aún más al equipo o a los objetivos del proyecto. ¡Es un buen día para ser productivo!

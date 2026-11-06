@@ -1,0 +1,19 @@
+1. To find how many integers \( x \) with \( 1 \leq x \leq N \) satisfy \( x^{12} \equiv 1 \pmod{N} \), we need to consider the order of \( x \) modulo \( N \). The order is the smallest positive integer \( d \) such that \( x^d \equiv 1 \pmod{N} \). For a prime \( p \), the order of any element \( x \) modulo \( p \) must divide \( p-1 \). Since \( N = 6,604,416 \), we need to find the smallest \( d \) such that \( x^d \equiv 1 \pmod{N} \). This is equivalent to finding the order of \( x \) modulo \( N \).
+
+2. To count the number of distinct arrangements of eleven letters A, A, A, A, B, B, B, C, C, D, D such that no two identical letters next to each other, we can use the principle of inclusion-exclusion. First, calculate the total number of permutations of 11 letters, which is \( 11! \). Then subtract the number of permutations where at least one pair of identical letters are adjacent.
+
+3. To find the expected total number of rolls that count the first roll and the last roll as prime numbers, we need to consider all possible sequences of rolls and check if they add up to a prime number. The expected value can be calculated by summing the probabilities of each sequence and dividing by the total number of sequences.
+
+4. To find the number of subsets of \(\{1, 2, 3, \ldots, 20\}\) that contain no two elements differing by exactly 1 or by exactly 4, we can use a combinatorial approach. We need to count all possible pairs of numbers that differ by 1 or 4 and then subtract the number of such pairs from \( 20 \times 20 - 9 \) (since there are 9 pairs that differ by 1).
+
+5. To find the number of triples \((a, b, c)\) of positive integers with \( a < b < c \) such that \( \text{lcm}(a, b, c) = 10,800 \) and \( \gcd(a, b, c) = 1 \), we can use the fact that \( 10,800 = 2^4 \times 3^2 \times 5^2 \). We need to count all possible triples of numbers whose least common multiple is a power of 2 and has no prime factors other than 2.
+
+6. To find the number of paths from (0, 0) to (12, 8) that never visit a point with \( y > x \), we can use dynamic programming. Let \( dp[i][j] \) be the number of ways to reach position \((i, j)\). We need to count all possible sequences of moves from (0, 0) to (12, 8) that do not visit any point with \( y > x \).
+
+**ANSWERS:**
+1. The order of \( x \) modulo \( N \).
+2. \( 6,604,416! - 9 \)
+3. \( 20 \times 20 - 9 = 381 \)
+4. \( 2^4 \times 3^2 \times 5^2 \)
+5. \( (a, b, c) \) with \( a < b < c \) and \( \text{lcm}(a, b, c) = 10,800 \) and \( \gcd(a, b, c) = 1 \)
+6. \( 2^4 \times 3^2 \times 5^2 \)

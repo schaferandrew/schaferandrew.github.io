@@ -1,0 +1,90 @@
+Here are the step-by-step calculations for each question, keeping intermediate values precise and rounding only the final result.
+
+### 1. Savings Account Growth
+**Problem:** Calculate the future value of \$5,000 at 4% annual interest compounded monthly over 3 years.
+
+*   **Formula:** $A = P(1 + \frac{r}{n})^{nt}$
+    *   $P$ (Principal) = 5,000
+    *   $r$ (Annual rate) = 0.04
+    *   $n$ (Compounding periods per year) = 12
+    *   $t$ (Time in years) = 3
+
+*   **Step 1:** Calculate the monthly interest rate ($i$).
+    $$i = \frac{0.04}{12} = 0.0033333333...$$
+
+*   **Step 2:** Calculate the total number of compounding periods ($N$).
+    $$N = 12 \times 3 = 36$$
+
+*   **Step 3:** Calculate the growth factor $(1 + i)^N$.
+    $$(1 + 0.0033333333)^{36} \approx 1.127159776$$
+
+*   **Step 4:** Multiply by the principal.
+    $$5,000 \times 1.127159776 = 5,635.79888...$$
+
+*   **Step 5:** Round to the nearest cent.
+    $$5,635.79888... \rightarrow 5,635.80$$
+
+**Answer:** \$5,635.80
+
+***
+
+### 2. Flooring Boxes Calculation
+**Problem:** Determine the number of 23.5 sq ft boxes needed for 1,850 sq ft plus 10% waste.
+
+*   **Step 1:** Calculate the total area required including waste.
+    $$\text{Total Area} = 1,850 \times (1 + 0.10) = 1,850 \times 1.10 = 2,035 \text{ sq ft}$$
+
+*   **Step 2:** Divide the total area by the area per box to find the exact number of boxes needed.
+    $$\text{Exact Boxes} = \frac{2,035}{23.5} \approx 86.59574468...$$
+
+*   **Step 3:** Round up to the next whole number (since you cannot buy partial boxes).
+    Since 86.59... is greater than 86, you must buy 87 boxes to cover the area.
+
+**Answer:** 87 boxes
+
+***
+
+### 3. Road Trip Gas Cost
+**Problem:** Calculate the cost of gas for a 412-mile trip with 34 mpg efficiency at \$3.89/gallon.
+
+*   **Step 1:** Calculate the gallons of gas needed.
+    $$\text{Gallons} = \frac{\text{Distance}}{\text{MPG}} = \frac{412}{34} \approx 12.11764706 \text{ gallons}$$
+
+*   **Step 2:** Calculate the total cost.
+    $$\text{Cost} = \text{Gallons} \times \text{Price per Gallon}$$
+    $$\text{Cost} = 12.11764706 \times 3.89 \approx 47.13764706...$$
+
+*   **Step 3:** Round to the nearest cent.
+    $$47.13764706... \rightarrow 47.14$$
+
+**Answer:** \$47.14
+
+***
+
+### 4. Dinner Tip Calculation
+**Problem:** Calculate the share per person for a meal where the pre-tax amount is \$172.00, tax is included in the \$186.40 total, tip is 18% of the pre-tax amount, and there are 4 people.
+
+*   **Step 1:** Calculate the tip amount based on the pre-tax amount.
+    $$\text{Tip} = 172.00 \times 0.18 = 30.96$$
+
+*   **Step 2:** Calculate the total bill (Pre-tax + Tax + Tip).
+    *   Pre-tax: 172.00
+    *   Tax: $186.40 - 172.00 = 14.40$
+    *   Tip: 30.96
+    $$\text{Total} = 172.00 + 14.40 + 30.96 = 217.36$$
+
+*   **Step 3:** Divide the total by the number of people (4).
+    $$\text{Per Person} = \frac{217.36}{4} = 54.34$$
+
+*   **Step 4:** Round to the nearest cent.
+    $$54.34 \rightarrow 54.34$$
+
+**Answer:** \$54.34
+
+***
+
+### ANSWERS
+1. 5635.80
+2. 87
+3. 47.14
+4. 54.34

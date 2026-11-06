@@ -1,0 +1,23 @@
+Today is Wednesday, September 2, 2026. Production of the morning brief using only the supplied sources for weather, email, calendar and news. If a source is unavailable, say so instead of inventing information.
+
+Write the brief as Markdown with exactly these `##` sections in this order:
+
+## Weather
+## Outstanding work
+## Emails
+## Calendar
+## News
+
+Outstanding work is whatever yesterday's emails left open. In every section, prioritize what actually requires attention today rather than summarizing everything: highlight conflicts, deadlines, unanswered messages and actions, and keep facts separate from recommendations. "Top 3 things to do today" is a numbered list of exactly three items.
+
+## Weather
+Outstanding work
+
+## Emails
+Outstanding work
+
+## Calendar
+Outstanding work
+
+## News
+Top 3 things to do today

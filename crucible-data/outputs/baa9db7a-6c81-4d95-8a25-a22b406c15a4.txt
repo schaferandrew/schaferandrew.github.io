@@ -1,0 +1,65 @@
+1. Ecuador, because while Colombia and Brazil are also crossed by the Equator, only Ecuador is crossed by the Tropic of Capricorn as well.
+2. Saudi Arabia, because it is the only nation with coastlines on both bodies of water, whereas countries like Yemen or Oman only border one of them.
+3. Reykjavík, Iceland, because it is the northernmost capital of a sovereign state, even though Svalbard's Longyearbyen is further north but belongs to Norway, not a sovereign state itself.
+4. France, because its vast overseas territories (like French Polynesia and Clipperton Island) allow it to span 12 time zones, far exceeding any other country's mainland or combined reach.
+5. Hawaii, because it is the closest US state to mainland Africa, whereas Alaska is actually closer to Russia and separated from Africa by a much larger distance.
+6. Liechtenstein, because it is the only landlocked country that borders exactly two countries (Austria and Switzerland), whereas the premise of "exactly one" is impossible for any landlocked country due to the requirement of bordering at least two nations to be landlocked.
+
+**Correction on Question 6 Logic**: Upon re-evaluation, no landlocked country borders *exactly one* other country; the question contains a trick premise. However, if the question implies "Which landlocked country has the fewest neighbors?" or is testing the knowledge that such a country doesn't exist, the answer must address the impossibility. But looking at standard geography trivia, the question likely intends to ask for the landlocked country with the *fewest* neighbors (which is Liechtenstein with 2, or San Marino with 3, or Vatican City with 1 but it's a microstate inside Italy). Wait, the prompt says "Apart from the microstates inside Italy". So we exclude Vatican City (1 neighbor). The next fewest is Liechtenstein (2 neighbors). Therefore, there is no landlocked country bordering exactly one other country if microstates are excluded.
+*Self-Correction*: Let's re-read the prompt carefully. "Apart from the microstates inside Italy, which is the only landlocked country that borders exactly one other country?"
+Fact check:
+- Landlocked countries: Austria, Belarus, Bolivia, Botswana, Chad, China, Czechia, Ethiopia, Kazakhstan, Kyrgyzstan, Laos, Liechtenstein, Luxembourg, Malawi, Mali, Moldova, Mongolia, Nepal, Niger, North Macedonia, Paraguay, Russia, Rwanda, San Marino, Serbia, Switzerland, Tajikistan, Turkmenistan, Uzbekistan, Vatican City, Vatican City is a microstate inside Italy.
+- Neighbors of landlocked countries:
+  - Liechtenstein: Austria, Switzerland (2)
+  - San Marino: Italy (1) -> Excluded by prompt.
+  - Vatican City: Italy (1) -> Excluded by prompt.
+  - All other landlocked countries border at least 2 or 3 countries.
+  - Wait, is there any landlocked country bordering exactly one? No. Every landlocked country must be surrounded by other countries. If it bordered only one, that one country would surround it completely. Is there a country inside another country that isn't a microstate inside Italy? No.
+  - Perhaps the question is a trick and the answer is "None".
+  - Or maybe I am missing a country. Let's check Moldova (Romania, Ukraine - 2), Luxembourg (Germany, Belgium, France - 3), etc.
+  - Actually, the question might be flawed or I am misremembering. Let's assume the question implies a specific trick.
+  - Re-evaluating the "obvious answer is wrong" constraint. The obvious answer to "Which landlocked country borders exactly one other country?" is Vatican City or San Marino. Since the prompt excludes microstates inside Italy, the obvious answer (Vatican/San Marino) is wrong.
+  - Is there a non-microstate landlocked country with 1 neighbor? No.
+  - So the answer is "None" or "There is no such country".
+  - Let's refine the justification. The obvious answer is San Marino or Vatican City, but they are excluded by the "apart from microstates inside Italy" clause, and no other landlocked country borders exactly one nation.
+
+Let's adjust the list to ensure the "obvious answer is wrong" constraint is met for all.
+
+1. **Ecuador**: Obvious answer might be Brazil or Colombia (Equator), but only Ecuador has both Equator and Tropic of Capricorn. (Correct)
+2. **Saudi Arabia**: Obvious answer might be UAE or Oman (Persian Gulf) or Egypt (Red Sea), but only Saudi Arabia has both. (Correct)
+3. **Reykjavík**: Obvious answer might be Helsinki or Oslo, but Reykjavík is the northernmost capital of a sovereign state (Svalbard is not sovereign). (Correct)
+4. **France**: Obvious answer might be Russia or USA, but France has 12 time zones due to overseas territories. (Correct)
+5. **Hawaii**: Obvious answer might be Alaska (closest to Russia), but Hawaii is closer to Africa than Alaska is. (Correct)
+6. **None**: Obvious answer is likely San Marino or Vatican City, but they are excluded, and no other landlocked country borders exactly one other country.
+
+Wait, let's double check Q5. Distance from US states to Africa.
+- Florida to Morocco: ~7,000 km.
+- Hawaii to Somalia: ~12,000 km.
+- Alaska to Africa: ~10,000 km (to Cape Verde or similar).
+Actually, the closest point in the US to Africa is in Florida (Key West to Morocco ~7,000 km).
+So the obvious answer "Hawaii" is wrong. The answer is Florida.
+
+Let's re-verify Q6.
+Landlocked countries:
+- Liechtenstein: Austria, Switzerland (2)
+- San Marino: Italy (1) -> Excluded.
+- Vatican City: Italy (1) -> Excluded.
+- All others have >= 2 neighbors.
+So the answer is "None".
+
+Let's finalize the list.
+
+1. **Ecuador**: While Brazil and Colombia are crossed by the Equator, only Ecuador is crossed by both the Equator and the Tropic of Capricorn.
+2. **Saudi Arabia**: Although nations like Egypt and Yemen border the Red Sea, and UAE/Oman border the Persian Gulf, only Saudi Arabia has coastlines on both bodies of water.
+3. **Reykjavík**: While cities like Longyearbyen are further north, they are not capitals of sovereign states, making Reykjavík the northernmost capital.
+4. **France**: While Russia and the USA have more time zones on their mainlands, France spans the most time zones (12) when counting its overseas territories.
+5. **Florida**: While Alaska is often assumed to be the closest US state to Asia, Florida is significantly closer to mainland Africa.
+6. **None**: The obvious answer is San Marino or Vatican City, but they are excluded as microstates inside Italy, and no other landlocked country borders exactly one other country.
+
+ANSWERS
+1. Ecuador
+2. Saudi Arabia
+3. Reykjavík
+4. France
+5. Florida
+6. None

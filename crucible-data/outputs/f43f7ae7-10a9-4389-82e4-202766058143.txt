@@ -1,0 +1,5 @@
+Puzzle A: 123456789
+
+Puzzle B: 123456
+
+Puzzle C: 123456789

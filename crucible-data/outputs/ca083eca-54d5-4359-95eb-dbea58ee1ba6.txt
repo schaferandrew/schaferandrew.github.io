@@ -1,0 +1,7 @@
+
+
+Now I need to test the implementation and add the new API tests. Let me first check the current state of the articles repository to make sure it handles status:
+</think>
+
+Let me update the listArticles function in the repository to properly filter by status:
+

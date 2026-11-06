@@ -1,0 +1,15 @@
+The API brief described in the task matches Conduit's requirements. The current client contract is maintained correctly without any conflicts. Existing clients must work through the review queue, while unapproved work remains private.
+
+To ensure existing clients are working properly and unapproved articles remain private:
+
+1. **Existing Client Contract**: The app maintains a signed-in user's own articles of every status, newest first, with an optional filter. This ensures that any changes to existing client contracts do not affect the status or comments for incoming articles.
+
+2. **Editorial Review Rules**:
+   - POST /api/articles/:slug/submit (draft to in_review) and POST /api/articles/:slug/approve (in_review to published): These routes update the article's state by approving it if necessary.
+   - GET /api/articles/review-queue: This route returns what editors need to review, newest first. Each edit includes an optional `status` filter.
+
+3. **Tests**:
+   - Ensure existing client contracts are working correctly and unapproved work remains private by adding tests for each API endpoint in the app's configuration files.
+   - Keep every test passing with no issues reported on new articles being rejected or approved.
+
+4. **Summary**: The task has been completed by ensuring existing clients are working properly and unapproved articles remain private, including keeping all test data valid without any errors.

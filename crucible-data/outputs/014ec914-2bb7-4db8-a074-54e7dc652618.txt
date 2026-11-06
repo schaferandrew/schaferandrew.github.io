@@ -1,0 +1,9 @@
+I have read the prompt. To proceed with the benchmark task, I need to understand the following:
+
+1. What is the "site skill" mentioned in the prompt? Is it a script, function, or tool that handles login and recovery procedures?
+2. Are there any files or configurations related to this site skill (e.g., credentials, cookie handling logic)?
+3. How should I programmatically clear cookies or reset the test password?
+
+Please provide additional details or clarify if the "site skill" is already available in this workspace. If not, I will need instructions or code snippets to implement it.
+
+Alternatively, if you want me to simulate this process, let me know, and I can outline the steps I would take.

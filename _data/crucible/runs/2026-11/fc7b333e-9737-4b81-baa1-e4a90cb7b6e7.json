@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "fc7b333e-9737-4b81-baa1-e4a90cb7b6e7",
+ "run_path": "lmstudio_mistralai_ministral-3-14b-reasoning/fill-in-crossword-grids/20261105_045620",
+ "legacy_run_id": null,
+ "started_at": "2026-11-05T04:56:20.774630+00:00",
+ "ended_at": "2026-11-05T05:16:21.402373+00:00",
+ "elapsed_s": 1200.05,
+ "task": {
+  "id": "fill-in-crossword-grids",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "7d3cd79b50d123cd",
+  "rubric_hash": "879e9754aac89329",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/mistralai/ministral-3-14b-reasoning",
+  "base": "mistralai/ministral-3-14b-reasoning",
+  "publisher": "mistralai",
+  "artifact": "mistralai/ministral-3-14b-reasoning",
+  "format": "gguf",
+  "quant": "Q4_K_M",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 262144,
+  "variant_key": "mistralai/ministral-3-14b-reasoning|mistralai|gguf|q4_k_m",
+  "display": "ministral-3-14b-reasoning · Q4_K_M",
+  "origin": {
+   "maker": "mistralai",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "timeout",
+  "harness_status": "TIMEOUT",
+  "returncode": 1,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": 1,
+  "ttft_s": 2.844,
+  "ttft_avg_s": 2.844,
+  "response_time_avg_s": 1200.046,
+  "output_tokens_per_s": null,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 70285
+ },
+ "output_ref": null,
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "14609dd",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:e444e3bd84709ec91377927df73a2ab011763d6c39159d0e40b21ce9997c80c7",
+  "submitter": null,
+  "verification": null
+ }
+}

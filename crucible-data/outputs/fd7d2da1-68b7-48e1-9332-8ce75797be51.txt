@@ -1,0 +1,4 @@
+
+
+Now I need to update the comments route to properly handle the cursor. Let me also add a function to properly decode comment cursors (which should only contain comment IDs):
+

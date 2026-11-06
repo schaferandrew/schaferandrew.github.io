@@ -1,0 +1,20 @@
+Perfect! Now I have implemented the following fixes:
+
+1. Modified `server.js` to handle expired sessions gracefully by returning user data with an expiration warning instead of an error
+2. Updated `dashboard.html` to properly display the dashboard even when the session is expired, with a visual warning and automatic logout after 5 seconds
+3. Added a regression test in `server.test.js` that verifies the behavior for expired sessions
+
+To verify the fix, you should:
+
+1. Run the application: `npm start`
+2. Open http://localhost:3456/login.html in a browser
+3. Log in with username: `testuser`, password: `correctpassword`
+4. Wait for 30+ seconds to trigger session expiration
+5. Verify that:
+   - The dashboard doesn't appear blank
+   - You see a message about your session expiring
+   - After 5 seconds, you're automatically logged out and redirected to the login page
+
+The automated test can be run with: `npm test`
+
+Would you like me to make any additional improvements or test any other aspects of the application?

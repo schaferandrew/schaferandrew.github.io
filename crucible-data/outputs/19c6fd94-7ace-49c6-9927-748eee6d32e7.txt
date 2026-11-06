@@ -1,0 +1,20 @@
+I have updated the test file `./app/page.test.tsx` to include tests for the `AccountPage` component. Here's what was added:
+
+### Changes Made:
+1. **Component Tests**:
+   - Added a test to verify that the `AccountPage` component renders the correct account data (name and plan) when the API call is successful.
+   - Added a test to ensure the component displays an error message when the fetch operation fails.
+
+2. **Mocking Fetch**:
+   - Mocked the global `fetch` function to simulate both successful and failed responses for testing purposes.
+   - Used `vi.fn()` from Vitest to mock the fetch behavior.
+
+3. **Rendering**:
+   - Used `renderToString` from `@testing-library/react` to render the component to a string and verify its content.
+
+### Summary of Fixes:
+- The `AccountPage` component now uses a modern Next.js approach with Server Components and async/await for data fetching.
+- Error handling is implemented to gracefully handle failed fetch operations.
+- Tests are added to cover both successful and error scenarios, ensuring the bug is properly addressed and future changes are validated.
+
+The app should now correctly display the account name and plan for `acct_1` while handling errors appropriately. If you have any further requirements or need additional changes, let me know!

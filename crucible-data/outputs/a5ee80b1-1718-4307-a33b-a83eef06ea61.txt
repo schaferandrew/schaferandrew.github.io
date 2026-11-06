@@ -1,0 +1,27 @@
+### Reasoning
+
+**Objective Language Errors (Grammar, Spelling, Agreement):**
+*   **Sentence 3:** Subject-verb agreement error. "The prices" (plural) is the subject, but the verb is "is" (singular). It should be "are".
+*   **Sentence 6:** Spelling error. The possessive form of "it" is "its" (no apostrophe). "It's" means "it is".
+*   **Sentence 12:** Spelling error. The comparative form of "than" is misspelled as "then".
+
+**Claims, Terminology, or Wording Issues (Overstated, Imprecise, Unclear, Misleading):**
+*   **Sentence 1:** **Misleading**. This is a common misconception. While money printing can cause inflation, inflation is fundamentally a sustained increase in the general price level, which can be caused by demand-pull factors (overheating economy), cost-push factors (supply shocks), or wage-price spirals, not just government money printing.
+*   **Sentence 4:** **Imprecise/Misleading**. The Federal Reserve is *not* legally required to raise rates if CPI is above 2%. The Fed's mandate is price stability and maximum employment; they have significant discretion in setting rates based on a range (e.g., 2% target) and economic conditions, not a rigid legal trigger at a specific number.
+*   **Sentence 8:** **Overstated**. This is a strong, normative judgment ("lazy") that is not supported by economic theory. High unemployment above the natural rate is typically attributed to structural mismatches, cyclical downturns, or policy errors, not individual laziness.
+*   **Sentence 11:** **Overstated**. Quantitative easing (QE) does not "inevitably" cause hyperinflation. Many countries have used QE without triggering hyperinflation, as the transmission mechanism to consumer prices is complex and depends on the state of the economy and the central bank's credibility.
+*   **Sentence 14:** **Overstated**. Japan's experience does not prove monetary policy is "completely ineffective." While Japan faced the "liquidity trap" where traditional rate cuts failed, unconventional policies and structural reforms were eventually used, and the economy did recover from the worst deflationary periods.
+*   **Sentence 18:** **Overstated/Misleading**. Supply-side economics has not been "definitively debunked" by the Reagan tax cuts alone. The Reagan cuts increased the deficit, but the economy did grow (the "Reagan Recovery"), and the theory remains a subject of active academic debate with mixed empirical evidence, rather than being definitively proven false by a single historical episode.
+
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: Misleading
+4: Imprecise
+8: Overstated
+11: Overstated
+14: Overstated
+18: Overstated

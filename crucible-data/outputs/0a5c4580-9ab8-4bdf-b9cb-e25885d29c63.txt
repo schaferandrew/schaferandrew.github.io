@@ -1,0 +1,5 @@
+I have checked your calendar for 3:30 PM today (September 1, 2026), and I found that you have a confirmed event titled **"Customer call"** scheduled from **4:00 PM to 5:00 PM** in the same time zone (America/Chicago).
+
+Since this event starts at 4:00 PM, which is after 3:30 PM, you are free at 3:30 PM.
+
+ANSWER: free

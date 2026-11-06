@@ -1,0 +1,1 @@
+I see the issue now. For annual compounding with monthly contributions, we're not adding the contributions correctly. Let me fix this:

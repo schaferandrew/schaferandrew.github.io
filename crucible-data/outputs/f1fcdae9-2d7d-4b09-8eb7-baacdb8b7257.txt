@@ -1,0 +1,41 @@
+The `Toast` component has been updated to:
+- Use `role="alert"` and `aria-live="assertive"` to announce the toast message immediately.
+
+---
+
+## Summary of Changes
+
+### Findings Addressed:
+
+1. **Delete Confirmation Modal (Keyboard Trap)**
+   - Replaced with a native `<dialog>`.
+   - Added focus trapping, Escape key handling, and ARIA attributes (`role="dialog"`, `aria-modal="true"`).
+
+2. **"Read More" Button**
+   - Replaced with a native `<button>`.
+   - Added `aria-expanded` and `aria-live="polite"` for state changes.
+
+3. **Tag Filter (Mouse-Only)**
+   - Replaced with a native `<button>` and `<ul>/<li>` structure.
+   - Added keyboard navigation, ARIA attributes (`aria-haspopup`, `role="listbox"`), and announcements.
+
+4. **Favorite Button**
+   - Already accessible; no changes needed.
+
+5. **Form Errors**
+   - Added `aria-invalid` and `aria-describedby` to link errors to fields.
+   - Used `role="alert"` and `aria-live="polite"` for dynamic error announcements.
+
+6. **"Article Published" Confirmation**
+   - Added `role="alert"` and `aria-live="assertive"` to the toast component.
+
+### Testing
+- **axe-core**: Run axe-core to verify fixes.
+- **Keyboard Navigation**: Test focus trapping, Escape key handling, and keyboard navigation.
+- **Screen Reader Announcements**: Verify announcements for state changes (e.g., "Read More" toggling, tag selection).
+
+### Unverified Items (Without a Screen Reader)
+- Some screen reader-specific behaviors (e.g., VoiceOver or NVDA announcements) may need verification with actual screen readers.
+- Dynamic content changes (e.g., toast messages) should be tested for proper announcement timing.
+
+Would you like me to proceed with adding tests using axe-core and custom keyboard interaction tests?

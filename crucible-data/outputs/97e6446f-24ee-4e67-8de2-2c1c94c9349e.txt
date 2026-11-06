@@ -1,0 +1,273 @@
+Here are the step-by-step solutions to the five problems.
+
+### Problem 1
+**Question:** How many integers from 1 to 10,000 inclusive are divisible by 3 or by 7, but not by 21?
+
+**Reasoning:**
+Let $S_3$ be the set of integers divisible by 3, $S_7$ be the set of integers divisible by 7, and $S_{21}$ be the set of integers divisible by 21.
+We want to find the number of integers in $(S_3 \cup S_7) \setminus S_{21}$.
+Using the Principle of Inclusion-Exclusion, the size of the union is:
+$|S_3 \cup S_7| = |S_3| + |S_7| - |S_3 \cap S_7|$.
+Since any number divisible by both 3 and 7 is divisible by $\text{lcm}(3, 7) = 21$, we have $S_3 \cap S_7 = S_{21}$.
+So, $|S_3 \cup S_7| = |S_3| + |S_7| - |S_{21}|$.
+
+The condition "divisible by 3 or by 7, but not by 21" means we want the count of numbers in the union minus those that are also in $S_{21}$.
+Count $= |S_3 \cup S_7| - |S_{21}| = (|S_3| + |S_7| - |S_{21}|) - |S_{21}| = |S_3| + |S_7| - 2|S_{21}|$.
+
+Let $N = 10,000$.
+- $|S_3| = \lfloor \frac{10000}{3} \rfloor = 3333$.
+- $|S_7| = \lfloor \frac{10000}{7} \rfloor = 1428$.
+- $|S_{21}| = \lfloor \frac{10000}{21} \rfloor = 476$.
+
+Calculation:
+$3333 + 1428 - 2(476) = 4761 - 952 = 3809$.
+
+**Answer:** 3809
+
+---
+
+### Problem 2
+**Question:** What is the remainder when $7^{2026}$ is divided by 100?
+
+**Reasoning:**
+We need to compute $7^{2026} \pmod{100}$.
+We can use Euler's Totient Theorem or simply look for a pattern in the powers of 7 modulo 100.
+$\phi(100) = 100(1 - 1/2)(1 - 1/5) = 100(1/2)(4/5) = 40$.
+Since $\gcd(7, 100) = 1$, we have $7^{40} \equiv 1 \pmod{100}$.
+The exponent is 2026. We divide 2026 by 40:
+$2026 = 40 \times 50 + 26$.
+So, $7^{2026} \equiv 7^{26} \pmod{100}$.
+Alternatively, we can compute the cycle of powers of 7 mod 100 directly or break it down.
+$7^1 = 7$
+$7^2 = 49$
+$7^3 = 343 \equiv 43$
+$7^4 = 301 \equiv 1$ (Wait, $7^4 = 2401 \equiv 1$).
+Let's re-verify the cycle length.
+$7^1 \equiv 07$
+$7^2 \equiv 49$
+$7^3 \equiv 43$
+$7^4 \equiv 01$
+$7^5 \equiv 07$
+The cycle length is 4.
+We need $2026 \pmod 4$.
+$2026 = 4 \times 506 + 2$.
+So, $7^{2026} \equiv 7^2 \pmod{100}$.
+$7^2 = 49$.
+
+**Answer:** 49
+
+---
+
+### Problem 3
+**Question:** In how many ways can a $2 \times 12$ board be tiled with $1 \times 2$ dominoes (placed either way) and $2 \times 2$ squares?
+
+**Reasoning:**
+Let $a_n$ be the number of ways to tile a $2 \times n$ board.
+Consider the rightmost edge of the board (column $n$).
+1. We can place a $2 \times 2$ square. This covers columns $n-1$ and $n$. The remaining board is $2 \times (n-2)$. There is 1 way to place the square.
+   Contribution: $a_{n-2}$.
+2. We can place two $1 \times 2$ dominoes vertically side-by-side? No, the problem says "$1 \times 2$ dominoes (placed either way)".
+   - Option A: Place one horizontal $1 \times 2$ domino on top and one horizontal $1 \times 2$ domino on bottom. This covers columns $n-1$ and $n$. This is effectively filling a $2 \times 2$ area with two horizontal dominoes.
+   - Option B: Place one vertical $2 \times 1$ domino. This covers column $n$. We must then place another vertical $2 \times 1$ domino in column $n-1$ to avoid leaving a gap? No, we can place a vertical domino at $n$, leaving column $n-1$ to be filled.
+   
+   Let's refine the recurrence based on the state of the boundary.
+   Actually, let's look at the "gap" logic.
+   Let $f_n$ be the number of tilings of a $2 \times n$ board.
+   Consider the last column(s):
+   - Case 1: The last column is filled by a vertical $2 \times 1$ domino. Then the previous column must also be filled by a vertical $2 \times 1$ domino? Not necessarily.
+     If we place a vertical domino at column $n$, the board up to $n-1$ must be fully tiled. So we have $f_{n-1}$ ways.
+     Wait, if we place a vertical domino at $n$, does it force anything at $n-1$? No.
+     So we can have a vertical domino at $n$. The rest is $2 \times (n-1)$. Ways: $f_{n-1}$.
+   - Case 2: We place horizontal dominoes.
+     We can place a horizontal domino at $(1, n)$ and $(1, n-1)$. Then we must place a horizontal domino at $(2, n)$ and $(2, n-1)$ to fill the second row. This forms a $2 \times 2$ block of two horizontal dominoes.
+     This configuration covers columns $n-1$ and $n$. The rest is $2 \times (n-2)$. Ways: $f_{n-2}$.
+     Is there any other way to place horizontal dominoes?
+     If we place a horizontal domino at $(1, n)$, we must place another horizontal domino at $(1, n-1)$. Then at row 2, we have a gap at $n$ and $n-1$. We must fill them. We could fill them with two vertical dominoes? No, vertical dominoes are $2 \times 1$. A vertical domino at $(2, n)$ covers $(2,n)$ and $(2, n-1)$? No, a vertical domino is $2 \times 1$, so it occupies $(2, n)$ and $(2+1, n)$? No, the board is $2 \times n$. A vertical domino occupies $(1, k)$ and $(2, k)$.
+     So if we place a horizontal at $(1, n)$, we need another horizontal at $(1, n-1)$.
+     At column $n$, row 2 is empty. At column $n-1$, row 2 is empty.
+     We must fill these two spots. We can put a vertical domino at $n$ (covering $(2,n)$ and... wait, row 2 only has 2 rows).
+     A vertical domino covers $(1, k)$ and $(2, k)$.
+     So if we have a horizontal at $(1, n)$, we need to fill $(2, n)$. We can put a vertical domino at $n$? No, because $(1, n)$ is occupied.
+     So if we place a horizontal domino at $(1, n)$, we MUST place a horizontal domino at $(2, n)$? No, horizontal is $1 \times 2$.
+     Let's re-evaluate the shapes.
+     Shapes:
+     - Domino ($1 \times 2$): Can be horizontal ($1 \times 2$) or vertical ($2 \times 1$).
+     - Square ($2 \times 2$).
+     
+     Let's define states by the profile of the filled boundary.
+     State 0: Column $n$ is fully filled. (Recurrence $f_n$)
+     State 1: Column $n$ has top filled, bottom empty.
+     State 2: Column $n$ has bottom filled, top empty.
+     State 3: Column $n$ has neither filled (impossible if we build from left).
+     
+     Actually, simpler approach:
+     Consider the rightmost uncovered cell.
+     If we place a vertical domino ($2 \times 1$), it covers 1 column. Remaining: $n-1$.
+     If we place a horizontal domino ($1 \times 2$), it covers 1 row and 2 columns.
+     If we place a square ($2 \times 2$), it covers 2 rows and 2 columns.
+     
+     Let $a_n$ be ways to tile $2 \times n$.
+     Consider the last column $n$.
+     1. Place a vertical domino at column $n$. Then column $n-1$ must be filled.
+        - If we place a vertical domino at $n$, the cell $(1,n)$ and $(2,n)$ are filled.
+        - The board up to $n-1$ must be fully tiled.
+        - Ways: $a_{n-1}$.
+     2. Place horizontal dominoes.
+        - We can place a horizontal domino at $(1, n)$ and $(1, n-1)$.
+        - Now $(2, n)$ and $(2, n-1)$ are empty.
+        - We must fill these. We can place a horizontal domino at $(2, n)$ and $(2, n-1)$.
+        - This creates a $2 \times 2$ block made of two horizontal dominoes.
+        - This covers columns $n-1$ and $n$.
+        - Ways: $a_{n-2}$.
+        - Can we mix? E.g., horizontal at top, vertical at bottom?
+          - Place horizontal at $(1, n)$ and $(1, n-1)$.
+          - Now $(2, n)$ is empty. $(2, n-1)$ is empty.
+          - Can we place a vertical domino at $n$? No, $(1, n)$ is occupied.
+          - Can we place a vertical domino at $n-1$? No, $(1, n-1)$ is occupied.
+          - So we cannot place a vertical domino if we place a horizontal domino in the same column range unless we fill the other row too.
+          - Wait, what if we place a vertical domino at $n-1$?
+            - If we place vertical at $n-1$, it covers $(1, n-1)$ and $(2, n-1)$.
+            - Then $(1, n)$ is empty. We must fill $(1, n)$. Place horizontal at $(1, n)$ and $(1, n-1)$? No, $(1, n-1)$ is occupied.
+            - So we must place horizontal at $(1, n)$ and $(1, n+1)$? No, we are building from left to right.
+            - If we place vertical at $n-1$, column $n-1$ is full. Then we just need to tile column $n$.
+            - This leads back to the vertical domino case.
+     
+     So the transitions are:
+     - From state "full up to $n-1$":
+       - Add vertical domino at $n$: Result "full up to $n$". Cost: 1 way. New length $n$. Previous state $n-1$.
+         Transition: $a_{n-1} \to a_n$.
+       - Add two horizontal dominoes (one top, one bottom): Result "full up to $n$". Cost: 1 way. New length $n$. Previous state $n-2$.
+         Transition: $a_{n-2} \to a_n$.
+       - Add square ($2 \times 2$): Result "full up to $n$". Cost: 1 way. New length $n$. Previous state $n-2$.
+         Transition: $a_{n-2} \to a_n$.
+     
+     Wait, "two horizontal dominoes" and "square" both cover $2 \times 2$.
+     Are they distinct? Yes, one is two $1 \times 2$ dominoes, the other is one $2 \times 2$ square.
+     So for a step of 2 columns, there are 2 options.
+     For a step of 1 column, there is 1 option (vertical domino).
+     
+     Recurrence relation:
+     $a_n = a_{n-1} + 2a_{n-2}$.
+     
+     Base cases:
+     $n=0$: 1 way (empty board). $a_0 = 1$.
+     $n=1$: Only vertical domino fits. $a_1 = 1$.
+     $n=2$: 
+       - Two verticals: $a_1 \times 1 = 1$.
+       - Two horizontals or one square: 2 ways.
+       - Total $a_2 = 1 + 2(1) = 3$.
+       Check recurrence: $a_2 = a_1 + 2a_0 = 1 + 2(1) = 3$. Correct.
+     
+     We need $a_{12}$.
+     Sequence:
+     $a_0 = 1$
+     $a_1 = 1$
+     $a_2 = 3$
+     $a_3 = 1 + 2(3) = 7$
+     $a_4 = 3 + 2(7) = 17$
+     $a_5 = 7 + 2(17) = 41$
+     $a_6 = 17 + 2(41) = 99$
+     $a_7 = 41 + 2(99) = 239$
+     $a_8 = 99 + 2(239) = 577$
+     $a_9 = 239 + 2(577) = 1393$
+     $a_{10} = 577 + 2(1393) = 3363$
+     $a_{11} = 1393 + 2(3363) = 8119$
+     $a_{12} = 3363 + 2(8119) = 3363 + 16238 = 19601$.
+
+**Answer:** 19601
+
+---
+
+### Problem 4
+**Question:** Three fair six-sided dice are rolled. What is the probability that the largest number shown is exactly 4?
+
+**Reasoning:**
+Let the outcomes of the three dice be $d_1, d_2, d_3$.
+Total number of outcomes = $6^3 = 216$.
+Let $M = \max(d_1, d_2, d_3)$. We want $P(M=4)$.
+It is easier to calculate using cumulative distribution.
+$P(M=4) = P(M \le 4) - P(M \le 3)$.
+$P(M \le k)$ is the probability that all dice show a number $\le k$.
+For a single die, $P(X \le k) = k/6$.
+Since dice are independent:
+$P(M \le 4) = (4/6)^3 = (2/3)^3 = 8/27$.
+$P(M \le 3) = (3/6)^3 = (1/2)^3 = 1/8$.
+Number of outcomes where max is $\le 4$: $4^3 = 64$.
+Number of outcomes where max is $\le 3$: $3^3 = 27$.
+Number of outcomes where max is exactly 4: $64 - 27 = 37$.
+Probability = $37 / 216$.
+Check if fraction is lowest terms: 37 is prime, 216 is not divisible by 37 ($37 \times 6 = 222$). So it is irreducible.
+
+**Answer:** 37/216
+
+---
+
+### Problem 5
+**Question:** A family has two children. You learn that at least one of them is a boy who was born on a Tuesday. Assuming each child is equally likely to be a boy or a girl and to be born on any day of the week, independently, what is the probability that both children are boys?
+
+**Reasoning:**
+This is a variation of the Boy or Girl paradox.
+Sample space for one child: (Gender, Day).
+Gender $\in \{B, G\}$, Day $\in \{Mon, ..., Sun\}$ (7 days).
+Total possibilities per child = $2 \times 7 = 14$.
+Total possibilities for two children = $14 \times 14 = 196$.
+
+Let the children be $C_1$ and $C_2$.
+Condition: At least one child is a Boy born on Tuesday (BT).
+Let's count the number of pairs $(C_1, C_2)$ satisfying the condition.
+Let $S$ be the set of all pairs. $|S| = 196$.
+Let $A$ be the property "Child 1 is BT".
+Let $B$ be the property "Child 2 is BT".
+We want the size of $A \cup B$.
+$|A \cup B| = |A| + |B| - |A \cap B|$.
+- $|A|$: $C_1$ is BT. $C_2$ can be anything (14 options). So $1 \times 14 = 14$.
+- $|B|$: $C_2$ is BT. $C_1$ can be anything (14 options). So $14 \times 1 = 14$.
+- $|A \cap B|$: Both $C_1$ and $C_2$ are BT. $1 \times 1 = 1$.
+Total favorable outcomes = $14 + 14 - 1 = 27$.
+
+Now, we want the probability that **both** children are boys, given the condition.
+Let $E$ be the event "Both children are boys".
+We need to count the number of outcomes in the favorable set ($A \cup B$) that also satisfy $E$.
+The outcomes in $A \cup B$ are pairs where at least one is BT.
+The outcomes in $E$ are pairs where both are Boys (regardless of day).
+Intersection: Both are Boys AND (at least one is BT).
+Since both are boys, the condition "at least one is BT" means:
+- Case 1: $C_1$ is BT, $C_2$ is Boy (any day).
+  $C_1$ is fixed as BT (1 option). $C_2$ is Boy (7 days).
+  Count = $1 \times 7 = 7$.
+- Case 2: $C_1$ is Boy (any day), $C_2$ is BT.
+  $C_1$ is Boy (7 days). $C_2$ is fixed as BT (1 option).
+  Count = $7 \times 1 = 7$.
+- Case 3: Both are BT.
+  $C_1$ is BT, $C_2$ is BT.
+  Count = $1 \times 1 = 1$.
+  
+  Using inclusion-exclusion for the intersection:
+  Count($E \cap (A \cup B)$) = Count($E \cap A$) + Count($E \cap B$) - Count($E \cap A \cap B$).
+  - $E \cap A$: $C_1$ is BT, $C_2$ is Boy. Count = 7.
+  - $E \cap B$: $C_1$ is Boy, $C_2$ is BT. Count = 7.
+  - $E \cap A \cap B$: $C_1$ is BT, $C_2$ is BT. Count = 1.
+  
+  Total favorable = $7 + 7 - 1 = 13$.
+
+Total possible outcomes (given condition) = 27.
+Probability = $13 / 27$.
+
+**Answer:** 13/27
+
+---
+
+### Final Answers
+
+1. 3809
+2. 49
+3. 19601
+4. 37/216
+5. 13/27
+
+ANSWERS
+1. 3809
+2. 49
+3. 19601
+4. 37/216
+5. 13/27

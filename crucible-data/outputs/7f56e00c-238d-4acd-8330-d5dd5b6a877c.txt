@@ -1,0 +1,1 @@
+The exact text in your file is 'Invite is not set.' It doesn't match the specified oldText, which should be "Set an invited contributor's sign-up to start the work assigned them." For your edits[], oldText must match exactly including all whitespace and newlines.

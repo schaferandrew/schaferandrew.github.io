@@ -1,0 +1,40 @@
+Puzzle A
+
+1-ACROSS: row 1, column 1, #, #, #, #, #, #, #, #, #
+2-ACROSS: row 1, column 7, #, #, #, #, #, #, #, #, #
+3-DOWN: row 1, column 3, #, #, #, #, #, #, #, #, .
+4-ACROSS: row 3, column 1, #, #, #, #, #, #, #, #, .
+5-DOWN: row 3, column 9, #, #, #, #, #, #, #, #, .
+
+Words (18):
+5 letters: CANDY, COUNT, CUBIC, DEALT, DRIVE, ELBOW, PROBE, SHIRT, SQUAD, SWAMP, THREW, TWIST, UNCLE, UPSET
+7 letters: COUNCIL, COURAGE, ECONOMY, LIBRARY
+
+Puzzle B
+
+15-ACROSS: row 1, column 1, #, #, #, #, #, #, #, #
+16-DOWN: row 1, column 3, #, #, #, #, #, #, #, #
+17-ACROSS: row 1, column 7, #, #, #, #, #, #, #, #
+17-DOWN: row 1, column 7, #, #, #, #, #, #, #, .
+18-DOWN: row 1, column 9, #, #, #, #, #, #, #, .
+19-ACROSS: row 3, column 1, #, #, #, #, #, #, #, .
+19-DOWN: row 3, column 1, #, #, #, #, #, #, #, .
+20-ACROSS: row 3, column 5, #, #, #, #, #, #, #, .
+21-DOWN: row 3, column 11, #, #, #, #, #, #, #, .
+22-ACROSS: row 5, column 1, #, #, #, #, #, #, #, .
+23-DOWN: row 5, column 3, #, #, #, #, #, #, #, .
+24-DOWN: row 5, column 5, #, #, #, #, #, #, #, .
+25-ACROSS: row 5, column 9, #, #, #, #, #, #, #, .
+26-ACROSS: row 7, column 1, #, #, #, #, #, #, #, .
+26-DOWN: row 7, column 1, #, #, #, #, #, #, #, .
+27-ACROSS: row 7, column 5, #, #, #, #, #, #, #, .
+28-DOWN: row 7, column 3, #, #, #, #, #, #, #, .
+29-ACROSS: row 7, column 11, #, #, #, #, #, #, #, .
+30-ACROSS: row 9, column 3, #, #, #, #, #, #, #, .
+30-DOWN: row 9, column 3, #, #, #, #, #, #, #, .
+31-ACROSS: row 11, column 1, #, #, #, #, #, #, #, .
+32-ACROSS: row 11, column 9, #, #, #, #, #, #, #, .
+
+Words (22):
+3 letters: ANY, APT, CAR, COG, ELF, FAN, ONE, TAR, TEN, TIE, TOP, TOY
+5 letters: ALIKE, APPLY, AROMA, OUNCE

@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "93df978e-282e-43b5-9ccb-69e8562a30a5",
+ "run_path": "lmstudio_mistralai_ministral-3-14b-reasoning/react-lead-form/20261105_070528",
+ "legacy_run_id": null,
+ "started_at": "2026-11-05T07:05:32.032199+00:00",
+ "ended_at": "2026-11-05T07:20:33.133087+00:00",
+ "elapsed_s": 900.48,
+ "task": {
+  "id": "react-lead-form",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "02ccc27101b8f69d",
+  "rubric_hash": "248484a519654873",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "lmstudio/mistralai/ministral-3-14b-reasoning",
+  "base": "mistralai/ministral-3-14b-reasoning",
+  "publisher": "mistralai",
+  "artifact": "mistralai/ministral-3-14b-reasoning",
+  "format": "gguf",
+  "quant": "Q4_K_M",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 262144,
+  "variant_key": "mistralai/ministral-3-14b-reasoning|mistralai|gguf|q4_k_m",
+  "display": "ministral-3-14b-reasoning · Q4_K_M",
+  "origin": {
+   "maker": "mistralai",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "timeout",
+  "harness_status": "TIMEOUT",
+  "returncode": 143,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 57,
+  "tokens_in": 893198,
+  "tokens_out": 10931,
+  "model_responses": 57,
+  "ttft_s": 3.661,
+  "ttft_avg_s": 1.892,
+  "response_time_avg_s": 10.051,
+  "output_tokens_per_s": 23.5,
+  "cost_usd": 0,
+  "cost_source": "pi_estimate",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/93df978e-282e-43b5-9ccb-69e8562a30a5.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "14609dd",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:b93d6e277d58d2c88dce1ddf60819ba14fdc1e1611a886a7baf803526b12f04d",
+  "submitter": null,
+  "verification": null
+ }
+}

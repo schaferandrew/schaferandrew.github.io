@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "6b02ad72-4914-437a-9793-fa369844c63d",
+ "run_path": "lmstudio_qwen_qwen3.5-9b@reasoning-off/multi-step-competition-math/20261105_162857",
+ "legacy_run_id": null,
+ "started_at": "2026-11-05T16:28:57.341776+00:00",
+ "ended_at": "2026-11-05T16:41:50.410182+00:00",
+ "elapsed_s": 772.08,
+ "task": {
+  "id": "multi-step-competition-math",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "fa3e7d98ab144ac2",
+  "rubric_hash": "72028ed7b1732171",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/qwen/qwen3.5-9b",
+  "base": "qwen/qwen3.5-9b",
+  "publisher": "qwen",
+  "artifact": "qwen/qwen3.5-9b",
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "off",
+   "resolved": "off"
+  },
+  "context_loaded": 109984,
+  "variant_key": "qwen/qwen3.5-9b|qwen|mlx|mlx-4bit",
+  "display": "qwen3.5-9b · 4bit",
+  "origin": {
+   "maker": "qwen",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Ironwood",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m1-pro-32gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 32.0,
+  "cpu": "Apple M1 Pro",
+  "offload": null,
+  "label": "Ironwood"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 428,
+  "tokens_out": 22617,
+  "model_responses": 1,
+  "ttft_s": 3.034,
+  "ttft_avg_s": 3.034,
+  "response_time_avg_s": 772.076,
+  "output_tokens_per_s": 29.4,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 0
+ },
+ "output_ref": "outputs/6b02ad72-4914-437a-9793-fa369844c63d.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "14609dd",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:3f5b3f095579e60fb350fbc459e66ab7d54aa3ee03969a41672d8c586876fe24",
+  "submitter": null,
+  "verification": null
+ }
+}

@@ -1,0 +1,18 @@
+I've analyzed the free/busy data for your team and found three suitable time slots for a one-hour meeting in the next two weeks. Here's my reasoning:
+
+1. **2026-09-08 14:00 CDT**: This is late afternoon on Tuesday, September 8th (CDT). It avoids early morning conflicts and falls after most lunch breaks, making it convenient for attendees across time zones. Marcus Webb (in New York) will be in his working hours, while the rest of the team in Chicago will also be available.
+
+2. **2026-09-10 14:00 CDT**: This is late afternoon on Thursday, September 10th. It's a good follow-up to the previous week and avoids the start of the weekend. Most team members are free during this slot, with no major conflicts.
+
+3. **2026-09-14 15:00 CDT**: This is late afternoon on Friday, September 14th, just before the weekend. It's a good option if you prefer to schedule meetings closer to the end of the week. All team members are available during this time.
+
+These options prioritize:
+- Avoiding early morning or very late slots.
+- Placing meetings after lunch breaks where possible.
+- Distributing meetings across different days to avoid clustering.
+- Ensuring Marcus (in New York) is in his working hours.
+
+OPTIONS:
+2026-09-08 14:00 CDT
+2026-09-10 14:00 CDT
+2026-09-14 15:00 CDT

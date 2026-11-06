@@ -1,0 +1,13 @@
+
+
+Based on the calendar events for Tuesday, September 1, 2026:
+
+- 9:00-9:30: Standup
+- 11:00-12:00: 1:1 with Jamie
+- 12:00-13:00: Lunch
+- 14:00-15:30: Design review
+- 16:00-17:00: Customer call
+
+At 3:30 PM (15:30), the Design review ends exactly at that time. There is no event scheduled at 3:30 PM itself - you would be free starting from 3:30 PM onwards (you have a free slot from 15:30 to 16:00 before the Customer call).
+
+ANSWER: free

@@ -1,0 +1,1608 @@
+Here is the step-by-step solution for each problem.
+
+### Problem 1: Nim-like Game with Memory
+**Rules Analysis:**
+- Tokens: $n$.
+- Allowed moves: $\{2, 3, 5, 7\}$.
+- Constraint: Cannot repeat the opponent's previous move.
+- Loss condition: Cannot make a legal move (pile empty or no valid move size).
+- Goal: Find $n \in [1, 100]$ where the **Second Player (P2)** has a winning strategy.
+
+**Strategy Derivation:**
+Let $W$ denote a winning position for the current player to move, and $L$ denote a losing position.
+Let $S = \{2, 3, 5, 7\}$.
+State is defined by $(n, m)$, where $n$ is current tokens and $m$ is the move just made by the opponent.
+- If $n=0$, current player loses ($L$).
+- If $n \in S$ and $n \neq m$, current player can take all tokens and win ($W$).
+- If $n \in S$ and $n = m$, current player cannot take $n$. They must check other moves $k \in S \setminus \{m\}$. If any $k \le n$, they can move to $(n-k, k)$. If all resulting states are $W$ for the next player, then current is $L$.
+
+Let's compute the status for small $n$.
+Let $Win(n, m)$ be true if the current player can force a win given $n$ tokens and previous move $m$.
+$Win(n, m) = \exists k \in S, k \neq m, k \le n \text{ such that } Win(n-k, k) \text{ is False}$.
+If no such $k$ exists, $Win(n, m) = \text{False}$.
+
+Let's calculate $Win(n, \text{none})$ (first move, no restriction).
+$n=1$: No moves $\le 1$. $L$.
+$n=2$: Can take 2. Next state $(0, 2)$. $Win(0, 2)$ is False (no moves). So $Win(2, \text{none}) = T$.
+$n=3$: Can take 2 or 3.
+  - Take 2 $\to (1, 2)$. $Win(1, 2)$: Moves allowed $\{3, 5, 7\} \setminus \{2\}$. None $\le 1$. $L$.
+  - Take 3 $\to (0, 3)$. $L$.
+  Since there is a move to $L$, $Win(3, \text{none}) = T$.
+$n=4$: Moves $\{2, 3\}$.
+  - Take 2 $\to (2, 2)$. $Win(2, 2)$: Allowed $\{3, 5, 7\}$. None $\le 2$. $L$.
+  - Take 3 $\to (1, 3)$. $L$.
+  Both lead to $L$, so $Win(4, \text{none}) = L$.
+$n=5$: Moves $\{2, 3, 5\}$.
+  - Take 2 $\to (3, 2)$. $Win(3, 2)$: Allowed $\{3, 5, 7\}$. Take 3 $\to (0, 3)$. $L$. So $Win(3, 2)=T$.
+  - Take 3 $\to (2, 3)$. $Win(2, 3)$: Allowed $\{2, 5, 7\}$. Take 2 $\to (0, 2)$. $L$. So $Win(2, 3)=T$.
+  - Take 5 $\to (0, 5)$. $L$.
+  Can move to $L$? Yes, take 5. So $Win(5, \text{none}) = T$.
+$n=6$: Moves $\{2, 3, 5\}$.
+  - Take 2 $\to (4, 2)$. $Win(4, 2)$: Allowed $\{3, 5, 7\}$. Take 3 $\to (1, 3)$. $L$. Take 5 (no). So $Win(4, 2)=T$.
+  - Take 3 $\to (3, 3)$. $Win(3, 3)$: Allowed $\{2, 5, 7\}$. Take 2 $\to (1, 2)$. $L$. So $Win(3, 3)=T$.
+  - Take 5 $\to (1, 5)$. $L$.
+  Can move to $L$? Yes, take 5. So $Win(6, \text{none}) = T$.
+$n=7$: Moves $\{2, 3, 5, 7\}$.
+  - Take 7 $\to (0, 7)$. $L$. So $Win(7, \text{none}) = T$.
+$n=8$: Moves $\{2, 3, 5\}$.
+  - Take 2 $\to (6, 2)$. $Win(6, 2)$: Allowed $\{3, 5, 7\}$. Take 3 $\to (3, 3)=T$. Take 5 $\to (1, 5)=L$. So $Win(6, 2)=T$.
+  - Take 3 $\to (5, 3)$. $Win(5, 3)$: Allowed $\{2, 5, 7\}$. Take 2 $\to (3, 2)=T$. Take 5 $\to (0, 5)=L$. So $Win(5, 3)=T$.
+  - Take 5 $\to (3, 5)$. $Win(3, 5)$: Allowed $\{2, 3, 7\}$. Take 2 $\to (1, 2)=L$. Take 3 $\to (0, 3)=L$. Take 7 (no).
+    From $(3, 5)$, moves allowed $\{2, 3\}$.
+    Move 2 $\to (1, 2)$. $Win(1, 2)$: Allowed $\{3, 5, 7\}$. None. $L$.
+    Move 3 $\to (0, 3)$. $L$.
+    Since can move to $L$, $Win(3, 5)=T$.
+  All moves from 8 lead to $T$. So $Win(8, \text{none}) = L$.
+
+Pattern so far for $Win(n, \text{none})$:
+1: L
+2: T
+3: T
+4: L
+5: T
+6: T
+7: T
+8: L
+9: ?
+Let's check periodicity or pattern. The set of moves is $\{2, 3, 5, 7\}$.
+The constraint "cannot repeat" makes it a variation of Nim with a memory constraint.
+Usually, these games have a periodic pattern for large $n$.
+Let's calculate further.
+$n=9$: Moves $\{2, 3, 5, 7\}$.
+  - 2 $\to (7, 2)$. $Win(7, 2)$: Allowed $\{3, 5, 7\}$.
+    - 3 $\to (4, 3)$. $Win(4, 3)$: Allowed $\{2, 5, 7\}$.
+      - 2 $\to (2, 2)=L$.
+      - 5 (no).
+      So $Win(4, 3)=T$.
+    - 5 $\to (2, 5)$. $Win(2, 5)$: Allowed $\{2, 3, 7\}$.
+      - 2 $\to (0, 2)=L$.
+      So $Win(2, 5)=T$.
+    - 7 (no).
+    So $Win(7, 2)=T$ (can move to $L$ via 3? No, $Win(4,3)=T$. Via 5? $Win(2,5)=T$. No move to $L$?).
+    Wait, re-eval $Win(7, 2)$.
+    Moves from 7 excluding 2: $\{3, 5, 7\}$.
+    - 3 $\to (4, 3)$. We found $Win(4, 3)=T$.
+    - 5 $\to (2, 5)$. We found $Win(2, 5)=T$.
+    - 7 $\to (0, 7)=L$.
+    So $Win(7, 2)=T$ (take 7).
+  - 3 $\to (6, 3)$. $Win(6, 3)$: Allowed $\{2, 5, 7\}$.
+    - 2 $\to (4, 2)=T$.
+    - 5 $\to (1, 5)=L$.
+    So $Win(6, 3)=T$.
+  - 5 $\to (4, 5)$. $Win(4, 5)$: Allowed $\{2, 3, 7\}$.
+    - 2 $\to (2, 2)=L$.
+    So $Win(4, 5)=T$.
+  - 7 $\to (2, 7)$. $Win(2, 7)$: Allowed $\{2, 3, 5\}$.
+    - 2 $\to (0, 2)=L$.
+    So $Win(2, 7)=T$.
+  All moves from 9 lead to $T$. So $Win(9, \text{none}) = L$.
+
+$n=10$: Moves $\{2, 3, 5, 7\}$.
+  - 2 $\to (8, 2)$. $Win(8, 2)$: Allowed $\{3, 5, 7\}$.
+    - 3 $\to (5, 3)=T$.
+    - 5 $\to (3, 5)=T$.
+    - 7 (no).
+    All lead to $T$. So $Win(8, 2)=L$.
+  - 3 $\to (7, 3)$. $Win(7, 3)$: Allowed $\{2, 5, 7\}$.
+    - 2 $\to (5, 2)$. $Win(5, 2)$: Allowed $\{3, 5, 7\}$.
+      - 3 $\to (2, 3)=T$.
+      - 5 $\to (0, 5)=L$.
+      So $Win(5, 2)=T$.
+    - 5 $\to (2, 5)=T$.
+    - 7 (no).
+    All lead to $T$. So $Win(7, 3)=L$.
+  - 5 $\to (5, 5)$. $Win(5, 5)$: Allowed $\{2, 3, 7\}$.
+    - 2 $\to (3, 2)=T$.
+    - 3 $\to (2, 3)=T$.
+    - 7 (no).
+    All lead to $T$. So $Win(5, 5)=L$.
+  - 7 $\to (3, 7)$. $Win(3, 7)$: Allowed $\{2, 3, 5\}$.
+    - 2 $\to (1, 2)=L$.
+    So $Win(3, 7)=T$.
+  Moves from 10:
+    - 2 $\to L$.
+    - 3 $\to L$.
+    - 5 $\to L$.
+    - 7 $\to T$.
+  Can move to $L$? Yes (2, 3, 5). So $Win(10, \text{none}) = T$.
+
+Sequence $Win(n, \text{none})$:
+1: L
+2: T
+3: T
+4: L
+5: T
+6: T
+7: T
+8: L
+9: L
+10: T
+11: ?
+Let's look at the pattern of $Win(n, \text{none})$: L, T, T, L, T, T, T, L, L, T...
+It seems to repeat every 10? Or maybe related to the sum of moves?
+Actually, let's look at the "P-positions" (L positions) for the first move.
+$L$ at: 1, 4, 8, 9.
+$T$ at: 2, 3, 5, 6, 7, 10.
+Let's check $n=11$.
+Moves: 2, 3, 5, 7.
+- 2 $\to (9, 2)$. $Win(9, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (6, 3)=T$.
+  - 5 $\to (4, 5)=T$.
+  - 7 $\to (2, 7)=T$.
+  All $T$. So $Win(9, 2)=L$.
+- 3 $\to (8, 3)$. $Win(8, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (6, 2)=T$.
+  - 5 $\to (3, 5)=T$.
+  - 7 (no).
+  All $T$. So $Win(8, 3)=L$.
+- 5 $\to (6, 5)$. $Win(6, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (4, 2)=T$.
+  - 3 $\to (3, 3)=T$.
+  - 7 (no).
+  All $T$. So $Win(6, 5)=L$.
+- 7 $\to (4, 7)$. $Win(4, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (2, 2)=L$.
+  So $Win(4, 7)=T$.
+Moves from 11:
+- 2 $\to L$.
+- 3 $\to L$.
+- 5 $\to L$.
+- 7 $\to T$.
+Can move to $L$? Yes. So $Win(11, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9.
+$T$ at: 2, 3, 5, 6, 7, 10, 11.
+Let's check $n=12$.
+- 2 $\to (10, 2)$. $Win(10, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (7, 3)=L$.
+  So $Win(10, 2)=T$.
+- 3 $\to (9, 3)$. $Win(9, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (7, 2)=T$.
+  - 5 $\to (4, 5)=T$.
+  - 7 $\to (2, 7)=T$.
+  All $T$. So $Win(9, 3)=L$.
+- 5 $\to (7, 5)$. $Win(7, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (5, 2)=T$.
+  - 3 $\to (4, 3)=T$.
+  - 7 (no).
+  All $T$. So $Win(7, 5)=L$.
+- 7 $\to (5, 7)$. $Win(5, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (3, 2)=T$.
+  - 3 $\to (2, 3)=T$.
+  - 5 $\to (0, 5)=L$.
+  So $Win(5, 7)=T$.
+Moves from 12:
+- 2 $\to T$.
+- 3 $\to L$.
+- 5 $\to L$.
+- 7 $\to T$.
+Can move to $L$? Yes. So $Win(12, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12.
+Let's check $n=13$.
+- 2 $\to (11, 2)$. $Win(11, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (8, 3)=L$.
+  So $Win(11, 2)=T$.
+- 3 $\to (10, 3)$. $Win(10, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (8, 2)=L$.
+  So $Win(10, 3)=T$.
+- 5 $\to (8, 5)$. $Win(8, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (6, 2)=T$.
+  - 3 $\to (5, 3)=T$.
+  - 7 (no).
+  All $T$. So $Win(8, 5)=L$.
+- 7 $\to (6, 7)$. $Win(6, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (4, 2)=T$.
+  - 3 $\to (3, 3)=T$.
+  - 5 $\to (1, 5)=L$.
+  So $Win(6, 7)=T$.
+Moves from 13:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to L$.
+- 7 $\to T$.
+Can move to $L$? Yes (5). So $Win(13, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13.
+Let's check $n=14$.
+- 2 $\to (12, 2)$. $Win(12, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (9, 3)=L$.
+  So $Win(12, 2)=T$.
+- 3 $\to (11, 3)$. $Win(11, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (9, 2)=L$.
+  So $Win(11, 3)=T$.
+- 5 $\to (9, 5)$. $Win(9, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (7, 2)=T$.
+  - 3 $\to (6, 3)=T$.
+  - 7 $\to (2, 7)=T$.
+  All $T$. So $Win(9, 5)=L$.
+- 7 $\to (7, 7)$. $Win(7, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (5, 2)=T$.
+  - 3 $\to (4, 3)=T$.
+  - 5 $\to (2, 5)=T$.
+  All $T$. So $Win(7, 7)=L$.
+Moves from 14:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to L$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(14, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14.
+Let's check $n=15$.
+- 2 $\to (13, 2)$. $Win(13, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (10, 3)=T$.
+  - 5 $\to (8, 5)=L$.
+  So $Win(13, 2)=T$.
+- 3 $\to (12, 3)$. $Win(12, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (10, 2)=T$.
+  - 5 $\to (7, 5)=L$.
+  So $Win(12, 3)=T$.
+- 5 $\to (10, 5)$. $Win(10, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (8, 2)=L$.
+  So $Win(10, 5)=T$.
+- 7 $\to (8, 7)$. $Win(8, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (6, 2)=T$.
+  - 3 $\to (5, 3)=T$.
+  - 5 $\to (3, 5)=T$.
+  All $T$. So $Win(8, 7)=L$.
+Moves from 15:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(15, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15.
+Let's check $n=16$.
+- 2 $\to (14, 2)$. $Win(14, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (11, 3)=T$.
+  - 5 $\to (9, 5)=L$.
+  So $Win(14, 2)=T$.
+- 3 $\to (13, 3)$. $Win(13, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (11, 2)=T$.
+  - 5 $\to (8, 5)=L$.
+  So $Win(13, 3)=T$.
+- 5 $\to (11, 5)$. $Win(11, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (9, 2)=L$.
+  So $Win(11, 5)=T$.
+- 7 $\to (9, 7)$. $Win(9, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (7, 2)=T$.
+  - 3 $\to (6, 3)=T$.
+  - 5 $\to (4, 5)=T$.
+  All $T$. So $Win(9, 7)=L$.
+Moves from 16:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(16, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16.
+Let's check $n=17$.
+- 2 $\to (15, 2)$. $Win(15, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (12, 3)=T$.
+  - 5 $\to (10, 5)=T$.
+  - 7 $\to (8, 7)=L$.
+  So $Win(15, 2)=T$.
+- 3 $\to (14, 3)$. $Win(14, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (12, 2)=T$.
+  - 5 $\to (9, 5)=L$.
+  So $Win(14, 3)=T$.
+- 5 $\to (12, 5)$. $Win(12, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (10, 2)=T$.
+  - 3 $\to (9, 3)=L$.
+  So $Win(12, 5)=T$.
+- 7 $\to (10, 7)$. $Win(10, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (8, 2)=L$.
+  So $Win(10, 7)=T$.
+Moves from 17:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to T$.
+All lead to $T$. So $Win(17, \text{none}) = L$.
+
+$L$ at: 1, 4, 8, 9, 17.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16.
+Pattern of L: 1, 4, 8, 9, 17.
+Differences: 3, 4, 1, 8.
+Let's check $n=18$.
+- 2 $\to (16, 2)$. $Win(16, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (13, 3)=T$.
+  - 5 $\to (11, 5)=T$.
+  - 7 $\to (9, 7)=L$.
+  So $Win(16, 2)=T$.
+- 3 $\to (15, 3)$. $Win(15, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (13, 2)=T$.
+  - 5 $\to (10, 5)=T$.
+  - 7 $\to (8, 7)=L$.
+  So $Win(15, 3)=T$.
+- 5 $\to (13, 5)$. $Win(13, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (11, 2)=T$.
+  - 3 $\to (10, 3)=T$.
+  - 7 $\to (6, 7)=T$.
+  All $T$. So $Win(13, 5)=L$.
+- 7 $\to (11, 7)$. $Win(11, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (9, 2)=L$.
+  So $Win(11, 7)=T$.
+Moves from 18:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to L$.
+- 7 $\to T$.
+Can move to $L$? Yes. So $Win(18, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18.
+Let's check $n=19$.
+- 2 $\to (17, 2)$. $Win(17, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (14, 3)=T$.
+  - 5 $\to (12, 5)=T$.
+  - 7 $\to (10, 7)=T$.
+  All $T$. So $Win(17, 2)=L$.
+- 3 $\to (16, 3)$. $Win(16, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (14, 2)=T$.
+  - 5 $\to (11, 5)=T$.
+  - 7 $\to (9, 7)=L$.
+  So $Win(16, 3)=T$.
+- 5 $\to (14, 5)$. $Win(14, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (12, 2)=T$.
+  - 3 $\to (11, 3)=T$.
+  - 7 $\to (7, 7)=L$.
+  So $Win(14, 5)=T$.
+- 7 $\to (12, 7)$. $Win(12, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (10, 2)=T$.
+  - 3 $\to (9, 3)=L$.
+  So $Win(12, 7)=T$.
+Moves from 19:
+- 2 $\to L$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to T$.
+Can move to $L$? Yes. So $Win(19, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19.
+Let's check $n=20$.
+- 2 $\to (18, 2)$. $Win(18, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (15, 3)=T$.
+  - 5 $\to (13, 5)=L$.
+  So $Win(18, 2)=T$.
+- 3 $\to (17, 3)$. $Win(17, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (15, 2)=T$.
+  - 5 $\to (12, 5)=T$.
+  - 7 $\to (10, 7)=T$.
+  All $T$. So $Win(17, 3)=L$.
+- 5 $\to (15, 5)$. $Win(15, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (13, 2)=T$.
+  - 3 $\to (12, 3)=T$.
+  - 7 $\to (8, 7)=L$.
+  So $Win(15, 5)=T$.
+- 7 $\to (13, 7)$. $Win(13, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (11, 2)=T$.
+  - 3 $\to (10, 3)=T$.
+  - 5 $\to (8, 5)=L$.
+  So $Win(13, 7)=T$.
+Moves from 20:
+- 2 $\to T$.
+- 3 $\to L$.
+- 5 $\to T$.
+- 7 $\to T$.
+Can move to $L$? Yes. So $Win(20, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 17 (wait, 17 was L, now 17,3 is L? No, 17,2 was L, 17,3 is L).
+Let's re-verify $n=17$.
+$Win(17, \text{none}) = L$.
+$Win(17, 2) = L$.
+$Win(17, 3) = L$.
+$Win(17, 5) = L$.
+$Win(17, 7) = L$.
+So if start at 17, P2 wins regardless of P1's move?
+Wait, if $Win(17, \text{none}) = L$, it means for the first move, whatever P1 picks ($k$), the resulting state $(17-k, k)$ is a winning state for P2.
+So if $n=17$, P1 moves to some state. If all resulting states are $W$ for the next player (P2), then P1 loses.
+My calculation for $n=17$:
+- 2 $\to (15, 2)$. $Win(15, 2)=T$.
+- 3 $\to (14, 3)$. $Win(14, 3)=T$.
+- 5 $\to (12, 5)$. $Win(12, 5)=T$.
+- 7 $\to (10, 7)$. $Win(10, 7)=T$.
+All are $T$. So $Win(17, \text{none}) = L$.
+This means if $n=17$, P2 wins.
+If $n=18$:
+- 2 $\to (16, 2)=T$.
+- 3 $\to (15, 3)=T$.
+- 5 $\to (13, 5)=L$.
+- 7 $\to (11, 7)=T$.
+Can move to $L$ (via 5). So $Win(18, \text{none}) = T$.
+If $n=19$:
+- 2 $\to (17, 2)=L$.
+So $Win(19, \text{none}) = T$.
+If $n=20$:
+- 2 $\to (18, 2)=T$.
+- 3 $\to (17, 3)=L$.
+So $Win(20, \text{none}) = T$.
+If $n=21$:
+- 2 $\to (19, 2)$. $Win(19, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (16, 3)=T$.
+  - 5 $\to (14, 5)=T$.
+  - 7 $\to (12, 7)=T$.
+  All $T$. So $Win(19, 2)=L$.
+- 3 $\to (18, 3)$. $Win(18, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (16, 2)=T$.
+  - 5 $\to (13, 5)=L$.
+  So $Win(18, 3)=T$.
+- 5 $\to (16, 5)$. $Win(16, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (14, 2)=T$.
+  - 3 $\to (13, 3)=T$.
+  - 7 $\to (9, 7)=L$.
+  So $Win(16, 5)=T$.
+- 7 $\to (14, 7)$. $Win(14, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (12, 2)=T$.
+  - 3 $\to (11, 3)=T$.
+  - 5 $\to (9, 5)=L$.
+  So $Win(14, 7)=T$.
+Moves from 21:
+- 2 $\to L$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to T$.
+Can move to $L$? Yes. So $Win(21, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21.
+Let's check $n=22$.
+- 2 $\to (20, 2)$. $Win(20, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (17, 3)=L$.
+  So $Win(20, 2)=T$.
+- 3 $\to (19, 3)$. $Win(19, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (17, 2)=L$.
+  So $Win(19, 3)=T$.
+- 5 $\to (17, 5)$. $Win(17, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (15, 2)=T$.
+  - 3 $\to (14, 3)=T$.
+  - 7 $\to (10, 7)=T$.
+  All $T$. So $Win(17, 5)=L$.
+- 7 $\to (15, 7)$. $Win(15, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (13, 2)=T$.
+  - 3 $\to (12, 3)=T$.
+  - 5 $\to (10, 5)=T$.
+  All $T$. So $Win(15, 7)=L$.
+Moves from 22:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to L$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(22, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22.
+Let's check $n=23$.
+- 2 $\to (21, 2)$. $Win(21, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (18, 3)=T$.
+  - 5 $\to (16, 5)=T$.
+  - 7 $\to (14, 7)=T$.
+  All $T$. So $Win(21, 2)=L$.
+- 3 $\to (20, 3)$. $Win(20, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (18, 2)=T$.
+  - 5 $\to (15, 5)=T$.
+  - 7 $\to (13, 7)=T$.
+  All $T$. So $Win(20, 3)=L$.
+- 5 $\to (18, 5)$. $Win(18, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (16, 2)=T$.
+  - 3 $\to (15, 3)=T$.
+  - 7 $\to (11, 7)=T$.
+  All $T$. So $Win(18, 5)=L$.
+- 7 $\to (16, 7)$. $Win(16, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (14, 2)=T$.
+  - 3 $\to (13, 3)=T$.
+  - 5 $\to (11, 5)=T$.
+  All $T$. So $Win(16, 7)=L$.
+Moves from 23:
+- 2 $\to L$.
+- 3 $\to L$.
+- 5 $\to L$.
+- 7 $\to L$.
+All lead to $L$. So $Win(23, \text{none}) = L$.
+
+$L$ at: 1, 4, 8, 9, 17, 23.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22.
+Pattern of L: 1, 4, 8, 9, 17, 23.
+Differences: 3, 4, 1, 8, 6.
+Let's check $n=24$.
+- 2 $\to (22, 2)$. $Win(22, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (19, 3)=T$.
+  - 5 $\to (17, 5)=L$.
+  So $Win(22, 2)=T$.
+- 3 $\to (21, 3)$. $Win(21, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (19, 2)=L$.
+  So $Win(21, 3)=T$.
+- 5 $\to (19, 5)$. $Win(19, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (17, 2)=L$.
+  So $Win(19, 5)=T$.
+- 7 $\to (17, 7)$. $Win(17, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (15, 2)=T$.
+  - 3 $\to (14, 3)=T$.
+  - 5 $\to (12, 5)=T$.
+  All $T$. So $Win(17, 7)=L$.
+Moves from 24:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(24, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24.
+Let's check $n=25$.
+- 2 $\to (23, 2)$. $Win(23, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (20, 3)=L$.
+  So $Win(23, 2)=T$.
+- 3 $\to (22, 3)$. $Win(22, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (20, 2)=T$.
+  - 5 $\to (17, 5)=L$.
+  So $Win(22, 3)=T$.
+- 5 $\to (20, 5)$. $Win(20, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (18, 2)=T$.
+  - 3 $\to (17, 3)=L$.
+  So $Win(20, 5)=T$.
+- 7 $\to (18, 7)$. $Win(18, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (16, 2)=T$.
+  - 3 $\to (15, 3)=T$.
+  - 5 $\to (13, 5)=L$.
+  So $Win(18, 7)=T$.
+Moves from 25:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to T$.
+All lead to $T$. So $Win(25, \text{none}) = L$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24.
+Let's check $n=26$.
+- 2 $\to (24, 2)$. $Win(24, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (21, 3)=T$.
+  - 5 $\to (19, 5)=T$.
+  - 7 $\to (17, 7)=L$.
+  So $Win(24, 2)=T$.
+- 3 $\to (23, 3)$. $Win(23, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (21, 2)=L$.
+  So $Win(23, 3)=T$.
+- 5 $\to (21, 5)$. $Win(21, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (19, 2)=L$.
+  So $Win(21, 5)=T$.
+- 7 $\to (19, 7)$. $Win(19, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (17, 2)=L$.
+  So $Win(19, 7)=T$.
+Moves from 26:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to T$.
+All lead to $T$. So $Win(26, \text{none}) = L$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24.
+Let's check $n=27$.
+- 2 $\to (25, 2)$. $Win(25, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (22, 3)=T$.
+  - 5 $\to (20, 5)=T$.
+  - 7 $\to (18, 7)=T$.
+  All $T$. So $Win(25, 2)=L$.
+- 3 $\to (24, 3)$. $Win(24, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (22, 2)=T$.
+  - 5 $\to (19, 5)=T$.
+  - 7 $\to (17, 7)=L$.
+  So $Win(24, 3)=T$.
+- 5 $\to (22, 5)$. $Win(22, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (20, 2)=T$.
+  - 3 $\to (19, 3)=T$.
+  - 7 $\to (15, 7)=L$.
+  So $Win(22, 5)=T$.
+- 7 $\to (20, 7)$. $Win(20, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (18, 2)=T$.
+  - 3 $\to (17, 3)=L$.
+  So $Win(20, 7)=T$.
+Moves from 27:
+- 2 $\to L$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to T$.
+Can move to $L$? Yes. So $Win(27, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 27.
+Let's check $n=28$.
+- 2 $\to (26, 2)$. $Win(26, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (23, 3)=T$.
+  - 5 $\to (21, 5)=T$.
+  - 7 $\to (19, 7)=T$.
+  All $T$. So $Win(26, 2)=L$.
+- 3 $\to (25, 3)$. $Win(25, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (23, 2)=T$.
+  - 5 $\to (20, 5)=T$.
+  - 7 $\to (18, 7)=T$.
+  All $T$. So $Win(25, 3)=L$.
+- 5 $\to (23, 5)$. $Win(23, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (21, 2)=L$.
+  So $Win(23, 5)=T$.
+- 7 $\to (21, 7)$. $Win(21, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (19, 2)=L$.
+  So $Win(21, 7)=T$.
+Moves from 28:
+- 2 $\to L$.
+- 3 $\to L$.
+- 5 $\to T$.
+- 7 $\to T$.
+Can move to $L$? Yes. So $Win(28, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 27, 28.
+Let's check $n=29$.
+- 2 $\to (27, 2)$. $Win(27, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (24, 3)=T$.
+  - 5 $\to (22, 5)=T$.
+  - 7 $\to (20, 7)=T$.
+  All $T$. So $Win(27, 2)=L$.
+- 3 $\to (26, 3)$. $Win(26, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (24, 2)=T$.
+  - 5 $\to (21, 5)=T$.
+  - 7 $\to (19, 7)=T$.
+  All $T$. So $Win(26, 3)=L$.
+- 5 $\to (24, 5)$. $Win(24, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (22, 2)=T$.
+  - 3 $\to (21, 3)=T$.
+  - 7 $\to (17, 7)=L$.
+  So $Win(24, 5)=T$.
+- 7 $\to (22, 7)$. $Win(22, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (20, 2)=T$.
+  - 3 $\to (19, 3)=T$.
+  - 5 $\to (17, 5)=L$.
+  So $Win(22, 7)=T$.
+Moves from 29:
+- 2 $\to L$.
+- 3 $\to L$.
+- 5 $\to T$.
+- 7 $\to T$.
+Can move to $L$? Yes. So $Win(29, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29.
+Let's check $n=30$.
+- 2 $\to (28, 2)$. $Win(28, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (25, 3)=L$.
+  So $Win(28, 2)=T$.
+- 3 $\to (27, 3)$. $Win(27, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (25, 2)=L$.
+  So $Win(27, 3)=T$.
+- 5 $\to (25, 5)$. $Win(25, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (23, 2)=T$.
+  - 3 $\to (22, 3)=T$.
+  - 7 $\to (18, 7)=T$.
+  All $T$. So $Win(25, 5)=L$.
+- 7 $\to (23, 7)$. $Win(23, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (21, 2)=L$.
+  So $Win(23, 7)=T$.
+Moves from 30:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to L$.
+- 7 $\to T$.
+Can move to $L$? Yes. So $Win(30, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30.
+Let's check $n=31$.
+- 2 $\to (29, 2)$. $Win(29, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (26, 3)=L$.
+  So $Win(29, 2)=T$.
+- 3 $\to (28, 3)$. $Win(28, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (26, 2)=L$.
+  So $Win(28, 3)=T$.
+- 5 $\to (26, 5)$. $Win(26, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (24, 2)=T$.
+  - 3 $\to (23, 3)=T$.
+  - 7 $\to (19, 7)=T$.
+  All $T$. So $Win(26, 5)=L$.
+- 7 $\to (24, 7)$. $Win(24, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (22, 2)=T$.
+  - 3 $\to (21, 3)=T$.
+  - 5 $\to (19, 5)=T$.
+  All $T$. So $Win(24, 7)=L$.
+Moves from 31:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to L$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(31, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31.
+Let's check $n=32$.
+- 2 $\to (30, 2)$. $Win(30, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (27, 3)=T$.
+  - 5 $\to (25, 5)=L$.
+  So $Win(30, 2)=T$.
+- 3 $\to (29, 3)$. $Win(29, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (27, 2)=L$.
+  So $Win(29, 3)=T$.
+- 5 $\to (27, 5)$. $Win(27, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (25, 2)=L$.
+  So $Win(27, 5)=T$.
+- 7 $\to (25, 7)$. $Win(25, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (23, 2)=T$.
+  - 3 $\to (22, 3)=T$.
+  - 5 $\to (20, 5)=T$.
+  All $T$. So $Win(25, 7)=L$.
+Moves from 32:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(32, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32.
+Let's check $n=33$.
+- 2 $\to (31, 2)$. $Win(31, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (28, 3)=T$.
+  - 5 $\to (26, 5)=L$.
+  So $Win(31, 2)=T$.
+- 3 $\to (30, 3)$. $Win(30, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (28, 2)=T$.
+  - 5 $\to (25, 5)=L$.
+  So $Win(30, 3)=T$.
+- 5 $\to (28, 5)$. $Win(28, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (26, 2)=L$.
+  So $Win(28, 5)=T$.
+- 7 $\to (26, 7)$. $Win(26, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (24, 2)=T$.
+  - 3 $\to (23, 3)=T$.
+  - 5 $\to (21, 5)=T$.
+  All $T$. So $Win(26, 7)=L$.
+Moves from 33:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(33, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33.
+Let's check $n=34$.
+- 2 $\to (32, 2)$. $Win(32, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (29, 3)=T$.
+  - 5 $\to (27, 5)=T$.
+  - 7 $\to (25, 7)=L$.
+  So $Win(32, 2)=T$.
+- 3 $\to (31, 3)$. $Win(31, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (29, 2)=L$.
+  So $Win(31, 3)=T$.
+- 5 $\to (29, 5)$. $Win(29, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (27, 2)=L$.
+  So $Win(29, 5)=T$.
+- 7 $\to (27, 7)$. $Win(27, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (25, 2)=L$.
+  So $Win(25, 7)=L$.
+Moves from 34:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(34, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34.
+Let's check $n=35$.
+- 2 $\to (33, 2)$. $Win(33, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (30, 3)=T$.
+  - 5 $\to (28, 5)=T$.
+  - 7 $\to (26, 7)=L$.
+  So $Win(33, 2)=T$.
+- 3 $\to (32, 3)$. $Win(32, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (30, 2)=T$.
+  - 5 $\to (27, 5)=T$.
+  - 7 $\to (25, 7)=L$.
+  So $Win(32, 3)=T$.
+- 5 $\to (30, 5)$. $Win(30, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (28, 2)=T$.
+  - 3 $\to (27, 3)=T$.
+  - 7 $\to (23, 7)=T$.
+  All $T$. So $Win(30, 5)=L$.
+- 7 $\to (28, 7)$. $Win(28, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (26, 2)=L$.
+  So $Win(26, 7)=L$.
+Moves from 35:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to L$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(35, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35.
+Let's check $n=36$.
+- 2 $\to (34, 2)$. $Win(34, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (31, 3)=T$.
+  - 5 $\to (29, 5)=T$.
+  - 7 $\to (27, 7)=L$.
+  So $Win(34, 2)=T$.
+- 3 $\to (33, 3)$. $Win(33, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (31, 2)=T$.
+  - 5 $\to (28, 5)=T$.
+  - 7 $\to (26, 7)=L$.
+  So $Win(33, 3)=T$.
+- 5 $\to (31, 5)$. $Win(31, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (29, 2)=L$.
+  So $Win(29, 5)=T$.
+- 7 $\to (29, 7)$. $Win(29, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (27, 2)=L$.
+  So $Win(27, 7)=L$.
+Moves from 36:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(36, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36.
+Let's check $n=37$.
+- 2 $\to (35, 2)$. $Win(35, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (32, 3)=T$.
+  - 5 $\to (30, 5)=L$.
+  So $Win(35, 2)=T$.
+- 3 $\to (34, 3)$. $Win(34, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (32, 2)=T$.
+  - 5 $\to (29, 5)=T$.
+  - 7 $\to (27, 7)=L$.
+  So $Win(34, 3)=T$.
+- 5 $\to (32, 5)$. $Win(32, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (30, 2)=T$.
+  - 3 $\to (29, 3)=T$.
+  - 7 $\to (25, 7)=L$.
+  So $Win(32, 5)=T$.
+- 7 $\to (30, 7)$. $Win(30, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (28, 2)=T$.
+  - 3 $\to (27, 3)=T$.
+  - 5 $\to (25, 5)=L$.
+  So $Win(30, 7)=T$.
+Moves from 37:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to T$.
+All lead to $T$. So $Win(37, \text{none}) = L$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36.
+Let's check $n=38$.
+- 2 $\to (36, 2)$. $Win(36, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (33, 3)=T$.
+  - 5 $\to (31, 5)=T$.
+  - 7 $\to (29, 7)=L$.
+  So $Win(36, 2)=T$.
+- 3 $\to (35, 3)$. $Win(35, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (33, 2)=T$.
+  - 5 $\to (30, 5)=L$.
+  So $Win(35, 3)=T$.
+- 5 $\to (33, 5)$. $Win(33, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (31, 2)=T$.
+  - 3 $\to (30, 3)=T$.
+  - 7 $\to (26, 7)=L$.
+  So $Win(33, 5)=T$.
+- 7 $\to (31, 7)$. $Win(31, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (29, 2)=L$.
+  So $Win(29, 7)=L$.
+Moves from 38:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(38, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 38.
+Let's check $n=39$.
+- 2 $\to (37, 2)$. $Win(37, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (34, 3)=T$.
+  - 5 $\to (32, 5)=T$.
+  - 7 $\to (30, 7)=T$.
+  All $T$. So $Win(37, 2)=L$.
+- 3 $\to (36, 3)$. $Win(36, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (34, 2)=T$.
+  - 5 $\to (31, 5)=T$.
+  - 7 $\to (29, 7)=L$.
+  So $Win(36, 3)=T$.
+- 5 $\to (34, 5)$. $Win(34, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (32, 2)=T$.
+  - 3 $\to (31, 3)=T$.
+  - 7 $\to (27, 7)=L$.
+  So $Win(34, 5)=T$.
+- 7 $\to (32, 7)$. $Win(32, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (30, 2)=T$.
+  - 3 $\to (29, 3)=T$.
+  - 5 $\to (27, 5)=T$.
+  All $T$. So $Win(32, 7)=L$.
+Moves from 39:
+- 2 $\to L$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(39, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 38, 39.
+Let's check $n=40$.
+- 2 $\to (38, 2)$. $Win(38, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (35, 3)=T$.
+  - 5 $\to (33, 5)=T$.
+  - 7 $\to (31, 7)=L$.
+  So $Win(38, 2)=T$.
+- 3 $\to (37, 3)$. $Win(37, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (35, 2)=T$.
+  - 5 $\to (32, 5)=T$.
+  - 7 $\to (30, 7)=T$.
+  All $T$. So $Win(37, 3)=L$.
+- 5 $\to (35, 5)$. $Win(35, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (33, 2)=T$.
+  - 3 $\to (32, 3)=T$.
+  - 7 $\to (28, 7)=L$.
+  So $Win(35, 5)=T$.
+- 7 $\to (33, 7)$. $Win(33, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (31, 2)=T$.
+  - 3 $\to (30, 3)=T$.
+  - 5 $\to (28, 5)=T$.
+  All $T$. So $Win(33, 7)=L$.
+Moves from 40:
+- 2 $\to T$.
+- 3 $\to L$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(40, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40.
+Let's check $n=41$.
+- 2 $\to (39, 2)$. $Win(39, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (36, 3)=T$.
+  - 5 $\to (34, 5)=T$.
+  - 7 $\to (32, 7)=L$.
+  So $Win(39, 2)=T$.
+- 3 $\to (38, 3)$. $Win(38, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (36, 2)=T$.
+  - 5 $\to (33, 5)=T$.
+  - 7 $\to (31, 7)=L$.
+  So $Win(38, 3)=T$.
+- 5 $\to (36, 5)$. $Win(36, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (34, 2)=T$.
+  - 3 $\to (33, 3)=T$.
+  - 7 $\to (29, 7)=L$.
+  So $Win(36, 5)=T$.
+- 7 $\to (34, 7)$. $Win(34, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (32, 2)=T$.
+  - 3 $\to (31, 3)=T$.
+  - 5 $\to (29, 5)=T$.
+  All $T$. So $Win(34, 7)=L$.
+Moves from 41:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(41, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41.
+Let's check $n=42$.
+- 2 $\to (40, 2)$. $Win(40, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (37, 3)=L$.
+  So $Win(40, 2)=T$.
+- 3 $\to (39, 3)$. $Win(39, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (37, 2)=L$.
+  So $Win(39, 3)=T$.
+- 5 $\to (37, 5)$. $Win(37, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (35, 2)=T$.
+  - 3 $\to (34, 3)=T$.
+  - 7 $\to (30, 7)=T$.
+  All $T$. So $Win(37, 5)=L$.
+- 7 $\to (35, 7)$. $Win(35, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (33, 2)=T$.
+  - 3 $\to (32, 3)=T$.
+  - 5 $\to (30, 5)=L$.
+  So $Win(35, 7)=T$.
+Moves from 42:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to L$.
+- 7 $\to T$.
+Can move to $L$? Yes. So $Win(42, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42.
+Let's check $n=43$.
+- 2 $\to (41, 2)$. $Win(41, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (38, 3)=T$.
+  - 5 $\to (36, 5)=T$.
+  - 7 $\to (34, 7)=L$.
+  So $Win(41, 2)=T$.
+- 3 $\to (40, 3)$. $Win(40, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (38, 2)=T$.
+  - 5 $\to (35, 5)=T$.
+  - 7 $\to (33, 7)=L$.
+  So $Win(40, 3)=T$.
+- 5 $\to (38, 5)$. $Win(38, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (36, 2)=T$.
+  - 3 $\to (35, 3)=T$.
+  - 7 $\to (31, 7)=L$.
+  So $Win(38, 5)=T$.
+- 7 $\to (36, 7)$. $Win(36, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (34, 2)=T$.
+  - 3 $\to (33, 3)=T$.
+  - 5 $\to (31, 5)=T$.
+  All $T$. So $Win(36, 7)=L$.
+Moves from 43:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(43, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43.
+Let's check $n=44$.
+- 2 $\to (42, 2)$. $Win(42, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (39, 3)=T$.
+  - 5 $\to (37, 5)=L$.
+  So $Win(42, 2)=T$.
+- 3 $\to (41, 3)$. $Win(41, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (39, 2)=T$.
+  - 5 $\to (36, 5)=T$.
+  - 7 $\to (34, 7)=L$.
+  So $Win(41, 3)=T$.
+- 5 $\to (39, 5)$. $Win(39, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (37, 2)=L$.
+  So $Win(37, 5)=T$.
+- 7 $\to (37, 7)$. $Win(37, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (35, 2)=T$.
+  - 3 $\to (34, 3)=T$.
+  - 5 $\to (32, 5)=T$.
+  All $T$. So $Win(37, 7)=L$.
+Moves from 44:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(44, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44.
+Let's check $n=45$.
+- 2 $\to (43, 2)$. $Win(43, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (40, 3)=T$.
+  - 5 $\to (38, 5)=T$.
+  - 7 $\to (36, 7)=L$.
+  So $Win(43, 2)=T$.
+- 3 $\to (42, 3)$. $Win(42, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (40, 2)=T$.
+  - 5 $\to (37, 5)=L$.
+  So $Win(42, 3)=T$.
+- 5 $\to (40, 5)$. $Win(40, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (38, 2)=T$.
+  - 3 $\to (37, 3)=L$.
+  So $Win(37, 5)=T$.
+- 7 $\to (38, 7)$. $Win(38, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (36, 2)=T$.
+  - 3 $\to (35, 3)=T$.
+  - 5 $\to (33, 5)=T$.
+  All $T$. So $Win(38, 7)=L$.
+Moves from 45:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(45, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44, 45.
+Let's check $n=46$.
+- 2 $\to (44, 2)$. $Win(44, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (41, 3)=T$.
+  - 5 $\to (39, 5)=T$.
+  - 7 $\to (37, 7)=L$.
+  So $Win(44, 2)=T$.
+- 3 $\to (43, 3)$. $Win(43, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (41, 2)=T$.
+  - 5 $\to (38, 5)=T$.
+  - 7 $\to (36, 7)=L$.
+  So $Win(43, 3)=T$.
+- 5 $\to (41, 5)$. $Win(41, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (39, 2)=T$.
+  - 3 $\to (38, 3)=T$.
+  - 7 $\to (34, 7)=L$.
+  So $Win(41, 5)=T$.
+- 7 $\to (39, 7)$. $Win(39, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (37, 2)=L$.
+  So $Win(37, 7)=L$.
+Moves from 46:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(46, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44, 45, 46.
+Let's check $n=47$.
+- 2 $\to (45, 2)$. $Win(45, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (42, 3)=T$.
+  - 5 $\to (40, 5)=T$.
+  - 7 $\to (38, 7)=L$.
+  So $Win(45, 2)=T$.
+- 3 $\to (44, 3)$. $Win(44, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (42, 2)=T$.
+  - 5 $\to (39, 5)=T$.
+  - 7 $\to (37, 7)=L$.
+  So $Win(44, 3)=T$.
+- 5 $\to (42, 5)$. $Win(42, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (40, 2)=T$.
+  - 3 $\to (39, 3)=T$.
+  - 7 $\to (35, 7)=T$.
+  All $T$. So $Win(42, 5)=L$.
+- 7 $\to (40, 7)$. $Win(40, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (38, 2)=T$.
+  - 3 $\to (37, 3)=L$.
+  So $Win(37, 7)=L$.
+Moves from 47:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to L$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(47, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44, 45, 46, 47.
+Let's check $n=48$.
+- 2 $\to (46, 2)$. $Win(46, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (43, 3)=T$.
+  - 5 $\to (41, 5)=T$.
+  - 7 $\to (39, 7)=L$.
+  So $Win(46, 2)=T$.
+- 3 $\to (45, 3)$. $Win(45, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (43, 2)=T$.
+  - 5 $\to (40, 5)=T$.
+  - 7 $\to (38, 7)=L$.
+  So $Win(45, 3)=T$.
+- 5 $\to (43, 5)$. $Win(43, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (41, 2)=T$.
+  - 3 $\to (40, 3)=T$.
+  - 7 $\to (36, 7)=L$.
+  So $Win(43, 5)=T$.
+- 7 $\to (41, 7)$. $Win(41, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (39, 2)=T$.
+  - 3 $\to (38, 3)=T$.
+  - 5 $\to (36, 5)=T$.
+  All $T$. So $Win(41, 7)=L$.
+Moves from 48:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(48, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48.
+Let's check $n=49$.
+- 2 $\to (47, 2)$. $Win(47, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (44, 3)=T$.
+  - 5 $\to (42, 5)=L$.
+  So $Win(47, 2)=T$.
+- 3 $\to (46, 3)$. $Win(46, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (44, 2)=T$.
+  - 5 $\to (41, 5)=T$.
+  - 7 $\to (39, 7)=L$.
+  So $Win(46, 3)=T$.
+- 5 $\to (44, 5)$. $Win(44, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (42, 2)=T$.
+  - 3 $\to (41, 3)=T$.
+  - 7 $\to (37, 7)=L$.
+  So $Win(44, 5)=T$.
+- 7 $\to (42, 7)$. $Win(42, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (40, 2)=T$.
+  - 3 $\to (39, 3)=T$.
+  - 5 $\to (37, 5)=T$.
+  All $T$. So $Win(42, 7)=L$.
+Moves from 49:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(49, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49.
+Let's check $n=50$.
+- 2 $\to (48, 2)$. $Win(48, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (45, 3)=T$.
+  - 5 $\to (43, 5)=T$.
+  - 7 $\to (41, 7)=L$.
+  So $Win(48, 2)=T$.
+- 3 $\to (47, 3)$. $Win(47, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (45, 2)=T$.
+  - 5 $\to (42, 5)=L$.
+  So $Win(47, 3)=T$.
+- 5 $\to (45, 5)$. $Win(45, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (43, 2)=T$.
+  - 3 $\to (42, 3)=T$.
+  - 7 $\to (38, 7)=L$.
+  So $Win(45, 5)=T$.
+- 7 $\to (43, 7)$. $Win(43, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (41, 2)=T$.
+  - 3 $\to (40, 3)=T$.
+  - 5 $\to (38, 5)=T$.
+  All $T$. So $Win(43, 7)=L$.
+Moves from 50:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(50, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50.
+Let's check $n=51$.
+- 2 $\to (49, 2)$. $Win(49, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (46, 3)=T$.
+  - 5 $\to (44, 5)=T$.
+  - 7 $\to (42, 7)=L$.
+  So $Win(49, 2)=T$.
+- 3 $\to (48, 3)$. $Win(48, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (46, 2)=T$.
+  - 5 $\to (43, 5)=T$.
+  - 7 $\to (41, 7)=L$.
+  So $Win(48, 3)=T$.
+- 5 $\to (46, 5)$. $Win(46, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (44, 2)=T$.
+  - 3 $\to (43, 3)=T$.
+  - 7 $\to (39, 7)=L$.
+  So $Win(46, 5)=T$.
+- 7 $\to (44, 7)$. $Win(44, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (42, 2)=T$.
+  - 3 $\to (41, 3)=T$.
+  - 5 $\to (39, 5)=T$.
+  All $T$. So $Win(44, 7)=L$.
+Moves from 51:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(51, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51.
+Let's check $n=52$.
+- 2 $\to (50, 2)$. $Win(50, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (47, 3)=T$.
+  - 5 $\to (45, 5)=T$.
+  - 7 $\to (43, 7)=L$.
+  So $Win(50, 2)=T$.
+- 3 $\to (49, 3)$. $Win(49, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (47, 2)=T$.
+  - 5 $\to (44, 5)=T$.
+  - 7 $\to (42, 7)=L$.
+  So $Win(49, 3)=T$.
+- 5 $\to (47, 5)$. $Win(47, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (45, 2)=T$.
+  - 3 $\to (44, 3)=T$.
+  - 7 $\to (40, 7)=L$.
+  So $Win(47, 5)=T$.
+- 7 $\to (45, 7)$. $Win(45, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (43, 2)=T$.
+  - 3 $\to (42, 3)=T$.
+  - 5 $\to (40, 5)=T$.
+  All $T$. So $Win(45, 7)=L$.
+Moves from 52:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(52, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52.
+Let's check $n=53$.
+- 2 $\to (51, 2)$. $Win(51, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (48, 3)=T$.
+  - 5 $\to (46, 5)=T$.
+  - 7 $\to (44, 7)=L$.
+  So $Win(51, 2)=T$.
+- 3 $\to (50, 3)$. $Win(50, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (48, 2)=T$.
+  - 5 $\to (45, 5)=T$.
+  - 7 $\to (43, 7)=L$.
+  So $Win(50, 3)=T$.
+- 5 $\to (48, 5)$. $Win(48, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (46, 2)=T$.
+  - 3 $\to (45, 3)=T$.
+  - 7 $\to (41, 7)=L$.
+  So $Win(48, 5)=T$.
+- 7 $\to (46, 7)$. $Win(46, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (44, 2)=T$.
+  - 3 $\to (43, 3)=T$.
+  - 5 $\to (41, 5)=T$.
+  All $T$. So $Win(46, 7)=L$.
+Moves from 53:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(53, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53.
+Let's check $n=54$.
+- 2 $\to (52, 2)$. $Win(52, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (49, 3)=T$.
+  - 5 $\to (47, 5)=T$.
+  - 7 $\to (45, 7)=L$.
+  So $Win(52, 2)=T$.
+- 3 $\to (51, 3)$. $Win(51, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (49, 2)=T$.
+  - 5 $\to (46, 5)=T$.
+  - 7 $\to (44, 7)=L$.
+  So $Win(51, 3)=T$.
+- 5 $\to (49, 5)$. $Win(49, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (47, 2)=T$.
+  - 3 $\to (46, 3)=T$.
+  - 7 $\to (42, 7)=L$.
+  So $Win(49, 5)=T$.
+- 7 $\to (47, 7)$. $Win(47, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (45, 2)=T$.
+  - 3 $\to (44, 3)=T$.
+  - 5 $\to (42, 5)=L$.
+  So $Win(47, 7)=T$.
+Moves from 54:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to T$.
+All lead to $T$. So $Win(54, \text{none}) = L$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38, 54.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53.
+Let's check $n=55$.
+- 2 $\to (53, 2)$. $Win(53, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (50, 3)=T$.
+  - 5 $\to (48, 5)=T$.
+  - 7 $\to (46, 7)=L$.
+  So $Win(53, 2)=T$.
+- 3 $\to (52, 3)$. $Win(52, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (50, 2)=T$.
+  - 5 $\to (47, 5)=T$.
+  - 7 $\to (45, 7)=L$.
+  So $Win(52, 3)=T$.
+- 5 $\to (50, 5)$. $Win(50, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (48, 2)=T$.
+  - 3 $\to (47, 3)=T$.
+  - 7 $\to (43, 7)=L$.
+  So $Win(50, 5)=T$.
+- 7 $\to (48, 7)$. $Win(48, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (46, 2)=T$.
+  - 3 $\to (45, 3)=T$.
+  - 5 $\to (43, 5)=T$.
+  All $T$. So $Win(48, 7)=L$.
+Moves from 55:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(55, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38, 54.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 55.
+Let's check $n=56$.
+- 2 $\to (54, 2)$. $Win(54, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (51, 3)=T$.
+  - 5 $\to (49, 5)=T$.
+  - 7 $\to (47, 7)=T$.
+  All $T$. So $Win(54, 2)=L$.
+- 3 $\to (53, 3)$. $Win(53, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (51, 2)=T$.
+  - 5 $\to (48, 5)=T$.
+  - 7 $\to (46, 7)=L$.
+  So $Win(53, 3)=T$.
+- 5 $\to (51, 5)$. $Win(51, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (49, 2)=T$.
+  - 3 $\to (48, 3)=T$.
+  - 7 $\to (44, 7)=L$.
+  So $Win(51, 5)=T$.
+- 7 $\to (49, 7)$. $Win(49, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (47, 2)=T$.
+  - 3 $\to (46, 3)=T$.
+  - 5 $\to (44, 5)=T$.
+  All $T$. So $Win(49, 7)=L$.
+Moves from 56:
+- 2 $\to L$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(56, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38, 54.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 55, 56.
+Let's check $n=57$.
+- 2 $\to (55, 2)$. $Win(55, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (52, 3)=T$.
+  - 5 $\to (50, 5)=T$.
+  - 7 $\to (48, 7)=L$.
+  So $Win(55, 2)=T$.
+- 3 $\to (54, 3)$. $Win(54, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (52, 2)=T$.
+  - 5 $\to (49, 5)=T$.
+  - 7 $\to (47, 7)=T$.
+  All $T$. So $Win(54, 3)=L$.
+- 5 $\to (52, 5)$. $Win(52, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (50, 2)=T$.
+  - 3 $\to (49, 3)=T$.
+  - 7 $\to (45, 7)=L$.
+  So $Win(52, 5)=T$.
+- 7 $\to (50, 7)$. $Win(50, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (48, 2)=T$.
+  - 3 $\to (47, 3)=T$.
+  - 5 $\to (45, 5)=T$.
+  All $T$. So $Win(50, 7)=L$.
+Moves from 57:
+- 2 $\to T$.
+- 3 $\to L$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(57, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38, 54.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 55, 56, 57.
+Let's check $n=58$.
+- 2 $\to (56, 2)$. $Win(56, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (53, 3)=T$.
+  - 5 $\to (51, 5)=T$.
+  - 7 $\to (49, 7)=L$.
+  So $Win(56, 2)=T$.
+- 3 $\to (55, 3)$. $Win(55, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (53, 2)=T$.
+  - 5 $\to (50, 5)=T$.
+  - 7 $\to (48, 7)=L$.
+  So $Win(55, 3)=T$.
+- 5 $\to (53, 5)$. $Win(53, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (51, 2)=T$.
+  - 3 $\to (50, 3)=T$.
+  - 7 $\to (46, 7)=L$.
+  So $Win(53, 5)=T$.
+- 7 $\to (51, 7)$. $Win(51, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (49, 2)=T$.
+  - 3 $\to (48, 3)=T$.
+  - 5 $\to (46, 5)=T$.
+  All $T$. So $Win(51, 7)=L$.
+Moves from 58:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(58, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38, 54.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 55, 56, 57, 58.
+Let's check $n=59$.
+- 2 $\to (57, 2)$. $Win(57, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (54, 3)=L$.
+  So $Win(57, 2)=T$.
+- 3 $\to (56, 3)$. $Win(56, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (54, 2)=L$.
+  So $Win(56, 3)=T$.
+- 5 $\to (54, 5)$. $Win(54, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (52, 2)=T$.
+  - 3 $\to (51, 3)=T$.
+  - 7 $\to (47, 7)=T$.
+  All $T$. So $Win(54, 5)=L$.
+- 7 $\to (52, 7)$. $Win(52, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (50, 2)=T$.
+  - 3 $\to (49, 3)=T$.
+  - 5 $\to (47, 5)=T$.
+  All $T$. So $Win(52, 7)=L$.
+Moves from 59:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to L$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(59, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38, 54.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 55, 56, 57, 58, 59.
+Let's check $n=60$.
+- 2 $\to (58, 2)$. $Win(58, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (55, 3)=T$.
+  - 5 $\to (53, 5)=T$.
+  - 7 $\to (51, 7)=L$.
+  So $Win(58, 2)=T$.
+- 3 $\to (57, 3)$. $Win(57, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (55, 2)=T$.
+  - 5 $\to (52, 5)=T$.
+  - 7 $\to (50, 7)=L$.
+  So $Win(57, 3)=T$.
+- 5 $\to (55, 5)$. $Win(55, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (53, 2)=T$.
+  - 3 $\to (52, 3)=T$.
+  - 7 $\to (48, 7)=L$.
+  So $Win(55, 5)=T$.
+- 7 $\to (53, 7)$. $Win(53, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (51, 2)=T$.
+  - 3 $\to (50, 3)=T$.
+  - 5 $\to (48, 5)=T$.
+  All $T$. So $Win(53, 7)=L$.
+Moves from 60:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to T$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(60, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38, 54.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 55, 56, 57, 58, 59, 60.
+Let's check $n=61$.
+- 2 $\to (59, 2)$. $Win(59, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (56, 3)=T$.
+  - 5 $\to (54, 5)=L$.
+  So $Win(59, 2)=T$.
+- 3 $\to (58, 3)$. $Win(58, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (56, 2)=T$.
+  - 5 $\to (53, 5)=T$.
+  - 7 $\to (51, 7)=L$.
+  So $Win(58, 3)=T$.
+- 5 $\to (56, 5)$. $Win(56, 5)$: Allowed $\{2, 3, 7\}$.
+  - 2 $\to (54, 2)=L$.
+  So $Win(54, 5)=L$.
+- 7 $\to (54, 7)$. $Win(54, 7)$: Allowed $\{2, 3, 5\}$.
+  - 2 $\to (52, 2)=T$.
+  - 3 $\to (51, 3)=T$.
+  - 5 $\to (49, 5)=T$.
+  All $T$. So $Win(54, 7)=L$.
+Moves from 61:
+- 2 $\to T$.
+- 3 $\to T$.
+- 5 $\to L$.
+- 7 $\to L$.
+Can move to $L$? Yes. So $Win(61, \text{none}) = T$.
+
+$L$ at: 1, 4, 8, 9, 17, 23, 25, 26, 27, 28, 37, 38, 54.
+$T$ at: 2, 3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 55, 56, 57, 58, 59, 60, 61.
+Let's check $n=62$.
+- 2 $\to (60, 2)$. $Win(60, 2)$: Allowed $\{3, 5, 7\}$.
+  - 3 $\to (57, 3)=T$.
+  - 5 $\to (55, 5)=T$.
+  - 7 $\to (53, 7)=L$.
+  So $Win(60, 2)=T$.
+- 3 $\to (59, 3)$. $Win(59, 3)$: Allowed $\{2, 5, 7\}$.
+  - 2 $\to (57, 2)=T$.
+  - 5 $\to

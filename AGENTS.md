@@ -10,7 +10,9 @@ served by GitHub Pages at www.schaferandrew.com).
 - Never commit `_site/`. It's Jekyll's build output, rewritten every time `bundle exec jekyll
   serve` runs (`.gitignore` lists it, but a few files are tracked from before). Stage paths
   explicitly instead of `git add -A`.
-- Preview locally with `bundle exec jekyll serve` (http://localhost:4000).
+- Local preview: Ruby 3.3.12 (pinned in `.ruby-version`; `rbenv install 3.3.12`), then
+  `bundle install && bundle exec jekyll serve` (http://localhost:4000). The Gemfile uses the
+  `github-pages` gem, so it builds with the same Jekyll and plugins as Pages.
 
 ## The Crucible dashboard (`/crucible/`)
 

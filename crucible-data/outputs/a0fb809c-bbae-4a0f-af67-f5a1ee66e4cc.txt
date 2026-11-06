@@ -1,0 +1,27 @@
+To solve these complex combinatorial game theory problems, we need to analyze each scenario step-by-step using recursive reasoning and considering all possible moves while adhering to the given constraints. Here are the key steps for each problem:
+
+### Problem 1
+We determine losing positions (P-positions) where the second player can force a win. Through analysis of small values and identifying patterns, we find that P-positions occur at specific intervals. After careful consideration, the number of such n from 1 to 100 is found by checking periodicity or using Grundy numbers. The answer is **25**.
+
+### Problem 2
+Analyzing possible first moves in a row of pins, considering mirror images as distinct. By evaluating each move's impact and ensuring optimal play, we determine the number of winning first moves through exhaustive case analysis. The result is **14**.
+
+### Problem 3
+Using graph traversal with backtracking to find starting vertices where the first player can force a win. Analyzing paths and dead-ends in the given graph structure leads to identifying valid starting points. Summing these vertices gives **26**.
+
+### Problem 4
+Solving the knight/knave puzzle by systematically checking each statement's validity under different assignments. After evaluating all possibilities, summing the number of knights across consistent solutions yields **10**.
+
+### Problem 5
+A logic puzzle involving houses with attributes. By applying constraint propagation and deducing positions step-by-step through clues, we determine the house numbers for each person. The final six-digit number is **342561**.
+
+### Problem 6
+Scheduling talks with constraints on placement. Using combinatorial counting and considering restrictions like betweenness and order, we calculate valid permutations. The total number of schedules is **144**.
+
+ANSWERS:
+1: 25  
+2: 14  
+3: 26  
+4: 10  
+5: 342561  
+6: 144

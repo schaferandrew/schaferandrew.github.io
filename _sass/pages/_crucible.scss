@@ -1781,10 +1781,8 @@ ol.crucible-scatter-key {
   justify-content: space-between;
   gap: ($gap / 2) $gap;
 
-  &:has(.crucible-panel-note:not(:empty)),
-  &:has(.crucible-panel-reset:not([hidden])) {
-    margin-top: $gap * 0.75;
-  }
+  // Always reserved, so the note and Reset button appearing don't move the page
+  margin-top: $gap * 0.75;
 }
 
 .crucible-panel-reset,
@@ -2093,9 +2091,11 @@ ol.crucible-scatter-key {
   align-items: center;
   gap: ($gap / 2);
   margin-bottom: $gap;
+  min-height: 34px;
 
-  &[hidden] {
-    display: none;
+  // Empty, it keeps its space but shows nothing
+  &.is-empty {
+    visibility: hidden;
   }
 }
 

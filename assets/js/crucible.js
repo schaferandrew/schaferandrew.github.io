@@ -325,7 +325,11 @@
           if (again) again.focus();
         }
         // Nothing to choose between (or nothing local left for a local-only filter): hidden
-        document.getElementById(f.id + '-filter').hidden = values.length < 2 && !on.length;
+        // Shown by the setups alone, not by the picks: choosing a value must not add or remove a field
+        // and reflow the row (a filter with one value in the whole section has nothing to choose)
+        var everyValue = {};
+        modeConfigsAll().forEach(function (c) { if (!f.local || c.local) everyValue[filterValue(f, c)] = true; });
+        document.getElementById(f.id + '-filter').hidden = Object.keys(everyValue).length < 2;
       });
     }
     document.addEventListener('click', function () { if (openFilter) { openFilter = null; renderMultiFilters(); } });
@@ -345,7 +349,8 @@
           active.push({ label: f.label + ' ' + valueText(f, v), clear: function () { state[f.id] = state[f.id].filter(function (x) { return x !== v; }); } });
         });
       });
-      box.hidden = !active.length;
+      // Kept in the layout when empty (see .is-empty), so the first pick doesn't push the page down
+      box.classList.toggle('is-empty', !active.length);
       if (!active.length) return;
       var showAll = showingInProgress(V.rows(null, state.exclude));
       var total = V.rows(null, state.exclude).filter(function (r) { return showAll || !r.inProgress; }).length;

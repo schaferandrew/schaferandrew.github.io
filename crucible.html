@@ -63,13 +63,35 @@ permalink: /crucible/
     <div class="crucible-lb-narrow" id="crucible-lb-narrow" hidden></div>
 
     <div class="crucible-toolbar">
-      <span class="crucible-toolbar-label" id="harness-label">Harness</span>
-      <div class="crucible-segmented" role="radiogroup" aria-labelledby="harness-label" id="harness-toggle"></div>
+      <span class="crucible-toolbar-group">
+        <span class="crucible-toolbar-label" id="harness-label">Harness</span>
+        <div class="crucible-segmented" role="radiogroup" aria-labelledby="harness-label" id="harness-toggle"></div>
+      </span>
       <span class="crucible-toolbar-note" id="harness-fixed"></span>
-      <span class="crucible-toolbar-label" id="where-label">Models</span>
-      <div class="crucible-segmented" role="radiogroup" aria-labelledby="where-label" id="where-toggle"></div>
-      <label class="crucible-toolbar-label" for="hw-select">Hardware</label>
-      <select class="crucible-select" id="hw-select"></select>
+      <span class="crucible-toolbar-group">
+        <span class="crucible-toolbar-label" id="where-label">Models</span>
+        <div class="crucible-segmented" role="radiogroup" aria-labelledby="where-label" id="where-toggle"></div>
+      </span>
+      <span class="crucible-toolbar-group">
+        <label class="crucible-toolbar-label" for="hw-select">Hardware</label>
+        <select class="crucible-select" id="hw-select"></select>
+      </span>
+      <span class="crucible-toolbar-group" id="format-filter">
+        <label class="crucible-toolbar-label" for="format-select">Format</label>
+        <select class="crucible-select" id="format-select"></select>
+      </span>
+      <span class="crucible-toolbar-group" id="quant-filter">
+        <label class="crucible-toolbar-label" for="quant-select">Quant</label>
+        <select class="crucible-select" id="quant-select"></select>
+      </span>
+      <span class="crucible-toolbar-group" id="packager-filter">
+        <label class="crucible-toolbar-label" for="packager-select">Packager</label>
+        <select class="crucible-select" id="packager-select"></select>
+      </span>
+      <span class="crucible-toolbar-group" id="reasoning-filter">
+        <label class="crucible-toolbar-label" for="reasoning-select">Reasoning</label>
+        <select class="crucible-select" id="reasoning-select"></select>
+      </span>
     </div>
     <p class="crucible-sub crucible-progress-note" id="progress-note"></p>
 

@@ -82,4 +82,8 @@ served by GitHub Pages at www.schaferandrew.com).
   weight packager (mlx-community, lmstudio-community...), never the maker. There's no maker label list:
   makers show as recorded. Wherever a model appears, its maker links to its publisher page
   (`/crucible/model/#<maker>`). Where the packager matters, the page says "Packaged by <model.publisher>".
+- The leaderboard's Format, Quant, Packager and Reasoning filters narrow setups before each row's
+  best setup is picked (`passesFilters` in `crucible.js`), so a row shows its best matching setup or
+  drops out. Their options come from the section's setups (normalized values; "Not recorded" last), a
+  filter with one option is hidden, and they're kept in the hash (`&quant=q4_k_m&reasoning=high`).
 - Setups are a variant (quant/format, reasoning, and harness where a mode has several: changes the answer) on a deployment (machine or provider, local or cloud: changes speed and cost). Quality compares variants; speed and cost compare deployments of one variant. An A/B only differs in one variant setting on one recorded deployment, over tasks both sides finished; a timeout or error is reliability, not a 0 in a comparison (the suite's scores keep their rule); a run with no recorded machine is its own "machine not recorded" deployment, left out of A/Bs and speed and cost; no headline difference on fewer than C.MIN_PAIRED_TASKS shared tasks or when one task drives most of it.

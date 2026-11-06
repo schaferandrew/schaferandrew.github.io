@@ -123,6 +123,23 @@ $crucibleBlue: #1856a3;
   font-size: $textSmall;
 }
 
+// A label and its control stay on one line together when the toolbar wraps
+.crucible-toolbar-group {
+  display: inline-flex;
+  align-items: center;
+  gap: $gap / 2;
+  max-width: 100%;
+
+  &[hidden] {
+    display: none;
+  }
+
+  .crucible-select {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
 .crucible-toolbar-note {
   color: $gray;
   font-size: $textSmall;

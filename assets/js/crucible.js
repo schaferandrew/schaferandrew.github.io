@@ -23,6 +23,8 @@
 
     var state = {
       suite: suiteId(CURRENT), mode: '', harness: 'best', where: 'all', hw: 'all', showInProgress: false,
+      // Weights and reasoning filters: 'all', a value from the data, or '-' for "not recorded"
+      format: 'all', quant: 'all', packager: 'all', reasoning: 'all',
       scatter: 'time', sort: null, open: {},
       exclude: {}  // tier ID -> true: tiers the reader left out of the overall score
     };
@@ -35,13 +37,15 @@
       if (!state.sort || (!S.tierSeen[state.sort.key] && SORT_KEYS.indexOf(state.sort.key) === -1)) state.sort = { key: AGG, dir: -1 };
     }
 
-    // The hash holds the section, the suite and the tiers left out of the overall score:
-    // #agentic&suite=v2&exclude=forge. An old #chat&compare=a,b link moves to the compare page (the
+    // The hash holds the section, the suite, the tiers left out of the overall score and the weights
+    // and reasoning filters: #agentic&suite=v2&exclude=forge&quant=q4_k_m&reasoning=high. An old #chat&compare=a,b link moves to the compare page (the
     // comparison lives there now), keeping the suite.
     function readHash() {
       var h = C.parseHash();
       var v = h.params.compare, x = h.params.exclude;
-      return { mode: h.id, suite: h.params.suite || null, compare: v ? v.split(',').filter(Boolean) : [], exclude: x ? x.split(',').filter(Boolean) : [] };
+      var out = { mode: h.id, suite: h.params.suite || null, compare: v ? v.split(',').filter(Boolean) : [], exclude: x ? x.split(',').filter(Boolean) : [] };
+      WEIGHT_FILTERS.forEach(function (f) { out[f.id] = h.params[f.id] || 'all'; });
+      return out;
     }
     function redirectCompare(h) {
       if (!h.compare.length) return false;
@@ -54,11 +58,15 @@
       useSuite(h.suite && D.catalogById(h.suite) ? h.suite : state.suite);
       state.exclude = {};
       h.exclude.forEach(function (id) { state.exclude[id] = true; });
+      WEIGHT_FILTERS.forEach(function (f) { state[f.id] = h[f.id]; });
     }
     function writeHash() {
       var hash = C.buildHash(state.mode, { suite: state.suite !== suiteId(CURRENT) ? state.suite : null });
       var excluded = MODE_TIERS.filter(function (t) { return state.exclude[t.id]; }).map(function (t) { return encodeURIComponent(t.id); });
       if (excluded.length && !aggAll()) hash += (hash.length > 1 ? '&' : '') + 'exclude=' + excluded.join(',');
+      WEIGHT_FILTERS.forEach(function (f) {
+        if (state[f.id] !== 'all') hash += (hash.length > 1 ? '&' : '') + f.id + '=' + encodeURIComponent(state[f.id]);
+      });
       if (location.hash !== hash && history.replaceState) history.replaceState(null, '', hash);
     }
 
@@ -87,12 +95,31 @@
     function aggInfo() { return V.aggInfo(); }
     function isExcluded(t) { return !!state.exclude[t.id] && showAgg(); }
 
+    // Filters on a setup's weights and reasoning. They narrow setups before each row's best setup is
+    // picked, so a row shows its best setup among the matching ones (or drops out). Options come from
+    // the section's setups; a cloud setup has no format, quant or packager, so any choice there
+    // leaves it out. value(cfg) is the normalized value, null when not recorded.
+    var WEIGHT_FILTERS = [
+      { id: 'format', label: 'Format', all: 'All formats', value: function (c) { return c.local ? c.format : null; }, local: true },
+      { id: 'quant', label: 'Quant', all: 'All quants', value: function (c) { return c.local ? c.quantKey : null; }, local: true,
+        text: function (c) { return c.quant; } },
+      { id: 'packager', label: 'Packager', all: 'All packagers', value: function (c) { return c.local ? c.packager : null; }, local: true },
+      { id: 'reasoning', label: 'Reasoning', all: 'All reasoning levels', value: function (c) { return c.level; } }
+    ];
+    function filterValue(f, cfg) { var v = f.value(cfg); return v === null || v === undefined ? '-' : String(v); }
+
     function cellOf(cfg, taskId) { return S.cellOf(cfg, taskId); }
     function modeConfigsAll() { return V.configs(); }
     function passesFilters(cfg) {
       if (state.where !== 'all' && (state.where === 'local') !== cfg.local) return false;
       if (state.hw !== 'all' && hwValue(cfg) !== state.hw) return false;
       if (state.harness !== 'best' && cfg.harness !== state.harness) return false;
+      for (var i = 0; i < WEIGHT_FILTERS.length; i++) {
+        var f = WEIGHT_FILTERS[i];
+        if (state[f.id] === 'all') continue;
+        if (f.local && !cfg.local) return false;
+        if (filterValue(f, cfg) !== state[f.id]) return false;
+      }
       return true;
     }
 
@@ -139,8 +166,7 @@
 
       var harnesses = V.harnesses();
       var many = harnesses.length > 1;
-      document.getElementById('harness-label').hidden = !many;
-      document.getElementById('harness-toggle').hidden = !many;
+      document.getElementById('harness-label').parentNode.hidden = !many;
       document.getElementById('harness-fixed').textContent = many || !harnesses.length ? '' : 'Every ' + modeInfo().label + ' run uses the ' + harnesses[0] + ' harness.';
       segmented('harness-toggle', [{ value: 'best', label: 'Best per model' }].concat(harnesses.map(function (h) {
         var n = modeConfigsAll().filter(function (c) { return c.harness === h; }).length;
@@ -173,6 +199,8 @@
         };
       })), state.hw);
 
+      renderWeightFilters();
+
       var all = rowsAll();
       var hidden = all.filter(function (s) { return s.ran && s.inProgress; }).length;
       var none = V.noneFinished(all);
@@ -190,6 +218,28 @@
       segmented('scatter-toggle', [
         { value: 'time', label: 'Time per task' }, { value: 'cost', label: 'Cost per task' }
       ], state.scatter, function (m) { state.scatter = m; render(); });
+    }
+
+    // One select per weights/reasoning filter, its options from this section's setups (local ones for
+    // weights). A value the section doesn't have resets to all; "Not recorded" is listed last.
+    function renderWeightFilters() {
+      WEIGHT_FILTERS.forEach(function (f) {
+        var seen = {}, opts = [];
+        modeConfigsAll().forEach(function (cfg) {
+          if (f.local && !cfg.local) return;
+          var v = filterValue(f, cfg);
+          if (seen[v]) return;
+          seen[v] = { value: v, label: v === '-' ? 'Not recorded' : (f.text && f.text(cfg)) || v };
+          opts.push(seen[v]);
+        });
+        opts.sort(function (a, b) { return (a.value === '-') - (b.value === '-') || (a.label.toLowerCase() < b.label.toLowerCase() ? -1 : 1); });
+        if (state[f.id] !== 'all' && !seen[state[f.id]]) state[f.id] = 'all';
+        var select = document.getElementById(f.id + '-select');
+        fillSelect(select, [{ value: 'all', label: f.all }].concat(opts), state[f.id]);
+        // Nothing to choose between: hide the filter rather than offer one option
+        var useful = opts.length > 1 || state[f.id] !== 'all';
+        document.getElementById(f.id + '-filter').hidden = !useful;
+      });
     }
 
     // Which tiers the overall score includes: one toggle per tier, at least one always on
@@ -225,6 +275,11 @@
       else if (state.hw !== 'all') parts.push('on ' + (state.hw === '-' ? 'unrecorded hardware' : state.hw));
       else if (state.where === 'local') parts.push('run locally');
       else if (state.where === 'cloud') parts.push('in the cloud');
+      WEIGHT_FILTERS.forEach(function (f) {
+        var v = state[f.id];
+        if (v === 'all') return;
+        parts.push(v === '-' ? 'with ' + f.label.toLowerCase() + ' not recorded' : f.id === 'reasoning' ? 'at reasoning ' + v : 'with ' + f.label.toLowerCase() + ' ' + v);
+      });
       return parts.join(' ');
     }
 
@@ -823,10 +878,20 @@
       if (state.hw !== 'all' && state.hw !== 'cloud' && state.where === 'cloud') state.where = 'all';
       render();
     });
+    WEIGHT_FILTERS.forEach(function (f) {
+      document.getElementById(f.id + '-select').addEventListener('change', function (e) {
+        state[f.id] = e.target.value;
+        if (f.local && state[f.id] !== 'all' && state.where === 'cloud') state.where = 'all';
+        render();
+      });
+    });
     // Links to #chat or #agentic&suite=v2 switch views without a reload; an old compare link moves on
     window.addEventListener('hashchange', function () {
       if (redirectCompare(readHash())) return;
-      function key() { return [state.mode, state.suite, Object.keys(state.exclude).sort().join(',')].join('|'); }
+      function key() {
+        return [state.mode, state.suite, Object.keys(state.exclude).sort().join(',')]
+          .concat(WEIGHT_FILTERS.map(function (f) { return state[f.id]; })).join('|');
+      }
       var before = key();
       applyHash();
       if (key() !== before) render();

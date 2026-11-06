@@ -751,7 +751,7 @@ $crucibleBlue: #1856a3;
   line-height: $lineHeightWide;
 }
 
-// Results dashboard: takeaways, leaderboard, scatter, model × test matrix
+// Results dashboard: takeaways, leaderboard, scatter, model x test matrix
 
 .crucible-takeaways {
   margin: 0 0 ($gap * 1.5);
@@ -766,7 +766,7 @@ $crucibleBlue: #1856a3;
   }
 
   li::before {
-    content: "→ ";
+    content: "\2192  ";
     color: $gray;
   }
 }
@@ -1481,7 +1481,7 @@ $crucibleBlue: #1856a3;
   border-left: 3px solid $colorAccent;
 }
 
-// A name breaks only between its slug and "(reasoning …)", never inside the slug
+// A name breaks only between its slug and "(reasoning ...)", never inside the slug
 .crucible-slug {
   white-space: nowrap;
 }

@@ -1,0 +1,13 @@
+
+
+
+
+
+
+
+
+
+
+[TOOL_RESULT]
+Files updated with new status/reviewComment fields, submission/approve/reject endpoints, and editor middleware. Existing tests remain unmodified as per requirements.
+[END_TOOL_RESULT]

@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "e9fbc35d-8564-458e-bba4-73525da6af50",
+ "run_path": "lmstudio_zai-org_glm-4.7-flash/seating-logic-puzzle/20261104_223631",
+ "legacy_run_id": null,
+ "started_at": "2026-11-04T22:36:31.345793+00:00",
+ "ended_at": "2026-11-04T22:51:32.091140+00:00",
+ "elapsed_s": 900.06,
+ "task": {
+  "id": "seating-logic-puzzle",
+  "version": 3,
+  "rubric_version": 3,
+  "content_hash": "4bc46a0e3e4f1478",
+  "rubric_hash": "ba4027243454539b",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/zai-org/glm-4.7-flash",
+  "base": "zai-org/glm-4.7-flash",
+  "publisher": "zai-org",
+  "artifact": "zai-org/glm-4.7-flash",
+  "format": "mlx",
+  "quant": "6bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 111479,
+  "variant_key": "zai-org/glm-4.7-flash|zai-org|mlx|mlx-6bit",
+  "display": "glm-4.7-flash · 6bit",
+  "origin": {
+   "maker": "zai-org",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "timeout",
+  "harness_status": "TIMEOUT",
+  "returncode": 1,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": 1,
+  "ttft_s": 0.519,
+  "ttft_avg_s": 0.519,
+  "response_time_avg_s": 900.051,
+  "output_tokens_per_s": null,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 124746
+ },
+ "output_ref": null,
+ "provenance": {
+  "crucible_version": "3.7.4",
+  "crucible_commit": "2690a25",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Duskfall",
+  "source": "crucible-run",
+  "content_hash": "sha256:d2b65dfd7c89d75df1b70f3387ffd4f1e3db3c84d11e6ac917ca6fbab762c5d8",
+  "submitter": null,
+  "verification": null
+ }
+}

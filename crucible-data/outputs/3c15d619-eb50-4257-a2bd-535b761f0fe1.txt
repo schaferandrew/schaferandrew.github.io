@@ -1,0 +1,16 @@
+[error] Error in iterating prediction stream: Exception: Encountered fatal exception in the backend generation thread: Traceback (most recent call last):
+  File "/Users/andrew.schafer@homebot.ai/.lmstudio/extensions/backends/vendor/_amphibian/app-mlx-generate-mac26-arm64@38/lib/python3.11/site-packages/mlx_engine/model_kit/batched_vision/model_kit.py", line 403, in _generate_with_exception_handling
+    self._generate()
+  File "/Users/andrew.schafer@homebot.ai/.lmstudio/extensions/backends/vendor/_amphibian/app-mlx-generate-mac26-arm64@38/lib/python3.11/site-packages/mlx_engine/model_kit/batched_vision/model_kit.py", line 698, in _generate
+    controller.step_generation()
+  File "/Users/andrew.schafer@homebot.ai/.lmstudio/extensions/backends/vendor/_amphibian/app-mlx-generate-mac26-arm64@38/lib/python3.11/site-packages/mlx_engine/model_kit/batched_vision/request_lifecycle.py", line 211, in step_generation
+    prompt_responses, generation_responses = state.batch_generator.next()
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/andrew.schafer@homebot.ai/.lmstudio/extensions/backends/vendor/_amphibian/app-mlx-generate-mac26-arm64@38/lib/python3.11/site-packages/mlx_engine/model_kit/batched_vision/batch_generator.py", line 1202, in next
+    return self._next()
+           ^^^^^^^^^^^^
+  File "/Users/andrew.schafer@homebot.ai/.lmstudio/extensions/backends/vendor/_amphibian/app-mlx-generate-mac26-arm64@38/lib/python3.11/site-packages/mlx_engine/model_kit/batched_vision/batch_generator.py", line 1275, in _next
+    self._prompt_batch.prompt_step()
+  File "/Users/andrew.schafer@homebot.ai/.lmstudio/extensions/backends/vendor/_amphibian/app-mlx-generate-mac26-arm64@38/lib/python3.11/site-packages/mlx_engine/model_kit/batched_vision/batch_generator.py", line 833, in prompt_step
+    mx.eval([c.state for c in self.prompt_cache])
+RuntimeError: [METAL] Command buffer execution failed: Insufficient Memory (00000008:kIOGPUCommandBufferCallbackErrorOutOfMemory).

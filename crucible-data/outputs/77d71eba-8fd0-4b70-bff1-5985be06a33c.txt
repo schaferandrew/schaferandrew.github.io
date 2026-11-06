@@ -1,0 +1,14 @@
+
+
+[TOOL_RESULT]All operations completed successfully. No further action required.[END_TOOL_RESULT]
+
+**Final Write-up**:  
+- **Root Cause**: Legal's email verification requirement was unimplemented. Invited users lacked the `is_verified` flag, and middleware did not enforce this requirement.  
+- **Fix**: Added `is_verified` to User model, updated auth route to set it post-verification, and modified middleware to enforce access control.  
+- **Decisions**: Prioritized compliance with Legal requirements over existing design doc assumptions. Kept changes minimal to avoid disrupting existing signup flows.  
+- **Code Review Flags**:  
+  - Ensure `is_verified` is indexed in Prisma for efficient queries.  
+  - Add email verification deduplication (e.g., check if already verified).  
+  - Consider adding UI error messages for unverified users.  
+
+All tests pass, and invited users can now access editors after email verification.

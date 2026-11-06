@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "90e2e3f9-e806-4570-ad77-6f4c23714ab7",
+ "run_path": "lmstudio_allenai_olmo-3-32b-think/river-haiku-banned-words/20261105_185202",
+ "legacy_run_id": null,
+ "started_at": "2026-11-05T18:52:02.091043+00:00",
+ "ended_at": "2026-11-05T18:57:02.921099+00:00",
+ "elapsed_s": 300.07,
+ "task": {
+  "id": "river-haiku-banned-words",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "abfd04ef9376bbaa",
+  "rubric_hash": "66b089cf0968cc9e",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/allenai/olmo-3-32b-think",
+  "base": "allenai/olmo-3-32b-think",
+  "publisher": "allenai",
+  "artifact": "allenai/olmo-3-32b-think",
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 65536,
+  "variant_key": "allenai/olmo-3-32b-think|allenai|mlx|mlx-4bit",
+  "display": "olmo-3-32b-think · 4bit",
+  "origin": {
+   "maker": "allenai",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "ip-192-168-1-163"
+ },
+ "outcome": {
+  "status": "timeout",
+  "harness_status": "TIMEOUT",
+  "returncode": 1,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": 1,
+  "ttft_s": 0.806,
+  "ttft_avg_s": 0.806,
+  "response_time_avg_s": 300.07,
+  "output_tokens_per_s": null,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 14172
+ },
+ "output_ref": null,
+ "provenance": {
+  "crucible_version": "3.7.4",
+  "crucible_commit": "14609dd",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "ip-192-168-1-163",
+  "source": "crucible-run",
+  "content_hash": "sha256:da7a91afb771214ddac4a1e83c3a15eb240bd977b86b3768c74b30a093d5138e",
+  "submitter": null,
+  "verification": null
+ }
+}

@@ -1,0 +1,7 @@
+**Accuracy (4):** The response accurately reflects all facts presented in the passage, including the specific hours extension, the survey results, the grant amount, and the future review plan. There are no invented details or hallucinations.
+
+**Exactly two sentences (3):** The response contains three sentences. The first two sentences cover the main points, but the third sentence introduces the opposition from board members, violating the requirement to be exactly two sentences long.
+
+**Key points (3):** The summary successfully captures the three required elements: the extension of weekend hours, the funding limitation (grant amount and one-year duration), and the resident survey results.
+
+GRADE: 7

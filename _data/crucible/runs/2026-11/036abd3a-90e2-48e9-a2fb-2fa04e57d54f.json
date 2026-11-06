@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "036abd3a-90e2-48e9-a2fb-2fa04e57d54f",
+ "run_path": "lmstudio_qwen_qwen3.5-9b/calendar-free-at-330/20261105_184743",
+ "legacy_run_id": null,
+ "started_at": "2026-11-05T18:47:43.572134+00:00",
+ "ended_at": "2026-11-05T18:52:45.652754+00:00",
+ "elapsed_s": 301.48,
+ "task": {
+  "id": "calendar-free-at-330",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "6d145f996bd1436b",
+  "rubric_hash": "d2ed1dccfdb0032f",
+  "alias": null
+ },
+ "harness": {
+  "id": "opencode",
+  "version": "opencode v2.2.1"
+ },
+ "model": {
+  "id": "lmstudio/qwen/qwen3.5-9b",
+  "base": "qwen/qwen3.5-9b",
+  "publisher": "qwen",
+  "artifact": "qwen/qwen3.5-9b",
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 109984,
+  "variant_key": "qwen/qwen3.5-9b|qwen|mlx|mlx-4bit",
+  "display": "qwen3.5-9b · 4bit",
+  "origin": {
+   "maker": "qwen",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Ironwood",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m1-pro-32gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 32.0,
+  "cpu": "Apple M1 Pro",
+  "offload": null,
+  "label": "Ironwood"
+ },
+ "outcome": {
+  "status": "timeout",
+  "harness_status": "TIMEOUT",
+  "returncode": 130,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 10,
+  "tokens_in": 88093,
+  "tokens_out": 1157,
+  "model_responses": 11,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": 27.167,
+  "output_tokens_per_s": null,
+  "cost_usd": 0,
+  "cost_source": "opencode_estimate",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/036abd3a-90e2-48e9-a2fb-2fa04e57d54f.txt",
+ "provenance": {
+  "crucible_version": "3.7.4",
+  "crucible_commit": "14609dd",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "ip-192-168-1-163",
+  "source": "crucible-run",
+  "content_hash": "sha256:200b7cbda2680b01bb9e44275483fad125e37fec596a7412b428817506723a0b",
+  "submitter": null,
+  "verification": null
+ }
+}

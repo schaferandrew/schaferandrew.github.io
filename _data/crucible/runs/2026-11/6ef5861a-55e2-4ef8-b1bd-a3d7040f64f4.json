@@ -1,0 +1,98 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "6ef5861a-55e2-4ef8-b1bd-a3d7040f64f4",
+ "run_path": "lmstudio_allenai_olmo-3-32b-think/geography-trick-questions/20261105_212905",
+ "legacy_run_id": null,
+ "started_at": "2026-11-05T21:29:05.628091+00:00",
+ "ended_at": "2026-11-05T21:40:41.029538+00:00",
+ "elapsed_s": 694.88,
+ "task": {
+  "id": "geography-trick-questions",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "5a1af1208cb9b9a5",
+  "rubric_hash": "5944fb9d7568cdce",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/allenai/olmo-3-32b-think",
+  "base": "allenai/olmo-3-32b-think",
+  "publisher": "allenai",
+  "artifact": "allenai/olmo-3-32b-think",
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on",
+   "resolved_source": "server"
+  },
+  "context_loaded": 65536,
+  "variant_key": "allenai/olmo-3-32b-think|allenai|mlx|mlx-4bit",
+  "display": "olmo-3-32b-think · 4bit",
+  "origin": {
+   "maker": "allenai",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 174,
+  "tokens_out": 9765,
+  "model_responses": 1,
+  "ttft_s": 0.968,
+  "ttft_avg_s": 0.968,
+  "response_time_avg_s": 694.874,
+  "output_tokens_per_s": 14.1,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 36459
+ },
+ "output_ref": "outputs/6ef5861a-55e2-4ef8-b1bd-a3d7040f64f4.txt",
+ "provenance": {
+  "crucible_version": "3.8.0",
+  "crucible_commit": "dde6095",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Duskfall",
+  "source": "crucible-run",
+  "content_hash": "sha256:ed5456a600570b1cdde76757aefe793e7668f584a0b9f89ecb3d317ec6a6d3bb",
+  "submitter": null,
+  "verification": null
+ }
+}

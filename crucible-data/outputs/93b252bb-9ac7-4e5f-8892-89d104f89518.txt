@@ -1,0 +1,1 @@
+Now I'll implement cursor pagination for Conduit. Let me start by updating the shared types.

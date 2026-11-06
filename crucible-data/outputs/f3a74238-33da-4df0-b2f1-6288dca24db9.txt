@@ -1,0 +1,39 @@
+## Analysis
+
+**Current Context:**
+- Today is Monday, August 31, 2026 at 8:30 AM Central Time (America/Chicago)
+- Looking at the next 7 days (through September 6, 2026)
+
+**Busy Patterns:**
+- **You** have consistent meetings: standups at 9:00 AM, lunch at 12:00 PM, and various work blocks
+- **Jamie** has a similar pattern with meetings throughout the day
+
+**Available Time Slots for 1-Hour Meetings:**
+
+| Day | Time Slot | Notes |
+|-----|-----------|-------|
+| Monday, Aug 31 | 8:30-9:30 AM | Both free, earliest option |
+| Monday, Aug 31 | 11:00 AM-12:00 PM | Both free |
+| Monday, Aug 31 | 1:00-2:00 PM | Both free |
+| Tuesday, Sep 1 | 8:30-9:30 AM | Both free |
+| Tuesday, Sep 1 | 10:30 AM-12:00 PM | Both free |
+| Tuesday, Sep 1 | 1:00-2:00 PM | Both free |
+| Wednesday, Sep 2 | 8:30-9:00 AM | Only 30 min overlap |
+| Wednesday, Sep 2 | 11:30 AM-12:00 PM | Only 30 min overlap |
+| Wednesday, Sep 2 | 2:00-3:00 PM | Only 30 min overlap |
+| Thursday, Sep 3 | 8:30-9:00 AM | Only 30 min overlap |
+| Thursday, Sep 3 | 11:00 AM-12:00 PM | Only 30 min overlap |
+| Thursday, Sep 3 | 1:00-2:00 PM | Only 30 min overlap |
+| Friday, Sep 4 | 8:30-9:30 AM | Both free |
+| Friday, Sep 4 | 10:30 AM-12:00 PM | Both free |
+| Friday, Sep 4 | 1:00-2:00 PM | Both free |
+
+**Best Options (Full 1-hour overlaps):**
+1. **Monday, Aug 31 at 8:30 AM** - Earliest available
+2. **Tuesday, Sep 1 at 8:30 AM** - Consistent morning slot
+3. **Friday, Sep 4 at 1:00 PM** - End of week, good afternoon slot
+
+OPTIONS:
+2026-08-31 08:30 CDT
+2026-09-01 08:30 CDT
+2026-09-04 13:00 CDT

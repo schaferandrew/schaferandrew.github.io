@@ -84,4 +84,24 @@ served by GitHub Pages at www.schaferandrew.com).
   weight packager (mlx-community, lmstudio-community...), never the maker. There's no maker label list:
   makers show as recorded. Wherever a model appears, its maker links to its publisher page
   (`/crucible/model/#<maker>`). Where the packager matters, the page says "Packaged by <model.publisher>".
+- Every selector and filter is in one control panel above the takeaways (`#control-panel`): Section
+  and Suite first, then the filters (Overall score tiers, Models, Hardware, Format, Quant, Packager,
+  Reasoning, Harness where a section has several, Show finished/in progress), then a footer with the
+  active-filter chips, the notes and Reset filters (clears every filter; section and suite stay).
+  Below 640 px the filters fold behind a "Filters (n on)" button; the chips stay visible. The filters
+  scope everything below the panel. They narrow setups before each row's
+  best setup is picked (`passesFilters` in `crucible.js`), so a row shows its best matching setup or
+  drops out. They drill down: each filter's options are what the *other* filters leave, with how many
+  rows each would show (counted like the board: in-progress models only when shown), so no choice
+  empties the board; a filter with one option is hidden, and Cloud clears the weights filters.
+  Hardware, Format, Quant, Packager and Reasoning are multi-select (`FILTERS` in `crucible.js`): a
+  button summing up the choice opens a list with "Show all" first, then each value with a dot (filled
+  when picked) and its row count; values within a filter are OR, filters are AND. Hardware's values
+  are hardware keys (chip/GPU + memory, e.g. `m5-pro-48gb`), with the machines' names shown beside
+  them. Active filters show as removable chips (one per value) after "Showing N of M models", and all
+  of them live in the hash, multi-select ones as comma lists (`&where=local&quant=q4_k_m,mlx-4bit`).
+- The leaderboard's column chart (`renderBars`) plots the same rows' headline score, best first
+  (partial and in-progress last, like the table), coloured local/cloud as on the scatter, hatched when
+  partial; columns are capped at 24 px in slots of at most 56 px, names angled under the axis with the
+  reasoning level kept ("model · on"). Below 640 px it's one horizontal bar per row with its name above.
 - Setups are a variant (quant/format, reasoning, and harness where a mode has several: changes the answer) on a deployment (machine or provider, local or cloud: changes speed and cost). Quality compares variants; speed and cost compare deployments of one variant. An A/B only differs in one variant setting on one recorded deployment, over tasks both sides finished; a timeout or error is reliability, not a 0 in a comparison (the suite's scores keep their rule); a run with no recorded machine is its own "machine not recorded" deployment, left out of A/Bs and speed and cost; no headline difference on fewer than C.MIN_PAIRED_TASKS shared tasks or when one task drives most of it.

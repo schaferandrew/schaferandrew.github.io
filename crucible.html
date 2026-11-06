@@ -38,40 +38,60 @@ permalink: /crucible/
   <p class="crucible-status" id="crucible-status" role="status">Loading results…</p>
 
   <section class="crucible-results" aria-label="Results" id="crucible-results" hidden>
-    <div class="crucible-suite-bar">
-      <label class="crucible-toolbar-label" for="suite-select" id="suite-select-label">Suite</label>
-      <select class="crucible-select" id="suite-select"></select>
-      <span class="crucible-suite-line" id="suite-line"></span>
+    <div class="crucible-panel" role="group" aria-label="What the results show" id="control-panel">
+      <div class="crucible-panel-row crucible-panel-scope">
+        <div class="crucible-field">
+          <span class="crucible-field-label" id="mode-label">Section</span>
+          <div class="crucible-segmented crucible-mode-toggle" role="radiogroup" aria-labelledby="mode-label" id="mode-toggle"></div>
+          <span class="crucible-field-hint" id="mode-blurb"></span>
+        </div>
+        <div class="crucible-field" id="suite-field">
+          <label class="crucible-field-label" for="suite-select" id="suite-select-label">Suite</label>
+          <select class="crucible-select" id="suite-select"></select>
+          <span class="crucible-field-hint" id="suite-line"></span>
+        </div>
+        <button type="button" class="crucible-panel-more" id="panel-more" aria-expanded="false" aria-controls="panel-filters">Filters</button>
+      </div>
+      <p class="crucible-panel-note crucible-suite-note" id="suite-note" hidden></p>
+
+      <div class="crucible-panel-row crucible-panel-filters" id="panel-filters">
+        <div class="crucible-field" id="agg-bar" hidden>
+          <span class="crucible-field-label" id="agg-label"></span>
+          <div class="crucible-segmented crucible-agg-toggle" role="group" aria-labelledby="agg-label" id="agg-toggle"></div>
+        </div>
+        <div class="crucible-field">
+          <span class="crucible-field-label" id="where-label">Models</span>
+          <div class="crucible-segmented" role="radiogroup" aria-labelledby="where-label" id="where-toggle"></div>
+        </div>
+        <div class="crucible-field">
+          <label class="crucible-field-label" for="hw-select">Hardware</label>
+          <select class="crucible-select" id="hw-select"></select>
+        </div>
+        <div class="crucible-field" id="harness-field">
+          <span class="crucible-field-label" id="harness-label">Harness</span>
+          <div class="crucible-segmented" role="radiogroup" aria-labelledby="harness-label" id="harness-toggle"></div>
+          <span class="crucible-field-hint" id="harness-fixed"></span>
+        </div>
+        <div class="crucible-field">
+          <span class="crucible-field-label" id="progress-label">Show</span>
+          <div class="crucible-segmented" role="radiogroup" aria-labelledby="progress-label" id="progress-toggle"></div>
+        </div>
+      </div>
+
+      <div class="crucible-panel-foot">
+        <p class="crucible-panel-note" id="panel-summary" aria-live="polite"></p>
+        <button type="button" class="crucible-panel-reset" id="panel-reset" hidden>Reset filters</button>
+      </div>
     </div>
-    <p class="crucible-sub crucible-suite-note" id="suite-note" hidden></p>
-    <div class="crucible-mode-tabs" role="tablist" aria-label="Section" id="mode-tabs"></div>
+
     <ul class="crucible-takeaways" id="crucible-takeaways"></ul>
 
-    <div class="crucible-heading-row">
-      <h2 class="crucible-heading">Leaderboard</h2>
-      <div class="crucible-segmented" role="radiogroup" aria-label="Which models" id="progress-toggle"></div>
-    </div>
-    <div class="crucible-toolbar crucible-toolbar-tight crucible-agg-bar" id="agg-bar" hidden>
-      <span class="crucible-toolbar-label" id="agg-label"></span>
-      <div class="crucible-segmented crucible-agg-toggle" role="group" aria-labelledby="agg-label" id="agg-toggle"></div>
-      <span class="crucible-toolbar-note" id="agg-note"></span>
-    </div>
+    <h2 class="crucible-heading">Leaderboard</h2>
     <p class="crucible-sub" id="leaderboard-sub"></p>
     <div class="crucible-scroll crucible-lb-wide">
       <table class="crucible-leaderboard" id="crucible-leaderboard"></table>
     </div>
     <div class="crucible-lb-narrow" id="crucible-lb-narrow" hidden></div>
-
-    <div class="crucible-toolbar">
-      <span class="crucible-toolbar-label" id="harness-label">Harness</span>
-      <div class="crucible-segmented" role="radiogroup" aria-labelledby="harness-label" id="harness-toggle"></div>
-      <span class="crucible-toolbar-note" id="harness-fixed"></span>
-      <span class="crucible-toolbar-label" id="where-label">Models</span>
-      <div class="crucible-segmented" role="radiogroup" aria-labelledby="where-label" id="where-toggle"></div>
-      <label class="crucible-toolbar-label" for="hw-select">Hardware</label>
-      <select class="crucible-select" id="hw-select"></select>
-    </div>
-    <p class="crucible-sub crucible-progress-note" id="progress-note"></p>
 
     <p class="crucible-caveat" id="crucible-caveat" hidden></p>
 

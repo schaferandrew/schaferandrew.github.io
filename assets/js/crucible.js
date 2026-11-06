@@ -120,28 +120,33 @@
     function renderSuite() { D.renderSuiteBar(S); }
 
     function renderControls(rows) {
-      var tabs = document.getElementById('mode-tabs');
-      tabs.innerHTML = '';
+      // Section: Chat or Agentic, each with its task count; the chosen one's blurb underneath
+      var modeGroup = document.getElementById('mode-toggle');
+      modeGroup.innerHTML = '';
       S.MODES.forEach(function (m) {
         var n = S.tasks.filter(function (t) { return t.mode === m.id && t.status === 'active'; }).length;
-        var tab = el('button', { type: 'button', role: 'tab', class: 'crucible-mode-tab', 'aria-selected': m.id === state.mode, id: 'mode-tab-' + m.id });
-        tab.appendChild(el('span', { class: 'crucible-mode-name' }, m.label));
-        tab.appendChild(el('span', { class: 'crucible-mode-blurb' }, (m.blurb ? cap(m.blurb) + ' · ' : '') + n + ' tasks · ' +
-          m.areas.map(function (a) { return a.label; }).join(', ')));
-        tab.addEventListener('click', function () {
+        var b = el('button', { type: 'button', role: 'radio', class: 'crucible-segment', 'aria-checked': m.id === state.mode, id: 'mode-tab-' + m.id });
+        b.appendChild(document.createTextNode(m.label + ' '));
+        b.appendChild(el('span', { class: 'crucible-segment-count' }, String(n)));
+        b.title = n + ' scored tasks';
+        b.addEventListener('click', function () {
+          if (state.mode === m.id) return;
           state.mode = m.id;
           state.harness = 'best';
           state.hw = 'all';
           render();
         });
-        tabs.appendChild(tab);
+        modeGroup.appendChild(b);
+        if (m.id === state.mode) {
+          document.getElementById('mode-blurb').textContent = (m.blurb ? cap(m.blurb) + ' · ' : '') + m.areas.map(function (a) { return a.label; }).join(', ');
+        }
       });
 
       var harnesses = V.harnesses();
       var many = harnesses.length > 1;
-      document.getElementById('harness-label').hidden = !many;
-      document.getElementById('harness-toggle').hidden = !many;
-      document.getElementById('harness-fixed').textContent = many || !harnesses.length ? '' : 'Every ' + modeInfo().label + ' run uses the ' + harnesses[0] + ' harness.';
+      // One harness (or none, for chat) leaves nothing to choose: the panel's notes name it instead
+      document.getElementById('harness-field').hidden = !many;
+      var harnessNote = many || !harnesses.length ? '' : 'Every ' + modeInfo().label + ' run uses the ' + harnesses[0] + ' harness.';
       segmented('harness-toggle', [{ value: 'best', label: 'Best per model' }].concat(harnesses.map(function (h) {
         var n = modeConfigsAll().filter(function (c) { return c.harness === h; }).length;
         return { value: h, label: h, empty: !n, emptyTitle: 'No runs with this harness yet' };
@@ -178,15 +183,16 @@
       var none = V.noneFinished(all);
       segmented('progress-toggle', [
         { value: false, label: 'Finished' },
-        { value: true, label: 'Include in progress' + (hidden ? ' (' + hidden + ')' : ''), empty: !hidden, emptyTitle: 'Every model has finished this section' }
+        { value: true, label: '+ In progress' + (hidden ? ' (' + hidden + ')' : ''), empty: !hidden, emptyTitle: 'Every model has finished this section' }
       ], showingInProgress(all), function (v) { state.showInProgress = v; render(); });
       var share = pct(S.IN_PROGRESS_BELOW);
-      document.getElementById('progress-note').textContent = none && hidden
+      var progressNote = none && hidden
         ? 'No model has finished ' + share + ' of this section\'s scored tasks yet, so everyone is shown, marked * and unranked.'
         : state.showInProgress && hidden
         ? '* In progress: fewer than ' + share + ' of this section\'s scored tasks done. Listed last and not ranked.'
         : (hidden ? hidden + ' model' + (hidden === 1 ? '' : 's') + ' with fewer than ' + share + ' of this section\'s scored tasks done ' + (hidden === 1 ? 'is' : 'are') + ' hidden.' : '');
       renderAggToggle();
+      renderPanelFoot([progressNote, aggAll() ? '' : 'The ' + AGG_LABEL + ' score counts ' + aggTierNames() + ' only.', harnessNote]);
       segmented('scatter-toggle', [
         { value: 'time', label: 'Time per task' }, { value: 'cost', label: 'Cost per task' }
       ], state.scatter, function (m) { state.scatter = m; render(); });
@@ -198,7 +204,7 @@
       bar.hidden = !showAgg();
       group.innerHTML = '';
       if (!showAgg()) return;
-      document.getElementById('agg-label').textContent = AGG_LABEL + ' includes';
+      document.getElementById('agg-label').textContent = AGG_LABEL + ' score counts';
       var on = aggTiers();
       MODE_TIERS.forEach(function (t) {
         var pressed = on.indexOf(t) !== -1, last = pressed && on.length === 1;
@@ -213,7 +219,19 @@
         });
         group.appendChild(b);
       });
-      document.getElementById('agg-note').textContent = aggAll() ? '' : 'Showing ' + aggTierNames() + ' only.';
+    }
+
+    // The filters below the section and suite, and how many differ from their defaults
+    function activeFilters() {
+      return (state.where !== 'all') + (state.hw !== 'all') + (state.harness !== 'best') + (state.showInProgress ? 1 : 0) +
+        (MODE_TIERS.some(function (t) { return state.exclude[t.id]; }) ? 1 : 0);
+    }
+
+    function renderPanelFoot(notes) {
+      document.getElementById('panel-summary').textContent = notes.filter(Boolean).join(' ');
+      var n = activeFilters();
+      document.getElementById('panel-reset').hidden = !n;
+      document.getElementById('panel-more').textContent = 'Filters' + (n ? ' (' + n + ' on)' : '');
     }
 
     // ---- Takeaways and notes ---------------------------------------------
@@ -272,7 +290,7 @@
     function renderLeaderboardNote() {
       var parts = [showAgg()
         ? 'Ranked by ' + AGG_LABEL + ' score (0–' + V.aggMax(state.exclude) + '): ' + (aggTiers().length > 1 ? 'the ' + aggTierNames() + ' scores added together, each out of 10. ' : 'the ' + aggTierNames() + ' score alone. ') +
-          'Choose which tiers it includes above; a model missing one of them isn\'t ranked until you leave that tier out.'
+          'Choose which tiers it counts in the panel above; a model missing one of them isn\'t ranked until you leave that tier out.'
         : 'Ranked by ' + aggInfo().label + ' score (0–10).'];
       MODE_TIERS.forEach(function (t) {
         if (gateOf(t.id)) parts.push(t.label + ' is also a pass/fail gate: a ' + t.label + ' score of at least ' + gateOf(t.id).mean + ', with no task below ' + gateOf(t.id).min + '.');
@@ -816,6 +834,17 @@
     document.getElementById('suite-select').addEventListener('change', function (e) {
       useSuite(e.target.value);
       render();
+    });
+    document.getElementById('panel-reset').addEventListener('click', function () {
+      state.where = 'all'; state.hw = 'all'; state.harness = 'best'; state.showInProgress = false; state.exclude = {};
+      render();
+    });
+    // On a phone the filters fold away under the section and suite
+    document.getElementById('panel-more').addEventListener('click', function () {
+      var panel = document.getElementById('control-panel');
+      var open = !panel.classList.contains('is-open');
+      panel.classList.toggle('is-open', open);
+      this.setAttribute('aria-expanded', open);
     });
     document.getElementById('hw-select').addEventListener('change', function (e) {
       state.hw = e.target.value;

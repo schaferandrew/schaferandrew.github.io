@@ -81,48 +81,6 @@ $crucibleBlue: #1856a3;
   margin-bottom: $gap;
 }
 
-// Chat and Agentic are separate sections, chosen with these tabs at the top of the results
-.crucible-mode-tabs {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: $gap / 2;
-  margin-bottom: $gap * 1.5;
-}
-
-.crucible-mode-tab {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: ($gap * 0.75) $gap;
-  text-align: left;
-  background: #fff;
-  border: 2px solid $crucibleNotRun;
-  border-radius: 8px;
-  color: $colorPrimary;
-  cursor: pointer;
-  transition: border-color $speedFast ease;
-
-  &[aria-selected='true'] {
-    border-color: $colorSecondary;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-  }
-
-  &:focus-visible {
-    outline: 2px solid $colorSecondary;
-    outline-offset: 2px;
-  }
-}
-
-.crucible-mode-name {
-  font-size: $textMedium;
-  font-weight: $weightBold;
-}
-
-.crucible-mode-blurb {
-  color: $gray;
-  font-size: $textSmall;
-}
-
 .crucible-toolbar-note {
   color: $gray;
   font-size: $textSmall;
@@ -1246,10 +1204,6 @@ $crucibleBlue: #1856a3;
   margin: 0 0 ($gap * 0.75);
 }
 
-.crucible-progress-note {
-  margin-top: -$gap / 2;
-}
-
 // Loading and error states
 
 .crucible-status {
@@ -1726,6 +1680,181 @@ ol.crucible-scatter-key {
   padding: 1px 4px;
   border-radius: 3px;
   text-align: center;
+}
+
+// The control panel: every selector and filter for the views below it, in one place.
+// Row one picks what is shown (section, suite); row two filters the runs; the foot explains.
+
+.crucible-panel {
+  margin-bottom: $gap * 1.5;
+  padding: ($gap * 0.75) $gap;
+  background: #fff;
+  border: 1px solid $crucibleBorder;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.crucible-panel-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: ($gap * 0.75) ($gap * 1.5);
+}
+
+// Section and suite share one line on a wide screen; their hints wrap instead of the fields
+@media screen and (min-width: 640px) {
+  .crucible-panel-scope {
+    flex-wrap: nowrap;
+
+    > .crucible-field {
+      flex: 1 1 0;
+    }
+  }
+}
+
+.crucible-panel-filters {
+  margin-top: $gap * 0.75;
+  padding-top: $gap * 0.75;
+  border-top: 1px solid $crucibleBorder;
+}
+
+.crucible-field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.crucible-field-label {
+  color: $gray;
+  font-size: 0.75rem;
+  font-weight: $weightBold;
+  text-transform: uppercase;
+  letter-spacing: $letterspaceMedium;
+}
+
+.crucible-field-hint {
+  color: $gray;
+  font-size: $textSmall;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.crucible-panel .crucible-select {
+  min-height: 34px;
+}
+
+.crucible-segment-count {
+  margin-left: 2px;
+  color: $crucibleMuted;
+  font-weight: $weightNormal;
+  font-variant-numeric: tabular-nums;
+}
+
+.crucible-mode-toggle .crucible-segment {
+  padding: 6px 18px;
+  font-size: $textMedium;
+}
+
+.crucible-panel-note {
+  margin: 0;
+  color: $gray;
+  font-size: $textSmall;
+
+  &:empty {
+    display: none;
+  }
+
+  &.crucible-suite-note {
+    margin-top: $gap * 0.75;
+  }
+}
+
+.crucible-panel-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: ($gap / 2) $gap;
+
+  &:has(.crucible-panel-note:not(:empty)),
+  &:has(.crucible-panel-reset:not([hidden])) {
+    margin-top: $gap * 0.75;
+  }
+}
+
+.crucible-panel-reset,
+.crucible-panel-more {
+  padding: 6px 12px;
+  background: none;
+  border: 1px solid $crucibleBorder;
+  border-radius: 6px;
+  color: $colorSecondary;
+  font-size: $textSmall;
+  font-weight: $weightBold;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $colorSecondary;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $colorSecondary;
+    outline-offset: 2px;
+  }
+}
+
+.crucible-panel-reset {
+  margin-left: auto;
+}
+
+// Wide: everything shows, no disclosure button
+.crucible-panel-more {
+  display: none;
+}
+
+@media screen and (max-width: 639px) {
+  .crucible-panel {
+    padding: ($gap * 0.75);
+  }
+
+  .crucible-panel-row {
+    gap: ($gap * 0.75);
+  }
+
+  .crucible-field {
+    width: 100%;
+  }
+
+  .crucible-panel .crucible-segmented {
+    max-width: 100%;
+  }
+
+  .crucible-panel .crucible-select {
+    width: 100%;
+  }
+
+  // Phone: section and suite stay; the filters open with the button
+  .crucible-panel-more {
+    display: block;
+    width: 100%;
+
+    &::after {
+      content: " \25BE";
+    }
+  }
+
+  .crucible-panel.is-open .crucible-panel-more::after {
+    content: " \25B4";
+  }
+
+  .crucible-panel:not(.is-open) .crucible-panel-filters {
+    display: none;
+  }
 }
 
 // `hidden` always wins over a display rule above

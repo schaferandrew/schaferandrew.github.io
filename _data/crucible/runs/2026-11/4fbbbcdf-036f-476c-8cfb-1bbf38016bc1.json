@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "4fbbbcdf-036f-476c-8cfb-1bbf38016bc1",
+ "run_path": "lmstudio_allenai_olmo-3-32b-think/grade-palindrome-function/20261105_190043",
+ "legacy_run_id": null,
+ "started_at": "2026-11-05T19:00:43.575660+00:00",
+ "ended_at": "2026-11-05T19:03:58.590516+00:00",
+ "elapsed_s": 194.18,
+ "task": {
+  "id": "grade-palindrome-function",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "07e7a478cef8a182",
+  "rubric_hash": "bb12e2e785065ea5",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/allenai/olmo-3-32b-think",
+  "base": "allenai/olmo-3-32b-think",
+  "publisher": "allenai",
+  "artifact": "allenai/olmo-3-32b-think",
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 65536,
+  "variant_key": "allenai/olmo-3-32b-think|allenai|mlx|mlx-4bit",
+  "display": "olmo-3-32b-think · 4bit",
+  "origin": {
+   "maker": "allenai",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "ip-192-168-1-163"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 446,
+  "tokens_out": 2649,
+  "model_responses": 1,
+  "ttft_s": 1.588,
+  "ttft_avg_s": 1.588,
+  "response_time_avg_s": 194.175,
+  "output_tokens_per_s": 13.8,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 11584
+ },
+ "output_ref": "outputs/4fbbbcdf-036f-476c-8cfb-1bbf38016bc1.txt",
+ "provenance": {
+  "crucible_version": "3.7.4",
+  "crucible_commit": "14609dd",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "ip-192-168-1-163",
+  "source": "crucible-run",
+  "content_hash": "sha256:b4cb1aa1dc4175d2c4f5f4ce551f603fa8abc160543ea42219a08baa3450d79c",
+  "submitter": null,
+  "verification": null
+ }
+}

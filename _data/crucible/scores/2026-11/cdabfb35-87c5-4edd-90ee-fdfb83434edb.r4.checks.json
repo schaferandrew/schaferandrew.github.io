@@ -1,0 +1,93 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "cdabfb35-87c5-4edd-90ee-fdfb83434edb",
+ "rubric_version": 4,
+ "rubric_hash": "a5437ba617323fd5",
+ "method": "checks",
+ "scored_at": "2026-11-04T22:18:24.697766+00:00",
+ "crucible_version": "3.7.4",
+ "raw": {
+  "passed": 0,
+  "total": 6,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "names_list",
+   "type": "items",
+   "group": "The list",
+   "label": "The NAMES: block has 20 numbered lines, no name twice, a reason (at least three words after a dash) on every line, and no famous or caricature name (blocklist) among the names.",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "twenty",
+     "label": "Twenty lines",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "distinct",
+     "label": "All names distinct",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "reasons",
+     "label": "Every line has a reason",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "blocklist",
+     "label": "No blocklisted name",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  },
+  {
+   "id": "top_five",
+   "type": "items",
+   "group": "The top five",
+   "label": "The TOP FIVE: block has exactly five names, each one in the NAMES: list.",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "five",
+     "label": "Five top names",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "from_list",
+     "label": "Every top name is on the list",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "The list",
+   "passed": 0.0,
+   "total": 4,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "The top five",
+   "passed": 0.0,
+   "total": 2,
+   "detail": "no answer to check"
+  }
+ ]
+}

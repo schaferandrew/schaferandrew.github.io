@@ -1,0 +1,1 @@
+Let me think about this more systematically. The prompt says the blank state appears "intermittently" after login. Let me try to reproduce this by accessing the dashboard multiple times in quick succession:

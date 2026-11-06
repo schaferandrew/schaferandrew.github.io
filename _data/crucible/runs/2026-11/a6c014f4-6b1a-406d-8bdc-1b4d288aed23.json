@@ -1,0 +1,98 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "a6c014f4-6b1a-406d-8bdc-1b4d288aed23",
+ "run_path": "lmstudio_allenai_olmo-3-32b-think/react-lead-form/20261105_232944",
+ "legacy_run_id": null,
+ "started_at": "2026-11-05T23:29:51.085833+00:00",
+ "ended_at": "2026-11-05T23:54:19.711246+00:00",
+ "elapsed_s": 1467.42,
+ "task": {
+  "id": "react-lead-form",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "02ccc27101b8f69d",
+  "rubric_hash": "248484a519654873",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "lmstudio/allenai/olmo-3-32b-think",
+  "base": "allenai/olmo-3-32b-think",
+  "publisher": "allenai",
+  "artifact": "allenai/olmo-3-32b-think",
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on",
+   "resolved_source": "server"
+  },
+  "context_loaded": 65536,
+  "variant_key": "allenai/olmo-3-32b-think|allenai|mlx|mlx-4bit",
+  "display": "olmo-3-32b-think · 4bit",
+  "origin": {
+   "maker": "allenai",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "timeout",
+  "harness_status": "TIMEOUT",
+  "returncode": 143,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": null,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": null,
+  "output_tokens_per_s": null,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": null
+ },
+ "output_ref": null,
+ "provenance": {
+  "crucible_version": "3.8.0",
+  "crucible_commit": "dde6095",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Duskfall",
+  "source": "crucible-run",
+  "content_hash": "sha256:2ebb8a089c62923160a8f35064a55d9480bcf81f68d5d83fd4b2f6de024f9be1",
+  "submitter": null,
+  "verification": null
+ }
+}

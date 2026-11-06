@@ -1,0 +1,15 @@
+
+
+## Emails  
+- Urgent: Project deadline extended to Friday. Submit draft by 5 PM today. (From: manager@company.com)  
+- Meeting reminder: Team sync at 10 AM in Conference Room A. (From: calendar@company.com)  
+
+## Calendar  
+- 9:00 AM: Budget review meeting (Finance Team)  
+- 2:30 PM: Client call with Acme Corp  
+
+## News  
+Local authorities announced a city-wide recycling program starting next week. Registration opens tomorrow at 8 AM online.  
+
+## Spanish practice  
+Hoy tienes reuniones importantes por la mañana y tarde, además de una cita con un cliente clave. Recuerda revisar el informe de finanzas y prepararte para la llamada con Acme Corp.

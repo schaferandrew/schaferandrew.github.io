@@ -1,0 +1,49 @@
+## Summary
+
+I've successfully fixed the quote request form at `/contact`. Here's what was wrong and what I changed:
+
+### What Was Wrong
+
+1. **Build Error**: The page failed to build because event handlers (`onSubmit`) were being passed from a Server Component (`page.tsx`) to a Client Component (`LeadForm.tsx`). In Next.js 14 App Router, Server Components cannot have event handlers.
+
+2. **Can't Type into Fields**: The `values` object was defined outside the `LeadForm` component, making it a shared mutable state across all instances. This caused the form to always display empty strings and prevented user input.
+
+3. **Missing Form Functionality**: The form lacked proper state management, validation, error handling, success messages, and accessibility attributes.
+
+### What I Changed
+
+#### 1. `app/contact/LeadForm.tsx`
+- Added `'use client'` directive to make it a Client Component
+- Replaced shared `values` object with React `useState` for proper state management
+- Added comprehensive form validation for required fields and email format
+- Added error state management with proper error IDs (`lead-name-error`, `lead-email-error`, `lead-message-error`)
+- Added success state management with `lead-success` element
+- Implemented focus management to move to the first error field
+- Added accessibility attributes (`aria-invalid`, `aria-describedby`, `role="alert"`)
+- Added inline styles for error messages
+- Implemented form submission with proper error handling
+- Added automatic form reset after successful submission (5 seconds)
+
+#### 2. `app/api/leads/route.ts`
+- Added email normalization (trim and lowercase)
+- Added field trimming for all inputs
+- Added empty string handling for missing company field
+- Maintains 201 response on success
+- Maintains 422 response with errors on validation failure
+
+### Verification
+
+✅ Both `npm test` and `npm run build` pass successfully
+
+The form now:
+- Builds with `npm run build`
+- Renders HTML on the server
+- Allows typing into all fields
+- Validates required fields
+- Validates email format strictly
+- Shows errors with proper IDs and accessibility attributes
+- Focuses on the first error field
+- Preserves user input on validation errors
+- Submits to `/api/leads` with normalized data
+- Shows success message when API accepts the lead
+- Keeps form and input on API failure

@@ -1,0 +1,91 @@
+### 1. Compound Interest
+
+**Working:**
+*   **Principal ($P$):** $5,000
+*   **Annual Interest Rate ($r$):** 4% = 0.04
+*   **Compounding Frequency ($n$):** 12 (monthly)
+*   **Time ($t$):** 3 years
+
+The formula for compound interest is:
+$$A = P \left(1 + \frac{r}{n}\right)^{nt}$$
+
+Substitute the values:
+$$A = 5000 \left(1 + \frac{0.04}{12}\right)^{12 \times 3}$$
+$$A = 5000 \left(1 + \frac{0.04}{12}\right)^{36}$$
+$$A = 5000 \left(1 + 0.003333...\right)^{36}$$
+$$A = 5000 \left(1.003333...\right)^{36}$$
+$$A = 5000 \times 1.1272727...$$
+$$A = 5636.3636...$$
+
+Rounding to the nearest cent:
+**$5,636.36**
+
+***
+
+### 2. Flooring
+
+**Working:**
+*   **Total Area:** 1,850 sq ft
+*   **Waste Factor:** 10%
+*   **Total Area Needed:** $1,850 + (0.10 \times 1,850) = 1,850 + 185 = 2,035$ sq ft
+*   **Box Size:** 23.5 sq ft
+
+Calculate the number of boxes:
+$$\text{Boxes} = \frac{\text{Total Area Needed}}{\text{Box Size}}$$
+$$\text{Boxes} = \frac{2,035}{23.5}$$
+$$\text{Boxes} = 86.5957...$$
+
+Since you cannot buy a partial box, you must round up to the next whole number.
+**87 boxes**
+
+***
+
+### 3. Gas Cost
+
+**Working:**
+*   **Distance:** 412 miles
+*   **Miles per Gallon (MPG):** 34
+*   **Price per Gallon:** $3.89
+
+First, calculate the total gallons needed:
+$$\text{Gallons} = \frac{\text{Distance}}{\text{MPG}}$$
+$$\text{Gallons} = \frac{412}{34}$$
+$$\text{Gallons} = 12.117647...$$
+
+Next, calculate the total cost:
+$$\text{Cost} = \text{Gallons} \times \text{Price per Gallon}$$
+$$\text{Cost} = 12.117647... \times 3.89$$
+$$\text{Cost} = 47.1776...$$
+
+Rounding to the nearest cent:
+**$47.18**
+
+***
+
+### 4. Tip and Split
+
+**Working:**
+*   **Pre-tax Amount:** $172.00
+*   **Tax Amount:** $186.40 - $172.00 = $14.40
+*   **Tip Rate:** 18% on pre-tax amount
+
+Calculate the tip:
+$$\text{Tip} = 172.00 \times 0.18 = 30.96$$
+
+Calculate the total bill:
+$$\text{Total} = \text{Pre-tax} + \text{Tax} + \text{Tip}$$
+$$\text{Total} = 172.00 + 14.40 + 30.96 = 217.36$$
+
+Calculate the cost per person (split 4 ways):
+$$\text{Cost per person} = \frac{217.36}{4}$$
+$$\text{Cost per person} = 54.34$$
+
+**$54.34**
+
+***
+
+### ANSWERS
+1. $5,636.36
+2. 87
+3. $47.18
+4. $54.34

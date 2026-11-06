@@ -1,0 +1,100 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "a6748736-a46c-489a-8330-c6ad4ce82dda",
+ "run_path": "lmstudio_qwen_qwen3.5-9b/accessibility-audit-fixes/20261105_190258",
+ "legacy_run_id": null,
+ "started_at": "2026-11-05T19:03:08.365781+00:00",
+ "ended_at": "2026-11-05T19:03:09.960285+00:00",
+ "elapsed_s": 0.96,
+ "task": {
+  "id": "accessibility-audit-fixes",
+  "version": 1,
+  "rubric_version": 3,
+  "content_hash": "02332049fef999c1",
+  "rubric_hash": "ba79097d3d49ec8d",
+  "alias": null
+ },
+ "harness": {
+  "id": "opencode",
+  "version": "opencode v2.2.1"
+ },
+ "model": {
+  "id": "lmstudio/qwen/qwen3.5-9b",
+  "base": "qwen/qwen3.5-9b",
+  "publisher": "qwen",
+  "artifact": "qwen/qwen3.5-9b",
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 109984,
+  "variant_key": "qwen/qwen3.5-9b|qwen|mlx|mlx-4bit",
+  "display": "qwen3.5-9b · 4bit",
+  "origin": {
+   "maker": "qwen",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Ironwood",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m1-pro-32gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 32.0,
+  "cpu": "Apple M1 Pro",
+  "offload": null,
+  "label": "Ironwood"
+ },
+ "outcome": {
+  "status": "harness_error",
+  "harness_status": "ERROR (exit 1)",
+  "returncode": 1,
+  "timed_out": false,
+  "invalid": {
+   "reason": "Harness error: the agent exited before the model produced anything.",
+   "marked_at": "2026-11-05T19:03:10.143836+00:00"
+  },
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 0,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": null,
+  "ttft_s": null,
+  "ttft_avg_s": null,
+  "response_time_avg_s": null,
+  "output_tokens_per_s": null,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/a6748736-a46c-489a-8330-c6ad4ce82dda.txt",
+ "provenance": {
+  "crucible_version": "3.7.4",
+  "crucible_commit": "14609dd",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "ip-192-168-1-163",
+  "source": "crucible-run",
+  "content_hash": "sha256:e26870844dd922c546b0ad279b3e7e7ffcfcb848bde2bf6d334cebafb0946171",
+  "submitter": null,
+  "verification": null
+ }
+}

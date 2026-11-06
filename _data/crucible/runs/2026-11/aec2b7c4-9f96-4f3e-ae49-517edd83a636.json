@@ -1,0 +1,97 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "aec2b7c4-9f96-4f3e-ae49-517edd83a636",
+ "run_path": "lmstudio_zai-org_glm-4.7-flash/river-haiku-banned-words/20261104_220254",
+ "legacy_run_id": null,
+ "started_at": "2026-11-04T22:02:54.106125+00:00",
+ "ended_at": "2026-11-04T22:03:20.754206+00:00",
+ "elapsed_s": 25.76,
+ "task": {
+  "id": "river-haiku-banned-words",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "abfd04ef9376bbaa",
+  "rubric_hash": "66b089cf0968cc9e",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/zai-org/glm-4.7-flash",
+  "base": "zai-org/glm-4.7-flash",
+  "publisher": "zai-org",
+  "artifact": "zai-org/glm-4.7-flash",
+  "format": "mlx",
+  "quant": "6bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on"
+  },
+  "context_loaded": 111479,
+  "variant_key": "zai-org/glm-4.7-flash|zai-org|mlx|mlx-6bit",
+  "display": "glm-4.7-flash · 6bit",
+  "origin": {
+   "maker": "zai-org",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 28,
+  "tokens_out": 1363,
+  "model_responses": 1,
+  "ttft_s": 1.401,
+  "ttft_avg_s": 1.401,
+  "response_time_avg_s": 25.76,
+  "output_tokens_per_s": 56.0,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 4723
+ },
+ "output_ref": "outputs/aec2b7c4-9f96-4f3e-ae49-517edd83a636.txt",
+ "provenance": {
+  "crucible_version": "3.7.4",
+  "crucible_commit": "2690a25",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Duskfall",
+  "source": "crucible-run",
+  "content_hash": "sha256:34397285ec438458cb128f50378ceb2d27c8a6d693b8f33f42f5172fde13cc89",
+  "submitter": null,
+  "verification": null
+ }
+}

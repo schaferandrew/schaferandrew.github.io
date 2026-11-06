@@ -1,0 +1,14 @@
+The paragraph contains two clear errors that disrupt the flow and grammar. In the second sentence, "then" is used incorrectly where "than" is required for a comparison, and "to fast" is grammatically incorrect; it should be "too fast" (or simply "fast") to modify the verb "talking." The rest of the paragraph relies on intentional fragments and sensory details to establish a specific mood and rhythm, so those were preserved.
+
+CORRECTED:
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder than she remembered it, all brakes shrieking and people talking too fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+POSSIBLY INTENTIONAL:
+"somebody's breakfast": Intentional sensory imagery.
+"louder than she remembered it": Corrected from "then".
+"people talking too fast": Corrected from "to fast".
+"waiting.": Intentional fragment.
+"Not waiting for her, exactly.": Intentional fragment.
+"That would have been too kind.": Intentional fragment.
+"Still—she was back.": Intentional fragment.
+"And she didn't know whether to laugh, or leave.": Intentional fragment.

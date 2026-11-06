@@ -1,0 +1,65 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "90e2e3f9-e806-4570-ad77-6f4c23714ab7",
+ "rubric_version": 2,
+ "rubric_hash": "66b089cf0968cc9e",
+ "method": "checks",
+ "scored_at": "2026-11-05T18:57:03.094241+00:00",
+ "crucible_version": "3.7.4",
+ "raw": {
+  "passed": 0,
+  "total": 10,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "no_forbidden_words",
+   "type": "forbidden_patterns",
+   "group": "No forbidden words",
+   "label": "Never uses water, waves, ripples, wet or bank in any form (riverbank, waterfall, wavy, wetland...).",
+   "passed": false,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "three_lines",
+   "type": "line_count",
+   "group": "Is a haiku",
+   "label": "Answers with exactly three lines (a haiku, nothing around it).",
+   "passed": false,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "about_a_river",
+   "type": "required_patterns",
+   "group": "Evokes a river",
+   "label": "Uses at least one river image (current, stone, bend, heron, flow, valley...).",
+   "passed": false,
+   "detail": "no answer to check"
+  }
+ ],
+ "groups": [
+  {
+   "id": "No forbidden words",
+   "passed": 0,
+   "total": 4,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Is a haiku",
+   "passed": 0,
+   "total": 3,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Evokes a river",
+   "passed": 0,
+   "total": 3,
+   "detail": "no answer to check"
+  }
+ ]
+}

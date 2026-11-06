@@ -44,9 +44,9 @@
       var h = C.parseHash();
       var v = h.params.compare, x = h.params.exclude;
       var out = { mode: h.id, suite: h.params.suite || null, compare: v ? v.split(',').filter(Boolean) : [], exclude: x ? x.split(',').filter(Boolean) : [] };
-      WEIGHT_FILTERS.forEach(function (f) { out[f.id] = h.params[f.id] || 'all'; });
+      // A multi-select filter is a comma list (&quant=q4_k_m,mlx-4bit); one value, as older links have, is a list of one
+      FILTERS.forEach(function (f) { out[f.id] = (h.params[f.id] || '').split(',').filter(function (v) { return v && v !== 'all'; }); });
       out.where = h.params.where || 'all';
-      out.hw = h.params.hw || 'all';
       out.harness = h.params.harness || 'best';
       return out;
     }
@@ -61,17 +61,18 @@
       useSuite(h.suite && D.catalogById(h.suite) ? h.suite : state.suite);
       state.exclude = {};
       h.exclude.forEach(function (id) { state.exclude[id] = true; });
-      WEIGHT_FILTERS.forEach(function (f) { state[f.id] = h[f.id]; });
-      state.where = h.where; state.hw = h.hw; state.harness = h.harness;
+      FILTERS.forEach(function (f) { state[f.id] = h[f.id]; });
+      state.where = h.where; state.harness = h.harness;
     }
     function writeHash() {
       var hash = C.buildHash(state.mode, { suite: state.suite !== suiteId(CURRENT) ? state.suite : null });
       var excluded = MODE_TIERS.filter(function (t) { return state.exclude[t.id]; }).map(function (t) { return encodeURIComponent(t.id); });
       if (excluded.length && !aggAll()) hash += (hash.length > 1 ? '&' : '') + 'exclude=' + excluded.join(',');
-      var params = [['harness', state.harness, 'best'], ['where', state.where, 'all'], ['hw', state.hw, 'all']]
-        .concat(WEIGHT_FILTERS.map(function (f) { return [f.id, state[f.id], 'all']; }));
-      params.forEach(function (p) {
+      [['harness', state.harness, 'best'], ['where', state.where, 'all']].forEach(function (p) {
         if (p[1] !== p[2]) hash += (hash.length > 1 ? '&' : '') + p[0] + '=' + encodeURIComponent(p[1]);
+      });
+      FILTERS.forEach(function (f) {
+        if (state[f.id].length) hash += (hash.length > 1 ? '&' : '') + f.id + '=' + state[f.id].map(encodeURIComponent).join(',');
       });
       if (location.hash !== hash && history.replaceState) history.replaceState(null, '', hash);
     }
@@ -101,24 +102,37 @@
     function aggInfo() { return V.aggInfo(); }
     function isExcluded(t) { return !!state.exclude[t.id] && showAgg(); }
 
-    // Filters on a setup's weights and reasoning. They narrow setups before each row's best setup is
-    // picked, so a row shows its best setup among the matching ones (or drops out). Options come from
-    // the section's setups; a cloud setup has no format, quant or packager, so any choice there
-    // leaves it out. value(cfg) is the normalized value, null when not recorded.
-    var WEIGHT_FILTERS = [
-      { id: 'format', label: 'Format', all: 'All formats', value: function (c) { return c.local ? c.format : null; }, local: true },
-      { id: 'quant', label: 'Quant', all: 'All quants', value: function (c) { return c.local ? c.quantKey : null; }, local: true,
+    // Multi-select filters on a setup's machine, weights and reasoning. state[id] is the list of
+    // values picked, empty for all; values within a filter are OR, filters are AND. They narrow setups
+    // before each row's best setup is picked, so a row shows its best setup among the matching ones
+    // (or drops out). Options come from the section's setups; a cloud setup has no machine, format,
+    // quant or packager (`local`), so any choice there leaves it out. value(cfg) is the normalized
+    // value, null when not recorded; text(cfg) is how it's shown.
+    var FILTERS = [
+      { id: 'hw', label: 'Hardware', noun: 'machine', all: 'All machines', local: true, value: function (c) { return c.local ? c.hwKey : null; },
+        text: function (c, v) {
+          var devices = {};
+          modeConfigsAll().forEach(function (x) { if (x.local && filterValue(FILTERS[0], x) === v) Object.keys(x.devices).forEach(function (d) { devices[d] = true; }); });
+          var names = Object.keys(devices);
+          return v === '-' ? 'Not recorded' : v + (names.length ? ' (' + names.join(', ') + ')' : '');
+        } },
+      { id: 'format', label: 'Format', noun: 'format', all: 'All formats', local: true, value: function (c) { return c.local ? c.format : null; } },
+      { id: 'quant', label: 'Quant', noun: 'quant', all: 'All quants', local: true, value: function (c) { return c.local ? c.quantKey : null; },
         text: function (c) { return c.quant; } },
-      { id: 'packager', label: 'Packager', all: 'All packagers', value: function (c) { return c.local ? c.packager : null; }, local: true },
-      { id: 'reasoning', label: 'Reasoning', all: 'All reasoning levels', value: function (c) { return c.level; } }
+      { id: 'packager', label: 'Packager', noun: 'packager', all: 'All packagers', local: true, value: function (c) { return c.local ? c.packager : null; } },
+      { id: 'reasoning', label: 'Reasoning', noun: 'reasoning level', all: 'All reasoning levels', value: function (c) { return c.level; } }
     ];
-    // A filter's chosen value as its select shows it (Q4_K_M, not q4_k_m), without the count
-    function filterText(f) {
-      var sel = document.getElementById(f.id + '-select');
-      var opt = [].filter.call(sel.options, function (o) { return o.value === state[f.id]; })[0];
-      return opt ? opt.textContent.replace(/ \(\d+\)$/, '') : state[f.id];
-    }
+    FILTERS.forEach(function (f) { state[f.id] = []; });
     function filterValue(f, cfg) { var v = f.value(cfg); return v === null || v === undefined ? '-' : String(v); }
+    // How a value is shown (Q4_K_M, not q4_k_m), from the first setup that has it
+    var labelCache = {};
+    function valueText(f, v) {
+      var k = state.mode + '|' + f.id + '|' + v;
+      if (labelCache[k]) return labelCache[k];
+      var cfg = modeConfigsAll().filter(function (c) { return (!f.local || c.local) && filterValue(f, c) === v; })[0];
+      return (labelCache[k] = v === '-' ? 'Not recorded' : (cfg && f.text && f.text(cfg, v)) || v);
+    }
+    function isPicked(f, cfg) { return state[f.id].indexOf(filterValue(f, cfg)) !== -1; }
 
     function cellOf(cfg, taskId) { return S.cellOf(cfg, taskId); }
     function modeConfigsAll() { return V.configs(); }
@@ -128,12 +142,11 @@
     function passesFilters(cfg, skip) {
       if (skip !== 'harness' && state.harness !== 'best' && cfg.harness !== state.harness) return false;
       if (skip !== 'where' && state.where !== 'all' && (state.where === 'local') !== cfg.local) return false;
-      if (skip !== 'hw' && state.hw !== 'all' && hwValue(cfg) !== state.hw) return false;
-      for (var i = 0; i < WEIGHT_FILTERS.length; i++) {
-        var f = WEIGHT_FILTERS[i];
-        if (f.id === skip || state[f.id] === 'all') continue;
+      for (var i = 0; i < FILTERS.length; i++) {
+        var f = FILTERS[i];
+        if (f.id === skip || !state[f.id].length) continue;
         if (f.local && !cfg.local) return false;
-        if (filterValue(f, cfg) !== state[f.id]) return false;
+        if (!isPicked(f, cfg)) return false;
       }
       return true;
     }
@@ -198,7 +211,7 @@
           if (state.mode === m.id) return;
           state.mode = m.id;
           state.harness = 'best';
-          state.hw = 'all';
+          state.hw = [];
           render();
         });
         modeGroup.appendChild(b);
@@ -225,34 +238,11 @@
       ], state.where, function (w) {
         state.where = w;
         // Weights filters say nothing about cloud models: picking Cloud clears them
-        if (w === 'cloud') WEIGHT_FILTERS.forEach(function (f) { if (f.local) state[f.id] = 'all'; });
-        if (w === 'cloud' && state.hw !== 'cloud') state.hw = 'all';
-        if (w === 'local' && state.hw === 'cloud') state.hw = 'all';
+        if (w === 'cloud') FILTERS.forEach(function (f) { if (f.local) state[f.id] = []; });
         render();
       });
 
-      // Hardware: the machine that ran the weights, by hardware key. Only local machines are listed
-      // (Models: Cloud already picks the cloud), and it's hidden when only cloud setups are left.
-      var byHw = facet('hw', function (c) { return c.local ? hwValue(c) : undefined; });
-      var hwOptions = {};
-      modeConfigsAll().forEach(function (cfg) {
-        if (!cfg.local || !byHw[hwValue(cfg)]) return;
-        var o = hwOptions[hwValue(cfg)] = hwOptions[hwValue(cfg)] || { value: hwValue(cfg), devices: {} };
-        Object.keys(cfg.devices).forEach(function (d) { o.devices[d] = true; });
-      });
-      var hwList = Object.keys(hwOptions).map(function (k) { return hwOptions[k]; })
-        .sort(function (a, b) { return (a.value === '-') - (b.value === '-') || (a.value < b.value ? -1 : 1); });
-      if (state.hw !== 'all' && !hwOptions[state.hw]) state.hw = 'all';
-      fillSelect(document.getElementById('hw-select'), [{ value: 'all', label: 'All machines' }].concat(hwList.map(function (o) {
-        var devices = Object.keys(o.devices);
-        return {
-          value: o.value,
-          label: withCount((o.value === '-' ? 'Not recorded' : o.value) + (devices.length ? ' (' + devices.join(', ') + ')' : ''), byHw[o.value])
-        };
-      })), state.hw);
-      document.getElementById('hw-select').parentNode.hidden = hwList.length < 2 && state.hw === 'all';
-
-      renderWeightFilters();
+      renderMultiFilters();
 
       var all = rowsAll();
       renderFilterSummary(rows.length);
@@ -275,25 +265,71 @@
       ], state.scatter, function (m) { state.scatter = m; render(); });
     }
 
-    // One select per weights/reasoning filter, its options from this section's setups (local ones for
-    // weights). A value the section doesn't have resets to all; "Not recorded" is listed last.
-    function renderWeightFilters() {
-      WEIGHT_FILTERS.forEach(function (f) {
+    // One multi-select per filter: a button that sums up the choice ("All quants", "Q4_K_M",
+    // "Q4_K_M + 1") and opens a list with "Show all" first, then each value the other filters leave,
+    // with a dot that's filled when it's picked and how many rows it alone would show. The list stays
+    // open while values are toggled (it's rebuilt on every render, so which one is open and which row
+    // had focus are kept here). A picked value the other filters no longer leave is dropped.
+    var openFilter = null, focusValue = null;
+    function renderMultiFilters() {
+      FILTERS.forEach(function (f) {
         var counts = facet(f.id, function (c) { return f.local && !c.local ? undefined : filterValue(f, c); });
-        var labels = {};
-        modeConfigsAll().forEach(function (cfg) {
-          if (f.local && !cfg.local) return;
-          var v = filterValue(f, cfg);
-          if (!labels[v]) labels[v] = v === '-' ? 'Not recorded' : (f.text && f.text(cfg)) || v;
+        state[f.id] = state[f.id].filter(function (v) { return counts[v]; });
+        var values = Object.keys(counts).sort(function (a, b) {
+          return (a === '-') - (b === '-') || (valueText(f, a).toLowerCase() < valueText(f, b).toLowerCase() ? -1 : 1);
         });
-        var opts = Object.keys(counts).map(function (v) { return { value: v, label: withCount(labels[v], counts[v]) }; });
-        opts.sort(function (a, b) { return (a.value === '-') - (b.value === '-') || (a.label.toLowerCase() < b.label.toLowerCase() ? -1 : 1); });
-        if (state[f.id] !== 'all' && !counts[state[f.id]]) state[f.id] = 'all';
-        fillSelect(document.getElementById(f.id + '-select'), [{ value: 'all', label: f.all }].concat(opts), state[f.id]);
-        // Nothing to choose between (or nothing local left for a weights filter): hidden
-        document.getElementById(f.id + '-filter').hidden = opts.length < 2 && state[f.id] === 'all';
+        var box = document.getElementById(f.id + '-multi');
+        box.innerHTML = '';
+        var on = state[f.id];
+        var summary = !on.length ? f.all : valueText(f, on[0]) + (on.length > 1 ? ' + ' + (on.length - 1) : '');
+        var open = openFilter === f.id;
+        var button = box.appendChild(el('button', { type: 'button', class: 'crucible-multi-button' + (on.length ? ' is-on' : ''),
+          'aria-haspopup': 'true', 'aria-expanded': String(open), 'aria-controls': f.id + '-list', 'aria-labelledby': f.id + '-label ' + f.id + '-summary' }));
+        button.appendChild(el('span', { id: f.id + '-summary', class: 'crucible-multi-summary' }, summary));
+        button.appendChild(el('span', { class: 'crucible-multi-caret', 'aria-hidden': 'true' }, '▾'));
+        button.addEventListener('click', function (e) {
+          e.stopPropagation();
+          openFilter = open ? null : f.id;
+          focusValue = null;
+          renderMultiFilters();
+          if (openFilter) { var first = document.querySelector('#' + f.id + '-list .crucible-multi-option'); if (first) first.focus(); }
+        });
+        var list = box.appendChild(el('div', { class: 'crucible-multi-list', id: f.id + '-list', role: 'group', 'aria-label': f.label }));
+        list.hidden = !open;
+        list.addEventListener('click', function (e) { e.stopPropagation(); });
+        function option(value, text, n, checked, onPick) {
+          var b = list.appendChild(el('button', { type: 'button', role: 'menuitemcheckbox', class: 'crucible-multi-option' + (checked ? ' is-checked' : ''),
+            'aria-checked': String(checked), 'data-value': value }));
+          b.appendChild(el('span', { class: 'crucible-dot-mark', 'aria-hidden': 'true' }));
+          b.appendChild(el('span', { class: 'crucible-multi-text' }, text));
+          if (n !== null) b.appendChild(el('span', { class: 'crucible-multi-count' }, String(n)));
+          b.addEventListener('click', function () { focusValue = value; onPick(); render(); });
+          return b;
+        }
+        option('', 'Show all', null, !on.length, function () { state[f.id] = []; });
+        values.forEach(function (v) {
+          option(v, valueText(f, v), counts[v], on.indexOf(v) !== -1, function () {
+            var i = state[f.id].indexOf(v);
+            if (i === -1) state[f.id] = state[f.id].concat([v]);
+            else state[f.id] = state[f.id].filter(function (x) { return x !== v; });
+            if (f.local && state[f.id].length && state.where === 'cloud') state.where = 'all';
+          });
+        });
+        list.addEventListener('keydown', function (e) {
+          var opts = [].slice.call(list.querySelectorAll('.crucible-multi-option')), i = opts.indexOf(document.activeElement);
+          if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); opts[(i + (e.key === 'ArrowDown' ? 1 : opts.length - 1)) % opts.length].focus(); }
+          if (e.key === 'Escape') { openFilter = null; renderMultiFilters(); document.querySelector('#' + f.id + '-multi .crucible-multi-button').focus(); }
+        });
+        if (open && focusValue !== null) {
+          var again = list.querySelector('[data-value="' + (window.CSS && CSS.escape ? CSS.escape(focusValue) : focusValue) + '"]');
+          if (again) again.focus();
+        }
+        // Nothing to choose between (or nothing local left for a local-only filter): hidden
+        document.getElementById(f.id + '-filter').hidden = values.length < 2 && !on.length;
       });
     }
+    document.addEventListener('click', function () { if (openFilter) { openFilter = null; renderMultiFilters(); } });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && openFilter) { var id = openFilter; openFilter = null; renderMultiFilters(); document.querySelector('#' + id + '-multi .crucible-multi-button').focus(); } });
 
     // What the filters leave: "Showing 8 of 27 models", a chip per active filter that removes it,
     // and Clear all
@@ -303,11 +339,11 @@
       var active = [];
       if (state.harness !== 'best') active.push({ label: 'Harness ' + state.harness, clear: function () { state.harness = 'best'; } });
       if (state.where !== 'all') active.push({ label: cap(state.where), clear: function () { state.where = 'all'; } });
-      if (state.hw !== 'all') active.push({ label: state.hw === '-' ? 'Machine not recorded' : state.hw, clear: function () { state.hw = 'all'; } });
-      WEIGHT_FILTERS.forEach(function (f) {
-        var v = state[f.id];
-        if (v === 'all') return;
-        active.push({ label: f.label + ' ' + filterText(f), clear: function () { state[f.id] = 'all'; } });
+      // One chip per picked value, so each can go on its own
+      FILTERS.forEach(function (f) {
+        state[f.id].forEach(function (v) {
+          active.push({ label: f.label + ' ' + valueText(f, v), clear: function () { state[f.id] = state[f.id].filter(function (x) { return x !== v; }); } });
+        });
       });
       box.hidden = !active.length;
       if (!active.length) return;
@@ -349,9 +385,9 @@
 
     // The filters below the section and suite, and how many differ from their defaults
     function activeFilters() {
-      return (state.where !== 'all') + (state.hw !== 'all') + (state.harness !== 'best') + (state.showInProgress ? 1 : 0) +
+      return (state.where !== 'all') + (state.harness !== 'best') + (state.showInProgress ? 1 : 0) +
         (MODE_TIERS.some(function (t) { return state.exclude[t.id]; }) ? 1 : 0) +
-        WEIGHT_FILTERS.filter(function (f) { return state[f.id] !== 'all'; }).length;
+        FILTERS.filter(function (f) { return state[f.id].length; }).length;
     }
 
     function renderPanelFoot(notes) {
@@ -366,14 +402,14 @@
     function filterPhrase() {
       var parts = [];
       if (state.harness !== 'best') parts.push('with ' + state.harness);
-      if (state.hw === 'cloud') parts.push('in the cloud');
-      else if (state.hw !== 'all') parts.push('on ' + (state.hw === '-' ? 'unrecorded hardware' : state.hw));
-      else if (state.where === 'local') parts.push('run locally');
+      if (state.where === 'local') parts.push('run locally');
       else if (state.where === 'cloud') parts.push('in the cloud');
-      WEIGHT_FILTERS.forEach(function (f) {
-        var v = state[f.id];
-        if (v === 'all') return;
-        parts.push(v === '-' ? 'with ' + f.label.toLowerCase() + ' not recorded' : f.id === 'reasoning' ? 'at reasoning ' + v : 'with ' + f.label.toLowerCase() + ' ' + filterText(f));
+      FILTERS.forEach(function (f) {
+        var on = state[f.id];
+        if (!on.length) return;
+        var names = on.map(function (v) { return valueText(f, v); });
+        var list = names.length > 1 ? names.slice(0, -1).join(', ') + ' or ' + names[names.length - 1] : names[0];
+        parts.push(f.id === 'hw' ? 'on ' + list : f.id === 'reasoning' ? 'at reasoning ' + list : 'with ' + f.noun + ' ' + list);
       });
       return parts.join(' ');
     }
@@ -1090,8 +1126,8 @@
       render();
     });
     document.getElementById('panel-reset').addEventListener('click', function () {
-      state.where = 'all'; state.hw = 'all'; state.harness = 'best'; state.showInProgress = false; state.exclude = {};
-      WEIGHT_FILTERS.forEach(function (f) { state[f.id] = 'all'; });
+      state.where = 'all'; state.harness = 'best'; state.showInProgress = false; state.exclude = {};
+      FILTERS.forEach(function (f) { state[f.id] = []; });
       render();
     });
     // On a phone the filters fold away under the section and suite
@@ -1101,25 +1137,12 @@
       panel.classList.toggle('is-open', open);
       this.setAttribute('aria-expanded', open);
     });
-    document.getElementById('hw-select').addEventListener('change', function (e) {
-      state.hw = e.target.value;
-      if (state.hw === 'cloud' && state.where === 'local') state.where = 'all';
-      if (state.hw !== 'all' && state.hw !== 'cloud' && state.where === 'cloud') state.where = 'all';
-      render();
-    });
-    WEIGHT_FILTERS.forEach(function (f) {
-      document.getElementById(f.id + '-select').addEventListener('change', function (e) {
-        state[f.id] = e.target.value;
-        if (f.local && state[f.id] !== 'all' && state.where === 'cloud') state.where = 'all';
-        render();
-      });
-    });
     // Links to #chat or #agentic&suite=v2 switch views without a reload; an old compare link moves on
     window.addEventListener('hashchange', function () {
       if (redirectCompare(readHash())) return;
       function key() {
-        return [state.mode, state.suite, Object.keys(state.exclude).sort().join(','), state.harness, state.where, state.hw]
-          .concat(WEIGHT_FILTERS.map(function (f) { return state[f.id]; })).join('|');
+        return [state.mode, state.suite, Object.keys(state.exclude).sort().join(','), state.harness, state.where]
+          .concat(FILTERS.map(function (f) { return state[f.id].join(','); })).join('|');
       }
       var before = key();
       applyHash();

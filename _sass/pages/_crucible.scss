@@ -2169,3 +2169,133 @@ ol.crucible-scatter-key {
   border-radius: 2px;
   background: repeating-linear-gradient(135deg, $crucibleMuted 0 2px, #fff 2px 4px);
 }
+
+// Multi-select filters: a button like .crucible-select that opens a list of values, each with a
+// dot that's filled when it's picked; "Show all" is first
+.crucible-multi {
+  position: relative;
+  max-width: 100%;
+}
+
+.crucible-multi-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 140px;
+  max-width: 100%;
+  padding: 6px 10px;
+  border: 1px solid $crucibleBorder;
+  border-radius: 6px;
+  background: #fff;
+  color: $colorPrimary;
+  font: inherit;
+  font-size: $textSmall;
+  text-align: left;
+  cursor: pointer;
+
+  &.is-on {
+    border-color: #c9d8ee;
+    background: #eef3fa;
+    color: $crucibleBlue;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $crucibleBlue;
+    outline-offset: 1px;
+  }
+}
+
+.crucible-multi-summary {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.crucible-multi-caret {
+  color: $gray;
+  font-size: 11px;
+}
+
+.crucible-multi-list {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 100%;
+  max-width: min(360px, 90vw);
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 4px;
+  background: #fff;
+  border: 1px solid $crucibleBorder;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.crucible-multi-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: $colorPrimary;
+  font: inherit;
+  font-size: $textSmall;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: #f3f5f9;
+    outline: none;
+  }
+
+  &:first-child {
+    margin-bottom: 2px;
+    border-bottom: 1px solid $crucibleBorder;
+    border-radius: 6px 6px 0 0;
+  }
+}
+
+// The dot: an empty ring, filled when the value is picked
+.crucible-dot-mark {
+  flex: 0 0 10px;
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid $crucibleMuted;
+  border-radius: 50%;
+
+  .is-checked > & {
+    border-color: $crucibleBlue;
+    background: $crucibleBlue;
+  }
+}
+
+.crucible-multi-text {
+  flex: 1 1 auto;
+}
+
+.crucible-multi-count {
+  color: $gray;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 639px) {
+  .crucible-multi,
+  .crucible-multi-button {
+    width: 100%;
+  }
+
+  .crucible-multi-list {
+    max-width: 100%;
+  }
+}

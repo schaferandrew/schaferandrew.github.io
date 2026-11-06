@@ -93,9 +93,13 @@ served by GitHub Pages at www.schaferandrew.com).
   best setup is picked (`passesFilters` in `crucible.js`), so a row shows its best matching setup or
   drops out. They drill down: each filter's options are what the *other* filters leave, with how many
   rows each would show (counted like the board: in-progress models only when shown), so no choice
-  empties the board; a filter with one option is hidden, and Cloud clears the weights filters. Active
-  filters show as removable chips after "Showing N of M models", and all of them live in the hash
-  (`&where=local&quant=q4_k_m&reasoning=high`).
+  empties the board; a filter with one option is hidden, and Cloud clears the weights filters.
+  Hardware, Format, Quant, Packager and Reasoning are multi-select (`FILTERS` in `crucible.js`): a
+  button summing up the choice opens a list with "Show all" first, then each value with a dot (filled
+  when picked) and its row count; values within a filter are OR, filters are AND. Hardware's values
+  are hardware keys (chip/GPU + memory, e.g. `m5-pro-48gb`), with the machines' names shown beside
+  them. Active filters show as removable chips (one per value) after "Showing N of M models", and all
+  of them live in the hash, multi-select ones as comma lists (`&where=local&quant=q4_k_m,mlx-4bit`).
 - The leaderboard's column chart (`renderBars`) plots the same rows' headline score, best first
   (partial and in-progress last, like the table), coloured local/cloud as on the scatter, hatched when
   partial; columns are capped at 24 px in slots of at most 56 px, names angled under the axis with the

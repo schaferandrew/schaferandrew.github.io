@@ -1,0 +1,4 @@
+I don’t have access to Jamie’s calendar, so I can’t check their free/busy times. Without that information I can’t reliably suggest a time that works for both of us.
+
+OPTIONS:
+YYYY-MM-DD HH:MM <time zone>

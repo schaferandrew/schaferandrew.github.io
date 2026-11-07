@@ -1,0 +1,11 @@
+Implemented the following fixes:
+
+1. **Dashboard Client Logic**
+   - Updated `public/dashboard.html` to redirect to `/login.html` when the session is invalid instead of showing a blank dashboard.  
+   - This ensures users are taken back to the login page if their session has expired or is missing.
+
+2. **Regression Tests**
+   - Added a new test in `server.test.js` to verify that after logout the dashboard correctly returns no user data.
+   - Existing tests remain unchanged, ensuring full coverage of login, logout, dashboard access, and password reset flows.
+
+These changes resolve the intermittent blank state by handling session expiration on the client side and provide automated verification of this behavior.

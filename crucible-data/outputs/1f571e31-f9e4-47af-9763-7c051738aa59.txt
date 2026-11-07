@@ -1,0 +1,24 @@
+⏺ bash(command=ls -R . | head -n 200)
+  ⎿ apps
+docs
+incident
+node_modules
+package-lock.json
+package.json
+packages
+prompt.txt
+README.md
+tsconfig.base.json
+
+./apps:
+api
+web
+
+./apps/api:
+package.json
+src
+test
+tsconfig.json
+
+./apps/api/src:
+app.t

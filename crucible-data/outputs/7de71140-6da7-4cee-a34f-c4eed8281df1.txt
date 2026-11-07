@@ -1,0 +1,19 @@
+The first claim is historically accurate: the Battle of Hastings took place on 14 October 1066.  
+The second claim incorrectly names the monarch; Magna Carta was sealed by King John, not Richard, at Runnymede in 1215.  
+The third claim misstates the year Columbus first reached the Americas; his first landing was in 1492, not 1493.  
+The fourth claim is correct: the Declaration of Independence was adopted on 4 July 1776.  
+The fifth claim is correct: the Bastille was stormed on 14 July 1789.  
+The sixth claim misidentifies the year of Waterloo; Napoleon was defeated there on 18 June 1815.  
+The seventh claim misstates the Titanic’s sinking year; it sank on 15 April 1912.  
+The eighth claim is correct: India gained independence on 15 August 1947.  
+The ninth claim is correct: Armstrong and Aldrin landed on the Moon in July 1969.  
+The tenth claim misstates the year of the Berlin Wall’s fall; it fell on 9 November 1989.  
+The eleventh claim is correct: Germany was reunified in 1990, the year after the wall fell.  
+The twelfth claim is correct: Nelson Mandela was elected president in 1994.
+
+ERRORS:
+2: John
+3: 1492
+6: 1815
+7: 1912
+10: 1989

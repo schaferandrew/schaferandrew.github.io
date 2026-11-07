@@ -1,0 +1,9 @@
+Implemented the compound‑interest calculator:
+
+* Added package skeleton and CLI entry point with robust argument parsing.
+* Implemented calculation logic handling compounding, contributions, and error cases.
+* Created a readable output format and optional JSON output.
+* Added comprehensive tests covering normal operation, edge cases, invalid input, and a known expected value.
+* Provided a README with usage instructions and examples.
+
+All files are now ready to run and test.

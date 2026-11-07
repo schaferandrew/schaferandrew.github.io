@@ -1,0 +1,9 @@
+Implemented a fully‑functional, accessible form:
+
+* Replaced static values with `useState` for live editing.
+* Added error state, success flag, and handling of server‑side validation (422) with field‑specific messages.
+* Set `aria-invalid` and `aria-describedby` for accessibility; focus on first error field.
+* Switched to JSON‑based POST and handled 201/422 responses.
+* Rendered a success message (`lead-success`) on successful submission.
+
+All required IDs are preserved. The form now builds, validates, and submits correctly.

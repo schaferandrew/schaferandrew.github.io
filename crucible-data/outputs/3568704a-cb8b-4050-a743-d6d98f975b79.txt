@@ -1,0 +1,6 @@
+I checked everyone’s free‑busy data for the next two weeks (Nov 7–21, 2026). All calendars show no events during standard business hours on weekdays, so any 1‑hour slot between 9 AM and 5 PM in their local time zones will work. Since the majority are on America/Chicago (CDT) and one on America/New York (EDT), I chose times that overlap for both zones: 10 AM–11 AM CDT equals 11 AM–12 PM EDT, and 1 PM–2 PM CDT equals 2 PM–3 PM EDT. Those slots are likely convenient for everyone.
+
+OPTIONS:
+2026-11-07 10:00 CDT
+2026-11-08 13:00 CDT
+2026-11-09 10:00 CDT

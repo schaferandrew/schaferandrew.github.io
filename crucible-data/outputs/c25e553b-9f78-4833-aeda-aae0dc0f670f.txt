@@ -1,0 +1,40 @@
+## Weather
+- **Current**: 68 °F, Partly Cloudy  
+- **Today’s forecast (2026‑09‑02)**: High 68 °F / Low 55 °F, Partly Cloudy with 10 % chance of precipitation and wind at ~8 mph.  
+
+---
+
+## Outstanding work
+- **Q3 expense report** – due Wednesday 5 PM.  
+- **Proposal timeline reply** to client@example.com – needs confirmation of Friday delivery.  
+
+---
+
+## Emails
+- **From alex@example.com** – *Project update - Q3 review completed* (no action required).  
+- **From jamie@example.com** – *Meeting notes from yesterday* (no action required).  
+- **From finance@example.com** – *Reminder: Q3 expense report due Wednesday 5 PM* (action required).  
+- **From client@example.com** – *Question about the proposal timeline* (action required).
+
+---
+
+## Calendar
+- **09:30 – 10:30** – Planning (Room B)  
+- **10:00 – 11:00** – Vendor demo (Zoom)  
+- **13:00 – 14:00** – Budget meeting (Conference Room A)  
+
+*(All other events are from previous days or unrelated to today’s tasks.)*
+
+---
+
+## News
+1. **Twin Cities Tech Conference Returns** – Annual conference with 50+ speakers; registration opens this Friday.  
+2. **Maplewood Park Renovation Complete** – New trails and playground finished; reopening Saturday.  
+3. **State Fair Attendance Drops Slightly** – 3% decline attributed to cooler weather.
+
+---
+
+## Top 3 things to do today
+1. Submit Q3 expense report by 5 PM.  
+2. Reply to client@example.com confirming proposal delivery date.  
+3. Attend the Planning, Vendor demo, and Budget meeting sessions as scheduled.

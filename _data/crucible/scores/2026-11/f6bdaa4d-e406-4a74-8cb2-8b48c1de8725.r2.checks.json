@@ -1,0 +1,231 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "f6bdaa4d-e406-4a74-8cb2-8b48c1de8725",
+ "rubric_version": 2,
+ "rubric_hash": "7f63c4216de11a95",
+ "method": "checks",
+ "scored_at": "2026-11-07T01:35:48.128111+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 0,
+  "total": 22,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "sources_once",
+   "type": "cited_paragraphs",
+   "group": "Each source cited once, stories merged",
+   "label": "Cites each of the nine sources from today exactly once: S1, S2 and S9 together in one paragraph (the levy), S3 and S4 together (the fire), S5 and S6 together (the rally), and S7 and S8 each in a paragraph of their own; one item per source.",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "s1",
+     "label": "S1 cited once, with S2, in the levy paragraph",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "s2",
+     "label": "S2 cited once, with S1, in the levy paragraph",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "s3",
+     "label": "S3 cited once, with S4, in the fire paragraph",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "s4",
+     "label": "S4 cited once, with S3, in the fire paragraph",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "s5",
+     "label": "S5 cited once, with S6, in the rally paragraph",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "s6",
+     "label": "S6 cited once, with S5, in the rally paragraph",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "s7",
+     "label": "S7 cited once, in the teacher pay paragraph",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "s8",
+     "label": "S8 cited once, in the interest rate paragraph",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "s9",
+     "label": "S9 cited once, in the levy paragraph",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  },
+  {
+   "id": "stale_left_out",
+   "type": "cited_paragraphs",
+   "group": "Stale item left out",
+   "label": "Leaves out the week-old school board item: S10 is not cited, and neither Okoro nor \"school board\" appears.",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "s10",
+     "label": "S10 (the March 3 school board item) not cited",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "names",
+     "label": "Okoro and the school board not mentioned",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  },
+  {
+   "id": "opinion_marked",
+   "type": "cited_paragraphs",
+   "group": "Opinion marked",
+   "label": "Marks the Bugle column as opinion in its citation, as in [S9 opinion].",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "s9_opinion",
+     "label": "S9 cited as opinion",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  },
+  {
+   "id": "story_facts",
+   "type": "cited_paragraphs",
+   "group": "Story facts exact",
+   "label": "In the paragraph found by its citations: the levy has $41.6 million and the 7-2 vote; the fire has the corrected count of one firefighter; the rally gives all three estimates, each attributed (about 300 to the Ledger or its reporters, more than 1,000 to organizers, 400 to police); the teacher pay bill is \"expected to sign\" and not signed; the rate story has 3.75% and 0.25. One item per fact.",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "levy_amount",
+     "label": "Levy paragraph: $41.6 million",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "levy_vote",
+     "label": "Levy paragraph: the 7-2 vote",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "fire_corrected",
+     "label": "Fire paragraph: one firefighter (the correction)",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "rally_ledger",
+     "label": "Rally paragraph: about 300, attributed to the Ledger",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "rally_organizers",
+     "label": "Rally paragraph: more than 1,000, attributed to organizers",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "rally_police",
+     "label": "Rally paragraph: 400, attributed to police",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "bill_status",
+     "label": "Teacher pay paragraph: expected to sign, not signed",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "rate_level",
+     "label": "Rate paragraph: 3.75%",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "rate_rise",
+     "label": "Rate paragraph: 0.25 points",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  },
+  {
+   "id": "no_invented_figures",
+   "type": "grounded_numbers",
+   "group": "Nothing invented",
+   "label": "Every number in the briefing appears in the sources (whole numbers under 11 aside), so no figure was invented or altered.",
+   "passed": false,
+   "detail": "no answer to check"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Each source cited once, stories merged",
+   "passed": 0.0,
+   "total": 9,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Stale item left out",
+   "passed": 0.0,
+   "total": 2,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Opinion marked",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Story facts exact",
+   "passed": 0.0,
+   "total": 9,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Nothing invented",
+   "passed": 0,
+   "total": 1,
+   "detail": "no answer to check"
+  }
+ ]
+}

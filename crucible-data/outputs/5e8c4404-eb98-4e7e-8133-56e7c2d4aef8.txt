@@ -1,0 +1,12 @@
+Implemented a client‑side fetch for account data and added comprehensive tests:
+
+### Key Changes
+1. **`app/page.tsx`**
+   - Added `'use client'` to enable React hooks.
+2. **`app/page.render.test.tsx`**
+   - New test file that:
+     - Mocks `fetch` using Vitest’s `vi.fn`.
+     - Renders the component, verifies loading state, and asserts correct name & plan rendering.
+   - Imported `@testing-library/jest-dom` for extended assertions and `vi` from Vitest.
+
+These updates fix the missing account display bug and ensure future regressions are caught by tests.

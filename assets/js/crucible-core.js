@@ -2122,14 +2122,20 @@
       var base = a.getAttribute('data-base') || a.getAttribute('href');
       a.setAttribute('href', base + (suite ? buildHash(null, { suite: suite }) : ''));
     });
-    var cur = document.querySelector('.crucible-nav [aria-current="page"]');
-    // On a phone the strip scrolls sideways: bring the current tab into view
-    var nav = document.querySelector('.crucible-nav');
-    if (cur && nav && nav.scrollWidth > nav.clientWidth) nav.scrollLeft = Math.max(0, cur.offsetLeft - 16);
   }
+  // On a phone the strip scrolls sideways: show the current tab once, at load. It never moves the
+  // strip again (the current tab is fixed per page), so it can't fight the reader's own scrolling.
+  function revealCurrentTab() {
+    var nav = document.querySelector('.crucible-nav');
+    var cur = nav && nav.querySelector('[aria-current="page"]');
+    if (!cur || nav.scrollWidth <= nav.clientWidth) return;
+    var navBox = nav.getBoundingClientRect(), curBox = cur.getBoundingClientRect();
+    if (curBox.left < navBox.left || curBox.right > navBox.right) nav.scrollLeft += curBox.left - navBox.left - 16;
+  }
+  function initNav() { syncNav(); revealCurrentTab(); }
   C.syncNav = syncNav;
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', syncNav);
-  else syncNav();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initNav);
+  else initNav();
   window.addEventListener('hashchange', syncNav);
 
   C.boot = function (opts) {

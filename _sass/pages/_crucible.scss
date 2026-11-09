@@ -1914,29 +1914,29 @@ ol.crucible-scatter-key {
   opacity: 0.5;
 }
 
-// Crucible's own page tabs, on every Crucible page (_includes/crucible-nav.html)
+// Crucible's own page tabs, on every Crucible page (_includes/crucible-nav.html).
+// One plain strip that scrolls sideways when it doesn't fit, with the browser's own touch
+// scrolling and momentum. It scrolls on the x axis only: overflow-x: auto alone makes y auto too,
+// and any sub-pixel overflow then lets a vertical swipe latch onto the strip and wobble it instead
+// of scrolling the page. Nothing pokes out of it vertically (the baseline is an inset shadow the
+// current tab's underline paints over), and overscroll-behavior-x keeps a swipe that hits its end
+// from chaining into the page or the browser's back/forward gesture.
 .crucible-nav {
+  display: flex;
+  gap: $gap * 1.25;
   margin: 0 0 $gap;
-  border-bottom: 1px solid $crucibleBorder;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  white-space: nowrap;
+  box-shadow: inset 0 -1px 0 $crucibleBorder;
   scrollbar-width: none;
 
   &::-webkit-scrollbar { display: none; }
 
-  ul {
-    display: flex;
-    gap: $gap * 1.25;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    white-space: nowrap;
-  }
-
   a {
-    display: block;
+    flex: none;
     padding: ($gap / 2) 0;
-    margin-bottom: -1px;
     border-bottom: 2px solid transparent;
     color: $gray;
     font-size: $textSmall;

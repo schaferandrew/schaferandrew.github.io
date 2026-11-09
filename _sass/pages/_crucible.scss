@@ -81,48 +81,6 @@ $crucibleBlue: #1856a3;
   margin-bottom: $gap;
 }
 
-// Chat and Agentic are separate sections, chosen with these tabs at the top of the results
-.crucible-mode-tabs {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: $gap / 2;
-  margin-bottom: $gap * 1.5;
-}
-
-.crucible-mode-tab {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: ($gap * 0.75) $gap;
-  text-align: left;
-  background: #fff;
-  border: 2px solid $crucibleNotRun;
-  border-radius: 8px;
-  color: $colorPrimary;
-  cursor: pointer;
-  transition: border-color $speedFast ease;
-
-  &[aria-selected='true'] {
-    border-color: $colorSecondary;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-  }
-
-  &:focus-visible {
-    outline: 2px solid $colorSecondary;
-    outline-offset: 2px;
-  }
-}
-
-.crucible-mode-name {
-  font-size: $textMedium;
-  font-weight: $weightBold;
-}
-
-.crucible-mode-blurb {
-  color: $gray;
-  font-size: $textSmall;
-}
-
 .crucible-toolbar-note {
   color: $gray;
   font-size: $textSmall;
@@ -1246,10 +1204,6 @@ $crucibleBlue: #1856a3;
   margin: 0 0 ($gap * 0.75);
 }
 
-.crucible-progress-note {
-  margin-top: -$gap / 2;
-}
-
 // Loading and error states
 
 .crucible-status {
@@ -1728,6 +1682,179 @@ ol.crucible-scatter-key {
   text-align: center;
 }
 
+// The control panel: every selector and filter for the views below it, in one place.
+// Row one picks what is shown (section, suite); row two filters the runs; the foot explains.
+
+.crucible-panel {
+  margin-bottom: $gap * 1.5;
+  padding: ($gap * 0.75) $gap;
+  background: #fff;
+  border: 1px solid $crucibleBorder;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.crucible-panel-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: ($gap * 0.75) ($gap * 1.5);
+}
+
+// Section and suite share one line on a wide screen; their hints wrap instead of the fields
+@media screen and (min-width: 640px) {
+  .crucible-panel-scope {
+    flex-wrap: nowrap;
+
+    > .crucible-field {
+      flex: 1 1 0;
+    }
+  }
+}
+
+.crucible-panel-filters {
+  margin-top: $gap * 0.75;
+  padding-top: $gap * 0.75;
+  border-top: 1px solid $crucibleBorder;
+}
+
+.crucible-field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.crucible-field-label {
+  color: $gray;
+  font-size: 0.75rem;
+  font-weight: $weightBold;
+  text-transform: uppercase;
+  letter-spacing: $letterspaceMedium;
+}
+
+.crucible-field-hint {
+  color: $gray;
+  font-size: $textSmall;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.crucible-panel .crucible-select {
+  min-height: 34px;
+}
+
+.crucible-segment-count {
+  margin-left: 2px;
+  color: $crucibleMuted;
+  font-weight: $weightNormal;
+  font-variant-numeric: tabular-nums;
+}
+
+.crucible-mode-toggle .crucible-segment {
+  padding: 6px 18px;
+  font-size: $textMedium;
+}
+
+.crucible-panel-note {
+  margin: 0;
+  color: $gray;
+  font-size: $textSmall;
+
+  &:empty {
+    display: none;
+  }
+
+  &.crucible-suite-note {
+    margin-top: $gap * 0.75;
+  }
+}
+
+.crucible-panel-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: ($gap / 2) $gap;
+
+  // Always reserved, so the note and Reset button appearing don't move the page
+  margin-top: $gap * 0.75;
+}
+
+.crucible-panel-reset,
+.crucible-panel-more {
+  padding: 6px 12px;
+  background: none;
+  border: 1px solid $crucibleBorder;
+  border-radius: 6px;
+  color: $colorSecondary;
+  font-size: $textSmall;
+  font-weight: $weightBold;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $colorSecondary;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $colorSecondary;
+    outline-offset: 2px;
+  }
+}
+
+.crucible-panel-reset {
+  margin-left: auto;
+}
+
+// Wide: everything shows, no disclosure button
+.crucible-panel-more {
+  display: none;
+}
+
+@media screen and (max-width: 639px) {
+  .crucible-panel {
+    padding: ($gap * 0.75);
+  }
+
+  .crucible-panel-row {
+    gap: ($gap * 0.75);
+  }
+
+  .crucible-field {
+    width: 100%;
+  }
+
+  .crucible-panel .crucible-segmented {
+    max-width: 100%;
+  }
+
+  .crucible-panel .crucible-select {
+    width: 100%;
+  }
+
+  // Phone: section and suite stay; the filters open with the button
+  .crucible-panel-more {
+    display: block;
+    width: 100%;
+
+    &::after {
+      content: " \25BE";
+    }
+  }
+
+  .crucible-panel.is-open .crucible-panel-more::after {
+    content: " \25B4";
+  }
+
+  .crucible-panel:not(.is-open) .crucible-panel-filters {
+    display: none;
+  }
+}
+
 // `hidden` always wins over a display rule above
 .crucible [hidden] {
   display: none !important;
@@ -1950,5 +2077,225 @@ ol.crucible-scatter-key {
       font-weight: 600;
       border-bottom-color: $colorSecondary;
     }
+  }
+}
+
+// Leaderboard filters: one row above the chart and the table they scope, then what they leave
+.crucible-filters {
+  margin: ($gap / 2) 0 ($gap / 2);
+}
+
+.crucible-filter-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: ($gap / 2);
+  margin-bottom: $gap;
+  min-height: 34px;
+
+  // Empty, it keeps its space but shows nothing
+  &.is-empty {
+    visibility: hidden;
+  }
+}
+
+.crucible-filter-count {
+  color: $gray;
+  font-size: $textSmall;
+}
+
+.crucible-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  background: #eef3fa;
+  border: 1px solid #c9d8ee;
+  border-radius: 999px;
+  color: $crucibleBlue;
+  font: inherit;
+  font-size: $textSmall;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: #dfe9f7;
+  }
+}
+
+.crucible-chip-x {
+  font-size: 14px;
+  line-height: 1;
+}
+
+// The leaderboard's column chart
+.crucible-bars {
+  margin-bottom: $gap;
+
+  .crucible-bar {
+    transition: opacity 0.1s;
+
+    &.is-in-progress {
+      opacity: 0.45;
+    }
+
+    &.is-hover {
+      opacity: 0.8;
+    }
+  }
+
+  .crucible-bar-value {
+    fill: $colorPrimary;
+    font-size: 11px;
+    font-weight: $weightBold;
+  }
+
+  .crucible-bar-name {
+    fill: $gray;
+    font-size: 11px;
+  }
+
+  .crucible-hit:focus {
+    outline: none;
+  }
+
+  .crucible-hit:focus-visible {
+    stroke: $crucibleBlue;
+    stroke-width: 2px;
+  }
+}
+
+.crucible-scatter-swatch.is-partial {
+  border-radius: 2px;
+  background: repeating-linear-gradient(135deg, $crucibleMuted 0 2px, #fff 2px 4px);
+}
+
+// Multi-select filters: a button like .crucible-select that opens a list of values, each with a
+// dot that's filled when it's picked; "Show all" is first
+.crucible-multi {
+  position: relative;
+  max-width: 100%;
+}
+
+.crucible-multi-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 140px;
+  max-width: 100%;
+  padding: 6px 10px;
+  border: 1px solid $crucibleBorder;
+  border-radius: 6px;
+  background: #fff;
+  color: $colorPrimary;
+  font: inherit;
+  font-size: $textSmall;
+  text-align: left;
+  cursor: pointer;
+
+  &.is-on {
+    border-color: #c9d8ee;
+    background: #eef3fa;
+    color: $crucibleBlue;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $crucibleBlue;
+    outline-offset: 1px;
+  }
+}
+
+.crucible-multi-summary {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.crucible-multi-caret {
+  color: $gray;
+  font-size: 11px;
+}
+
+.crucible-multi-list {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 100%;
+  max-width: min(360px, 90vw);
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 4px;
+  background: #fff;
+  border: 1px solid $crucibleBorder;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.crucible-multi-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: $colorPrimary;
+  font: inherit;
+  font-size: $textSmall;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: #f3f5f9;
+    outline: none;
+  }
+
+  &:first-child {
+    margin-bottom: 2px;
+    border-bottom: 1px solid $crucibleBorder;
+    border-radius: 6px 6px 0 0;
+  }
+}
+
+// The dot: an empty ring, filled when the value is picked
+.crucible-dot-mark {
+  flex: 0 0 10px;
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid $crucibleMuted;
+  border-radius: 50%;
+
+  .is-checked > & {
+    border-color: $crucibleBlue;
+    background: $crucibleBlue;
+  }
+}
+
+.crucible-multi-text {
+  flex: 1 1 auto;
+}
+
+.crucible-multi-count {
+  color: $gray;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 639px) {
+  .crucible-multi,
+  .crucible-multi-button {
+    width: 100%;
+  }
+
+  .crucible-multi-list {
+    max-width: 100%;
   }
 }

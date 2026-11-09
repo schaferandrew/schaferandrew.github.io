@@ -23,6 +23,8 @@
 
     var state = {
       suite: suiteId(CURRENT), mode: '', harness: 'best', where: 'all', hw: 'all', showInProgress: false,
+      // Weights and reasoning filters: 'all', a value from the data, or '-' for "not recorded"
+      format: 'all', quant: 'all', packager: 'all', reasoning: 'all',
       scatter: 'time', sort: null, open: {},
       exclude: {}  // tier ID -> true: tiers the reader left out of the overall score
     };
@@ -35,13 +37,18 @@
       if (!state.sort || (!S.tierSeen[state.sort.key] && SORT_KEYS.indexOf(state.sort.key) === -1)) state.sort = { key: AGG, dir: -1 };
     }
 
-    // The hash holds the section, the suite and the tiers left out of the overall score:
-    // #agentic&suite=v2&exclude=forge. An old #chat&compare=a,b link moves to the compare page (the
+    // The hash holds the section, the suite, the tiers left out of the overall score and the weights
+    // and reasoning filters: #agentic&suite=v2&exclude=forge&quant=q4_k_m&reasoning=high. An old #chat&compare=a,b link moves to the compare page (the
     // comparison lives there now), keeping the suite.
     function readHash() {
       var h = C.parseHash();
       var v = h.params.compare, x = h.params.exclude;
-      return { mode: h.id, suite: h.params.suite || null, compare: v ? v.split(',').filter(Boolean) : [], exclude: x ? x.split(',').filter(Boolean) : [] };
+      var out = { mode: h.id, suite: h.params.suite || null, compare: v ? v.split(',').filter(Boolean) : [], exclude: x ? x.split(',').filter(Boolean) : [] };
+      // A multi-select filter is a comma list (&quant=q4_k_m,mlx-4bit); one value, as older links have, is a list of one
+      FILTERS.forEach(function (f) { out[f.id] = (h.params[f.id] || '').split(',').filter(function (v) { return v && v !== 'all'; }); });
+      out.where = h.params.where || 'all';
+      out.harness = h.params.harness || 'best';
+      return out;
     }
     function redirectCompare(h) {
       if (!h.compare.length) return false;
@@ -54,11 +61,19 @@
       useSuite(h.suite && D.catalogById(h.suite) ? h.suite : state.suite);
       state.exclude = {};
       h.exclude.forEach(function (id) { state.exclude[id] = true; });
+      FILTERS.forEach(function (f) { state[f.id] = h[f.id]; });
+      state.where = h.where; state.harness = h.harness;
     }
     function writeHash() {
       var hash = C.buildHash(state.mode, { suite: state.suite !== suiteId(CURRENT) ? state.suite : null });
       var excluded = MODE_TIERS.filter(function (t) { return state.exclude[t.id]; }).map(function (t) { return encodeURIComponent(t.id); });
       if (excluded.length && !aggAll()) hash += (hash.length > 1 ? '&' : '') + 'exclude=' + excluded.join(',');
+      [['harness', state.harness, 'best'], ['where', state.where, 'all']].forEach(function (p) {
+        if (p[1] !== p[2]) hash += (hash.length > 1 ? '&' : '') + p[0] + '=' + encodeURIComponent(p[1]);
+      });
+      FILTERS.forEach(function (f) {
+        if (state[f.id].length) hash += (hash.length > 1 ? '&' : '') + f.id + '=' + state[f.id].map(encodeURIComponent).join(',');
+      });
       if (location.hash !== hash && history.replaceState) history.replaceState(null, '', hash);
     }
 
@@ -87,14 +102,77 @@
     function aggInfo() { return V.aggInfo(); }
     function isExcluded(t) { return !!state.exclude[t.id] && showAgg(); }
 
+    // Multi-select filters on a setup's machine, weights and reasoning. state[id] is the list of
+    // values picked, empty for all; values within a filter are OR, filters are AND. They narrow setups
+    // before each row's best setup is picked, so a row shows its best setup among the matching ones
+    // (or drops out). Options come from the section's setups; a cloud setup has no machine, format,
+    // quant or packager (`local`), so any choice there leaves it out. value(cfg) is the normalized
+    // value, null when not recorded; text(cfg) is how it's shown.
+    var FILTERS = [
+      { id: 'hw', label: 'Hardware', noun: 'machine', all: 'All machines', local: true, value: function (c) { return c.local ? c.hwKey : null; },
+        text: function (c, v) {
+          var devices = {};
+          modeConfigsAll().forEach(function (x) { if (x.local && filterValue(FILTERS[0], x) === v) Object.keys(x.devices).forEach(function (d) { devices[d] = true; }); });
+          var names = Object.keys(devices);
+          return v === '-' ? 'Not recorded' : v + (names.length ? ' (' + names.join(', ') + ')' : '');
+        } },
+      { id: 'format', label: 'Format', noun: 'format', all: 'All formats', local: true, value: function (c) { return c.local ? c.format : null; } },
+      { id: 'quant', label: 'Quant', noun: 'quant', all: 'All quants', local: true, value: function (c) { return c.local ? c.quantKey : null; },
+        text: function (c) { return c.quant; } },
+      { id: 'packager', label: 'Packager', noun: 'packager', all: 'All packagers', local: true, value: function (c) { return c.local ? c.packager : null; } },
+      { id: 'reasoning', label: 'Reasoning', noun: 'reasoning level', all: 'All reasoning levels', value: function (c) { return c.level; } }
+    ];
+    FILTERS.forEach(function (f) { state[f.id] = []; });
+    function filterValue(f, cfg) { var v = f.value(cfg); return v === null || v === undefined ? '-' : String(v); }
+    // How a value is shown (Q4_K_M, not q4_k_m), from the first setup that has it
+    var labelCache = {};
+    function valueText(f, v) {
+      var k = state.mode + '|' + f.id + '|' + v;
+      if (labelCache[k]) return labelCache[k];
+      var cfg = modeConfigsAll().filter(function (c) { return (!f.local || c.local) && filterValue(f, c) === v; })[0];
+      return (labelCache[k] = v === '-' ? 'Not recorded' : (cfg && f.text && f.text(cfg, v)) || v);
+    }
+    function isPicked(f, cfg) { return state[f.id].indexOf(filterValue(f, cfg)) !== -1; }
+
     function cellOf(cfg, taskId) { return S.cellOf(cfg, taskId); }
     function modeConfigsAll() { return V.configs(); }
-    function passesFilters(cfg) {
-      if (state.where !== 'all' && (state.where === 'local') !== cfg.local) return false;
-      if (state.hw !== 'all' && hwValue(cfg) !== state.hw) return false;
-      if (state.harness !== 'best' && cfg.harness !== state.harness) return false;
+    // Every filter, in drill-down order. passesFilters(cfg, skip) applies all of them but `skip`, so a
+    // filter's options are the values left once every *other* filter is applied: picking MLX leaves
+    // MLX quants, picking a machine leaves what ran there, and no choice leads to an empty board.
+    function passesFilters(cfg, skip) {
+      if (skip !== 'harness' && state.harness !== 'best' && cfg.harness !== state.harness) return false;
+      if (skip !== 'where' && state.where !== 'all' && (state.where === 'local') !== cfg.local) return false;
+      for (var i = 0; i < FILTERS.length; i++) {
+        var f = FILTERS[i];
+        if (f.id === skip || !state[f.id].length) continue;
+        if (f.local && !cfg.local) return false;
+        if (!isPicked(f, cfg)) return false;
+      }
       return true;
     }
+    // How many leaderboard rows a set of setups makes, counted the way the board shows them: a model
+    // in progress counts only while in-progress models are shown
+    function shownRows(keep) {
+      var rows = V.rows(keep, state.exclude);
+      var showAll = showingInProgress(V.rows(function (c) { return passesFilters(c); }, state.exclude));
+      return rows.filter(function (r) { return showAll || !r.inProgress; }).length;
+    }
+    // { value: rows } for one filter: how many rows each of its values would leave, given the others
+    function facet(skip, valueOf) {
+      var values = {};
+      modeConfigsAll().forEach(function (cfg) {
+        if (!passesFilters(cfg, skip)) return;
+        var v = valueOf(cfg);
+        if (v !== undefined) values[v] = true;
+      });
+      var out = {};
+      Object.keys(values).forEach(function (v) {
+        var n = shownRows(function (cfg) { return passesFilters(cfg, skip) && valueOf(cfg) === v; });
+        if (n) out[v] = n;
+      });
+      return out;
+    }
+    function withCount(label, n) { return label + ' (' + n + ')'; }
 
     // ---- Scores -----------------------------------------------------------
 
@@ -120,76 +198,171 @@
     function renderSuite() { D.renderSuiteBar(S); }
 
     function renderControls(rows) {
-      var tabs = document.getElementById('mode-tabs');
-      tabs.innerHTML = '';
+      // Section: Chat or Agentic, each with its task count; the chosen one's blurb underneath
+      var modeGroup = document.getElementById('mode-toggle');
+      modeGroup.innerHTML = '';
       S.MODES.forEach(function (m) {
         var n = S.tasks.filter(function (t) { return t.mode === m.id && t.status === 'active'; }).length;
-        var tab = el('button', { type: 'button', role: 'tab', class: 'crucible-mode-tab', 'aria-selected': m.id === state.mode, id: 'mode-tab-' + m.id });
-        tab.appendChild(el('span', { class: 'crucible-mode-name' }, m.label));
-        tab.appendChild(el('span', { class: 'crucible-mode-blurb' }, (m.blurb ? cap(m.blurb) + ' · ' : '') + n + ' tasks · ' +
-          m.areas.map(function (a) { return a.label; }).join(', ')));
-        tab.addEventListener('click', function () {
+        var b = el('button', { type: 'button', role: 'radio', class: 'crucible-segment', 'aria-checked': m.id === state.mode, id: 'mode-tab-' + m.id });
+        b.appendChild(document.createTextNode(m.label + ' '));
+        b.appendChild(el('span', { class: 'crucible-segment-count' }, String(n)));
+        b.title = n + ' scored tasks';
+        b.addEventListener('click', function () {
+          if (state.mode === m.id) return;
           state.mode = m.id;
           state.harness = 'best';
-          state.hw = 'all';
+          state.hw = [];
           render();
         });
-        tabs.appendChild(tab);
+        modeGroup.appendChild(b);
+        if (m.id === state.mode) {
+          document.getElementById('mode-blurb').textContent = (m.blurb ? cap(m.blurb) + ' · ' : '') + m.areas.map(function (a) { return a.label; }).join(', ');
+        }
       });
 
       var harnesses = V.harnesses();
       var many = harnesses.length > 1;
-      document.getElementById('harness-label').hidden = !many;
-      document.getElementById('harness-toggle').hidden = !many;
-      document.getElementById('harness-fixed').textContent = many || !harnesses.length ? '' : 'Every ' + modeInfo().label + ' run uses the ' + harnesses[0] + ' harness.';
+      // One harness (or none, for chat) leaves nothing to choose: the panel's notes name it instead
+      document.getElementById('harness-field').hidden = !many;
+      var harnessNote = many || !harnesses.length ? '' : 'Every ' + modeInfo().label + ' run uses the ' + harnesses[0] + ' harness.';
+      var byHarness = facet('harness', function (c) { return c.harness; });
       segmented('harness-toggle', [{ value: 'best', label: 'Best per model' }].concat(harnesses.map(function (h) {
-        var n = modeConfigsAll().filter(function (c) { return c.harness === h; }).length;
-        return { value: h, label: h, empty: !n, emptyTitle: 'No runs with this harness yet' };
+        var n = byHarness[h] || 0;
+        return { value: h, label: n ? withCount(h, n) : h, empty: !n, emptyTitle: 'No models with this harness for these filters' };
       })), state.harness, function (h) { state.harness = h; render(); });
+      var byWhere = facet('where', function (c) { return c.local ? 'local' : 'cloud'; });
       segmented('where-toggle', [
-        { value: 'all', label: 'All' }, { value: 'local', label: 'Local' }, { value: 'cloud', label: 'Cloud' }
+        { value: 'all', label: 'All' },
+        { value: 'local', label: withCount('Local', byWhere.local || 0), empty: !byWhere.local, emptyTitle: 'No local models for these filters' },
+        { value: 'cloud', label: withCount('Cloud', byWhere.cloud || 0), empty: !byWhere.cloud, emptyTitle: 'No cloud models for these filters' }
       ], state.where, function (w) {
         state.where = w;
-        if (w === 'cloud' && state.hw !== 'cloud') state.hw = 'all';
-        if (w === 'local' && state.hw === 'cloud') state.hw = 'all';
+        // Weights filters say nothing about cloud models: picking Cloud clears them
+        if (w === 'cloud') FILTERS.forEach(function (f) { if (f.local) state[f.id] = []; });
         render();
       });
 
-      // Hardware: the device that ran the weights, by hardware key; cloud runs have none
-      var hwSeen = {}, hwOptions = [];
-      modeConfigsAll().forEach(function (cfg) {
-        var v = hwValue(cfg);
-        if (hwSeen[v]) { Object.keys(cfg.devices).forEach(function (d) { hwSeen[v].devices[d] = true; }); return; }
-        hwSeen[v] = { value: v, devices: Object.assign({}, cfg.devices) };
-        hwOptions.push(hwSeen[v]);
-      });
-      hwOptions.sort(function (a, b) { return (a.value === 'cloud') - (b.value === 'cloud') || (a.value === '-') - (b.value === '-') || (a.value < b.value ? -1 : 1); });
-      if (state.hw !== 'all' && !hwSeen[state.hw]) state.hw = 'all';
-      fillSelect(document.getElementById('hw-select'), [{ value: 'all', label: 'All hardware' }].concat(hwOptions.map(function (o) {
-        var devices = Object.keys(o.devices);
-        return {
-          value: o.value,
-          label: o.value === 'cloud' ? 'Cloud (no hardware)' : (o.value === '-' ? 'Not recorded' : o.value) + (devices.length ? ' (' + devices.join(', ') + ')' : '')
-        };
-      })), state.hw);
+      renderMultiFilters();
 
       var all = rowsAll();
+      renderFilterSummary(rows.length);
       var hidden = all.filter(function (s) { return s.ran && s.inProgress; }).length;
       var none = V.noneFinished(all);
       segmented('progress-toggle', [
         { value: false, label: 'Finished' },
-        { value: true, label: 'Include in progress' + (hidden ? ' (' + hidden + ')' : ''), empty: !hidden, emptyTitle: 'Every model has finished this section' }
+        { value: true, label: '+ In progress' + (hidden ? ' (' + hidden + ')' : ''), empty: !hidden, emptyTitle: 'Every model has finished this section' }
       ], showingInProgress(all), function (v) { state.showInProgress = v; render(); });
       var share = pct(S.IN_PROGRESS_BELOW);
-      document.getElementById('progress-note').textContent = none && hidden
+      var progressNote = none && hidden
         ? 'No model has finished ' + share + ' of this section\'s scored tasks yet, so everyone is shown, marked * and unranked.'
         : state.showInProgress && hidden
         ? '* In progress: fewer than ' + share + ' of this section\'s scored tasks done. Listed last and not ranked.'
         : (hidden ? hidden + ' model' + (hidden === 1 ? '' : 's') + ' with fewer than ' + share + ' of this section\'s scored tasks done ' + (hidden === 1 ? 'is' : 'are') + ' hidden.' : '');
       renderAggToggle();
+      renderPanelFoot([progressNote, aggAll() ? '' : 'The ' + AGG_LABEL + ' score counts ' + aggTierNames() + ' only.', harnessNote]);
       segmented('scatter-toggle', [
         { value: 'time', label: 'Time per task' }, { value: 'cost', label: 'Cost per task' }
       ], state.scatter, function (m) { state.scatter = m; render(); });
+    }
+
+    // One multi-select per filter: a button that sums up the choice ("All quants", "Q4_K_M",
+    // "Q4_K_M + 1") and opens a list with "Show all" first, then each value the other filters leave,
+    // with a dot that's filled when it's picked and how many rows it alone would show. The list stays
+    // open while values are toggled (it's rebuilt on every render, so which one is open and which row
+    // had focus are kept here). A picked value the other filters no longer leave is dropped.
+    var openFilter = null, focusValue = null;
+    function renderMultiFilters() {
+      FILTERS.forEach(function (f) {
+        var counts = facet(f.id, function (c) { return f.local && !c.local ? undefined : filterValue(f, c); });
+        state[f.id] = state[f.id].filter(function (v) { return counts[v]; });
+        var values = Object.keys(counts).sort(function (a, b) {
+          return (a === '-') - (b === '-') || (valueText(f, a).toLowerCase() < valueText(f, b).toLowerCase() ? -1 : 1);
+        });
+        var box = document.getElementById(f.id + '-multi');
+        box.innerHTML = '';
+        var on = state[f.id];
+        var summary = !on.length ? f.all : valueText(f, on[0]) + (on.length > 1 ? ' + ' + (on.length - 1) : '');
+        var open = openFilter === f.id;
+        var button = box.appendChild(el('button', { type: 'button', class: 'crucible-multi-button' + (on.length ? ' is-on' : ''),
+          'aria-haspopup': 'true', 'aria-expanded': String(open), 'aria-controls': f.id + '-list', 'aria-labelledby': f.id + '-label ' + f.id + '-summary' }));
+        button.appendChild(el('span', { id: f.id + '-summary', class: 'crucible-multi-summary' }, summary));
+        button.appendChild(el('span', { class: 'crucible-multi-caret', 'aria-hidden': 'true' }, '▾'));
+        button.addEventListener('click', function (e) {
+          e.stopPropagation();
+          openFilter = open ? null : f.id;
+          focusValue = null;
+          renderMultiFilters();
+          if (openFilter) { var first = document.querySelector('#' + f.id + '-list .crucible-multi-option'); if (first) first.focus(); }
+        });
+        var list = box.appendChild(el('div', { class: 'crucible-multi-list', id: f.id + '-list', role: 'group', 'aria-label': f.label }));
+        list.hidden = !open;
+        list.addEventListener('click', function (e) { e.stopPropagation(); });
+        function option(value, text, n, checked, onPick) {
+          var b = list.appendChild(el('button', { type: 'button', role: 'menuitemcheckbox', class: 'crucible-multi-option' + (checked ? ' is-checked' : ''),
+            'aria-checked': String(checked), 'data-value': value }));
+          b.appendChild(el('span', { class: 'crucible-dot-mark', 'aria-hidden': 'true' }));
+          b.appendChild(el('span', { class: 'crucible-multi-text' }, text));
+          if (n !== null) b.appendChild(el('span', { class: 'crucible-multi-count' }, String(n)));
+          b.addEventListener('click', function () { focusValue = value; onPick(); render(); });
+          return b;
+        }
+        option('', 'Show all', null, !on.length, function () { state[f.id] = []; });
+        values.forEach(function (v) {
+          option(v, valueText(f, v), counts[v], on.indexOf(v) !== -1, function () {
+            var i = state[f.id].indexOf(v);
+            if (i === -1) state[f.id] = state[f.id].concat([v]);
+            else state[f.id] = state[f.id].filter(function (x) { return x !== v; });
+            if (f.local && state[f.id].length && state.where === 'cloud') state.where = 'all';
+          });
+        });
+        list.addEventListener('keydown', function (e) {
+          var opts = [].slice.call(list.querySelectorAll('.crucible-multi-option')), i = opts.indexOf(document.activeElement);
+          if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); opts[(i + (e.key === 'ArrowDown' ? 1 : opts.length - 1)) % opts.length].focus(); }
+          if (e.key === 'Escape') { openFilter = null; renderMultiFilters(); document.querySelector('#' + f.id + '-multi .crucible-multi-button').focus(); }
+        });
+        if (open && focusValue !== null) {
+          var again = list.querySelector('[data-value="' + (window.CSS && CSS.escape ? CSS.escape(focusValue) : focusValue) + '"]');
+          if (again) again.focus();
+        }
+        // Nothing to choose between (or nothing local left for a local-only filter): hidden
+        // Shown by the setups alone, not by the picks: choosing a value must not add or remove a field
+        // and reflow the row (a filter with one value in the whole section has nothing to choose)
+        var everyValue = {};
+        modeConfigsAll().forEach(function (c) { if (!f.local || c.local) everyValue[filterValue(f, c)] = true; });
+        document.getElementById(f.id + '-filter').hidden = Object.keys(everyValue).length < 2;
+      });
+    }
+    document.addEventListener('click', function () { if (openFilter) { openFilter = null; renderMultiFilters(); } });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && openFilter) { var id = openFilter; openFilter = null; renderMultiFilters(); document.querySelector('#' + id + '-multi .crucible-multi-button').focus(); } });
+
+    // What the filters leave: "Showing 8 of 27 models", a chip per active filter that removes it,
+    // and Clear all
+    function renderFilterSummary(rows) {
+      var box = document.getElementById('filter-summary');
+      box.innerHTML = '';
+      var active = [];
+      if (state.harness !== 'best') active.push({ label: 'Harness ' + state.harness, clear: function () { state.harness = 'best'; } });
+      if (state.where !== 'all') active.push({ label: cap(state.where), clear: function () { state.where = 'all'; } });
+      // One chip per picked value, so each can go on its own
+      FILTERS.forEach(function (f) {
+        state[f.id].forEach(function (v) {
+          active.push({ label: f.label + ' ' + valueText(f, v), clear: function () { state[f.id] = state[f.id].filter(function (x) { return x !== v; }); } });
+        });
+      });
+      // Kept in the layout when empty (see .is-empty), so the first pick doesn't push the page down
+      box.classList.toggle('is-empty', !active.length);
+      if (!active.length) return;
+      var showAll = showingInProgress(V.rows(null, state.exclude));
+      var total = V.rows(null, state.exclude).filter(function (r) { return showAll || !r.inProgress; }).length;
+      box.appendChild(el('span', { class: 'crucible-filter-count' }, 'Showing ' + rows + ' of ' + total + ' models'));
+      active.forEach(function (a) {
+        var chip = box.appendChild(el('button', { type: 'button', class: 'crucible-chip', title: 'Remove this filter' }));
+        chip.appendChild(el('span', {}, a.label));
+        chip.appendChild(el('span', { class: 'crucible-chip-x', 'aria-hidden': 'true' }, '×'));
+        chip.setAttribute('aria-label', 'Remove filter: ' + a.label);
+        chip.addEventListener('click', function () { a.clear(); render(); });
+      });
+      // Clearing them all is the panel's Reset filters
     }
 
     // Which tiers the overall score includes: one toggle per tier, at least one always on
@@ -198,7 +371,7 @@
       bar.hidden = !showAgg();
       group.innerHTML = '';
       if (!showAgg()) return;
-      document.getElementById('agg-label').textContent = AGG_LABEL + ' includes';
+      document.getElementById('agg-label').textContent = AGG_LABEL + ' score counts';
       var on = aggTiers();
       MODE_TIERS.forEach(function (t) {
         var pressed = on.indexOf(t) !== -1, last = pressed && on.length === 1;
@@ -213,7 +386,20 @@
         });
         group.appendChild(b);
       });
-      document.getElementById('agg-note').textContent = aggAll() ? '' : 'Showing ' + aggTierNames() + ' only.';
+    }
+
+    // The filters below the section and suite, and how many differ from their defaults
+    function activeFilters() {
+      return (state.where !== 'all') + (state.harness !== 'best') + (state.showInProgress ? 1 : 0) +
+        (MODE_TIERS.some(function (t) { return state.exclude[t.id]; }) ? 1 : 0) +
+        FILTERS.filter(function (f) { return state[f.id].length; }).length;
+    }
+
+    function renderPanelFoot(notes) {
+      document.getElementById('panel-summary').textContent = notes.filter(Boolean).join(' ');
+      var n = activeFilters();
+      document.getElementById('panel-reset').hidden = !n;
+      document.getElementById('panel-more').textContent = 'Filters' + (n ? ' (' + n + ' on)' : '');
     }
 
     // ---- Takeaways and notes ---------------------------------------------
@@ -221,10 +407,15 @@
     function filterPhrase() {
       var parts = [];
       if (state.harness !== 'best') parts.push('with ' + state.harness);
-      if (state.hw === 'cloud') parts.push('in the cloud');
-      else if (state.hw !== 'all') parts.push('on ' + (state.hw === '-' ? 'unrecorded hardware' : state.hw));
-      else if (state.where === 'local') parts.push('run locally');
+      if (state.where === 'local') parts.push('run locally');
       else if (state.where === 'cloud') parts.push('in the cloud');
+      FILTERS.forEach(function (f) {
+        var on = state[f.id];
+        if (!on.length) return;
+        var names = on.map(function (v) { return valueText(f, v); });
+        var list = names.length > 1 ? names.slice(0, -1).join(', ') + ' or ' + names[names.length - 1] : names[0];
+        parts.push(f.id === 'hw' ? 'on ' + list : f.id === 'reasoning' ? 'at reasoning ' + list : 'with ' + f.noun + ' ' + list);
+      });
       return parts.join(' ');
     }
 
@@ -272,7 +463,7 @@
     function renderLeaderboardNote() {
       var parts = [showAgg()
         ? 'Ranked by ' + AGG_LABEL + ' score (0–' + V.aggMax(state.exclude) + '): ' + (aggTiers().length > 1 ? 'the ' + aggTierNames() + ' scores added together, each out of 10. ' : 'the ' + aggTierNames() + ' score alone. ') +
-          'Choose which tiers it includes above; a model missing one of them isn\'t ranked until you leave that tier out.'
+          'Choose which tiers it counts in the panel above; a model missing one of them isn\'t ranked until you leave that tier out.'
         : 'Ranked by ' + aggInfo().label + ' score (0–10).'];
       MODE_TIERS.forEach(function (t) {
         if (gateOf(t.id)) parts.push(t.label + ' is also a pass/fail gate: a ' + t.label + ' score of at least ' + gateOf(t.id).mean + ', with no task below ' + gateOf(t.id).min + '.');
@@ -477,6 +668,127 @@
     // ---- Scatter ----------------------------------------------------------
 
     // Score vs time or cost. Log x (time and cost span orders of magnitude), Pareto frontier, best quadrant.
+    // The headline score as columns, best first, like the table's default order: one column per row
+    // the filters leave, coloured local or cloud (as on the scatter), hatched when partial, faded
+    // and starred when in progress. Wide: columns with the value on the cap and the name under it.
+    // Narrow: one horizontal bar per row with its name above, so no label is cut or rotated.
+    function renderBars(list) {
+      var container = document.getElementById('crucible-bars');
+      var tooltip = document.getElementById('crucible-bars-tooltip');
+      var legend = document.getElementById('crucible-bars-legend');
+      container.innerHTML = '';
+      tooltip.hidden = true;
+      legend.innerHTML = '';
+      var H = aggInfo(), yMax = V.aggMax(state.exclude);
+      var rows = list.filter(function (s) { return s.overall.score !== null; })
+        .sort(function (a, b) { return (a.inProgress - b.inProgress) || (a.overall.partial - b.overall.partial) || b.overall.score - a.overall.score; });
+      legend.hidden = !rows.length;
+      if (!rows.length) return;
+      var kinds = {};
+      rows.forEach(function (s) { kinds[s.local ? 'local' : 'cloud'] = true; });
+      [['local', 'Local'], ['cloud', 'Cloud']].forEach(function (pair) {
+        if (!kinds[pair[0]]) return;
+        var item = legend.appendChild(el('span', { class: 'crucible-scatter-legend-item' }));
+        item.appendChild(el('span', { class: 'crucible-scatter-swatch', 'aria-hidden': 'true' })).style.background = COLORS[pair[0]];
+        item.appendChild(document.createTextNode(pair[1]));
+      });
+      if (rows.some(function (s) { return s.overall.partial; })) {
+        var hatch = legend.appendChild(el('span', { class: 'crucible-scatter-legend-item' }));
+        hatch.appendChild(el('span', { class: 'crucible-scatter-swatch is-partial', 'aria-hidden': 'true' }));
+        hatch.appendChild(document.createTextNode('Partial: a tier has under ' + pct(S.IN_PROGRESS_BELOW) + ' of its tasks scored'));
+      }
+
+      var width = Math.max(280, container.clientWidth || 560);
+      var narrow = isNarrow() || width < 640;
+      // "qwen3.6-35b-a3b · on": the reasoning level is what tells two rows of a model apart, so it's
+      // kept short and never the part that's cut
+      var label = function (s) {
+        return (s.label || D.rowLabel(s.cfg)).replace(/ \(reasoning ([^)]+)\)$/, ' · $1') + (s.inProgress ? ' *' : '');
+      };
+      var root, place = [];
+      if (narrow) {
+        var rowH = 38, m = { top: 4, right: 44, left: 0 };
+        var h = m.top + rows.length * rowH;
+        root = svg('svg', { class: 'crucible-chart-svg', width: width, height: h, viewBox: '0 0 ' + width + ' ' + h, role: 'img',
+          'aria-label': H.label + ' score for each model, best first. The table below has the same numbers.' });
+        var bw = width - m.left - m.right;
+        rows.forEach(function (s, i) {
+          var y0 = m.top + i * rowH;
+          root.appendChild(svg('text', { class: 'crucible-bar-name', x: 0, y: y0 + 12 }, label(s)));
+          var len = Math.max(2, s.overall.score / yMax * bw);
+          place.push({ s: s, x: m.left, y: y0 + 18, w: len, h: 12, hx: 0, hy: y0, hw: width, hh: rowH });
+          root.appendChild(svg('text', { class: 'crucible-bar-value', x: m.left + len + 6, y: y0 + 28 }, fmtScore(s.overall.score)));
+        });
+      } else {
+        var n = rows.length, mm = { top: 22, right: 8, bottom: 136, left: 36 };
+        // The first name runs down-left from its column: leave room for it
+        mm.left = Math.max(36, Math.min(110, Math.min(30, label(rows[0]).length) * 4.6 - 10));
+        var hh = 300, plotH = hh - mm.top - mm.bottom + 100;
+        var height = mm.top + plotH + mm.bottom;
+        // A column never gets wider than 56px of room: a short list stays a compact group on the left
+        var slot = Math.min(56, (width - mm.left - mm.right) / n), bwid = Math.min(24, slot * 0.62);
+        function yv(v) { return mm.top + (1 - v / yMax) * plotH; }
+        root = svg('svg', { class: 'crucible-chart-svg', width: width, height: height, viewBox: '0 0 ' + width + ' ' + height, role: 'img',
+          'aria-label': H.label + ' score for each model, best first. The table below has the same numbers.' });
+        [0, yMax / 2, yMax].forEach(function (v) {
+          root.appendChild(svg('line', { class: v ? 'crucible-grid' : 'crucible-baseline', x1: mm.left, x2: width - mm.right, y1: yv(v), y2: yv(v) }));
+          root.appendChild(svg('text', { class: 'crucible-axis-label', x: mm.left - 8, y: yv(v) + 4, 'text-anchor': 'end' }, String(v)));
+        });
+        rows.forEach(function (s, i) {
+          var cx = mm.left + slot * (i + 0.5), top = yv(s.overall.score);
+          place.push({ s: s, x: cx - bwid / 2, y: top, w: bwid, h: Math.max(2, yv(0) - top), hx: cx - slot / 2, hy: mm.top, hw: slot, hh: plotH + mm.bottom });
+          // Value on the cap; names under the axis, angled, cut at 26 characters (the tooltip has it whole)
+          root.appendChild(svg('text', { class: 'crucible-bar-value', x: cx, y: top - 6, 'text-anchor': 'middle' }, fmtScore(s.overall.score)));
+          var name = label(s), short = name.length > 30 ? name.slice(0, 29) + '…' : name;
+          root.appendChild(svg('text', { class: 'crucible-bar-name', 'text-anchor': 'end',
+            transform: 'translate(' + (cx + 4) + ',' + (yv(0) + 12) + ') rotate(-45)' }, short));
+        });
+      }
+      var defs = root.appendChild(svg('defs'));
+      ['local', 'cloud'].forEach(function (k) {
+        var pat = defs.appendChild(svg('pattern', { id: 'crucible-hatch-' + k, width: 6, height: 6, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' }));
+        pat.appendChild(svg('rect', { width: 6, height: 6, fill: COLORS[k], opacity: 0.35 }));
+        pat.appendChild(svg('rect', { width: 3, height: 6, fill: COLORS[k] }));
+      });
+      var tipTimer;
+      tooltip.onmouseenter = function () { clearTimeout(tipTimer); };
+      tooltip.onmouseleave = function () { tooltip.hidden = true; };
+      place.forEach(function (p) {
+        var s = p.s, kind = s.local ? 'local' : 'cloud';
+        // A column is square at the baseline and rounded (4px) at its data end
+        var r = Math.min(4, p.w / 2, p.h / 2), d;
+        if (narrow) d = 'M' + p.x + ' ' + p.y + 'H' + (p.x + p.w - r) + 'Q' + (p.x + p.w) + ' ' + p.y + ' ' + (p.x + p.w) + ' ' + (p.y + r) +
+          'V' + (p.y + p.h - r) + 'Q' + (p.x + p.w) + ' ' + (p.y + p.h) + ' ' + (p.x + p.w - r) + ' ' + (p.y + p.h) + 'H' + p.x + 'Z';
+        else d = 'M' + p.x + ' ' + (p.y + p.h) + 'V' + (p.y + r) + 'Q' + p.x + ' ' + p.y + ' ' + (p.x + r) + ' ' + p.y +
+          'H' + (p.x + p.w - r) + 'Q' + (p.x + p.w) + ' ' + p.y + ' ' + (p.x + p.w) + ' ' + (p.y + r) + 'V' + (p.y + p.h) + 'Z';
+        var bar = root.appendChild(svg('path', { class: 'crucible-bar' + (s.inProgress ? ' is-in-progress' : ''), d: d,
+          fill: s.overall.partial ? 'url(#crucible-hatch-' + kind + ')' : COLORS[kind] }));
+        var hit = root.appendChild(svg('rect', { class: 'crucible-hit', x: p.hx, y: p.hy, width: p.hw, height: p.hh, tabindex: 0,
+          'aria-label': label(s) + ': ' + H.label + ' ' + fmtScore(s.overall.score) + (s.overall.partial ? ', partial' : '') }));
+        function show() {
+          clearTimeout(tipTimer);
+          bar.classList.add('is-hover');
+          tooltip.innerHTML = '';
+          var t = tooltip.appendChild(el('div', { class: 'crucible-tooltip-title' }));
+          t.appendChild(modelRef(s));
+          tooltip.appendChild(el('div', { class: 'crucible-tooltip-note' }, configLabel(s.cfg)));
+          tooltip.appendChild(el('div', {}, H.label + ' ' + fmtScore(s.overall.score) + ' of ' + yMax + (s.overall.partial ? ' (partial)' : '') + (s.inProgress ? ' · in progress' : '')));
+          tooltip.appendChild(el('div', {}, 'Time per task ' + fmtSeconds(s.time) + ' · cost ' + costLabel(s)));
+          tooltip.hidden = false;
+          var left = p.x + p.w + 10;
+          if (left + tooltip.offsetWidth > container.clientWidth) left = Math.max(0, p.x - 10 - tooltip.offsetWidth);
+          tooltip.style.left = left + 'px';
+          tooltip.style.top = Math.max(0, (narrow ? p.y : p.y + p.h / 2) - 20) + 'px';
+        }
+        function hide() { bar.classList.remove('is-hover'); tipTimer = setTimeout(function () { tooltip.hidden = true; }, 250); }
+        hit.addEventListener('mouseenter', show);
+        hit.addEventListener('focus', show);
+        hit.addEventListener('mouseleave', hide);
+        hit.addEventListener('blur', hide);
+      });
+      container.appendChild(root);
+    }
+
     function renderScatter(list) {
       var container = document.getElementById('crucible-scatter');
       var tooltip = document.getElementById('crucible-tooltip');
@@ -804,6 +1116,7 @@
       renderControls(list);
       renderTakeaways(list);
       renderLeaderboard(list);
+      renderBars(list);
       renderScatter(list);
       renderMatrix(list);
       renderHeatmap(list);
@@ -817,16 +1130,25 @@
       useSuite(e.target.value);
       render();
     });
-    document.getElementById('hw-select').addEventListener('change', function (e) {
-      state.hw = e.target.value;
-      if (state.hw === 'cloud' && state.where === 'local') state.where = 'all';
-      if (state.hw !== 'all' && state.hw !== 'cloud' && state.where === 'cloud') state.where = 'all';
+    document.getElementById('panel-reset').addEventListener('click', function () {
+      state.where = 'all'; state.harness = 'best'; state.showInProgress = false; state.exclude = {};
+      FILTERS.forEach(function (f) { state[f.id] = []; });
       render();
+    });
+    // On a phone the filters fold away under the section and suite
+    document.getElementById('panel-more').addEventListener('click', function () {
+      var panel = document.getElementById('control-panel');
+      var open = !panel.classList.contains('is-open');
+      panel.classList.toggle('is-open', open);
+      this.setAttribute('aria-expanded', open);
     });
     // Links to #chat or #agentic&suite=v2 switch views without a reload; an old compare link moves on
     window.addEventListener('hashchange', function () {
       if (redirectCompare(readHash())) return;
-      function key() { return [state.mode, state.suite, Object.keys(state.exclude).sort().join(',')].join('|'); }
+      function key() {
+        return [state.mode, state.suite, Object.keys(state.exclude).sort().join(','), state.harness, state.where]
+          .concat(FILTERS.map(function (f) { return state[f.id].join(','); })).join('|');
+      }
       var before = key();
       applyHash();
       if (key() !== before) render();
@@ -836,7 +1158,7 @@
     var resizeTimer;
     window.addEventListener('resize', function () {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(function () { relayout(); renderScatter(currentList); }, 150);
+      resizeTimer = setTimeout(function () { relayout(); renderBars(currentList); renderScatter(currentList); }, 150);
     });
 
     if (redirectCompare(readHash())) return;

@@ -619,7 +619,9 @@
           cfg = CONFIGS[finalKey] = {
             key: finalKey, rowKey: id.base + '#' + level, base: id.base, level: level, where: id.where, local: id.local,
             harness: id.harness, quant: id.quantLabel || id.quant, publisher: id.publisherLabel || id.publisher,
-            hwKey: id.hwKey, provider: id.provider, servedVia: {}, devices: {}, merged: 0
+            hwKey: id.hwKey, provider: id.provider, servedVia: {}, devices: {}, merged: 0,
+            // Normalized values the leaderboard's filters match on (null: not recorded)
+            quantKey: id.quant, format: id.format, packager: id.publisher ? String(id.publisher).toLowerCase() : null
           };
           var slug = [shortName(id.base), level !== 'default' ? 'reasoning-' + level : '', id.local ? id.quant : '',
             id.local ? id.hwKey || id.device || 'local' : id.provider || 'cloud', id.harness]

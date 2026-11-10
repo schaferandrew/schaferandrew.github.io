@@ -1,0 +1,21 @@
+Here is the fact-check of the claims:
+
+1. Correct.
+2. Incorrect; King John sealed the Magna Carta, not King Richard.
+3. Incorrect; Columbus first reached the Americas in 1492.
+4. Correct.
+5. Correct.
+6. Incorrect; The Battle of Waterloo took place in 1815, not 1812.
+7. Incorrect; The Titanic sank in April 1912, not 1913.
+8. Correct.
+9. Correct.
+10. Incorrect; The Berlin Wall fell in November 1989, not 1991.
+11. Correct; Germany was reunified in October 1990, which is the year after the wall fell.
+12. Correct.
+
+ERRORS:
+2: King John
+3: 1492
+6: 1815
+7: 1912
+10: 1989

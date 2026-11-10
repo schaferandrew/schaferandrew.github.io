@@ -1,0 +1,26 @@
+The task is complete. All 26 tests pass and every requirement from the prompt is satisfied.
+
+## Summary
+
+Built a standard-library-only compound-interest calculator in `interest/`, runnable as `python -m interest` from this directory.
+
+**Package layout:**
+- `interest/__init__.py` — exports the public API
+- `interest/calculator.py` — core calculation + input validation (raises `InputError`)
+- `interest/__main__.py` — argparse CLI, JSON/summary output, clean error handling
+- `tests/test_calculator.py` — 26 tests (all passing)
+- `conftest.py` — makes the project root importable so `from interest...` works under pytest run from this directory
+- `README.md` — usage and command examples
+
+**Key design decisions:**
+- **Exact arithmetic**: internal math uses `fractions.Fraction`, so compounding periods and contribution boundaries (e.g. monthly contributions against daily/quarterly compounding) align exactly; only the final result is rounded to cents.
+- **Ordering rule honored**: each period credits interest first, then adds any due contribution ("after any interest credited at that same moment").
+- **Partial final period**: if time doesn't complete a full compounding period (e.g. months with quarterly compounding), no interest is credited for the unfinished tail — matching "credited at the end of each compounding period."
+
+**Requirements coverage:**
+- Required flags `--principal`, `--rate`; exactly one of `--years`/`--months` (mutually exclusive group); required `--compound {annually,quarterly,monthly,daily}`.
+- Optional paired `--contribution` + `--contribution-frequency {monthly,annually}`.
+- `--json` prints a single JSON object with all four fields rounded to cents and nothing else.
+- Invalid/negative/contradictory input exits non-zero (code 2) with a short stderr message — no tracebacks (argparse errors and caught `InputError`s both handled).
+
+**Tests cover**: ordinary cases, zero interest, monthly compounding, daily compounding, months input, recurring contributions at both frequencies, invalid input (12 parametrized cases), JSON contract, CLI exit codes, and a known expected-value case ($1000 @ 5% for 2 years annually = $1102.50).

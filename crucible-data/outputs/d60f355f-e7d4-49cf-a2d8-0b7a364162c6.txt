@@ -1,0 +1,37 @@
+⏺ bash(command=mkdir -p interest tests)
+  ⎿ (no output)
+⏺ write(content=import math
+
+def calculate_compound_interest(principal, rate, path=interest/calculator.py)
+  ⎿ Successfully wrote to interest/calculator.py
+⏺ write(content=import argparse
+import sys
+import json
+from interest.calcula, path=interest/__main__.py)
+  ⎿ Successfully wrote to interest/__main__.py
+⏺ write(content=# Empty file to mark as package
+, path=interest/__init__.py)
+  ⎿ Successfully wrote to interest/__init__.py
+⏺ write(content=import unittest
+from interest.calculator import calculate_co, path=tests/test_calculator.py)
+  ⎿ Successfully wrote to tests/test_calculator.py
+⏺ bash(command=python3 -m unittest tests/test_calculator.py)
+  ⎿ ...........
+----------------------------------------------------------------------
+Ran 11 tests in 0.002s
+
+OK
+⏺ write(content=# Compound Interest Calculator
+
+A command-line tool to calcu, path=README.md)
+  ⎿ Successfully wrote to README.md
+⏺ bash(command=ls -R interest tests README.md)
+  ⎿ README.md
+
+interest:
+__init__.py
+__main__.py
+calculator.py
+
+tests:
+test_calculator.py

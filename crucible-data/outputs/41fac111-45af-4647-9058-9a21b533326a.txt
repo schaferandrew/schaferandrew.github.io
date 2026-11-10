@@ -1,0 +1,23 @@
+**Reasoning:**
+
+Three objective errors stand out:
+
+1. **Subject–verb agreement.** The subject "one of the two items" is singular, so its verb must be *was*, not *were*.
+2. **Missing apostrophe.** "havent" is a contraction and needs an apostrophe: *haven't*.
+3. **Wrong verb form.** After "was," the past participle *crushed* is required, not the base noun/verb *crush*.
+
+The commas before the coordinating conjunctions in "...late, and..." and "...mug, but please..." are correct (they join independent clauses), so I did not flag them. The comma before "but" in "I contacted support last week but I haven't heard anything back" is technically recommended for two joined independent clauses, but it's commonly omitted in short sentences, so I've listed it only as an optional suggestion rather than a definite error.
+
+ERRORS:
+one of the two items were damaged → one of the two items was damaged (subject–verb agreement)
+havent heard anything back → haven't heard anything back (missing apostrophe)
+was clearly crush on one side → was clearly crushed on one side (past participle form)
+
+CORRECTED:
+Subject: Refund for order 84721
+
+Hi Support,
+I am writing because my order arrived three days late, and one of the two items was damaged. I contacted support last week but I haven't heard anything back. The box was clearly crushed on one side, and the mug inside has a crack through the handle. I would like a refund for the mug, but please let me know if you need pictures of it. Also, your website says refunds are processed in 5-7 business days, which seem to have passed already for my earlier request. Can you tell me what the status is? Thanks for your help.
+
+STYLE:
+Optional: add a comma before "but" in "I contacted support last week but I haven't heard anything back," since it joins two independent clauses; however this is fine as written for such a short sentence, so no change is required.

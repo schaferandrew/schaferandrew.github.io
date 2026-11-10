@@ -1,0 +1,23 @@
+## Reasoning
+
+Let me verify each claim against established historical facts.
+
+1. **Battle of Hastings, 1066** — Correct. Fought October 14, 1066. ✓
+2. **King Richard sealed Magna Carta (1215)** — Wrong. It was **King John**, not Richard, who sealed the Magna Carta at Runnymede in 1215. ✗
+3. **Columbus reached Americas in 1493** — Wrong. His first voyage landed in the Bahamas on October 12, **1492**. ✗
+4. **Declaration of Independence, July 4, 1776** — Correct. ✓
+5. **Storming of the Bastille, July 1789** — Correct. July 14, 1789. ✓
+6. **Waterloo, 1812** — Wrong. Napoleon was defeated at Waterloo on June 18, **1815**. ✗
+7. **Titanic sank April 1913** — Wrong. The Titanic hit an iceberg and sank in April **1912**. ✗
+8. **India independence, August 1947** — Correct. August 15, 1947. ✓
+9. **Armstrong and Aldrin landed on Moon, July 1969** — Correct. Apollo 11 landed July 20, 1969. ✓
+10. **Berlin Wall fell November 1991** — Wrong. It fell on November 9, **1989**. ✗
+11. **Germany reunified the year after the Wall fell** — Correct. Wall fell 1989; reunification October 3, 1990. ✓
+12. **Mandela elected President, 1994** — Correct. April 1994. ✓
+
+ERRORS:
+2: John
+3: 1492
+6: 1815
+7: 1912
+10: 1989

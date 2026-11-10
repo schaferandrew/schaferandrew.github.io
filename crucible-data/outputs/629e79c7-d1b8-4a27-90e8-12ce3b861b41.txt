@@ -1,0 +1,31 @@
+**Reasoning**
+
+**Language errors (Job 1):**
+
+- **Sentence 3:** "The prices in the basket *is* weighted…" — subject-verb agreement error. "Prices" is plural, so the verb must be "are."
+- **Sentence 6:** "…lose *it's* credibility…" — "it's" is the contraction for "it is"; the possessive "its" is needed.
+- **Sentence 12:** "…more expensive *then* they were before." — "then" (adverb of time) is used where the comparative conjunction "than" is required.
+
+No other sentence contains a spelling, grammar, agreement, or word-choice error.
+
+**Claim/wording flags (Job 2):**
+
+- **Sentence 1:** Defines inflation as caused solely by government money-printing, ignoring demand-pull, cost-push, and supply-shock causes. The single-cause framing is **misleading**.
+- **Sentence 4:** The 2 % figure is a discretionary policy goal, not a legal trigger. Stating the Fed is "legally required" to hike is **misleading**.
+- **Sentence 8:** Presents a false dichotomy (lazy vs. bad policy) for unemployment above the natural rate, ignoring cyclical, structural, and frictional explanations. **Misleading**.
+- **Sentence 11:** "Basically just printing money" and "inevitably causes hyperinflation" grossly overstate the mechanism and the outcome; multiple central banks have used QE without hyperinflation. **Overstated**.
+- **Sentence 14:** "Proves" and "completely ineffective" overstate what a single country's experience can establish; most economists see the evidence as mixed. **Overstated**.
+- **Sentence 18:** "Definitively debunked" overstates the state of the evidence, and "without growing the economy at all" is factually wrong (U.S. GDP and employment grew substantially in the 1980s). **Misleading**.
+
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: misleading
+4: misleading
+8: misleading
+11: overstated
+14: overstated
+18: misleading

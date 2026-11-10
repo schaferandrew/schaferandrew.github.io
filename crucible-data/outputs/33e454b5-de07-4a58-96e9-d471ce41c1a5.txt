@@ -1,0 +1,5 @@
+- Accuracy (4): All claims made in the summary are directly supported by the text, and no details were invented. (4/4)
+- Exactly two sentences (3): The agent produced three sentences, failing this constraint. (0/3)
+- Key points (3): The summary captures the hours extension, the funding limit ($40k for one year), and the resident survey. (3/3)
+
+GRADE: 7

@@ -1,0 +1,17 @@
+Done. `npm test` (46 tests, all passing) and `npm run build` (succeeds, `/contact` prerendered with the full form in the SSR HTML) both green, and a live smoke test confirmed 201/422 API behavior end-to-end.
+
+## What was wrong
+
+1. **Build failure**: `app/contact/LeadForm.tsx` used event handlers but had no `"use client"` directive, so it was treated as a server component.
+2. **Couldn't type into fields**: "state" was a plain module-level object mutated in `onChange` with no re-render, and no `useState` at all.
+3. **No validation** anywhere (client or API), and the API stored the raw, untrimmed payload blindly with a 201.
+
+## What I changed (only under `app/` and `lib/`)
+
+- **`lib/lead-validation.ts`** (new, pure/isomorphic): shared validation + normalization — `leadMessages` (the app's own error strings), `normalizeEmail` (trim + lowercase), `isValidEmail` (exactly one `@`, no spaces, nothing empty around a dot, domain labels of letters/digits/inner hyphens, TLD ≥ 2 letters — while tolerating plus addressing, dots in the local part, subdomains, hyphens, long TLDs), `normalizeLead`, and `validateLead` (space-only fields count as empty; company optional).
+- **`lib/leads.ts`**: now the Node-only file store (`leadsFile`, `readLeads`, `saveLead` unchanged), re-exporting the validation API. Keeping the two files separate is what lets the browser bundle the validator without `node:fs`/`node:path`.
+- **`app/contact/LeadForm.tsx`**: proper `"use client"` component with `useState`; controlled fields show what's typed; `noValidate` suppresses browser popups. On submit with problems it renders each field's error (`lead-name-error` / `lead-email-error` / `lead-message-error`, only while the field has an error), sets `aria-invalid="true"` + `aria-describedby`, focuses the first invalid field, keeps all input, and sends nothing. With no problems it POSTs `{name, email, company, message}` to `/api/leads` and swaps the form for `<div id="lead-success">` only on a 201; otherwise the form and input are kept.
+- **`app/api/leads/route.ts`**: the authority — coerces missing fields to strings (missing company → `""`), trims everything, canonicalizes the email, returns **422** `{"errors": {field: message}}` (and saves nothing) for any problem, **201** `{"lead": <saved lead>}` otherwise, including unparseable JSON bodies.
+- **Tests** (new): `lib/leads.test.ts` extended with email accept/reject, `validateLead`, `normalizeLead` cases; `app/api/leads/route.test.ts` (node env) for 201/422/normalization/no-save; `app/contact/LeadForm.test.tsx` (jsdom, user-event) for typing, tab order, Enter-submit, error display/aria/focus, JSON POST shape, success swap, and rejection-keeps-input.
+
+`package.json`, the lockfile, and all config files are untouched.

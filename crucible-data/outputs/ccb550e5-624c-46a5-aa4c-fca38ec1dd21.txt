@@ -1,0 +1,18 @@
+Done. Summary of the work:
+
+## Diagnosis (via headless Chrome over CDP)
+- **Reproduced**: logged in as `testuser`/`correctpassword` → dashboard rendered correctly. Reloaded `/dashboard.html` 35s later → **completely blank page**, no console errors.
+- **Failing request**: `GET /api/dashboard` returned **HTTP 200 with `{"user":null,"dashboardMessage":""}`** — the server audit trail (`.crucible/audit.jsonl`) showed `session_invalid, reason: expired_session` once the 30s session TTL lapsed.
+- **Root cause (client-side)**: `public/dashboard.html` treated a missing `user` by writing `''` into the page fields and doing nothing else — no error, no redirect — stranding the user on a blank dashboard.
+
+## Fix — `public/dashboard.html`
+`loadDashboard()` now: renders only when the request is OK and `user` is present; otherwise (expired/stale/missing session) redirects to `/login.html`; and also redirects on network failure. Server behavior (silent 200 on invalid session) is an intentional contract and was left as-is.
+
+## Verification in the real browser
+Re-ran the CDP scenario against the fixed build: fresh login still shows the welcome content; after TTL expiry the page now navigates to `http://localhost:3456/login.html` instead of going blank.
+
+## Regression tests (11/11 passing)
+- **`dashboard.test.js`** (new): executes the real inline script from `public/dashboard.html` (jsdom document + spyable `window.location.replace` + mocked `fetch`) and asserts: valid session renders the user; `user:null` triggers redirect to `/login.html`; fetch failure triggers redirect. Confirmed these **fail against the original code**.
+- **`server.test.js`**: added a test that an expired session (clock fast-forwarded via a `Date.now` stub past the 30s TTL) returns 200 with `user: null` — locking in the API contract the client fix relies on.
+
+The background server was stopped to leave port 3456 free for `npm start`.

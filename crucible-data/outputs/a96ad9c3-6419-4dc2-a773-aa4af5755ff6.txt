@@ -1,0 +1,34 @@
+1. **Savings Account**
+Formula: $A = P(1 + r/n)^{nt}$
+$P = 5,000$
+$r = 0.04$
+$n = 12$ (monthly)
+$t = 3$
+Calculation: $5,000(1 + 0.04/12)^{36}$
+$5,000(1.003333...)^{36} \approx 5,636.359$
+Rounded to the cent: **$5,636.36**
+
+2. **Flooring**
+Base area: $1,850$ sq ft
+Waste (10%): $1,850 \times 0.10 = 185$ sq ft
+Total area needed: $1,850 + 185 = 2,035$ sq ft
+Boxes needed: $2,035 / 23.5 \approx 86.5957$
+Since you must buy whole boxes, round up: **87 boxes**
+
+3. **Road Trip Gas**
+Gallons used: $412 \text{ miles} / 34 \text{ mpg} \approx 12.1176$ gallons
+Total cost: $12.1176 \times \$3.89 \approx 47.1376$
+Rounded to the cent: **$47.14**
+
+4. **Dinner Split**
+Pre-tax amount: $\$172.00$
+Tip (18% of pre-tax): $172 \times 0.18 = \$30.96$
+Total bill: $\$186.40 \text{ (tax included)} + \$30.96 = \$217.36$
+Split four ways: $217.36 / 4 = \$54.34$
+Each person pays: **$54.34**
+
+ANSWERS
+1. $5,636.36
+2. 87 boxes
+3. $47.14
+4. $54.34

@@ -1,0 +1,14 @@
+## Evaluation by Criterion
+
+**Correct complexity (4): states O(log n).** — **0 points.** The agent stated O(n log n), which is incorrect. Binary search's time complexity is O(log n). Worse, the agent invented a sorting step that binary search does not perform; it assumes the input is already sorted. This is a fundamental error on the core of the question.
+
+**Explanation (3): explains that each step halves the remaining search range.** — **0 points.** The response mentions "repeatedly checks the middle element" but never explains *why* this yields logarithmic complexity, and it does not mention halving the search range at all. Its reasoning actually supports its wrong answer rather than explaining the correct one.
+
+**Precondition (2): states that the input must already be sorted.** — **0 points.** The agent directly contradicts this: "Binary search therefore works on any array, sorted or not." Binary search *requires* a sorted input; it cannot work on unsorted data. This is an active violation of the criterion.
+
+**Clarity (1): the answer is clear and well organised.** — **1 point.** The writing itself is grammatically correct, readable, and structured with an explanation followed by a summary. On presentation alone it meets this criterion, even though its content is wrong.
+
+## Summary
+The response fails on correctness, explanation, and precondition entirely (all three are either wrong or actively contradicted). It earns only the single clarity point for being well-organised in structure.
+
+GRADE: 1

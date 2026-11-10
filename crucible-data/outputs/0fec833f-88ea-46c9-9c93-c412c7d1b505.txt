@@ -1,0 +1,17 @@
+## Reasoning
+
+Today is **Monday, August 31, 2026**, so "this week" runs Mon Aug 31 – Sun Sep 6. Both Alex and Jamie are on America/Chicago time. I can see Alex's full schedule and Jamie's free/busy blocks (Jamie's calendar is read-only, so I used free/busy). Assuming a standard 9:00–17:00 workday, I looked for a contiguous 1-hour window where **both** are free.
+
+Checking each day:
+- **Mon Aug 31:** No common 1-hr gap (Jamie busy 9–11 and 14–17; Alex back-to-back).
+- **Tue Sep 1:** Only a 30-min overlap at 10:30–11:00 — not enough.
+- **Wed Sep 2:** Jamie busy until 13:00; both free after 15:30 → **15:30–16:30 works**.
+- **Thu Sep 3:** Both free 13:00–14:00 and again 16:00–17:00 → both work.
+- **Fri Sep 4:** Free mid-morning (10:30–12:00) and afternoon (15:00–17:00) → several slots.
+
+I'm prioritizing clean, fully-open 1-hour blocks with buffer around them. Here are three options, best first:
+
+OPTIONS:
+2026-09-03 13:00 CDT
+2026-09-04 11:00 CDT
+2026-09-02 15:30 CDT

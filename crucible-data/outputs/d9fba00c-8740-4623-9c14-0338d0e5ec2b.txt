@@ -1,0 +1,26 @@
+**Reasoning**
+
+I went through the email sentence by sentence, separating clear grammatical/mechanical mistakes (objective errors) from things that are merely debatable or a matter of preference (optional style). I kept all facts and the customer's tone unchanged.
+
+Objective errors found:
+- **"were damaged"** — The subject is "one," which is singular, so the verb must be singular ("was"). This is a subject–verb agreement error.
+- **"havent"** — Missing apostrophe; the contraction should be "haven't."
+- **"crush"** — After "was," the past participle "crushed" is required to form the passive voice.
+
+Optional style notes (not errors):
+- A comma before "but" in the second sentence would improve clarity, but it's frequently omitted in informal email and isn't strictly wrong here.
+- The antecedent of "which" is plural ("days"), so "seem" is defensible; some readers might prefer singular "seems" if they read the time span as one unit. Either works.
+
+ERRORS:
+one of the two items were damaged → one of the two items was damaged
+havent → haven't
+crush → crushed
+
+CORRECTED:
+Subject: Refund for order 84721
+
+Hi Support,
+I am writing because my order arrived three days late, and one of the two items was damaged. I contacted support last week but I haven't heard anything back. The box was clearly crushed on one side, and the mug inside has a crack through the handle. I would like a refund for the mug, but please let me know if you need pictures of it. Also, your website says refunds are processed in 5-7 business days, which seem to have passed already for my earlier request. Can you tell me what the status is? Thanks for your help.
+
+STYLE:
+Consider adding a comma before "but" in "I contacted support last week but I haven't heard anything back" for clarity (optional in informal writing).

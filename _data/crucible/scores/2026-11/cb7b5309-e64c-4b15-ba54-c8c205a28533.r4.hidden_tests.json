@@ -1,0 +1,183 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "cb7b5309-e64c-4b15-ba54-c8c205a28533",
+ "rubric_version": 4,
+ "rubric_hash": "a89eea7caac68e18",
+ "method": "hidden_tests",
+ "scored_at": "2026-11-09T23:50:44.866720+00:00",
+ "crucible_version": "3.8.0",
+ "raw": {
+  "passed": 6.47,
+  "total": 10.0,
+  "unit": "points"
+ },
+ "score": 5,
+ "scale": 10,
+ "capped_at": 5,
+ "passed": false,
+ "items": [
+  {
+   "id": "per-viewer fields are never shared through the cache > article: favorited belongs to the viewer",
+   "type": "hidden_test",
+   "group": "per-viewer fields are never shared through the cache",
+   "label": "article: favorited belongs to the viewer",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "per-viewer fields are never shared through the cache > anonymous responses don't leak to signed-in viewers either",
+   "type": "hidden_test",
+   "group": "per-viewer fields are never shared through the cache",
+   "label": "anonymous responses don't leak to signed-in viewers either",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "per-viewer fields are never shared through the cache > lists: favorited and author.following belong to the viewer",
+   "type": "hidden_test",
+   "group": "per-viewer fields are never shared through the cache",
+   "label": "lists: favorited and author.following belong to the viewer",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "per-viewer fields are never shared through the cache > article: author.following belongs to the viewer",
+   "type": "hidden_test",
+   "group": "per-viewer fields are never shared through the cache",
+   "label": "article: author.following belongs to the viewer",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "per-viewer fields are never shared through the cache > filtered lists: favorited belongs to the viewer",
+   "type": "hidden_test",
+   "group": "per-viewer fields are never shared through the cache",
+   "label": "filtered lists: favorited belongs to the viewer",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "per-viewer fields are never shared through the cache > profiles: following belongs to the viewer",
+   "type": "hidden_test",
+   "group": "per-viewer fields are never shared through the cache",
+   "label": "profiles: following belongs to the viewer",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "writes are visible immediately > updates",
+   "type": "hidden_test",
+   "group": "writes are visible immediately",
+   "label": "updates",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "writes are visible immediately > deletes",
+   "type": "hidden_test",
+   "group": "writes are visible immediately",
+   "label": "deletes",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "writes are visible immediately > favorite counts",
+   "type": "hidden_test",
+   "group": "writes are visible immediately",
+   "label": "favorite counts",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "writes are visible immediately > unfavoriting",
+   "type": "hidden_test",
+   "group": "writes are visible immediately",
+   "label": "unfavoriting",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "writes are visible immediately > follows and unfollows",
+   "type": "hidden_test",
+   "group": "writes are visible immediately",
+   "label": "follows and unfollows",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "writes are visible immediately > new articles and tags",
+   "type": "hidden_test",
+   "group": "writes are visible immediately",
+   "label": "new articles and tags",
+   "passed": false,
+   "detail": "AssertionError: expected [ 't' ] to include 'brand-new'"
+  },
+  {
+   "id": "postmortem: lines from the logs > Deploy: 16:42:10",
+   "type": "hidden_test",
+   "group": "postmortem: lines from the logs",
+   "label": "Deploy: 16:42:10",
+   "passed": false,
+   "detail": "AssertionError: expected undefined to be '16:42:10' // Object.is equality"
+  },
+  {
+   "id": "postmortem: lines from the logs > First affected request: 16:44:15",
+   "type": "hidden_test",
+   "group": "postmortem: lines from the logs",
+   "label": "First affected request: 16:44:15",
+   "passed": false,
+   "detail": "AssertionError: expected undefined to be '16:44:15' // Object.is equality"
+  },
+  {
+   "id": "postmortem: lines from the logs > First report: 18:06:01",
+   "type": "hidden_test",
+   "group": "postmortem: lines from the logs",
+   "label": "First report: 18:06:01",
+   "passed": false,
+   "detail": "AssertionError: expected undefined to be '18:06:01' // Object.is equality"
+  },
+  {
+   "id": "postmortem: lines from the logs > Affected users: 371 (or 481, with the anonymous-stored responses counted and said)",
+   "type": "hidden_test",
+   "group": "postmortem: lines from the logs",
+   "label": "Affected users: 371 (or 481, with the anonymous-stored responses counted and said)",
+   "passed": false,
+   "detail": "AssertionError: expected undefined to be '371' // Object.is equality"
+  },
+  {
+   "id": "regression > your new tests fail on the seeded code and pass on your fix",
+   "type": "hidden_test",
+   "group": "regression",
+   "label": "your new tests fail on the seeded code and pass on your fix",
+   "passed": false,
+   "detail": "don't pass on the fix"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Per-viewer fields",
+   "passed": 3.53,
+   "total": 3.53,
+   "detail": "6/6 hidden tests pass"
+  },
+  {
+   "id": "Writes visible immediately",
+   "passed": 2.94,
+   "total": 3.53,
+   "detail": "5/6 hidden tests pass"
+  },
+  {
+   "id": "Postmortem lines",
+   "passed": 0.0,
+   "total": 2.35,
+   "detail": "0/4 hidden tests pass"
+  },
+  {
+   "id": "Regression tests",
+   "passed": 0.0,
+   "total": 0.59,
+   "detail": "0/1 hidden tests pass"
+  }
+ ]
+}

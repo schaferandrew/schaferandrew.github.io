@@ -1,0 +1,23 @@
+## Evaluation
+
+**Correct complexity (4 points): states O(log n).**
+The agent states O(n log n), which is incorrect. Binary search's time complexity is O(log n). The agent confuses binary search with a sorting algorithm (like merge sort or quicksort). The agent does not state O(log n) anywhere.
+**Score: 0/4**
+
+**Explanation (3 points): explains that each step halves the remaining search range.**
+The agent says the algorithm "repeatedly checks the middle element to locate the target," but never explains the critical halving mechanism — that each comparison eliminates half the remaining elements, leading to log n steps. Instead, the explanation is about sorting first, which is irrelevant to binary search's actual complexity.
+**Score: 0/3**
+
+**Precondition (2 points): states that the input must already be sorted.**
+The agent explicitly states the opposite: "Binary search therefore works on any array, sorted or not." This is factually wrong. Binary search *requires* a sorted input. The correct precondition is not stated.
+**Score: 0/2**
+
+**Clarity (1 point): the answer is clear and well organised.**
+The response is well-structured, with a clear explanation paragraph followed by a summary line. The writing is easy to follow and logically presented. Despite the content being incorrect, the presentation itself is clear and organized.
+**Score: 1/1**
+
+---
+
+The response is fundamentally incorrect on all three substantive points (complexity, explanation, precondition), earning only the clarity point for its presentation.
+
+GRADE: 1

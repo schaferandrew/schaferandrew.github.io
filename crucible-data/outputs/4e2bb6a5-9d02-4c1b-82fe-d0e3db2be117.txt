@@ -1,0 +1,2 @@
+Now update the web test helper and rewrite the ArticleList tests for the new behavior:
+

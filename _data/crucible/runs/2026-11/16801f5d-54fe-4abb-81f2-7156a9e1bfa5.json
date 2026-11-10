@@ -1,0 +1,98 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "16801f5d-54fe-4abb-81f2-7156a9e1bfa5",
+ "run_path": "lmstudio_ornith-1.5-9b/fire-truck-color/20261109_161638",
+ "legacy_run_id": null,
+ "started_at": "2026-11-09T16:16:38.812392+00:00",
+ "ended_at": "2026-11-09T16:16:43.902149+00:00",
+ "elapsed_s": 4.38,
+ "task": {
+  "id": "fire-truck-color",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "4f544d69ec35ecb1",
+  "rubric_hash": "93b038f024a752e9",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/ornith-1.5-9b",
+  "base": "ornith-1.5-9b",
+  "publisher": "ornith-ai",
+  "artifact": "ornith-ai/Ornith-1.5-9B-GGUF",
+  "format": "gguf",
+  "quant": "Q6_K",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on",
+   "resolved_source": "server"
+  },
+  "context_loaded": 100352,
+  "variant_key": "ornith-1.5-9b|ornith-ai|gguf|q6_k",
+  "display": "ornith-1.5-9b · Q6_K",
+  "origin": {
+   "maker": null,
+   "base_repo": null,
+   "params": 9000000000,
+   "active_params": null,
+   "source": "gguf"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 27,
+  "tokens_out": 198,
+  "model_responses": 1,
+  "ttft_s": 0.434,
+  "ttft_avg_s": 0.434,
+  "response_time_avg_s": 4.378,
+  "output_tokens_per_s": 50.2,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 623
+ },
+ "output_ref": "outputs/16801f5d-54fe-4abb-81f2-7156a9e1bfa5.txt",
+ "provenance": {
+  "crucible_version": "3.8.0",
+  "crucible_commit": "dde6095",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Duskfall",
+  "source": "crucible-run",
+  "content_hash": "sha256:f5d0742d2884dd10cdd1c43cd65ef0c74f7d6c3162206d3a5752e2b7c4d49ebd",
+  "submitter": null,
+  "verification": null
+ }
+}

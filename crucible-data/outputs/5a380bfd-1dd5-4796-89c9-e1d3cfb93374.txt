@@ -1,0 +1,37 @@
+## Solving the Puzzle
+
+**Step 1: Fix what I can immediately.**
+- Clue 5 → Dave likes **red**.
+- Clue 4 → Carol likes **yellow**, and Carol sits to the **right** of Dave.
+- Clue 3 → Chair 1's occupant likes **green**.
+
+Since Dave (red) and Carol (yellow) both conflict with green, **neither can be in chair 1**. So chair 1 is Alice or Bob.
+
+**Step 2: Test "Alice in chair 1."**
+- Chair 1: Alice, green ✓ (clue 3)
+- Clue 1: Alice (chair 1) is immediately left of the blue-lover → **chair 2 likes blue**.
+- Remaining colors for chairs 3 & 4: red and yellow.
+- Carol (yellow) and Dave (red) must fill chairs 3 and 4.
+- Clue 4 requires Carol to the **right** of Dave → Dave in 3, Carol in 4.
+- Bob takes chair 2. Clue 2 (Bob ≠ chair 4) ✓.
+
+All five clues check out.
+
+**Step 3: Verify the alternative "Bob in chair 1."**
+- Chair 1: Bob, green.
+- Clue 1 forces Alice into chair 2 or 3, with the next chair being blue.
+  - If Alice = 2 → chair 3 is blue, but the only remaining people (Carol/yellow, Dave/red) can't take blue. ✗
+  - If Alice = 3 → chair 4 is blue, same contradiction. ✗
+
+So this case is impossible. The solution is unique.
+
+## Final Seating
+
+```
+Chair 1: Alice, green
+Chair 2: Bob, blue
+Chair 3: Dave, red
+Chair 4: Carol, yellow
+```
+
+ANSWER: Dave

@@ -1,0 +1,1 @@
+There's a double-counting bug in the contribution logic (both month and year counters can fire). Let me fix it to respect the contribution frequency.

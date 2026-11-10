@@ -1,0 +1,2 @@
+Now the ArticlePage integration test covering the full delete-dialog keyboard flow:
+

@@ -1,0 +1,31 @@
+## Reasoning
+
+**Objective language errors:**
+- **3.** "The prices in the basket *is* weighted..." — subject ("prices," plural) disagrees with singular verb; should be "are."
+- **6.** "...lose *it's* credibility..." — "it's" means "it is"; the possessive "its" is required.
+- **12.** "...more expensive *then* they were before." — comparative requires "than," not the time word "then."
+
+No other sentences contain spelling, grammar, agreement, or word-choice errors (e.g., sentence 8 and 11 have content problems but are grammatically fine).
+
+**Content/wording flags:**
+- **1.** Defines inflation as rising prices *caused by* government money printing — an oversimplified/incomplete definition; inflation has many causes and isn't defined that way. → imprecise
+- **4.** Asserts the Fed is "legally required" to raise rates above 2% — false; 2% is a discretionary target, not a legal trigger. → misleading
+- **8.** Claims anyone unemployed beyond the natural rate is "either lazy or the victim of bad policy" — a false, stigmatizing dichotomy misrepresenting causes of unemployment. → misleading
+- **11.** "basically just printing money... inevitably causes hyperinflation" — exaggerates both the nature of QE and its consequences; not inevitable. → overstated
+- **14.** "proves that monetary policy is completely ineffective" — absolute superlatives ("completely," "proves") overstate a contested conclusion. → overstated
+- **18.** "definitively debunked... without growing the economy at all" — false (the 1980s did see growth) and uses absolute/superlative language exaggerating certainty and magnitude. → overstated
+
+Sentences 2, 5, 7, 9, 10, 13, 15, 16, 17 are accurate or acceptably worded and are not flagged.
+
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: imprecise
+4: misleading
+8: misleading
+11: overstated
+14: overstated
+18: overstated

@@ -1,0 +1,98 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "c38c3b8c-2dce-4944-a241-39a5fdc822bd",
+ "run_path": "lmstudio_qwen3.8-27b-splash/multi-step-competition-math/20261109_190523",
+ "legacy_run_id": null,
+ "started_at": "2026-11-09T19:05:23.082490+00:00",
+ "ended_at": "2026-11-09T19:15:43.061422+00:00",
+ "elapsed_s": 619.18,
+ "task": {
+  "id": "multi-step-competition-math",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "fa3e7d98ab144ac2",
+  "rubric_hash": "72028ed7b1732171",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/qwen3.8-27b-splash",
+  "base": "qwen3.8-27b-splash",
+  "publisher": "incoai",
+  "artifact": "incoai/Qwen3.8-27B-Splash",
+  "format": "splash",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on",
+   "resolved_source": "server"
+  },
+  "context_loaded": 100292,
+  "variant_key": "qwen3.8-27b-splash|incoai|splash|mlx-4bit",
+  "display": "qwen3.8-27b-splash · 4bit",
+  "origin": {
+   "maker": null,
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "none"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 426,
+  "tokens_out": 44955,
+  "model_responses": 1,
+  "ttft_s": 1.267,
+  "ttft_avg_s": 1.267,
+  "response_time_avg_s": 619.169,
+  "output_tokens_per_s": 72.8,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 85308
+ },
+ "output_ref": "outputs/c38c3b8c-2dce-4944-a241-39a5fdc822bd.txt",
+ "provenance": {
+  "crucible_version": "3.8.0",
+  "crucible_commit": "dde6095",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Duskfall",
+  "source": "crucible-run",
+  "content_hash": "sha256:4c74729306523ce791e14bd9a5c55a34d32f28fa0044ccad2d6be7483fd570e0",
+  "submitter": null,
+  "verification": null
+ }
+}

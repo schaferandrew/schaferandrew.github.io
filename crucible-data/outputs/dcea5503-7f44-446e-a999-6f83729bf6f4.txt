@@ -1,0 +1,21 @@
+**Fact-checking reasoning:**
+
+1. **Battle of Hastings, 1066** – Correct. Fought 14 October 1066.
+2. **King Richard sealed Magna Carta, 1215** – Wrong king. It was **King John** who sealed the charter at Runnymede in June 1215. Richard I was on the Crusade and died in 1199.
+3. **Columbus reached the Americas in 1493** – Wrong year. His first landfall (Bahamas) was 12 October **1492**. 1493 was his second voyage.
+4. **Declaration of Independence, July 4, 1776** – Correct.
+5. **Storming of the Bastille, July 1789** – Correct (14 July 1789).
+6. **Waterloo in 1812** – Wrong year. Waterloo was fought on 18 June **1815**.
+7. **Titanic sank in April 1913** – Wrong year. She sank on 15 April **1912**.
+8. **India independent, August 1947** – Correct (15 August 1947).
+9. **Armstrong & Aldrin on the Moon, July 1969** – Correct (20 July 1969).
+10. **Berlin Wall fell, November 1991** – Wrong year. It fell on 9 November **1989**.
+11. **Germany reunified the year after the Wall fell** – Correct. Reunification was 3 October 1990, the year after 1989.
+12. **Mandela elected President, 1994** – Correct (May 1994).
+
+ERRORS:
+2: King John
+3: 1492
+6: 1815
+7: 1912
+10: 1989

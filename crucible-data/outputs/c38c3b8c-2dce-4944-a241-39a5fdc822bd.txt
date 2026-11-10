@@ -1,0 +1,62 @@
+# Solving Six Problems
+
+## Problem 1: x¹² ≡ 1 (mod 6,604,416)
+
+**Factorization:** 6,604,416 = 2⁷ × 3⁴ × 7² × 13
+
+By CRT, the count is the product of solutions modulo each prime power:
+
+- **mod 2⁷ = 128:** Only odd x work. (ℤ/128ℤ)× ≅ ℤ/2 × ℤ/32. Need 12a≡0 (mod 2) [always] and 12b≡0 (mod 32) → b multiple of 8. Gives 2×4 = **8** solutions.
+- **mod 3⁴ = 81:** Cyclic group of order 54. gcd(12,54) = **6** solutions.
+- **mod 7² = 49:** Cyclic group of order 42. gcd(12,42) = **6** solutions.
+- **mod 13:** Cyclic group of order 12. gcd(12,12) = **12** solutions.
+
+Total: 8 × 6 × 6 × 12 = **3456**
+
+## Problem 2: Arrangements of A⁴B³C²D² with no identical adjacent
+
+First arrange 3B, 2C, 2D in 7 positions with no two identical adjacent. Enumerating by B-position patterns (10 choices of 3 non-adjacent positions) and checking C/D adjacency in the remaining 4 slots gives **40** valid arrangements.
+
+Then insert 4 A's into the 8 gaps (at most 1 per gap): C(8,4) = 70.
+
+Total: 40 × 70 = **2800**
+
+## Problem 3: Expected rolls until last two sum to prime
+
+Setting up a Markov chain with states p₁…p₆ (expected additional rolls given last roll = i), solving the 6×6 linear system:
+
+- p₁ = 115/61, p₂ = 140/61, p₃ = 162/61, p₄ = 167/61, p₅ = 162/61, p₆ = 167/61
+
+Total expected rolls = 1 + (1/6)(913/61) = 1 + 913/366 = **1279/366**
+
+m + n = 1279 + 366 = **1645**
+
+## Problem 4: Subsets of {1,…,20} with no two elements differing by 1 or 4
+
+Using a DP with state (s_{i-3}, s_{i-2}, s_{i-1}, s_i) tracking the last 4 selection bits, where selecting element i+1 requires s_{i-3}=0 and s_i=0. Computing through 20 steps:
+
+Final state counts: 961 + 641 + 749 + 716 + 496 + 484 + 484 + 336 = **4867**
+
+## Problem 5: Triples with lcm = 10080, gcd = 1, a < b < c
+
+10080 = 2⁵·3²·5·7. For each prime p^k, the exponent triple must have max = k, min = 0:
+- 2⁵: 30 ways, 3²: 12 ways, 5¹: 6 ways, 7¹: 6 ways
+
+Total ordered triples: 30×12×6×6 = 12960. Subtracting 48 (cases with two equal) gives 12912 all-distinct. Dividing by 6: **2152**
+
+## Problem 6: Paths from (0,0) to (12,8), y ≤ x, avoiding (5,3)
+
+Using the reflection principle: paths from (0,0) to (m,n) with y ≤ x+k equals C(m+n,n) − C(m+n, n−k−1).
+
+- **Total valid paths:** C(20,8) − C(20,7) = 125970 − 77520 = 48450
+- **Paths through (5,3):** [C(8,3)−C(8,2)] × [C(12,5)−C(12,2)] = 28 × 726 = 20328
+
+Answer: 48450 − 20328 = **28122**
+
+ANSWERS:
+1: 3456
+2: 2800
+3: 1645
+4: 4867
+5: 2152
+6: 28122

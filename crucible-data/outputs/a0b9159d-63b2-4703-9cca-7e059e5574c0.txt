@@ -1,0 +1,21 @@
+Verified end-to-end: the page now server-renders `Name: Alice` / `Plan: Pro` directly in the HTML, and the API still works. Done.
+
+## Summary
+
+**Diagnosis** — `app/page.tsx` had two bugs, both from the client-side fetch pattern misapplied:
+
+1. **Missing `'use client'` directive.** The page used `useState`/`useEffect` but in the App Router it's a *server component*, so `useEffect` (and thus the `fetch`) never runs on the client — the page was permanently stuck on "Loading...".
+2. **Type error.** `useState(null)` inferred `account` as `null`, so `account.name`/`account.plan` failed the build: `Property 'name' does not exist on type 'never'`.
+
+**Fix** (idiomatic modern Next.js — server component with server-side data access, preserving the original component structure):
+
+- `lib/accounts.ts` (new) — the "simulated database" plus a typed `getAccount()` helper, shared by the page and the API route (no more duplicated data).
+- `app/page.tsx` — now a plain server component that resolves `getAccount('acct_1')` during render and renders the same `<main><h1>Account</h1>Name/Plan…</main>` markup. No client round-trip, no state, no "Loading..." — data is in the SSR HTML.
+- `app/api/account/route.ts` — unchanged behavior (200/404), now backed by the shared `getAccount()` helper.
+
+**Tests:**
+
+- `app/page.test.tsx` (rewritten) — renders the page with Testing Library and asserts `Name: Alice` / `Plan: Pro` are present and that it never falls into "Loading..." — this directly covers the reported bug.
+- `app/api/account/route.test.ts` (new) — the existing route tests, moved next to the route (with `// @vitest-environment node` per the config), plus coverage for `acct_2` and the missing-id 404.
+
+All 6 tests pass, `next build` succeeds, and a live `next start` + curl confirms the rendered page shows Alice/Pro.

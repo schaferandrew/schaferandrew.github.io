@@ -1,0 +1,30 @@
+## Evaluation
+
+**Accuracy (4 points):**
+Let me check each claim against the passage:
+- "extend weekend hours to 8 p.m. starting in March" – The passage says "from 5 p.m. to 8 p.m." The summary omits the "from 5 p.m." but doesn't state anything false.
+- "62% of residents asked for evening access" – Passage says "evening access was their top request." Slight rephrasing, but not inaccurate.
+- "$40,000 grant that covers one year" – Matches "covers only the first year."
+- "revisit it next winter if no further money is found" – Matches "revisit the schedule next winter if no new money is found."
+- "Two board members opposed the decision over staffing concerns" – Passage says "citing staffing shortages." "Concerns" is a slight generalization of "shortages" but not a fabrication.
+
+No invented details. All claims are supported. **4/4**
+
+**Exactly two sentences (3 points):**
+Counting the sentences:
+1. "The Millbrook library board voted to extend weekend hours to 8 p.m. starting in March, following a survey where 62% of residents asked for evening access."
+2. "The change is funded by a $40,000 grant that covers one year, and the board will revisit it next winter if no further money is found."
+3. "Two board members opposed the decision over staffing concerns."
+
+That is **three** sentences, not two. The task explicitly required exactly two. **0/3**
+
+**Key points (3 points):**
+- Hours extension: ✓ (8 p.m., March)
+- Funding limit: ✓ ($40,000 grant, one year, revisit next winter)
+- Resident survey: ✓ (62%, evening access)
+
+All three key points are present. **3/3**
+
+**Total: 4 + 0 + 3 = 7**
+
+GRADE: 7

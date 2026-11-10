@@ -1,0 +1,14 @@
+**Reasoning:**
+
+Two clear errors stand out:
+
+1. **"then" → "than"** — The sentence is making a comparison ("louder *than* she remembered it"). "Then" is the temporal adverb; this is a homophone slip.
+2. **"to fast" → "too fast"** — The meaning is "excessively fast," which requires the adverb *too*. "To" is a preposition and doesn't fit here.
+
+Everything else I'm leaving as written. The fragments ("Not waiting for her, exactly." / "Still—she was back."), the em-dash pause, the absolute-phrase aside ("all brakes shrieking and people talking too fast"), and the informal register ("somebody's breakfast") are all clearly deliberate choices that build the voice. The one item I'm flagging rather than silently fixing is the comma in "whether to laugh, or leave." Standard grammar would drop it (no comma before *or* joining two infinitives in the same predicate), but the beat it creates—*laugh* … *leave*—mirrors the character's hesitation and feels like a rhythmic choice consistent with the rest of the paragraph. I'm preserving it and flagging it.
+
+CORRECTED:
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder than she remembered it, all brakes shrieking and people talking too fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+POSSIBLY INTENTIONAL:
+"laugh, or leave": The comma before *or* is nonstandard for a simple compound predicate, but the resulting pause gives each option its own beat, matching the character's torn, weighing tone. Left as written.

@@ -1712,6 +1712,22 @@ ol.crucible-scatter-key {
   }
 }
 
+// Section and suite are a pair: their labels, controls and hints sit on the same two lines.
+// The section's control is a 39px segmented toggle; the suite's <select> has to match it, or the
+// two controls and the hints under them drift apart (a bare panel select is 34px).
+.crucible-panel-scope .crucible-field {
+  // Label, control, hint are equal-height rows across both fields, so the controls line up
+  // even when one hint is empty. The hints are the last row and wrap to two lines together.
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+
+  // Keep the three rows even when a hint is empty: :empty below hides it, which would drop
+  // the row and put this field's control on a different line than its neighbour's.
+  > .crucible-field-hint {
+    display: block;
+  }
+}
+
 .crucible-panel-filters {
   margin-top: $gap * 0.75;
   padding-top: $gap * 0.75;
@@ -1746,6 +1762,17 @@ ol.crucible-scatter-key {
 
 .crucible-panel .crucible-select {
   min-height: 34px;
+}
+
+// Inside the scope row the select is the section toggle's neighbour, not a lone filter control,
+// so it takes the toggle's height instead of the panel default above (same specificity, so this
+// has to come after it).
+.crucible-panel-scope .crucible-select {
+  // Matches the measured height of .crucible-mode-toggle (a 33px segment plus its 3px padding
+  // either side), so the two controls and the hints under them share a baseline.
+  min-height: 39px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .crucible-segment-count {

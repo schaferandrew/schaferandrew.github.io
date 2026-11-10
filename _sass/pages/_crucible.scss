@@ -1726,6 +1726,19 @@ ol.crucible-scatter-key {
   > .crucible-field-hint {
     display: block;
   }
+
+  // A grid cell stretches its child: the toggle and the select keep their own width instead,
+  // so the toggle's track ends at its last segment
+  > .crucible-segmented,
+  > .crucible-select {
+    justify-self: start;
+    max-width: 100%;
+  }
+}
+
+// Three sections (two and Combined) can outgrow a narrow column: the segments wrap, never spill
+.crucible-mode-toggle {
+  flex-wrap: wrap;
 }
 
 .crucible-panel-filters {

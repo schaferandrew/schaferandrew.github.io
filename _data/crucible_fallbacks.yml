@@ -17,6 +17,12 @@ modes:
     blurb: An agent harness with tools and a workspace
     order: 2
 
+# The main page's view of every section at once (not a catalog mode): each tier is its section
+# scores added together, from setups that differ only in harness.
+combined:
+  label: Combined
+  blurb: Every section added together
+
 # The overall score: the section's tier scores added together, each out of 10. The
 # leaderboard ranks by it, and the page lets the reader leave tiers out of it.
 aggregate:

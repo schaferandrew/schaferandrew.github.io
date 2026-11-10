@@ -879,6 +879,8 @@
       out.variant = null;
       out.bases.some(function (b) { out.variant = vSlug ? D.variantBySlug(b, vSlug) : null; return !!out.variant; });
       out.deployment = dKey ? DEPLOYMENTS[dKey] || null : null;
+      // A combined variant's slug isn't a variant's: the combined view resolves it (CV.variantBySlug)
+      out.variantSlug = vSlug || null;
       return out;
     };
 
@@ -1127,8 +1129,11 @@
 
       // The answer-changing dimensions a model's variants can differ on in a mode: weights and
       // reasoning, and the harness when the catalog gives the mode more than one
+      // (every section at once: the harness when any section has several)
       S.variantDims = function (mode) {
-        return ['weights', 'reasoning'].concat(S.modeInfo(mode).harnesses.length > 1 ? ['harness'] : []);
+        var several = mode === C.COMBINED && S.hasCombined()
+          ? S.MODES.some(function (m) { return m.harnesses.length > 1; }) : S.modeInfo(mode).harnesses.length > 1;
+        return ['weights', 'reasoning'].concat(several ? ['harness'] : []);
       };
       // A variant's cell on one task, pooled over its setups ({ all, counted, provisional }, as
       // S.cellOf's), optionally only the runs on one deployment (a key). null when there's no run.
@@ -1228,6 +1233,37 @@
       return S;
     }
 
+    // One deployment of a variant, from its eligible runs by task id (see V.eligible): { deployment,
+    // key, label, local, recorded, runs (eligible runs), tasks, finished, timedOut, errors, time
+    // (median over tasks of each task's median finished time), timeAll (the same over every run),
+    // cost { kind: 'electricity' | 'billed', value (mean over tasks of each task's mean cost per run;
+    // null when none is known), n (runs with a cost) }, tps (decode speed: median over its finished
+    // runs that recorded it, { value, n }), packager ("Packaged by …" or '') }
+    function deploymentStatsFrom(byTask, v, dep) {
+      function finishedOf(list) { return list.filter(function (i) { return runOutcome(i.run) === 'finished'; }); }
+      var all = [], finishedAll = [];
+      var taskTimes = [], taskTimesAll = [], taskCosts = [], costN = 0;
+      Object.keys(byTask).forEach(function (id) {
+        var list = byTask[id], fin = finishedOf(list);
+        all = all.concat(list);
+        finishedAll = finishedAll.concat(fin);
+        taskTimes.push(median(fin.map(function (i) { return num(i.run.elapsed_s, null); })));
+        taskTimesAll.push(median(list.map(function (i) { return num(i.run.elapsed_s, null); })));
+        var costs = list.map(function (i) { return runCost(i.run); }).filter(function (c) { return c !== null; });
+        costN += costs.length;
+        taskCosts.push(mean(costs));
+      });
+      var count = function (k) { return all.filter(function (i) { return runOutcome(i.run) === k; }).length; };
+      return {
+        deployment: dep, key: dep.key, label: dep.label, local: dep.local, recorded: dep.recorded, variant: v,
+        runs: all.length, tasks: Object.keys(byTask).length,
+        finished: count('finished'), timedOut: count('timed_out'), errors: count('error'),
+        time: median(taskTimes), timeAll: median(taskTimesAll), tps: tpsOf(finishedAll),
+        cost: { kind: dep && dep.local ? 'electricity' : 'billed', value: mean(taskCosts), n: costN },
+        packager: D.packagedBy(v)
+      };
+    }
+
     // ---- Every section at once ------------------------------------------------
 
     // The sections side by side, scored additively. A row is a base model at a reasoning level; its
@@ -1261,6 +1297,16 @@
         var bits = [id.base, id.where, id.reqDefault ? 'd' : 'x'].concat(FIELDS.map(function (f) { return id[f] === null ? '?' : id[f]; }));
         return bits.concat([Object.keys(cfg.runtimes || {}).sort().join('+')]).join('|');
       }
+      // Every combination of one item (or none, null) per section, from a list per section
+      function combos(perPart) {
+        var out = [[]];
+        perPart.forEach(function (list) {
+          var next = [];
+          out.forEach(function (c) { (list.length ? list : [null]).forEach(function (x) { next.push(c.concat([x])); }); });
+          out = next;
+        });
+        return out;
+      }
       var pairs = null;
       function buildPairs() {
         var byKey = {}, order = [];
@@ -1276,14 +1322,7 @@
         var out = [];
         order.forEach(function (k) {
           var g = byKey[k], perPart = parts.map(function (V, i) { return g.cfgs.filter(function (c) { return c.part === i; }).map(function (c) { return c.cfg; }); });
-          // Every combination of one setup (or none) per section, with at least one setup
-          var combos = [[]];
-          perPart.forEach(function (list) {
-            var next = [];
-            combos.forEach(function (c) { (list.length ? list : [null]).forEach(function (cfg) { next.push(c.concat([cfg])); }); });
-            combos = next;
-          });
-          combos.forEach(function (members) {
+          combos(perPart).forEach(function (members) {
             var first = members.filter(Boolean)[0];
             var harnesses = members.filter(Boolean).map(function (c) { return c.harness; });
             var slugs = members.map(function (c) { return c ? c.slug : '-'; });
@@ -1330,16 +1369,9 @@
         return result;
       }
 
-      var statsCache = {};
-      CV.stats = function (cfg, exclude) {
-        var ck = cfg.key + '#' + excludeKey(exclude);
-        if (statsCache[ck]) return statsCache[ck];
-        var sections = cfg.members.map(function (m, i) {
-          if (!m) return null;
-          var st = parts[i].stats(m, exclude), all = {};
-          CV.TIERS.forEach(function (t) { all[t.id] = parts[i].tierScore(m, t.id); });
-          return Object.assign({}, st, { allTier: all });
-        });
+      // Section results (a setup's or a variant's stats per section, with allTier: every tier's
+      // result; null where the section is missing) added together: tiers, gates, overall, progress
+      function combine(sections, exclude) {
         var tier = {}, verdict = {};
         CV.TIERS.forEach(function (t) {
           tier[t.id] = sumTier(t.id, sections);
@@ -1362,8 +1394,6 @@
           min: mins.length ? Math.min.apply(null, mins) : null
         };
         overall.partial = overall.score !== null && on.some(function (r) { return r.score === null || r.partial; });
-        var runs = [];
-        cfg.members.forEach(function (m, i) { if (m) runs = runs.concat(parts[i].countedRuns(m)); });
         var done = 0, total = 0, behind = false;
         parts.forEach(function (V, i) {
           var p = sections[i] ? sections[i].progress : { done: 0, total: V.orderedTasks.length, share: 0 };
@@ -1371,10 +1401,114 @@
           // In progress when any section is short of its share
           if (p.total && !meets(p.share, S.IN_PROGRESS_BELOW)) behind = true;
         });
-        return (statsCache[ck] = {
-          cfg: cfg, local: cfg.local, ran: sections.some(function (s) { return s && s.ran; }), tier: tier, verdict: verdict, provisional: {},
-          sections: sections, head: tier[S.HEAD], overall: overall, time: timeOf(runs), tps: tpsOf(runs), cost: costOf(cfg, runs), runs: runs.length,
+        return {
+          ran: sections.some(function (s) { return s && s.ran; }), tier: tier, verdict: verdict, provisional: {},
+          sections: sections, head: tier[S.HEAD], overall: overall,
           progress: { done: done, total: total, share: total ? done / total : 0 }, inProgress: behind
+        };
+      }
+
+      var statsCache = {};
+      CV.stats = function (cfg, exclude) {
+        var ck = cfg.key + '#' + excludeKey(exclude);
+        if (statsCache[ck]) return statsCache[ck];
+        var sections = cfg.members.map(function (m, i) {
+          if (!m) return null;
+          var st = parts[i].stats(m, exclude), all = {};
+          CV.TIERS.forEach(function (t) { all[t.id] = parts[i].tierScore(m, t.id); });
+          return Object.assign({}, st, { allTier: all });
+        });
+        var runs = [];
+        cfg.members.forEach(function (m, i) { if (m) runs = runs.concat(parts[i].countedRuns(m)); });
+        return (statsCache[ck] = Object.assign(combine(sections, exclude), {
+          cfg: cfg, local: cfg.local, time: timeOf(runs), tps: tpsOf(runs), cost: costOf(cfg, runs), runs: runs.length
+        }));
+      };
+
+      // ---- A model's variants, every section at once (the model page) ----
+
+      // A combined variant pairs one variant per section that agree on everything but the harness:
+      // the model, its weights (packager, format, quant) and the reasoning level, as setups pair
+      // above; the machine or provider is its deployment. Quality is pooled over deployments, as a
+      // variant's is, and added up by section like a setup's. Weights that weren't recorded never pair.
+      function variantPairKey(v) { return [v.base, v.weights.key || 'unrecorded:' + v.key, v.level].join('|'); }
+      var combinedVariants = {};
+      // members: one variant per section (null where missing). A variant-shaped object: D.variantValue,
+      // D.variantText, D.variantLabel and S.variantCell read it (its cfgs are every member's setups).
+      function combinedVariant(members) {
+        var key = 'combined:' + members.map(function (v) { return v ? v.key : '-'; }).join(',');
+        if (combinedVariants[key]) return combinedVariants[key];
+        var present = members.filter(Boolean);
+        return (combinedVariants[key] = Object.assign({}, present[0], {
+          key: key, combined: true, members: members,
+          harness: present.map(function (v) { return v.harness; }).join(' + '),
+          slug: members.map(function (v) { return v ? v.slug : '-'; }).join('+'),
+          cfgs: [].concat.apply([], present.map(function (v) { return v.cfgs; }))
+        }));
+      }
+      // A section's areas for a variant, each with its section; not run where the member is missing
+      function areasOf(V, v) {
+        return V.info.areas.map(function (a) {
+          var r = v ? V.variantAreaResult(v, a) : { area: a, tasks: V.orderedTasks.filter(function (t) { return t.area === a.id; }), n: 0, score: null, ran: 0, coverage: 0, pale: true, state: 'not-run' };
+          return Object.assign({}, r, { section: V.info });
+        });
+      }
+      var variantCache = {};
+      // The same fields as a section's V.variantStats, scored like CV.stats; areas are every section's
+      CV.variantStats = function (cv) {
+        if (variantCache[cv.key]) return variantCache[cv.key];
+        var sections = cv.members.map(function (v, i) {
+          if (!v) return null;
+          var st = parts[i].variantStats(v);
+          return Object.assign({}, st, { allTier: st.tier });
+        });
+        var areas = [];
+        parts.forEach(function (V, i) { areas = areas.concat(areasOf(V, cv.members[i])); });
+        return (variantCache[cv.key] = Object.assign(combine(sections), {
+          variant: cv, cfg: cv.cfgs[0], cfgs: cv.cfgs, local: cv.local, label: rowLabel(cv.cfgs[0]), areas: areas,
+          runs: sections.reduce(function (n, s) { return n + (s ? s.runs : 0); }, 0)
+        }));
+      };
+      // A model's combined variants (bases: a base string or a list), best first
+      CV.variantsOf = function (bases) {
+        var byKey = {}, order = [];
+        parts.forEach(function (V, i) {
+          V.variantsOf(bases).forEach(function (s) {
+            var k = variantPairKey(s.variant);
+            if (!byKey[k]) { byKey[k] = parts.map(function () { return []; }); order.push(k); }
+            byKey[k][i].push(s.variant);
+          });
+        });
+        var out = [];
+        order.forEach(function (k) {
+          combos(byKey[k]).forEach(function (members) { out.push(CV.variantStats(combinedVariant(members))); });
+        });
+        return out.sort(S.betterConfig);
+      };
+      CV.variantBySlug = function (bases, slug) {
+        return CV.variantsOf(bases).map(function (s) { return s.variant; }).filter(function (v) { return v.slug === slug; })[0] || null;
+      };
+      // A combined variant on one deployment: speed, cost and reliability over every member's runs
+      // there; `missing` lists the sections with no run on it
+      CV.deploymentStats = function (cv, dep) {
+        dep = deploymentOf(dep);
+        var byTask = {}, missing = [];
+        cv.members.forEach(function (v, i) {
+          var b = v ? parts[i].eligible(v, dep.key) : {};
+          if (!Object.keys(b).length) missing.push(parts[i].info);
+          Object.keys(b).forEach(function (id) { byTask[id] = b[id]; });
+        });
+        return Object.assign(deploymentStatsFrom(byTask, cv, dep), { missing: missing });
+      };
+      // Every deployment any member ran on, ordered as a section's (V.deployments)
+      CV.deployments = function (cv) {
+        var keys = {};
+        cv.members.forEach(function (v, i) { if (v) parts[i].deployments(v).forEach(function (d) { keys[d.key] = true; }); });
+        return Object.keys(keys).map(function (k) { return CV.deploymentStats(cv, DEPLOYMENTS[k]); }).sort(function (a, b) {
+          if (a.recorded !== b.recorded) return a.recorded ? -1 : 1;
+          if (a.missing.length !== b.missing.length) return a.missing.length - b.missing.length;
+          if (a.runs !== b.runs) return b.runs - a.runs;
+          return a.label < b.label ? -1 : 1;
         });
       };
 
@@ -1761,39 +1895,13 @@
         });
         return byTask;
       }
-      function finishedOf(list) { return list.filter(function (i) { return runOutcome(i.run) === 'finished'; }); }
-      function costKindOf(dep) { return dep && dep.local ? 'electricity' : 'billed'; }
 
-      // One deployment of a variant: { deployment, key, label, local, recorded, runs (eligible runs),
-      // tasks, finished, timedOut, errors, time (median over tasks of each task's median finished
-      // time), timeAll (the same over every run), cost { kind: 'electricity' | 'billed', value (mean
-      // over tasks of each task's mean cost per run; null when none is known), n (runs with a cost) },
-      // tps (decode speed: median over its finished runs that recorded it, { value, n }), packager
-      // ("Packaged by …" or '') }
+      // One deployment of a variant in this mode (deploymentStatsFrom)
       V.deploymentStats = function (v, dep) {
         v = variantOf(v); dep = deploymentOf(dep);
-        var byTask = eligible(v, dep.key), all = [], finishedAll = [];
-        var taskTimes = [], taskTimesAll = [], taskCosts = [], costN = 0;
-        Object.keys(byTask).forEach(function (id) {
-          var list = byTask[id], fin = finishedOf(list);
-          all = all.concat(list);
-          finishedAll = finishedAll.concat(fin);
-          taskTimes.push(median(fin.map(function (i) { return num(i.run.elapsed_s, null); })));
-          taskTimesAll.push(median(list.map(function (i) { return num(i.run.elapsed_s, null); })));
-          var costs = list.map(function (i) { return runCost(i.run); }).filter(function (c) { return c !== null; });
-          costN += costs.length;
-          taskCosts.push(mean(costs));
-        });
-        var count = function (k) { return all.filter(function (i) { return runOutcome(i.run) === k; }).length; };
-        return {
-          deployment: dep, key: dep.key, label: dep.label, local: dep.local, recorded: dep.recorded, variant: v,
-          runs: all.length, tasks: Object.keys(byTask).length,
-          finished: count('finished'), timedOut: count('timed_out'), errors: count('error'),
-          time: median(taskTimes), timeAll: median(taskTimesAll), tps: tpsOf(finishedAll),
-          cost: { kind: costKindOf(dep), value: mean(taskCosts), n: costN },
-          packager: D.packagedBy(v)
-        };
+        return deploymentStatsFrom(eligible(v, dep.key), v, dep);
       };
+      V.eligible = eligible;
       // Every deployment a variant ran on in this mode: recorded ones first, most runs first; the
       // "machine not recorded" one last
       V.deployments = function (v) {

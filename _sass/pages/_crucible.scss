@@ -1800,6 +1800,31 @@ ol.crucible-scatter-key {
   font-size: $textMedium;
 }
 
+// On a phone the sections stay on one line: the toggle takes the column's width, its segments
+// share it evenly, and the text and padding step down so all three fit at 320 px
+@media screen and (max-width: 639px) {
+  .crucible-panel-scope .crucible-field > .crucible-mode-toggle {
+    justify-self: stretch;
+    flex-wrap: nowrap;
+  }
+
+  .crucible-mode-toggle .crucible-segment {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 6px 6px;
+    font-size: $textNormal;
+    white-space: nowrap;
+  }
+}
+
+// The narrowest phones (under 360 px) take one more step down
+@media screen and (max-width: 359px) {
+  .crucible-mode-toggle .crucible-segment {
+    padding: 6px 3px;
+    font-size: $textSmall;
+  }
+}
+
 .crucible-panel-note {
   margin: 0;
   color: $gray;

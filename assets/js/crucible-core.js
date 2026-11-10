@@ -16,6 +16,8 @@
   C.SUPPORTED_FORMAT = SUPPORTED_FORMAT;
   C.NONE = NONE;
   C.AGG = AGG;
+  // The main page's every-section view: a page concept, not a catalog mode
+  C.COMBINED = 'combined';
   // Two identities on the scatter: local (the point of Crucible) and cloud (the reference)
   C.COLORS = { local: '#2a78d6', cloud: '#eb6834' };
   C.MAX_COMPARE = 4;
@@ -619,7 +621,7 @@
           cfg = CONFIGS[finalKey] = {
             key: finalKey, rowKey: id.base + '#' + level, base: id.base, level: level, where: id.where, local: id.local,
             harness: id.harness, quant: id.quantLabel || id.quant, publisher: id.publisherLabel || id.publisher,
-            hwKey: id.hwKey, provider: id.provider, servedVia: {}, devices: {}, merged: 0,
+            hwKey: id.hwKey, provider: id.provider, servedVia: {}, devices: {}, runtimes: {}, merged: 0,
             // Normalized values the leaderboard's filters match on (null: not recorded)
             quantKey: id.quant, format: id.format, packager: id.publisher ? String(id.publisher).toLowerCase() : null
           };
@@ -640,6 +642,7 @@
             var device = e.device || (hw && hw.label);
             if (device) cfg.devices[device] = true;
             if (e.served_via) cfg.servedVia[e.served_via] = true;
+            if (e.provider) cfg.runtimes[e.provider] = true;
           }
         });
       });
@@ -1039,7 +1042,7 @@
       S.HEAD = S.HEADLINE.id;
       S.STRETCH = TIERS.filter(function (t) { return t.id !== S.HEAD && t.role !== 'gate'; });
 
-      // Modes: sections that are never ranked together, each with its own harnesses and areas
+      // Modes: sections ranked on their own (the main page also adds them together), each with its own harnesses and areas
       var harnessModes = {};
       (cat.harnesses || []).forEach(function (h) { if (h && h.id) harnessModes[h.id] = h.modes || []; });
       var modes = [], seen = {};
@@ -1198,7 +1201,7 @@
         var cellEl = el('span', { class: 'crucible-tier-cell' + (provisional ? ' is-provisional' : '') + (isAgg ? ' is-overall' : '') });
         var bar = el('span', { class: 'crucible-lb-bar' + (partial ? ' is-partial' : '') + (provisional ? ' is-provisional' : '') });
         var fill = el('span', { class: 'crucible-lb-fill' + (s.local ? ' is-local' : '') });
-        fill.style.width = (score / (isAgg ? result.max : 10) * 100) + '%';
+        fill.style.width = (score / (counted && result.max ? result.max : 10) * 100) + '%';
         bar.appendChild(fill);
         cellEl.appendChild(bar);
         cellEl.appendChild(el('span', { class: 'crucible-lb-score' }, fmtScore(score)));
@@ -1215,8 +1218,185 @@
       };
 
       var views = {};
-      S.view = function (mode) { return views[mode] || (views[mode] = buildView(S, mode)); };
+      S.view = function (mode) {
+        if (mode === C.COMBINED && S.hasCombined()) return views[mode] || (views[mode] = buildCombinedView(S));
+        return views[mode] || (views[mode] = buildView(S, mode));
+      };
+      // The combined view needs at least two sections to combine
+      // (and a catalog mode of that ID would win)
+      S.hasCombined = function () { return S.MODES.length > 1 && !S.MODES.some(function (m) { return m.id === C.COMBINED; }); };
       return S;
+    }
+
+    // ---- Every section at once ------------------------------------------------
+
+    // The sections side by side, scored additively. A row is a base model at a reasoning level; its
+    // candidates are setups that agree on everything but the harness (model, packager, format,
+    // quant, reasoning, provider or runtime, machine), one per section. A tier's combined score is
+    // its section scores added together (each out of 10), so it's out of 10 per section that has
+    // the tier; it's partial when any of those sections is partial or missing. A setup with no
+    // matching setup in another section is still a candidate, with that section missing.
+    function buildCombinedView(S) {
+      var parts = S.MODES.map(function (m) { return S.view(m.id); });
+      var fb = (FB.combined || {});
+      var CV = { S: S, mode: C.COMBINED, combined: true, parts: parts,
+        info: { id: C.COMBINED, label: fb.label || 'Combined', blurb: fb.blurb || '', harnesses: [], areas: [] } };
+      CV.tiers = S.TIERS.map(function (t) { return t.id; }).filter(function (id) {
+        return parts.some(function (V) { return V.tiers.indexOf(id) !== -1; });
+      });
+      CV.orderedTasks = [];
+      CV.taskIds = {};
+      parts.forEach(function (V) { V.orderedTasks.forEach(function (t) { CV.orderedTasks.push(t); CV.taskIds[t.id] = true; }); });
+      CV.TIERS = S.TIERS.filter(function (t) { return CV.tiers.indexOf(t.id) !== -1; });
+      if (!CV.TIERS.length) CV.TIERS = [S.HEADLINE];
+      CV.head = function () { return CV.TIERS.filter(function (t) { return t.id === S.HEAD; })[0] || CV.TIERS.filter(function (t) { return t.role !== 'gate'; })[0] || CV.TIERS[0]; };
+      CV.stretch = function () { return CV.TIERS.filter(function (t) { return t.id !== S.HEAD && t.role !== 'gate'; }); };
+      CV.harnesses = function () { return []; };
+      // The sections that have a tier: its combined maximum is 10 for each
+      function partsWith(tier) { return parts.filter(function (V) { return V.tiers.indexOf(tier) !== -1; }); }
+
+      // Setups that agree on everything but the harness share a pair key
+      function pairKey(cfg) {
+        var id = IDENT_OF_CFG[cfg.key];
+        var bits = [id.base, id.where, id.reqDefault ? 'd' : 'x'].concat(FIELDS.map(function (f) { return id[f] === null ? '?' : id[f]; }));
+        return bits.concat([Object.keys(cfg.runtimes || {}).sort().join('+')]).join('|');
+      }
+      var pairs = null;
+      function buildPairs() {
+        var byKey = {}, order = [];
+        parts.forEach(function (V, i) {
+          V.configs().forEach(function (cfg) {
+            var k = pairKey(cfg);
+            if (!byKey[k]) { byKey[k] = { key: k, cfgs: [] }; order.push(k); }
+            // Several setups of one section can share a key only through different harnesses
+            // (agentic's opencode and pi): each is its own pairing
+            byKey[k].cfgs.push({ part: i, cfg: cfg });
+          });
+        });
+        var out = [];
+        order.forEach(function (k) {
+          var g = byKey[k], perPart = parts.map(function (V, i) { return g.cfgs.filter(function (c) { return c.part === i; }).map(function (c) { return c.cfg; }); });
+          // Every combination of one setup (or none) per section, with at least one setup
+          var combos = [[]];
+          perPart.forEach(function (list) {
+            var next = [];
+            combos.forEach(function (c) { (list.length ? list : [null]).forEach(function (cfg) { next.push(c.concat([cfg])); }); });
+            combos = next;
+          });
+          combos.forEach(function (members) {
+            var first = members.filter(Boolean)[0];
+            var harnesses = members.filter(Boolean).map(function (c) { return c.harness; });
+            var slugs = members.map(function (c) { return c ? c.slug : '-'; });
+            out.push({
+              members: members,
+              cfg: Object.assign({}, first, {
+                key: 'combined:' + slugs.join(','), slug: null, harness: harnesses.join(' + '), members: members
+              })
+            });
+          });
+        });
+        return out;
+      }
+      CV.configs = function () { if (!pairs) pairs = buildPairs(); return pairs.map(function (p) { return p.cfg; }); };
+
+      CV.aggTiers = function (exclude) {
+        var on = CV.TIERS.filter(function (t) { return !(exclude && exclude[t.id]); });
+        return on.length ? on : CV.TIERS;
+      };
+      CV.aggAll = function (exclude) { return CV.aggTiers(exclude).length === CV.TIERS.length; };
+      CV.aggTierNames = function (exclude) { return listPhrase(CV.aggTiers(exclude).map(function (t) { return t.label; })); };
+      CV.showAgg = function () { return CV.TIERS.length > 1 || parts.length > 1; };
+      CV.aggInfo = function () { return { id: AGG, label: D.AGG_LABEL }; };
+      CV.tierMax = function (tier) { return partsWith(tier).length * 10; };
+      CV.aggMax = function (exclude) { return CV.aggTiers(exclude).reduce(function (n, t) { return n + CV.tierMax(t.id); }, 0); };
+      function excludeKey(exclude) {
+        return CV.aggAll(exclude) ? '' : CV.TIERS.filter(function (t) { return exclude[t.id]; }).map(function (t) { return t.id; }).join(',');
+      }
+
+      // A tier's sections added together; null sections (no setup there) leave it partial
+      function sumTier(tier, sectionStats) {
+        var list = partsWith(tier).map(function (V) { var s = sectionStats[parts.indexOf(V)]; return s ? s.allTier[tier] : null; });
+        var scored = list.filter(function (r) { return r && r.score !== null; });
+        var mins = scored.map(function (r) { return r.min; }).filter(function (v) { return v !== null; });
+        var result = {
+          score: scored.length ? scored.reduce(function (n, r) { return n + r.score; }, 0) : null,
+          max: list.length * 10,
+          coverage: mean(list.map(function (r) { return r ? r.coverage : 0; })) || 0,
+          scored: list.reduce(function (n, r) { return n + (r ? r.scored : 0); }, 0),
+          total: partsWith(tier).reduce(function (n, V) { return n + Object.keys(V.taskWeights(tier)).length; }, 0),
+          min: mins.length ? Math.min.apply(null, mins) : null
+        };
+        result.partial = result.score !== null && list.some(function (r) { return !r || r.score === null || r.partial; });
+        return result;
+      }
+
+      var statsCache = {};
+      CV.stats = function (cfg, exclude) {
+        var ck = cfg.key + '#' + excludeKey(exclude);
+        if (statsCache[ck]) return statsCache[ck];
+        var sections = cfg.members.map(function (m, i) {
+          if (!m) return null;
+          var st = parts[i].stats(m, exclude), all = {};
+          CV.TIERS.forEach(function (t) { all[t.id] = parts[i].tierScore(m, t.id); });
+          return Object.assign({}, st, { allTier: all });
+        });
+        var tier = {}, verdict = {};
+        CV.TIERS.forEach(function (t) {
+          tier[t.id] = sumTier(t.id, sections);
+          // A gate passes only when every section that has it passes
+          if (S.gateOf(t.id)) {
+            var vs = partsWith(t.id).map(function (V) { var s = sections[parts.indexOf(V)]; return s ? s.verdict[t.id] : null; });
+            verdict[t.id] = vs.some(function (v) { return v === null || v === undefined; }) ? null
+              : vs.indexOf('fail') !== -1 ? 'fail' : vs.indexOf('partial') !== -1 ? 'partial' : 'pass';
+          }
+        });
+        var on = CV.aggTiers(exclude).map(function (t) { return tier[t.id]; });
+        var scoredOn = on.filter(function (r) { return r.score !== null; });
+        var mins = scoredOn.map(function (r) { return r.min; }).filter(function (v) { return v !== null; });
+        var overall = {
+          score: scoredOn.length ? scoredOn.reduce(function (n, r) { return n + r.score; }, 0) : null,
+          max: CV.aggMax(exclude),
+          coverage: mean(on.map(function (r) { return r.coverage; })) || 0,
+          scored: on.reduce(function (n, r) { return n + r.scored; }, 0),
+          total: on.reduce(function (n, r) { return n + r.total; }, 0),
+          min: mins.length ? Math.min.apply(null, mins) : null
+        };
+        overall.partial = overall.score !== null && on.some(function (r) { return r.score === null || r.partial; });
+        var runs = [];
+        cfg.members.forEach(function (m, i) { if (m) runs = runs.concat(parts[i].countedRuns(m)); });
+        var done = 0, total = 0, behind = false;
+        parts.forEach(function (V, i) {
+          var p = sections[i] ? sections[i].progress : { done: 0, total: V.orderedTasks.length, share: 0 };
+          done += p.done; total += p.total;
+          // In progress when any section is short of its share
+          if (p.total && !meets(p.share, S.IN_PROGRESS_BELOW)) behind = true;
+        });
+        return (statsCache[ck] = {
+          cfg: cfg, local: cfg.local, ran: sections.some(function (s) { return s && s.ran; }), tier: tier, verdict: verdict, provisional: {},
+          sections: sections, head: tier[S.HEAD], overall: overall, time: timeOf(runs), tps: tpsOf(runs), cost: costOf(cfg, runs), runs: runs.length,
+          progress: { done: done, total: total, share: total ? done / total : 0 }, inProgress: behind
+        });
+      };
+
+      CV.rows = function (keep, exclude) {
+        var groups = {};
+        CV.configs().filter(keep || function () { return true; }).forEach(function (cfg) {
+          (groups[cfg.rowKey] = groups[cfg.rowKey] || []).push(CV.stats(cfg, exclude));
+        });
+        return Object.keys(groups).filter(function (key) {
+          return groups[key].some(function (v) { return v.runs > 0; });
+        }).map(function (key) {
+          var variants = groups[key].sort(S.betterConfig);
+          var best = variants[0];
+          return Object.assign({}, best, { rowKey: key, label: rowLabel(best.cfg), variants: variants });
+        });
+      };
+      // Ordering and ranking don't depend on the section
+      CV.sortRows = parts[0].sortRows;
+      CV.noneFinished = parts[0].noneFinished;
+      CV.isRanked = parts[0].isRanked;
+      CV.tierValue = parts[0].tierValue;
+      return CV;
     }
 
     // ---- A suite's section (mode) ---------------------------------------------

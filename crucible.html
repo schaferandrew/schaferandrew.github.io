@@ -14,7 +14,7 @@ permalink: /crucible/
 
     {%- include crucible-catalog.html -%}
     <p>
-      Crucible runs the same real-world prompts in {{ cr_modes.size | default: 2 }} separate sections that are never ranked together.
+      Crucible runs the same real-world prompts in {{ cr_modes.size | default: 2 }} separate sections, each ranked on its own, with a {{ site.data.crucible_fallbacks.combined.label | default: "Combined" }} view that adds them together.
       {%- for m in cr_modes %}
       {%- assign mfb = cr_fb.modes[m.id] %}
       {%- assign mareas = m.areas | default: cr_latest.areas %}
@@ -129,6 +129,7 @@ permalink: /crucible/
     </div>
     <ol class="crucible-scatter-key" id="crucible-scatter-key" hidden></ol>
 
+    <div id="crucible-per-task">
     <h2 class="crucible-heading">Every model on every task</h2>
     <p class="crucible-sub" id="matrix-sub">
       Score per task, grouped by tier, for each model's best setup; rows keep the leaderboard's order. A score is the
@@ -148,6 +149,7 @@ permalink: /crucible/
       <table class="crucible-heatmap" id="crucible-heatmap"></table>
     </div>
     <div class="crucible-heatmap-narrow" id="crucible-heatmap-narrow" hidden></div>
+    </div>
 
 
     <p class="crucible-footnote" id="crucible-footnote"></p>

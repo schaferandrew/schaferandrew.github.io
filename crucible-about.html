@@ -94,6 +94,12 @@ permalink: /crucible/about/
     section's tier scores added together, each out of 10. You can leave tiers out of it, to rank on the everyday
     tiers alone, say. A model that hasn't covered every tier in it isn't ranked until that tier is left out.
   </p>
+  <p>
+    The <strong>{{ cr_fb.combined.label | default: "Combined" }}</strong> view adds every section together: each
+    tier is its section scores added up (out of 10 per section), and the {{ cr_fb.aggregate.label | default: "Overall" }}
+    score adds those. A row joins one setup per section that matches on everything but the harness (model, packager,
+    format, quant, reasoning, runtime or provider, and machine), and a model missing a section isn't ranked there.
+  </p>
 
   <h2 class="crucible-heading">How scores are made</h2>
   <p>

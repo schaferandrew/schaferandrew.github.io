@@ -33,7 +33,7 @@
       var cat = D.catalogById(id) || CURRENT;
       state.suite = suiteId(cat);
       S = D.suite(state.suite);
-      if (!S.MODES.some(function (m) { return m.id === state.mode; })) state.mode = S.MODES[0] ? S.MODES[0].id : '';
+      if (!(state.mode === C.COMBINED && S.hasCombined()) && !S.MODES.some(function (m) { return m.id === state.mode; })) state.mode = S.MODES[0] ? S.MODES[0].id : '';
       if (!state.sort || (!S.tierSeen[state.sort.key] && SORT_KEYS.indexOf(state.sort.key) === -1)) state.sort = { key: AGG, dir: -1 };
     }
 
@@ -80,6 +80,9 @@
     var modelRef = D.modelRef, modelLink = D.modelLink, modelCard = D.modelCard;
 
     function modeInfo() { return V.info; }
+    function isCombined() { return !!V.combined; }
+    // Progress copy: one section, or each section in the combined view
+    function sectionPhrase() { return isCombined() ? 'a section\'s' : 'this section\'s'; }
     function tierLabel(id) { return S.tierLabel(id); }
     function gateOf(id) { return S.gateOf(id); }
 
@@ -219,12 +222,31 @@
           document.getElementById('mode-blurb').textContent = (m.blurb ? cap(m.blurb) + ' · ' : '') + m.areas.map(function (a) { return a.label; }).join(', ');
         }
       });
+      // Combined: every section added together, after the sections
+      if (S.hasCombined()) {
+        var cv = S.view(C.COMBINED), info = cv.info, cn = cv.orderedTasks.length;
+        var cb = el('button', { type: 'button', role: 'radio', class: 'crucible-segment', 'aria-checked': state.mode === C.COMBINED, id: 'mode-tab-' + C.COMBINED });
+        cb.appendChild(document.createTextNode(info.label + ' '));
+        cb.appendChild(el('span', { class: 'crucible-segment-count' }, String(cn)));
+        cb.title = cn + ' scored tasks: ' + S.MODES.map(function (m) { return m.label; }).join(' + ');
+        cb.addEventListener('click', function () {
+          if (state.mode === C.COMBINED) return;
+          state.mode = C.COMBINED;
+          state.harness = 'best';
+          state.hw = [];
+          render();
+        });
+        modeGroup.appendChild(cb);
+        if (state.mode === C.COMBINED) {
+          document.getElementById('mode-blurb').textContent = (info.blurb ? cap(info.blurb) + ' · ' : '') + S.MODES.map(function (m) { return m.label; }).join(' + ');
+        }
+      }
 
       var harnesses = V.harnesses();
       var many = harnesses.length > 1;
       // One harness (or none, for chat) leaves nothing to choose: the panel's notes name it instead
       document.getElementById('harness-field').hidden = !many;
-      var harnessNote = many || !harnesses.length ? '' : 'Every ' + modeInfo().label + ' run uses the ' + harnesses[0] + ' harness.';
+      var harnessNote = isCombined() ? 'Each row pairs one setup per section that differs only in harness.' : many || !harnesses.length ? '' : 'Every ' + modeInfo().label + ' run uses the ' + harnesses[0] + ' harness.';
       var byHarness = facet('harness', function (c) { return c.harness; });
       segmented('harness-toggle', [{ value: 'best', label: 'Best per model' }].concat(harnesses.map(function (h) {
         var n = byHarness[h] || 0;
@@ -250,14 +272,14 @@
       var none = V.noneFinished(all);
       segmented('progress-toggle', [
         { value: false, label: 'Finished' },
-        { value: true, label: '+ In progress' + (hidden ? ' (' + hidden + ')' : ''), empty: !hidden, emptyTitle: 'Every model has finished this section' }
+        { value: true, label: '+ In progress' + (hidden ? ' (' + hidden + ')' : ''), empty: !hidden, emptyTitle: isCombined() ? 'Every model has finished every section' : 'Every model has finished this section' }
       ], showingInProgress(all), function (v) { state.showInProgress = v; render(); });
       var share = pct(S.IN_PROGRESS_BELOW);
       var progressNote = none && hidden
-        ? 'No model has finished ' + share + ' of this section\'s scored tasks yet, so everyone is shown, marked * and unranked.'
+        ? 'No model has finished ' + share + ' of ' + sectionPhrase() + ' scored tasks yet, so everyone is shown, marked * and unranked.'
         : state.showInProgress && hidden
-        ? '* In progress: fewer than ' + share + ' of this section\'s scored tasks done. Listed last and not ranked.'
-        : (hidden ? hidden + ' model' + (hidden === 1 ? '' : 's') + ' with fewer than ' + share + ' of this section\'s scored tasks done ' + (hidden === 1 ? 'is' : 'are') + ' hidden.' : '');
+        ? '* In progress: fewer than ' + share + ' of ' + sectionPhrase() + ' scored tasks done. Listed last and not ranked.'
+        : (hidden ? hidden + ' model' + (hidden === 1 ? '' : 's') + ' with fewer than ' + share + ' of ' + sectionPhrase() + ' scored tasks done ' + (hidden === 1 ? 'is' : 'are') + ' hidden.' : '');
       renderAggToggle();
       renderPanelFoot([progressNote, aggAll() ? '' : 'The ' + AGG_LABEL + ' score counts ' + aggTierNames() + ' only.', harnessNote]);
       segmented('scatter-toggle', [
@@ -420,7 +442,7 @@
     }
 
     function emptyText() {
-      return 'No model has a counted run in this section of ' + suiteName(S.cat) + (filterPhrase() ? ' ' + filterPhrase() : '') + ' yet.';
+      return 'No model has a counted run in ' + (isCombined() ? 'any section' : 'this section') + ' of ' + suiteName(S.cat) + (filterPhrase() ? ' ' + filterPhrase() : '') + ' yet.';
     }
 
     function renderTakeaways(list) {
@@ -437,7 +459,7 @@
         lines.push(top.length > 1 ? [top[0], ' and ', top[1], ' lead ' + what + tail + '.'] : [top[0], ' leads ' + what + tail + '.']);
         var local = ranked.filter(function (s) { return s.local; })[0];
         if (local && state.where !== 'cloud') {
-          lines.push(['The best local model is ', local, ' at ' + fmtScore(local.overall.score) + ', on ' + configLabel(local.cfg) + '.']);
+          lines.push(['The best local model is ', local, ' at ' + fmtScore(local.overall.score) + (isCombined() ? ' of ' + local.overall.max : '') + ', on ' + configLabel(local.cfg) + '.']);
         }
         var priced = ranked.filter(function (s) { return !s.local && s.cost; });
         if (priced.length > 1) {
@@ -450,7 +472,7 @@
       var countedOf = function (s) { var r = stretch && s.tier[stretch.id]; return r && r.score !== null && !r.partial ? r.score : null; };
       var best = stretch && list.filter(function (s) { return countedOf(s) !== null; })
         .sort(function (a, b) { return countedOf(b) - countedOf(a); })[0];
-      if (best) lines.push([best, ' scores highest on the ' + stretch.label + ' tasks (' + fmtScore(countedOf(best)) + ').']);
+      if (best) lines.push([best, ' scores highest on the ' + stretch.label + ' tasks (' + fmtScore(countedOf(best)) + (isCombined() ? ' of ' + V.tierMax(stretch.id) : '') + ').']);
       if (!lines.length) lines.push('No model has a complete ' + H.label + ' score' + (filterPhrase() ? ' ' + filterPhrase() : ' in this section') + ' yet.');
       lines.forEach(function (line) {
         var li = ul.appendChild(el('li'));
@@ -462,12 +484,17 @@
 
     function renderLeaderboardNote() {
       var parts = [showAgg()
-        ? 'Ranked by ' + AGG_LABEL + ' score (0–' + V.aggMax(state.exclude) + '): ' + (aggTiers().length > 1 ? 'the ' + aggTierNames() + ' scores added together, each out of 10. ' : 'the ' + aggTierNames() + ' score alone. ') +
+        ? 'Ranked by ' + AGG_LABEL + ' score (0–' + V.aggMax(state.exclude) + '): ' + (isCombined()
+            ? 'every section\'s ' + aggTierNames() + ' scores added together, each out of 10, so each tier here is out of 10 per section that has it. '
+            : aggTiers().length > 1 ? 'the ' + aggTierNames() + ' scores added together, each out of 10. ' : 'the ' + aggTierNames() + ' score alone. ') +
           'Choose which tiers it counts in the panel above; a model missing one of them isn\'t ranked until you leave that tier out.'
         : 'Ranked by ' + aggInfo().label + ' score (0–10).'];
       MODE_TIERS.forEach(function (t) {
-        if (gateOf(t.id)) parts.push(t.label + ' is also a pass/fail gate: a ' + t.label + ' score of at least ' + gateOf(t.id).mean + ', with no task below ' + gateOf(t.id).min + '.');
+        if (gateOf(t.id)) parts.push(t.label + ' is also a pass/fail gate: a ' + t.label + ' score of at least ' + gateOf(t.id).mean + ', with no task below ' + gateOf(t.id).min +
+          (isCombined() ? ', in every section.' : '.'));
       });
+      if (isCombined()) parts.push('Each row joins one setup per section that matches on everything but the harness: model, packager, format, quant, reasoning, runtime or provider, and machine. ' +
+        'A model missing a section isn\'t ranked. Time, decode speed and cost are over both setups\' runs.');
       parts.push('Each row is one model at one reasoning level, local or cloud, scored by its single best setup (named under it); "best of N setups" lists the others.' +
         ' Repeat runs are averaged. Cloud providers usually serve full precision, so a row shows what a model can do, not what it does on your hardware.');
       parts.push('A hatched bar means fewer than ' + pct(S.COVERAGE_MIN) + ' of that tier\'s tasks were scored' + (showAgg() ? ' (for ' + AGG_LABEL + ', that one of its tiers is short)' : '') + '. Select a column to sort.');
@@ -530,7 +557,7 @@
       if (isVariant) cfgLine.appendChild(el('span', { class: 'crucible-config-n' }, ' · ' + s.runs + ' counted run' + (s.runs === 1 ? '' : 's')));
       var actions = into.appendChild(el('span', { class: 'crucible-config-actions' }));
       if (!isVariant) { var vt = variantToggle(s); if (vt) actions.appendChild(vt); }
-      actions.appendChild(compareButton(s.cfg));
+      if (s.cfg.slug) actions.appendChild(compareButton(s.cfg));
     }
 
     // The overall score first (when there's more than one tier), then each tier
@@ -544,7 +571,8 @@
       if (isNarrow()) { renderLeaderboardCards(list); return; }
       document.getElementById('crucible-lb-narrow').innerHTML = '';
       var columns = [{ key: null, label: '#' }, { key: 'model', label: 'Model and best setup' }]
-        .concat(scoreColumns().map(function (t) { return { key: t.id, label: t.label, title: t.id === AGG ? aggTierNames() + (aggTiers().length > 1 ? ' added together, out of ' : ' alone, out of ') + V.aggMax(state.exclude) : t.blurb ? cap(t.blurb) : '' }; }))
+        .concat(scoreColumns().map(function (t) { return { key: t.id, label: t.label, title: t.id === AGG ? aggTierNames() + (aggTiers().length > 1 || isCombined() ? ' added together, out of ' : ' alone, out of ') + V.aggMax(state.exclude)
+          : isCombined() ? t.label + ' in every section added together, out of ' + V.tierMax(t.id) : t.blurb ? cap(t.blurb) : '' }; }))
         .concat([{ key: 'time', label: 'Time / task' }, { key: 'tps', label: 'tok/s', title: 'Decode speed: output tokens per second of generation (median)' }, { key: 'cost', label: 'Cost / task' }]);
       var head = el('tr');
       columns.forEach(function (c) {
@@ -582,7 +610,7 @@
         if (label) rank += 1;
         row.appendChild(el('td', { class: 'crucible-lb-rank' }, label));
         var name = el('th', { scope: 'row', class: 'crucible-lb-name' });
-        if (s.inProgress) name.title = 'In progress: ' + s.progress.done + ' of ' + s.progress.total + ' scored tasks in this section done';
+        if (s.inProgress) name.title = 'In progress: ' + s.progress.done + ' of ' + s.progress.total + ' scored tasks in ' + (isCombined() ? 'all sections' : 'this section') + ' done';
         nameBlock(s, name, false);
         row.appendChild(name);
         scoreCells(row, s);
@@ -1118,8 +1146,12 @@
       renderLeaderboard(list);
       renderBars(list);
       renderScatter(list);
-      renderMatrix(list);
-      renderHeatmap(list);
+      // The per-task views are a section's: the combined view is its leaderboard and chart
+      document.getElementById('crucible-per-task').hidden = isCombined();
+      if (!isCombined()) {
+        renderMatrix(list);
+        renderHeatmap(list);
+      }
       renderDeeper();
       renderTray();
       renderCaveat();

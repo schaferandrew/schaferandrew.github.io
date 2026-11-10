@@ -58,6 +58,11 @@ served by GitHub Pages at www.schaferandrew.com).
   invalid or withdrawn; its score is its score record at the suite's pinned rubric version.
   Leaderboard rows are a base model at a reasoning level, scored by their single best
   configuration; repeats are a mean with n and range.
+- The main page's Combined tab (`#combined`, `C.COMBINED`, built by `buildCombinedView` in the core;
+  label from `combined` in the fallbacks) adds the sections together: each tier is its section scores
+  summed (out of 10 per section), the overall score sums those. Its rows join one setup per section that
+  differs only in harness (same model, packager, format, quant, reasoning, runtime or provider, machine);
+  a model missing a section isn't ranked. It shows the leaderboard and scatter only, not the matrix or heatmap.
 - Respect `format_version`: `SUPPORTED_FORMAT` in `crucible.js` (and `cr_supported` in
   `_includes/crucible-catalog.html`) is the highest the page understands. A newer record or catalog is
   skipped with a one-line notice, never an error; a higher `format_revision` is always safe.

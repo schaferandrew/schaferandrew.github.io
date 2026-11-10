@@ -1,0 +1,23 @@
+The reasoning for the corrections and flags is as follows:
+- Sentence 3 contains a subject-verb agreement error ("prices... is").
+- Sentence 4 claims there is a legal requirement for the Federal Reserve to raise rates at a specific percentage, which is factually incorrect; the Fed has a mandate but maintains discretionary policy.
+- Sentence 6 uses the contraction "it's" (it is) instead of the possessive "its."
+- Sentence 8 presents a false dichotomy regarding unemployment, ignoring frictional and structural factors.
+- Sentence 11 claims that quantitative easing "inevitably" causes hyperinflation, which is an extreme overstatement not supported by historical data (e.g., the US and EU).
+- Sentence 12 uses "then" instead of the comparative "than."
+- Sentence 14 uses absolute language ("proves," "completely ineffective") to describe a complex economic debate.
+- Sentence 18 claims the economy did not grow "at all" during the 1980s and that a theory was "definitively debunked," both of which are extreme overstatements.
+- Sentence 1 provides a reductive definition of inflation that ignores cost-push and demand-pull factors.
+
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: imprecise
+4: misleading
+8: overstated
+11: overstated
+14: overstated
+18: overstated

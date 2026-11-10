@@ -1,0 +1,15 @@
+I have diagnosed and fixed the issue where the dashboard intermittently showed a blank state after login due to session expiration.
+
+### Diagnosis
+The issue was caused by two factors:
+1. **Server-side**: When a session expired or was missing, the `/api/dashboard` endpoint returned a `200 OK` status code with a response body of `{"user": null, "dashboardMessage": ""}`.
+2. **Client-side**: In `public/dashboard.html`, the code checked for the presence of `data.user`. If it was missing, it simply cleared the text content of the user and message elements, resulting in a blank dashboard without notifying the user or redirecting them to the login page.
+
+### Fixes
+1. **`server.js`**: Modified the `/api/dashboard` endpoint to return a `401 Unauthorized` status code instead of `200 OK` when the session is invalid.
+2. **`public/dashboard.html`**: Updated the `loadDashboard` function to check if the fetch response is OK (`res.ok`). If not, or if `data.user` is missing from the response, the user is now redirected to `/login.html`.
+
+### Verification and Regression Testing
+- Verified the fix using `curl` to ensure `/api/dashboard` now returns `401 Unauthorized` when no session is present.
+- Added a regression test in `server.test.js` to verify that `/api/dashboard` correctly rejects requests without a valid session.
+- Ran `npm test` to ensure all tests passed.

@@ -1,0 +1,39 @@
+# Morning Brief — Wednesday, September 2, 2026
+
+## Weather
+Source: Saint Paul, MN forecast. Today (Sept 2): **Partly Cloudy**, high **68°F** / low **55°F**, precipitation ~10%, wind 8 mph. Rain likely only Thursday (Sept 4, scattered showers). No action needed today; light layer recommended.
+
+## Outstanding work
+These are the open items carried from yesterday's emails:
+- **Q3 expense report — DUE TODAY by 5:00 PM** (finance@example.com). Missing the cutoff means it rolls to next month's payroll. *(Fact)*
+- **Client awaiting a reply on proposal timeline** — asked whether the revised proposal can ship by Friday and needs an answer before briefing their team. Unanswered since Sept 1, 4:45 PM. *(Fact)*
+- Q3 review completed ahead of schedule (alex@example.com) — to be discussed at today's planning meeting. *(Fact)*
+- Meeting notes from the Sept 1 1-on-1 (jamie@example.com) — informational only, no action required. *(Fact)*
+
+## Emails
+Unanswered/attention-requiring:
+- **client@example.com** — "Question about the proposal timeline" → needs a yes/date reply today.
+- **finance@example.com** — "Q3 expense report due Wednesday 5 PM" → deadline is today.
+
+Informational (no action):
+- alex@example.com — Q3 review complete, to be covered in the planning meeting.
+- jamie@example.com — 1-on-1 notes (career goals, priorities, team building).
+
+## Calendar
+Today's events (America/Chicago):
+- **09:30–10:30 Planning** — Room B
+- **10:00–10:30 Vendor demo** — Zoom *(conflicts)*
+- **13:00–14:00 Budget meeting** — Conference Room A
+
+⚠️ **Scheduling conflict:** The Vendor demo (10:00–10:30) overlaps the Planning session (9:30–10:30). You cannot be in both. Prioritize based on which is essential; notify the vendor's contact to reschedule or send a delegate if Planning takes precedence.
+
+## News
+Local, nothing time-sensitive for your work today:
+- Twin Cities Tech Conference returns; **registration opens this Friday** (StarTribune).
+- Maplewood Park reopening Saturday (Pioneer Press).
+- State Fair attendance down 3% (StarTribune).
+
+## Top 3 things to do today
+1. **Submit the Q3 expense report before the 5:00 PM deadline** so it pays this month.
+2. **Reply to the client** confirming whether the revised proposal can be delivered by Friday, so they can brief their team.
+3. **Resolve the 10:00 Planning/Vendor demo conflict** — decide which to attend and reschedule/delegate the other; come ready to discuss the completed Q3 review at Planning.

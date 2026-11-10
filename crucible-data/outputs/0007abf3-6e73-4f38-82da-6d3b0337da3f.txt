@@ -1,0 +1,75 @@
+Looking at this problem, I need to solve two crossword puzzles with specific word lists and grid constraints.
+
+## Puzzle A
+
+**7-letter words:** The key constraint is that 4-ACROSS and 4-DOWN cross at (3,3), so they must share a first letter. Only COUNCIL and COURAGE start with C, so they take those slots. Testing both orderings:
+
+- If 4-ACROSS=COUNCIL, 4-DOWN=COURAGE: then 5-DOWN=LIBRARY, 12-ACROSS=ECONOMY. This forces 8-ACROSS[3]=A and 10-ACROSS[3]=A, but DEALT and SWAMP both have 3rd letter A, so they can be split.
+- If 4-ACROSS=COURAGE, 4-DOWN=COUNCIL: then 5-DOWN=ECONOMY, 12-ACROSS=LIBRARY. This forces 7-ACROSS[3]=O and 10-ACROSS[3]=O, both requiring PROBE — impossible.
+
+So **Case A** works. Working through the 5-letter constraints:
+- 2-DOWN[3]=C → UNCLE; 9-DOWN[3]=O → PROBE
+- 7-ACROSS[1]=E (from UNCLE[5]) → ELBOW; 3-DOWN[5]=W → THREW
+- 2-ACROSS: starts U, ends T → UPSET
+- 8-ACROSS[5]=P (from PROBE[1]) → SWAMP; 10-ACROSS=DEALT
+- 11-DOWN[1]=T → TWIST; 13-ACROSS ends E → DRIVE
+- 8-DOWN: starts S, ends D → SQUAD; 6-ACROSS[3]=U → COUNT
+- 1-DOWN ends C → CUBIC; 1-ACROSS starts C → CANDY; 14-ACROSS=SHIRT
+
+All crossings verified. ✓
+
+## Puzzle B
+
+**7-letter words:** 17-DOWN[1]=17-ACROSS[1] must be A or O (first letter of a 5-letter word). No 7-letter word starts with O, so 17-DOWN starts with A → ANOTHER or APRICOT. Since 20-ACROSS[3]=17-DOWN[3], and no 5-letter word has 3rd letter R (APRICOT[3]), 17-DOWN=ANOTHER, giving 20-ACROSS=AROMA.
+
+18-DOWN[3]=A → IMAGINE or PLASTIC. Since 18-DOWN[5]=25-ACROSS[1] and no 3-letter word starts with I, 18-DOWN=PLASTIC, 17-ACROSS=APPLY.
+
+22-ACROSS[7]=H → PUBLISH. This gives 23-DOWN[1]=B→BARGAIN, 24-DOWN[1]=I→IMAGINE, 27-ACROSS=APRICOT.
+
+**5-letter:** 29-ACROSS[1]=A, [3]=I → ALIKE; 31-ACROSS=OUNCE.
+
+**3-letter:** Working through constraints (19-DOWN[3]=P→TOP, 19-ACROSS[1]=T, 16-DOWN[3]=N→FAN, 15-ACROSS[3]=F→ELF, 28-DOWN[1]=T with 30-ACROSS[3]=Y→TOY/ANY/APT chain, 26-ACROSS[3]=R→CAR/COG, 25-ACROSS[1]=T→TIE, 21-DOWN[3]=E→ONE, 32-ACROSS[1]=T→TAR).
+
+All crossings verified. ✓
+
+ANSWERS:
+1-ACROSS: CANDY
+1-DOWN: CUBIC
+2-ACROSS: UPSET
+2-DOWN: UNCLE
+3-DOWN: THREW
+4-ACROSS: COUNCIL
+4-DOWN: COURAGE
+5-DOWN: LIBRARY
+6-ACROSS: COUNT
+7-ACROSS: ELBOW
+8-ACROSS: SWAMP
+8-DOWN: SQUAD
+9-DOWN: PROBE
+10-ACROSS: DEALT
+11-DOWN: TWIST
+12-ACROSS: ECONOMY
+13-ACROSS: DRIVE
+14-ACROSS: SHIRT
+15-ACROSS: ELF
+16-DOWN: FAN
+17-ACROSS: APPLY
+17-DOWN: ANOTHER
+18-DOWN: PLASTIC
+19-ACROSS: TEN
+19-DOWN: TOP
+20-ACROSS: AROMA
+21-DOWN: ONE
+22-ACROSS: PUBLISH
+23-DOWN: BARGAIN
+24-DOWN: IMAGINE
+25-ACROSS: TIE
+26-ACROSS: CAR
+26-DOWN: COG
+27-ACROSS: APRICOT
+28-DOWN: TOY
+29-ACROSS: ALIKE
+30-ACROSS: ANY
+30-DOWN: APT
+31-ACROSS: OUNCE
+32-ACROSS: TAR

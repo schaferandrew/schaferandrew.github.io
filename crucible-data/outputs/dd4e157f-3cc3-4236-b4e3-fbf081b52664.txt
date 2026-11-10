@@ -1,0 +1,12 @@
+**Reasoning:**
+
+The current time is Tuesday, September 1, 2026, 11:20 AM (America/Chicago). Interpreting "3:30" as **today at 3:30 PM (15:30)**:
+
+- Design review runs 14:00–15:30 → ends exactly at 3:30
+- Customer call runs 16:00–17:00 → starts at 4:00
+
+So at 3:30 PM today, the design review has just ended and there's nothing until 4:00. You are free (for today). 
+
+(Note: tomorrow, Wednesday Sept 2, you have a Budget review 15:00–16:00, so you'd be busy at 3:30 that day.)
+
+ANSWER: free

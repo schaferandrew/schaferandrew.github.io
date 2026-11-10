@@ -1,0 +1,34 @@
+# Geography Questions
+
+**1. Which country is crossed by both the Equator and the Tropic of Capricorn?**
+
+Brazil is the only country whose territory stretches from roughly 5°N (north of the Equator, through the Amazon) to about 33°S (south of the Tropic of Capricorn, in the south), so both lines cross its landmass.
+
+**2. Which country has coastline on both the Red Sea and the Persian Gulf?**
+
+Saudi Arabia's western coast runs along the Red Sea while its eastern coast runs along the Persian Gulf, making it the sole country with coastline on both bodies of water.
+
+**3. What is the northernmost capital city of a sovereign state?**
+
+Reykjavik, Iceland (≈ 64.15° N) holds the title; the slightly more northerly Nuuk belongs to Greenland, which is an autonomous territory of Denmark rather than a sovereign state.
+
+**4. Counting overseas territories, which country spans the most time zones?**
+
+France spans 12 time zones (UTC −10 in French Polynesia through UTC +12 in Wallis and Futuna), edging out Russia's 11, because its scattered overseas collectivities in the Pacific, Indian Ocean, and Atlantic add zones that Russia's contiguous territory does not.
+
+**5. Which US state is closest to mainland Africa?**
+
+The Florida Keys (southern tip of Florida) are the nearest point in the United States to the western bulge of mainland Africa (Senegal/Mauritania), roughly 5,000 km by great-circle route.
+
+**6. Apart from the microstates inside Italy, which is the only landlocked country that borders exactly one other country?**
+
+Lesotho is a complete enclave surrounded by South Africa, making it the only landlocked nation other than San Marino and Vatican City that shares a border with just one neighbour.
+
+## ANSWERS
+
+1. Brazil
+2. Saudi Arabia
+3. Reykjavik, Iceland
+4. France
+5. Florida
+6. Lesotho

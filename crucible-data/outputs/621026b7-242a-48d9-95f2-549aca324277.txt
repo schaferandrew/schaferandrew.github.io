@@ -1,0 +1,12 @@
+Done. Everything is complete and working:
+
+**Structure**
+- `interest/calculator.py` – core simulation. Interest is credited at the end of each compounding period (annual rate ÷ periods/year); contributions are added at the end of their period, after same-moment interest. Time is simulated in 1/12-day steps (a year = 365 days), so all period lengths (1/4/12/365 per year, monthly/annual contributions) align exactly, even for month durations with daily compounding.
+- `interest/cli.py` – argparse-based CLI with all the required flags; non-numeric/negative values, both-or-neither `--years`/`--months`, and mismatched `--contribution`/`--contribution-frequency` produce a short stderr message and non-zero exit (no traceback). `--json` prints exactly one object with all values rounded to cents.
+- `interest/__main__.py` – enables `python -m interest`.
+- `tests/test_calculator.py` + `tests/test_cli.py` – 35 tests (unittest, stdlib) covering: ordinary cases, zero interest/rate/principal, quarterly/monthly/daily compounding against closed-form values, a known expected-value case ($1,000 @ 10% for 10 years), recurring contributions at both frequencies, contribution-after-interest ordering, JSON output, and 16 invalid-input CLI scenarios.
+- `README.md` – usage, flag reference, and verified example outputs.
+
+**Verification**
+- `python -m unittest discover -s tests` → 35 tests, all pass.
+- Smoke-tested the summary, JSON, and error paths directly.

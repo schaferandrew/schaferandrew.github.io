@@ -1,0 +1,98 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "1a13a01a-ea08-4824-8536-90edbfeadcf8",
+ "run_path": "lmstudio_ornith-1.5-9b/proofread-economics-essay/20261109_163045",
+ "legacy_run_id": null,
+ "started_at": "2026-11-09T16:30:45.176753+00:00",
+ "ended_at": "2026-11-09T16:32:56.849659+00:00",
+ "elapsed_s": 131.01,
+ "task": {
+  "id": "proofread-economics-essay",
+  "version": 2,
+  "rubric_version": 3,
+  "content_hash": "2bc3c8fb72053c52",
+  "rubric_hash": "936fb11c6fb812f3",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/ornith-1.5-9b",
+  "base": "ornith-1.5-9b",
+  "publisher": "ornith-ai",
+  "artifact": "ornith-ai/Ornith-1.5-9B-GGUF",
+  "format": "gguf",
+  "quant": "Q6_K",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on",
+   "resolved_source": "server"
+  },
+  "context_loaded": 100352,
+  "variant_key": "ornith-1.5-9b|ornith-ai|gguf|q6_k",
+  "display": "ornith-1.5-9b · Q6_K",
+  "origin": {
+   "maker": null,
+   "base_repo": null,
+   "params": 9000000000,
+   "active_params": null,
+   "source": "gguf"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 623,
+  "tokens_out": 6783,
+  "model_responses": 1,
+  "ttft_s": 1.047,
+  "ttft_avg_s": 1.047,
+  "response_time_avg_s": 131.004,
+  "output_tokens_per_s": 52.2,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 25679
+ },
+ "output_ref": "outputs/1a13a01a-ea08-4824-8536-90edbfeadcf8.txt",
+ "provenance": {
+  "crucible_version": "3.8.0",
+  "crucible_commit": "dde6095",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Duskfall",
+  "source": "crucible-run",
+  "content_hash": "sha256:07cc64ad32a2cdbe1e92fec1ed8928fe0b24d8ede4f33c6e20d9f8b8824fab4c",
+  "submitter": null,
+  "verification": null
+ }
+}

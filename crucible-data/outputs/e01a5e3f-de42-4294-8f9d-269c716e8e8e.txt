@@ -1,0 +1,44 @@
+To solve these problems, we will address each one step-by-step:
+
+1.  **Integers divisible by 3 or 7, but not both:**
+    *   Number of integers from 1 to 10,000 divisible by 3: $\lfloor 10,000 / 3 \rfloor = 3333$.
+    *   Number of integers from 1 to 10,000 divisible by 7: $\lfloor 10,000 / 7 \rfloor = 1428$.
+    *   Number of integers from 1 to 10,000 divisible by both (divisible by $\text{lcm}(3, 7) = 21$): $\lfloor 10,000 / 21 \rfloor = 476$.
+    *   The number of integers divisible by 3 or 7 is $|A \cup B| = |A| + |B| - |A \cap B|$.
+    *   The number of integers divisible by 3 or 7, but not both (the symmetric difference), is $|A \cup B| - |A \cap B| = |A| + |B| - 2|A \cap B|$.
+    *   Calculation: $3333 + 1428 - 2(476) = 4761 - 952 = 3809$.
+
+2.  **Remainder of $7^{2026}$ divided by 100:**
+    *   We look for the pattern of $7^n \pmod{100}$:
+        $7^1 = 7$, $7^2 = 49$, $7^3 = 343 \equiv 43$, $7^4 = 2401 \equiv 1$.
+    *   The period is 4. We divide the exponent by 4: $2026 = 4 \times 506 + 2$.
+    *   $7^{2026} \equiv (7^4)^{506} \times 7^2 \equiv 1^{506} \times 49 = 49 \pmod{100}$.
+
+3.  **Tiling a $2 \times 12$ board:**
+    *   Let $a_n$ be the number of ways to tile a $2 \times n$ board.
+    *   The last piece(s) can be one $2 \times 1$ vertical domino, two $1 \times 2$ horizontal dominoes, or one $2 \times 2$ square.
+    *   Recurrence: $a_n = a_{n-1} + 2a_{n-2}$.
+    *   Base cases: $a_0 = 1$, $a_1 = 1$.
+    *   $a_2 = 3, a_3 = 5, a_4 = 11, a_5 = 21, a_6 = 43, a_7 = 85, a_8 = 171, a_9 = 341, a_{10} = 683, a_{11} = 1365, a_{12} = 2731$.
+
+4.  **Probability that the largest number shown on three dice is 4:**
+    *   Total outcomes: $6^3 = 216$.
+    *   Let $X$ be the maximum value. We want $P(X=4) = P(X \le 4) - P(X \le 3)$.
+    *   $P(X \le 4)$: All three dice show values from $\{1, 2, 3, 4\}$. Outcomes: $4^3 = 64$.
+    *   $P(X \le 3)$: All three dice show values from $\{1, 2, 3\}$. Outcomes: $3^3 = 27$.
+    *   Number of favorable outcomes: $64 - 27 = 37$.
+    *   Probability: $37/216$.
+
+5.  **Probability both children are boys given at least one is a boy born on Tuesday:**
+    *   Let $B_T$ be a boy born on Tuesday. There are 14 possibilities for each child (2 genders $\times$ 7 days).
+    *   Total outcomes: $14 \times 14 = 196$.
+    *   Event $A$ (at least one is $B_T$): Total outcomes minus neither is $B_T$: $196 - 13^2 = 196 - 169 = 27$.
+    *   Event $B \cap A$ (both are boys AND at least one is $B_T$): Total boy-boy outcomes minus neither boy is born on Tuesday: $7^2 - 6^2 = 49 - 36 = 13$.
+    *   Probability: $P(B|A) = \frac{|B \cap A|}{|A|} = 13/27$.
+
+ANSWERS
+1. 3809
+2. 49
+3. 2731
+4. 37/216
+5. 13/27

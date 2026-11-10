@@ -1,0 +1,121 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "6db8701e-515f-4f7a-ac43-eafa16f07ad9",
+ "rubric_version": 2,
+ "rubric_hash": "e6394e3e00a41fc7",
+ "method": "checks",
+ "scored_at": "2026-11-09T14:44:36.859573+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 0,
+  "total": 14,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": 5,
+ "passed": false,
+ "items": [
+  {
+   "id": "json_valid",
+   "type": "items",
+   "group": "Valid JSON",
+   "label": "slots.json parses as a JSON object (a code fence around it is tolerated, prose around it is not).",
+   "passed": false,
+   "detail": "slots.json wasn't written"
+  },
+  {
+   "id": "true_slots",
+   "type": "items",
+   "group": "Valid slots listed",
+   "label": "For each of the 8 days Aug 31 to Sep 7, valid_slots lists every start where a 60-minute meeting fits for Alex and Jamie (half hours inside 9-5, computed from the fixture) and none that overlaps an event; one item per day.",
+   "passed": false,
+   "detail": "slots.json wasn't written"
+  },
+  {
+   "id": "no_conflicts",
+   "type": "items",
+   "group": "No slot overlaps an event",
+   "label": "None of the starts in valid_slots or top3 overlaps an event of either person. Any overlap caps the score at 5.",
+   "passed": false,
+   "detail": "slots.json wasn't written"
+  },
+  {
+   "id": "no_false_slots",
+   "type": "items",
+   "group": "No slot outside the window",
+   "label": "Every start listed is on the half hour inside 9-5 within the window (nothing at 16:30, 08:30, 09:15 or after Sep 7).",
+   "passed": false,
+   "detail": "slots.json wasn't written"
+  },
+  {
+   "id": "top3_count",
+   "type": "items",
+   "group": "Exactly three recommendations",
+   "label": "top3 is a list of exactly three entries.",
+   "passed": false,
+   "detail": "slots.json wasn't written"
+  },
+  {
+   "id": "top3_valid",
+   "type": "items",
+   "group": "Recommendations are valid",
+   "label": "Every top3 start is one of the true slots, with no repeats. The order of the three is not scored.",
+   "passed": false,
+   "detail": "slots.json wasn't written"
+  },
+  {
+   "id": "top3_why",
+   "type": "items",
+   "group": "Explanations",
+   "label": "Every top3 entry has a non-empty explanation string.",
+   "passed": false,
+   "detail": "slots.json wasn't written"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Valid slots listed",
+   "passed": 0,
+   "total": 8,
+   "detail": "slots.json wasn't written"
+  },
+  {
+   "id": "No slot overlaps an event",
+   "passed": 0,
+   "total": 1,
+   "detail": "slots.json wasn't written"
+  },
+  {
+   "id": "No slot outside the window",
+   "passed": 0,
+   "total": 1,
+   "detail": "slots.json wasn't written"
+  },
+  {
+   "id": "Valid JSON",
+   "passed": 0,
+   "total": 1,
+   "detail": "slots.json wasn't written"
+  },
+  {
+   "id": "Exactly three recommendations",
+   "passed": 0,
+   "total": 1,
+   "detail": "slots.json wasn't written"
+  },
+  {
+   "id": "Recommendations are valid",
+   "passed": 0,
+   "total": 1,
+   "detail": "slots.json wasn't written"
+  },
+  {
+   "id": "Explanations",
+   "passed": 0,
+   "total": 1,
+   "detail": "slots.json wasn't written"
+  }
+ ]
+}

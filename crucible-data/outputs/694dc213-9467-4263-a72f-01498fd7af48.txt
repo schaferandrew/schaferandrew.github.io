@@ -1,0 +1,19 @@
+**Reasoning:**
+
+Two clear errors stand out:
+
+1. **"louder then she remembered it"** → should be **"louder than."** This is a comparison (loudness versus what she recalled), so the comparative conjunction *than* is required, not the time word *then*.
+
+2. **"people talking to fast"** → should be **"too fast."** Here *to* is a misspelling of the intensifier *too* (meaning "excessively"). Both are unambiguous mistakes with no plausible stylistic reading.
+
+Everything else I left alone:
+
+- The em dash in **"Still—she was back."** works as intended and needs nothing.
+- The fragments (**"Not waiting for her, exactly."**) are deliberate staccato beats; merging them would flatten the rhythm.
+- The one genuine borderline case is the comma in **"whether to laugh, or leave."** Standard usage wouldn't put a comma between two short words joined by *or*, so this could be an error. But given how carefully paced and hesitant this closing line reads ("she didn't know whether…"), the pause may be doing real work—emphasizing each option in her indecision. I'm preserving it rather than silently removing it, which is why it goes in POSSIBLY INTENTIONAL instead of being fixed in CORRECTED.
+
+CORRECTED:
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder than she remembered it, all brakes shrieking and people talking too fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+POSSIBLY INTENTIONAL:
+"laugh, or leave": comma between two short words joined by "or" is nonstandard, but it creates a deliberate pause that fits the hesitant tone of the closing line; left as written in case it's stylistic.

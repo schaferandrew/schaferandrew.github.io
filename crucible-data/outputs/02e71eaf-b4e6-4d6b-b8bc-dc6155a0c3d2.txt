@@ -1,0 +1,14 @@
+## Evaluation
+
+**Correct complexity (4):** The agent states the time complexity as O(n log n). This is incorrect — binary search has a time complexity of O(log n). The agent's reasoning that it must first sort the array is also wrong; binary search assumes sorted input and does not sort. **0 points.**
+
+**Explanation (3):** The criterion requires explaining that each step halves the remaining search range. The agent only mentions "repeatedly checks the middle element" but never explains the halving of the search space, which is the core reason for logarithmic complexity. **0 points.**
+
+**Precondition (2):** The criterion requires stating that the input must already be sorted. The agent states the exact opposite: "Binary search therefore works on any array, sorted or not." This is factually incorrect and directly contradicts the requirement. **0 points.**
+
+**Clarity (1):** Despite being entirely wrong in content, the response is clearly written and well organised — it presents an explanation followed by a concise summary line. The presentation quality itself meets this criterion. **1 point.**
+
+## Summary
+The response fails on all three substantive criteria (correct complexity, halving explanation, sorted precondition) and only earns partial credit for clarity of presentation.
+
+GRADE: 1

@@ -1,0 +1,24 @@
+I now have everything I need. Here's my reasoning, then the options.
+
+## Reasoning
+
+Jamie's calendar is shared with me as **free/busy only**, so their individual events aren't visible — I used `get_freebusy` to get Jamie's busy blocks and combined them with my own confirmed bookings (I treated my *declined* design sync on Thu as free, since I'm not attending it).
+
+**My confirmed busy blocks this week:**
+- **Mon 8/31:** standup → customer call = continuously busy 09:00–17:00
+- **Tue 9/1:** standup → offsite prep = continuously busy 09:00–17:00
+- **Wed 9/2:** standup/interviews/lunch/planning = busy 09:00–15:30
+- **Thu 9/3:** standup, sprint review, lunch, project review (design sync declined)
+- **Fri 9/4:** standup, lunch only
+
+**Overlapping free windows for a full hour (both of us):**
+- **Fri 9/4, 10:30–12:00** — both free; Jamie busy until 10:30 and I'm free from 10:30, giving a clean **1.5-hour window**. Best option.
+- **Thu 9/3, 11:00–12:00** — both free (sprint review ends 11:00; lunch starts 12:00). Exactly one hour.
+- **Thu 9/3, 13:00–14:00** — a nice mid-afternoon hour with buffer on both sides. This assumes I'm free (the 13:00 design sync is declined, so it doesn't block me) — flagging that in case you'd rather have an unambiguous slot.
+
+All times are in **America/Chicago**.
+
+OPTIONS:
+2026-09-04 10:30 America/Chicago
+2026-09-03 11:00 America/Chicago
+2026-09-03 13:00 America/Chicago

@@ -1,0 +1,24 @@
+Here's my fact-checking of each claim, with brief reasoning:
+
+**Accurate claims:**
+1. **Battle of Hastings (1066)** — Correct. William the Conqueror defeated Harold Godwinson on 14 October 1066.
+4. **Declaration of Independence adopted July 4, 1776** — Correct. It was adopted/signed that date (though some delegates signed later).
+5. **Storming of the Bastille in July 1789** — Correct. This happened on 14 July 1789.
+8. **India's independence in August 1947** — Correct. Independence came on 15 August 1947.
+9. **Armstrong and Aldrin landed July 1969** — Correct. Apollo 11 landed on 20–21 July 1969.
+11. **Germany reunified the year after the Wall fell** — Correct. The Wall fell in November 1989; reunification occurred on 3 October 1990.
+12. **Mandela elected President of South Africa in 1994** — Correct. He won the first multiracial election and took office in May 1994.
+
+**Inaccurate claims:**
+2. Magna Carta was sealed by **King John**, not King Richard, in 1215.
+3. Columbus first reached the Americas in **1492**, not 1493.
+6. Waterloo took place in **1815**, not 1812 (the year of the Russian campaign).
+7. The Titanic sank on 15 April **1912**, not 1913.
+10. The Berlin Wall fell in November **1989**, not 1991.
+
+ERRORS:
+2: King John (not Richard)
+3: 1492
+6: 1815
+7: 1912
+10: 1989

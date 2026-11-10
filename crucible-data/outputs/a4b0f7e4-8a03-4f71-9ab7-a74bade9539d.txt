@@ -1,0 +1,54 @@
+## Problem 1
+
+Count integers divisible by 3 or 7 but not by 21 (note: divisible by both 3 and 7 ⟺ divisible by 21).
+
+- Divisible by 3: ⌊10000/3⌋ = 3333
+- Divisible by 7: ⌊10000/7⌋ = 1428
+- Divisible by 21: ⌊10000/21⌋ = 476
+
+By inclusion–exclusion, divisible by 3 **or** 7: $3333 + 1428 - 476 = 4285$.
+
+Since every multiple of 21 is already in this set, remove them:
+$$4285 - 476 = \boxed{3809}$$
+
+## Problem 2
+
+Note $7^4 = 2401 \equiv 1 \pmod{100}$, so the order of 7 is 4. Since $2026 = 4(506) + 2$:
+$$7^{2026} \equiv (7^4)^{506}\cdot 7^2 \equiv 1 \cdot 49 = \boxed{49}$$
+
+## Problem 3
+
+Let $f(n)$ = ways to tile a $2\times n$ board. Analyzing the leftmost column:
+- Vertical domino → leaves $2\times(n-1)$: $f(n-1)$
+- Two horizontal dominoes → leaves $2\times(n-2)$: $f(n-2)$
+- One $2\times2$ square → leaves $2\times(n-2)$: $f(n-2)$
+
+$$f(n) = f(n-1) + 2f(n-2), \quad f(0)=1,\ f(1)=1$$
+
+| n | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|----|----|----|
+| f | 1 | 1 | 3 | 5 | 11 | 21 | 43 | 85 | 171 | 341 | 683 | 1365 | **2731** |
+
+(Check: $f(2)=3$ = two verticals, two horizontals, one square. ✓)
+
+## Problem 4
+
+$$P(\max = 4) = P(\max \le 4) - P(\max \le 3) = \left(\tfrac{4}{6}\right)^3 - \left(\tfrac{3}{6}\right)^3 = \frac{64}{216} - \frac{27}{216} = \boxed{\frac{37}{216}}$$
+
+## Problem 5
+
+Each child has $2 \times 7 = 14$ equally likely types (gender × day). Let $T$ = "at least one is a boy born Tuesday," $A$ = "both boys."
+
+- $|T|$: at least one B-Tue $= 14 + 14 - 1 = 27$
+- $|A \cap T|$: both boys with at least one B-Tue $= 7 + 7 - 1 = 13$
+
+$$P(A\mid T) = \frac{13}{27}$$
+
+(The tempting wrong answer is $\tfrac13$, but the Tuesday detail changes it.)
+
+## ANSWERS
+1. 3809
+2. 49
+3. 2731
+4. 37/216
+5. 13/27

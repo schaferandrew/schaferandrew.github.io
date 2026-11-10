@@ -1,0 +1,18 @@
+Done. `slots.json` is written in the working directory.
+
+**Method:** Parsed `calendar-fixture.json`, enumerated all 30-minute-start slots from Mon 2026-08-31 09:00 to Mon 2026-09-07 17:00 (America/Chicago), kept 60-min meetings that run fully within 09:00–17:00 on a single day and don't overlap any busy event of either person (back-to-back allowed), then ranked by weekday preference, minimum gap to nearest existing meeting, and avoiding each day's first/last available hour.
+
+**Results:**
+- **85 valid slots** (verified against a manual day-by-day check):
+  - Mon 8/31: 11:00, 11:30, 12:00, 15:30, 16:00 (5)
+  - Tue 9/1: 10:00–14:00 (9) — nothing after since Alex's call runs to 16:30
+  - Wed 9/2: 10:30–12:00 and 14:00–16:00 (9)
+  - Thu 9/3: 09:00–10:00, 12:00–14:00, 16:00 (9)
+  - Fri 9/4: 11:00–13:00, 15:00–16:00 (8)
+  - Sat 9/5 & Sun 9/6: all 15 hourly/half-hourly starts each (30)
+  - Mon 9/7: all 15 starts (15)
+
+**Top 3:**
+1. **2026-08-31T12:00** — Monday, ends back-to-back with Alex's 13:00 Design review; Jamie free after 10:00; midday, avoids edge hours.
+2. **2026-08-31T15:30** — Monday, starts the moment Jamie's Sales call ends; Alex free after 14:00.
+3. **2026-09-02T12:00** — Wednesday, ends back-to-back with Jamie's 13:00 Budget meeting; 1.5h after Alex's Planning; midday.

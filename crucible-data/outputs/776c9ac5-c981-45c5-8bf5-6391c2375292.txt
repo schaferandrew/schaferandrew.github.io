@@ -1,0 +1,13 @@
+## Evaluation
+
+**Correctness (5):** The function `is_palindrome` builds a list of lowercased alphanumeric characters and compares it to its reverse via `cleaned == cleaned[::-1]`. This returns the correct boolean for all inputs, including edge cases like empty strings and mixed-case Unicode. **Score: 5/5**
+
+**Ignores case and non-alphanumeric characters (2):** Case is handled with `.lower()`; non-alphanumeric characters are filtered out with `c.isalnum()`. Both requirements are clearly addressed. **Score: 2/2**
+
+**Examples (2):** Two example calls are shown, each with the correct result — "A man, a plan, a canal: Panama" → True and "Hello, world" → False. **Score: 2/2**
+
+**Concise (1):** The response opens with a substantial preamble explaining what a palindrome is ("a sequence that reads the same in both directions"), noting there are "many ways to approach them," and discussing common reversal strategies — none of which was requested by the task. This is textbook padding, followed by an additional explanatory sentence at the end. **Score: 0/1**
+
+**Total: 5 + 2 + 2 + 0 = 9/10**
+
+GRADE: 9

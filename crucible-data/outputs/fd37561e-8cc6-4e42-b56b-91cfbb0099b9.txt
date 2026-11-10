@@ -1,0 +1,8 @@
+**Reasoning:** The two clear errors are "then" (should be "than," a comparative conjunction) and "to fast" (should be "too fast," meaning excessively). Both are unambiguous typos that change the grammar, so I corrected them silently. Everything else—especially the fragments and punctuation—is stylistic, so I left it and flagged it below.
+
+CORRECTED:
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder than she remembered it, all brakes shrieking and people talking too fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+POSSIBLY INTENTIONAL:
+"Not waiting for her, exactly." — A fragment (not a full sentence), but it reads as deliberate: the abrupt break after "waiting" and the parenthetical "exactly" create rhythm and emphasis, matching the voice of someone weighing how to feel about returning. Left intact rather than silently completing or removing it.
+"whether to laugh, or leave" — The comma before "or" is an Oxford-style pause that slows the final line; defensible as a deliberate beat before the last choice, though some editors would drop it. I left it since it serves the pacing and isn't strictly wrong.

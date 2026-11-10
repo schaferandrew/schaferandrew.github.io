@@ -1,0 +1,45 @@
+Done. Here's a summary of what was wrong and how I fixed it.
+
+## Diagnosis
+
+There were **two** defects, both in `app/page.tsx`:
+
+1. **Hooks don't exist in Server Components.** The file lives in the app directory with no `"use client"` directive, so Next.js treats it as a *Server Component*. But it used `React.useState`/`React.useEffect`, which aren't available server-side → `a.useState is not a function`. This crashed static prerendering during `next build`.
+2. **Type collapse to `never`.** The JSON payload from `.json()` was untyped (`any`), and after the initial `useState(null)` plus an early `if (!account) return`, TypeScript narrowed `account` to `never`, so `account.name`/`account.plan` failed type-checking (build error at compile time).
+
+The existing tests only covered the API route, not the page — so neither bug was caught by the test suite.
+
+## Fix (`app/page.tsx`)
+
+Converted it to an idiomatic **async Server Component** that reads data directly from the API route (the server-data boundary), with a typed `Account` interface and error handling:
+
+```tsx
+export const dynamic = 'force-dynamic';
+
+interface Account { name: string; plan: string; }
+
+async function loadAccount(id: string): Promise<Account | null> {
+  const res = await fetch(`/api/account?id=${encodeURIComponent(id)}`, { cache: 'no-store' });
+  if (!res.ok) return null;
+  return (await res.json()) as Account;
+}
+
+export default async function AccountPage() {
+  const account = await loadAccount('acct_1');
+  if (!account) return <p>Account not found.</p>;
+  return (<main><h1>Account</h1><p>Name: {account.name}</p><p>Plan: {account.plan}</p></main>);
+}
+```
+
+This preserves the original rendering intent (h1 + Name/Plan) and keeps the route handler as the data layer.
+
+## Tests
+
+- Moved the API tests to a correctly-named `app/api/account/route.test.ts` (kept, still passing).
+- Rewrote `app/page.test.tsx` to cover the actual page: one test asserts it renders **Name: Alice / Plan: Pro** for `acct_1`, and another asserts the fallback when loading fails.
+
+Note on testing: RTL 16 is built for React 19 and renders an empty container under this project's React 18, so I drive the server component through `react-dom/client` (resolving it first, as Next does) with flush cycles — all 4 tests pass, and `next build` succeeds.
+
+Verification:
+- `npm test` → **4 passed**
+- `next build` → compiles successfully, `/` served dynamically

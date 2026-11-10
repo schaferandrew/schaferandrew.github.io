@@ -1,0 +1,28 @@
+All changes are confined to `app/` and `lib/`; no dependencies added and config/package files untouched. Both `npm test` (19 passing) and `npm run build` succeed.
+
+## Summary
+
+### What was wrong
+
+1. **Build failure** — `LeadForm.tsx` used React event handlers (`onSubmit`) and `fetch`, but had no `"use client"` directive, so Next.js treated it as a Server Component and tried to prerender it during the static build. That timed out (the config caps static generation at 10s) → "Static page generation for /contact is still timing out."
+
+2. **Couldn't type in dev** — the form stored field values in a module-level `const values` object with no React state. Controlled inputs read from it, but nothing ever triggered a re-render after `onChange`, so `value` stayed frozen at its initial empty string forever.
+
+3. **Form was unfinished** — no validation, no error messages/ids, no focus management, and it POSTed raw values without the required success/failure handling. The API (`route.ts`) also just passed data through instead of trimming, filling a missing company with `""`, normalizing the email, or rejecting bad input with 422.
+
+### What I changed
+
+- **`app/contact/LeadForm.tsx`** (rewritten):
+  - Added `"use client"` + `export const dynamic = "force-static"` so it's interactive yet prerendered server-side (HTML/form present in the built `/contact`).
+  - Real React state (`useState`) so fields show what's typed; natural DOM order gives correct Tab flow and Enter-to-submit.
+  - Client validation: name/email/message required, whitespace-only counts as empty; email validated with the shared helper. On error it shows the app's own messages (ids `lead-name-error`, etc.), sets `aria-invalid="true"` + `aria-describedby` on each bad field, moves focus to the first invalid field, keeps typed values, and sends nothing.
+  - On valid submit: POSTs `{name,email,company,message}` as JSON; shows `lead-success` only on a 201, otherwise keeps the form and its contents (also surfaces API errors if any).
+
+- **`lib/email.ts`** (new): `normalizeEmail` (trim + lowercase), `isValidEmail` (accommodating about input — spaces/caps/plus-addressing/dots/subdomains/hyphenated domains/new long TLDs; strict about validity — one `@`, nothing empty around a dot, no spaces, labels of letters/digits with inner hyphens only, ≥2-letter TLD), and the app's invalid-email message.
+
+- **`app/api/leads/route.ts`** (updated): trims every field, saves a missing company as `""`, normalizes the email via the shared helper, validates required fields + email, returns 422 `{errors}` and saves nothing on any problem, otherwise 201 `{lead: savedLead}`.
+
+- **`lib/email.test.ts`** (new): covers the accommodating/strict email rules; existing `lib/leads.test.ts` still passes.
+
+### Verification
+`npm test` → 19 passing; `npm run build` → succeeds, `/contact` prerendered as static content with all required ids (`lead-form`, `lead-name/email/company/message`, `lead-submit`) present in the server-rendered HTML.

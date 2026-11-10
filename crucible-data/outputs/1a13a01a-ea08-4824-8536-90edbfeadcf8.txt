@@ -1,0 +1,31 @@
+## Reasoning
+
+**Objective language errors (spelling, grammar, agreement, word choice):**
+
+- **3.** Subject–verb agreement: the subject of "is" is *prices* (plural), so it must be "**are**."
+- **6.** "it's" is a contraction of "it is"; the possessive form needed here is "**its**."
+- **12.** Comparative conjunction: you need "**than**," not "then."
+
+**Claims/wording that are overstated, imprecise, unclear, or misleading:**
+
+- **1.** Presents monetary expansion as *the* cause of inflation. Inflation can also come from demand-pull and cost-push factors, so this is an incomplete (imprecise) definition.
+- **4.** False: the Fed has no legal mandate to raise rates once CPI exceeds 2%; that figure is a stated goal, not a statutory trigger.
+- **8.** Calling people unemployed "lazy" mischaracterizes cyclical/structural unemployment; it's misleading.
+- **11.** Overstates both certainty and consequence—QE isn't simply "printing money," and it does not *inevitably* produce hyperinflation.
+- **14.** One episode (Japan) doesn't *prove* a universal conclusion, and "completely ineffective" overstates the case; monetary policy has had real effects elsewhere.
+- **18.** Overstated: supply-side economics remains contested rather than "definitively debunked," and the economy did grow in the 1980s despite larger deficits ("without growing the economy at all" is false).
+
+The remaining sentences are grammatically sound and factually defensible, so they get no flag.
+
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: imprecise
+4: misleading
+8: misleading
+11: overstated
+14: overstated
+18: overstated

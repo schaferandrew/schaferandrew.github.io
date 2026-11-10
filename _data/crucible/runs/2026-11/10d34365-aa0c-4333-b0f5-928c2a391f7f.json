@@ -1,0 +1,98 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "10d34365-aa0c-4333-b0f5-928c2a391f7f",
+ "run_path": "lmstudio_qwen3.8-27b-splash/logic-and-game-puzzles/20261109_184934",
+ "legacy_run_id": null,
+ "started_at": "2026-11-09T18:49:34.725927+00:00",
+ "ended_at": "2026-11-09T19:05:22.457906+00:00",
+ "elapsed_s": 946.98,
+ "task": {
+  "id": "logic-and-game-puzzles",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "8104a48508bbe599",
+  "rubric_hash": "2502acca0cb631ef",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/qwen3.8-27b-splash",
+  "base": "qwen3.8-27b-splash",
+  "publisher": "incoai",
+  "artifact": "incoai/Qwen3.8-27B-Splash",
+  "format": "splash",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on",
+   "resolved_source": "server"
+  },
+  "context_loaded": 100292,
+  "variant_key": "qwen3.8-27b-splash|incoai|splash|mlx-4bit",
+  "display": "qwen3.8-27b-splash · 4bit",
+  "origin": {
+   "maker": null,
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "none"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": null,
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "no_answer",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 1731,
+  "tokens_out": 77806,
+  "model_responses": 1,
+  "ttft_s": 3.098,
+  "ttft_avg_s": 3.098,
+  "response_time_avg_s": 946.973,
+  "output_tokens_per_s": 82.4,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 133808
+ },
+ "output_ref": null,
+ "provenance": {
+  "crucible_version": "3.8.0",
+  "crucible_commit": "dde6095",
+  "crucible_dirty": false,
+  "machine_id": "m_9482e089d1c3",
+  "machine_label": "Duskfall",
+  "source": "crucible-run",
+  "content_hash": "sha256:04a612efc73c0dbdd3ed467d8e2545fd4719714f65f5b7a3de090d8a071c836e",
+  "submitter": null,
+  "verification": null
+ }
+}

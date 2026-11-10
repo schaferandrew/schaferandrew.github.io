@@ -1,0 +1,1 @@
+Now let me write a Puppeteer script to reproduce in a real browser, capturing console, network, and page state.

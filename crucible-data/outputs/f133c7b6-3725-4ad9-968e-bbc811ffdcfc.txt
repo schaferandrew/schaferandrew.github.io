@@ -1,0 +1,135 @@
+⏺ bash(command=ls -R)
+  ⎿ ./node_modules/setprototypeof:
+index.d.ts
+index.js
+LICENSE
+package.json
+README.md
+test
+
+./node_modules/setprototypeof/test:
+index.js
+
+./node_modules/side-channel:
+CHANGELOG.md
+index.d.ts
+index.js
+LICE
+⏺ bash(command=ls -F)
+  ⎿ apps/
+docs/
+node_modules/
+package-lock.json
+package.json
+packages/
+prompt.txt
+README.md
+tsconfig.base.json
+⏺ read(path=README.md)
+  ⎿ # Conduit
+
+A [RealWorld](https://realworld.how) implementation: a Medium-style blogging platform with users, profiles, articles, comments, favorites, follows and tags.
+
+```
+apps/api         Express RE
+⏺ read(path=docs/accessibility-audit.md)
+  ⎿ # Accessibility audit: Conduit web app (summary)
+
+External audit against WCAG 2.2 AA, tested with VoiceOver (macOS Safari), NVDA (Firefox) and keyboard only. Overall result: **fail**. We need to pass 
+⏺ bash(command=ls -F apps/web/src)
+  ⎿ api/
+App.tsx
+auth/
+components/
+main.tsx
+pages/
+⏺ bash(command=ls -F apps/web/src/components apps/web/src/pages)
+  ⎿ apps/web/src/components:
+ArticleList.tsx
+ArticlePreview.tsx
+ConfirmDialog.tsx
+FavoriteButton.tsx
+Pagination.tsx
+ReadMore.tsx
+TagFilter.tsx
+Toast.tsx
+
+apps/web/src/pages:
+ArticlePage.tsx
+EditorPage.tsx
+⏺ read(path=apps/web/src/components/ConfirmDialog.tsx)
+  ⎿ interface Props {
+  open: boolean;
+  title: string;
+  message: string;
+  confirmLabel?: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+}
+
+/** Confirmation overlay for destructive actions. */
+⏺ bash(command=grep -r "ConfirmDialog" apps/web/src)
+  ⎿ apps/web/src/components/ConfirmDialog.tsx:export function ConfirmDialog({ open, title, message, confirmLabel = "Delete", onConfirm, onCancel }: Props) {
+apps/web/src/pages/ArticlePage.tsx:import { Con
+⏺ read(path=apps/web/src/pages/ArticlePage.tsx)
+  ⎿ import type { Article, Comment } from "@conduit/shared";
+import { type FormEvent, useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { api } fr
+⏺ edit(path=apps/web/src/components/ConfirmDialog.tsx, edits=[{'newText': 'import { useEffect, useRef } from "react";\n\n)
+  ⎿ Successfully replaced 1 block(s) in apps/web/src/components/ConfirmDialog.tsx.
+⏺ read(path=apps/web/src/components/ReadMore.tsx)
+  ⎿ import { useState } from "react";
+
+interface Props {
+  text: string;
+  /** characters shown before "Read more" */
+  limit?: number;
+}
+
+/** Long article bodies start collapsed. */
+export function ReadM
+⏺ edit(edits=[{'newText': 'import { useState } from "react";\n\ninterface, path=apps/web/src/components/ReadMore.tsx)
+  ⎿ Successfully replaced 1 block(s) in apps/web/src/components/ReadMore.tsx.
+⏺ edit(edits=[{'newText': 'import { useState, useId } from "react";\n\nin, path=apps/web/src/components/ReadMore.tsx)
+  ⎿ Could not find the exact text in apps/web/src/components/ReadMore.tsx. The old text must match exactly including all whitespace and newlines.
+⏺ read(path=apps/web/src/components/ReadMore.tsx)
+  ⎿ import { useState } from "react";
+
+interface Props {
+  text: string;
+  /** characters shown before "Read more" */
+  limit?: number;
+}
+
+/** Long article bodies start collapsed. */
+export function ReadM
+⏺ edit(edits=[{'newText': 'import { useState, useId } from "react";\n\nin, path=apps/web/src/components/ReadMore.tsx)
+  ⎿ Successfully replaced 1 block(s) in apps/web/src/components/ReadMore.tsx.
+⏺ read(path=apps/web/src/components/TagFilter.tsx)
+  ⎿ import { useState } from "react";
+
+interface Props {
+  tags: string[];
+  /** the selected tag, or null for all */
+  value: string | null;
+  onChange: (tag: string | null) => void;
+}
+
+/** "Filter by ta
+⏺ edit(edits=[{'newText': 'import { useState } from "react";\n\ninterface, path=apps/web/src/components/TagFilter.tsx)
+  ⎿ Successfully replaced 1 block(s) in apps/web/src/components/TagFilter.tsx.
+⏺ read(path=apps/web/src/components/FavoriteButton.tsx)
+  ⎿ import type { Article } from "@conduit/shared";
+import { useState } from "react";
+import { api } from "../api/client";
+import { useAuth } from "../auth/AuthContext";
+
+/** Toggles a favorite. Shows the
+⏺ edit(edits=[{'newText': '    <button\n      type="button"\n      classN, path=apps/web/src/components/FavoriteButton.tsx)
+  ⎿ Successfully replaced 1 block(s) in apps/web/src/components/FavoriteButton.tsx.
+⏺ read(path=apps/web/src/pages/EditorPage.tsx)
+  ⎿ import { type FormEvent, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { ApiError, api } from "../api/client";
+import { Toast } from "../compone

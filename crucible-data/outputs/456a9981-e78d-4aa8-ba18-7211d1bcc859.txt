@@ -1,0 +1,35 @@
+## Reasoning
+
+**Step 1 — Fix the green seat.**
+Clue 3 says chair 1 is green. So whoever sits in chair 1 likes green.
+
+**Step 2 — Assign colors to people.**
+- Clue 5: Dave = red → Dave ≠ green, so Dave isn't in chair 1.
+- Clue 4: Carol = yellow → Carol ≠ green, so Carol isn't in chair 1.
+- Therefore **chair 1 is Alice or Bob**, and the remaining two colors (green, blue) go to these two people.
+
+**Step 3 — Use clue 1.**
+"Alice sits immediately to the left of the person who likes blue." This means Alice is *not* the blue person (she's to their left). Since the only unassigned colors are green and blue, **Alice = green**, which forces **Bob = blue**.
+
+Since chair 1 is green, **Chair 1: Alice, green.**
+
+**Step 4 — Place Bob.**
+The blue person is Bob, and Alice (chair 1) sits immediately to his left. So **Chair 2: Bob, blue.** This also satisfies clue 2 (Bob not in chair 4). ✓
+
+**Step 5 — Place Carol and Dave.**
+Chairs 3 and 4 remain for Carol (yellow) and Dave (red). Clue 4 says Carol sits to the right of the red person. The red person is Dave, so **Dave must be left of Carol**: Dave in chair 3, Carol in chair 4.
+
+## Verification
+1. Alice (chair 1) immediately left of blue (Bob, chair 2). ✓
+2. Bob not in chair 4. ✓
+3. Green in chair 1. ✓
+4. Carol (yellow, chair 4) right of red (Dave, chair 3). ✓
+5. Dave = red. ✓
+
+```
+Chair 1: Alice, green
+Chair 2: Bob, blue
+Chair 3: Dave, red
+Chair 4: Carol, yellow
+ANSWER: Dave
+```

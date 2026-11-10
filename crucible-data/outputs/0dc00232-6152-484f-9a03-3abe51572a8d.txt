@@ -1,0 +1,1 @@
+This is a lot of overlapping data. Let me write a script to find common free one-hour slots across all 16 team members during business hours.

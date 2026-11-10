@@ -1,0 +1,98 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "90972a6d-471a-4471-a53c-1eaf9771a2ab",
+ "run_path": "lmstudio_google_gemma-4-31b/news-briefing-from-feeds/20261110_175636",
+ "legacy_run_id": null,
+ "started_at": "2026-11-10T17:56:36.686617+00:00",
+ "ended_at": "2026-11-10T18:02:56.986843+00:00",
+ "elapsed_s": 379.76,
+ "task": {
+  "id": "news-briefing-from-feeds",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "ab43c774dcf4271c",
+  "rubric_hash": "7f63c4216de11a95",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/google/gemma-4-31b",
+  "base": "google/gemma-4-31b",
+  "publisher": "google",
+  "artifact": "google/gemma-4-31b",
+  "format": "mlx",
+  "quant": "4bit",
+  "reasoning": {
+   "requested": "default",
+   "resolved": "on",
+   "resolved_source": "server"
+  },
+  "context_loaded": 100292,
+  "variant_key": "google/gemma-4-31b|google|mlx|mlx-4bit",
+  "display": "gemma-4-31b · 4bit",
+  "origin": {
+   "maker": "google",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "lmstudio-key"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 1041,
+  "tokens_out": 4998,
+  "model_responses": 1,
+  "ttft_s": 3.571,
+  "ttft_avg_s": 3.571,
+  "response_time_avg_s": 379.747,
+  "output_tokens_per_s": 13.3,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 15828
+ },
+ "output_ref": "outputs/90972a6d-471a-4471-a53c-1eaf9771a2ab.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "dde6095",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:112562348c9e20d27acd438c26dedfbebe4a537e9f7449dc507e2336407fd415",
+  "submitter": null,
+  "verification": null
+ }
+}

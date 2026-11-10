@@ -1,0 +1,13 @@
+I have diagnosed the issue: `app/page.tsx` was using client-side hooks (`useState`, `useEffect`) but was declared as a Server Component (since it lacked the `'use client';` directive). This would cause the component to fail during rendering in a Next.js App Router environment.
+
+To fix this and implement an idiomatic modern Next.js approach, I have:
+1.  Created a shared data source in `lib/data.ts` to avoid duplication between the API route and the page.
+2.  Converted `AccountPage` into an async Server Component that accesses the account data directly on the server, eliminating unnecessary client-side fetching and "Loading..." states.
+3.  Updated `app/api/account/route.ts` to use the shared data source.
+4.  Added a test case in `app/page.test.tsx` to verify that the `AccountPage` renders correctly.
+
+### Changes made:
+- Created `lib/data.ts` with the simulated database.
+- Updated `app/page.tsx` to be a Server Component fetching data directly.
+- Updated `app/api/account/route.ts` to use the shared data source.
+- Updated `app/page.test.tsx` to include a test for the page component.

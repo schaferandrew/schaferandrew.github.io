@@ -1,0 +1,16 @@
+## Evaluation
+
+**Accuracy (4):** All claims in the summary are supported by the passage with no invented details. The hours extension, March start date, survey percentage, funding amount and one-year limit, winter review condition, and opposition over staffing are all faithfully represented. Minor paraphrase ("asked for evening access" vs. "said evening access was their top request") preserves meaning without fabrication.
+
+**Exactly two sentences (3):** The response contains **three** sentences:
+1. "...following a survey where 62% of residents asked for evening access."
+2. "The change is funded by a $40,000 grant that covers one year..."
+3. "Two board members opposed the decision over staffing concerns."
+
+This directly violates the explicit constraint and earns no points here.
+
+**Key points (3):** All three required elements are captured — the hours extension, the funding limit, and the resident survey.
+
+## Total: 4 + 0 + 3 = 7
+
+GRADE: 7

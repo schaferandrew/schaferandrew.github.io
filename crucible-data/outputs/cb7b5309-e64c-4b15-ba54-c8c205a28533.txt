@@ -1,0 +1,2 @@
+The jsdom environment in this container lacks `localStorage` (about:blank origin) — pre-existing breakage. Let me see if a minimal config fix makes the web suite green:
+

@@ -1,0 +1,16 @@
+## Evaluation
+
+**Accuracy (4):** Every claim in the summary is directly supported by the passage with no invented details. The hours extension to 8 p.m. starting in March, the 62% survey figure, the $40,000 grant covering one year, the winter revisit condition, and the two opposing board members citing staffing concerns are all faithfully represented. **Score: 4/4**
+
+**Exactly two sentences (3):** The response contains three sentences, not two:
+1. "The Millbrook library board voted to extend weekend hours to 8 p.m. starting in March, following a survey where 62% of residents asked for evening access."
+2. "The change is funded by a $40,000 grant that covers one year, and the board will revisit it next winter if no further money is found."
+3. "Two board members opposed the decision over staffing concerns."
+
+The task explicitly required exactly two sentences. The agent appended a third sentence (the opposition/staffing detail) as a separate sentence rather than integrating it into the first or second. This is a clear violation of an explicit constraint. **Score: 0/3**
+
+**Key points (3):** The summary captures all three required elements: the hours extension ("extend weekend hours to 8 p.m."), the funding limit ("$40,000 grant that covers one year"), and the resident survey ("62% of residents asked for evening access"). **Score: 3/3**
+
+**Reasoning on total:** The response is accurate and complete in content, but it fails the central structural requirement. The "exactly two sentences" constraint was a specific, testable instruction, and producing three sentences is an unambiguous miss. I do not reward the extra sentence as a bonus for completeness—the criteria already account for key points, which were met within the first two sentences anyway.
+
+GRADE: 7

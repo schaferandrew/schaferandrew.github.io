@@ -1,0 +1,14 @@
+**Reasoning:** It's Monday Aug 31, 2026, ~8:30am CT. "This week" = Mon Aug 31 – Fri Sep 4, and we're both in America/Chicago, so no time zone conversion is needed. I looked at my full calendar and Jamie's free/busy (Jamie is shared with me free/busy-only) across typical work hours (9:00–17:00) and searched for a full shared hour:
+
+- **Mon:** I'm free 13:00–14:00, but Jamie is busy 14:00–17:00 and has no other overlap → no hour.
+- **Tue:** Our overlaps are only 30-min fragments (10:30–11:00; I'm free 13:00–14:00 but Jamie starts at 14:30) → no hour.
+- **Wed:** I'm open 14:00–17:00 and Jamie is open 15:30–17:00 → a clean 1.5-hour shared window (15:30–17:00). ✅
+- **Thu:** I'm open 11:00–12:00 and 16:00–17:00, both of which match Jamie's open slots → two 1-hour slots. ✅ (My 13:00–15:00 design sync is declined, but I'd avoid relying on that.)
+- **Fri:** Shared open time is only 30-minute fragments (10:30–11:30… actually Jamie 10:30–12:00 vs my standup, etc.) → no full hour.
+
+Best pick is Wednesday, since it has the most buffer (90 minutes, so the meeting can flex), with the Thursday slots as backups.
+
+OPTIONS:
+2026-09-02 15:30 CT
+2026-09-03 11:00 CT
+2026-09-03 16:00 CT

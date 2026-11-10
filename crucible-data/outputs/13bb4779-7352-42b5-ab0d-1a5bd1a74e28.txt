@@ -1,0 +1,18 @@
+## Reasoning
+
+Two genuine errors stand out:
+
+- **"louder then she remembered"** → *then* is a temporal adverb; this needs the comparative **than** ("louder than"). Clear mistake.
+- **"talking to fast"** → *to* is a preposition that can't modify an adjective here; the intended word is **too** ("excessively fast"). Clear mistake.
+
+Three things I deliberately left alone:
+
+- The sentence fragment **"Not waiting for her, exactly."** — this is clearly intentional stylistic rhythm (the whole passage leans on fragments and pauses), so per your instructions it stays untouched.
+- The em dash in **"Still—she was back."** — grammatically correct and effective here as a dramatic beat after the transitional word *still*, so there's no reason to change it. I kept it.
+- The comma before **or** in **"whether to laugh, or leave."** — this is where judgment calls in. A two-item list normally takes no comma ("laugh or leave"), but your author clearly favors measured pauses and deliberate beats throughout, so this could be a purposeful rhythmic hold rather than a slip. I've flagged it instead of silently removing it.
+
+CORRECTED:
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder than she remembered it, all brakes shrieking and people talking too fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+POSSIBLY INTENTIONAL:
+- ", or" in "whether to laugh, or leave": a comma before a single coordinating conjunction joining two items isn't standard grammar, but the author's deliberate pacing and use of fragments suggest this pause may be intentional; left as written rather than silently removed.

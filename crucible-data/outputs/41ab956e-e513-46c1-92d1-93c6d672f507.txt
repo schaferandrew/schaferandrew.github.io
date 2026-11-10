@@ -1,0 +1,58 @@
+# Working
+
+## 1. Savings account (compound interest)
+
+**Formula:** A = P(1 + r/n)^(nt)
+
+- P = $5,000, r = 0.04, n = 12 (monthly), t = 3
+
+A = 5000 × (1 + 0.04/12)^(12×3)
+  = 5000 × (1.003333…)³⁶
+
+Building up the power by repeated squaring:
+
+| Step | Value |
+|------|-------|
+| (1.003333)² | 1.00667778 |
+| (1.003333)⁴ | 1.01340015 |
+| (1.003333)⁸ | 1.02697986 |
+| (1.003333)¹⁶ | 1.05468764 |
+| (1.003333)³² | 1.11236601 |
+| (1.003333)³⁶ = ³² × ⁴ | 1.11236601 × 1.01340015 = **1.12727188** |
+
+A = 5000 × 1.12727188 = 5636.3594…
+
+**Rounded: $5,636.36**
+
+## 2. Flooring boxes
+
+- Required area with waste: 1,850 × 1.10 = **2,035 sq ft**
+- Boxes needed: 2,035 ÷ 23.5 = 86.596…
+
+You can't buy a fraction of a box, so round **up** → **87 boxes**.
+
+(Check: 87 × 23.5 = 2,044.5 sq ft ≥ 2,035 ✓; 86 × 23.5 = 2,021 < 2,035 ✗)
+
+## 3. Road-trip gas cost
+
+- Gallons: 412 mi ÷ 34 mi/gal = 12.117647… gal
+- Cost: 12.117647… × $3.89 = $47.137647…
+
+**Rounded: $47.14**
+
+## 4. Dinner split
+
+- Tip (18% of pre-tax): 0.18 × $172.00 = $30.96
+- Total bill: $186.40 + $30.96 = $217.36
+- Per person: $217.36 ÷ 4 = $54.34
+
+**Each person pays $54.34**
+
+---
+
+## ANSWERS
+
+1. $5,636.36
+2. 87 boxes
+3. $47.14
+4. $54.34

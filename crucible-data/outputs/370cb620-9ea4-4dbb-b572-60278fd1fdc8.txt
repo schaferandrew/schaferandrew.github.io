@@ -1,0 +1,9 @@
+**Reasoning:** I checked the user's primary calendar for **Tuesday, September 1, 2026, at 3:30 PM (America/Chicago)**.
+
+Events around that time:
+- **Design review** — 2:00 PM – 3:30 PM, Conference Room A (ends exactly at 3:30)
+- **Customer call** — 4:00 PM – 5:00 PM, Zoom
+
+The design review ends exactly at 3:30 PM, so it's over by that point, and the next event (customer call) doesn't start until 4:00 PM. So 3:30 PM falls in a gap.
+
+ANSWER: free

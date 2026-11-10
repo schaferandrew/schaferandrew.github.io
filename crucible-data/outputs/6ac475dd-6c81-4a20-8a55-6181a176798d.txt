@@ -1,0 +1,2 @@
+All 16 free-busy responses are in. Now let me compute the intersection programmatically:
+

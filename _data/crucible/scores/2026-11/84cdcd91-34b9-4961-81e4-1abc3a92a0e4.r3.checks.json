@@ -1,0 +1,122 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "84cdcd91-34b9-4961-81e4-1abc3a92a0e4",
+ "rubric_version": 3,
+ "rubric_hash": "056064e7a4ede298",
+ "method": "checks",
+ "scored_at": "2026-11-09T15:14:46.665052+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 0,
+  "total": 8,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "errors_fixed",
+   "type": "items",
+   "group": "Fixes the errors",
+   "label": "Fixes 'louder then' to 'louder than' and 'talking to fast' to 'talking too fast' in the CORRECTED: paragraph; one item each.",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "than",
+     "label": "then fixed to than",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "too",
+     "label": "to fixed to too",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  },
+  {
+   "id": "voice_kept",
+   "type": "items",
+   "group": "Keeps the author's voice",
+   "label": "Keeps these verbatim in the CORRECTED: paragraph: 'Not waiting for her, exactly.', 'That would have been too kind.', 'And she didn't know whether to laugh, or leave.' (comma included), the dash in 'Still—she was back' and 'smelled like rain, hot asphalt, and somebody's breakfast'; one item each.",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "fragment_1",
+     "label": "Fragment 'Not waiting for her, exactly.' kept",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "fragment_2",
+     "label": "Fragment 'That would have been too kind.' kept",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "fragment_3",
+     "label": "Ending 'laugh, or leave' kept with its comma",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "dash",
+     "label": "The dash in 'Still—she was back' kept",
+     "passed": false,
+     "detail": "no answer to check"
+    },
+    {
+     "id": "imagery",
+     "label": "Opening imagery kept word for word",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  },
+  {
+   "id": "flags_intent",
+   "type": "items",
+   "group": "Flags intent",
+   "label": "Lists at least one intentional choice (a fragment, the dash, the comma in 'laugh, or leave' or the opening imagery) in the POSSIBLY INTENTIONAL: block, not changed silently.",
+   "passed": false,
+   "detail": "no answer to check",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "listed",
+     "label": "At least one intentional choice listed",
+     "passed": false,
+     "detail": "no answer to check"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Fixes the errors",
+   "passed": 0.0,
+   "total": 2,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Keeps the author's voice",
+   "passed": 0.0,
+   "total": 5,
+   "detail": "no answer to check"
+  },
+  {
+   "id": "Flags intent",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no answer to check"
+  }
+ ]
+}

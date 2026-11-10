@@ -317,6 +317,10 @@
       return document.createTextNode(NONE);
     }
 
+    // Combined mode: the sections' names ("Chat and Agentic"), and a section-prefixed label
+    function sectionNames() { return C.listPhrase(V.parts.map(function (P) { return P.info.label; })); }
+    function inSection(section, text) { return section && V.combined ? section.label + ' · ' + text : text; }
+
     function renderModel(mr) {
       var bases = mr.bases, base0 = bases[0];
       var modeList = {}, modes = [];
@@ -324,6 +328,9 @@
         var list = S.view(m.id).variantsOf(bases);
         if (list.length) { modeList[m.id] = list; modes.push(m); }
       });
+      // Every section at once, when the suite has several and the model ran in more than one
+      var combined = S.hasCombined() && modes.length > 1 ? S.view(C.COMBINED) : null;
+      if (combined) modeList[C.COMBINED] = combined.variantsOf(bases);
       var allCfgs = Object.keys(D.CONFIGS).map(function (k) { return D.CONFIGS[k]; }).filter(function (c) { return bases.indexOf(c.base) !== -1; });
       var maker = D.makerOf(base0);
 
@@ -346,7 +353,9 @@
       var list = mode ? modeList[mode] : [], sel = null, deps = [], dep = null;
       if (list.length) {
         V = S.view(mode);
-        sel = list.filter(function (s) { return s.variant === mr.variant; })[0] || list[0];
+        sel = list.filter(function (s) { return s.variant === mr.variant || (V.combined && s.variant.slug === mr.variantSlug); })[0] ||
+          // a section's variant, from a link: the best combined variant it's part of
+          (V.combined && mr.variant && list.filter(function (s) { return s.variant.members.indexOf(mr.variant) !== -1; })[0]) || list[0];
         deps = V.deployments(sel.variant);
         dep = deps.filter(function (d) { return mr.deployment && d.deployment === mr.deployment; })[0] || deps[0];
         if (tickedFor !== mr.key + '|' + S.id + '|' + mode) { ticked = []; tickedFor = mr.key + '|' + S.id + '|' + mode; }
@@ -368,7 +377,7 @@
         empty.textContent = 'No run of this model counts in ' + S.name + ' yet.';
         return;
       }
-      renderPicker(modes, mode, list, sel, dep);
+      renderPicker(combined ? modes.concat([combined.info]) : modes, mode, list, sel, dep);
       renderTiles(sel);
       renderAreas(sel);
       renderDeployments(sel, deps, dep);
@@ -453,15 +462,18 @@
       var box = $('model-tiles');
       box.innerHTML = '';
       var head = V.head(), r = s.tier[head.id], o = s.overall;
-      if (V.showAgg()) tile(box, V.aggInfo().label, o.score !== null ? fmtScore(o.score) : NONE, V.aggTierNames() + ' added together, out of ' + o.max + (o.partial ? ' (partial)' : ''));
-      tile(box, head.label, r && r.score !== null ? fmtScore(r.score) : NONE, r ? r.scored + ' of ' + r.total + ' tasks' + (r.partial ? ' (partial)' : '') : 'no scored task');
+      // Combined tiers are section scores added up: say out of what
+      function outOf(res) { return res && res.max ? 'out of ' + res.max + ' · ' : ''; }
+      if (V.showAgg()) tile(box, V.aggInfo().label, o.score !== null ? fmtScore(o.score) : NONE, (V.combined ? sectionNames() : V.aggTierNames()) + ' added together, out of ' + o.max + (o.partial ? ' (partial)' : ''));
+      tile(box, head.label, r && r.score !== null ? fmtScore(r.score) : NONE, r ? outOf(r) + r.scored + ' of ' + r.total + ' tasks' + (r.partial ? ' (partial)' : '') : 'no scored task');
       V.TIERS.forEach(function (t) {
         if (t.id === head.id) return;
         var res = s.tier[t.id];
         if (S.gateOf(t.id)) {
-          tile(box, t.label + ' gate', verdictNode(s.verdict[t.id]), res && res.score !== null ? 'score ' + fmtScore(res.score) + ' · ' + res.scored + ' of ' + res.total + ' tasks' : 'no scored task');
+          tile(box, t.label + ' gate', verdictNode(s.verdict[t.id]), res && res.score !== null ? 'score ' + fmtScore(res.score) + (res.max ? ' of ' + res.max : '') + ' · ' + res.scored + ' of ' + res.total + ' tasks' +
+            (V.combined ? ' · passes when every section passes' : '') : 'no scored task');
         } else if (res) {
-          tile(box, t.label, res.score !== null ? fmtScore(res.score) : NONE, res.scored + ' of ' + res.total + ' tasks' + (res.partial ? ' (partial)' : ''));
+          tile(box, t.label, res.score !== null ? fmtScore(res.score) : NONE, outOf(res) + res.scored + ' of ' + res.total + ' tasks' + (res.partial ? ' (partial)' : ''));
         }
       });
       tile(box, 'Coverage', s.progress.done + ' of ' + s.progress.total, s.inProgress ? 'in progress: under ' + pct(S.IN_PROGRESS_BELOW) + ' of the tasks' : pct(s.progress.share) + ' of the tasks');
@@ -476,7 +488,7 @@
         if (!r.tasks.length) return;
         var none = r.state !== 'counted';
         var row = box.appendChild(el('div', { class: 'cm-area' + (none ? ' is-none' : '') + (r.pale && !none ? ' is-pale' : '') }));
-        row.appendChild(el('span', { class: 'cm-area-name' }, r.area.label));
+        row.appendChild(el('span', { class: 'cm-area-name' }, inSection(r.section, r.area.label)));
         var track = row.appendChild(el('span', { class: 'cm-area-track' }));
         if (!none) track.appendChild(el('span', { class: 'cm-area-fill' })).style.width = (r.score * 10) + '%';
         row.appendChild(el('span', { class: 'cm-area-val' }, r.state === 'not-run' ? 'not run' : r.state === 'none-count' ? 'none count' :
@@ -492,7 +504,13 @@
       span.appendChild(el('span', { class: 'cm-dep-label' }, d.label));
       span.appendChild(C.whereTag({ local: d.local, where: d.where || (d.local ? 'local' : 'cloud') }));
       if (!d.recorded) span.appendChild(el('span', { class: 'cm-unrecorded', title: 'These runs didn’t record where they ran. They count toward the variant’s quality but are left out of A/Bs and speed comparisons.' }, 'not recorded'));
+      if (d.missing && d.missing.length) span.appendChild(missingNote(d));
       return span;
+    }
+    // A combined deployment some section never ran on: its numbers cover the other sections only
+    function missingNote(d) {
+      return el('span', { class: 'cm-unrecorded', title: 'Time, speed and cost here cover only the sections that ran on this deployment.' },
+        'no ' + d.missing.map(function (m) { return m.label; }).join(', ') + ' runs');
     }
     function costCell(d) {
       return d.cost.value === null ? NONE : fmtCost(d.cost.value, d.local);
@@ -514,7 +532,8 @@
       var local = deps.some(function (d) { return d.local; }), cloud = deps.some(function (d) { return !d.local; });
       $('cm-deps-sub').textContent = 'Where this variant ran: speed, cost and reliability belong to a deployment, not to the variant. Median time is per task over finished runs; decode speed (output tokens per second of generation, prompt processing excluded) is the median over finished runs that recorded it, and depends on the machine. ' +
         (local && cloud ? 'Local cost is an electricity estimate (≈), cloud cost is what the provider billed; the two are never on one scale. ' : local ? 'Cost is an electricity estimate (≈): local runs aren’t billed. ' : 'Cost is what the provider billed. ') +
-        (deps.length > 1 ? 'Select a deployment to look at its A/B.' : '');
+        (V.combined ? 'Each deployment’s numbers are over every section’s runs on it. ' : '') +
+        (deps.length > 1 && !V.combined ? 'Select a deployment to look at its A/B.' : '');
       var table = $('cm-deps'), narrow = $('cm-deps-narrow');
       table.innerHTML = '';
       narrow.innerHTML = '';
@@ -548,6 +567,7 @@
         b.addEventListener('click', function () { pick(d); });
         title.appendChild(C.whereTag({ local: d.local, where: d.where || (d.local ? 'local' : 'cloud') }));
         if (!d.recorded) title.appendChild(el('span', { class: 'cm-unrecorded' }, 'not recorded'));
+        if (d.missing && d.missing.length) title.appendChild(missingNote(d));
         C.kvRow(li, 'Packaged by', packagerText(d));
         C.kvRow(li, 'Runs', d.runs + ' · ' + d.finished + ' finished · ' + d.timedOut + ' timed out · ' + d.errors + ' errors');
         C.kvRow(li, 'Median time', timeCell(d));
@@ -583,7 +603,10 @@
 
     function renderVariants(mode, list, sel, dep) {
       var dims = S.variantDims(mode).filter(function (d) { return dimValues(list, d).length > 1; });
-      $('variants-sub').textContent = list.length + ' variant' + (list.length === 1 ? '' : 's') + ' ran in this section, best first. Select a row to look at that variant; tick two to ' + MAX_COMPARE +
+      var canCompare = !V.combined;
+      $('variants-sub').textContent = V.combined
+        ? list.length + ' variant' + (list.length === 1 ? '' : 's') + ' across ' + sectionNames() + ', best first: one variant per section, alike but for the harness, scored added together. Select a row to look at that variant. Comparing is per section.'
+        : list.length + ' variant' + (list.length === 1 ? '' : 's') + ' ran in this section, best first. Select a row to look at that variant; tick two to ' + MAX_COMPARE +
         ' to compare them (each on ' + (dep ? 'the selected deployment where it ran' : 'its own machine') + ').';
       var table = $('cm-variants'), box = $('cm-variants-narrow');
       table.innerHTML = '';
@@ -595,7 +618,7 @@
         renderVariants(mode, list, sel, dep);
       }
       var head = el('tr');
-      head.appendChild(el('th', { scope: 'col' }, ''));
+      if (canCompare) head.appendChild(el('th', { scope: 'col' }, ''));
       head.appendChild(el('th', { scope: 'col' }, 'Coverage'));
       head.appendChild(el('th', { scope: 'col' }, dims.length ? dims.map(function (d) { return D.dimension(d).label; }).join(' · ') : 'Variant'));
       scoreCols().forEach(function (t) { head.appendChild(el('th', { scope: 'col', class: 'is-tier' }, t.label)); });
@@ -609,7 +632,8 @@
         var tr = body.appendChild(el('tr', { class: 'crucible-row' + (on ? ' is-selected' : ''), 'aria-selected': on, tabindex: '0' }));
         tr.addEventListener('click', pick);
         tr.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target === tr) { e.preventDefault(); pick(); } });
-        var cb = tr.appendChild(el('td')).appendChild(el('input', { type: 'checkbox', 'aria-label': 'Compare ' + label(s) }));
+        var cb = el('input', { type: 'checkbox', 'aria-label': 'Compare ' + label(s) });
+        if (canCompare) tr.appendChild(el('td')).appendChild(cb);
         cb.checked = ticked.indexOf(s.variant.key) !== -1;
         cb.disabled = !cb.checked && ticked.length >= MAX_COMPARE;
         cb.addEventListener('click', function (e) { e.stopPropagation(); });
@@ -631,6 +655,7 @@
           C.kvRow(li, t.label, v);
         });
         C.kvRow(li, 'Deployments', String(nd));
+        if (!canCompare) return;
         var lab = li.appendChild(el('label', { class: 'cm-card-check' }));
         var cb2 = lab.appendChild(el('input', { type: 'checkbox' }));
         cb2.checked = cb.checked;
@@ -641,6 +666,8 @@
       C.applyLayout(['cm-variants', 'cm-tasks']);
       var bar = $('cm-compare-bar');
       bar.innerHTML = '';
+      bar.hidden = !canCompare;
+      if (!canCompare) return;
       var ok = ticked.length >= 2 && ticked.length <= MAX_COMPARE;
       if (ok) {
         var slugs = ticked.map(function (k) { return setupOf(D.variantOf(k), dep); }).map(function (c) { return c.slug; });
@@ -676,8 +703,9 @@
 
     function renderAB(mode, sel, dep) {
       var sec = $('cm-ab');
-      var cands = dep && dep.recorded ? V.abCandidates(sel.variant, dep.deployment) : [];
-      sec.hidden = !cands.length && !(dep && !dep.recorded && V.variantsOf(sel.variant.base).length > 1);
+      // An A/B is one section's: a combined variant has none
+      var cands = !V.combined && dep && dep.recorded ? V.abCandidates(sel.variant, dep.deployment) : [];
+      sec.hidden = V.combined || (!cands.length && !(dep && !dep.recorded && V.variantsOf(sel.variant.base).length > 1));
       if (sec.hidden) return;
       $('cm-ab-pick').innerHTML = '';
       $('cm-db').innerHTML = '';
@@ -783,45 +811,52 @@
     function runsText(n) { return n.counted === n.runs ? String(n.runs) : n.counted + ' of ' + n.runs + ' counted'; }
 
     function renderTasks(mode, sel, dep) {
-      var v = sel.variant;
-      $('cm-tasks-sub').textContent = 'Every task for the selected variant, grouped by area; a score is the mean of its counted runs, over all its deployments. Time and cost are from ' +
-        (dep ? dep.label : 'its runs') + ' only. Select a score for its runs, checks and output.';
+      // Combined: each section's tasks, its cells from that section's member variant
+      var sections = V.combined ? V.parts.map(function (P, i) { return { V: P, v: sel.variant.members[i] }; }) : [{ V: V, v: sel.variant }];
+      var missing = sections.filter(function (x) { return !x.v; }).map(function (x) { return x.V.info.label; });
+      $('cm-tasks-sub').textContent = 'Every task for the selected variant, grouped by ' + (V.combined ? 'section and ' : '') + 'area; a score is the mean of its counted runs, over all its deployments. Time and cost are from ' +
+        (dep ? dep.label : 'its runs') + ' only. Select a score for its runs, checks and output.' +
+        (missing.length ? ' This variant has no ' + missing.join(', ') + ' runs, so those tasks aren’t listed.' : '');
       var table = $('cm-tasks'), narrow = $('cm-tasks-narrow'), panel = $('cm-cell-detail');
       table.innerHTML = '';
       narrow.innerHTML = '';
       panel.hidden = true;
-      var vlabel = variantText(v, mode), sObj = { label: C.shortName(v.base), cfg: v.cfgs[0] };
-      var tierIx = V.tiers;
-      var groups = V.info.areas.map(function (a) {
-        var l = V.orderedTasks.filter(function (t) { return t.area === a.id; });
-        l.sort(function (x, y) { return tierIx.indexOf(x.tier) - tierIx.indexOf(y.tier); });
-        return { area: a, tasks: l, key: V.mode + ':' + a.id };
-      }).filter(function (g) { return g.tasks.length; });
-      function open(t, c) {
-        D.showCellDetail(panel, S, sObj, t, c);
+      var groups = [];
+      sections.forEach(function (x) {
+        if (!x.v) return;
+        var P = x.V, tierIx = P.tiers;
+        var g0 = { v: x.v, vlabel: variantText(x.v, P.mode), sObj: { label: C.shortName(x.v.base), cfg: x.v.cfgs[0] } };
+        P.info.areas.forEach(function (a) {
+          var l = P.orderedTasks.filter(function (t) { return t.area === a.id; });
+          l.sort(function (p, q) { return tierIx.indexOf(p.tier) - tierIx.indexOf(q.tier); });
+          if (l.length) groups.push(Object.assign({ area: V.combined ? Object.assign({}, a, { label: inSection(P.info, a.label) }) : a, tasks: l, key: P.mode + ':' + a.id }, g0));
+        });
+      });
+      function open(g, t, c) {
+        D.showCellDetail(panel, S, g.sObj, t, c);
         var small = panel.querySelector('.crucible-task-id');
-        if (small) small.textContent = ' ' + vlabel;
+        if (small) small.textContent = ' ' + g.vlabel;
         panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
       var rerender = function () { renderTasks(mode, sel, dep); };
-      var local = dep ? dep.local : v.local;
-      function depNumbers(t) { var c = dep && S.variantCell(v, t.id, dep.key); return c ? D.cellNumbers(c) : null; }
+      var local = dep ? dep.local : sel.variant.local;
+      function depNumbers(v, t) { var c = dep && S.variantCell(v, t.id, dep.key); return c ? D.cellNumbers(c) : null; }
       if (C.isNarrow()) {
         groups.forEach(function (g) {
           var isOpen = !!openAreas[g.key];
           var group = narrow.appendChild(el('div', { class: 'crucible-area-narrow' + (isOpen ? ' is-open' : '') }));
-          group.appendChild(areaToggle(g.area, g.tasks, v, g.key, isOpen, rerender));
+          group.appendChild(areaToggle(g.area, g.tasks, g.v, g.key, isOpen, rerender));
           if (!isOpen) return;
           var ul = group.appendChild(el('ul', { class: 'crucible-cards' }));
           g.tasks.forEach(function (t) {
-            var c = S.variantCell(v, t.id), n = D.cellNumbers(c), dn = depNumbers(t);
+            var c = S.variantCell(g.v, t.id), n = D.cellNumbers(c), dn = depNumbers(g.v, t);
             var li = ul.appendChild(el('li', { class: 'crucible-card' + (c ? '' : ' is-not-run') }));
             var title = li.appendChild(el('div', { class: 'crucible-card-title' }));
             title.appendChild(el('a', { class: 'crucible-test-id', href: C.taskUrl(t.id) }, C.taskName(t)));
             title.appendChild(el('span', { class: 'crucible-tag crucible-tier-tag is-' + t.tier }, S.tierLabel(t.tier)));
             if (!c) { li.appendChild(el('p', { class: 'crucible-not-run' }, 'not run')); return; }
-            var b = D.cellButton(sObj, t, c, true);
-            b.addEventListener('click', function () { open(t, c); });
+            var b = D.cellButton(g.sObj, t, c, true);
+            b.addEventListener('click', function () { open(g, t, c); });
             var sv = el('span', { class: 'crucible-kv-value' });
             sv.appendChild(b);
             if (!n.counted) sv.appendChild(D.stateFlag(c.all[0].state));
@@ -841,18 +876,18 @@
         var isOpen = !!openAreas[g.key];
         var body = table.appendChild(el('tbody', { class: 'crucible-area' + (isOpen ? ' is-open' : '') }));
         var gr = body.appendChild(el('tr', { class: 'crucible-group crucible-area-row' }));
-        gr.appendChild(el('th', { colspan: columns.length, scope: 'rowgroup' })).appendChild(areaToggle(g.area, g.tasks, v, g.key, isOpen, rerender));
+        gr.appendChild(el('th', { colspan: columns.length, scope: 'rowgroup' })).appendChild(areaToggle(g.area, g.tasks, g.v, g.key, isOpen, rerender));
         if (!isOpen) return;
         g.tasks.forEach(function (t) {
-          var c = S.variantCell(v, t.id);
+          var c = S.variantCell(g.v, t.id);
           var row = body.appendChild(el('tr', { class: 'crucible-row' + (c ? '' : ' is-not-run') }));
           var name = row.appendChild(el('th', { scope: 'row' }));
           name.appendChild(el('a', { class: 'crucible-test-id', href: C.taskUrl(t.id) }, C.taskName(t)));
           name.appendChild(el('span', { class: 'crucible-tag crucible-tier-tag is-' + t.tier }, S.tierLabel(t.tier)));
           if (!c) { row.appendChild(el('td', { colspan: columns.length - 1, class: 'crucible-not-run' }, 'not run')); return; }
-          var n = D.cellNumbers(c), dn = depNumbers(t);
-          var b = D.cellButton(sObj, t, c, false);
-          b.addEventListener('click', function () { open(t, c); });
+          var n = D.cellNumbers(c), dn = depNumbers(g.v, t);
+          var b = D.cellButton(g.sObj, t, c, false);
+          b.addEventListener('click', function () { open(g, t, c); });
           var sc = row.appendChild(el('td', { class: 'crucible-score-cell' }));
           sc.appendChild(b);
           if (n.value && n.value.agg) sc.appendChild(el('span', { class: 'crucible-repeat' }, ' ' + fmtScore(n.value.agg.mean) + ' · ' + C.fmtRepeat(n.value.agg)));

@@ -1,0 +1,1 @@
+Let me look for remnants of how the reference PHP was installed/generated on this machine.

@@ -1,0 +1,37 @@
+Done. Here's a summary of the migration.
+
+## What changed
+
+**Removed** `pages/` entirely (all routes, `_app`, `_document`, `404`, and the API route).
+
+**Added under `app/`:**
+- `app/layout.tsx` — root layout replacing `_app.tsx` + `_document.tsx`: `<html lang="en">`, `<body>`, imports `styles/globals.css`, and wraps children in the shared `Layout`.
+- `app/page.tsx` — home page, statically prerendered from `getAllBooks()`.
+- `app/about/page.tsx` — static.
+- `app/search/page.tsx` (server, sets metadata) + `app/search/SearchClient.tsx` (client) — static shell; books fetched from `/api/books` and the `?q=` value read on the client.
+- `app/not-found.tsx` — custom 404 (with its title).
+- `app/books/[slug]/page.tsx` — dynamic server component (`force-dynamic`, matching `getServerSideProps`); calls `recordView` per request, `notFound()` for unknown slugs, and `generateMetadata` for title/description.
+- `app/genres/[genre]/page.tsx` — statically generated via `generateStaticParams` + `dynamicParams = false`, with `generateMetadata`.
+- `app/api/books/route.ts` — `GET` with genre filtering; 405 + `Allow: GET` for every other method.
+
+**Updated:**
+- `components/Layout.tsx` — now a client component using `usePathname`. The "current page" logic was rewritten to match the old `router.pathname` behaviour: only real routes mark a link (`/`, valid `/books/<slug>`, valid `/genres/<genre>`, `/search`, `/about`), so 404s mark nothing.
+- `components/ShareLink.tsx` — client component using `useParams` for the slug.
+
+## Verification
+
+I captured the Pages Router output as a baseline before deleting it and diffed after:
+- All valid pages (`/`, `/about`, `/search`, `/genres/*`, `/books/*`): identical `<div class="site">` markup (text, links, and `aria-current`), identical titles/descriptions.
+- Unmatched URLs and unknown genres: 404 with the same server-rendered not-found HTML.
+- `/api/books`: identical bodies for all, and identical status/`Allow` headers (200/400/405).
+- Build output matches the old rendering modes: `/`, `/about`, `/search` static; `/genres/[genre]` SSG (3 paths); `/books/[slug]` and `/api/books` dynamic.
+- Book views still increment on every request (`Viewed 1 time` → `2` → `3`).
+- `npm test` (7 passed) and `npm run build` both succeed.
+
+No `package.json`, lockfile, or config changes; no new dependencies.
+
+## One behavioural difference
+
+`/books/<unknown>` still returns **404** with the correct `noindex` and title, and the not-found text/links are present in the response payload — but the initial HTML body is an empty shell and the 404 UI renders after hydration. This is a known Next.js App Router limitation: a `notFound()` thrown from a dynamically-rendered route is handled by a client error boundary, so the server can't render it inline. The documented workaround (`generateStaticParams` + `dynamicParams = false`) would make the book pages static and freeze the per-request view counter, so I kept the page dynamic to preserve the required rendering behaviour. Unknown top-level URLs and unknown genres still serve fully server-rendered 404 HTML.
+
+Minor: on `/search`, the `?q=` value is read from `window.location.search` on mount (the static HTML is byte-identical to before). A client-side navigation that changes only the query string wouldn't re-read it, but nothing on the site links that way.

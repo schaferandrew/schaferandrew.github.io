@@ -1,0 +1,12 @@
+[
+ {
+  "record": "status",
+  "format_version": 3,
+  "run_uuid": "bd554676-245b-59b8-aab4-cad7326c1b93",
+  "at": "2026-11-11T03:30:26+00:00",
+  "withdrawn": {
+   "reason": "Model is OpenRouter's moving ~openai/gpt-luna-latest alias, so the name doesn't identify a fixed model"
+  },
+  "by": "maintainer"
+ }
+]

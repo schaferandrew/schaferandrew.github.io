@@ -1,0 +1,40 @@
+The benchmark task is to find all valid 60-minute meeting slots between Alex and Jamie within the specified window (2026-08-31 09:00 to 2026-09-07 17:00 America/Chicago), and then select the top three based on specific criteria (prefer weekdays, minimize gaps/adjacency to existing meetings, and avoid the first or last hour of the day).
+
+I have implemented a Python script to:
+1.  Parse the `calendar-fixture.json` file for busy events and window constraints.
+2.  Iterate through all possible meeting start times (on the hour or half-hour) within the daily 09:00 to 17:00 window.
+3.  Validate each slot against the busy events of both participants.
+4.  Score the valid slots based on the given criteria:
+    *   **Weekday preference**: +10 points.
+    *   **Gap minimization (Adjacency)**: +5 points if the slot starts exactly when a meeting ends or ends exactly when one starts.
+    *   **Edge avoidance**: -5 points if the slot starts at 09:00 or 16:00.
+5.  Select the top three highest-scoring slots, using chronological order as a tie-breaker.
+
+The final result has been saved to `slots.json`.
+
+```json
+{
+  "valid_slots": [
+    "2026-08-31T11:00",
+    "2026-08-31T11:30",
+    "2026-08-31T12:00",
+    "2026-08-31T15:30",
+    "2026-08-31T16:00",
+    ...
+  ],
+  "top3": [
+    {
+      "start": "2026-08-31T11:00",
+      "explanation": "Selected because it is on a weekday, it is adjacent to an existing meeting, it avoids the first/last hour of the day."
+    },
+    {
+      "start": "2026-08-31T12:00",
+      "explanation": "Selected because it is on a weekday, it is adjacent to an existing meeting, it avoids the first/last hour of the day."
+    },
+    {
+      "start": "2026-08-31T15:30",
+      "explanation": "Selected because it is on a weekday, it is adjacent to an existing meeting, it avoids the first/last hour of the day."
+    }
+  ]
+}
+```

@@ -1,0 +1,7 @@
+Filed the three gifts and added their rows to `giving-log.csv`:
+
+- Maple Street Community Church — $250.00, November 17, 2024: `records/2024/2024-11-17_Maple-Street-Community-Church.pdf`
+- Hope Harbor Food Pantry — $180.00, December 31, 2025: `records/2025/2025-12-31_Hope-Harbor-Food-Pantry.pdf`
+- Riverbend Public Radio — $60.00, January 2, 2026: `records/2026/2026-01-02_Riverbend-Public-Radio.pdf`
+
+`inbox/` is empty. Existing log rows and filed receipts were left unchanged.

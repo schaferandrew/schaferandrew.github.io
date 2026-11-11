@@ -1,0 +1,15 @@
+All three receipts are processed. Here's what I filed:
+
+| Gift | Log row added | PDF filed as |
+|---|---|---|
+| Maple Street Community Church — $250.00, check, gift dated Nov 17, 2024 | Tax year 2024 | `records/2024/2024-11-17_Maple-Street-Community-Church.pdf` |
+| Hope Harbor Food Pantry — $180.00, card, received Dec 31, 2025 | Tax year 2025 | `records/2025/2025-12-31_Hope-Harbor-Food-Pantry.pdf` |
+| Riverbend Public Radio — $60.00, card, gift dated Jan 2, 2026 | Tax year 2026 (new `records/2026/` folder) | `records/2026/2026-01-02_Riverbend-Public-Radio.pdf` |
+
+A few notes on judgment calls:
+
+- The Maple Street PDF was a **reissued statement** for a November 17 gift — a different gift from the December 24 one already in your log (different date, amount, and check number), so it got its own row rather than replacing anything.
+- The Hope Harbor letter is dated January 4, 2026, but the gift itself was charged **December 31, 2025**, so I logged it under 2025 for the tax year.
+- The Riverbend receipt mentions "$660.00 in 2025" as a summary, but the actual gift it records is the January 2, 2026 $60.00 sustainer payment, so that's what I logged.
+
+The log stays in date order, all original rows and files are untouched, and `inbox/` is now empty.

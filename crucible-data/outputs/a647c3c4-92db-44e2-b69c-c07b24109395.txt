@@ -1,0 +1,15 @@
+To find a suitable time for a one-hour work meeting with the entire 16-member team, I analyzed the free/busy schedules of all members over the next two weeks. 
+
+I accounted for the fact that Marcus Webb is in a different time zone (America/New_York), meaning his standard working hours (9:00 AM – 5:00 PM EDT) correspond to 8:00 AM – 4:00 PM CDT. To ensure everyone is within their typical working hours, I looked for slots between 9:00 AM and 4:00 PM CDT.
+
+After reviewing the overlaps, I found the following best options where all 16 members are available:
+1. **Tuesday, September 1st**: Everyone is free from 13:00 to 14:30 CDT.
+2. **Thursday, September 3rd**: Everyone is free from 14:00 to 16:00 CDT.
+3. **Wednesday, September 9th**: Everyone is free from 15:00 to 16:00 CDT.
+
+Other days were disqualified due to company-wide conflicts (September 7th), individual absences (Priya Nair on September 10th and 11th), or highly fragmented schedules.
+
+OPTIONS:
+2026-09-01 13:00 America/Chicago
+2026-09-03 14:00 America/Chicago
+2026-09-09 15:00 America/Chicago

@@ -1,0 +1,13 @@
+Done. I read all three PDFs in `inbox/`, added a row for each gift to `giving-log.csv` (inserted in date order, matching the existing format), and filed each PDF under `records/` using the existing `YYYY-MM-DD_Organization-Name.pdf` convention.
+
+**Filed:**
+| Gift date | Organization | Amount | Method | Tax year | Filed as |
+|---|---|---|---|---|---|
+| 2024-11-17 | Maple Street Community Church | $250.00 | Check | 2024 | `records/2024/2024-11-17_Maple-Street-Community-Church.pdf` |
+| 2025-12-31 | Hope Harbor Food Pantry | $180.00 | Card | 2025 | `records/2025/2025-12-31_Hope-Harbor-Food-Pantry.pdf` |
+| 2026-01-02 | Riverbend Public Radio | $60.00 | Card | 2026 | `records/2026/2026-01-02_Riverbend-Public-Radio.pdf` (new 2026 folder) |
+
+Notes:
+- The Maple Street statement is a reissued receipt for a **$250 check gift on 2024-11-17** — distinct from the already-logged $300 gift on 2024-12-24 — so it got its own row.
+- The Riverbend receipt is for the **January 2, 2026** $60 sustainer gift; the "$660 in 2025" line is just their year-total summary, not this gift, so it's logged as tax year 2026.
+- Existing rows and files were left untouched, and `inbox/` is now empty.

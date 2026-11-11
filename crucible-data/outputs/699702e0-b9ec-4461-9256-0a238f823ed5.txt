@@ -1,0 +1,3 @@
+Implemented the Ruby app in `app.rb` and `lib/`, with the fixture runner at `test/run_tests.rb`. All 8 fixture cases pass with `ruby test/run_tests.rb`.
+
+The port deliberately preserves PHP quirks including date overflow normalization, CSV blank fields as empty strings, and filtered bookings retaining numeric keys (which can make the JSON response an object rather than an array). PHP wasn’t installed here, so verification used the PHP source and fixtures as the reference.

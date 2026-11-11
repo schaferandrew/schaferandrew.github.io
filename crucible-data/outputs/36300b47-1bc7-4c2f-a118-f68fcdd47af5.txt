@@ -1,0 +1,1 @@
+Found it — the ISO regex doesn't capture the year, so `m[3]` was nil. Capturing the year:

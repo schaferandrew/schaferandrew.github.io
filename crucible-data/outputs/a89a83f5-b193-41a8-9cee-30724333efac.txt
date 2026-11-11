@@ -1,0 +1,5 @@
+Completed the TypeScript port. All six `src/` modules are now `.ts`, the JavaScript originals are removed, and strict checking is configured in `tsconfig.json`.
+
+Verification passed: `npx tsc -p tsconfig.json` and `npm test` (21 tests).
+
+The less obvious types were the status union, nullable tool fields, narrowed store-event union, and parsed JSON as `unknown` before normalization. A few fields such as category, borrower, and retirement reason remain `unknown` because the existing validator allows non-string JSON values there.

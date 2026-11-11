@@ -1,0 +1,97 @@
+**Puzzle A**
+
+The four 7-letter slots cross at four corners:
+- 4-ACROSS and 4-DOWN share their first letter, so they must be COUNCIL and COURAGE in some order.
+- 5-DOWN starts with the last letter of 4-ACROSS.
+- 12-ACROSS starts with the last letter of 4-DOWN.
+
+**First arrangement:** 4-ACROSS = COUNCIL, 4-DOWN = COURAGE, 5-DOWN = LIBRARY, 12-ACROSS = ECONOMY. Both 5-DOWN and 12-ACROSS end in Y, so the shared corner agrees.
+
+The crossings then fix the third letters of several slots:
+- **2-DOWN** needs third letter C, so it is UNCLE.
+  - 2-ACROSS starts with U, so it is UPSET.
+  - 7-ACROSS starts with E and has third letter B, so it is ELBOW.
+  - 3-DOWN runs from T to W, so it is THREW.
+- **6-ACROSS** has third letter U. SQUAD would force 1-DOWN to end in S, and no word does. So 6-ACROSS is COUNT.
+  - 1-DOWN ends in C, so it is CUBIC.
+  - 1-ACROSS starts with C, so it is CANDY.
+- **9-DOWN** has third letter O, so it is PROBE.
+  - 8-ACROSS has third letter A and ends in P, so it is SWAMP.
+  - 10-ACROSS also has third letter A, so it is DEALT.
+- **13-ACROSS** ends in E, so it is DRIVE.
+- **8-DOWN** runs from S to D, so it is SQUAD.
+- **11-DOWN** starts with T, so it is TWIST.
+- **14-ACROSS** ends in T, so it is SHIRT.
+
+All 18 words are used once, so this arrangement is the solution.
+
+**Puzzle B**
+
+**7-letter words.** 27-ACROSS crosses three 7-letter downs:
+- Its first letter must equal the third letter of 24-DOWN. This allows only an A-word with IMAGINE or PLASTIC, or BARGAIN with PUBLISH.
+- Its third letter is the last letter of 17-DOWN, and its fifth letter is the last letter of 18-DOWN.
+
+Testing the options:
+- BARGAIN fails because no word ends in A.
+- ANOTHER fails because no word ends in O.
+- APRICOT works:
+  - 17-DOWN ends in R, so it is ANOTHER.
+  - 18-DOWN ends in C, so it is PLASTIC.
+  - 24-DOWN is IMAGINE.
+  - 22-ACROSS has fifth letter I and last letter H, so it is PUBLISH.
+  - 23-DOWN starts with B, so it is BARGAIN.
+
+**5-letter words.** The crossings with the long words give A?P?? for 17-ACROSS (APPLY), ??O?A for 20-ACROSS (AROMA), A?I?? for 29-ACROSS (ALIKE) and ??N?E for 31-ACROSS (OUNCE).
+
+**3-letter words.**
+- 19-DOWN ends in P, so it is TOP.
+- 26-ACROSS ends in R. If it were TAR, five slots would need a T-word but only four remain. So 26-ACROSS is CAR and 26-DOWN is COG.
+- 30-ACROSS and 30-DOWN share a first letter, so they are ANY and APT. 32-ACROSS starts with the last letter of 30-DOWN, and no word starts with Y. So 30-DOWN is APT, 30-ACROSS is ANY, and 32-ACROSS starts with T.
+- 28-DOWN runs from T to Y, so it is TOY.
+- That leaves TAR, TEN and TIE for the T-slots, and ELF, FAN and ONE for 15-ACROSS, 16-DOWN and 21-DOWN.
+  - If 21-DOWN were FAN, 15-ACROSS/16-DOWN would be ONE/ELF, and 19-ACROSS would have to end in F, which is impossible.
+  - So 21-DOWN is ONE and 25-ACROSS is TIE.
+  - 15-ACROSS is ELF and 16-DOWN is FAN, so 19-ACROSS ends in N: TEN.
+  - 32-ACROSS is TAR.
+
+ANSWERS:
+1-ACROSS: CANDY
+1-DOWN: CUBIC
+2-ACROSS: UPSET
+2-DOWN: UNCLE
+3-DOWN: THREW
+4-ACROSS: COUNCIL
+4-DOWN: COURAGE
+5-DOWN: LIBRARY
+6-ACROSS: COUNT
+7-ACROSS: ELBOW
+8-ACROSS: SWAMP
+8-DOWN: SQUAD
+9-DOWN: PROBE
+10-ACROSS: DEALT
+11-DOWN: TWIST
+12-ACROSS: ECONOMY
+13-ACROSS: DRIVE
+14-ACROSS: SHIRT
+15-ACROSS: ELF
+16-DOWN: FAN
+17-ACROSS: APPLY
+17-DOWN: ANOTHER
+18-DOWN: PLASTIC
+19-ACROSS: TEN
+19-DOWN: TOP
+20-ACROSS: AROMA
+21-DOWN: ONE
+22-ACROSS: PUBLISH
+23-DOWN: BARGAIN
+24-DOWN: IMAGINE
+25-ACROSS: TIE
+26-ACROSS: CAR
+26-DOWN: COG
+27-ACROSS: APRICOT
+28-DOWN: TOY
+29-ACROSS: ALIKE
+30-ACROSS: ANY
+30-DOWN: APT
+31-ACROSS: OUNCE
+32-ACROSS: TAR

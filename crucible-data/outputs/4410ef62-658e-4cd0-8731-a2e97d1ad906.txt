@@ -1,0 +1,56 @@
+
+
+I solved the forced intersections first.
+
+For Puzzle A, the four 7-letter slots form a tight cycle: 4A/4D share their first letter, 4A ends where 5D begins, 4D ends where 12A begins, and 5D ends where 12A ends. The only 7-letter assignment compatible with the 5-letter crossings is:
+
+- 4A = COUNCIL
+- 4D = COURAGE
+- 5D = LIBRARY
+- 12A = ECONOMY
+
+That then forces the 5-letter entries: 2D must be UNCLE because COUNCIL’s 5th letter is C; 2A becomes UPSET; 3D becomes THREW; 7A becomes ELBOW; 9D becomes PROBE; 8A becomes SWAMP; 10A becomes DEALT; 11D becomes TWIST; 13A becomes DRIVE; 8D becomes SQUAD; 6A becomes COUNT; 1D becomes CUBIC; 1A becomes CANDY; and 14A becomes SHIRT.
+
+For Puzzle B, the top-right 7/5 interaction forces 17A = APPLY, 17D = ANOTHER, 18D = PLASTIC, and 20A = AROMA. Then 22A = PUBLISH, which forces 23D = BARGAIN and 24D = IMAGINE; 27A = APRICOT. The remaining 5-letter entries are 29A = ALIKE and 31A = OUNCE. The 3-letter chain then resolves uniquely as ELF / FAN / TEN / TOP / ONE / TIE / CAR / COG / TOY / ANY / APT / TAR in the slot order below.
+
+ANSWERS:
+1-ACROSS: CANDY
+1-DOWN: CUBIC
+2-ACROSS: UPSET
+2-DOWN: UNCLE
+3-DOWN: THREW
+4-ACROSS: COUNCIL
+4-DOWN: COURAGE
+5-DOWN: LIBRARY
+6-ACROSS: COUNT
+7-ACROSS: ELBOW
+8-ACROSS: SWAMP
+8-DOWN: SQUAD
+9-DOWN: PROBE
+10-ACROSS: DEALT
+11-DOWN: TWIST
+12-ACROSS: ECONOMY
+13-ACROSS: DRIVE
+14-ACROSS: SHIRT
+15-ACROSS: ELF
+16-DOWN: FAN
+17-ACROSS: APPLY
+17-DOWN: ANOTHER
+18-DOWN: PLASTIC
+19-ACROSS: TEN
+19-DOWN: TOP
+20-ACROSS: AROMA
+21-DOWN: ONE
+22-ACROSS: PUBLISH
+23-DOWN: BARGAIN
+24-DOWN: IMAGINE
+25-ACROSS: TIE
+26-ACROSS: CAR
+26-DOWN: COG
+27-ACROSS: APRICOT
+28-DOWN: TOY
+29-ACROSS: ALIKE
+30-ACROSS: ANY
+30-DOWN: APT
+31-ACROSS: OUNCE
+32-ACROSS: TAR

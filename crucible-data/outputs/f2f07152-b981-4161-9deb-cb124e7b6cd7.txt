@@ -1,0 +1,15 @@
+
+
+The clues force a unique arrangement:
+
+- Dave likes red and Carol likes yellow, so the remaining colors for Alice and Bob are green and blue.
+- Alice sits immediately to the left of the person who likes blue, so Alice cannot like blue. Thus Alice likes green and Bob likes blue.
+- Since green is in chair 1, Alice is in chair 1.
+- Alice is immediately to the left of Bob, who likes blue, so Bob is in chair 2.
+- Dave and Carol occupy chairs 3 and 4. Carol sits somewhere to the right of Dave, so Dave is in chair 3 and Carol is in chair 4.
+
+Chair 1: Alice, green  
+Chair 2: Bob, blue  
+Chair 3: Dave, red  
+Chair 4: Carol, yellow  
+ANSWER: Dave

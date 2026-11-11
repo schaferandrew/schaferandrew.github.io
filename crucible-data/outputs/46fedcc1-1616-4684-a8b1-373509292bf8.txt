@@ -1,0 +1,25 @@
+Implemented and verified.
+
+**Root cause**
+- The editor required `onboardingComplete`, while welcome redirected all invited accounts back to the editor. Accepted invites had terms recorded but onboarding incomplete, causing the loop.
+- Registration rejected pending invited accounts as duplicate emails.
+- Direct API requests could publish without accepting terms.
+
+**Fix**
+- Terms acceptance now controls editor access and API publication; profile completion does not.
+- Already-accepted contributors work immediately without data changes.
+- Invited contributors missing consent see a terms-only welcome screen.
+- Homepage signup reuses the pending invited account, preserving its identity and profile, and consumes old invite links. It does not fabricate consent.
+- Regular signup retains its registration and welcome flow.
+
+**Validation**
+- Added regression tests and observed failures before implementation.
+- All **42 tests pass**, plus typecheck.
+- `apps/api/test/realworld.contract.test.ts` is unchanged. Its writer fixture now explicitly accepts terms.
+
+**Review flags**
+- The specified homepage-claim flow lacks email-ownership verification; this needs security review.
+- A future persistent database must claim accounts and consume links atomically.
+- Blocking direct API publication without consent intentionally tightens previous behavior to satisfy Legal.
+
+Full write-up: `incident/invite-fix.md`.

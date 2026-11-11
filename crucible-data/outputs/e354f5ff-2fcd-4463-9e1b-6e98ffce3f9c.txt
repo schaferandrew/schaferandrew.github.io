@@ -1,0 +1,22 @@
+**Reasoning**
+
+There are two clear errors, both homophone slips:
+
+1. **"louder then"** should be **"louder than."** "Then" refers to time. "Than" is for comparisons.
+2. **"talking to fast"** should be **"talking too fast."** "Too" means "excessively."
+
+Everything else is grammatical or reads as a deliberate stylistic choice:
+
+- **"whether to laugh, or leave"**: Standard punctuation wouldn't put a comma between two infinitives joined by "or." But the comma creates a hesitation that matches Mara's indecision, so I left it.
+- **"Not waiting for her, exactly."** This is a sentence fragment, but it clearly works as a rhythmic, voice-driven beat.
+- **"And she didn't know..."** Starting a sentence with "And" is acceptable in narrative prose, and here it adds emphasis.
+- **"all brakes shrieking and people talking"**: This is an intentional absolute construction, not an error.
+- **"Still—she was back."** The em dash is used correctly for a dramatic pause.
+
+CORRECTED:
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder than she remembered it, all brakes shrieking and people talking too fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+POSSIBLY INTENTIONAL:
+"whether to laugh, or leave": The comma isn't standard between two infinitives joined by "or," but it creates a pause that mirrors Mara's hesitation.
+"Not waiting for her, exactly.": This is a sentence fragment that works as a deliberate rhythmic beat in the narrative voice.
+"And she didn't know": The sentence-initial "And" is a stylistic choice that adds emphasis and keeps the conversational rhythm.

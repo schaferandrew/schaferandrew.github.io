@@ -1,0 +1,21 @@
+The whole site now runs from `app/`, and `pages/` is gone. `npm test` passes (7 tests) and `npm run build` succeeds. I also ran the built site and checked status codes, titles, navigation and the view counter on a few URLs. I did not diff the rendered HTML against the old site.
+
+**What changed**
+- **Layout:** `app/layout.tsx` is the root layout (`<html lang="en">` and the CSS import). A `(site)` route group holds `app/(site)/layout.tsx`, which wraps every page in the shared `Layout`. The route group doesn't change any URL.
+- **Pages:** `/`, `/about`, `/search`, `/books/[slug]` and `/genres/[genre]` are all under `app/(site)/`. Titles and descriptions come from `metadata` or `generateMetadata`.
+- **Not-found:** `app/not-found.tsx` is the custom 404, with the same title and text. Unknown URLs, unknown books and unknown genres all return 404.
+- **API:** `app/api/books/route.ts` keeps the old behaviour: 400 for an unknown genre, and 405 with `Allow: GET` for every other method.
+- **Rendering:**
+  - `/`, `/about`, `/search` and the three genre pages are still built ahead of time. `/genres/[genre]` uses `generateStaticParams` with `dynamicParams = false`.
+  - `/books/[slug]` is `force-dynamic`, so it renders on every request. The view counter went from 1 to 2 on repeat requests.
+- **Components:**
+  - The nav links moved into a new client component, `components/NavLinks.tsx`, which marks the current page using `usePathname`.
+  - `ShareLink` now uses `useParams`.
+  - The search page's interactive part moved into `SearchClient.tsx`, so the page itself can export metadata.
+- **README:** I updated it to describe the new layout.
+
+**Behaves differently, or worth knowing**
+- **Nav on 404 pages:** In an App Router 404 the browser path is still the unknown URL, e.g. `/books/nope`, so the nav would have marked "Books" as current. To keep "no link current" as before, the not-found page renders the layout with `noActive`.
+- **Search query:** `?q=` is read from `window.location` after the page loads, as before. This keeps the page prerendered; `useSearchParams` would have forced it to client-side rendering.
+- **Repeated `?genre=` in the API:** `?genre=a&genre=b` returns 400, matching the old handling.
+- **Build output:** `next build` now labels the genre pages as static, not "uses getStaticProps". That is only a label change.

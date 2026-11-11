@@ -1,0 +1,21 @@
+**Reasoning**
+
+1. **Accurate.** The Battle of Hastings took place on 14 October 1066.
+2. **Inaccurate.** Magna Carta was sealed at Runnymede in June 1215 by **King John**, not Richard. Richard I, John's brother, died in 1199.
+3. **Inaccurate.** Columbus first made landfall in the Americas (the Bahamas) in October **1492**. 1493 was the year of his second voyage.
+4. **Accurate.** The Continental Congress adopted the Declaration of Independence on 4 July 1776.
+5. **Accurate.** The Bastille was stormed on 14 July 1789.
+6. **Inaccurate.** Waterloo was fought on 18 June **1815**. 1812 was the year of Napoleon's invasion of Russia.
+7. **Inaccurate.** The Titanic sank on 15 April **1912**.
+8. **Accurate.** India became independent on 15 August 1947.
+9. **Accurate.** Apollo 11 landed on 20 July 1969.
+10. **Inaccurate.** The Berlin Wall fell on 9 November **1989**. 1991 was the year the Soviet Union dissolved.
+11. **Accurate.** Germany reunified on 3 October 1990, the year after the Wall fell in 1989. However, if the newsletter keeps item 10's wrong date of 1991, this item would imply 1992. Fixing item 10 keeps the two consistent.
+12. **Accurate.** Mandela was elected in April 1994 and inaugurated in May 1994.
+
+ERRORS:
+2: John
+3: 1492
+6: 1815
+7: 1912
+10: 1989

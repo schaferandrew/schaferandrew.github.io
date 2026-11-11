@@ -1,0 +1,17 @@
+All green — tests, type check, and production build (the `/` route is now statically prerendered, confirming the account data ships in the initial HTML).
+
+## Summary
+
+**Diagnosis** — `app/page.tsx` had a broken server/client data boundary:
+1. It used `useState`/`useEffect` **without a `"use client"` directive**, so Next.js treated it as a Server Component where hooks aren't allowed — the page crashed instead of rendering the account.
+2. Even as a client component, it fetched its **own API route** with a relative URL, which fails during SSR and adds a needless network hop plus a "Loading..." flash.
+
+**Fix** — idiomatic App Router approach: an async Server Component that reads data directly on the server.
+
+- **`app/lib/accounts.ts`** (new) — shared simulated database with `getAccount(id)` and an exported `Account` type; single source of truth for both consumers.
+- **`app/page.tsx`** — now an `async` Server Component that `await`s `getAccount('acct_1')` and renders `Name`/`Plan` server-side. No hooks, no fetch, no loading state. Includes a graceful not-found branch.
+- **`app/api/account/route.ts`** — kept (structure preserved) for external clients, now backed by the same `getAccount`, with cleaner lookup logic.
+
+**Tests**
+- **`app/page.test.tsx`** (new) — renders the async Server Component via `render(await AccountPage())` and asserts "Name: Alice" and "Plan: Pro" appear with no "Loading..." state, plus the not-found fallback. This directly covers the previously untested bug.
+- **`app/api/account/route.test.ts`** — the two existing route tests moved to sit next to the route they cover (200 for `acct_1`, 404 for unknown ids), unchanged in intent.

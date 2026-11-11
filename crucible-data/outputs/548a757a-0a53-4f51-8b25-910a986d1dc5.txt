@@ -1,0 +1,18 @@
+Implemented all six audit fixes while preserving component names, files, and props:
+
+1. **Delete confirmation:** Native modal dialog with an accessible title/description, initial Cancel focus, inert background, keyboard-operable buttons, Escape cancellation, and focus restoration.
+2. **Read more:** Native button with expanded state and content association. A persistent polite live region announces only the newly revealed text.
+3. **Tag filter:** Native named select with keyboard selection and selected-option semantics.
+4. **Favorite button:** Accessible action/article/count name and pressed state. Pending requests no longer drop keyboard focus; duplicate requests remain blocked.
+5. **Editor errors:** Unique error IDs, `aria-describedby`, `aria-invalid`, and focus on the first invalid field.
+6. **Publication confirmation:** Persistent app-level status region that survives navigation instead of disappearing with the editor.
+
+**Tests:** Added real-Chromium keyboard, focus, accessibility-tree, live-region, and axe regressions, plus component tests.
+
+**Verified:** `npm test` — 36 tests passing; typecheck, production build, and diff checks pass.
+
+**Still requires manual verification:** Actual spoken announcements with VoiceOver/Safari and NVDA/Firefox, including native popup behavior and announcement timing.
+
+**Additional issue discovered:** Existing target-size violations in the signed-in homepage navigation remain outside these six findings. Homepage axe checks are scoped to the affected widgets; this is not a site-wide WCAG certification.
+
+Full coverage and manual verification checklist: `docs/accessibility-fixes.md`.

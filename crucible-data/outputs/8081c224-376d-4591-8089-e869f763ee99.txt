@@ -1,0 +1,27 @@
+**Language errors**
+
+- **3:** The subject "prices" is plural, so the verb should be "are", not "is".
+- **6:** "it's" means "it is". The possessive form is "its".
+- **12:** A comparison needs "than", not "then".
+
+**Content flags**
+
+- **1:** Inflation is a sustained rise in the general price level. Defining it by a single cause (government money printing) is misleading, because inflation can also come from demand pressures or supply shocks.
+- **4:** No law requires the Fed to raise rates when CPI passes 2%. The 2% figure is a policy goal, not a legal trigger, and the Fed's preferred measure is actually PCE inflation, not CPI.
+- **8:** Unemployment above the natural rate is usually cyclical, caused by weak demand. Attributing it only to laziness or bad policy is overstated.
+- **11:** Quantitative easing is not literally "printing money," and it does not inevitably cause hyperinflation. Post-2008 QE in the US was followed by low inflation, so the claim is overstated.
+- **14:** Japan's experience shows the limits monetary policy faces near the zero lower bound. It does not prove monetary policy is "completely ineffective," so the claim is overstated.
+- **18:** "Definitively debunked" and "without growing the economy at all" are overstated. The economy grew substantially in the 1980s, even though the tax cuts did not pay for themselves.
+
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: misleading
+4: misleading
+8: overstated
+11: overstated
+14: overstated
+18: overstated

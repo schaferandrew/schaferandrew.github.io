@@ -1,0 +1,16 @@
+
+
+Reasoning:
+- 1, 4, 5, 8, 9, 11, and 12 are accurate.
+- 2 is wrong: Magna Carta was sealed by King John, not Richard.
+- 3 is wrong: Columbus first reached the Americas in 1492.
+- 6 is wrong: Waterloo was in 1815.
+- 7 is wrong: The Titanic sank in April 1912.
+- 10 is wrong: The Berlin Wall fell in November 1989.
+
+ERRORS:
+2: John
+3: 1492
+6: 1815
+7: 1912
+10: 1989

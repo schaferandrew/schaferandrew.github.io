@@ -1,0 +1,93 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "3281ac98-ed43-4734-9c42-0bd580e3f01e",
+ "run_path": "openrouter_moonshotai_kimi-k2.6/letter-from-1863/20261111_044047",
+ "legacy_run_id": null,
+ "started_at": "2026-11-11T04:40:47.888286+00:00",
+ "ended_at": "2026-11-11T04:42:27.024952+00:00",
+ "elapsed_s": 99.12,
+ "task": {
+  "id": "letter-from-1863",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "f73283c0960967b1",
+  "rubric_hash": "44543ae2a21316cd",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/moonshotai/kimi-k2.6",
+  "base": "moonshotai/kimi-k2.6",
+  "publisher": "moonshotai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null,
+   "resolved_source": "unknown"
+  },
+  "context_loaded": null,
+  "variant_key": "moonshotai/kimi-k2.6|moonshotai|api|-",
+  "display": "kimi-k2.6",
+  "origin": {
+   "maker": "moonshotai",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "Inceptron",
+   "quant": null
+  },
+  "resolved_model": "moonshotai/kimi-k2.6"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 218,
+  "tokens_out": 9761,
+  "model_responses": 1,
+  "ttft_s": 0.33,
+  "ttft_avg_s": 0.33,
+  "response_time_avg_s": 99.012,
+  "output_tokens_per_s": 98.9,
+  "cost_usd": 0.112555,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 37547
+ },
+ "output_ref": "outputs/3281ac98-ed43-4734-9c42-0bd580e3f01e.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "6faa751",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:3deb8d4533724f9bfb124f663477bc98f0a7aea6c12b920c72c10a31c3f709fe",
+  "submitter": null,
+  "verification": null
+ }
+}

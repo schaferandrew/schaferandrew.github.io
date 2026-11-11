@@ -1,0 +1,5 @@
+Ported all six `src/` modules to TypeScript, removed the `.js` originals, and added a strict `tsconfig.json`.
+
+Verified: `npx tsc -p tsconfig.json` passes; `npm test` passes (21 tests).
+
+The less-obvious types were the nullable loan and retirement fields, the discriminated union of store events, and JSON records entering as `unknown` before normalization. Optional legacy fields and the existing validation behavior were preserved.

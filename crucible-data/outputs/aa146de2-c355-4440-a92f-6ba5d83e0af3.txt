@@ -1,0 +1,13 @@
+I identified "my team" as the 16 people on the **Platform** team (all calendars with description "Platform," including me, Alex). I excluded the two Design calendars and the Atlas room since they're not part of my team.
+
+I pulled free/busy for all 16 across the next two weeks (Aug 31 – Sep 14) and intersected them. A few things stood out:
+- **Mon Sep 7** is a company-wide day off (everyone fully booked), so it's out.
+- Most days have no overlapping free hour at all — the team's calendars are dense.
+- The only common free windows that fit a 1-hour meeting during business hours are: Tue Sep 1 13:00–14:30, Thu Sep 3 14:00–16:00, Tue Sep 8 11:00–12:00, and Wed Sep 9 15:00–16:00.
+
+Ranking them by earliest availability (with the Sep 3 window being the widest, giving the most flexibility):
+
+OPTIONS:
+2026-09-01 13:00 CDT
+2026-09-03 14:00 CDT
+2026-09-08 11:00 CDT

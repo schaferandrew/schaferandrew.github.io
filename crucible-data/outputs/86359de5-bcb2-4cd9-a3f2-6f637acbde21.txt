@@ -1,0 +1,24 @@
+**What was wrong**
+
+1. **The form couldn't build or accept input** – `LeadForm.tsx` was missing the `"use client"` directive, so Next.js tried to serialize event handlers (`onSubmit`, `onChange`) during static generation and threw an error. It also stored values in a module-level `const` object, so mutating it in `onChange` never triggered React re-renders and typing did nothing.
+
+2. **The API accepted anything** – `app/api/leads/route.ts` passed the raw body straight to `saveLead` without trimming fields, normalizing the email, validating required fields, or returning the required `422` / `201` response shapes.
+
+**What I changed**
+
+- **`app/contact/LeadForm.tsx`**  
+  - Added `"use client"` so it can be interactive.  
+  - Replaced the module-level mutable object with `useState` for controlled inputs.  
+  - Added client-side validation (trimmed checks for name/email/message).  
+  - Rendered error messages with the required IDs (`lead-name-error`, `lead-email-error`, `lead-message-error`), set `aria-invalid="true"` and `aria-describedby` while errors exist, and moved focus to the first invalid field on submit.  
+  - Submitted trimmed values as JSON to `/api/leads`.  
+  - On API success, replaced the form with `<div id="lead-success">`; on API or network failure, kept the form and the user's typed values.  
+  - Added `noValidate` to the form so the browser never shows its own validation pop-ups.
+
+- **`app/api/leads/route.ts`**  
+  - Trimmed every field and normalized email to lowercase.  
+  - Saved a missing/malformed `company` as `""`.  
+  - Added strict server-side email validation: exactly one `@`, no spaces, no empty dot segments, domain labels limited to letters/digits/inner hyphens, and a TLD of at least two letters.  
+  - Returned `422 { errors: { field: message } }` when validation fails (saving nothing), and `201 { lead }` on success.
+
+Both `npm test` and `npm run build` pass.

@@ -1,0 +1,16 @@
+The reflex answers break down on 3, 4 and 5 (Nuuk, Russia and Florida all fail); for 1, 2 and 6 the intuitive answer genuinely holds.
+
+1. **Brazil** — The Equator crosses Brazil's far north (Macapá sits almost exactly on it) while the Tropic of Capricorn cuts through São Paulo state, and Brazil is the only country intersected by both lines.
+2. **Saudi Arabia** — Its west coast fronts the Red Sea (Jeddah, Yanbu) and its east coast fronts the Persian Gulf (Dammam, Jubail), and no other Red Sea country reaches the Gulf.
+3. **Reykjavik** — Nuuk sits slightly farther north (about 64°11′N versus Reykjavik's 64°08′N), but Greenland is not a sovereign state, so Iceland's capital holds the title.
+4. **France** — Overseas territories stretch France from UTC−10 in French Polynesia to UTC+12 in Wallis and Futuna, twelve zones in all, more than the eleven spanned by Russia or the United States.
+5. **Maine** — Great-circle routes across the North Atlantic bow poleward, so West Quoddy Head, Maine, lies only about 5,100 km from El Beddouza, Morocco, while Florida's nearest point is roughly 1,900 km farther away.
+6. **Lesotho** — It is entirely enclaved within South Africa, its sole neighbour, and aside from San Marino and Vatican City it is the only landlocked country with exactly one.
+
+ANSWERS
+1. Brazil
+2. Saudi Arabia
+3. Reykjavik
+4. France
+5. Maine
+6. Lesotho

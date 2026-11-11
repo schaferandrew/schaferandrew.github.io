@@ -1,0 +1,20 @@
+**Correctness (5/5).** The function builds a list of lowercased alphanumeric characters and compares it to its reverse, which is a correct palindrome check.
+- An empty string, or one with only punctuation, gives an empty list, which equals its reverse, so it returns True. That is the standard expected behaviour.
+- Single characters, mixed case and digits are all handled correctly.
+- I found no input that gives a wrong answer.
+
+**Ignores case and non-alphanumeric characters (2/2).**
+- `c.lower()` handles case.
+- `if c.isalnum()` filters out non-alphanumeric characters.
+
+Both requirements are met.
+
+**Examples (2/2).** Two example calls are shown, and both stated results are correct.
+- "A man, a plan, a canal: Panama" cleans to "amanaplanacanalpanama", a palindrome, so True is right.
+- "Hello, world" cleans to "helloworld", which reversed is "dlrowolleh", so False is right.
+
+**Concise (0/1).** The response opens with "Great question!" and then a paragraph of filler before the code. It explains what a palindrome is and says there are many approaches, none of which the task asked for. This is exactly the unneeded preamble and padding the criterion penalises. The closing sentence is brief and fine, but the opening paragraph alone fails the criterion.
+
+**Total: 5 + 2 + 2 + 0 = 9**
+
+GRADE: 9

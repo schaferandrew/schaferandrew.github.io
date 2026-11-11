@@ -1,0 +1,28 @@
+All 34 hidden tests pass, the build succeeds, `pages/` is gone, and the repo's own tests pass. Here's the final state.
+
+## What I changed
+
+**Removed** the entire `pages/` folder.
+
+**Added `app/` (App Router):**
+- `app/layout.tsx` — root layout: `<html lang="en">`, imports `styles/globals.css`, wraps every route in the shared `Layout`, and sets the title default/template.
+- `app/page.tsx` — home page (prerendered).
+- `app/about/page.tsx` — about page (prerendered).
+- `app/search/page.tsx` + `app/search/SearchClient.tsx` — search heading in a Server Component, with the interactive fetch-on-mount UI in a client component (reads `?q=` via `useSearchParams`, wrapped in `Suspense`).
+- `app/books/[slug]/page.tsx` — book page with `export const dynamic = "force-dynamic"` (kept the old `getServerSideProps` per-request rendering), `generateMetadata`, and `notFound()` for unknown slugs.
+- `app/genres/[genre]/page.tsx` — `generateStaticParams` + `dynamicParams = false`, matching the old `getStaticPaths { fallback: false }` so only real genres exist and unknown ones 404.
+- `app/not-found.tsx` — custom 404 (keeps the "Page not found | Lantern Books" title).
+- `app/api/books/route.ts` — `GET` with the same JSON, plus explicit 400 (unknown genre) and 405 (non-GET) responses.
+
+**Updated shared components:**
+- `components/Layout.tsx` — now the server shell.
+- `components/NavLinks.tsx` (new) — client component using `usePathname` to keep the same `aria-current="page"` logic.
+- `components/ShareLink.tsx` — switched from `next/router` to `next/params` (`useParams`).
+
+`next-env.d.ts` was auto-updated by Next's build (comment URL `pages` → `app`); no config files, `package.json`, or the lockfile were touched, and no dependencies were added.
+
+## Behaviour notes
+
+- Rendering modes are preserved: `/`, `/about`, `/search`, `/genres/*` are prerendered; `/books/[slug]` is rendered on every request (the view counter still climbs); `/api/books` is dynamic.
+- Unknown URLs and unknown genres serve the full custom 404 inside the layout (404 status). For an unknown **book slug**, the status is still 404 and no book/permalink is served, but the initial server HTML is Next's `notFound()` error shell and the 404 UI hydrates on the client — a Next.js App Router characteristic of `notFound()` in a dynamic route.
+- On `/genres/poetry` the 404 page is a dynamic-segment render, so the raw HTML marks "Books" as the current nav link (the old Pages 404 page had no current link); normal pages mark the nav exactly as before.

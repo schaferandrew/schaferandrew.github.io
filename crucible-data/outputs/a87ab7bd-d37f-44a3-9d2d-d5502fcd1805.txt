@@ -1,0 +1,5 @@
+- **Accuracy (4/4):** All claims are supported by the passage, including the hours change, survey result, grant amount and duration, conditional review, and staffing concerns.
+- **Exactly two sentences (0/3):** The response contains three sentences, not the required two.
+- **Key points (3/3):** It captures the weekend hours extension, the one-year funding limit, and the resident survey.
+
+GRADE: 7

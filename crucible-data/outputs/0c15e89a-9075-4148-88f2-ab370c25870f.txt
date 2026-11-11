@@ -1,0 +1,13 @@
+I've built the calculator in `interest/`, along with 19 tests and a `README.md`. The tests pass under both `pytest` and `python -m unittest discover -s tests`, and I also ran the tool by hand on the examples and on bad input.
+
+- **Results:** 1000 at 5% for 10 years gives 1,628.89 compounded annually and 1,647.01 compounded monthly. Adding 100 a month for 12 months at 12% compounded monthly, starting from 0, gives 1,268.25.
+- **Errors:** every kind of bad input you listed exits with status 2 and prints a one-line message on stderr, with no traceback. It also rejects `nan`, `inf`, fractional years and a contribution of zero.
+- **Precision:** money is kept at high precision throughout and only rounded to cents at the end. Interest earned is the final balance minus the principal and total contributions.
+
+How I handled cases your spec doesn't settle:
+- **Partial periods earn nothing.** Interest is only credited for complete compounding periods. For example, daily compounding over 1 month counts 30 whole days and drops the remaining 0.4 of a day.
+- **Contributions can earn interest straight away.** Interest is applied to the balance at the moment it's credited. So with monthly contributions and annual compounding, the deposits made during the year all earn that year's interest; the deposit made at year end comes after the interest and earns none.
+- **Annual contributions over a term in months:** only whole years count, so 18 months gets one contribution.
+- **JSON numbers** come out as floats rounded to cents, so 1000 prints as `1000.0`.
+
+Files are in `interest/` (`calculator.py`, `cli.py`, `__main__.py`, `__init__.py`) and `tests/test_interest.py`. I also added an empty `conftest.py` at the top level so that plain `pytest` can import the package.

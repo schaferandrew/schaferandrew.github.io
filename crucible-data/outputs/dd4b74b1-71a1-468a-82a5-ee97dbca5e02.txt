@@ -1,0 +1,54 @@
+ Here are the solutions.
+
+**1. Divisble by 3 or 7, but not 21**
+
+Count multiples of 3: \(\lfloor 10000/3\rfloor = 3333\).  
+Count multiples of 7: \(\lfloor 10000/7\rfloor = 1428\).  
+Count multiples of 21: \(\lfloor 10000/21\rfloor = 476\).
+
+Numbers divisible by 3 or 7: \(3333+1428-476 = 4285\).  
+We must exclude those divisible by 21, so \(4285 - 476 = 3809\).
+
+**2. Remainder of \(7^{2026}\) upon division by 100**
+
+\(7^2 = 49\), \(7^3 = 343\equiv 43\), \(7^4 = 2401\equiv 1\pmod{100}\).  
+Since \(2026 = 4\cdot 506 + 2\), we have \(7^{2026}\equiv (7^4)^{506}\cdot 7^2 \equiv 1\cdot 49 \equiv 49\pmod{100}\).
+
+**3. Tilings of a \(2\times 12\) board**
+
+Let \(a_n\) be the number of tilings of a \(2\times n\) board.  
+By considering the rightmost piece(s): place one vertical domino, two horizontal dominoes, or a \(2\times 2\) square. This yields \(a_n = a_{n-1}+2a_{n-2}\) with \(a_0=1\) and \(a_1=1\).
+
+Computing:  
+\(a_2=3,\ a_3=5,\ a_4=11,\ a_5=21,\ a_6=43,\ a_7=85,\ a_8=171,\ a_9=341,\ a_{10}=683,\ a_{11}=1365,\ a_{12}=2731\).
+
+(Equivalently, \(a_n=\frac{2^{n+1}+(-1)^n}{3}\), so \(a_{12}=\frac{8192+1}{3}=2731\).)
+
+**4. Largest die value exactly 4**
+
+Total outcomes: \(6^3=216\).  
+Outcomes where all dice are \(\le 4\): \(4^3=64\).  
+Outcomes where all dice are \(\le 3\): \(3^3=27\).  
+So outcomes where the maximum is exactly 4: \(64-27=37\).
+
+Probability: \(\frac{37}{216}\).
+
+**5. Boy born on a Tuesday**
+
+Model each child as one of \(14\) equally likely types: (7 genders/days for girls, 7 for boys). Total sample space has \(14^2=196\) ordered outcomes.
+
+Event \(A\): at least one child is a boy born on Tuesday.  
+Complement: neither child is that type, giving \(13^2=169\). Thus \(|A|=196-169=27\).
+
+Event \(B\): both children are boys. Both boys with at least one Tuesday: total both-boys outcomes are \(7^2=49\); exclude \(6^2=36\) (no Tuesday), leaving \(49-36=13\).
+
+Hence \(P(B\mid A)=\frac{13}{27}\).
+
+---
+
+ANSWERS
+1. 3809
+2. 49
+3. 2731
+4. 37/216
+5. 13/27

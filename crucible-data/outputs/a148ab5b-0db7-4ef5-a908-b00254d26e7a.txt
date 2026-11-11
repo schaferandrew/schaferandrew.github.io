@@ -1,0 +1,1 @@
+Let me polish the ConfirmDialog (callbacks via refs so the focus effect doesn't re-run on every render), then write the accessibility tests:

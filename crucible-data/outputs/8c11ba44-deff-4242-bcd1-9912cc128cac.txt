@@ -1,0 +1,10 @@
+Items **1, 4, 5, 8, 9, 11, and 12 are accurate**. Item 11 is correct because Germany reunified in 1990, one year after the Berlin Wall fell in 1989.
+
+The incorrect items confuse the monarch who sealed Magna Carta or give the wrong year.
+
+ERRORS:
+2: King John
+3: 1492
+6: 1815
+7: 1912
+10: 1989

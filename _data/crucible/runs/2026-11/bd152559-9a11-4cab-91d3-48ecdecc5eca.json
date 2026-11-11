@@ -1,0 +1,93 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "bd152559-9a11-4cab-91d3-48ecdecc5eca",
+ "run_path": "openrouter_qwen_qwen3.8-27b/household-money-math/20261111_043134",
+ "legacy_run_id": null,
+ "started_at": "2026-11-11T04:31:34.088785+00:00",
+ "ended_at": "2026-11-11T04:31:47.542990+00:00",
+ "elapsed_s": 13.44,
+ "task": {
+  "id": "household-money-math",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "7f6f5246841ce00c",
+  "rubric_hash": "3a7f59dac961798f",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/qwen/qwen3.8-27b",
+  "base": "qwen/qwen3.8-27b",
+  "publisher": "qwen",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null,
+   "resolved_source": "unknown"
+  },
+  "context_loaded": null,
+  "variant_key": "qwen/qwen3.8-27b|qwen|api|-",
+  "display": "qwen3.8-27b",
+  "origin": {
+   "maker": "qwen",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "Nebius",
+   "quant": null
+  },
+  "resolved_model": "qwen/qwen3.8-27b"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 280,
+  "tokens_out": 6691,
+  "model_responses": 1,
+  "ttft_s": 0.404,
+  "ttft_avg_s": 0.404,
+  "response_time_avg_s": 13.343,
+  "output_tokens_per_s": 517.1,
+  "cost_usd": 0.015138,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 11177
+ },
+ "output_ref": "outputs/bd152559-9a11-4cab-91d3-48ecdecc5eca.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "6faa751",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:d4753b0be6e0a2d7187e23e7167712af2c4142cda461608386219abb5e0bc617",
+  "submitter": null,
+  "verification": null
+ }
+}

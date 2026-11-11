@@ -1,0 +1,47 @@
+
+
+All done — 19 API tests + 31 web tests passing, TypeScript clean. Here's the summary.
+
+## Findings and fixes
+
+**1. Delete confirmation was a keyboard trap (inverted) — `ConfirmDialog.tsx`**
+Rewrote as a WAI-ARIA APG modal dialog:
+- `role="dialog"`, `aria-modal="true"`, `aria-labelledby`/`aria-describedby` (unique ids via `useId`) → now announced when it opens
+- On open, focus moves into the dialog; `Tab`/`Shift+Tab` wrap between the two actions; `Escape` cancels
+- Cancel/Delete are now real `<button>`s (were `div onClick`, i.e. invisible to the tab order)
+- On close, focus returns to the element that opened it (the "Delete Article" trigger), not the top of the page
+
+**2. "Read more" — `ReadMore.tsx`**
+- The `span` is now a native `<button>` with `aria-expanded` (Tab-reachable, Enter/Space activates)
+- After expanding, focus moves to the top of the article body (`tabIndex="-1"`) so screen readers read the revealed text; collapsing returns focus to the button
+
+**3. Tag filter was mouse-only — `TagFilter.tsx`**
+- Trigger is a `<button>` with `aria-expanded`; the menu is a `role="radiogroup"` and options are `role="radio"` with `aria-checked`, so the selected tag is announced
+- Opening moves focus to the checked option; `ArrowUp/Down`, `Home`, `End` navigate; `Enter` selects (closes, focuses trigger); `Escape` closes and returns focus to the trigger; plain `Tab` moves out (no trap)
+
+**4. Favorite button had no name — `FavoriteButton.tsx`**
+- Added `aria-label` "Add to favorites" / "Remove from favorites" (keeps existing `aria-pressed`, which announces on/off)
+
+**5. Form errors not connected — `EditorPage.tsx`**
+- Each field got an `id`, `aria-invalid` when errored, and `aria-describedby` pointing at the error span, which now has `role="alert"` so it announces on appearance
+- On submit failure, focus moves to the first invalid field
+
+**6. "Article published" was silent — `Toast.tsx`**
+- `role="status"` + `aria-live="polite"`, announced without stealing focus
+
+Visual design: all class names and DOM structure preserved; the repo contains no CSS files, so styling is entirely external and untouched. Component names, files, and props are unchanged.
+
+## Tests added (all keyboard interaction + announcements, plus axe)
+
+- `test/ConfirmDialog.test.tsx` — focus enters on open, modal/labelled announcements, Tab/Shift+Tab wrap inside, Enter activates Delete, Escape closes and restores focus to the trigger, axe clean
+- `test/ReadMore.test.tsx` — keyboard activation, `aria-expanded`, focus moves to revealed text / back to control, axe clean
+- `test/TagFilter.test.tsx` — keyboard open/close, radiogroup + `aria-checked`, arrow/Home/End navigation, Enter selects, Escape returns focus, Tab is not trapped, axe clean
+- `test/EditorPage.test.tsx` — errors marked invalid + described + announced (`role=alert`), focus lands on first invalid field, success toast is a polite status, axe clean
+- `test/Toast.test.tsx`, extended `test/FavoriteButton.test.tsx`, shared `test/axe.ts` helper
+- All pre-existing tests pass unmodified (the 2 `act()` warnings in the suite pre-date these changes)
+
+## What I couldn't verify without a real screen reader
+
+- **Exact announcement phrasing/behavior** in VoiceOver and NVDA (e.g., whether focus-on-the-body in "Read more" reads the full text as one chunk, and whether the dialog title is announced as expected) — I followed the APG patterns, but jsdom can't reproduce SR announcement queues.
+- **The toast's 1.5 s auto-navigation**: with `role="status"` the message is now announced, but some screen readers may truncate the announcement when the page navigates and unmounts the region. I kept the original timing to avoid changing app behavior; extending it (or keeping the toast across navigation) would be a safe follow-up if NVDA/VoiceOver users still miss it.
+- **Default button chrome**: `div`→`button` changes can render slightly differently under the real stylesheet (borders/background) if the external CSS doesn't already style `button` inside `.tag-filter-menu`/`.read-more` — worth a quick visual check against the design.

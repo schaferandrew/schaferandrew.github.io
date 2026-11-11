@@ -1,0 +1,16 @@
+
+
+I checked mechanical language errors separately from substantive/wording flags. The clear language errors are agreement in 3, the possessive apostrophe in 6, and then/than in 12. I flag 1, 4, and 8 as misleading because they misstate causes, legal status, or create a false dichotomy; I flag 11, 14, and 18 as overstated because they use claims like “inevitably,” “proves/completely ineffective,” and “definitively/at all.”
+
+ERRORS:
+3: are weighted
+6: its
+12: than
+
+FLAGS:
+1: misleading
+4: misleading
+8: misleading
+11: overstated
+14: overstated
+18: overstated

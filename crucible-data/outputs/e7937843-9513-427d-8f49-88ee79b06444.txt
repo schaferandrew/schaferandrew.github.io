@@ -1,0 +1,50 @@
+Cursor pagination is in place for the article lists, the feed and comments, and the web app now uses "Load more" everywhere. All 58 API tests and 20 web tests pass, typecheck is clean, and `realworld.contract.test.ts` is unmodified and green.
+
+## How it works
+
+**API**
+- **Paging method:** pages now start right after the last article the client saw, using its creation time and id (the list's existing sort order), instead of counting rows. New articles always land above that point, and deletes don't move it. So an article that matches the whole time is never skipped or repeated.
+- **Cursor format:** the cursor is the last-seen position, encrypted and signed (AES-256-GCM, in the new `apps/api/src/pagination.ts`). Clients can't read it, and any edit, truncation or forged value fails the check.
+- **Tied to its query:** each cursor carries a hash of the endpoint and filters it came from:
+  - `/articles`: tag, author and favorited;
+  - the feed: the signed-in user, so one user's feed cursor won't work in another's;
+  - comments: the article's id rather than its slug, so renaming an article mid-paging doesn't break it.
+
+  A mismatch returns 422 "does not match this query". This is checked even when the filter matches nothing.
+- **Validation:** a malformed cursor, a repeated `cursor` parameter, or `cursor` together with `offset` all return 422 as `{ "errors": { "cursor": [...] } }`.
+- **Offset responses:** offset paging works as before, and its responses now also include `nextCursor`, so a client can switch to cursors after any page.
+- **Comments:** without `limit` or `cursor` you still get every comment, with `nextCursor: null`.
+- **Code layout:** the request parsing is in `routes/pagination.ts`. Each service builds its own cursor scope, and the repositories return one page plus whether more rows follow.
+
+**Shared types:** `ArticlesResponse` and `CommentsResponse` gain `nextCursor: string | null`. `ArticleListQuery` gains `cursor`, and there's a new `CursorPageQuery`.
+
+**Web**
+- A new `useCursorPages` hook and `LoadMore` button replace `Pagination.tsx`, which is deleted.
+- Loaded items stay on screen and the button disappears on the last page. While a page loads, the button is disabled and extra clicks are ignored.
+- If loading more fails, loaded items stay, an error shows, and the button can be clicked again.
+- Late responses from a previous tab are dropped.
+- Comments use the same hook. A newly posted comment goes on top and can't reappear on a later page.
+
+**Tests**
+- **`apps/api/test/cursor-pagination.test.ts`:**
+  - Scripted runs that create, delete and favorite articles between page requests, including deleting the article the cursor points at.
+  - Randomized runs with a fixed seed across the global list, each filter and the feed.
+  - A run where writes are sent while a page request is in progress.
+  - One comparison test showing offset paging does repeat an article.
+  - Every validation rule, and comment paging.
+- **Tests that check the tests:** I temporarily broke the ordering comparison and the query check. 17, 13 and 5 tests failed respectively, so they do catch those regressions.
+- **Web tests:** new tests for the list, the home and profile tabs, and article-page comments.
+- **Existing web tests changed:** I rewrote the old "click page 2" test in `ArticleList.test.tsx`, because it tested the numbered pagination that's now removed. I also changed `renderWithProviders` to use Testing Library's `wrapper` option so that rerendering keeps the providers; the existing tests behave the same.
+
+## Things to flag in review
+- **Ordering relies on creation time:** if the server clock goes backwards, a new article can appear on a later page (still never twice). An increasing sequence or a time-ordered id would remove this.
+- **No expiry, key-dependent:** cursors never expire, and changing `CURSOR_SECRET` (or `JWT_SECRET`, which it falls back to) makes every open cursor fail with 422. The web app shows an error but doesn't restart the list; it should restart from page one on a cursor 422. The dev default secret must be overridden in production.
+- **Pages are built in memory:** the in-memory store still filters and sorts all rows on every request. With a real database the cursor would become a `WHERE` clause plus an index on (creation time, id).
+- **Rules I chose that you may want to revisit:**
+  - Empty `cursor=` or `offset=` values count as not sent, matching how `limit` is handled.
+  - `offset=0` together with a cursor is still a 422.
+  - The comments endpoint ignores `offset`.
+  - `limit=0` with a cursor returns an empty page and a cursor at the same position.
+- **Data shifts between pages:** articles that leave and re-enter a filter during paging (for example unfavorited and re-favorited) may or may not show up. Articles favorited by a user after paging started can appear on later pages if they're older than the cursor. Both are expected; neither breaks the no-duplicate rule.
+- **Comment errors are now visible:** a failed comment load used to show an empty list silently; it now shows an alert.
+- **README:** I added a paragraph documenting the new pagination behaviour.

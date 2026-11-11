@@ -1,0 +1,15 @@
+The page now shows Alice / Pro for `acct_1`. All 6 tests pass, and the type check and `next build` both succeed.
+
+**What was wrong:** In the App Router, `app/page.tsx` runs on the server by default because it has no `'use client'` line. It still used `useState` and `useEffect`, which only work in the browser, so the page broke during rendering and never got its data. It also loaded data in a roundabout way: the browser would fetch the app's own `/api/account` endpoint after the page loaded, and showed "Loading..." meanwhile. On top of that, the account data was copied separately into both the page and the API route.
+
+**What I changed:**
+- **`lib/accounts.ts` (new):** one shared `getAccount(id)` function holding the simulated database, so the data lives in one place. It returns `null` for unknown ids, including built-in object names like `toString`.
+- **`app/page.tsx`:** now an `async` server component that reads the account directly with `await getAccount('acct_1')` and shows a 404 page if it's missing. There's no browser-side state, no loading screen, and no call to its own API. The same `<main>`, `<h1>` and Name/Plan layout is kept.
+- **`app/api/account/route.ts`:** uses the shared `getAccount`. Its behaviour is the same, so the existing API tests still pass.
+
+I chose this over adding `'use client'` to the page. That would also have removed the crash, but it keeps the slower browser-side fetch and the loading flash, and the server-side version is the standard modern Next.js approach.
+
+**Tests:**
+- **`app/account-page.test.tsx` (new):** renders the page and checks that it shows "Name: Alice" and "Plan: Pro", never shows "Loading...", and never calls `fetch`. It also checks that the page is an `async` server component. I didn't run these tests against the old page, but they're written to fail on it.
+- **`lib/accounts.test.ts` (new):** covers known accounts, unknown ids, and the built-in name case.
+- **`app/page.test.tsx`:** the existing API route tests, unchanged and still passing.

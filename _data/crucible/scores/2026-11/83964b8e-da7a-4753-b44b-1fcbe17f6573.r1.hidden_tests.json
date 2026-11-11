@@ -1,0 +1,225 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "83964b8e-da7a-4753-b44b-1fcbe17f6573",
+ "rubric_version": 1,
+ "rubric_hash": "35c748edb2d883b3",
+ "method": "hidden_tests",
+ "scored_at": "2026-11-11T05:13:10.330010+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 21,
+  "total": 23,
+  "unit": "tests"
+ },
+ "score": 9.13,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "toolchain > every module has a TypeScript source",
+   "type": "hidden_test",
+   "group": "toolchain",
+   "label": "every module has a TypeScript source",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "toolchain > tsconfig.json turns strict mode on",
+   "type": "hidden_test",
+   "group": "toolchain",
+   "label": "tsconfig.json turns strict mode on",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "toolchain > the project type-checks with its own tsconfig",
+   "type": "hidden_test",
+   "group": "toolchain",
+   "label": "the project type-checks with its own tsconfig",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "toolchain > the sources type-check under strict settings of our own",
+   "type": "hidden_test",
+   "group": "toolchain",
+   "label": "the sources type-check under strict settings of our own",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "toolchain > no explicit any in the sources",
+   "type": "hidden_test",
+   "group": "toolchain",
+   "label": "no explicit any in the sources",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "toolchain > no type-check suppression comments",
+   "type": "hidden_test",
+   "group": "toolchain",
+   "label": "no type-check suppression comments",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "types > a tool's status is the union of its three values, not string",
+   "type": "hidden_test",
+   "group": "types",
+   "label": "a tool's status is the union of its three values, not string",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "types > borrower, due date, retired reason and cost are typed as nullable",
+   "type": "hidden_test",
+   "group": "types",
+   "label": "borrower, due date, retired reason and cost are typed as nullable",
+   "passed": false,
+   "detail": "AssertionError: expected [ …(2) ] to deeply equal []"
+  },
+  {
+   "id": "types > looking a tool up can give undefined",
+   "type": "hidden_test",
+   "group": "types",
+   "label": "looking a tool up can give undefined",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "types > change listeners receive a union of events that narrows on its type",
+   "type": "hidden_test",
+   "group": "types",
+   "label": "change listeners receive a union of events that narrows on its type",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "types > nothing the modules export is any",
+   "type": "hidden_test",
+   "group": "types",
+   "label": "nothing the modules export is any",
+   "passed": false,
+   "detail": "AssertionError: expected [ …(2) ] to deeply equal []"
+  },
+  {
+   "id": "behavior > list filters by status, tag and text",
+   "type": "hidden_test",
+   "group": "behavior",
+   "label": "list filters by status, tag and text",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "behavior > loan saves the due date, trims the borrower and logs the change",
+   "type": "hidden_test",
+   "group": "behavior",
+   "label": "loan saves the due date, trims the borrower and logs the change",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "behavior > return reports lateness and frees the tool",
+   "type": "hidden_test",
+   "group": "behavior",
+   "label": "return reports lateness and frees the tool",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "behavior > return counts late days across a month end",
+   "type": "hidden_test",
+   "group": "behavior",
+   "label": "return counts late days across a month end",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "behavior > retire needs a reason and refuses tools that are out or already retired",
+   "type": "hidden_test",
+   "group": "behavior",
+   "label": "retire needs a reason and refuses tools that are out or already retired",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "behavior > add assigns ids, tags and costs",
+   "type": "hidden_test",
+   "group": "behavior",
+   "label": "add assigns ids, tags and costs",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "behavior > bad arguments give the same messages and exit codes",
+   "type": "hidden_test",
+   "group": "behavior",
+   "label": "bad arguments give the same messages and exit codes",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "behavior > report and overdue summarise the fixture",
+   "type": "hidden_test",
+   "group": "behavior",
+   "label": "report and overdue summarise the fixture",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "behavior > loading handles missing files, odd records and bad data",
+   "type": "hidden_test",
+   "group": "behavior",
+   "label": "loading handles missing files, odd records and bad data",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "behavior > the store and tools API return and emit the same things",
+   "type": "hidden_test",
+   "group": "behavior",
+   "label": "the store and tools API return and emit the same things",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "behavior > findTools, overdueTools and summarize on a custom store",
+   "type": "hidden_test",
+   "group": "behavior",
+   "label": "findTools, overdueTools and summarize on a custom store",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "behavior > date helpers handle leap days and invalid dates",
+   "type": "hidden_test",
+   "group": "behavior",
+   "label": "date helpers handle leap days and invalid dates",
+   "passed": true,
+   "detail": null
+  }
+ ],
+ "groups": [
+  {
+   "id": "A real TypeScript port",
+   "passed": 2.61,
+   "total": 2.61,
+   "detail": "6/6 hidden tests pass"
+  },
+  {
+   "id": "Types model the data",
+   "passed": 1.3,
+   "total": 2.17,
+   "detail": "3/5 hidden tests pass"
+  },
+  {
+   "id": "Behavior unchanged",
+   "passed": 5.22,
+   "total": 5.22,
+   "detail": "12/12 hidden tests pass"
+  }
+ ]
+}

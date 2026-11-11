@@ -1,0 +1,31 @@
+All data gathered. Here's my reasoning:
+
+**Flight (Q1):** Filtering the 7 flights:
+- NW201 — departs 06:10 (before 07:00) ✗
+- CJ550 — 2 stops (max 1) ✗
+- TA77 — layover 50 min (< 60) ✗
+- NW318 — arrives 12:30 (after noon) ✗
+- PL09 — valid: 07:20→11:10, 1 stop, 75-min layover, $262+$25 = $287 ✓
+- SL114 — valid: 08:15→10:40, nonstop, $279+$0 = **$279** ✓
+- SL330 — total $349 > $300 ✗
+
+Cheapest valid: **SL114 at $279**.
+
+**Restaurant (Q2):** Allergy-safe requires both `peanut_free` and `sesame_free`:
+- Saffron Table ✗ (shared peanut oil, sesame across menu)
+- Golden Noodle ✗ (sesame in nearly every dish)
+- Harbor Grill ✓ both free; walk **1.3 mi** ≤ 1.5
+- Tidewater Bistro ✗ (sesame buns/prep)
+- Fennel & Fig ✓ both free, but walk 1.9 mi > 1.5 ✗
+
+Safe and close: **Harbor Grill, 1.3 mi walking**.
+
+**Q3:** Road distance 14.2 mi; taxi at 17:15 (peak traffic) = 41 min.
+
+ANSWERS:
+Flight: SL114
+Total: 279
+Restaurant: Harbor Grill
+Walk: 1.3
+Distance: 14.2
+Taxi: 41

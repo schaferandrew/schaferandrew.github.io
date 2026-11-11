@@ -1,0 +1,90 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "3acf5279-2d54-498a-8e53-f238f5d3f19a",
+ "run_path": "openrouter_deepseek_deepseek-v4.1-flash/nextjs-server-data-boundary/20261111_042602",
+ "legacy_run_id": null,
+ "started_at": "2026-11-11T04:26:06.997475+00:00",
+ "ended_at": "2026-11-11T04:26:59.660030+00:00",
+ "elapsed_s": 52.45,
+ "task": {
+  "id": "nextjs-server-data-boundary",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "f5196c62d3613d53",
+  "rubric_hash": "071f25e0acdbacbf",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/deepseek/deepseek-v4.1-flash",
+  "base": "deepseek/deepseek-v4.1-flash",
+  "publisher": "deepseek",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null,
+   "resolved_source": "unknown"
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek/deepseek-v4.1-flash|deepseek|api|-",
+  "display": "deepseek-v4.1-flash",
+  "origin": {
+   "maker": "deepseek",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 29,
+  "tokens_in": 129516,
+  "tokens_out": 9189,
+  "model_responses": 14,
+  "ttft_s": 0.674,
+  "ttft_avg_s": 0.426,
+  "response_time_avg_s": 2.744,
+  "output_tokens_per_s": 283.1,
+  "cost_usd": 0.006827,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/3acf5279-2d54-498a-8e53-f238f5d3f19a.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "6faa751",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:ccdf594515a8ace398893a6d11b7b065bf60aa2a26a3c67f33df70c41a694516",
+  "submitter": null,
+  "verification": null
+ }
+}

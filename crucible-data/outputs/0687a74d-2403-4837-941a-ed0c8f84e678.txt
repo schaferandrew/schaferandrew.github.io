@@ -1,0 +1,7 @@
+Implemented the Ruby app with a standard-library-only layout:
+
+- `app.rb` is the command-line entry point.
+- `lib/` contains routing, data access, date helpers, and quote calculation.
+- `test/run_tests.rb` runs the fixture suite; `tests/run_tests.rb` is also available.
+
+Both test commands pass: **8/8 fixtures**. The Ruby app deliberately reproduces PHP quirks including query-value coercion and `empty()` checks, validation order, date rollover for impossible-but-pattern-matching dates, and PHP-style JSON formatting for integral floats. PHP wasn’t installed here, so I verified against the fixtures and PHP source.

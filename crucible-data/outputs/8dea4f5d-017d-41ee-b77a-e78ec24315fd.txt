@@ -1,0 +1,52 @@
+### 1. Savings account
+For monthly compounding,
+\[
+A=P\left(1+\frac{r}{12}\right)^{12t}.
+\]
+Substituting:
+\[
+A=5000\left(1+\frac{0.04}{12}\right)^{36}.
+\]
+Rounding only the final result to the nearest cent gives **$5,636.36**.
+
+### 2. Flooring boxes
+Include 10% extra for waste:
+\[
+1850(1.10)=2035\text{ sq ft}.
+\]
+The number of boxes required is
+\[
+\frac{2035}{23.5}=\frac{4070}{47}.
+\]
+Since you must buy whole boxes, round **up** to **87 boxes**.
+
+### 3. Gas cost
+Gallons needed:
+\[
+\frac{412}{34}\text{ gallons}.
+\]
+Total cost:
+\[
+\frac{412}{34}\times 3.89=\frac{1602.68}{34}.
+\]
+Rounding to the nearest cent gives **$47.14**.
+
+### 4. Dinner split
+Tip on the pre-tax amount:
+\[
+172.00(0.18)=\$30.96.
+\]
+Total including tax and tip:
+\[
+186.40+30.96=\$217.36.
+\]
+Each person pays:
+\[
+\frac{217.36}{4}=\boxed{\$54.34}.
+\]
+
+## ANSWERS
+1. $5,636.36
+2. 87 boxes
+3. $47.14
+4. $54.34

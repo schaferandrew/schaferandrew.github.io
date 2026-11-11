@@ -1,0 +1,24 @@
+
+
+Done. The app is running on port 3456 with the fix in place.
+
+## Diagnosis
+
+Reproduced in a real browser (headless Chrome via CDP): login as `testuser` → dashboard renders normally → wait ~32s (past the 30s session TTL from `accounts.json`) → reload `/dashboard.html` → dashboard content is **blank**.
+
+Root cause, confirmed via network/console inspection:
+- There was **no failing request and no JS exception**. After the 30s TTL, `/api/dashboard` returned HTTP **200** with `{user: null, dashboardMessage: ''}` (server.js treated invalid/expired sessions as a successful-but-empty response).
+- `loadDashboard()` in `public/dashboard.html` had no branch for a missing user — it rendered `user.textContent = ''` and `message.textContent = ''`, producing the blank state.
+
+## Fix
+
+1. **`server.js`** — `/api/dashboard` now returns **401** with an `error` field (`expired_session` / `stale_session` / `no_session`) when the session is invalid, so clients can distinguish "session gone" from a real empty payload (audit logging unchanged).
+2. **`public/dashboard.html`** — `loadDashboard()` handles non-OK responses and null users by showing *"Your session has expired. Log in again."* (with a link to `/login.html`) in a styled message instead of a blank page, plus a fallback for network errors.
+
+## Verification
+
+- **Browser (real Chrome, CDP)**: fresh login still shows `User: testuser / Welcome to your dashboard!`; after the TTL expires, reload now shows the "session has expired" message with a re-login link, and the network panel shows the 401 for `/api/dashboard`. No console errors.
+- **Regression test** (new `describe('Dashboard session expiry (blank-dashboard regression)')` in `server.test.js`):
+  - logs in, asserts 200 + user on a fresh session, mocks `Date.now()` past the 30s TTL, and asserts the API now returns **401** with `expired_session` and null user;
+  - asserts **401** / `no_session` when no session cookie is present.
+- `npm test`: **9/9 passing** (4 pre-existing + new regression suite).

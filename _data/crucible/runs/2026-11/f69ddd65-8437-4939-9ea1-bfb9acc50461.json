@@ -1,0 +1,93 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "f69ddd65-8437-4939-9ea1-bfb9acc50461",
+ "run_path": "openrouter_anthropic_claude-opus-5.5/letter-from-1863/20261111_044341",
+ "legacy_run_id": null,
+ "started_at": "2026-11-11T04:43:41.662998+00:00",
+ "ended_at": "2026-11-11T04:43:53.526438+00:00",
+ "elapsed_s": 11.85,
+ "task": {
+  "id": "letter-from-1863",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "f73283c0960967b1",
+  "rubric_hash": "44543ae2a21316cd",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/anthropic/claude-opus-5.5",
+  "base": "anthropic/claude-opus-5.5",
+  "publisher": "anthropic",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null,
+   "resolved_source": "unknown"
+  },
+  "context_loaded": null,
+  "variant_key": "anthropic/claude-opus-5.5|anthropic|api|-",
+  "display": "claude-opus-5.5",
+  "origin": {
+   "maker": "anthropic",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "Claude Platform on AWS",
+   "quant": null
+  },
+  "resolved_model": "anthropic/claude-opus-5.5"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 325,
+  "tokens_out": 1081,
+  "model_responses": 1,
+  "ttft_s": 2.654,
+  "ttft_avg_s": 2.654,
+  "response_time_avg_s": 9.696,
+  "output_tokens_per_s": 153.5,
+  "cost_usd": 0.021742,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 617
+ },
+ "output_ref": "outputs/f69ddd65-8437-4939-9ea1-bfb9acc50461.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "6faa751",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:f239db098ec1de5bb8b01eec4075977a3146a66b0f9a528052341cbe45277c7f",
+  "submitter": null,
+  "verification": null
+ }
+}

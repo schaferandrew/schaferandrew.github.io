@@ -1,0 +1,90 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "86359de5-bcb2-4cd9-a3f2-6f637acbde21",
+ "run_path": "openrouter_moonshotai_kimi-k2.6/react-lead-form/20261111_050643",
+ "legacy_run_id": null,
+ "started_at": "2026-11-11T05:06:47.827306+00:00",
+ "ended_at": "2026-11-11T05:09:00.401405+00:00",
+ "elapsed_s": 132.34,
+ "task": {
+  "id": "react-lead-form",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "02ccc27101b8f69d",
+  "rubric_hash": "248484a519654873",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/moonshotai/kimi-k2.6",
+  "base": "moonshotai/kimi-k2.6",
+  "publisher": "moonshotai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null,
+   "resolved_source": "unknown"
+  },
+  "context_loaded": null,
+  "variant_key": "moonshotai/kimi-k2.6|moonshotai|api|-",
+  "display": "kimi-k2.6",
+  "origin": {
+   "maker": "moonshotai",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 24,
+  "tokens_in": 474669,
+  "tokens_out": 12730,
+  "model_responses": 16,
+  "ttft_s": 0.441,
+  "ttft_avg_s": 0.494,
+  "response_time_avg_s": 4.609,
+  "output_tokens_per_s": 193.4,
+  "cost_usd": 0.835318,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/86359de5-bcb2-4cd9-a3f2-6f637acbde21.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "6faa751",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:24054f6c83c0d6bbeb2e738c44cd4f808e467949485858d43d58c4fd79586053",
+  "submitter": null,
+  "verification": null
+ }
+}

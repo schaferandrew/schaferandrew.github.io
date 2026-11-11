@@ -1,0 +1,34 @@
+ Done. The package is in `interest/`, tests in `tests/`, and `README.md` is written.
+
+**Summary of what was built:**
+
+- **`interest/calculator.py`** – Core logic:
+  - Validates all inputs (non-negative principal/rate, positive whole-number time, matching contribution flags, etc.).
+  - **No contributions:** uses the exact closed-form compound-interest formula.
+  - **With contributions:** simulates month-by-month, applying interest at period boundaries and contributions at month/year ends. This correctly handles all compounding frequencies (including quarterly + monthly contributions) and obeys the “interest first, then contribution” rule.
+
+- **`interest/cli.py`** – `argparse`-based CLI that prints a readable summary by default or JSON with `--json`.
+
+- **`interest/__main__.py`** – Entry point so the tool runs as `python -m interest`.
+
+- **`tests/test_interest.py`** – 22 `unittest` tests covering:
+  - ordinary cases, zero interest, monthly compounding
+  - recurring contributions at both monthly and annual frequencies
+  - invalid / contradictory inputs
+  - a known hand-verifiable expected value
+  - CLI invocation and exit-code checks
+
+- **`README.md`** – Usage instructions and command examples.
+
+You can run the tests now with:
+
+```bash
+python -m unittest discover tests/ -v
+```
+
+Or use the calculator directly:
+
+```bash
+python -m interest --principal 1000 --rate 5 --years 10 --compound annually
+python -m interest --principal 1000 --rate 5 --years 1 --compound monthly --contribution 100 --contribution-frequency monthly --json
+```

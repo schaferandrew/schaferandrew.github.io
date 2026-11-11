@@ -1,0 +1,8 @@
+Converted all six `src/` modules to `.ts`, removed the `.js` originals, and added a strict `tsconfig.json`. Tests and package files are unchanged.
+
+Verified:
+- `npx tsc -p tsconfig.json` passes.
+- `npm test` passes: 21 tests.
+- 352 edge-case runs match the original outputs, exit codes, saved JSON, and audit lines.
+
+Non-obvious types include nullable tool fields, the discriminated store-event union, boolean CLI flags, and legacy JSON fields that accept non-string values. Those permissive behaviors remain unchanged.

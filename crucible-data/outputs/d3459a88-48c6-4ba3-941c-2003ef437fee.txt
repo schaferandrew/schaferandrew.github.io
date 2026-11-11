@@ -1,0 +1,15 @@
+Done. Ported all six modules to TypeScript, removed the `.js` originals, and added a strict `tsconfig.json`.
+
+**Verification**
+- `npx tsc -p tsconfig.json` → exit 0, no errors (strict, `NodeNext`, no `any`, no suppression comments).
+- `npm test` → 21/21 passing.
+- Extra check: compiled the new TS to JS and diffed 24 CLI invocations against the original JS from git — identical output lines, exit codes, audit lines, and saved JSON.
+
+**Non-obvious typing decisions**
+- `Tool` is a plain interface with `status: ToolStatus` (`"available" | "loaned" | "retired"`) plus nullable `borrower`/`dueDate`/`retiredReason`/`replacementCost`. I deliberately did **not** use a discriminated union, because the lending functions mutate `status` in place and the original doesn't enforce the status/field invariant at the type boundary.
+- Invariants the original only establishes via its throw checks (e.g. `loaned` implies non-null `borrower`/`dueDate`, `retired` implies a string `retiredReason`) needed narrow assertions in `returnTool`, `detail`, and `overdueTools`. I used `as string` / a type predicate rather than adding runtime checks, since extra checks would change behavior on corrupt data.
+- `normalizeTool` takes `raw: unknown`, then casts to `Record<string, unknown>`. Its validation is intentionally loose (`category`, `borrower`, `retiredReason` are not type-checked), so those are asserted to their downstream `string` types to keep the original permissive behavior.
+- `ToolStore` JSON data is treated as untrusted: `raw`/`tools` are `unknown` and only validated through `normalizeTool`; `nextId` is cast because the original accepts any truthy value.
+- `StoreEvent` is a union discriminated by `type`, which lets `auditLines` narrow cleanly.
+- CLI `flags` are typed `Record<string, string | boolean | undefined>`; the list command asserts flag values to strings because the original passes raw flags into `findTools` and would fail at runtime on a valueless flag — the assertions preserve that (including the failure), rather than silently filtering it out.
+- `catch (err)` is `unknown` under strict; I cast to `NodeJS.ErrnoException`/`Error` to keep the exact original error messages.

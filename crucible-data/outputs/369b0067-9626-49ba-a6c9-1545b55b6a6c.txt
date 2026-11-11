@@ -1,0 +1,54 @@
+I fixed all six findings in `apps/web`. The web suite now has 35 tests, all passing, and the API tests still pass. `tsc` and `vite build` are clean. I checked that the new tests catch the original bugs: with the original components put back, 24 of them fail.
+
+**What I couldn't verify without a real screen reader and real browsers:** whether NVDA and VoiceOver announce things the way the tests expect, how the page looks, and how the delete dialog behaves in a real browser.
+
+**About the dialog tests:** the test environment (jsdom) has no built-in modal dialogs and no way to make the page behind one unusable. I added a small stand-in, `test/dialog-polyfill.ts`, that follows the HTML spec. So the dialog tests check that the component asks the browser to open a modal; they don't prove the browser then locks the page behind it.
+
+## Findings and fixes
+
+**1. Delete confirmation** (`ConfirmDialog.tsx`)
+- It's now a native modal `<dialog>` opened with `showModal()`. The browser makes the page behind it unusable while it's open, and Escape is a "cancel" event that calls `onCancel`.
+- It's announced as an alert dialog, using the title as its name and the message as its description.
+- Cancel and Delete are now real buttons, so Tab, Enter and Space work.
+- Focus starts on Cancel, the safe option. When the dialog closes, focus goes back to "Delete Article".
+- Clicking outside the box still cancels. You can always get out, so it isn't a keyboard trap.
+
+**2. "Read more"** (`ReadMore.tsx`)
+- It's now a real button that says whether the text is expanded.
+- When you expand it, focus moves to the start of the newly shown text, so a screen reader reads on from there.
+- "Show less" leaves focus on the button.
+
+**3. Tag filter** (`TagFilter.tsx`)
+- I used native buttons in a show/hide pattern rather than a custom ARIA menu. That gives Tab, Enter and Space for free with no arrow-key handling to build.
+- The opener says whether the list is open and names the current choice ("Filter by tag: react").
+- The choices are a labelled list of buttons, and the selected one is marked as current.
+- Escape, picking a tag, or tabbing out closes the list. The first two put focus back on the opener; closing on tab-out stops the open list covering whatever gets focus next.
+- Safari doesn't give buttons focus when they're clicked, so closing when focus leaves could have broken mouse selection. I guarded against that.
+
+**4. Favorite button** (`FavoriteButton.tsx`)
+- It now has a name like `Favorite "Title", 3 favorites`, and the existing on/off state is still announced. The heart icon is hidden from screen readers.
+- I also fixed a problem the original had: the button was disabled while saving, which drops keyboard focus to the top of the page. It's now only marked busy, and repeat presses are ignored until the save finishes.
+
+**5. Editor errors** (`EditorPage.tsx`)
+- Each field with an error is marked invalid, and its error is read when you move to it.
+- After a failed submit, focus moves to the first invalid field.
+- Old errors are cleared when you resubmit.
+- Errors that don't belong to any field used to be silently dropped. They now appear in an announced alert at the top of the form.
+
+**6. "Article published"** (`Toast.tsx`)
+- There's now a status area that's always on the page and stays empty until a message arrives. Screen readers reliably announce text added to an area like this, but often miss one that appears along with its text.
+
+**Visual design:** several `div`s and `span`s became `<button>`, `<ul>` or `<dialog>`. The new `src/components/a11y.css` removes the browser's default styling for those elements, and any theme styles still take priority. Focus outlines are left visible. No component names, files or props changed.
+
+**Tests:** new files for each finding (`ConfirmDialog`, `ReadMore`, `TagFilter`, `EditorPage`, `Toast`), extra cases in `FavoriteButton`, and an `ArticlePage` test of the whole delete flow. They cover keyboard use, focus, names and states, and axe checks. The axe helper skips colour contrast because jsdom can't compute it.
+
+## Needs a real screen reader and browser
+- **Read more:** whether VoiceOver and NVDA actually read the revealed text when focus lands on it.
+- **Article published:** the editor still moves to the article page 1.5 seconds after publishing. The announcement may get cut off, especially in VoiceOver. If it does, the fix is a longer delay or announcing it on the next page.
+- **Tag filter:** how "current" is spoken in each screen reader.
+- **Delete dialog:** whether the page behind it can be reached, and whether Escape works, in Safari, Firefox and Chrome. Older Safari has known gaps here.
+- **Visual design:** the repo has no stylesheet, so I couldn't compare against the real theme. The design team should check the tag filter, dialog and "Read more".
+
+## Outside the six findings, not fixed
+- After deleting, the app goes to the home page and focus starts at the top. More generally, the app doesn't manage focus when the page changes.
+- The editor's inputs have accessible names but only placeholder text on screen.

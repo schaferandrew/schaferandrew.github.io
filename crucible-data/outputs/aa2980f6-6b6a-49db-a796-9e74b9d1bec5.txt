@@ -1,0 +1,34 @@
+# Who Sits in Chair 3: Dave
+
+## Interpretation
+
+The puzzle numbers the chairs "1 to 4 from left to right." I take "left" to mean a lower chair number and "right" to mean a higher one. So "immediately to the left" means exactly one chair lower, and "somewhere to the right" means any higher-numbered chair.
+
+Someone might read left and right from a different viewpoint, for example that of people sitting in the chairs and facing the other way. That reading fails, as shown at the end, so the puzzle has only one consistent interpretation.
+
+## Step-by-step deduction
+
+1. **Colors from Clues 4 and 5.** Carol likes yellow and Dave likes red. Blue and green remain for Alice and Bob.
+
+2. **Alice's color from Clue 1.** Alice sits immediately left of the person who likes blue. Nobody can sit immediately to their own left, so Alice does not like blue. Therefore **Alice likes green** and **Bob likes blue**.
+
+3. **Alice's chair from Clue 3.** The green lover sits in chair 1, so **Alice is in chair 1**.
+
+4. **Bob's chair from Clue 1.** The blue lover, Bob, sits immediately right of Alice, so **Bob is in chair 2**.
+
+5. **Carol and Dave from Clue 4.** Chairs 3 and 4 remain for Carol and Dave. Carol must sit to the right of the red lover, Dave. So **Dave is in chair 3** and **Carol is in chair 4**.
+
+6. **Check Clue 2.** Bob is in chair 2, not chair 4. ✓
+
+## Checking the alternative reading
+
+Suppose "left" meant a higher chair number. Steps 1 to 3 do not depend on direction, so Alice still likes green and sits in chair 1. The blue lover would then need to be in "chair 0," which does not exist. That reading is contradictory, which confirms the standard reading and a unique solution.
+
+## Final Seating
+
+Chair 1: Alice, green
+Chair 2: Bob, blue
+Chair 3: Dave, red
+Chair 4: Carol, yellow
+
+ANSWER: Dave

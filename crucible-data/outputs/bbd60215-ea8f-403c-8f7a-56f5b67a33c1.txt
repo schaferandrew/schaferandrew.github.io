@@ -1,0 +1,15 @@
+
+
+Criterion 1 — Correct complexity (4): The response says the time complexity is **O(n log n)** and repeats that in the summary. It does not state **O(log n)**.  
+Points: 0/4.
+
+Criterion 2 — Explanation (3): The response says the algorithm “repeatedly checks the middle element,” but it does not explain that each step halves the remaining search range.  
+Points: 0/3.
+
+Criterion 3 — Precondition (2): The response claims binary search “works on any array, sorted or not,” which is incorrect and does not state that the input must already be sorted.  
+Points: 0/2.
+
+Criterion 4 — Clarity (1): The answer is clear and well organised, with a concise summary, even though the content is wrong.  
+Points: 1/1.
+
+GRADE: 1

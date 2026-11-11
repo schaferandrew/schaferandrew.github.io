@@ -1,0 +1,31 @@
+
+
+Done. Here's the full picture:
+
+## Root cause (confirmed in logs)
+The v1.8.0 deploy (2026-10-23 16:42:10 UTC, `deploy.log`) shipped `apps/api/src/middleware/responseCache.ts` (PERF-212/219): a per-process in-memory cache of 200 GET responses for `/articles…`, `/profiles/…`, `/tags`, 60s TTL, enabled only in production. Two defects, both visible in `access.log`/`app.log`:
+
+1. **URL-only cache key** — but article/profile payloads embed per-viewer state (`favorited`, `author.following`, `profile.following`). E.g. `app.log:813-814`: `user1701`'s view of `/api/profiles/priya.writes` stored at 17:18:55.598 and served to `devon` 150ms later → ticket #4815.
+2. **No invalidation on writes** — `tomasz`'s cached draft (line 35944) was deleted 4s later (35947) yet served via `HIT` to two users (35951, 35956) → #4830; priya's pre-edit view served for 21s after her PUT → #4821.
+
+## Fix (intent preserved, no wholesale revert)
+- `middleware/responseCache.ts` — cache key is now `<viewer>|<url>`; bounded entries (evict expired→oldest past `maxEntries`, now needed since keys are per-user); requests with invalid tokens bypass the cache entirely; cache log lines now include the viewer.
+- `middleware/auth.ts` — new `cacheViewer(req)` helper (user id / `"anon"` / null-bypass).
+- `app.ts` — same `createApp(db, { responseCacheTtlMs })` surface, `server.ts` untouched; added write-invalidation: article create/edit/delete/favorite/comment → drop `/api/articles*` + `/api/tags`; `PUT /user` → drop `/api/profiles*` + `/api/articles*`; follow/unfollow → drop the acting viewer's entries. Repeat reads by the same viewer still hit the cache (`X-Cache: HIT/MISS` kept).
+
+Verified end-to-end against the real `NODE_ENV=production` server: no cross-user/anon leakage, edits and deletes visible immediately, 401 on bad token with no cache headers.
+
+## Tests
+New `apps/api/test/responseCache.isolation.test.ts` (10 tests): **9 fail on the pre-fix code, all 10 pass after**; the 10th pins the preserved perf behavior (same-viewer repeat read = HIT). Full suite green: 31 API tests (including unmodified `realworld.contract.test.ts`) + 7 web tests; `tsc` clean.
+
+## Postmortem
+`incident/POSTMORTEM.md` starts with:
+
+```
+Deploy: 16:42:10
+First affected request: 17:18:55
+First report: 18:06:01
+Affected users: 51
+```
+
+**51** distinct signed-in users were served another signed-in user's personalized view: of 104 `HIT`s on personalized URLs, I matched each to the most recent 200 `MISS` store for the same URL (the only possible source within the 60s TTL, all ≤60s) and compared `user=` fields — 52 such requests, 51 distinct requesters (first 17:18:55.748, last 2026-10-24 05:12:45.742). Per the ticket's rule I counted signed-in users only; the postmortem states that excluding 23 signed-in users who received anonymous-built views (which would bring it to 71) and 17 anonymous requests that received a signed-in user's view.

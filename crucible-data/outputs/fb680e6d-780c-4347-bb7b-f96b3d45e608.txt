@@ -1,0 +1,21 @@
+## Evaluation Against Criteria
+
+**1. Correct complexity (4 points): states O(log n).**
+The agent states the complexity is O(n log n), incorrectly attributing this to a sorting step. Binary search itself is O(log n); the response conflates sorting (which is not part of binary search) with searching. This criterion is not met.
+**Points: 0/4**
+
+**2. Explanation (3 points): explains that each step halves the remaining search range.**
+The response never mentions that each step halves the search space. Its "explanation" is that the complexity is dominated by a sorting phase, which is factually wrong and does not describe the halving mechanism at all. "Repeatedly checks the middle element" gestures at the mechanism but does not explain the halving of the remaining range, and it is embedded in a wrong overall account.
+**Points: 0/3**
+
+**3. Precondition (2 points): states that the input must already be sorted.**
+The response explicitly asserts the opposite — that binary search "works on any array, sorted or not." This directly contradicts the required precondition and would mislead the reader.
+**Points: 0/2**
+
+**4. Clarity (1 point): the answer is clear and well organised.**
+Judged purely on presentation, the response is well organised: it gives a direct answer, provides reasoning, and includes a summary line. The criterion asks only about clarity of organisation, not correctness (which is covered by the other criteria).
+**Points: 1/1**
+
+**Total: 0 + 0 + 0 + 1 = 1**
+
+GRADE: 1

@@ -1,0 +1,146 @@
+
+
+I’ll work each problem from its stated rules.
+
+## 1. Token pile game
+
+Use states \((n,p)\), where \(n\) is the pile size and \(p\in\{0,2,3,5,7\}\) is the move the opponent just made (\(0\) means no restriction on the first move). A state is losing if every legal move leads to a winning state for the opponent.
+
+Computing this recursively up to \(n=100\), the losing starting values \(n\) are:
+
+\[
+1,9,13,17,25,26,34,42,43,51,59,60,68,76,77,85,93,94.
+\]
+
+There are \(18\) such values.
+
+## 2. Pins in a row
+
+When pins are removed, the board splits into independent blocks of consecutive standing pins. Let \(G(L)\) be the Grundy value for a block of length \(L\). With \(G(0)=G(1)=0\), the relevant values are:
+
+\[
+\begin{array}{c|ccccccccccccccccccccccccc}
+L&0&1&2&3&4&5&6&7&8&9&10&11&12&13&14&15&16&17&18&19&20&21&22&23\\
+\hline
+G(L)&0&0&1&1&2&2&3&3&1&1&4&4&3&3&2&2&1&1&4&4&2&2&6&6
+\end{array}
+\]
+
+A first move is winning iff it leaves two blocks whose Grundy values xor to \(0\).
+
+- Removing two pins splits \(23\) into lengths summing to \(21\). Equality occurs only for \((10,11)\), giving \(2\) moves.
+- Removing three pins splits \(23\) into lengths summing to \(20\). Equality occurs for \((3,17),(5,15),(7,13),(10,10)\), giving \(2+2+2+1=7\) moves.
+
+Total winning first moves: \(2+7=9\).
+
+## 3. Undirected vertex geography
+
+For undirected vertex geography, the first player wins from a starting vertex \(v\) exactly when \(v\) is matched in every maximum matching of the graph. Equivalently, \(v\) is losing iff \(G-v\) has a perfect matching.
+
+Here the maximum matching size is \(5\). The vertices \(v\) for which \(G-v\) has a perfect matching are:
+
+\[
+5,6,7,8.
+\]
+
+So the first player wins from the remaining vertices:
+
+\[
+1,2,3,4,9,10,11.
+\]
+
+Their sum is:
+
+\[
+1+2+3+4+9+10+11=40.
+\]
+
+## 4. Knights and knaves
+
+Let \(1\) mean knight and \(0\) mean knave. The statements become:
+
+\[
+\begin{aligned}
+a&=b\oplus d,\\
+b&=1-f,\\
+c&=(e=g),\\
+d&=(a=f),\\
+e&=[a+d+f=2],\\
+f&=[e+f+g=2],\\
+g&=1-cd,\\
+h&=a\oplus e.
+\end{aligned}
+\]
+
+Solving gives exactly two consistent assignments:
+
+1. \(A,B,C,D,E,H\) are knaves; \(F,G\) are knights.  
+   Knight count: \(2\).
+
+2. \(B,C,E\) are knaves; \(A,D,F,G,H\) are knights.  
+   Knight count: \(5\).
+
+Total knights over all consistent assignments: \(2+5=7\).
+
+## 5. Six houses
+
+From the clues, the unique solution is:
+
+\[
+\begin{array}{c|c|c|c|c|c}
+\text{House} & 1 & 2 & 3 & 4 & 5 & 6\\
+\hline
+\text{Person} & \text{Bram} & \text{Lior} & \text{Wren} & \text{Kofi} & \text{Odile} & \text{Tamsin}\\
+\text{Color} & \text{Lilac} & \text{Maroon} & \text{Teal} & \text{Ochre} & \text{Slate} & \text{Ivory}\\
+\text{Pet} & \text{Axolotl} & \text{Tortoise} & \text{Ferret} & \text{Heron} & \text{Hamster} & \text{Gecko}\\
+\text{Drink} & \text{Cocoa} & \text{Lassi} & \text{Kefir} & \text{Kvass} & \text{Mate} & \text{Cider}\\
+\text{Job} & \text{Farrier} & \text{Glazier} & \text{Cartographer} & \text{Luthier} & \text{Archivist} & \text{Beekeeper}
+\end{array}
+\]
+
+Requested order: Odile, Bram, Tamsin, Kofi, Lior, Wren.
+
+\[
+5,\;1,\;6,\;4,\;2,\;3
+\]
+
+So the six-digit number is:
+
+\[
+516423.
+\]
+
+## 6. Scheduling talks
+
+Since \(S\) is before \(P\), \(P\) is not consecutive with \(S\), and \(P\) is between \(S\) and \(R\), we must have:
+
+\[
+S<P<R,\quad P-S\ge 2,\quad P\ne 5.
+\]
+
+Count the valid choices for \(S,P,R\), then choose \(T\) so that at least two talks are between \(R\) and \(T\), and choose \(Q\neq 1,3\). The counts by \(P\) are:
+
+- \(P=2\): \(16\)
+- \(P=3\): \(15\)
+- \(P=4\): \(20\)
+- \(P=6\): \(24\)
+
+Total for \(S,P,R,T,Q\):
+
+\[
+16+15+20+24=75.
+\]
+
+The remaining two slots can be filled by \(U\) and \(V\) in \(2!\) ways, so the total number of schedules is:
+
+\[
+75\times 2=150.
+\]
+
+ANSWERS:
+1: 18
+2: 9
+3: 40
+4: 7
+5: 516423
+6: 150

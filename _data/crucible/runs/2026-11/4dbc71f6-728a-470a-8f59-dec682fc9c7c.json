@@ -1,0 +1,93 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "4dbc71f6-728a-470a-8f59-dec682fc9c7c",
+ "run_path": "openrouter_anthropic_claude-opus-5.5/river-haiku-banned-words/20261111_042923",
+ "legacy_run_id": null,
+ "started_at": "2026-11-11T04:29:23.744524+00:00",
+ "ended_at": "2026-11-11T04:29:26.958771+00:00",
+ "elapsed_s": 3.2,
+ "task": {
+  "id": "river-haiku-banned-words",
+  "version": 1,
+  "rubric_version": 3,
+  "content_hash": "abfd04ef9376bbaa",
+  "rubric_hash": "fc5d57064fbd9a4e",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/anthropic/claude-opus-5.5",
+  "base": "anthropic/claude-opus-5.5",
+  "publisher": "anthropic",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null,
+   "resolved_source": "unknown"
+  },
+  "context_loaded": null,
+  "variant_key": "anthropic/claude-opus-5.5|anthropic|api|-",
+  "display": "claude-opus-5.5",
+  "origin": {
+   "maker": "anthropic",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "Claude Platform on AWS",
+   "quant": null
+  },
+  "resolved_model": "anthropic/claude-opus-5.5"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 42,
+  "tokens_out": 163,
+  "model_responses": 1,
+  "ttft_s": 3.08,
+  "ttft_avg_s": 3.08,
+  "response_time_avg_s": 3.094,
+  "output_tokens_per_s": 11417.0,
+  "cost_usd": 0.000504,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 200
+ },
+ "output_ref": "outputs/4dbc71f6-728a-470a-8f59-dec682fc9c7c.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "6faa751",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:f8bcceb64e50331197f0b996ea65de2b162be707d9c98d79fac7df1a90efd072",
+  "submitter": null,
+  "verification": null
+ }
+}

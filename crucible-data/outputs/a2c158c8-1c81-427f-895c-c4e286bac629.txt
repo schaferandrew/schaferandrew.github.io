@@ -1,0 +1,19 @@
+**Flight:** Only PL09 and SL114 pass every filter.
+- NW201 leaves at 06:10, which is too early.
+- CJ550 has 2 stops.
+- TA77 has a 50-minute layover, which is too short.
+- NW318 arrives at 12:30, which is too late.
+- PL09 costs $262 + $25 = $287.
+- SL114 is nonstop and includes the first checked bag, so it costs $279 + $0 = $279. That makes SL114 the cheapest.
+
+**Restaurant:** Harbor Grill and Fennel & Fig both have kitchens free of peanuts and sesame. Fennel & Fig is 1.9 miles away on foot because of the river detour, so it is too far. Harbor Grill is 1.3 miles on foot, which is within the limit. The other restaurants either use peanuts or sesame or share equipment with them.
+
+**Transfer:** The airport to the Larkspur Inn is 14.2 miles by road. A taxi leaving at 17:15 takes 41 minutes because of peak traffic.
+
+ANSWERS:
+Flight: SL114
+Total: 279
+Restaurant: Harbor Grill
+Walk: 1.3
+Distance: 14.2
+Taxi: 41

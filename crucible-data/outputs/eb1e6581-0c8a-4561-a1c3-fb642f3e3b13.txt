@@ -1,0 +1,56 @@
+
+
+1. Multiples of 3: \(\lfloor10000/3\rfloor=3333\).  
+   Multiples of 7: \(\lfloor10000/7\rfloor=1428\).  
+   Multiples of 21: \(\lfloor10000/21\rfloor=476\).  
+   Divisible by 3 or 7 but not 21:
+   \[
+   3333+1428-2\cdot476=3809.
+   \]
+
+2. Since \(7^4\equiv 1\pmod{100}\), and \(2026\equiv 2\pmod4\),
+   \[
+   7^{2026}\equiv 7^2\equiv 49\pmod{100}.
+   \]
+
+3. For a \(2\times n\) board, let \(a_n\) be the number of tilings.  
+   The leftmost column can be filled either by one vertical domino (\(a_{n-1}\) ways) or by a width-2 block, which can be either two horizontal dominoes or one \(2\times2\) square (\(2a_{n-2}\) ways). Thus
+   \[
+   a_n=a_{n-1}+2a_{n-2},\quad a_0=1,\ a_1=1.
+   \]
+   Computing to \(n=12\):
+   \[
+   a_{12}=2731.
+   \]
+
+4. The largest die is exactly 4 iff all dice are at most 4 and at least one is 4:
+   \[
+   4^3-3^3=64-27=37.
+   \]
+   Total outcomes: \(6^3=216\).  
+   Probability:
+   \[
+   \frac{37}{216}.
+   \]
+
+5. Each child has \(2\cdot7=14\) equally likely possibilities: sex and birthday.  
+   Condition “at least one is a boy born on Tuesday” leaves
+   \[
+   14^2-13^2=196-169=27
+   \]
+   ordered cases.  
+   Both children are boys with at least one Tuesday boy:
+   \[
+   7^2-6^2=49-36=13.
+   \]
+   Probability:
+   \[
+   \frac{13}{27}.
+   \]
+
+ANSWERS
+1. 3809
+2. 49
+3. 2731
+4. 37/216
+5. 13/27

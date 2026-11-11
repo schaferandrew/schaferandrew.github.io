@@ -1,0 +1,172 @@
+
+
+1. Factor \(N\):
+\[
+N=6{,}604{,}416=2^7\cdot 3^4\cdot 7^2\cdot 13.
+\]
+For each prime power, count solutions to \(x^{12}\equiv1\pmod{p^e}\). Since \(x\) must be coprime to \(p\), work in the unit group.
+
+- Mod \(2^7\): \((\mathbb Z/128)^\times\cong C_2\times C_{64}\). The number of elements killed by \(12\) is
+\[
+\gcd(12,2)\gcd(12,64)=2\cdot4=8.
+\]
+- Mod \(3^4\): \(\phi(81)=54\), cyclic, so \(\gcd(12,54)=6\).
+- Mod \(7^2\): \(\phi(49)=42\), cyclic, so \(\gcd(12,42)=6\).
+- Mod \(13\): \(\phi(13)=12\), cyclic, so \(\gcd(12,12)=12\).
+
+By CRT:
+\[
+8\cdot6\cdot6\cdot12=3456.
+\]
+
+2. Use inclusion-exclusion on forced adjacent equal letters. For a letter appearing \(n\) times, choosing \(j\) forced adjacencies contributes
+\[
+(-1)^j\binom{n-1}{j},
+\]
+and reduces the number of objects to \(n-j\). Thus the count is
+\[
+\sum_{i=0}^3\sum_{j=0}^2\sum_{k=0}^1\sum_\ell=0^1
+(-1)^{i+j+k+\ell}
+\binom{3}{i}\binom{2}{j}\binom{1}{k}\binom{1}{\ell}
+\frac{(11-i-j-k-\ell)!}{(4-i)!(3-j)!(2-k)!(2-\ell)!}.
+\]
+Grouping by total forced links \(s=i+j+k+\ell\), the contributions are:
+\[
+\begin{array}{c|rrrrrrrr}
+s&0&1&2&3&4&5&6&7\\
+\hline
+\text{contribution}&69300&-138600&119700&-58800&18060&-3540&420&-24
+\end{array}
+\]
+Sum:
+\[
+69300-138600+119700-58800+18060-3540+420-24=6516.
+\]
+
+3. Let \(E_i\) be the expected additional rolls after the current last roll is \(i\), assuming we have not stopped. The stopping pairs are those with prime sum:
+\[
+\begin{aligned}
+1&:\{1,2,4,6\},&
+2&:\{1,3,5\},&
+3&:\{2,4\},\\
+4&:\{1,3\},&
+5&:\{2,6\},&
+6&:\{1,5\}.
+\end{aligned}
+\]
+So
+\[
+E_i=1+\frac16\sum_{j\notin S_i}E_j.
+\]
+Solving the six linear equations gives
+\[
+E_1=\frac{115}{61},\quad
+E_2=\frac{140}{61},\quad
+E_3=E_5=\frac{162}{61},\quad
+E_4=E_6=\frac{167}{61}.
+\]
+Thus
+\[
+\sum_{i=1}^6 E_i=\frac{913}{61}.
+\]
+The expected total number of rolls is first roll plus the average additional rolls:
+\[
+1+\frac16\cdot\frac{913}{61}
+=\frac{1279}{366}.
+\]
+So
+\[
+m+n=1279+366=1645.
+\]
+
+4. Split \(\{1,\dots,20\}\) into five columns of four consecutive numbers:
+\[
+\{1,2,3,4\},\{5,6,7,8\},\dots,\{17,18,19,20\}.
+\]
+Within a column, no two selected rows may be adjacent. The 8 possible column masks are
+\[
+0,1,2,4,8,5,10,9
+\]
+(in row bits \(1,2,3,4\)).
+
+Between consecutive columns:
+- the same row cannot be selected in both columns (difference \(4\));
+- row \(4\) in the previous column cannot be selected with row \(1\) in the next column (difference \(1\)).
+
+Doing a DP over the 5 columns, with vector entries in the order above:
+
+\[
+\begin{aligned}
+\text{col 1: }&[1,1,1,1,1,1,1,1]\\
+\text{col 2: }&[8,3,6,6,5,2,4,3]\\
+\text{col 3: }&[37,20,27,29,25,14,19,20]\\
+\text{col 4: }&[191,93,145,148,127,64,100,93]\\
+\text{col 5: }&[961,484,716,749,641,336,496,484].
+\end{aligned}
+\]
+The final total is
+\[
+961+484+716+749+641+336+496+484=4867.
+\]
+
+5. Factor
+\[
+10080=2^5\cdot3^2\cdot5\cdot7.
+\]
+For each prime \(p^e\), the exponent triple \((\alpha,\beta,\gamma)\) must have minimum \(0\) and maximum \(e\). The number of such triples is
+\[
+(e+1)^3-2e^3+(e-1)^3=6e.
+\]
+So ordered triples \((a,b,c)\) of divisors satisfying the gcd/lcm conditions, allowing equality, number:
+\[
+6\cdot5\cdot 6\cdot2\cdot 6\cdot1\cdot 6\cdot1
+=30\cdot12\cdot6\cdot6=12960.
+\]
+
+Now subtract ordered triples with at least one equality. For a specified pair, say \(a=b\), each prime exponent pair must be \((0,e)\) or \((e,0)\), giving \(2\) choices per prime. With four primes, that is \(2^4=16\). All three equal is impossible. Thus ordered triples with some equality are
+\[
+3\cdot16=48.
+\]
+So ordered triples with three distinct numbers:
+\[
+12960-48=12912.
+\]
+Since \(a<b<c\), divide by \(3!=6\):
+\[
+\frac{12912}{6}=2152.
+\]
+
+6. First count paths from \((0,0)\) to \((12,8)\) staying \(y\le x\). By the ballot number:
+\[
+\binom{20}{8}-\binom{20}{7}=125970-77520=48450.
+\]
+
+Now subtract paths passing through \((5,3)\).
+
+Prefix to \((5,3)\) staying \(y\le x\):
+\[
+\binom{8}{3}-\binom{8}{2}=56-28=28.
+\]
+
+Suffix from \((5,3)\) to \((12,8)\): need \(7\) right steps and \(5\) up steps. The initial difference \(x-y\) is \(2\), and it must never become negative. Using reflection,
+\[
+\binom{12}{5}-\binom{12}{5-2-1}
+=\binom{12}{5}-\binom{12}{2}
+=792-66=726.
+\]
+So paths through \((5,3)\):
+\[
+28\cdot726=20328.
+\]
+Thus the desired count is
+\[
+48450-20328=28122.
+\]
+
+ANSWERS:
+1: 3456
+2: 6516
+3: 1645
+4: 4867
+5: 2152
+6: 28122

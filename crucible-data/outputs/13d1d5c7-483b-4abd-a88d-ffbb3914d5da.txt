@@ -1,0 +1,26 @@
+**Diagnosis**
+
+Using a real browser (Puppeteer/Chromium), I reproduced the issue:
+
+1. Log in successfully → dashboard loads correctly.
+2. Wait 31 seconds for the 30-second session to expire.
+3. Reload `/dashboard.html`.
+4. The `GET /api/dashboard` request returned **HTTP 200** with `{"user":null,"dashboardMessage":""}`.
+5. The client-side script saw `data.user` was null/falsy and cleared both the username and message to empty strings, leaving a blank dashboard.
+
+**Root cause:** Two bugs together:
+- **Server:** When the session is missing, stale, or expired, `/api/dashboard` wrongly responded with `200 OK` and empty payload instead of an auth error.
+- **Client:** `dashboard.html` didn’t handle the invalid-session case; it just silently blanked the content instead of redirecting to login.
+
+**Fixes applied**
+
+1. **`server.js`:** Changed `/api/dashboard` to return **401 Unauthorized** when the session is invalid or expired.  
+2. **`public/dashboard.html`:** Updated `loadDashboard()` to check `!res.ok` and redirect to `/login.html` when the user is unauthenticated.  
+3. **`server.test.js`:** Added two automated regression tests:
+   - Verifies 401 for requests with no session.
+   - Verifies 401 for an expired session (by mocking `Date.now()` forward past the TTL).
+
+**Verification**
+
+- `npm test` passes all 9 tests.
+- In the browser, after the 30-second session expires, reloading `/dashboard.html` now correctly triggers `GET /api/dashboard → 401 (Unauthorized)`, and the client redirects to `/login.html` instead of showing a blank state.

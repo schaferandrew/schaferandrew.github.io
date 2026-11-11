@@ -1,0 +1,29 @@
+1. There are \(\lfloor10000/3\rfloor=3333\) multiples of 3, \(1428\) multiples of 7, and \(476\) multiples of 21. Multiples of 21 are counted twice and must be excluded entirely:
+   \[
+   3333+1428-2(476)=3809.
+   \]
+
+2. Since \(7^4\equiv1\pmod{100}\) and \(2026\equiv2\pmod4\),
+   \[
+   7^{2026}\equiv7^2=49\pmod{100}.
+   \]
+
+3. Let \(a_n\) count tilings of a \(2\times n\) board. The left edge is covered by either one vertical domino, two horizontal dominoes, or one square. Thus
+   \[
+   a_n=a_{n-1}+2a_{n-2},\qquad a_0=a_1=1.
+   \]
+   This gives \(a_n=(2^{n+1}+(-1)^n)/3\), so \(a_{12}=2731\).
+
+4. Subtract outcomes where every die is at most 3 from those where every die is at most 4:
+   \[
+   \frac{4^3-3^3}{6^3}=\frac{37}{216}.
+   \]
+
+5. Each child has 14 equally likely sex–weekday combinations. Of the \(14^2\) ordered pairs, \(14^2-13^2=27\) contain at least one Tuesday-born boy. Of these, \(7^2-6^2=13\) have two boys. The conditional probability is therefore \(13/27\).
+
+## ANSWERS
+1. 3809
+2. 49
+3. 2731
+4. 37/216
+5. 13/27

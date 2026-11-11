@@ -1,0 +1,12 @@
+The paragraph is short and mostly clean. Two clear errors stand out: "louder **then**" should be "louder **than**" (comparative), and "talking **to** fast" should be "talking **too** fast." Both are standard usage mistakes, not stylistic choices.
+
+Beyond that, the punctuation is mostly deliberate-sounding: the em dash after "Still," the sentence fragment "Not waiting for her, exactly," and the comma in "laugh, or leave" all shape the rhythm. The comma before "or leave" is technically nonstandard (no comma needed with a two-item "whether... or" construction), but it creates a pause that fits the voice, so I'll flag it rather than change it. The final "And" opening a sentence is also informal but clearly a voice choice.
+
+CORRECTED:
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder than she remembered it, all brakes shrieking and people talking too fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+POSSIBLY INTENTIONAL:
+"Not waiting for her, exactly.": Sentence fragment, but it works as a beat of wry interiority and reads as deliberate.
+"Still—she was back.": The em dash creates an abrupt pivot that appears stylistic rather than an error.
+"whether to laugh, or leave.": The comma before "or" is nonstandard for a two-item construction, but it adds a dramatic pause that may be intentional; flagged rather than removed.
+"And she didn't know...": Starting a sentence with "And" is informal but consistent with the voice.

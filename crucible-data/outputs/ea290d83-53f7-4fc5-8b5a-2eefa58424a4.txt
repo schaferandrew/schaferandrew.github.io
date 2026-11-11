@@ -1,0 +1,25 @@
+The dashboard went blank because the server hid an expired session behind a normal-looking response, and the page had no way to handle it. It's fixed and checked in a real browser, and a new regression test file covers it. All 12 tests pass.
+
+**How I reproduced it:** I ran the app and drove Chromium with Playwright: logged in as `testuser`, waited 31 seconds, then reloaded `/dashboard.html`.
+- **Network:** the reload's `GET /api/dashboard` came back **200** with `{"user":null,"dashboardMessage":""}`.
+- **Console:** nothing. Because the response looked successful, there was no error to show.
+- **Page:** "User:" with nothing after it and an empty message.
+
+**Cause:**
+- **Server (`server.js`):** `/api/dashboard` correctly spots an expired, unknown or missing session, but then replies "200 OK" with an empty user instead of reporting the problem.
+- **Client (`public/dashboard.html`):** when `user` is empty, the page just clears its text. It never redirects to login or shows an error.
+
+**Fix:**
+- **`server.js`:** an invalid session now gets **401** with the reason (`no_session`, `stale_session` or `expired_session`). Expired sessions are also deleted on the server, and the browser's bad session cookie is cleared.
+- **`public/dashboard.html`:** a 401 sends the user to `/login.html?reason=…`. Network failures, other errors and odd responses show an error message instead of a blank page. Page changes go through a small `navigate` helper so tests can watch them.
+- **`public/login.html`:** shows "Your session has expired. Please log in again." when the user arrives that way.
+
+**Browser check after the fix:** the same test now shows the 401 (the browser logs it in the console as expected), redirects to `/login.html?reason=expired_session`, and displays the expiry message.
+
+**Regression test (`dashboard-session.test.js`):**
+- **API:** fakes the clock past the 30-second session length and checks for 401 `expired_session` plus the cleared cookie; also checks for 401 `no_session` when there's no cookie.
+- **Client (jsdom):** checks that an expired session redirects to login, a valid one shows the user, and a server error shows a message rather than a blank page.
+
+Run against the original code, 4 of the 5 new tests fail. The one that passes is the valid-session case, which worked before too.
+
+I left the 30-second session length in `accounts.json` as it was.

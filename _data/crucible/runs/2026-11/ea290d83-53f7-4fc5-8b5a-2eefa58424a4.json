@@ -1,0 +1,90 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "ea290d83-53f7-4fc5-8b5a-2eefa58424a4",
+ "run_path": "openrouter_anthropic_claude-opus-5.5/blank-dashboard-debug/20261111_045637",
+ "legacy_run_id": null,
+ "started_at": "2026-11-11T04:56:38.592186+00:00",
+ "ended_at": "2026-11-11T04:58:56.404378+00:00",
+ "elapsed_s": 137.6,
+ "task": {
+  "id": "blank-dashboard-debug",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "1cd54ceb401f0947",
+  "rubric_hash": "c99e9bf61025cb59",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/anthropic/claude-opus-5.5",
+  "base": "anthropic/claude-opus-5.5",
+  "publisher": "anthropic",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null,
+   "resolved_source": "unknown"
+  },
+  "context_loaded": null,
+  "variant_key": "anthropic/claude-opus-5.5|anthropic|api|-",
+  "display": "claude-opus-5.5",
+  "origin": {
+   "maker": "anthropic",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": 12,
+  "tests_failed": 0,
+  "tool_calls": 10,
+  "tokens_in": 118203,
+  "tokens_out": 5801,
+  "model_responses": 11,
+  "ttft_s": 1.779,
+  "ttft_avg_s": 2.577,
+  "response_time_avg_s": 5.722,
+  "output_tokens_per_s": 167.7,
+  "cost_usd": 0.434423,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/ea290d83-53f7-4fc5-8b5a-2eefa58424a4.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "6faa751",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:87cbba50ae5597650247a7812139849734c53af15687ebea6013fe8c1da3cd93",
+  "submitter": null,
+  "verification": null
+ }
+}

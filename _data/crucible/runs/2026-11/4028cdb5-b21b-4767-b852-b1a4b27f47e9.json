@@ -1,0 +1,114 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "4028cdb5-b21b-4767-b852-b1a4b27f47e9",
+ "run_path": "openrouter_deepseek_deepseek-v4.1-flash/migrate-pages-to-app-router/20261111_042939",
+ "legacy_run_id": null,
+ "started_at": "2026-11-11T04:29:42.881198+00:00",
+ "ended_at": "2026-11-11T04:49:07.782564+00:00",
+ "elapsed_s": 1164.65,
+ "task": {
+  "id": "migrate-pages-to-app-router",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "6a15e01955042cb5",
+  "rubric_hash": "045cbc7ea0a00183",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/deepseek/deepseek-v4.1-flash",
+  "base": "deepseek/deepseek-v4.1-flash",
+  "publisher": "deepseek",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null,
+   "resolved_source": "unknown"
+  },
+  "context_loaded": null,
+  "variant_key": "deepseek/deepseek-v4.1-flash|deepseek|api|-",
+  "display": "deepseek-v4.1-flash",
+  "origin": {
+   "maker": "deepseek",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": {
+   "reason": "Contaminated: the agent read files in crucible's checkout outside its workspace (see leaks).",
+   "marked_at": "2026-11-11T04:49:17.205968+00:00"
+  },
+  "leaks": [
+   "/Users/schafer/Developer/crucible",
+   "/Users/schafer/Developer/crucible/crucible",
+   "/Users/schafer/Developer/crucible/crucible.egg-info",
+   "/Users/schafer/Developer/crucible/graders",
+   "/Users/schafer/Developer/crucible/graders/migrate-pages,",
+   "/Users/schafer/Developer/crucible/graders/migrate-pages-t,",
+   "/Users/schafer/Developer/crucible/graders/migrate-pages-to-a",
+   "/Users/schafer/Developer/crucible/graders/migrate-pages-to-a,",
+   "/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router",
+   "/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/a",
+   "/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/app-shells-only/app/about/page.tsx",
+   "/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/app-shells-only/app/about/page.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/app-shells-only/app/layout.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/app-shells-only/app/page.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/books-prerendered/app/about/page.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/books-prerendered/app/api/books/route.ts\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/books-prerendered/app/books/[slug",
+   "/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/books-prerendered/app/genres/[genre",
+   "/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/books-prerendered/app/layout.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/books-prerendered/app/not-found.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/books-prerendered/app/page.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/books-prerendered/app/search/page.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/books-prerendered/app/search/SearchClient.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/books-prerendered/components/Layout.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/books-prerendered/components/NavLinks.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/books-prerendered/components/ShareLink.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/books-prerendered/pages/.crucible-removed\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/loses-search-url/app/about/page.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/loses-search-url/app/api/books/route.ts\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/loses-search-url/app/books/[slug",
+   "/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/loses-search-url/app/genres/[genre",
+   "/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/loses-search-url/app/layout.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/loses-search-url/app/not-found.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/loses-search-url/app/page.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/loses-search-url/components/Layout.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/loses-search-url/components/NavLinks.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/loses-search-url/components/ShareLink.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration/loses-search-url/pages/.crucible-removed\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/expected.json\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/grader.yaml\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/migration.grader.test.ts\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/solution/app/about/page.tsx\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/solution/app/api/books/route.ts\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/solution/app/books/[slug",
+   "/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/expected.json",
+   "/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/grader.yaml",
+   "/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/grader.yaml\\n---\\n/Users/schafer/Developer/crucible/graders\\n/Users/schafer/Developer/crucible/graders/php-booking-to-ruby\\n/Users/schafer/Developer/crucible/graders/php-booking-to-ruby/calibration\\n/Users/schafer/Developer/crucible/graders/php-booking-to-ruby/solution\\n/Users/schafer/Developer/crucible/graders/nextjs-server-data-boundary\\n/Users/schafer/Developer/crucible/graders/nextjs-server-data-boundary/calibration\\n/Users/schafer/Developer/crucible/graders/nextjs-server-data-boundary/solution\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/calibration\\n/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/solution\\n/Users/schafer/Developer/crucible/graders/interest-calculator-cli\\n/Users/schafer/Developer/crucible/graders/interest-calculator-cli/calibration\\n/Users/schafer/Developer/crucible/graders/interest-calculator-cli/solution\\n/Users/schafer/Developer/crucible/graders/accessibility-audit-fixes\\n/Users/schafer/Developer/crucible/graders/accessibility-audit-fixes/calibration\\n/Users/schafer/Developer/crucible/graders/accessibility-audit-fixes/solution\\n/Users/schafer/Developer/crucible/graders/accessibility-audit-fixes/overlay\\n/Users/schafer/Developer/crucible/graders/editorial-review-workflow\\n/Users/schafer/Developer/crucible/graders/editorial-review-workflow/calibration\\n/Users/schafer/Developer/crucible/graders/editorial-review-workflow/solution\\n/Users/schafer/Developer/crucible/graders/invite-signup-loop\\n/Users/schafer/Developer/crucible/graders/invite-signup-loop/calibration\\n/Users/schafer/Developer/crucible/graders/invite-signup-loop/solution\\n/Users/schafer/Developer/crucible/graders/invite-signup-loop/overlay\\n/Users/schafer/Developer/crucible/graders/giving-receipt-filing\\n/Users/schafer/Developer/crucible/graders/giving-receipt-filing/calibration\\n/Users/schafer/Developer/crucible/graders/giving-receipt-filing/solution\\n/Users/schafer/Developer/crucible/graders/cursor-pagination\\n/Users/schafer/Developer/crucible/graders/cursor-pagination/calibration\\n/Users/schafer/Developer/crucible/graders/cursor-pagination/solution\\n/Users/schafer/Developer/crucible/graders/mock-calendar\\n/Users/schafer/Developer/crucible/graders/react-lead-form\\n/Users/schafer/Developer/crucible/graders/react-lead-form/calibration\\n/Users/schafer/Developer/crucible/graders/react-lead-form/solution\\n/Users/schafer/Developer/crucible/graders/cache-leak-incident\\n/Users/schafer/Developer/crucible/graders/cache-leak-incident/calibration\\n/Users/schafer/Developer/crucible/graders/cache-leak-incident/solution\\n/Users/schafer/Developer/crucible/graders/cache-leak-incident/overlay\\n/Users/schafer/Developer/crucible/graders/js-to-typescript-port\\n/Users/schafer/Developer/crucible/graders/js-to-typescript-port/calibration\\n---",
+   "/Users/schafer/Developer/crucible/graders/migrate-pages-to-app-router/migration.grader.test.ts"
+  ]
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": 123,
+  "tokens_in": 4335420,
+  "tokens_out": 67344,
+  "model_responses": 76,
+  "ttft_s": 0.735,
+  "ttft_avg_s": 1.335,
+  "response_time_avg_s": 6.41,
+  "output_tokens_per_s": 174.6,
+  "cost_usd": 5.535603,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/4028cdb5-b21b-4767-b852-b1a4b27f47e9.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "6faa751",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:566bb41afd8ffe89c77e5e13257be508f343d24aba3c36ef6bca2db064ac6166",
+  "submitter": null,
+  "verification": null
+ }
+}

@@ -1,0 +1,12 @@
+
+
+**Accuracy (4/4):**  
+All claims in the response are supported by the passage. The library board vote, the start date, the survey result, the grant amount and one-year coverage, the next winter review, and the opposition due to staffing concerns are all consistent with the original text.
+
+**Exactly two sentences (0/3):**  
+The response is three sentences long, so it does not meet the exact two-sentence requirement.
+
+**Key points (3/3):**  
+The response includes the hours extension, the funding limit, and the resident survey, which are the required key points.
+
+GRADE: 7

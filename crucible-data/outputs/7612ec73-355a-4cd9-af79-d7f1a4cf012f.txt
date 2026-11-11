@@ -1,0 +1,20 @@
+
+
+I treated “one of the two items” as taking singular “was,” “havent” as missing an apostrophe, “crush” as needing the past participle “crushed,” and the conjunction “but” as needing a comma because it joins two independent clauses. I left “seem” and hyphen/en dash choices as optional style because they are less unambiguous.
+
+ERRORS:
+were damaged → was damaged
+havent → haven't
+was clearly crush → was clearly crushed
+last week but → last week, but
+
+CORRECTED:
+Subject: Refund for order 84721
+
+Hi Support,
+I am writing because my order arrived three days late, and one of the two items was damaged. I contacted support last week, but I haven't heard anything back. The box was clearly crushed on one side, and the mug inside has a crack through the handle. I would like a refund for the mug, but please let me know if you need pictures of it. Also, your website says refunds are processed in 5-7 business days, which seem to have passed already for my earlier request. Can you tell me what the status is? Thanks for your help.
+
+STYLE:
+Consider “which seems to have passed” if you mean the 5-7 business day period as a singular timeframe.
+Use an en dash in “5–7 business days” if your email client supports it.
+Consider capitalizing “Support” in “I contacted Support” for consistency with the greeting.

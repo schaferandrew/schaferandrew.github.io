@@ -1,0 +1,9 @@
+ **Correctness (5):** The function filters out non-alphanumeric characters with `c.isalnum()`, lowercases the remaining characters, and checks whether the resulting list equals its reverse. This logic is correct for all standard string inputs, including empty strings and single-character strings. It earns the full 5 points.
+
+**Ignores case and non-alphanumeric characters (2):** The implementation explicitly lowercases each character (`c.lower()`) and keeps only alphanumeric ones (`if c.isalnum()`). Both requirements are fully satisfied. It earns the full 2 points.
+
+**Examples (2):** The response includes two example calls—one for a known palindrome with punctuation and spaces (`"A man, a plan, a canal: Panama"`) and one for a non-palindrome (`"Hello, world"`). Both are shown with correct expected results. It earns the full 2 points.
+
+**Concise (1):** The response contains an introductory paragraph ("Great question! Palindromes are a classic programming exercise...") that is unneeded preamble and padding before presenting the solution. Because the criterion explicitly requires getting to the point without such preamble, this point is not earned. It gets 0.
+
+GRADE: 9

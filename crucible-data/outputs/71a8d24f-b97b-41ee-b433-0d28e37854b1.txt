@@ -1,0 +1,23 @@
+Done. All 46 tests pass (both pytest and unittest), and the CLI behaves correctly from this directory via `python -m interest`.
+
+## Files created
+
+**Package** (`interest/`)
+- `interest/calculator.py` — core engine. Uses `Decimal` (50-digit precision) for money and `Fraction` for time points, so interest postings (k/n of a year) and contribution dates (j/12 or j/1) line up exactly. Walks events in time order; at coinciding moments interest is credited *before* the contribution. Results are rounded to cents with `ROUND_HALF_UP`.
+- `interest/cli.py` — argparse CLI, validation, human-readable summary and `--json` output (one line, four cent-rounded numbers).
+- `interest/__main__.py` / `interest/__init__.py` — module entry point and exports.
+
+**Tests** (`tests/`)
+- `tests/test_calculator.py` — known-value cases (1000 @ 5% / 10y annually → 1628.89; 12% monthly → 1126.83; daily → 1051.27), zero rate, quarterly, months-based terms, monthly + annual contributions including the ordering rule (interest-then-contribution: `100*1.01 + 50 = 151.00`), and 13 invalid-input cases.
+- `tests/test_cli.py` — end-to-end subprocess tests of `python -m interest`: summary format, exact JSON payload, and 14 error scenarios verifying non-zero exit codes, a short stderr message, and no traceback.
+
+**Docs**
+- `README.md` — flag table, spec rules, worked examples (outputs verified against the actual tool), and test instructions.
+
+## Error handling
+Bad input exits non-zero with a one-line message, e.g.:
+- `error: principal must be a number, got 'abc'`
+- `error: --contribution and --contribution-frequency must be given together`
+- `error: give exactly one of --years or --months`
+
+Argparse-level errors (missing/unknown flags) exit 2 with its standard usage message — also no traceback.

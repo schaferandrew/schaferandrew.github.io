@@ -1,0 +1,90 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "614eb807-3acf-4b52-8c2a-b7875b97913f",
+ "run_path": "openrouter_qwen_qwen3.8-27b/accessibility-audit-fixes/20261111_045212",
+ "legacy_run_id": null,
+ "started_at": "2026-11-11T04:52:17.041143+00:00",
+ "ended_at": "2026-11-11T04:54:53.434681+00:00",
+ "elapsed_s": 156.15,
+ "task": {
+  "id": "accessibility-audit-fixes",
+  "version": 1,
+  "rubric_version": 3,
+  "content_hash": "02332049fef999c1",
+  "rubric_hash": "ba79097d3d49ec8d",
+  "alias": null
+ },
+ "harness": {
+  "id": "pi",
+  "version": "1.4.0"
+ },
+ "model": {
+  "id": "openrouter/qwen/qwen3.8-27b",
+  "base": "qwen/qwen3.8-27b",
+  "publisher": "qwen",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null,
+   "resolved_source": "unknown"
+  },
+  "context_loaded": null,
+  "variant_key": "qwen/qwen3.8-27b|qwen|api|-",
+  "display": "qwen3.8-27b",
+  "origin": {
+   "maker": "qwen",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": 31,
+  "tests_failed": 0,
+  "tool_calls": 52,
+  "tokens_in": 1114394,
+  "tokens_out": 39697,
+  "model_responses": 31,
+  "ttft_s": 0.517,
+  "ttft_avg_s": 1.121,
+  "response_time_avg_s": 3.919,
+  "output_tokens_per_s": 457.6,
+  "cost_usd": 1.168833,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": null
+ },
+ "output_ref": "outputs/614eb807-3acf-4b52-8c2a-b7875b97913f.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "6faa751",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:fd7b4e194143d56ce2f3c38b53f4d18c5a2d1afbde6160179798970be58aa78d",
+  "submitter": null,
+  "verification": null
+ }
+}

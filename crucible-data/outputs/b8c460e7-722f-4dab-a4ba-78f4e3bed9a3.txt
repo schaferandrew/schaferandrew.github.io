@@ -1,0 +1,13 @@
+`src/` is now TypeScript and the `.js` originals are gone. `npx tsc -p tsconfig.json` passes with no errors, and all 21 tests pass unchanged. I didn't run the CLI by hand against odd inputs, so the identical-output claim rests on those tests and on reading the code.
+
+`tsconfig.json` turns on `strict`, plus `noUncheckedIndexedAccess` and `exactOptionalPropertyTypes`. It uses `moduleResolution: Bundler`, so the source imports have no `.js` extension, like the tests. It sets `noEmit`, so `tsc` only type-checks and writes no JS. There is no `any`, no `@ts-*` comment, and no strict option switched off.
+
+**Places where the types were not obvious**
+- **`Tool` shape:** I kept one `Tool` interface with `status: ToolStatus` and nullable `borrower`, `dueDate`, `retiredReason` and `replacementCost`. The lending code changes a tool in place, and a union of three tool shapes would have made that awkward. Because of this, `returnTool` has a `dueDate === null` guard for a case validation already rules out.
+- **Events:** the four store events are a union on `type`, and `auditLines` narrows them with a `switch`. A `returned` event's `borrower` is `string | null`, because it is copied from the tool.
+- **Untrusted JSON:** the parsed file is `unknown`, and `normalizeTool` checks it field by field.
+  - A truthy non-string `category`, `borrower`, `dueDate` or `retiredReason` is now turned into a string with `String()`. The JS kept the raw value (for example a number), so the saved JSON could differ for such files.
+  - A non-numeric `nextId` is ignored and replaced by the highest id plus one. The JS kept whatever truthy value was there.
+- **Load errors:** I recreated the JS `TypeError` messages for a `null` file and a non-array `tools` field, so those cases print the same error text.
+- **CLI flags:** a flag with no value parses as `true`, not a string. I kept that. `--cost` alone still means 1. `list --search` alone still fails with `text.toLowerCase is not a function` (exit 1), so `findTools` accepts `string | boolean` and throws that same error.
+- **Odd behaviour ported as is:** `formatTable` pads every column but the last, and `retireTool` still accepts an empty reason and stores "unknown". The unreachable `?? ""` fallbacks in `detail` and `overdueTools` only satisfy the compiler.

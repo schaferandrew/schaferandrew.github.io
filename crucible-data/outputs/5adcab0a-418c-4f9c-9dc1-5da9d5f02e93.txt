@@ -1,0 +1,12 @@
+Implemented the calculator with standard-library Python only.
+
+- `interest/`: calculation logic and `python -m interest` CLI
+- `tests/`: 15 automated tests covering calculations, contributions, output, and invalid inputs
+- `README.md`: usage examples and calculation rules
+
+Verified: `python -m unittest discover -v` — all 15 tests pass.
+
+Example:
+```sh
+python -m interest --principal 1000 --rate 5 --years 10 --compound annually --json
+```

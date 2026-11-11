@@ -1,0 +1,33 @@
+## Criterion 1: Accuracy (4 points)
+
+Checking each claim in the response against the passage:
+- "voted to extend weekend hours to 8 p.m. starting in March" — supported (passage: extend weekend hours from 5 p.m. to 8 p.m., starting in March).
+- "survey where 62% of residents asked for evening access" — supported (passage: 62% said evening access was their top request).
+- "$40,000 grant that covers one year" — supported.
+- "board will revisit it next winter if no further money is found" — supported (passage: revisit the schedule next winter if no new money is found).
+- "Two board members opposed the decision over staffing concerns" — supported (passage: cited staffing shortages).
+
+No invented details appear anywhere. Accuracy: **4/4**.
+
+## Criterion 2: Exactly two sentences (3 points)
+
+The response contains three sentences:
+1. "The Millbrook library board voted... asked for evening access."
+2. "The change is funded... no further money is found."
+3. "Two board members opposed the decision over staffing concerns."
+
+The third sentence directly violates the explicit constraint of exactly two sentences. This is a binary requirement and the response fails it. Sentence count: **0/3**.
+
+## Criterion 3: Key points (3 points)
+
+- Hours extension: captured ("extend weekend hours to 8 p.m. starting in March"). ✓
+- Funding limit: captured ("$40,000 grant that covers one year"). ✓
+- Resident survey: captured ("survey where 62% of residents asked for evening access"). ✓
+
+All three required key points are present. Key points: **3/3**.
+
+## Total
+
+4 + 0 + 3 = 7. The response is accurate and hits every key point, but adding a third sentence when the task demanded exactly two is a clear failure on a scored criterion.
+
+GRADE: 7

@@ -1,0 +1,22 @@
+
+
+All green: 15/15 tests pass, `npm run build` succeeds, and `/contact` is server-rendered with the form (all required ids present). `package.json`, the lockfile, and config files are untouched, and `data/` was not polluted.
+
+## What was wrong
+
+1. **Build failure:** `app/contact/LeadForm.tsx` used React event handlers (`onSubmit`, `onChange`) and `fetch` without `"use client"`, so Next.js treated it as a Server Component and `next build` failed to compile.
+2. **Couldn't type:** the inputs were *controlled* (`value={values.x}`), but the handlers mutated a module-level `values` object directly — no React state change, no re-render, so the displayed value was stuck at `""` on every keystroke.
+3. **No validation anywhere:** the form had no required/validity checks, and the API route (`app/api/leads/route.ts`) accepted any JSON body, saved garbage, and always answered 201.
+
+## What I changed
+
+- **`lib/validateLead.ts`** (new, pure — safe for both client and server):
+  - `normalizeEmail()`: trims + lowercases; accepts real-world typing (surrounding spaces, caps, `+tag@`, dots in the name, subdomains, inner-hyphen domains, long TLDs); rejects invalid addresses (≠1 `@`, empty around a dot, spaces, bad domain labels, TLD < 2 letters).
+  - `validateLead()`: trims every field, saves missing company as `""`, returns per-field messages (name/email/message required; email must be valid).
+- **`app/contact/LeadForm.tsx`** (rewritten, still the default export):
+  - Proper `"use client"` component with `useState` — typing now works and tab order is name → email → company → message → button; `noValidate` so the app's own messages (not browser popups) are shown.
+  - On invalid submit: renders `lead-name-error` / `lead-email-error` / `lead-message-error` only for fields in error, sets `aria-invalid="true"` + `aria-describedby` on those fields, focuses the first invalid field, keeps everything typed, sends nothing.
+  - On valid submit: POSTs normalized JSON to `/api/leads`; only on success shows a `lead-success` element in place of the form; on 422 it surfaces the API's per-field errors (same ids/aria/focus behavior) and keeps the form and typed values.
+- **`app/api/leads/route.ts`**: validates via the shared `validateLead` — 201 with `{ "lead": <saved> }` (trimmed, company `""`, canonical email) or 422 with `{ "errors": { field: message } }` and nothing saved (including for malformed/non-object JSON).
+- **`lib/leads.ts`**: now re-exports the `Lead` type from the shared module (store behavior unchanged).
+- **Tests added:** `lib/validateLead.test.ts` (normalization + validation rules), `lib/leads.route.test.ts` (201/422, normalization, nothing saved on error), `app/contact/LeadForm.test.tsx` (typing, tab order, client-side error display/focus/focus + no fetch on invalid submit, normalized POST + `lead-success`, 422 keeps form and values).

@@ -1,0 +1,14 @@
+
+
+All 29 tests pass and every error path exits non-zero with a short stderr message (no tracebacks). Done.
+
+## Summary
+
+**Package `interest/`** (runs as `python -m interest`, stdlib only):
+- `interest/core.py` — `calculate()`: simulates on a fine step of `lcm(periods_per_year, 12)` per year so interest credits (end of each compounding period) and contributions (end of each month/year, **after** same-moment interest) land exactly. Validates all inputs, raises `InterestError` for invalid/contradictory values; results rounded to cents.
+- `interest/cli.py` — argparse CLI with `--principal`, `--rate`, mutually exclusive `--years`/`--months`, `--compound {annually,quarterly,monthly,daily}`, `--contribution` + `--contribution-frequency {monthly,annually}` (enforced as a pair), and `--json`. Prints a readable summary or a single JSON object; errors print `error: …` to stderr and exit 1 (argparse errors exit 2).
+- `interest/__main__.py` — entry point.
+
+**`tests/test_interest.py`** — 29 unittest tests covering: known reference value (1000 @ 10% annually, 10 yr → 2593.74), zero rate/principal, monthly & daily compounding, monthly and annual contributions (with a day-by-day cross-check for daily compounding + monthly contributions), core validation errors, and CLI tests for summary/JSON output, both/neither time flags, negative values, non-numeric input, contribution↔frequency pairing, and unknown choices. Run with `python -m unittest discover -s tests`.
+
+**`README.md`** — usage table, verified command examples, error behavior, and test instructions.

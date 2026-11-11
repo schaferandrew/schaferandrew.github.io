@@ -1,0 +1,7 @@
+Two clear errors stood out: “then” should be “than” for the comparative, and “to fast” should be “too fast.” Everything else is clean, voiceful prose. I preserved the fragment “Not waiting for her, exactly.” because it is an obvious, effective stylistic choice. The only item that sits on the line between error and deliberate style is the comma before “or” in the final sentence: standard punctuation would omit it in a two-part “whether … or” construction, but the comma creates a pause that mirrors Mara’s uncertainty and fits the paragraph’s cadence, so I left it alone and am flagging it below.
+
+CORRECTED:
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder than she remembered it, all brakes shrieking and people talking too fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh, or leave.
+
+POSSIBLY INTENTIONAL:
+"laugh, or leave": The comma before "or" in a two-item "whether ... or" choice is technically unnecessary, but the pause it inserts fits the character's hesitation and the paragraph's measured rhythm, so I left it rather than treating it as a slip.

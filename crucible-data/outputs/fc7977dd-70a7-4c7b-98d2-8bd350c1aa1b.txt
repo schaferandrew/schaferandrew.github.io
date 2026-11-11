@@ -1,0 +1,87 @@
+**1. Savings account balance**
+
+Use the compound-interest formula  
+\(A=P\left(1+\frac{r}{n}\right)^{nt}\)
+
+- \(P = 5{,}000\)
+- \(r = 0.04\)
+- \(n = 12\)
+- \(t = 3\)
+
+\[
+A = 5{,}000\left(1+\frac{0.04}{12}\right)^{12\times3}
+   = 5{,}000(1.003333\ldots)^{36}
+   = 5{,}000 \times 1.127271872\ldots
+   = 5{,}636.35936\ldots
+\]
+
+Rounded to the nearest cent: **\$5,636.36**
+
+---
+
+**2. Flooring boxes needed**
+
+Total area including 10% waste:
+
+\[
+1{,}850 \times 1.10 = 2{,}035 \text{ sq ft}
+\]
+
+Boxes required:
+
+\[
+\frac{2{,}035}{23.5} = 86.5957\ldots
+\]
+
+Since partial boxes cannot be purchased, round up to the next whole number: **87 boxes**  
+(86 boxes cover only \(86\times23.5=2{,}021\) sq ft, which is not enough.)
+
+---
+
+**3. Cost of gas for the trip**
+
+Gallons needed:
+
+\[
+\frac{412}{34} = 12.117647\ldots \text{ gal}
+\]
+
+Total cost:
+
+\[
+12.117647\ldots \times 3.89 = 47.137647\ldots
+\]
+
+Rounded to the nearest cent: **\$47.14**
+
+---
+
+**4. Splitting the dinner bill**
+
+Tip (18% on pre-tax amount):
+
+\[
+172.00 \times 0.18 = 30.96
+\]
+
+Total to be split:
+
+\[
+186.40 + 30.96 = 217.36
+\]
+
+Each person’s share:
+
+\[
+\frac{217.36}{4} = 54.34
+\]
+
+**\$54.34** per person.
+
+---
+
+ANSWERS
+1. $5,636.36
+2. 87 boxes
+3. $47.14
+4. $54.34

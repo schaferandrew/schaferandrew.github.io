@@ -1,0 +1,33 @@
+**1. Compound interest**
+
+A = P(1 + r/n)^(nt) = 5000 × (1 + 0.04/12)^(12×3)
+
+- Monthly rate: 0.04/12 = 0.0033333333… (exactly 1/300)
+- Periods: 3 × 12 = 36
+- Factor: (1.0033333333…)^36 ≈ 1.12727187
+- A = 5000 × 1.12727187 = 5,636.35937…
+
+**2. Flooring boxes**
+
+- Needed incl. waste: 1,850 × 1.10 = 2,035 sq ft
+- Boxes: 2,035 ÷ 23.5 = 86.5957…
+
+Can't buy a fraction of a box, so round **up**.
+
+**3. Gas cost**
+
+- Gallons: 412 ÷ 34 = 12.117647… gal
+- Cost: 12.117647… × $3.89 = $47.137647…
+
+**4. Dinner bill**
+
+- Tip: 18% × 172.00 = $30.96
+- Total: 186.40 + 30.96 = $217.36
+- Per person: 217.36 ÷ 4 = $54.34 (exact, no rounding needed)
+
+## ANSWERS
+
+1. $5,636.36
+2. 87 boxes
+3. $47.14
+4. $54.34 each

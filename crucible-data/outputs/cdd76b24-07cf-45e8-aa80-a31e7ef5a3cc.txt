@@ -1,0 +1,8 @@
+Implemented the fix and documented the incident.
+
+- **Root causes:** URL-only cache keys shared personalized responses across viewers; cache hits bypassed authentication; successful writes never invalidated cached responses.
+- **Fix:** verified-viewer cache partitioning, authentication before lookup, successful-write invalidation, and protection against delayed reads restoring stale data. `createApp(db, options)` and `server.ts` remain unchanged.
+- **Log analysis:** identified **371 distinct signed-in recipients** of another signed-in user’s cached representation. Reproduce with `python3 incident/analyze-cache.py`.
+- **Postmortem:** `incident/POSTMORTEM.md` includes timestamps, evidence, counting methodology, impact, and follow-ups.
+
+Validation: **35 API tests and 7 web tests pass**, plus typechecking. Existing tests, including the RealWorld contract suite, are unmodified.

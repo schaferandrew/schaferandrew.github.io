@@ -1,0 +1,13 @@
+Implemented editorial review across the API, shared schemas/types, and web app.
+
+- Added draft submission, approval, rejection, review queue, and own-article endpoints.
+- Added editor configuration through `createApp(db, { editors })` and `EDITORS`.
+- Protected unpublished content across reads, lists, counts, tags, comments, and favorites.
+- Kept feedback private to authors and editors, including after publication.
+- Added **My Articles** and **Review Queue** screens; new web articles save as drafts.
+
+**Compatibility decisions:** legacy API creates still publish immediately and retain existing edit behavior. Editing a review-managed published article withdraws it to draft; editing during review is blocked. Drafts use opaque slugs to prevent title-collision leaks.
+
+All decisions and review flags are documented in `docs/editorial-review.md`. Key flags are the intentional legacy publication bypass, username-based editor privileges, latest-feedback-only storage rather than a full conversation history, and withdrawal rather than revision snapshots.
+
+**Validation:** `npm run typecheck`, all 37 tests, and `git diff --check` pass. `apps/api/test/realworld.contract.test.ts` remains unmodified.

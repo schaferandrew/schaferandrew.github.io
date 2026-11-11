@@ -1,0 +1,337 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "0e1adb86-0612-4e0d-b54b-1906dc0c85f0",
+ "rubric_version": 1,
+ "rubric_hash": "045cbc7ea0a00183",
+ "method": "hidden_tests",
+ "scored_at": "2026-11-11T04:31:19.008271+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 0,
+  "total": 34,
+  "unit": "tests"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": 6,
+ "passed": false,
+ "items": [
+  {
+   "id": "migration: build and structure > the production build succeeds",
+   "type": "hidden_test",
+   "group": "migration: build and structure",
+   "label": "the production build succeeds",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: build and structure > the pages/ directory is gone",
+   "type": "hidden_test",
+   "group": "migration: build and structure",
+   "label": "the pages/ directory is gone",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: build and structure > every URL the old app served still answers 200",
+   "type": "hidden_test",
+   "group": "migration: build and structure",
+   "label": "every URL the old app served still answers 200",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: same content > / lists every book in title order with its author, price and link",
+   "type": "hidden_test",
+   "group": "migration: same content",
+   "label": "/ lists every book in title order with its author, price and link",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: same content > /about keeps its text and opening hours",
+   "type": "hidden_test",
+   "group": "migration: same content",
+   "label": "/about keeps its text and opening hours",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: same content > a book page shows the book, its genre link and its permalink",
+   "type": "hidden_test",
+   "group": "migration: same content",
+   "label": "a book page shows the book, its genre link and its permalink",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: same content > an out-of-stock book says so",
+   "type": "hidden_test",
+   "group": "migration: same content",
+   "label": "an out-of-stock book says so",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: same content > a genre page lists its shelf in title order",
+   "type": "hidden_test",
+   "group": "migration: same content",
+   "label": "a genre page lists its shelf in title order",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: same content > another genre page lists only its own books",
+   "type": "hidden_test",
+   "group": "migration: same content",
+   "label": "another genre page lists only its own books",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: same content > /search serves its heading in the HTML",
+   "type": "hidden_test",
+   "group": "migration: same content",
+   "label": "/search serves its heading in the HTML",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: same content > /api/books returns every book as JSON",
+   "type": "hidden_test",
+   "group": "migration: same content",
+   "label": "/api/books returns every book as JSON",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: same content > /api/books?genre= filters by genre",
+   "type": "hidden_test",
+   "group": "migration: same content",
+   "label": "/api/books?genre= filters by genre",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: same content > /api/books answers 400 for an unknown genre",
+   "type": "hidden_test",
+   "group": "migration: same content",
+   "label": "/api/books answers 400 for an unknown genre",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: same content > /api/books refuses anything but GET with 405",
+   "type": "hidden_test",
+   "group": "migration: same content",
+   "label": "/api/books refuses anything but GET with 405",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: shared layout > every page sits in the layout: html lang, header, navigation and footer",
+   "type": "hidden_test",
+   "group": "migration: shared layout",
+   "label": "every page sits in the layout: html lang, header, navigation and footer",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: shared layout > the global stylesheet is linked on every page",
+   "type": "hidden_test",
+   "group": "migration: shared layout",
+   "label": "the global stylesheet is linked on every page",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: shared layout > the nav marks Books as current on / and on book and genre pages",
+   "type": "hidden_test",
+   "group": "migration: shared layout",
+   "label": "the nav marks Books as current on / and on book and genre pages",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: shared layout > the nav marks About as current on /about",
+   "type": "hidden_test",
+   "group": "migration: shared layout",
+   "label": "the nav marks About as current on /about",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: shared layout > the nav marks Search as current on /search",
+   "type": "hidden_test",
+   "group": "migration: shared layout",
+   "label": "the nav marks Search as current on /search",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: not found > an unknown URL answers 404 with the not-found page inside the layout",
+   "type": "hidden_test",
+   "group": "migration: not found",
+   "label": "an unknown URL answers 404 with the not-found page inside the layout",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: not found > an unknown book slug answers 404 and serves no book",
+   "type": "hidden_test",
+   "group": "migration: not found",
+   "label": "an unknown book slug answers 404 and serves no book",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: not found > an unknown genre answers 404 with the not-found page, not an empty shelf",
+   "type": "hidden_test",
+   "group": "migration: not found",
+   "label": "an unknown genre answers 404 with the not-found page, not an empty shelf",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: rendering semantics > the book page is rendered on every request, so its view counter climbs",
+   "type": "hidden_test",
+   "group": "migration: rendering semantics",
+   "label": "the book page is rendered on every request, so its view counter climbs",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: rendering semantics > the home, about and genre pages are still prerendered at build time",
+   "type": "hidden_test",
+   "group": "migration: rendering semantics",
+   "label": "the home, about and genre pages are still prerendered at build time",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: metadata > / has its title and description, once",
+   "type": "hidden_test",
+   "group": "migration: metadata",
+   "label": "/ has its title and description, once",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: metadata > /about has its title and description, once",
+   "type": "hidden_test",
+   "group": "migration: metadata",
+   "label": "/about has its title and description, once",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: metadata > /genres/history has its title and description, once",
+   "type": "hidden_test",
+   "group": "migration: metadata",
+   "label": "/genres/history has its title and description, once",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: metadata > /search has its title and description, once",
+   "type": "hidden_test",
+   "group": "migration: metadata",
+   "label": "/search has its title and description, once",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: metadata > book pages get their own title and description from the book",
+   "type": "hidden_test",
+   "group": "migration: metadata",
+   "label": "book pages get their own title and description from the book",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: metadata > no Pages Router API is left in the source (next/head, next/router, getStaticProps...)",
+   "type": "hidden_test",
+   "group": "migration: metadata",
+   "label": "no Pages Router API is left in the source (next/head, next/router, getStaticProps...)",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: client and server boundaries > every file that uses hooks or event handlers is a client component or only used by one",
+   "type": "hidden_test",
+   "group": "migration: client and server boundaries",
+   "label": "every file that uses hooks or event handlers is a client component or only used by one",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: client and server boundaries > no client component exports metadata",
+   "type": "hidden_test",
+   "group": "migration: client and server boundaries",
+   "label": "no client component exports metadata",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: client and server boundaries > the pages that load data stay Server Components",
+   "type": "hidden_test",
+   "group": "migration: client and server boundaries",
+   "label": "the pages that load data stay Server Components",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  },
+  {
+   "id": "migration: client and server boundaries > the search page still fetches /api/books on mount, in a client component",
+   "type": "hidden_test",
+   "group": "migration: client and server boundaries",
+   "label": "the search page still fetches /api/books on mount, in a client component",
+   "passed": false,
+   "detail": "AssertionError: there's no app/layout and app/page: the app hasn't been migrated: expected false to be true // Object.is equality"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Builds, pages/ removed, URLs kept",
+   "passed": 0.0,
+   "total": 0.88,
+   "detail": "0/3 hidden tests pass"
+  },
+  {
+   "id": "Same content",
+   "passed": 0.0,
+   "total": 3.24,
+   "detail": "0/11 hidden tests pass"
+  },
+  {
+   "id": "Shared layout",
+   "passed": 0.0,
+   "total": 1.47,
+   "detail": "0/5 hidden tests pass"
+  },
+  {
+   "id": "Not found",
+   "passed": 0.0,
+   "total": 0.88,
+   "detail": "0/3 hidden tests pass"
+  },
+  {
+   "id": "Rendering semantics",
+   "passed": 0.0,
+   "total": 0.59,
+   "detail": "0/2 hidden tests pass"
+  },
+  {
+   "id": "Metadata",
+   "passed": 0.0,
+   "total": 1.76,
+   "detail": "0/6 hidden tests pass"
+  },
+  {
+   "id": "Client and server boundaries",
+   "passed": 0.0,
+   "total": 1.18,
+   "detail": "0/4 hidden tests pass"
+  }
+ ]
+}

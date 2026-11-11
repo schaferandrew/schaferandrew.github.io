@@ -1,0 +1,70 @@
+**1.** First factor N: 6,604,416 = 2⁷ · 3⁴ · 7² · 13. By the Chinese Remainder Theorem, count the solutions of x¹² ≡ 1 modulo each prime power and multiply.
+
+- **Mod 2⁷:** the unit group is C₂ × C₃₂, not cyclic. The solution count is gcd(12,2) · gcd(12,32) = 2 · 4 = 8.
+- **Mod 3⁴:** the unit group is cyclic of order 54, giving gcd(12,54) = 6.
+- **Mod 7²:** the unit group is cyclic of order 42, giving gcd(12,42) = 6.
+- **Mod 13:** the unit group is cyclic of order 12, giving 12.
+
+Total: 8 · 6 · 6 · 12 = **3456**.
+
+**2.** Use inclusion–exclusion by merging each letter's copies into blocks. A letter with n copies split into k blocks contributes (−1)ⁿ⁻ᵏ C(n−1, k−1) xᵏ/k!. This gives one polynomial per letter:
+
+- A: −x + (3/2)x² − (1/2)x³ + x⁴/24
+- B: x − x² + x³/6
+- C and D: each −x + x²/2
+
+Multiply the four polynomials and replace each xᵐ by m!.
+
+- The product has coefficients −1, 7/2, −59/12, 43/12, −35/24, 95/288, −11/288, 1/576 for degrees 4 through 11.
+- After multiplying by m!, the terms are −24, 420, −3540, 18060, −58800, 119700, −138600, 69300.
+- These sum to **6516**.
+
+**3.** Let E_v be the expected number of further rolls when the last roll is v. The next roll w stops the process exactly when v + w is prime (2, 3, 5, 7 or 11).
+
+The system of equations is:
+
+- 6E₁ = 6 + E₃ + E₅
+- 5E₂ = 6 + E₄ + E₆
+- 5E₃ = 6 + E₁ + E₅ + E₆
+- 5E₄ = 6 + E₂ + E₅ + E₆
+- 5E₅ = 6 + E₁ + E₃ + E₄
+- 5E₆ = 6 + E₂ + E₃ + E₄
+
+Subtracting pairs of equations shows E₃ = E₅ and E₄ = E₆. Solving the reduced system gives:
+
+- E₁ = 115/61 and E₂ = 140/61
+- E₃ = E₅ = 162/61 and E₄ = E₆ = 167/61
+
+The expected total is E = 1 + (ΣE_v)/6 = 1 + 913/366 = 1279/366. This fraction is in lowest terms, so m + n = **1645**.
+
+**4.** Run a transfer-matrix count on the last four inclusion bits. A number i can be added only if i−1 and i−4 are both absent.
+
+- The subset totals for n = 0, 1, 2, … are 1, 2, 3, 5, 8, 11, 17, 25, 37, 57, 84, 127, 191, 284, 429, 641, 961, 1445, 2161, 3246, 4867.
+- Checks: n = 4 gives 8, the subsets of {1,…,4} with no two adjacent. n = 5 gives 13 − 2 = 11, removing {1,5} and {1,3,5}.
+
+For n = 20 the count is **4867**.
+
+**5.** 10080 = 2⁵ · 3² · 5 · 7. For a prime with exponent e, the exponent triples with maximum e and minimum 0 number (e+1)³ − 2e³ + (e−1)³.
+
+- This gives 30 for e = 5, 12 for e = 2, and 6 for each e = 1.
+- Ordered triples: 30 · 12 · 6 · 6 = 12960.
+
+Next remove triples with a repeated entry. All three equal is impossible, since that would force N = 1. Triples with exactly two equal entries have 2 choices per prime, so 2⁴ = 16 for each of the 3 positions of the pair, which is 48 in total.
+
+Unordered triples with a < b < c: (12960 − 48)/6 = **2152**.
+
+**6.** Count lattice paths staying in y ≤ x with the ballot formula, and handle the boundary with the reflection principle.
+
+- All good paths to (12,8): C(20,8) − C(20,7) = 125970 − 77520 = 48450.
+- Good paths from (0,0) to (5,3): C(8,3) − C(8,2) = 56 − 28 = 28.
+- Good paths from (5,3) to (12,8): reflect the start across y = x + 1, which sends (5,3) to (2,6). This gives C(12,5) − C(12,2) = 792 − 66 = 726.
+
+Removing paths through (5,3): 48450 − 28 · 726 = 48450 − 20328 = **28122**.
+
+ANSWERS:
+1: 3456
+2: 6516
+3: 1645
+4: 4867
+5: 2152
+6: 28122

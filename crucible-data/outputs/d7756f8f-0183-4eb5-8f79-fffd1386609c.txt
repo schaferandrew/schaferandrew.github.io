@@ -1,0 +1,3 @@
+Migrated the site to the App Router under `app/` and removed `pages/`. Static home and genre pages remain prerendered; book pages remain request-rendered with view counts. The shared layout, metadata, search behavior, custom 404, and `/api/books` handling were carried over.
+
+Validation passed: `npm test` and `npm run build`. No intentional behavior differences.

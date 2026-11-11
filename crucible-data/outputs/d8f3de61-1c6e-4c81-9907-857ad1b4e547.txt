@@ -1,0 +1,14 @@
+Done. Inbox is now empty and all three receipts are filed with new log rows. Here's what I filed:
+
+| Gift date | Organization | Amount | Method | Tax year | Filed as |
+|---|---|---|---|---|---|
+| 2024-11-17 | Maple Street Community Church | $250.00 | Check (no. 1129) | 2024 | `records/2024/2024-11-17_Maple-Street-Community-Church.pdf` |
+| 2025-12-31 | Hope Harbor Food Pantry | $180.00 | Card | 2025 | `records/2025/2025-12-31_Hope-Harbor-Food-Pantry.pdf` |
+| 2026-01-02 | Riverbend Public Radio | $60.00 | Card | 2026 | `records/2026/2026-01-02_Riverbend-Public-Radio.pdf` |
+
+Notes on the judgment calls:
+- **Maple Street** — a reissued statement printed March 2, 2026 that "replaces the receipt mailed in 2024." I logged the gift by its actual gift date (Nov 17, 2024), not the print date. It's a distinct gift from the existing Dec 24, 2024 entry (different amount/date/check number), so I added a new 2024 row rather than altering anything.
+- **Hope Harbor** — the letter is dated Jan 4, 2026, but the gift was received Dec 31, 2025, so it's tax year 2025.
+- **Riverbend** — the gift is dated Jan 2, 2026; the "$660.00 in 2025" line is just a cumulative total, so it's logged as a 2026 gift. This is the first gift for 2026, so I created `records/2026/`.
+
+Existing rows and files were left untouched (verified via `git diff` — additions only).

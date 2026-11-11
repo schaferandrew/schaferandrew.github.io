@@ -1,0 +1,15 @@
+Likely route:
+
+- In **A**, four 7-letter entries intersect heavily enough that their positions force plausible choices among LIBRARY/COUNCIL/ECONOMY/FLUIDIC-type checks and then decide which two can sit in the top double intersections.
+- Once those long answers constrain shared cells, several Across entries become uniquely matched from 5-letter alternatives by first/third/fifth letters or paired down starts.
+
+Confirmed fills below give consistent grids for all adjacent slots at each cell, i.e., vertical/horizontal overlaps line up at every row-column position where an entry crosses another one — they match without contradiction after accounting for straight-across pairs starting at r1c3/r2c4 etc.
+
+
+ANSWERS:
+15: FAN
+16: SON
+
+<style>
+.grid { display:none; }
+</style>

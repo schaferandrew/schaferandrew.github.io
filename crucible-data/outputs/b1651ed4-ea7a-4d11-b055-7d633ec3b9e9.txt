@@ -1,0 +1,7 @@
+**Accuracy (4):** The summary contains no invented details and each claim is supported by the passage. It correctly states the extension to 8 p.m., the resident survey and 62% figure, the $40,000 one‑year grant, the conditional revisit next winter, and the two dissenting board members with staffing concerns. All paraphrases (e.g., “asking for evening access,” “no further money,” “staffing concerns”) are faithful to the source. **Score: 4/4**
+
+**Exactly two sentences (3):** The response contains three distinct sentences, not the required two. This is a hard constraint, and the summary fails to meet it. **Score: 0/3**
+
+**Key points (3):** The hours extension (weekend hours to 8 p.m. starting in March), the funding limit ($40,000 grant covering one year), and the resident survey (62% citing evening access as a top request) are all clearly included. **Score: 3/3**
+
+GRADE: 7

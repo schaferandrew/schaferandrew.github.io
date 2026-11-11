@@ -1,0 +1,22 @@
+The language errors are in **3** (subject–verb agreement: “prices … are”), **6** (the possessive is “its”), and **12** (comparisons require “than,” not “then”).
+
+The claims needing flags are:
+- **1:** Inflation is a sustained increase in the general price level, not necessarily an increase caused by excessive money creation.
+- **4:** No law requires the Federal Reserve to raise interest rates whenever annual CPI inflation exceeds 2%. Its inflation goal also refers to PCE inflation, not CPI inflation.
+- **8:** The natural rate is an aggregate economic concept, not a basis for classifying individual unemployed people. Unemployment above that rate need not reflect laziness or bad policy.
+- **11:** Describing quantitative easing as “just printing money” obscures its mechanism, and hyperinflation is not an inevitable consequence.
+- **14:** Japan’s experience does not prove that monetary policy is completely ineffective at stimulating demand.
+- **18:** The U.S. economy did grow following the Reagan tax cuts. Deficit outcomes alone also do not definitively debunk supply-side economics or establish the tax cuts’ effects independently of other factors.
+
+ERRORS:
+3: are
+6: its
+12: than
+
+FLAGS:
+1: misleading
+4: misleading
+8: misleading
+11: overstated
+14: overstated
+18: misleading

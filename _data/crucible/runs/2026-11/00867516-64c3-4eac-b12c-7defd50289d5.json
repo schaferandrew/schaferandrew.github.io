@@ -1,0 +1,93 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "00867516-64c3-4eac-b12c-7defd50289d5",
+ "run_path": "openrouter_qwen_qwen3.8-27b/news-briefing-from-feeds/20261111_045100",
+ "legacy_run_id": null,
+ "started_at": "2026-11-11T04:51:00.017678+00:00",
+ "ended_at": "2026-11-11T04:51:44.794259+00:00",
+ "elapsed_s": 44.77,
+ "task": {
+  "id": "news-briefing-from-feeds",
+  "version": 2,
+  "rubric_version": 2,
+  "content_hash": "ab43c774dcf4271c",
+  "rubric_hash": "7f63c4216de11a95",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/qwen/qwen3.8-27b",
+  "base": "qwen/qwen3.8-27b",
+  "publisher": "qwen",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null,
+   "resolved_source": "unknown"
+  },
+  "context_loaded": null,
+  "variant_key": "qwen/qwen3.8-27b|qwen|api|-",
+  "display": "qwen3.8-27b",
+  "origin": {
+   "maker": "qwen",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "Nebius",
+   "quant": null
+  },
+  "resolved_model": "qwen/qwen3.8-27b"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 1077,
+  "tokens_out": 10298,
+  "model_responses": 1,
+  "ttft_s": 0.622,
+  "ttft_avg_s": 0.622,
+  "response_time_avg_s": 44.673,
+  "output_tokens_per_s": 233.8,
+  "cost_usd": 0.363281,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 41676
+ },
+ "output_ref": "outputs/00867516-64c3-4eac-b12c-7defd50289d5.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "6faa751",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:af40e9111f2a72de7901f3c266bb8d8c14b20207073e4aab8deea3a173769329",
+  "submitter": null,
+  "verification": null
+ }
+}

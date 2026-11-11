@@ -1,0 +1,8 @@
+Fixed the Server/Client Component boundary issue.
+
+- `app/page.tsx` now loads `acct_1` directly in an async Server Component instead of using client-only hooks and fetching its own API.
+- Added `app/lib/accounts.ts`, a shared server-only data module used by the page and API route.
+- Preserved the existing account markup, displaying **Alice** and **Pro**.
+- Added regression coverage for server rendering without `fetch`, plus API success and missing-account cases.
+
+Validation: all 8 tests pass, TypeScript checks pass, and the production build succeeds.

@@ -1,0 +1,105 @@
+ ## Summary of accessibility fixes
+
+All 6 findings from the audit have been fixed in the web app.  
+Component names, files and public props are unchanged; only internals were modified.  
+Every existing test still passes and new tests were added for each finding.
+
+---
+
+### 1. Keyboard users get trapped behind the delete confirmation  
+**File:** `apps/web/src/components/ConfirmDialog.tsx`  
+**What changed:**
+- Replaced the generic `<div>` overlay with the native **`<dialog>`** element.
+- `showModal()` / `close()` are called in a `useEffect` so the browser handles **focus trapping**, **Escape-to-close**, and **focus return** to the trigger automatically.
+- Replaced the non-focusable `<div>` buttons with real `<button type="button">` elements.
+- Added `role="dialog"`, `aria-modal="true"`, `aria-labelledby="confirm-title"` and `aria-describedby="confirm-message"` so screen readers announce the dialog when it opens.
+- Backdrop clicks are handled by checking `e.target === dialogRef.current`.
+
+**Tests added:** `apps/web/test/ConfirmDialog.test.tsx`
+- Verifies the dialog has the correct ARIA role, name and description.
+- Checks that opening moves focus to the first button.
+- Checks that cancelling returns focus to the trigger and removes the `open` attribute.
+- Checks that confirming invokes the callback.
+- Runs axe-core and reports zero violations.
+
+**Note:** jsdom does not implement `HTMLDialogElement.prototype.showModal`, so a minimal polyfill was added to `apps/web/test/setup.ts` that records the previously-focused element and restores it on `close()`. Real browser focus-trap behaviour can only be fully verified in a live browser.
+
+---
+
+### 2. "Read more" can't be used without a mouse and gives no feedback  
+**File:** `apps/web/src/components/ReadMore.tsx`  
+**What changed:**
+- Changed the inline `<span>` to a native **`<button type="button">`** so it is in the Tab order and activatable with Enter/Space.
+- Added `aria-expanded` and `aria-controls` so users know what will happen.
+- Wrapped the text in a `<div>` with `aria-live="polite"` and `aria-atomic="true"` so the newly revealed text is announced.
+- Added `tabIndex={-1}` and a `useEffect` that moves focus to the content when it expands, so keyboard and screen-reader users land directly on the new text instead of having to hunt for it.
+
+**Tests added:** `apps/web/test/ReadMore.test.tsx`
+- Verifies the toggle is a reachable button with `aria-expanded="false"`.
+- Clicks the button, asserts the full text appears, the label switches to “Show less”, and focus moves to the live region.
+- Tests collapse back to the truncated state.
+- Verifies the live region attributes and passes axe-core.
+
+---
+
+### 3. The tag filter is mouse-only  
+**File:** `apps/web/src/components/TagFilter.tsx`  
+**What changed:**
+- Replaced the custom `<div>` dropdown with a native **`<select>`** element.
+- Added a visible `<label htmlFor={id}>` (mapped to the old `tag-filter-trigger` class) so the control is programmatically labelled.
+- Kept the original CSS class names (`tag-filter`, `tag-filter-menu`, `tag-filter-option`, `selected`) so any existing/external styles still apply.
+- Options include `# {tag}` so the selected value visually matches the old trigger.
+
+**Tests added:** `apps/web/test/TagFilter.test.tsx`
+- Verifies the control is exposed as a `combobox` with a visible label.
+- Checks that selecting an option fires `onChange` with the correct value (and `null` for “All tags”).
+- Passes axe-core.
+
+---
+
+### 4. Some buttons have no name  
+**File:** `apps/web/src/components/FavoriteButton.tsx`  
+**What changed:**
+- Added a descriptive `aria-label` that includes the action **and** the count, e.g. `Favorite article (3)` / `Unfavorite article (4)`.
+- Added `aria-hidden="true"` to the decorative heart icon so it does not pollute the accessible name.
+
+**Tests updated:** `apps/web/test/FavoriteButton.test.tsx`
+- Asserts the accessible name matches the expected pattern.
+- Asserts the icon span has `aria-hidden="true"`.
+- Verifies the label updates after favouriting/unfavouriting.
+- All original assertions (disabled state, count updates, `aria-pressed`) still pass.
+
+---
+
+### 5. Form errors aren't connected to their fields  
+**File:** `apps/web/src/pages/EditorPage.tsx`  
+**What changed:**
+- Added `aria-invalid="true"` and `aria-describedby` to every input/textarea, pointing to the corresponding error span.
+- Gave each error span a unique `id` (`title-error`, `description-error`, `body-error`, `tags-error`) and `role="alert"`.
+- Also wired up the tags field with the same pattern (it previously showed no errors at all).
+
+**Tests added:** `apps/web/test/EditorPage.test.tsx`
+- Mocks a 422 response and verifies every invalid field has `aria-invalid="true"` and the correct `aria-describedby`.
+- Verifies the error messages have the matching `id`s and `role="alert"`.
+- Verifies the toast after a successful publish (see finding 6).
+- Passes axe-core.
+
+---
+
+### 6. The "Article published" confirmation is silent  
+**File:** `apps/web/src/components/Toast.tsx`  
+**What changed:**
+- Added `role="status"`, `aria-live="polite"` and `aria-atomic="true"` so the message is treated as a status update and announced by screen readers.
+
+**Tests added:** `apps/web/test/Toast.test.tsx`
+- Verifies the toast renders with `role="status"` and the correct live-region attributes.
+- Passes axe-core.
+
+---
+
+### What could not be fully verified without a real screen reader
+- **Live-region announcements:** jsdom does not speak, so we can assert that the `status` / `aria-live="polite"` markup is present, but we cannot hear whether VoiceOver or NVDA actually announce the Toast or the expanded ReadMore text at the correct moment.
+- **Dialog focus trapping:** Our jsdom polyfill mimics focus return, but the native top-layer inert behaviour and true focus trap of `<dialog>` can only be exercised in a real browser.
+- **Screen-reader verbosity for composite labels:** The exact phrasing of `aria-label` + `aria-pressed` on the FavoriteButton varies between screen readers; the markup is correct, but only a live session can confirm the optimal experience.
+
+All tests pass (`npm test` → 19 API tests + 27 web tests).

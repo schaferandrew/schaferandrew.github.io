@@ -1,0 +1,6 @@
+- **Correct complexity (0/4):** States O(n log n), not O(log n). Sorting is not part of binary search itself.
+- **Explanation (0/3):** Mentions checking the middle element but does not explain that each step halves the remaining search range.
+- **Precondition (0/2):** Incorrectly claims binary search works on unsorted input rather than stating that the input must already be sorted.
+- **Clarity (1/1):** The answer is clear and well organised, despite being incorrect.
+
+GRADE: 1

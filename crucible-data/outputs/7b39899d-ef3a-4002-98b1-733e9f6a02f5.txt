@@ -1,0 +1,13 @@
+Fixed the blank dashboard.
+
+**Root cause:** After the 30-second session expired, `/api/dashboard` returned HTTP 200 with empty data. The client cleared the dashboard text instead of prompting for login. Chrome reproduction confirmed this; there was no JavaScript exception.
+
+**Changes**
+- Invalid sessions now return HTTP 401, clear the cookie, and disable response caching.
+- The dashboard redirects to login with a session-ended message.
+- Other request failures display an actionable error instead of blank content.
+
+**Verification**
+- Confirmed in Chrome: login → wait 31 seconds → reload → login prompt → successful re-login.
+- Verified a simulated server failure displays an error.
+- Added API and client regression tests. `npm test`: **16 passed**.

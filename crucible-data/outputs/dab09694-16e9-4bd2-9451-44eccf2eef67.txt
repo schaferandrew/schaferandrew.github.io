@@ -1,0 +1,32 @@
+The Ruby port is in place. `ruby test/run_tests.rb` passes all 8 fixture cases. PHP isn't installed here, so I couldn't compare against the old app on requests outside the fixtures. I checked a few by hand, such as `/bookings?room=102`, `/report` and some odd `/quote` inputs, and they matched my reading of the PHP.
+
+**Layout**
+- `app.rb` is the entry point. It prints the body and exits 0 for a 2xx status and 1 otherwise.
+- `lib/juniper.rb` loads the modules in `lib/juniper/`. They map to the PHP files as follows:
+  - `router.rb`: `Router.php`
+  - `data_store.rb`: `DataStore.php`
+  - `pricing.rb`: `Pricing.php`
+  - `dates.rb`: `Dates.php`
+  - `views.rb`: `Views.php`
+- `lib/juniper/php.rb` is a helper module that reproduces PHP's loose typing: `==`, `<`/`>`, `(int)`, `empty()`, `round()`, `number_format`, `trim`, `parse_str`.
+- `test/run_tests.rb` is the ported test runner.
+
+**PHP behaviour reproduced on purpose**
+- **Loose matching:** room ids and booking `room` filters compare as numbers when both sides look numeric. So `room=0101`, `101.0` and `%20101` all find room 101.
+- **Number parsing:** `nights=1e1` becomes 10, and `2abc` becomes 2.
+- **Guest limit:** the comparison against `max_guests` follows PHP 8 rules, including string comparison for non-numeric values.
+- **Guests value:** `guests=0` or empty means 1. Fractional guests like `5.5` give an "Extra guests (3.5 x …)" line. Negative guests are allowed.
+- **Dates:** days roll over like `strtotime`, so `02/31/2024` becomes March 2 and `2024-03-00` becomes the last day of February.
+- **Coupons:** the code is trimmed and uppercased. A coupon below its minimum nights is silently ignored.
+- **Zero fees:** a cleaning fee of `"0"` is skipped, but `"0.00"` would still add a line.
+- **Rounding:** half away from zero on the decimal value, as PHP does. `discount` stays integer `0` when there's no coupon.
+- **Filtered bookings:** `/bookings?room=…` keeps the original array positions. A partial match is therefore a JSON object like `{"0":…,"5":…}`, and only a match starting at position 0 with no gaps is a list.
+- **Empty CSV fields:** an empty field comes back as `""`, not null.
+- **Unpaid count:** `/report` counts a booking as unpaid only when `paid` is `""` or `"0"`. `"no"` counts as paid.
+- **`by_room`:** it is a JSON object, or `[]` when empty.
+- **HTML page:** it escapes quotes as `&#039;` and formats money with thousands commas.
+- **Fatal errors:** cases where PHP would die print a message to stderr and exit 255. Examples are a guest count that works out to zero (division by zero) and array-valued `coupon` or `checkin` parameters.
+
+**Where I'm unsure**
+- I assumed PHP 8 semantics. PHP 8 also prints warnings for some malformed guest values. I did not reproduce those warnings.
+- Extreme inputs such as years outside 0000–9999 or huge `nights` values are untested.

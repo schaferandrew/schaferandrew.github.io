@@ -1,0 +1,34 @@
+The cause is the response cache that v1.8.0 turned on in production, not a frontend bug. I've fixed it, added regression tests, and written the postmortem. All API and web tests pass (32 + 7), the contract test is unmodified, and the API type-checks.
+
+```
+Deploy: 16:42:10
+First affected request: 16:43:31
+First report: 18:06:01
+Affected users: 371
+```
+
+**Root causes** (both in `apps/api/src/middleware/responseCache.ts`):
+1. **The cache key was just the URL.** Article and profile responses include the viewer's own `favorited` and `following` state, so whoever loaded a URL first decided what everyone else saw for the next 60 s. The cache also runs before the routes check the token, so an invalid token on a cached URL got a 200 instead of a 401.
+2. **Writes never cleared the cache.** Edits, deletes, favorites and follows didn't show up for up to 60 s.
+
+**Checked against the logs:** I replayed `access.log` and matched each cache hit to the request that stored it. All 1,954 `cache hit … age=Ns` lines in `app.log` agree with that replay to within a second, so each hit can be traced back to its storer. The edit and delete tickets match exact sequences:
+- **Edit:** priya.writes edited her article at 18:57:21, and two readers got the old copy at 18:57:26 and 18:57:33.
+- **Delete:** tomasz deleted his at 20:07:18, and it was still served twice, at 20:07:29 and 20:07:39.
+
+**How I counted 371:** these are signed-in users who got a cached response stored by a different signed-in user, across 427 requests. I left out `/api/tags`, which is the same for everyone; counting it gives 478. Not in the count, but stated in the postmortem: 168 anonymous requests got a signed-in user's data, and 143 signed-in users got a response stored by an anonymous visitor (everything showing as not favorited).
+
+For "First affected request" I took the first request served another signed-in user's stored data, regardless of who asked. At 16:43:31 that was an anonymous visitor, served user2364's article list. The first signed-in user affected was at 16:44:15. If you want the header line to count signed-in requesters only, it would be 16:44:15.
+
+**Fix** (the cache stays on; `createApp(db, options)` and `server.ts` are unchanged):
+- **Separate entries per viewer:** a new `viewerKey` option in the cache middleware, and `app.ts` passes one that checks the token the same way the auth middleware does. Requests with an invalid token skip the cache, so they still get a 401. By default the middleware only caches anonymous requests.
+- **Writes clear the cache:** any successful non-GET request clears the whole cache before its response is sent, so the writer's next read sees the change. A counter stops a read that started before a write from storing out-of-date data.
+- **Smaller changes:** cached bodies are stored as serialized JSON, responses send `Vary: Authorization`, and entries are capped at 10,000. `tokenFrom` in `middleware/auth.ts` is now exported for `app.ts` to use.
+
+**Tests:** the new file `apps/api/test/responseCache.isolation.test.ts` has 11 tests. Ten fail on the old code and pass with the fix. The eleventh checks that a failed write doesn't clear the cache, which already held before.
+
+**Still open** (detailed in `incident/POSTMORTEM.md`):
+- **Deploy now, or set the TTL off until then.** The logs end at 06:00:05 on 10-24 with the cache still on, so users were still being affected.
+- **Four instances, each with its own cache:** a write only clears the cache on the instance that handled it. The other three can still serve stale articles for up to 60 s. Fully fixing that needs a shared cache or cross-instance invalidation; until then, a shorter TTL or caching only anonymous requests would limit it.
+- **Mobile app:** the logs have no client or user-agent field, so I couldn't check whether mobile users were affected. It calls the same endpoints, so it probably was.
+
+The postmortem also covers the timeline, impact, a privacy review of the exposed favorites and follows, and the other follow-ups.

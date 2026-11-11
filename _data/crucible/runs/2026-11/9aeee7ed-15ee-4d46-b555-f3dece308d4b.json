@@ -1,0 +1,93 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "9aeee7ed-15ee-4d46-b555-f3dece308d4b",
+ "run_path": "openrouter_anthropic_claude-sonnet-5.5/sports-fan-from-photo/20261111_042840",
+ "legacy_run_id": null,
+ "started_at": "2026-11-11T04:28:40.645161+00:00",
+ "ended_at": "2026-11-11T04:28:44.134957+00:00",
+ "elapsed_s": 3.46,
+ "task": {
+  "id": "sports-fan-from-photo",
+  "version": 2,
+  "rubric_version": 1,
+  "content_hash": "724fe7efc27c5321",
+  "rubric_hash": "e3084c4e34f85e94",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/anthropic/claude-sonnet-5.5",
+  "base": "anthropic/claude-sonnet-5.5",
+  "publisher": "anthropic",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null,
+   "resolved_source": "unknown"
+  },
+  "context_loaded": null,
+  "variant_key": "anthropic/claude-sonnet-5.5|anthropic|api|-",
+  "display": "claude-sonnet-5.5",
+  "origin": {
+   "maker": "anthropic",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "Claude Platform on AWS",
+   "quant": null
+  },
+  "resolved_model": "anthropic/claude-sonnet-5.5"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 4013,
+  "tokens_out": 129,
+  "model_responses": 1,
+  "ttft_s": 2.128,
+  "ttft_avg_s": 2.128,
+  "response_time_avg_s": 3.328,
+  "output_tokens_per_s": 107.5,
+  "cost_usd": 0.00644,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 0
+ },
+ "output_ref": "outputs/9aeee7ed-15ee-4d46-b555-f3dece308d4b.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "6faa751",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:606193c1ac98084befec96c6e19be111e6b5fa940a30fc708dc3d216abe1e872",
+  "submitter": null,
+  "verification": null
+ }
+}

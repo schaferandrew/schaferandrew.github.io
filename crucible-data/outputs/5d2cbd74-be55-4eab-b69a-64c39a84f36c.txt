@@ -1,0 +1,19 @@
+ 1. **Correct.** The Battle of Hastings took place on 14 October 1066.
+2. **Incorrect.** It was **King John** who sealed Magna Carta in 1215; King Richard I (the Lionheart) died in 1199.
+3. **Incorrect.** Columbus’s first voyage reached the Americas in **1492** (October); 1493 was the year of his second voyage.
+4. **Correct.** The Declaration of Independence was adopted on 4 July 1776.
+5. **Correct.** The Bastille was stormed on 14 July 1789.
+6. **Incorrect.** Napoleon was defeated at Waterloo in **1815**. 1812 was the year of his invasion of Russia.
+7. **Incorrect.** The Titanic sank in April **1912**.
+8. **Correct.** India became independent on 15 August 1947.
+9. **Correct.** The Apollo 11 lunar landing occurred on 20 July 1969.
+10. **Incorrect.** The Berlin Wall fell in November **1989**.
+11. **Correct.** The Wall fell in November 1989 and German reunification took place on 3 October 1990, the following year.
+12. **Correct.** Nelson Mandela was inaugurated as South Africa’s President in 1994 following the first fully democratic elections.
+
+ERRORS:
+2: King John
+3: 1492
+6: 1815
+7: 1912
+10: 1989

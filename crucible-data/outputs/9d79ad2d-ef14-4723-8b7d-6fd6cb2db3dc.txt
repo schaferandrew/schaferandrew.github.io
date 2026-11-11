@@ -1,0 +1,53 @@
+# Everyday Money and Measurement Answers
+
+## 1. Savings account with monthly compounding
+
+Formula: A = P(1 + r/n)^(nt)
+
+- P = 5,000
+- r = 0.04
+- n = 12
+- t = 3
+
+Monthly rate: 0.04 / 12 = 0.003333…
+
+Number of periods: 12 × 3 = 36
+
+Growth factor: (1.003333…)^36
+
+- ln(1.003333…) ≈ 0.00332779009
+- × 36 = 0.1198004432
+- e^0.1198004432 ≈ 1.1272719
+
+A = 5,000 × 1.1272719 ≈ 5,636.359…
+
+Rounded to the cent: **$5,636.36**
+
+## 2. Flooring boxes
+
+- Area with 10% waste: 1,850 × 1.10 = 2,035 sq ft
+- Boxes needed: 2,035 ÷ 23.5 = 86.596…
+
+You can't buy part of a box, so round up: **87 boxes**
+
+## 3. Road-trip gas cost
+
+- Gallons used: 412 ÷ 34 = 12.117647… gal
+- Cost: 12.117647… × $3.89 = (412 × 3.89) ÷ 34 = 1,602.68 ÷ 34 = $47.13765…
+
+Rounded to the cent: **$47.14**
+
+## 4. Dinner split
+
+- Tip, 18% of the pre-tax amount: 0.18 × $172.00 = $30.96
+- Total: $186.40 + $30.96 = $217.36
+- Per person: $217.36 ÷ 4 = **$54.34**
+
+---
+
+## ANSWERS
+
+1. $5,636.36
+2. 87 boxes
+3. $47.14
+4. $54.34 per person

@@ -1,0 +1,31 @@
+## Reasoning
+
+**Language errors (objective grammar/spelling/agreement/word choice):**
+
+- **3.** Subject–verb agreement: "The prices … *is* weighted" — "prices" is plural, so the verb must be "are."
+- **6.** Possessive error: "*it's*" (*it is*) should be "**its**," the possessive form.
+- **12.** Wrong comparative word: "more expensive *then*" should be "than" (comparative conjunction), not "then" (adverb of time).
+
+Sentences 2, 5, 7, 9, 10, 13, 15, 16, and 17 are grammatically sound and their claims are defensible as stated (the Fed's target is indeed 2%; the natural rate estimate is hedged with "estimate" and "around"; QE's definition is standard; QE began in late 2008; Japan did stagnate after its bubble burst; supply-side theory is described accurately; Reagan cut the top rate from ~70% to 28%; deficits did rise in the 1980s). No error.
+
+**Overstated / imprecise / misleading claims:**
+
+- **1.** *imprecise* — Defines inflation as merely "prices go up" and attributes it solely to government money printing, ignoring that inflation is a sustained rise in the general price level over time and can stem from demand-pull or supply shocks without monetary expansion.
+- **4.** *misleading* — There is no legal rule tying CPI above 2% to rate hikes; the 2% target is a policy goal, not an automatic statutory trigger.
+- **8.** *overstated* — A false dichotomy ("lazy or victim of bad policy") overgeneralizes and ignores other causes (wage rigidity, demand shortfalls, etc.).
+- **11.** *overstated* — QE does not "inevitably" cause hyperinflation; historically it has not.
+- **14.** *overstated* — Absolute terms ("completely ineffective," "proves") overstate what Japan's experience shows about monetary policy.
+- **18.** *misleading* — The economy did grow in the 1980s, so "without growing the economy at all" is factually wrong; "definitively debunked" also overstates the verdict.
+
+ERRORS:
+3: are (weighted)
+6: its
+12: than
+
+FLAGS:
+1: imprecise
+4: misleading
+8: overstated
+11: overstated
+14: overstated
+18: misleading

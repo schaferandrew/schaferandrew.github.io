@@ -1,0 +1,18 @@
+The wording is standard enough: chair numbers increase left to right, and “to the right” means a higher-numbered chair. The only minor possible ambiguity is whether “the person who likes blue” could be Alice herself, but she cannot sit immediately to the left of herself, so that interpretation is impossible.
+
+Reasoning:
+
+1. Dave likes red.
+2. Carol likes yellow and is somewhere to the right of Dave.
+3. The green person is in chair 1.
+4. Carol is yellow and Dave is red, so the remaining colors for Alice and Bob are green and blue.
+5. Alice sits immediately to the left of the blue person, so Alice cannot be blue; therefore Bob is blue and Alice is green.
+6. Since green is in chair 1, Alice is in chair 1.
+7. Alice is immediately left of Bob, so Bob is in chair 2.
+8. Dave must be to the left of Carol, so with chairs 3 and 4 remaining, Dave is in chair 3 and Carol is in chair 4.
+
+Chair 1: Alice, green  
+Chair 2: Bob, blue  
+Chair 3: Dave, red  
+Chair 4: Carol, yellow  
+ANSWER: Dave

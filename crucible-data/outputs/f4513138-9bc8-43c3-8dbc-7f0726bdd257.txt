@@ -1,0 +1,18 @@
+Here is the review:
+
+Sentence 3 has a subject-verb agreement error (“prices … is” should be “prices … are weighted”). Sentence 6 uses the contraction “it’s” instead of the possessive “its.” Sentence 12 confuses “then” with “than.”
+
+For the flags, sentence 1 treats one particular cause (money creation) as the definition of inflation, which is imprecise. Sentence 4 misstates the Federal Reserve’s legal obligations; there is no automatic statutory mandate to raise rates whenever CPI exceeds 2%. Sentence 8 presents a false dichotomy and mischaracterizes unemployment above the natural rate. Sentence 11 overstated QE’s effects by saying it “inevitably” causes hyperinflation, which empirical evidence contradicts. Sentence 14 overstates what Japan’s experience proves about monetary policy and ignores ongoing debate. Sentence 18 overstates the empirical rejection of supply-side economics and incorrectly claims the economy did not grow at all during the 1980s.
+
+ERRORS:
+3: are weighted
+6: its
+12: than
+
+FLAGS:
+1: imprecise
+4: misleading
+8: misleading
+11: overstated
+14: overstated
+18: overstated

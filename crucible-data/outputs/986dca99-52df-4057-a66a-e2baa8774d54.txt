@@ -1,0 +1,8 @@
+Fixed the form’s missing client boundary and non-reactive field values.
+
+- Added React state, accessible field errors, first-error focus, keyboard submission, and failure/retry handling.
+- Added shared validation and email normalization; the API now rejects invalid input with 422 and saves only normalized leads.
+- Preserved all required IDs and confirmed the form appears in server-rendered `/contact` HTML.
+- Added form and API regression tests.
+
+Validation: **33 tests passed**; **`npm run build` passed**. All code changes are under `app/` and `lib/`; no dependencies or configuration changed.

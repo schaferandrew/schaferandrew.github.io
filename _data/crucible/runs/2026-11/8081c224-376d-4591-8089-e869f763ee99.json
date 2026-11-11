@@ -1,0 +1,93 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "8081c224-376d-4591-8089-e869f763ee99",
+ "run_path": "openrouter_anthropic_claude-opus-5.5/proofread-economics-essay/20261111_042946",
+ "legacy_run_id": null,
+ "started_at": "2026-11-11T04:29:46.371123+00:00",
+ "ended_at": "2026-11-11T04:29:55.033467+00:00",
+ "elapsed_s": 8.64,
+ "task": {
+  "id": "proofread-economics-essay",
+  "version": 2,
+  "rubric_version": 3,
+  "content_hash": "2bc3c8fb72053c52",
+  "rubric_hash": "936fb11c6fb812f3",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/anthropic/claude-opus-5.5",
+  "base": "anthropic/claude-opus-5.5",
+  "publisher": "anthropic",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null,
+   "resolved_source": "unknown"
+  },
+  "context_loaded": null,
+  "variant_key": "anthropic/claude-opus-5.5|anthropic|api|-",
+  "display": "claude-opus-5.5",
+  "origin": {
+   "maker": "anthropic",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "Claude Platform on AWS",
+   "quant": null
+  },
+  "resolved_model": "anthropic/claude-opus-5.5"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 903,
+  "tokens_out": 838,
+  "model_responses": 1,
+  "ttft_s": 3.434,
+  "ttft_avg_s": 3.434,
+  "response_time_avg_s": 8.529,
+  "output_tokens_per_s": 164.5,
+  "cost_usd": 0.053385,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 642
+ },
+ "output_ref": "outputs/8081c224-376d-4591-8089-e869f763ee99.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "6faa751",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:14899b4d2fe697fc5cd9b0810407fb16b24415911d7a11bb38de5b11023e7ce4",
+  "submitter": null,
+  "verification": null
+ }
+}

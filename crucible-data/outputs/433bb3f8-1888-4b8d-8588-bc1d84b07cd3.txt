@@ -1,0 +1,57 @@
+The main traps are counting the multiples of 21 correctly in #1 and the classic 1/3 or 1/2 mistake in #5.
+
+**1. Divisible by 3 or 7, but not by 21**
+
+- Multiples of 3: ⌊10000/3⌋ = 3333
+- Multiples of 7: ⌊10000/7⌋ = 1428
+- Multiples of 21: ⌊10000/21⌋ = 476
+
+By inclusion–exclusion, the count divisible by 3 or 7 is 3333 + 1428 − 476 = 4285.
+
+The multiples of 21 are all inside that set, so remove them: 4285 − 476 = **3809**.
+
+The tempting error is to subtract the multiples of 21 only once, giving 4285. They must be subtracted once for inclusion–exclusion and again to exclude them.
+
+**2. 7^2026 mod 100**
+
+7^2 = 49, and 7^4 = 2401 ≡ 1 (mod 100).
+
+Since 2026 = 4·506 + 2, we get 7^2026 ≡ 7^2 = **49** (mod 100).
+
+**3. Tilings of a 2×12 board**
+
+Look at the left end of the board. It is covered in one of three ways:
+- one vertical domino, leaving a 2×(n−1) board;
+- two stacked horizontal dominoes, leaving a 2×(n−2) board;
+- one 2×2 square, leaving a 2×(n−2) board.
+
+So aₙ = aₙ₋₁ + 2aₙ₋₂, with a₀ = 1 and a₁ = 1.
+
+The sequence is 1, 1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731.
+
+As a check, the closed form (2^(n+1) + (−1)^n)/3 gives 8193/3 = 2731. So a₁₂ = **2731**.
+
+**4. Largest of three dice is exactly 4**
+
+P(max ≤ 4) − P(max ≤ 3) = (4³ − 3³)/6³ = (64 − 27)/216 = **37/216**.
+
+**5. At least one boy born on Tuesday**
+
+Each child has 14 equally likely sex/day types, so there are 196 ordered pairs.
+
+- Pairs with no Tuesday-boy: 13² = 169.
+- Pairs with at least one Tuesday-boy: 196 − 169 = 27.
+
+Among those 27, count the boy–boy pairs:
+- There are 7² = 49 boy–boy pairs in total.
+- Of these, 6² = 36 have no Tuesday-boy.
+- So 49 − 36 = 13 boy–boy pairs qualify.
+
+The probability is **13/27**. This is neither 1/3 nor 1/2. The day-of-week detail matters because it makes the condition more specific.
+
+**ANSWERS**
+1. 3809
+2. 49
+3. 2731
+4. 37/216
+5. 13/27

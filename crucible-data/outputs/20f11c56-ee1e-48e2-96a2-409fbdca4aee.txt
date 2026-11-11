@@ -1,0 +1,24 @@
+The Ruby port is complete. Both test suites pass: the required fixture suite (`ruby test/run_tests.rb` → 8/8) and my extra regression suite (`ruby test/extra_tests.rb` → 9/9). No reference files (`data/`, `tests/fixtures/`, `*.php`) were modified.
+
+## Layout
+
+- **`app.rb`** — entry point. Requires the `lib/` files, defines `handle(request)` (same shape as PHP's `handle`), and when run directly prints `body + "\n"` and exits `0` for 2xx / `1` otherwise. Data paths are anchored to the script's directory, so it works from any cwd.
+- **`lib/router.rb`** — routing, query handling, `/quote`, `/bookings`, `/report`, room summaries, JSON.
+- **`lib/pricing.rb`** — the quote calculator.
+- **`lib/dates.rb`** — parsing, weekday/label formatting, day arithmetic.
+- **`lib/data_store.rb`** — `rooms.json`, the two CSVs, coupon lookup.
+- **`lib/views.rb`** — the exact `/rooms.html` markup.
+- **`lib/php_compat.rb`** — a small shim for the PHP semantics the app depended on.
+- **`test/run_tests.rb`** — the required port of `tests/run_tests.php` (reads `tests/fixtures/cases.json`, calls `handle`, compares status and body, exits non-zero on failure).
+- **`test/extra_tests.rb`** — optional regression checks for routes the fixtures don't cover.
+
+## PHP behaviours reproduced deliberately
+
+- **`(int)` casting**: leading-numeric strings (`"2abc"`→2), exponents (`"1e2"`→100), decimals (`"2.9"`→2), and arrays (non-empty→1).
+- **`empty()`**: `"0"`, `""`, `0`, empty arrays are empty — so `guests=0` defaults to 1, `cleaning_fee: "0"` drops the Cleaning line, and an empty coupon means no coupon.
+- **Loose comparisons** (PHP 8 rules): numeric strings compare numerically (`"0101" == "101"`, so `/room?id=0101` finds room 101), `"" == false` is true (drives `unpaid`), and arrays outrank scalars (`guests[]=…` ⇒ "Too many guests").
+- **`parse_str`**: `+`/`%XX` decoding, last-wins duplicates, and `foo[]`/`foo[idx]` array syntax.
+- **`array_filter` key preservation**: `/bookings?room=…` emits a JSON **object** keyed by original indices unless the survivors are exactly `0..n-1`; no matches emits `[]`. Empty `by_room` likewise emits `[]`.
+- **Date quirks**: ISO accepts day `00` and overflows like `strtotime` (`2024-02-31`→`2024-03-02`, `2024-03-00`→`2024-02-29`), plus `m/d/Y` input; weekend = Sat/Sun.
+- **Rounding**: cents rounded half-away-from-zero per line, subtotal built from rounded lines, discount applied before 12.5% tax, and PHP's float→string precision-14 behaviour in labels (`3.0` prints as `"3"`).
+- **CLI contract**: body plus trailing newline, exit `0`/`1` based on the 2xx range.

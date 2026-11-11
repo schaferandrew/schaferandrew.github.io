@@ -1,0 +1,21 @@
+Let me verify each claim:
+
+1. Hastings 1066 — correct.
+2. Magna Carta was sealed in 1215, but by King **John**, not Richard. Incorrect.
+3. Columbus first reached the Americas in 1492, not 1493. Incorrect.
+4. Declaration of Independence, July 4, 1776 — correct.
+5. Storming of the Bastille, July 14, 1789 — correct.
+6. Waterloo was in 1815, not 1812. Incorrect.
+7. Titanic sank April 15, 1912, not 1913. Incorrect.
+8. India's independence, August 1947 — correct.
+9. Moon landing, July 1969 — correct.
+10. Berlin Wall fell November 9, 1989, not 1991. Incorrect.
+11. German reunification, October 1990 — the year after 1989 — correct.
+12. Mandela elected President in 1994 — correct.
+
+ERRORS:
+2: King John
+3: 1492
+6: 1815
+7: 1912
+10: 1989

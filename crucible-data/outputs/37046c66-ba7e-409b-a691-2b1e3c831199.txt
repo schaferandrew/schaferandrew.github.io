@@ -1,0 +1,13 @@
+Dave likes red, and Carol likes yellow, so Alice and Bob must like green and blue in some order.
+
+Alice sits immediately to the left of the blue-loving person, so Alice cannot herself like blue. Therefore, Alice likes green and Bob likes blue.
+
+The green-loving person sits in chair 1, placing Alice there. Bob must then sit in chair 2, immediately to her right.
+
+Dave and Carol occupy chairs 3 and 4. Carol sits to the right of the red-loving person, Dave, so Dave sits in chair 3 and Carol in chair 4.
+
+Chair 1: Alice, green
+Chair 2: Bob, blue
+Chair 3: Dave, red
+Chair 4: Carol, yellow
+ANSWER: Dave

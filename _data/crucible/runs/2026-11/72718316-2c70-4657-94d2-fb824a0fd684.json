@@ -1,0 +1,93 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "72718316-2c70-4657-94d2-fb824a0fd684",
+ "run_path": "openrouter_z-ai_glm-5.3-flash/proofread-economics-essay/20261111_042156",
+ "legacy_run_id": null,
+ "started_at": "2026-11-11T04:21:56.875318+00:00",
+ "ended_at": "2026-11-11T04:22:10.190408+00:00",
+ "elapsed_s": 13.3,
+ "task": {
+  "id": "proofread-economics-essay",
+  "version": 2,
+  "rubric_version": 3,
+  "content_hash": "2bc3c8fb72053c52",
+  "rubric_hash": "936fb11c6fb812f3",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/z-ai/glm-5.3-flash",
+  "base": "z-ai/glm-5.3-flash",
+  "publisher": "z-ai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null,
+   "resolved_source": "unknown"
+  },
+  "context_loaded": null,
+  "variant_key": "z-ai/glm-5.3-flash|z-ai|api|-",
+  "display": "glm-5.3-flash",
+  "origin": {
+   "maker": "z-ai",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "Wafer",
+   "quant": null
+  },
+  "resolved_model": "z-ai/glm-5.3-flash"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 584,
+  "tokens_out": 696,
+  "model_responses": 1,
+  "ttft_s": 0.814,
+  "ttft_avg_s": 0.814,
+  "response_time_avg_s": 4.891,
+  "output_tokens_per_s": 170.7,
+  "cost_usd": 0.0,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 1966
+ },
+ "output_ref": "outputs/72718316-2c70-4657-94d2-fb824a0fd684.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "6faa751",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:1f81f1aba1059766788ef603db11321a2c09d0f9f0d72bdbcdc540ecc4fe1fa3",
+  "submitter": null,
+  "verification": null
+ }
+}

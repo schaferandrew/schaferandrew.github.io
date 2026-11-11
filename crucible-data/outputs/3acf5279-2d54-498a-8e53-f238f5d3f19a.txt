@@ -1,0 +1,27 @@
+Done. Here's a summary of the diagnosis and fix.
+
+## Diagnosis
+
+`app/page.tsx` had two intertwined bugs at the server/client boundary:
+
+1. **It was a Server Component using client-only APIs.** With no `'use client'` directive, `React.useState`/`useEffect` are illegal. This also caused the build's type error (`Property 'name' does not exist on type 'never'`) because `useState(null)` left `account` uninhabitable.
+2. **It fetched its own API route with a relative URL.** Even if made a client component, `fetch('/api/account?id=acct_1')` is the wrong data-access pattern in the App Router: on the server a relative URL can't be parsed, and regardless it adds a pointless HTTP round-trip. Account data was also duplicated between the page and the route handler.
+
+## Fix (idiomatic App Router approach)
+
+- **`lib/accounts.ts`** (new): single source of truth for the simulated DB, with `getAccount(id)` returning `Account | null`.
+- **`app/page.tsx`**: now a plain Server Component that reads the account directly via `getAccount('acct_1')`. Markup/structure preserved; no client hooks, no self-fetch. The page prerenders to static HTML containing `Name: Alice` / `Plan: Pro`.
+- **`app/api/account/route.ts`**: refactored to use the shared `getAccount`, keeping the API contract and its 404 behavior.
+
+## Tests
+
+- `app/page.test.tsx` — renders the Server Component and asserts the `acct_1` name/plan (and that a different account is absent), covering the reported bug.
+- `app/api/account/route.test.ts` (new, `@vitest-environment node`) — moved/expanded route tests, including the missing-id 404 case.
+- `lib/accounts.test.ts` (new) — covers the shared data accessor.
+
+## Verification
+
+- `npm test`: 7/7 passing.
+- `npm run build`: compiles and type-checks; `/` is now statically prerendered (`○`).
+- `npx tsc --noEmit`: clean.
+- Prerendered HTML confirmed: `<main><h1>Account</h1><p>Name: Alice</p><p>Plan: Pro</p></main>`.

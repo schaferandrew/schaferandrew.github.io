@@ -1,0 +1,93 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "8dea4f5d-017d-41ee-b77a-e78ec24315fd",
+ "run_path": "openrouter_openai_gpt-6.1-sol/household-money-math/20261111_042828",
+ "legacy_run_id": null,
+ "started_at": "2026-11-11T04:28:28.681271+00:00",
+ "ended_at": "2026-11-11T04:28:40.817063+00:00",
+ "elapsed_s": 12.11,
+ "task": {
+  "id": "household-money-math",
+  "version": 1,
+  "rubric_version": 2,
+  "content_hash": "7f6f5246841ce00c",
+  "rubric_hash": "3a7f59dac961798f",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/openai/gpt-6.1-sol",
+  "base": "openai/gpt-6.1-sol",
+  "publisher": "openai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null,
+   "resolved_source": "unknown"
+  },
+  "context_loaded": null,
+  "variant_key": "openai/gpt-6.1-sol|openai|api|-",
+  "display": "gpt-6.1-sol",
+  "origin": {
+   "maker": "openai",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "OpenAI",
+   "quant": null
+  },
+  "resolved_model": "openai/gpt-6.1-sol"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 211,
+  "tokens_out": 654,
+  "model_responses": 1,
+  "ttft_s": 8.321,
+  "ttft_avg_s": 8.321,
+  "response_time_avg_s": 11.99,
+  "output_tokens_per_s": 178.3,
+  "cost_usd": 0.00644,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 453
+ },
+ "output_ref": "outputs/8dea4f5d-017d-41ee-b77a-e78ec24315fd.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "6faa751",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:2aa617452bd3dc3aa9fd50a2937ffd0ade3bec6b698b60f963eaacb703492767",
+  "submitter": null,
+  "verification": null
+ }
+}

@@ -1,0 +1,14 @@
+Reasoning: I checked each sentence for grammar/spelling issues and for claims that misstate facts or economic concepts. Sentence 3 has subject-verb disagreement; sentence 6 uses "it's" instead of "its"; sentence 12 uses "then" instead of "than." On the substance: sentence 1 defines inflation too narrowly (money printing is one cause, not the definition); sentence 4 invents a legal mandate that doesn't exist; sentence 8 presents a false either/or about unemployment; sentence 11 badly mischaracterizes QE and its effects; sentence 14 draws an absolute conclusion ("completely ineffective") from one case; sentence 18 claims the economy didn't grow at all under Reagan, which is false, and treats one episode as definitive proof.
+
+ERRORS:
+3: are weighted
+6: its
+12: than
+
+FLAGS:
+1: misleading
+4: misleading
+8: misleading
+11: misleading
+14: overstated
+18: overstated

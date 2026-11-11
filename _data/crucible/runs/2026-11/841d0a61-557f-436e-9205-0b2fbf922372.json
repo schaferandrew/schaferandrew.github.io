@@ -1,0 +1,93 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "841d0a61-557f-436e-9205-0b2fbf922372",
+ "run_path": "openrouter_qwen_qwen3.8-27b/geography-trick-questions/20261111_044809",
+ "legacy_run_id": null,
+ "started_at": "2026-11-11T04:48:09.094956+00:00",
+ "ended_at": "2026-11-11T04:49:31.866498+00:00",
+ "elapsed_s": 82.76,
+ "task": {
+  "id": "geography-trick-questions",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "5a1af1208cb9b9a5",
+  "rubric_hash": "5944fb9d7568cdce",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/qwen/qwen3.8-27b",
+  "base": "qwen/qwen3.8-27b",
+  "publisher": "qwen",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null,
+   "resolved_source": "unknown"
+  },
+  "context_loaded": null,
+  "variant_key": "qwen/qwen3.8-27b|qwen|api|-",
+  "display": "qwen3.8-27b",
+  "origin": {
+   "maker": "qwen",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "Nebius",
+   "quant": null
+  },
+  "resolved_model": "qwen/qwen3.8-27b"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 210,
+  "tokens_out": 36696,
+  "model_responses": 1,
+  "ttft_s": 0.692,
+  "ttft_avg_s": 0.692,
+  "response_time_avg_s": 82.647,
+  "output_tokens_per_s": 447.8,
+  "cost_usd": 0.687481,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 120756
+ },
+ "output_ref": "outputs/841d0a61-557f-436e-9205-0b2fbf922372.txt",
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "6faa751",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:69aefdbbf90e5389a45632fef57f0b57a8410d9de57f30ada1636f0ce1125e6b",
+  "submitter": null,
+  "verification": null
+ }
+}

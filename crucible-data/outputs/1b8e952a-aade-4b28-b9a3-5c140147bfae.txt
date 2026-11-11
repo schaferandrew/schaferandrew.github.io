@@ -1,0 +1,99 @@
+The answers are 1: 18, 2: 9, 3: 40, 4: 7, 5: 516423, 6: 122. The working for each follows.
+
+**1. Restricted subtraction game**
+
+A position is the pile size n together with the move the opponent just made. For each n, let S(n) be the set of moves m (with m ≤ n) that leave the opponent in a losing position. The opponent, facing n − m tokens with m forbidden, loses exactly when S(n − m) is empty or equals {m}.
+
+- The player to move at n, with move r forbidden, wins if S(n) contains a move other than r.
+- From the start (no restriction), the second player wins exactly when S(n) is empty.
+
+Computing S(n) upward from n = 0:
+
+- In 1–24, S(n) is empty only at n = 1, 9, 13 and 17.
+- The values for 42–51 match those for 25–34. Each S(n) depends only on the previous 7 values, so a 10-value match proves the sequence repeats with period 17 from n = 25 onward.
+- In each block of 17 starting at 25, S(n) is empty at offsets 0, 1 and 9.
+
+The empty values are 1, 9, 13, 17 and then 25, 26, 34, 42, 43, 51, 59, 60, 68, 76, 77, 85, 93, 94. That is 4 + 3·4 + 2 = **18** losing starts for the first player.
+
+**2. Pins**
+
+Let g(k) be the Grundy value of an unbroken row of k pins. Computing directly gives:
+
+| k | 0–1 | 2–3 | 4–5 | 6–7 | 8–9 | 10–11 | 12–13 | 14–15 | 16–17 | 18–19 | 20–21 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| g(k) | 0 | 1 | 2 | 3 | 1 | 4 | 3 | 2 | 1 | 4 | 2 |
+
+This equals the Kayles value of ⌊k/2⌋, which is a useful check.
+
+A first move wins when it leaves two rows of lengths a and b with g(a) = g(b).
+
+- **Knocking 2 pins** (a + b = 21): only a = 10 or a = 11 works, giving 2 moves.
+- **Knocking 3 pins** (a + b = 20): a = 3, 5, 7, 10, 13, 15, 17 work, giving 7 moves.
+
+Total: **9** winning first moves.
+
+**3. Graph game**
+
+This is undirected vertex geography. The first player wins exactly when the start vertex is covered by every maximum matching.
+
+1. A maximum matching has size 5, for example 6–10, 5–11, 1–7, 3–9, 2–4.
+2. I checked which vertices can be left unmatched by some size-5 matching: 5, 6, 7 and 8 can.
+3. The other vertices cannot:
+   - Vertices 6 and 8 have only neighbours {10} and {1, 10}. So if 1 or 10 is left out, they cannot both be matched.
+   - Leaving out 11, or any of 2, 3, 4, 9, forces 6–10 and 8–1. That leaves 5 or 7 with no partner.
+
+So the first player wins from 1, 2, 3, 4, 9, 10 and 11. Their sum is **40**.
+
+**4. Knights and knaves**
+
+B's statement gives b = not f.
+
+- **If F is a knight:** B is a knave, and A's and D's statements both reduce to a = d.
+  - F's statement forces exactly one of E and G to be a knight, so C is a knave.
+  - G's statement is then true, so G is a knight and E is a knave.
+  - E's statement is false either way, as it must be.
+  - A = D is free, giving two solutions:
+    - A and D knaves: knights are F and G (2 knights).
+    - A and D knights: knights are A, D, F, G and H (5 knights).
+- **If F is a knave:** D = not A, so exactly one of A and D is a knight, and E is a knight.
+  - F's statement then makes G a knave, and C a knave.
+  - But G's statement is then true, which contradicts G being a knave. No solution here.
+
+Total knights: 2 + 5 = **7**.
+
+**5. Houses**
+
+1. Odile is in 5, so teal is in 3. Ivory is then in 1, 5 or 6.
+2. The axolotl is next to maroon and left of Lior, who is in 2–4. So maroon is in 1, 2 or 4.
+3. I tested each option against the archivist (house 2, 4 or 5), the tortoise and ferret, and the gecko and mate clues.
+   - Maroon in 4 fails: the cocoa clue cannot be met.
+   - Maroon in 1 fails: kefir is forced into house 1.
+4. Only maroon 2 and lilac 1 survive. Then ochre is 4, slate 5, ivory 6, and the archivist is in 5.
+5. The rest follows:
+   - Pets: axolotl 1, tortoise 2, ferret 3, heron 4, hamster 5, gecko 6.
+   - Drinks: cocoa 1, lassi 2, kefir 3, kvass 4, mate 5, cider 6.
+   - Jobs: farrier 1, glazier 2, cartographer 3, luthier 4, archivist 5, beekeeper 6.
+   - People: Bram 1, Lior 2, Wren 3, Kofi 4, Odile 5, Tamsin 6.
+
+In the order Odile, Bram, Tamsin, Kofi, Lior, Wren the houses are 5, 1, 6, 4, 2, 3, giving **516423**.
+
+**6. Schedules**
+
+The order S < P < R is forced, with P at least 2 slots after S and P in slot 3, 4 or 6. For each placement of S, P and R, I placed T at least 3 slots from R. The remaining three slots take Q, U and V, with Q not in slot 1 or 3. That gives 2 × (number of remaining slots other than 1 and 3) schedules each time.
+
+| P | S | R | Count |
+|---|---|---|---|
+| 3 | 1 | 4–7 | 30 |
+| 4 | 1 | 5–7 | 24 |
+| 4 | 2 | 5–7 | 20 |
+| 6 | 1–4 | 7 | 48 |
+
+Total: **122**.
+
+ANSWERS:
+1: 18
+2: 9
+3: 40
+4: 7
+5: 516423
+6: 122

@@ -1,0 +1,19 @@
+
+
+The prerendered HTML contains "Alice" and "Pro" (React splits text nodes with `<!-- -->` comments, which is why the first grep missed them — the RSC payload confirms `"Plan: ", "Pro"`). Everything works.
+
+## Summary
+
+**Diagnosis:** `app/page.tsx` was a server component (no `'use client'` directive) but used client-only hooks (`React.useState` / `React.useEffect` / `fetch`) to load acct_1 data. Hooks don't exist in server components, so the page couldn't render. It also duplicated the "database" that lives in the API route.
+
+**Fix (idiomatic modern Next.js App Router):**
+- **`lib/accounts.ts`** (new) — single source of truth: the `Account` type, the simulated database, and a `getAccount()` helper.
+- **`app/page.tsx`** — now a proper server component: calls `getAccount('acct_1')` at render time and passes the data down as props. No hooks, no client fetch.
+- **`app/account-card.tsx`** (new) — presentational component preserving the original structure: shows `Name: …` / `Plan: …`, or the `Loading...` placeholder when no account is provided.
+- **`app/api/account/route.ts`** — updated to read from the shared `lib/accounts.ts` instead of its own copy.
+
+**Tests:**
+- `app/api/account/route.test.ts` — moved the two existing API tests here (node environment) and added a 404 case for a missing `id`.
+- `app/page.test.tsx` — new jsdom render tests: page shows Alice/Pro for acct_1, no `Loading...` gets stuck, card placeholder behavior, and `getAccount` correctness.
+
+All 7 tests pass and `next build` prerenders the page statically with the correct content.

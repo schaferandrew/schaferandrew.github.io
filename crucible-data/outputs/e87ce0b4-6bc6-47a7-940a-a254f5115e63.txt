@@ -1,0 +1,7 @@
+I filed all three receipts, added a row for each to `giving-log.csv`, and left `inbox/` empty.
+
+- **Maple Street Community Church:** $250.00 check, given 2024-11-17 (tax year 2024). This was a reissued statement for a 2024 gift. I filed it as `records/2024/2024-11-17_Maple-Street-Community-Church.pdf`. The $500 pledge balance on it isn't part of the gift, so I left it out.
+- **Hope Harbor Food Pantry:** $180.00 card, given 2025-12-31 (tax year 2025). The letter is dated Jan 4, 2026, but the gift was received Dec 31. I filed it as `records/2025/2025-12-31_Hope-Harbor-Food-Pantry.pdf`.
+- **Riverbend Public Radio:** $60.00 card, given 2026-01-02 (tax year 2026). I filed it as `records/2026/2026-01-02_Riverbend-Public-Radio.pdf`, in a new `2026` folder. The receipt also says your 2025 giving totaled $660, but I logged only the $60 gift it records.
+
+I added the new rows at the end of the log, so the Maple Street 2024 row sits after the 2025 rows rather than in date order. I didn't change any existing rows or files.

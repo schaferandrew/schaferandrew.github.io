@@ -1,0 +1,21 @@
+The original code had two issues:
+
+1. **TypeScript bug**: `useState(null)` inferred the state type as `null`. After the `if (!account)` guard, TypeScript narrowed the type to `never`, so `account.name` failed type-checking (`Property 'name' does not exist on type 'never'`).
+
+2. **Runtime bug**: `useState` and `useEffect` were used in an App Router page without a `"use client"` directive. During server render, this threw `TypeError: o.useState is not a function` because hooks don't exist in Server Components.
+
+### Fix (idiomatic Next.js App Router)
+
+I moved data fetching to the **server boundary**—the idiomatic pattern for the App Router:
+
+- **`lib/account.ts`** – Extracted shared data access so both the API route and the page can reuse it.
+- **`app/page.tsx`** – Converted to an `async` Server Component that fetches data directly on the server. No hooks, no client-side fetch, no `"use client"` needed.
+- **`app/loading.tsx`** – Preserved the original loading UI intent using Next.js's built-in `loading` convention.
+- **`app/api/account/route.ts`** – Updated to use the shared `getAccount` helper.
+
+### Tests
+
+- **`app/api/account/route.test.ts`** – API tests isolated in a Node environment.
+- **`app/page.test.tsx`** – Added page-rendering tests (await the async component and assert the DOM) and a test for the `loading.tsx` fallback.
+
+Both `npm test` and `npm run build` now pass.

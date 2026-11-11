@@ -1,0 +1,17 @@
+## Reasoning
+
+Three issues stand out:
+
+1. **"then" → "than"** — This is a comparison ("louder *than* she remembered"), not a reference to time, so it's a spelling/usage error. Definitely fixable; not something an author would intend.
+
+2. **"to fast" → "too fast"** — "Too" means excessively; "to" here is simply wrong. Clear usage error. Not intentional.
+
+3. **The comma in "laugh, or leave"** — This is the ambiguous one. Standard grammar says a two-item list takes no serial/Oxford comma, so it's technically an error. But I'm flagging it rather than silently deleting it because the pause could be read as deliberate emphasis on the final option ("leave"), slowing the reader and adding weight to that choice. It's genuinely unclear whether this is a slip or a stylistic beat.
+
+The fragments ("Not waiting for her, exactly.") and the em dash in "Still—she was back" are preserved intact; they're clearly intentional rhythm choices. Note also how "too kind" later in the paragraph uses *too* correctly—which actually highlights that the earlier "to fast" was a mistake rather than a deliberate echo.
+
+CORRECTED:
+Mara stepped off the train and into a city that smelled like rain, hot asphalt, and somebody's breakfast. The station was louder than she remembered it, all brakes shrieking and people talking too fast. She could feel the old neighborhood somewhere beyond the buildings, waiting. Not waiting for her, exactly. That would have been too kind. Still—she was back. And she didn't know whether to laugh or leave.
+
+POSSIBLY INTENTIONAL:
+"laugh, or leave": The comma before "or" in a two-item list is nonstandard (no serial comma is needed with only two elements), so it's likely an error—but the pause could be deliberate emphasis on the final option ("leave"), slowing the reader and adding weight to that choice. If purely grammatical, remove it; if stylistic, keep it.

@@ -1,0 +1,33 @@
+## Reasoning
+
+**Objective errors**
+
+- **"one of the two items were damaged"**: The subject is "one," which is singular, so the verb should be "was."
+- **"havent"**: This contraction needs an apostrophe: "haven't."
+- **"clearly crush"**: The sentence needs the past participle used as an adjective, so "crush" should be "crushed."
+- **"last week but I"**: Standard punctuation puts a comma before a coordinating conjunction that joins two independent clauses. The email already does this in "three days late, and one of..." so adding the comma also keeps it consistent.
+
+**Not errors**
+
+- **"which seem to have passed"**: "Which" can refer to the plural "business days," so "seem" is grammatical. "Seems" would also work if you read it as referring to the time period as a whole, but that's a choice, not a correction.
+- **"Hi Support,"**: This is fine for an email greeting.
+
+The facts are unchanged: three days late, one of two items damaged, contacted support last week, crushed box, cracked mug handle, refund wanted for the mug, and the 5-7 day policy. I didn't add any apologetic language.
+
+ERRORS:
+were damaged → was damaged
+last week but → last week, but
+havent → haven't
+clearly crush → clearly crushed
+
+CORRECTED:
+Subject: Refund for order 84721
+
+Hi Support,
+
+I am writing because my order arrived three days late, and one of the two items was damaged. I contacted support last week, but I haven't heard anything back. The box was clearly crushed on one side, and the mug inside has a crack through the handle. I would like a refund for the mug, but please let me know if you need pictures of it. Also, your website says refunds are processed in 5-7 business days, which seem to have passed already for my earlier request. Can you tell me what the status is? Thanks for your help.
+
+STYLE:
+"5-7" → "5–7" (an en dash is the typographic convention for number ranges)
+"I would like a refund for the mug, but please let me know" → "I would like a refund for the mug. Please let me know" ("but" sets up a contrast that isn't really there)
+Consider splitting the email into short paragraphs (damage and refund request; status of the earlier request) for easier reading

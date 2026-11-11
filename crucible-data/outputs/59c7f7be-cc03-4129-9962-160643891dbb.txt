@@ -1,0 +1,50 @@
+All three puzzles are solved, and every finished grid was checked against all rows, columns, boxes or regions. Puzzle B was also checked for knight's-move pairs.
+
+**Puzzle A (sudoku)**
+
+1. Row 3 is missing 3, 5, 7 and 8. Column 1 already holds 5, 7 and 8, so r3c1 = 3.
+2. Box 1 needs a 4 in row 1, and only r1c1 can take it. Box 7's 4 must go in column 3, so r8c3 = 4.
+3. In box 5 the 3 can only go in column 4, and r6c4 is already 5, so r5c4 = 3. The 6 for box 9 is forced to r7c7, and column 1 then forces r7c1 = 1.
+4. Column 3 needs a 2 that only r2c3 can hold. The {1,9} pair in row 6 forces r6c1 = 2 and r5c1 = 9, then r6c7 = 4 and r4c2 = 1. In box 5 this gives r4c6 = 4 and r5c5 = 1, and then r8c4 = 1 and r9c8 = 1.
+5. Column 2 can only take its 8 at r1c2, which gives r3c3 = 5, r2c2 = 6, r2c6 = 5 and r1c6 = 6.
+6. r4c3 is either 6 or 8. Trying 6 forces an 8 into both r4c7 and r3c7, which is impossible. So r4c3 = 8, and the rest fills in by singles.
+
+**Puzzle B (anti-knight)**
+
+1. The knight rule forces several placements early: r3c7 = 5, r6c8 = 5, r6c4 = 7 and r8c7 = 4.
+2. Box 8 then resolves: r8c6 = 3, r8c5 = 5, r9c5 = 8 and r9c4 = 1. This leads to r7c1 = 5, r7c3 = 4, r9c8 = 2, r7c2 = 8, r8c8 = 8, r9c3 = 6 and r9c1 = 9.
+3. r3c8 is either 6 or 9. Trying 6 leads to two 8s a knight's move apart, so r3c8 = 9.
+4. From r3c8 = 9 the chain runs r6c7 = 9, then r6c5 = 2, then r3c5 = 6.
+5. r4c5 is either 3 or 9. Trying 3 again puts two 8s a knight's move apart, so r4c5 = 9. The remaining cells then follow by singles.
+
+**Puzzle C (irregular)**
+
+1. Row 3 needs a 4. Region W already has a 4 and the U cell cannot take it, so r3c5 = 4.
+2. Region V's 2 must lie in row 2, so region X's 2 is r4c4. That gives r2c5 = 2, and r2c6 and r4c3 hold 1 and 5 between them.
+3. Setting r4c3 = 5 and r2c6 = 1 completes the whole grid consistently.
+
+ANSWERS:
+1: 481296753
+2: 762835149
+3: 395741862
+4: 518964237
+5: 947312586
+6: 236578491
+7: 173459628
+8: 624183975
+9: 859627314
+10: 257419638
+11: 469835217
+12: 318267594
+13: 172596843
+14: 695348172
+15: 843721956
+16: 584972361
+17: 721653489
+18: 936184725
+19: 142356
+20: 653421
+21: 526143
+22: 315264
+23: 234615
+24: 461532

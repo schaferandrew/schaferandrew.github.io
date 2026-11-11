@@ -1,0 +1,11 @@
+Implemented cursor pagination across the API and web app.
+
+- Added opaque, query-scoped cursors and `nextCursor` for articles, feeds, and comments.
+- Snapshot membership prevents skipped or repeated articles during concurrent inserts, deletes, and favorite changes. `articlesCount` remains live.
+- Preserved legacy offset pagination and unpaged comments.
+- Replaced numbered pagination with append-only **Load more** on all article tabs and comments.
+- Updated shared types, documentation, and API/UI tests.
+
+**Validation:** Typecheck passes; all 41 tests pass. `realworld.contract.test.ts` is unchanged.
+
+**Code-review flag:** Cursor snapshots live in memory for the database’s lifetime. Production deployment needs shared storage and an explicit retention policy to bound memory usage. Existing traversals intentionally retain their original membership; newly matching articles appear on refresh.

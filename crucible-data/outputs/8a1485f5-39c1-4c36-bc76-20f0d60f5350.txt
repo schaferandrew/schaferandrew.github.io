@@ -1,0 +1,19 @@
+The /contact form now builds and works. `npm test` passes (40 tests) and `npm run build` succeeds. The built `/contact` HTML includes the form and all its ids.
+
+**What was wrong**
+- `LeadForm.tsx` had event handlers but no `"use client"`, so React treated it as a server component and prerendering failed. That broke the build.
+- The field values were kept in a plain object outside React. Changing it never redrew the page, so the inputs stayed empty no matter what you typed.
+- There was no validation in the form or the API, and the form ignored the API's answer.
+
+**What I changed**
+- **`lib/validation.ts` (new):** one set of checks used by both the form and the API. It covers required fields (spaces-only counts as empty), the email rules you listed, and trimming. Emails are saved trimmed and lowercased. It also checks untrusted request bodies: anything other than text in a field is an error, and only the four lead fields are kept.
+- **`app/api/leads/route.ts`:** it now checks every request first. Bad leads, including invalid JSON or a body that isn't an object, get a 422 with per-field errors and nothing is saved. Good leads are saved cleaned up and get a 201 with `{ lead }`.
+- **`app/contact/LeadForm.tsx`:** still the default export, now a client component that remembers what's typed.
+  - The app's own messages replace the browser's popups.
+  - Problem fields are marked `aria-invalid` and linked to their error; focus moves to the first one and nothing is sent.
+  - An error disappears as soon as that field is fixed.
+  - `lead-success` replaces the form only on a 201. If the API rejects the lead, its errors show on the fields. A network failure shows a general message. Either way, everything typed is kept.
+  - The email box is a plain text field set to bring up the email keyboard. A true email field would silently strip the spaces people type around an address.
+- **Tests:** added for the checks, the API, and the form: typing, Tab order, Enter to submit, errors and focus, the JSON sent, success, and rejection.
+
+**Decision for you:** "Enter in a field submits" is ambiguous for the message box, where Enter normally starts a new line. I made Enter submit from every field, including the message, and Shift+Enter adds a new line. Customers writing several paragraphs might send the form early. If you'd rather Enter add a new line in the message box, removing one key handler does it.

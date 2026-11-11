@@ -1,0 +1,8 @@
+ - **Correct complexity (4):** The agent states the complexity is O(n log n), which is incorrect for binary search itself. This earns **0/4**.
+- **Explanation (3):** The agent does not explain that each step halves the remaining search range; instead, it incorrectly focuses on sorting the array first. This earns **0/3**.
+- **Precondition (2):** The agent explicitly claims binary search “works on any array, sorted or not,” directly contradicting the required sorted precondition. This earns **0/2**.
+- **Clarity (1):** The response is concise, logically structured, and ends with a clear summary, so it meets the clarity criterion despite its factual errors. This earns **1/1**.
+
+**Total: 1/10**
+
+GRADE: 1

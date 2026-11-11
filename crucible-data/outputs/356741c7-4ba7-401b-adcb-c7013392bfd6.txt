@@ -1,0 +1,1 @@
+The toolchain flags optional-before-required params (baseline avoided this pattern entirely). Let me reorder so required `page` comes before the optional `status`:

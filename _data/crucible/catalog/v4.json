@@ -8,7 +8,7 @@
   "status": "current",
   "changelog_url": "https://github.com/schaferandrew/crucible/blob/main/SUITE_CHANGELOG.md#suite-v4"
  },
- "crucible_version": "2.2.0",
+ "crucible_version": "3.9.0",
  "scoring_policy": {
   "coverage_min": 0.75,
   "in_progress_below": 0.75,
@@ -1136,6 +1136,51 @@
    "added_in": "v2"
   },
   {
+   "id": "giving-receipt-filing",
+   "name": "File giving receipts",
+   "aliases": [],
+   "mode": "agentic",
+   "area": "everyday",
+   "category": "everyday",
+   "tier": "temper",
+   "status": "provisional",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "hidden_tests",
+    "unit": "tests",
+    "total": 35,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Log rows",
+     "label": "Log rows",
+     "max_score": null
+    },
+    {
+     "id": "Pays attention to the date",
+     "label": "Pays attention to the date",
+     "max_score": null
+    },
+    {
+     "id": "Filing",
+     "label": "Filing",
+     "max_score": null
+    },
+    {
+     "id": "Nothing else disturbed",
+     "label": "Nothing else disturbed",
+     "max_score": null
+    }
+   ],
+   "summary": "I keep track of our charitable giving for the tax return each year.",
+   "prompt": "I keep track of our charitable giving for the tax return each year. This folder has my giving log (giving-log.csv), records/ with the receipts I've already filed, and inbox/ with some new receipts I just scanned and downloaded.\n\nGo through everything in inbox/. Read each PDF, add a row to giving-log.csv for the gift it records, filling in every column the way the existing rows do, and file the PDF under records/ where it belongs, named the way the ones already there are. Leave inbox/ empty when you're done, and don't change any of the existing rows or files.\n\nWhen you've finished, tell me briefly what you filed and where.",
+   "rules": [],
+   "added_in": null
+  },
+  {
    "id": "grade-binary-search-answer",
    "name": "Grade a binary search answer",
    "aliases": [
@@ -1456,6 +1501,51 @@
    "added_in": "v2"
   },
   {
+   "id": "js-to-typescript-port",
+   "name": "Port a JavaScript app to strict TypeScript",
+   "aliases": [],
+   "mode": "agentic",
+   "area": "coding",
+   "category": "coding_repo",
+   "tier": "forge",
+   "status": "provisional",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "hidden_tests",
+    "unit": "tests",
+    "total": 23,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "A real TypeScript port",
+     "label": "A real TypeScript port",
+     "max_score": null
+    },
+    {
+     "id": "Types model the data",
+     "label": "Types model the data",
+     "max_score": null
+    },
+    {
+     "id": "Behavior unchanged",
+     "label": "Behavior unchanged",
+     "max_score": null
+    },
+    {
+     "id": "Existing tests still pass",
+     "label": "Existing tests still pass",
+     "max_score": null
+    }
+   ],
+   "summary": "This is Toolshed, a small inventory and lending tracker for a community tool library, written in plain JavaScript (ES modules, Node 18+).",
+   "prompt": "This is Toolshed, a small inventory and lending tracker for a community tool library, written in plain JavaScript (ES modules, Node 18+). Read README.md first.\n\nPort it to TypeScript with strict typing, without changing what it does.\n\nWhat to do:\n1. Convert every module in `src/` to TypeScript (`.ts`) and remove the `.js` originals. Keep the module names, the exported names and the call signatures, so `import { main } from \"./cli\"` still works.\n2. Add a `tsconfig.json` at the project root that turns on `strict`, covers `src/`, and makes `npx tsc -p tsconfig.json` pass with no errors. Don't switch off any strict option, don't use `// @ts-ignore`, `// @ts-nocheck` or `// @ts-expect-error`, and don't write `any`.\n3. Type the data as it really is. A tool's status is one of its three values, not a string; the fields that can hold `null` are typed as nullable; the events the store announces are a union you can narrow on its `type`; data read from the JSON file is untrusted until it has been checked.\n4. Behavior stays identical: the same command output, error messages, exit codes, saved JSON and audit lines for the same input. Fix nothing and improve nothing while you are in there; if something looks odd, port it as it is.\n5. The tests in `test/` must keep passing as they are (`npm test`). They are plain JavaScript and import the modules without a file extension; don't weaken or delete any of them.\n\n`package.json` and the lockfile stay as they are: `typescript`, `@types/node` and `vitest` are already installed. Only `src/` and `tsconfig.json` count. Run `npx tsc -p tsconfig.json` and `npm test` before you finish, and end with a short summary of the places where the types were not obvious.",
+   "rules": [],
+   "added_in": null
+  },
+  {
    "id": "landlocked-countries",
    "name": "Landlocked countries",
    "aliases": [
@@ -1758,6 +1848,71 @@
    "prompt": "Repeat the task from a fresh browser state. This time, do not assume the first login attempt will work. Handle whatever normal failure mode you encounter using the site's documented procedures.",
    "rules": [],
    "added_in": "v1"
+  },
+  {
+   "id": "migrate-pages-to-app-router",
+   "name": "Migrate Pages Router to App Router",
+   "aliases": [],
+   "mode": "agentic",
+   "area": "coding",
+   "category": "coding_repo",
+   "tier": "forge",
+   "status": "provisional",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "hidden_tests",
+    "unit": "tests",
+    "total": 34,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Builds, pages/ removed, URLs kept",
+     "label": "Builds, pages/ removed, URLs kept",
+     "max_score": null
+    },
+    {
+     "id": "Same content",
+     "label": "Same content",
+     "max_score": null
+    },
+    {
+     "id": "Shared layout",
+     "label": "Shared layout",
+     "max_score": null
+    },
+    {
+     "id": "Not found",
+     "label": "Not found",
+     "max_score": null
+    },
+    {
+     "id": "Rendering semantics",
+     "label": "Rendering semantics",
+     "max_score": null
+    },
+    {
+     "id": "Metadata",
+     "label": "Metadata",
+     "max_score": null
+    },
+    {
+     "id": "Client and server boundaries",
+     "label": "Client and server boundaries",
+     "max_score": null
+    },
+    {
+     "id": "Existing tests still pass",
+     "label": "Existing tests still pass",
+     "max_score": null
+    }
+   ],
+   "summary": "This is the website for Lantern Books, a small bookshop, built on Next.js 14 with the Pages Router.",
+   "prompt": "This is the website for Lantern Books, a small bookshop, built on Next.js 14 with the Pages Router. Read README.md first.\n\nMigrate the whole site to the App Router. Everything the site serves today must come from `app/` at the project root, and the `pages/` folder must be gone when you finish.\n\nRequirements:\n- Migrate every page and the API route: the home page, the book pages, the genre pages, search, about, the custom not-found page, the shared layout that wraps every page, and `/api/books`.\n- Keep every URL. Keep the HTTP status codes, including 404 for anything unknown, and the API's status codes for bad requests and unsupported methods.\n- For the same data, keep the rendered HTML content the same: the same text, links and navigation, including which navigation link is marked as the current page. Each page keeps its title and description.\n- Keep the rendering behaviour the pages had: pages that were built ahead of time stay built ahead of time, and a page that was rendered on every request keeps being rendered on every request.\n- Keep the existing tests passing (`npm test`), and make sure `npm run build` succeeds.\n- Do not add dependencies, and do not change package.json, the lockfile or the config files. You may change files under app/, components/, lib/ and styles/ (and delete pages/).\n\nEnd with a short summary of what you changed and anything that behaves differently from before.",
+   "rules": [],
+   "added_in": null
   },
   {
    "id": "morning-brief-priorities",
@@ -2295,6 +2450,76 @@
    "added_in": "v4"
   },
   {
+   "id": "php-booking-to-ruby",
+   "name": "Port a PHP booking app to Ruby",
+   "aliases": [],
+   "mode": "agentic",
+   "area": "coding",
+   "category": "coding_repo",
+   "tier": "forge",
+   "status": "provisional",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "hidden_tests",
+    "unit": "tests",
+    "total": 24,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Routes",
+     "label": "Routes",
+     "max_score": null
+    },
+    {
+     "id": "Loose comparison",
+     "label": "Loose comparison",
+     "max_score": null
+    },
+    {
+     "id": "Numeric strings",
+     "label": "Numeric strings",
+     "max_score": null
+    },
+    {
+     "id": "empty()",
+     "label": "empty()",
+     "max_score": null
+    },
+    {
+     "id": "Division",
+     "label": "Division",
+     "max_score": null
+    },
+    {
+     "id": "Rounding",
+     "label": "Rounding",
+     "max_score": null
+    },
+    {
+     "id": "Arrays",
+     "label": "Arrays",
+     "max_score": null
+    },
+    {
+     "id": "Dates",
+     "label": "Dates",
+     "max_score": null
+    },
+    {
+     "id": "Ruby tests",
+     "label": "Ruby tests",
+     "max_score": null
+    }
+   ],
+   "summary": "This is the Juniper Inn booking desk, a small PHP app from 2014: a router, a flat-file data layer (data/rooms.json and two CSV files), a quote calculator, date helpers and one HTML page.",
+   "prompt": "This is the Juniper Inn booking desk, a small PHP app from 2014: a router, a flat-file data layer (data/rooms.json and two CSV files), a quote calculator, date helpers and one HTML page. It runs from the command line, for example `php app.php '/quote?room=101&checkin=2024-03-19&nights=2&guests=1'`. Read README.md first.\n\nWe're retiring PHP on this machine. Rewrite the app in Ruby so the front desk can keep using it exactly as before.\n\nWhat we need:\n1. `ruby app.rb '<request>'`, run from the repo root, gives the same output and exit status as `php app.php '<request>'` for every request: the same JSON (as parsed values: same keys, values and types of container) or the same HTML text, and exit status 0 or 1 in the same cases. \"The same\" means the PHP app's actual behaviour, quirks included, not what the README or a comment says it should do. The front desk's habits depend on it.\n2. Put the Ruby code in app.rb and lib/. Write idiomatic Ruby, standard library only: no gems, no Bundler, nothing to install. It must run on the `ruby` installed here (check `ruby -v`).\n3. Port the legacy tests: `ruby test/run_tests.rb` must read the fixture cases in tests/fixtures/cases.json, run each request through your Ruby app, compare the status and body the way tests/run_tests.php does, print what failed and exit non-zero if anything did. All the cases must pass. Add more tests if you like.\n4. Don't change data/, tests/fixtures/ or the PHP files; they are the reference. You may leave the PHP files in place.\n\nPHP may not be installed here, so you might not be able to run the old app to compare; the PHP source and the fixtures are the spec. Read the PHP carefully: the fixtures don't cover every request the desk sends.\n\nWhen you're done, end with a short summary of how the Ruby app is laid out and any PHP behaviour you had to reproduce deliberately.",
+   "rules": [],
+   "added_in": null
+  },
+  {
    "id": "proofread-customer-email",
    "name": "Proofread a customer email",
    "aliases": [
@@ -2650,7 +2875,7 @@
    "rules": [
     "Never uses water, waves, ripples, wet or bank in any form (riverbank, waterfall, wavy, wetland...).",
     "Answers with exactly three lines (a haiku, nothing around it).",
-    "Uses at least one river image (current, stone, bend, heron, flow, valley...)."
+    "Uses at least one river image (current, stone, bend, heron, canyon, carving, rapids, sea...)."
    ],
    "added_in": "v4"
   },
@@ -2799,6 +3024,38 @@
    "added_in": null
   },
   {
+   "id": "sports-fan-from-photo",
+   "name": "Which team is this fan rooting for?",
+   "aliases": [],
+   "mode": "chat",
+   "area": "general",
+   "category": "everyday",
+   "tier": "spark",
+   "status": "provisional",
+   "version": 2,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 1,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Team",
+     "label": "Team",
+     "max_score": 1
+    }
+   ],
+   "summary": "Look at the attached photo.",
+   "prompt": "Look at the attached photo.\n\n1. Which college sports team is the little one a fan of? Name the school.\n\nExplain your reasoning first if it helps. Then end your reply with this block, and nothing after it:\n\nANSWERS:\n<number>: <answer>\n\nOne line per numbered question, in order. Give only the answer (a number, name or letter), not a sentence.",
+   "rules": [
+    "Line 1 names Michigan State (Michigan State University, MSU or the Spartans); the University of Michigan, Michigan or the Wolverines scores nothing."
+   ],
+   "added_in": null
+  },
+  {
    "id": "sudoku-variants",
    "name": "Sudoku variants",
    "aliases": [],
@@ -2893,6 +3150,74 @@
    "prompt": "Give me today's news briefing for Saint Paul, MN. Cover local, state, national, and global news. Prioritize events that happened or materially changed today. For each item, give: what happened, why it matters, and the source. Distinguish reported facts from analysis. Avoid repeating the same story across sections. Give me the five most important stories first, then a short section of other notable developments.",
    "rules": [],
    "added_in": "v1"
+  },
+  {
+   "id": "travel-planning-agent",
+   "name": "Plan a trip with travel tools",
+   "aliases": [],
+   "mode": "agentic",
+   "area": "everyday",
+   "category": "long_agent",
+   "tier": "temper",
+   "status": "provisional",
+   "version": 1,
+   "rubric_version": 1,
+   "weight": null,
+   "scoring": {
+    "method": "checks",
+    "unit": "points",
+    "total": 12,
+    "scale": 10
+   },
+   "criteria": [
+    {
+     "id": "Best flight",
+     "label": "Best flight",
+     "max_score": 3
+    },
+    {
+     "id": "Flight total",
+     "label": "Flight total",
+     "max_score": 1
+    },
+    {
+     "id": "Allergy-safe restaurant",
+     "label": "Allergy-safe restaurant",
+     "max_score": 3
+    },
+    {
+     "id": "Walking distance",
+     "label": "Walking distance",
+     "max_score": 1
+    },
+    {
+     "id": "Road distance",
+     "label": "Road distance",
+     "max_score": 1
+    },
+    {
+     "id": "Peak taxi time",
+     "label": "Peak taxi time",
+     "max_score": 2
+    },
+    {
+     "id": "Grounded in the tools",
+     "label": "Grounded in the tools",
+     "max_score": 1
+    }
+   ],
+   "summary": "I'm flying from Harbor City (HBR) to Larkspur (LKS) on 2026-10-14 and staying at the Larkspur Inn.",
+   "prompt": "I'm flying from Harbor City (HBR) to Larkspur (LKS) on 2026-10-14 and staying at the Larkspur Inn. Use the travel tools to answer three questions. Don't guess; the tools are the only source of fares, menus and distances.\n\n1. Find the cheapest flight that fits all of this: total cost for one checked bag (fare plus bag fee) at most $300, departs 07:00 or later, arrives in Larkspur by 12:00 noon, at most one stop, and any layover at least 60 minutes. Give the flight number and the total cost.\n2. I have a severe peanut allergy and a sesame allergy. Find a restaurant for dinner that is safe for both, within 1.5 miles walking distance of the hotel (walking distance, not as the crow flies). Give the restaurant and its walking distance in miles.\n3. How far is the Larkspur Inn from Larkspur Airport by road, and how many minutes would a taxi take if I left the airport at 17:15?\n\nExplain your reasoning first if it helps. Then end your reply with this block, and nothing after it:\n\nANSWERS:\nFlight: <flight number>\nTotal: <dollars>\nRestaurant: <name>\nWalk: <miles>\nDistance: <miles>\nTaxi: <minutes>\n\nOne value per line, with no units or extra words after the colon.",
+   "rules": [
+    "Flight is SL114 (cheapest that meets every constraint: NW201 departs 06:10, CJ550 has two stops, TA77 layover is 50 minutes, NW318 lands 12:30).",
+    "Total is $279 (fare 279, first bag included).",
+    "Restaurant is Harbor Grill (the only peanut- and sesame-free kitchen within 1.5 miles on foot; Fennel & Fig is 1.9 on foot, Saffron Table and Tidewater Bistro have cross-contact).",
+    "Walk is 1.3 miles.",
+    "Distance is 14.2 miles by road.",
+    "Taxi is 41 minutes (17:15 is peak traffic; off-peak is 26).",
+    "The run called search_flights, get_restaurant and get_travel_time (read from the session, not the reply)."
+   ],
+   "added_in": null
   },
   {
    "id": "two-calendar-slots-json",

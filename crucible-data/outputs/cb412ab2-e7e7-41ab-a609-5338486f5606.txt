@@ -1,0 +1,1 @@
+I'll start by exploring the project structure and understanding the application.

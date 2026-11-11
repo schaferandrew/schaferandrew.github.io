@@ -1,0 +1,1 @@
+Adding a `console.log` line made T1 pass — that's the signature of a **race condition** (timing-dependent). Vitest v2 likely runs tests within a file concurrently. Let me confirm by checking concurrency behavior and making each test fully independent:

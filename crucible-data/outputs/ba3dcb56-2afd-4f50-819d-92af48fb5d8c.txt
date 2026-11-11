@@ -1,0 +1,1 @@
+The web invite pages fetch the invite on mount via `api.invite`, which isn't mocked — so they show an error instead of the form. Let me mock it in those two tests:

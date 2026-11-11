@@ -1,0 +1,196 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "59a556ea-72db-4730-b3bb-f9cfd289168f",
+ "rubric_version": 1,
+ "rubric_hash": "9d8e0c84768c23b5",
+ "method": "checks",
+ "scored_at": "2026-11-11T02:46:13.820883+00:00",
+ "crucible_version": "3.9.0",
+ "raw": {
+  "passed": 12.0,
+  "total": 12,
+  "unit": "points"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "flight",
+   "type": "items",
+   "group": "Best flight",
+   "label": "Flight is SL114 (cheapest that meets every constraint: NW201 departs 06:10, CJ550 has two stops, TA77 layover is 50 minutes, NW318 lands 12:30).",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "flight",
+     "label": "Flight is SL114",
+     "passed": true,
+     "detail": "got SL114"
+    }
+   ]
+  },
+  {
+   "id": "total",
+   "type": "items",
+   "group": "Flight total",
+   "label": "Total is $279 (fare 279, first bag included).",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "total",
+     "label": "Total is $279",
+     "passed": true,
+     "detail": "got 279"
+    }
+   ]
+  },
+  {
+   "id": "restaurant",
+   "type": "items",
+   "group": "Allergy-safe restaurant",
+   "label": "Restaurant is Harbor Grill (the only peanut- and sesame-free kitchen within 1.5 miles on foot; Fennel & Fig is 1.9 on foot, Saffron Table and Tidewater Bistro have cross-contact).",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "restaurant",
+     "label": "Restaurant is Harbor Grill",
+     "passed": true,
+     "detail": "got Harbor Grill"
+    }
+   ]
+  },
+  {
+   "id": "walk",
+   "type": "items",
+   "group": "Walking distance",
+   "label": "Walk is 1.3 miles.",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "walk",
+     "label": "Walk is 1.3 miles",
+     "passed": true,
+     "detail": "got 1.3"
+    }
+   ]
+  },
+  {
+   "id": "distance",
+   "type": "items",
+   "group": "Road distance",
+   "label": "Distance is 14.2 miles by road.",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "distance",
+     "label": "Distance is 14.2 miles",
+     "passed": true,
+     "detail": "got 14.2"
+    }
+   ]
+  },
+  {
+   "id": "taxi",
+   "type": "items",
+   "group": "Peak taxi time",
+   "label": "Taxi is 41 minutes (17:15 is peak traffic; off-peak is 26).",
+   "passed": true,
+   "detail": "1/1 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "taxi",
+     "label": "Taxi is 41 minutes",
+     "passed": true,
+     "detail": "got 41"
+    }
+   ]
+  },
+  {
+   "id": "grounded",
+   "type": "tool_calls",
+   "group": "Grounded in the tools",
+   "label": "The run called search_flights, get_restaurant and get_travel_time (read from the session, not the reply).",
+   "passed": true,
+   "detail": "3/3 items",
+   "share": 1.0,
+   "items": [
+    {
+     "id": "flights",
+     "label": "Called search_flights",
+     "passed": true,
+     "detail": "1 call(s)"
+    },
+    {
+     "id": "menus",
+     "label": "Called get_restaurant",
+     "passed": true,
+     "detail": "6 call(s)"
+    },
+    {
+     "id": "time",
+     "label": "Called get_travel_time",
+     "passed": true,
+     "detail": "1 call(s)"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Best flight",
+   "passed": 3.0,
+   "total": 3,
+   "detail": "1/1 items"
+  },
+  {
+   "id": "Flight total",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "1/1 items"
+  },
+  {
+   "id": "Allergy-safe restaurant",
+   "passed": 3.0,
+   "total": 3,
+   "detail": "1/1 items"
+  },
+  {
+   "id": "Walking distance",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "1/1 items"
+  },
+  {
+   "id": "Road distance",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "1/1 items"
+  },
+  {
+   "id": "Peak taxi time",
+   "passed": 2.0,
+   "total": 2,
+   "detail": "1/1 items"
+  },
+  {
+   "id": "Grounded in the tools",
+   "passed": 1.0,
+   "total": 1,
+   "detail": "3/3 items"
+  }
+ ]
+}

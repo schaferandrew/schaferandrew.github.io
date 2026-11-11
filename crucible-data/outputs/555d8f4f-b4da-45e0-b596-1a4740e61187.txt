@@ -1,0 +1,24 @@
+All data is in. Here's my reasoning:
+
+**Question 1 — Flight.** Applying every constraint (total ≤ $300, depart ≥ 07:00, arrive ≤ 12:00, ≤ 1 stop, every layover ≥ 60 min):
+- NW201: departs 06:10 — too early. ❌
+- CJ550: 2 stops — exceeds limit. ❌
+- TA77: 50-min layover — under 60. ❌
+- NW318: arrives 12:30 — after noon. ❌
+- PL09: 07:20→11:10, 1 stop, 75-min layover, $262 + $25 = **$287** ✔
+- SL114: 08:15→10:40, nonstop, bag included, $279 + $0 = **$279** ✔
+- SL330: $349 total — over budget. ❌
+
+Cheapest qualifier: **SL114 at $279**.
+
+**Question 2 — Restaurant.** Only two kitchens are fully free of both peanuts and sesame: Harbor Grill and Fennel & Fig. But walking distance (not straight-line) decides: Fennel & Fig is 1.9 walking miles (the river crossing adds a detour despite its 1.1 mi straight-line), which exceeds 1.5. **Harbor Grill is 1.3 walking miles** and its kitchen states no peanuts or sesame are stocked or used anywhere — safe for both allergies.
+
+**Question 3 — Airport.** Road distance from the Larkspur Inn to Larkspur Airport is 14.2 miles; a taxi leaving the airport at 17:15 (peak traffic) takes 41 minutes.
+
+ANSWERS:
+Flight: SL114
+Total: 279
+Restaurant: Harbor Grill
+Walk: 1.3
+Distance: 14.2
+Taxi: 41

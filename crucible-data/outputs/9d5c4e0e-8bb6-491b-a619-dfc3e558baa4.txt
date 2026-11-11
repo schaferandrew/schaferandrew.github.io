@@ -1,0 +1,27 @@
+The migration is complete and verified with a side-by-side comparison against the original Pages Router site (both built and served, every URL diffed).
+
+## What changed
+
+**New `app/` routes** (replacing the deleted `pages/`):
+- `app/layout.tsx` — root layout (`lang="en"`, imports `styles/globals.css`, wraps everything in the shared `Layout`), plus default metadata
+- `app/page.tsx`, `app/about/page.tsx` — static, like before; `next/head` → `metadata` exports
+- `app/books/[slug]/page.tsx` — `export const dynamic = "force-dynamic"` (keeps per-request SSR and the in-memory view counter), `generateMetadata` for title/description, `notFound()` for unknown slugs
+- `app/genres/[genre]/page.tsx` — `generateStaticParams` + `export const dynamicParams = false`, the App Router equivalent of `getStaticPaths` with `fallback: false`
+- `app/search/page.tsx` + `app/search/SearchBooks.tsx` — server page holds the metadata; the client component's `useSearchParams` call sits in a Suspense-wrapped child so the page still prerenders (initial HTML still says "Loading books...")
+- `app/not-found.tsx` — the custom 404
+- `app/api/books/route.ts` — GET handler plus explicit POST/PUT/PATCH/DELETE/HEAD/OPTIONS handlers returning `405` with `Allow: GET`
+
+**Component updates:** `Layout` is now a client component using `usePathname` (+ `useSelectedLayoutSegment` to keep the old behaviour where the 404 page never highlights a nav link); `ShareLink` uses `useParams` instead of `useRouter().query`. `BookCard`, `lib/`, and `data/` are untouched; no dependency, config, or package.json changes.
+
+## Verified equivalent (old vs new, side by side)
+
+- All 18 URLs: same status codes (200s, and 404 for unknown pages/slugs/genres)
+- Same titles, descriptions, nav highlighting, and visible text on every page
+- View counter increments per request on both servers (1 → 2)
+- API: all 15 method/query cases match — status, `Allow` header, and JSON body, including 400 for unknown/repeated/empty `genre`
+- Build output shows the right modes: `/`, `/about`, `/search` static; `/genres/[genre]` SSG (3 paths); `/books/[slug]` and `/api/books` dynamic; `npm test` 7/7; `npm run build` succeeds
+
+## Behaviour differences
+
+1. **`/books/<unknown-slug>`**: returns the correct 404 status and title, but the HTML body is an empty error shell rather than the full custom 404 page. This is a known Next.js App Router bug ([vercel/next.js#99287](https://github.com/vercel/next.js/issues/99287), confirmed on 14.2.35): a `notFound()` thrown from a request-rendered page never server-renders the not-found boundary. Every workaround I tested forces the route to be statically prerendered, which would break the required per-request rendering (freezing the view counter). Unknown *URLs* and unknown *genres* still serve the full custom 404 page.
+2. Framework-internal HTML differs (RSC payload scripts instead of Pages Router hydration scripts; no `next-head-count` meta) — no user-visible content difference.

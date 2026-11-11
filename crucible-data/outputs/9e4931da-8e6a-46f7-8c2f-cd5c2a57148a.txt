@@ -1,0 +1,5 @@
+Migrated Lantern Books to the App Router. All routes, shared layout and `/api/books` now live under `app/`, and the `pages/` directory is gone. Page metadata, navigation state, 404s, API status codes, and the distinction between static pages and per-request book pages are preserved.
+
+Search remains statically served, with client-side fetching and filtering. **No intentional user-visible behavior changes.**
+
+**Verification:** `npm test` passed (7 tests); `npm run build` succeeded.

@@ -1,0 +1,24 @@
+Done. All six modules are now TypeScript, `npx tsc -p tsconfig.json` passes with no errors, and `npm test` still passes all 21 tests.
+
+## What changed
+
+- `src/*.js` → `src/*.ts` (same module, export and call signatures); `tsconfig.json` added with `strict: true`, `module`/`moduleResolution: "NodeNext"`, `noEmit`, covering `src/`.
+- `package.json`, lockfile and the tests were left untouched. Imports keep the `.js` specifiers (resolved to the `.ts` sources), so the extension-less test imports still work.
+
+## Where the types were not obvious
+
+1. **`Tool` is a flat record, not a union.** The instructions ask for nullable fields, so `borrower` / `dueDate` / `retiredReason` / `replacementCost` are `string | null` / `number | null`. That means the runtime invariants ("a loaned tool has a non-null `borrower` and `dueDate`") aren't encoded in the type, so `loanTool`/`returnTool`/`retireTool`/`overdueTools`/`report.detail` needed a few narrow assertions (`tool.dueDate as string`) where the original relied on those invariants. A discriminated union would have removed them but would have made the mutation-heavy store code awkward, so I kept the flat shape the prompt implied.
+
+2. **The status union is derived from the value.** `STATUSES` is `as const`, `ToolStatus = (typeof STATUSES)[number]`, and `isStatus` is a real type guard. `STATUSES.includes` needed a `readonly unknown[]` view so it could be called with an `unknown`.
+
+3. **Untrusted JSON.** `normalizeTool(raw: unknown)` and `ToolStore.load()` cast the parsed value to `Record<string, unknown>` and check each field. A couple of passthrough fields (`category`, `borrower`, `dueDate`, `retiredReason`) are only truthiness-checked in the original, so they keep a cast to `string` rather than coercing — coercing would have changed behavior.
+
+4. **`load()`'s `tools`/`nextId` fallbacks.** `(raw.tools || [])` and `raw.nextId || highest + 1` are deliberately loose (a non-array `tools` would crash `.map`, matching the original); typed via `unknown` casts so the runtime path is byte-identical.
+
+5. **Event union.** `StoreEvent` is a union on `type` with `added`/`loaned`/`returned`/`retired`, which is what makes `auditLines` narrow cleanly.
+
+6. **CLI flags.** `parseArgs` returns `Record<string, string | boolean | undefined>`, but `findTools` wants a typed `status`. The `--status` value (and `search`/`tag`) are cast at the call site so a stray value still reaches `isStatus` and throws the same error as before.
+
+7. **Catch variable.** Under `strict`, `err` is `unknown`; the original assumes `.message`, so it's cast to `Error` (and to `NodeJS.ErrnoException` for `.code`), preserving the exact error strings.
+
+No `any`, `@ts-ignore`, `@ts-nocheck` or `@ts-expect-error` appears anywhere in `src/`.

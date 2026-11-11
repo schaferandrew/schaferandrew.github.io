@@ -1,0 +1,269 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "8447b32f-ff45-464b-aded-715dc643e415",
+ "rubric_version": 1,
+ "rubric_hash": "a01dd22a30a8b0c8",
+ "method": "hidden_tests",
+ "scored_at": "2026-11-11T01:13:50.783281+00:00",
+ "crucible_version": "3.9.0",
+ "raw": {
+  "passed": 22,
+  "total": 24,
+  "unit": "tests"
+ },
+ "score": 9.17,
+ "scale": 10,
+ "capped_at": null,
+ "passed": false,
+ "items": [
+  {
+   "id": "routes: whole responses on ordinary requests > test_rooms_list",
+   "type": "hidden_test",
+   "group": "routes: whole responses on ordinary requests",
+   "label": "test_rooms_list",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "routes: whole responses on ordinary requests > test_rooms_page_html",
+   "type": "hidden_test",
+   "group": "routes: whole responses on ordinary requests",
+   "label": "test_rooms_page_html",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "routes: whole responses on ordinary requests > test_weekday_quote",
+   "type": "hidden_test",
+   "group": "routes: whole responses on ordinary requests",
+   "label": "test_weekday_quote",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "routes: whole responses on ordinary requests > test_quote_with_coupon_and_extra_guests",
+   "type": "hidden_test",
+   "group": "routes: whole responses on ordinary requests",
+   "label": "test_quote_with_coupon_and_extra_guests",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "routes: whole responses on ordinary requests > test_unknown_room_is_404",
+   "type": "hidden_test",
+   "group": "routes: whole responses on ordinary requests",
+   "label": "test_unknown_room_is_404",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "routes: whole responses on ordinary requests > test_too_many_guests_is_422",
+   "type": "hidden_test",
+   "group": "routes: whole responses on ordinary requests",
+   "label": "test_too_many_guests_is_422",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "routes: whole responses on ordinary requests > test_unknown_route_is_404",
+   "type": "hidden_test",
+   "group": "routes: whole responses on ordinary requests",
+   "label": "test_unknown_route_is_404",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "trap: loose comparison > test_room_id_with_leading_zero_finds_the_room",
+   "type": "hidden_test",
+   "group": "trap: loose comparison",
+   "label": "test_room_id_with_leading_zero_finds_the_room",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "trap: loose comparison > test_unpaid_means_paid_loosely_equals_false",
+   "type": "hidden_test",
+   "group": "trap: loose comparison",
+   "label": "test_unpaid_means_paid_loosely_equals_false",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "trap: numeric strings > test_nine_guests_fit_a_room_for_twelve",
+   "type": "hidden_test",
+   "group": "trap: numeric strings",
+   "label": "test_nine_guests_fit_a_room_for_twelve",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "trap: numeric strings > test_fractional_nights_are_truncated",
+   "type": "hidden_test",
+   "group": "trap: numeric strings",
+   "label": "test_fractional_nights_are_truncated",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "trap: empty() > test_zero_guests_counts_as_one",
+   "type": "hidden_test",
+   "group": "trap: empty()",
+   "label": "test_zero_guests_counts_as_one",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "trap: empty() > test_cleaning_fee_of_zero_adds_no_line",
+   "type": "hidden_test",
+   "group": "trap: empty()",
+   "label": "test_cleaning_fee_of_zero_adds_no_line",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "trap: division > test_average_nights_is_not_integer_division",
+   "type": "hidden_test",
+   "group": "trap: division",
+   "label": "test_average_nights_is_not_integer_division",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "trap: rounding > test_tax_half_cent_rounds_up",
+   "type": "hidden_test",
+   "group": "trap: rounding",
+   "label": "test_tax_half_cent_rounds_up",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "trap: rounding > test_negative_discount_rounds_away_from_zero",
+   "type": "hidden_test",
+   "group": "trap: rounding",
+   "label": "test_negative_discount_rounds_away_from_zero",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "trap: arrays > test_filtered_bookings_keep_their_positions_as_keys",
+   "type": "hidden_test",
+   "group": "trap: arrays",
+   "label": "test_filtered_bookings_keep_their_positions_as_keys",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "trap: arrays > test_all_bookings_are_a_list",
+   "type": "hidden_test",
+   "group": "trap: arrays",
+   "label": "test_all_bookings_are_a_list",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "trap: dates > test_sunday_night_is_a_weekend_night",
+   "type": "hidden_test",
+   "group": "trap: dates",
+   "label": "test_sunday_night_is_a_weekend_night",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "trap: dates > test_slash_dates_are_month_first",
+   "type": "hidden_test",
+   "group": "trap: dates",
+   "label": "test_slash_dates_are_month_first",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "trap: dates > test_labels_have_no_leading_zero",
+   "type": "hidden_test",
+   "group": "trap: dates",
+   "label": "test_labels_have_no_leading_zero",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "trap: dates > test_day_past_month_end_rolls_over",
+   "type": "hidden_test",
+   "group": "trap: dates",
+   "label": "test_day_past_month_end_rolls_over",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "ruby tests > test_ruby_tests_pass",
+   "type": "hidden_test",
+   "group": "ruby tests",
+   "label": "test_ruby_tests_pass",
+   "passed": false,
+   "detail": "crucible_hidden/test_ruby_tests.py:16: AssertionError"
+  },
+  {
+   "id": "ruby tests > test_ruby_tests_read_the_legacy_fixtures",
+   "type": "hidden_test",
+   "group": "ruby tests",
+   "label": "test_ruby_tests_read_the_legacy_fixtures",
+   "passed": false,
+   "detail": "crucible_hidden/test_ruby_tests.py:22: AssertionError"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Routes",
+   "passed": 2.92,
+   "total": 2.92,
+   "detail": "7/7 hidden tests pass"
+  },
+  {
+   "id": "Loose comparison",
+   "passed": 0.83,
+   "total": 0.83,
+   "detail": "2/2 hidden tests pass"
+  },
+  {
+   "id": "Numeric strings",
+   "passed": 0.83,
+   "total": 0.83,
+   "detail": "2/2 hidden tests pass"
+  },
+  {
+   "id": "empty()",
+   "passed": 0.83,
+   "total": 0.83,
+   "detail": "2/2 hidden tests pass"
+  },
+  {
+   "id": "Division",
+   "passed": 0.42,
+   "total": 0.42,
+   "detail": "1/1 hidden tests pass"
+  },
+  {
+   "id": "Rounding",
+   "passed": 0.83,
+   "total": 0.83,
+   "detail": "2/2 hidden tests pass"
+  },
+  {
+   "id": "Arrays",
+   "passed": 0.83,
+   "total": 0.83,
+   "detail": "2/2 hidden tests pass"
+  },
+  {
+   "id": "Dates",
+   "passed": 1.67,
+   "total": 1.67,
+   "detail": "4/4 hidden tests pass"
+  },
+  {
+   "id": "Ruby tests",
+   "passed": 0.0,
+   "total": 0.83,
+   "detail": "0/2 hidden tests pass"
+  }
+ ]
+}

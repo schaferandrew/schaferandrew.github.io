@@ -1,0 +1,93 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "36563b99-1216-4d7f-ba01-dbe242a73b5c",
+ "run_path": "openrouter_openai_gpt-6-luna/sports-fan-from-photo/20261111_011446",
+ "legacy_run_id": null,
+ "started_at": "2026-11-11T01:14:46.550027+00:00",
+ "ended_at": "2026-11-11T01:15:01.126062+00:00",
+ "elapsed_s": 14.56,
+ "task": {
+  "id": "sports-fan-from-photo",
+  "version": 2,
+  "rubric_version": 1,
+  "content_hash": "724fe7efc27c5321",
+  "rubric_hash": "e3084c4e34f85e94",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "openrouter/openai/gpt-6-luna",
+  "base": "openai/gpt-6-luna",
+  "publisher": "openai",
+  "artifact": null,
+  "format": null,
+  "quant": null,
+  "reasoning": {
+   "requested": "default",
+   "resolved": null,
+   "resolved_source": "unknown"
+  },
+  "context_loaded": null,
+  "variant_key": "openai/gpt-6-luna|openai|api|-",
+  "display": "gpt-6-luna",
+  "origin": {
+   "maker": "openai",
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "openrouter"
+  }
+ },
+ "endpoint": {
+  "where": "cloud",
+  "provider": "openrouter",
+  "app": null,
+  "served_via": null,
+  "device": null,
+  "upstream": {
+   "name": "OpenAI",
+   "quant": null
+  },
+  "resolved_model": "openai/gpt-6-luna"
+ },
+ "hardware": null,
+ "outcome": {
+  "status": "completed",
+  "harness_status": "COMPLETE",
+  "returncode": 0,
+  "timed_out": false,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": 3639,
+  "tokens_out": 362,
+  "model_responses": 1,
+  "ttft_s": 5.84,
+  "ttft_avg_s": 5.84,
+  "response_time_avg_s": 6.175,
+  "output_tokens_per_s": 1081.3,
+  "cost_usd": 0.002844,
+  "cost_source": "openrouter_billed",
+  "reasoning_chars": 0
+ },
+ "output_ref": "outputs/36563b99-1216-4d7f-ba01-dbe242a73b5c.txt",
+ "provenance": {
+  "crucible_version": "3.9.0",
+  "crucible_commit": "b49bcc9",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:e426f62a74701aed504b947e118518bd887dd7979f8e2b12c62393d34e4c0c39",
+  "submitter": null,
+  "verification": null
+ }
+}

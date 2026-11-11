@@ -308,21 +308,20 @@
       ], state.scatter, function (m) { state.scatter = m; render(); });
     }
 
-    // "Include provisional tasks": off (the suite as cut) or on (its provisional tasks folded into
-    // each setup's scores where it ran them). Only drawn when this section has provisional tasks;
-    // when on, a note under the panel says the scores aren't the suite's.
+    // "Include provisional tasks": an opt-in preview, outside the control panel. Off is the suite as
+    // cut; on folds the suite's provisional tasks into each setup's scores where it ran them. Only
+    // drawn when this section has provisional tasks; when on, its note says the scores aren't the suite's.
     function renderProvisional() {
       var list = provisionalTasks(), n = list.length;
-      document.getElementById('prov-field').hidden = !n;
+      document.getElementById('prov-box').hidden = !n;
       var note = document.getElementById('prov-note');
       note.innerHTML = '';
       note.hidden = !provisionalOn();
       if (!n) return;
-      segmented('prov-toggle', [
-        { value: false, label: 'Off' },
-        { value: true, label: 'Include (' + n + ')' }
-      ], provisionalOn(), function (v) { state.provisional = v; storeProvisional(v); render(); });
-      document.getElementById('prov-hint').textContent = n + ' provisional task' + (n === 1 ? '' : 's') + ' not in ' + suiteName(S.cat) + '\'s scores';
+      document.getElementById('prov-box').classList.toggle('is-on', provisionalOn());
+      document.getElementById('prov-switch').checked = provisionalOn();
+      document.getElementById('prov-label').textContent = 'Include ' + n + ' provisional task' + (n === 1 ? '' : 's');
+      document.getElementById('prov-hint').textContent = provisionalOn() ? '' : 'Not yet in ' + suiteName(S.cat) + '\'s scores; off by default.';
       if (!provisionalOn()) return;
       note.appendChild(el('strong', {}, 'Including ' + n + ' provisional task' + (n === 1 ? '' : 's') + '; scores aren\'t comparable to ' + suiteName(S.cat) + '. '));
       note.appendChild(document.createTextNode('A provisional task counts toward a model\'s scores only if it ran it, and "in progress" is still judged on ' +
@@ -333,6 +332,11 @@
       });
       note.appendChild(document.createTextNode('.'));
     }
+    document.getElementById('prov-switch').addEventListener('change', function (e) {
+      state.provisional = e.target.checked;
+      storeProvisional(state.provisional);
+      render();
+    });
 
     // One multi-select per filter: a button that sums up the choice ("All quants", "Q4_K_M",
     // "Q4_K_M + 1") and opens a list with "Show all" first, then each value the other filters leave,

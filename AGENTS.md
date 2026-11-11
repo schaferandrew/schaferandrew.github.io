@@ -21,14 +21,16 @@ served by GitHub Pages at www.schaferandrew.com).
 - By default only tasks the selected suite makes active are shown. Provisional tasks' runs stay in
   the data but don't appear (no cells, no tier columns, no counts); a task appears once a suite makes
   it active. Two exceptions, both opt-in:
-  - The main page's "Include provisional tasks" toggle (`&provisional=1` in the hash, or
+  - The main page's "Include provisional tasks" switch (`&provisional=1` in the hash, or
     `?provisional=1`; remembered per browser in localStorage, the link wins) builds the section with
     `S.view(mode, { provisional: true })`: provisional tasks get matrix columns (dashed, `is-provisional`)
     and count toward a setup's tier and overall scores only where it ran them, so the board re-ranks.
     Coverage, partial and "in progress" stay judged on the active tasks alone; a tier result's `prov`
     says how many provisional tasks it folded in. A note says the scores aren't comparable to the
     suite, each row says "ran n of m provisional tasks", and the takeaways always read the default
-    view (counted scores only). Off is exactly the suite as cut.
+    view (counted scores only). Off is exactly the suite as cut. It isn't a filter: it sits outside
+    the control panel, in its own amber "Preview" strip (`#prov-box`) between the panel and the
+    takeaways, so it never joins the Section/Suite row (a no-wrap row: a third field squeezes them).
   - The task page's "Show provisional tasks" toggle (`&provisional=1`) lists them in its index. A
     provisional task's own page always opens from a direct link, clearly marked provisional.
 - Its data is bundle format 3 in `_data/crucible/`, written by `crucible publish` in the Crucible

@@ -50,15 +50,9 @@ permalink: /crucible/
           <select class="crucible-select" id="suite-select"></select>
           <span class="crucible-field-hint" id="suite-line"></span>
         </div>
-        <div class="crucible-field" id="prov-field" hidden>
-          <span class="crucible-field-label" id="prov-label">Include provisional tasks</span>
-          <div class="crucible-segmented" role="radiogroup" aria-labelledby="prov-label" id="prov-toggle"></div>
-          <span class="crucible-field-hint" id="prov-hint"></span>
-        </div>
         <button type="button" class="crucible-panel-more" id="panel-more" aria-expanded="false" aria-controls="panel-filters">Filters</button>
       </div>
       <p class="crucible-panel-note crucible-suite-note" id="suite-note" hidden></p>
-      <p class="crucible-panel-note crucible-suite-note crucible-prov-note" id="prov-note" role="status" hidden></p>
 
       <div class="crucible-panel-row crucible-panel-filters" id="panel-filters">
         <div class="crucible-field" id="agg-bar" hidden>
@@ -105,6 +99,20 @@ permalink: /crucible/
         <p class="crucible-panel-note" id="panel-summary" aria-live="polite"></p>
         <button type="button" class="crucible-panel-reset" id="panel-reset" hidden>Reset filters</button>
       </div>
+    </div>
+
+    <!-- Opt-in preview, outside the control panel: not part of the suite's scores -->
+    <div class="crucible-preview" id="prov-box" hidden>
+      <div class="crucible-preview-row">
+        <span class="crucible-preview-tag">Preview</span>
+        <label class="crucible-preview-switch">
+          <input type="checkbox" role="switch" id="prov-switch">
+          <span class="crucible-preview-track" aria-hidden="true"></span>
+          <span class="crucible-preview-label" id="prov-label"></span>
+        </label>
+        <span class="crucible-preview-hint" id="prov-hint"></span>
+      </div>
+      <p class="crucible-preview-note" id="prov-note" role="status" hidden></p>
     </div>
 
     <ul class="crucible-takeaways" id="crucible-takeaways"></ul>

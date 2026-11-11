@@ -101,6 +101,20 @@ permalink: /crucible/
       </div>
     </div>
 
+    <!-- Opt-in preview, outside the control panel: not part of the suite's scores -->
+    <div class="crucible-preview" id="prov-box" hidden>
+      <div class="crucible-preview-row">
+        <span class="crucible-preview-tag">Preview</span>
+        <label class="crucible-preview-switch">
+          <input type="checkbox" role="switch" id="prov-switch">
+          <span class="crucible-preview-track" aria-hidden="true"></span>
+          <span class="crucible-preview-label" id="prov-label"></span>
+        </label>
+        <span class="crucible-preview-hint" id="prov-hint"></span>
+      </div>
+      <p class="crucible-preview-note" id="prov-note" role="status" hidden></p>
+    </div>
+
     <ul class="crucible-takeaways" id="crucible-takeaways"></ul>
 
     <h2 class="crucible-heading">Leaderboard</h2>

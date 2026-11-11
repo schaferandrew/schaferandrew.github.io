@@ -26,8 +26,13 @@
       // Weights and reasoning filters: 'all', a value from the data, or '-' for "not recorded"
       format: 'all', quant: 'all', packager: 'all', reasoning: 'all',
       scatter: 'time', sort: null, open: {},
-      exclude: {}  // tier ID -> true: tiers the reader left out of the overall score
+      exclude: {},  // tier ID -> true: tiers the reader left out of the overall score
+      provisional: false  // "Include provisional tasks": fold the suite's provisional tasks into scores
     };
+    // The provisional toggle is remembered per browser; a link's &provisional= wins over it
+    var PROV_KEY = 'crucible-provisional';
+    function storedProvisional() { try { return localStorage.getItem(PROV_KEY) === '1'; } catch (e) { return false; } }
+    function storeProvisional(on) { try { localStorage.setItem(PROV_KEY, on ? '1' : '0'); } catch (e) { /* storage blocked */ } }
     var S = null, V = null;
     function useSuite(id) {
       var cat = D.catalogById(id) || CURRENT;
@@ -48,6 +53,10 @@
       FILTERS.forEach(function (f) { out[f.id] = (h.params[f.id] || '').split(',').filter(function (v) { return v && v !== 'all'; }); });
       out.where = h.params.where || 'all';
       out.harness = h.params.harness || 'best';
+      // &provisional=1 in the hash (or ?provisional=1 in the query); null when the link doesn't say
+      var p = h.params.provisional;
+      if (p === undefined) { var q = /[?&]provisional=([^&]*)/.exec(location.search); p = q ? decodeURIComponent(q[1]) : undefined; }
+      out.provisional = p === undefined ? null : p === '1' || p === 'true';
       return out;
     }
     function redirectCompare(h) {
@@ -63,6 +72,7 @@
       h.exclude.forEach(function (id) { state.exclude[id] = true; });
       FILTERS.forEach(function (f) { state[f.id] = h[f.id]; });
       state.where = h.where; state.harness = h.harness;
+      state.provisional = h.provisional === null ? storedProvisional() : h.provisional;
     }
     function writeHash() {
       var hash = C.buildHash(state.mode, { suite: state.suite !== suiteId(CURRENT) ? state.suite : null });
@@ -74,6 +84,7 @@
       FILTERS.forEach(function (f) {
         if (state[f.id].length) hash += (hash.length > 1 ? '&' : '') + f.id + '=' + state[f.id].map(encodeURIComponent).join(',');
       });
+      if (provisionalOn()) hash += (hash.length > 1 ? '&' : '') + 'provisional=1';
       if (location.hash !== hash && history.replaceState) history.replaceState(null, '', hash);
     }
 
@@ -88,8 +99,15 @@
 
     // Tasks shown: this mode's active tasks, tier by tier, area order within a tier
     var tiers = [], orderedTasks = [], modeTaskIds = {}, MODE_TIERS = [];
+    // V0 is the section as the suite cut it (active tasks only): the takeaways always read it. V is
+    // what the page shows: V0, or with "Include provisional tasks" on, the section with them folded in.
+    var V0 = null;
+    // This section's provisional tasks, and whether the toggle is on and has any to include
+    function provisionalTasks() { return S.provisionalTasks(state.mode); }
+    function provisionalOn() { return state.provisional && provisionalTasks().length > 0; }
     function selectMode() {
-      V = S.view(state.mode);
+      V0 = S.view(state.mode);
+      V = provisionalOn() ? S.view(state.mode, { provisional: true }) : V0;
       tiers = V.tiers;
       orderedTasks = V.orderedTasks;
       modeTaskIds = V.taskIds;
@@ -182,11 +200,12 @@
     function rowsAll() { return V.rows(passesFilters, state.exclude); }
     function showingInProgress(rows) { return state.showInProgress || V.noneFinished(rows); }
 
-    function rankedRows() {
-      var all = rowsAll();
-      var showAll = showingInProgress(all);
+    function rankedRows(view) {
+      view = view || V;
+      var all = view.rows(passesFilters, state.exclude);
+      var showAll = state.showInProgress || view.noneFinished(all);
       var list = all.filter(function (s) { return showAll || !s.inProgress; });
-      return V.sortRows(list, state.sort);
+      return view.sortRows(list, state.sort);
     }
 
     // ---- Layout -----------------------------------------------------------
@@ -242,6 +261,8 @@
         }
       }
 
+      renderProvisional();
+
       var harnesses = V.harnesses();
       var many = harnesses.length > 1;
       // One harness (or none, for chat) leaves nothing to choose: the panel's notes name it instead
@@ -286,6 +307,36 @@
         { value: 'time', label: 'Time per task' }, { value: 'cost', label: 'Cost per task' }
       ], state.scatter, function (m) { state.scatter = m; render(); });
     }
+
+    // "Include provisional tasks": an opt-in preview, outside the control panel. Off is the suite as
+    // cut; on folds the suite's provisional tasks into each setup's scores where it ran them. Only
+    // drawn when this section has provisional tasks; when on, its note says the scores aren't the suite's.
+    function renderProvisional() {
+      var list = provisionalTasks(), n = list.length;
+      document.getElementById('prov-box').hidden = !n;
+      var note = document.getElementById('prov-note');
+      note.innerHTML = '';
+      note.hidden = !provisionalOn();
+      if (!n) return;
+      document.getElementById('prov-box').classList.toggle('is-on', provisionalOn());
+      document.getElementById('prov-switch').checked = provisionalOn();
+      document.getElementById('prov-label').textContent = 'Include ' + n + ' provisional task' + (n === 1 ? '' : 's');
+      document.getElementById('prov-hint').textContent = provisionalOn() ? '' : 'Not yet in ' + suiteName(S.cat) + '\'s scores; off by default.';
+      if (!provisionalOn()) return;
+      note.appendChild(el('strong', {}, 'Including ' + n + ' provisional task' + (n === 1 ? '' : 's') + '; scores aren\'t comparable to ' + suiteName(S.cat) + '. '));
+      note.appendChild(document.createTextNode('A provisional task counts toward a model\'s scores only if it ran it, and "in progress" is still judged on ' +
+        (isCombined() ? 'the' : 'this section\'s') + ' ' + V0.orderedTasks.length + ' suite tasks. The takeaways keep the suite\'s own scores. Provisional tasks: '));
+      list.forEach(function (t, i) {
+        if (i) note.appendChild(document.createTextNode(', '));
+        note.appendChild(el('a', { href: C.taskUrl(t.id) }, taskName(t)));
+      });
+      note.appendChild(document.createTextNode('.'));
+    }
+    document.getElementById('prov-switch').addEventListener('change', function (e) {
+      state.provisional = e.target.checked;
+      storeProvisional(state.provisional);
+      render();
+    });
 
     // One multi-select per filter: a button that sums up the choice ("All quants", "Q4_K_M",
     // "Q4_K_M + 1") and opens a list with "Show all" first, then each value the other filters leave,
@@ -467,12 +518,12 @@
           lines.push([value, ' gives the most ' + H.label + ' score per dollar (' + fmtUsd(value.cost) + ' per task).']);
         }
       }
-      var stretch = V.stretch()[0];
+      var stretch = V0.stretch()[0];
       // Counted scores only: a provisional score never headlines a sentence
       var countedOf = function (s) { var r = stretch && s.tier[stretch.id]; return r && r.score !== null && !r.partial ? r.score : null; };
       var best = stretch && list.filter(function (s) { return countedOf(s) !== null; })
         .sort(function (a, b) { return countedOf(b) - countedOf(a); })[0];
-      if (best) lines.push([best, ' scores highest on the ' + stretch.label + ' tasks (' + fmtScore(countedOf(best)) + (isCombined() ? ' of ' + V.tierMax(stretch.id) : '') + ').']);
+      if (best) lines.push([best, ' scores highest on the ' + stretch.label + ' tasks (' + fmtScore(countedOf(best)) + (isCombined() ? ' of ' + V0.tierMax(stretch.id) : '') + ').']);
       if (!lines.length) lines.push('No model has a complete ' + H.label + ' score' + (filterPhrase() ? ' ' + filterPhrase() : ' in this section') + ' yet.');
       lines.forEach(function (line) {
         var li = ul.appendChild(el('li'));
@@ -555,6 +606,10 @@
       var cfgLine = into.appendChild(el('span', { class: 'crucible-config-line' }));
       cfgLine.appendChild(el('span', { class: 'crucible-config-label' }, configLabel(s.cfg)));
       if (isVariant) cfgLine.appendChild(el('span', { class: 'crucible-config-n' }, ' · ' + s.runs + ' counted run' + (s.runs === 1 ? '' : 's')));
+      if (s.provisionalRan && s.provisionalRan.total) {
+        into.appendChild(el('span', { class: 'crucible-prov-ran', title: 'Provisional tasks this setup ran, included in its scores' },
+          'ran ' + s.provisionalRan.done + ' of ' + s.provisionalRan.total + ' provisional task' + (s.provisionalRan.total === 1 ? '' : 's')));
+      }
       var actions = into.appendChild(el('span', { class: 'crucible-config-actions' }));
       if (!isVariant) { var vt = variantToggle(s); if (vt) actions.appendChild(vt); }
       if (s.cfg.slug) actions.appendChild(compareButton(s.cfg));
@@ -1142,7 +1197,8 @@
       currentList = list;
       renderSuite();
       renderControls(list);
-      renderTakeaways(list);
+      // Counted (suite) scores only: the takeaways never read provisional tasks
+      renderTakeaways(V === V0 ? list : rankedRows(V0));
       renderLeaderboard(list);
       renderBars(list);
       renderScatter(list);
@@ -1178,7 +1234,7 @@
     window.addEventListener('hashchange', function () {
       if (redirectCompare(readHash())) return;
       function key() {
-        return [state.mode, state.suite, Object.keys(state.exclude).sort().join(','), state.harness, state.where]
+        return [state.mode, state.suite, Object.keys(state.exclude).sort().join(','), state.harness, state.where, state.provisional]
           .concat(FILTERS.map(function (f) { return state[f.id].join(','); })).join('|');
       }
       var before = key();

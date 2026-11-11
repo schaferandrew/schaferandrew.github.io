@@ -720,10 +720,8 @@
     var t = S.task(route.id);
     if (!t) { renderMissing(route.id); return; }
     if (t.status === 'retired') { renderStub(t, C.taskName(t) + ' is retired in ' + S.name + ': it no longer counts, and its runs are not shown.'); return; }
-    if (isProv(t) && !showProv()) {
-      renderStub(t, C.taskName(t) + ' is a provisional task: it isn\'t scored in ' + S.name + ' yet, so it is hidden unless you ask to see provisional tasks.', true);
-      return;
-    }
+    // A provisional task's page opens from a direct link whatever the toggle says (the main page's
+    // matrix links here when provisional tasks are included); it's marked provisional throughout
     renderTask(t);
   }
 

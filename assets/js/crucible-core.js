@@ -972,6 +972,13 @@
     D.validity = validity;
     D.invalidReason = invalidReason;
 
+    // Provisional tasks folded into a sum of tier results (an overall or combined score): `prov` on
+    // `into`, { scored, total } over the parts', when any part has one
+    function addProv(into, list) {
+      var with_ = list.filter(function (r) { return r && r.prov; });
+      if (with_.length) into.prov = { scored: with_.reduce(function (n, r) { return n + r.prov.scored; }, 0), total: with_.reduce(function (n, r) { return n + r.prov.total; }, 0) };
+    }
+
     // A cell's value: the mean of its counted runs; for a provisional task, its runs' mean
     function cellValue(c) {
       if (!c) return null;
@@ -1218,14 +1225,28 @@
         }
         if (partial) markers.appendChild(el('span', { class: 'crucible-lb-note', title: isAgg ? 'A tier in this score has fewer than ' + pct(S.COVERAGE_MIN) + ' of its tasks scored' : 'Fewer than ' + pct(S.COVERAGE_MIN) + ' of this tier\'s tasks were scored' }, 'partial'));
         else if (provisional) markers.appendChild(el('span', { class: 'crucible-lb-note', title: 'Provisional tasks don\'t count toward rankings' }, 'provisional'));
+        // Provisional tasks folded into this score (the main page's "Include provisional tasks")
+        if (counted && result.prov && result.prov.scored) {
+          markers.appendChild(el('span', { class: 'crucible-lb-note is-provisional', title: result.prov.scored + ' of ' + result.prov.total +
+            ' provisional task' + (result.prov.total === 1 ? '' : 's') + ' included in this score (not in the suite as cut)' }, '+' + result.prov.scored + ' provisional'));
+        }
         if (markers.firstChild) cellEl.appendChild(markers);
         into.appendChild(cellEl);
       };
 
+      // S.view(mode) is the suite as cut: only active tasks. S.view(mode, { provisional: true }) also
+      // folds in the provisional tasks (the main page's "Include provisional tasks"): they're shown and
+      // count toward a setup's tier scores where it ran them, but coverage and progress stay judged on
+      // the active tasks alone.
       var views = {};
-      S.view = function (mode) {
-        if (mode === C.COMBINED && S.hasCombined()) return views[mode] || (views[mode] = buildCombinedView(S));
-        return views[mode] || (views[mode] = buildView(S, mode));
+      S.view = function (mode, opts) {
+        var prov = !!(opts && opts.provisional), k = mode + (prov ? '\u0000p' : '');
+        if (mode === C.COMBINED && S.hasCombined()) return views[k] || (views[k] = buildCombinedView(S, prov));
+        return views[k] || (views[k] = buildView(S, mode, prov));
+      };
+      // This suite's provisional tasks in a mode (every mode for the combined view)
+      S.provisionalTasks = function (mode) {
+        return S.tasks.filter(function (t) { return t.status === 'provisional' && (mode === C.COMBINED || t.mode === mode); });
       };
       // The combined view needs at least two sections to combine
       // (and a catalog mode of that ID would win)
@@ -1272,10 +1293,10 @@
     // its section scores added together (each out of 10), so it's out of 10 per section that has
     // the tier; it's partial when any of those sections is partial or missing. A setup with no
     // matching setup in another section is still a candidate, with that section missing.
-    function buildCombinedView(S) {
-      var parts = S.MODES.map(function (m) { return S.view(m.id); });
+    function buildCombinedView(S, withProvisional) {
+      var parts = S.MODES.map(function (m) { return S.view(m.id, { provisional: withProvisional }); });
       var fb = (FB.combined || {});
-      var CV = { S: S, mode: C.COMBINED, combined: true, parts: parts,
+      var CV = { S: S, mode: C.COMBINED, combined: true, parts: parts, withProvisional: !!withProvisional,
         info: { id: C.COMBINED, label: fb.label || 'Combined', blurb: fb.blurb || '', harnesses: [], areas: [] } };
       CV.tiers = S.TIERS.map(function (t) { return t.id; }).filter(function (id) {
         return parts.some(function (V) { return V.tiers.indexOf(id) !== -1; });
@@ -1362,10 +1383,11 @@
           max: list.length * 10,
           coverage: mean(list.map(function (r) { return r ? r.coverage : 0; })) || 0,
           scored: list.reduce(function (n, r) { return n + (r ? r.scored : 0); }, 0),
-          total: partsWith(tier).reduce(function (n, V) { return n + Object.keys(V.taskWeights(tier)).length; }, 0),
+          total: partsWith(tier).reduce(function (n, V) { return n + Object.keys(V.taskWeights(tier)).filter(function (id) { return !V.isProvisional(id); }).length; }, 0),
           min: mins.length ? Math.min.apply(null, mins) : null
         };
         result.partial = result.score !== null && list.some(function (r) { return !r || r.score === null || r.partial; });
+        addProv(result, list);
         return result;
       }
 
@@ -1394,15 +1416,19 @@
           min: mins.length ? Math.min.apply(null, mins) : null
         };
         overall.partial = overall.score !== null && on.some(function (r) { return r.score === null || r.partial; });
-        var done = 0, total = 0, behind = false;
+        addProv(overall, on);
+        var done = 0, total = 0, behind = false, provDone = 0, provTotal = 0;
         parts.forEach(function (V, i) {
-          var p = sections[i] ? sections[i].progress : { done: 0, total: V.orderedTasks.length, share: 0 };
+          var p = sections[i] ? sections[i].progress : { done: 0, total: V.activeCount, share: 0 };
+          provTotal += V.provisionalTasks.length;
+          if (sections[i] && sections[i].provisionalRan) provDone += sections[i].provisionalRan.done;
           done += p.done; total += p.total;
           // In progress when any section is short of its share
           if (p.total && !meets(p.share, S.IN_PROGRESS_BELOW)) behind = true;
         });
         return {
           ran: sections.some(function (s) { return s && s.ran; }), tier: tier, verdict: verdict, provisional: {},
+          provisionalRan: CV.withProvisional ? { done: provDone, total: provTotal } : null,
           sections: sections, head: tier[S.HEAD], overall: overall,
           progress: { done: done, total: total, share: total ? done / total : 0 }, inProgress: behind
         };
@@ -1537,11 +1563,16 @@
 
     // One mode of one suite: its tasks in order, tiers, weights, tier scores, stats per setup and
     // leaderboard rows. Stats don't depend on any filter, so they're cached here.
-    function buildView(S, modeId) {
-      var V = { S: S, mode: modeId, info: S.modeInfo(modeId) };
-      // Only tasks the suite makes active are shown; provisional runs stay in the data, unshown
-      function inMode(t) { return t.mode === modeId && t.status === 'active'; }
+    function buildView(S, modeId, withProvisional) {
+      var V = { S: S, mode: modeId, info: S.modeInfo(modeId), withProvisional: !!withProvisional };
+      // Only tasks the suite makes active are shown; provisional runs stay in the data, unshown,
+      // unless this view folds them in (S.view(mode, { provisional: true }))
+      function inMode(t) { return t.mode === modeId && (t.status === 'active' || (withProvisional && t.status === 'provisional')); }
       V.inMode = inMode;
+      function isProv(t) { return t.status === 'provisional'; }
+      // This mode's provisional tasks folded in here ([] when they aren't), and its active task count
+      V.provisionalTasks = withProvisional ? S.tasks.filter(function (t) { return t.mode === modeId && isProv(t); }) : [];
+      V.activeCount = S.tasks.filter(function (t) { return t.mode === modeId && t.status === 'active'; }).length;
 
       // Tasks shown: this mode's active tasks, tier by tier, area order within a tier
       var areas = V.info.areas.map(function (a) { return a.id; });
@@ -1585,6 +1616,17 @@
         });
         // A tier nothing weights yet counts its tasks equally rather than vanishing
         if (!sum && active.length) active.forEach(function (t) { weights[t.id] = 1 / active.length; });
+        // A provisional task folded in weighs what the catalog says, else what an active task of its
+        // category in this tier weighs on average, else the tier's average active task (1 with none)
+        if (withProvisional) {
+          var avg = function (list) { return list.length ? list.reduce(function (n, t) { return n + weights[t.id]; }, 0) / list.length : null; };
+          var tierAvg = avg(active);
+          S.tasks.forEach(function (t) {
+            if (!inMode(t) || t.tier !== tier || !isProv(t)) return;
+            var same = avg(active.filter(function (x) { return x.category === t.category; }));
+            weights[t.id] = typeof t.weight === 'number' ? t.weight : same !== null ? same : tierAvg !== null ? tierAvg : 1;
+          });
+        }
         return (weightCache[tier] = weights);
       };
 
@@ -1592,28 +1634,41 @@
       // share of the tier's weight that was scored; below COVERAGE_MIN the score is partial.
       // `only` limits it to a set of tasks (the compare view's shared tasks).
       V.tierScore = function (cfg, tier, only) {
-        return tierScoreBy(function (id) { return S.countedMean(cfg, id); }, tier, only);
+        return tierScoreBy(function (id) { return V.meanOf(cfg, id); }, tier, only);
       };
+      // A setup's score on a task here: its counted runs' mean, or for a provisional task folded in,
+      // its provisional runs' mean (null when it didn't run it)
+      var provIds = {};
+      V.provisionalTasks.forEach(function (t) { provIds[t.id] = true; });
+      function provMean(c) { return c && c.provisional.length ? mean(c.provisional.map(function (i) { return i.score; })) : null; }
+      V.meanOf = function (cfg, id) { return provIds[id] ? provMean(S.cellOf(cfg, id)) : S.countedMean(cfg, id); };
+      V.isProvisional = function (id) { return !!provIds[id]; };
       // The same, with each task's score from meanOf(taskId) (a variant's pooled mean, say)
+      // A provisional task folded in adds to the score only where it was run, and never to coverage,
+      // `scored` or `total` (those stay the active tasks'): `prov` counts it instead.
       function tierScoreBy(meanOf, tier, only) {
         var weights = V.taskWeights(tier);
-        var total = 0, scoredWeight = 0, allWeight = 0, scores = [], n = 0;
+        var total = 0, scoredWeight = 0, allWeight = 0, coveredWeight = 0, scores = [], n = 0, nScored = 0, provN = 0, provScored = 0;
         Object.keys(weights).forEach(function (id) {
           if (only && !only[id]) return;
-          allWeight += weights[id];
-          n += 1;
+          var prov = provIds[id];
+          if (prov) provN += 1;
+          else { allWeight += weights[id]; n += 1; }
           var score = meanOf(id);
           if (score === null) return;
           scores.push(score);
           total += score * weights[id];
           scoredWeight += weights[id];
+          if (prov) provScored += 1;
+          else { coveredWeight += weights[id]; nScored += 1; }
         });
         var result = {
           score: scoredWeight ? total / scoredWeight : null,
-          coverage: allWeight ? scoredWeight / allWeight : 0,
-          scored: scores.length, total: n,
+          coverage: allWeight ? coveredWeight / allWeight : 0,
+          scored: nScored, total: n,
           min: scores.length ? Math.min.apply(null, scores) : null
         };
+        if (provN) result.prov = { scored: provScored, total: provN };
         result.partial = result.score !== null && !meets(result.coverage, S.COVERAGE_MIN);
         return result;
       }
@@ -1635,7 +1690,7 @@
         var out = [];
         Object.keys(S.cells[cfg.key] || {}).forEach(function (id) {
           if (!taskIds[id] || (only && !only[id])) return;
-          out = out.concat(S.cells[cfg.key][id].counted);
+          out = out.concat(provIds[id] ? S.cells[cfg.key][id].provisional : S.cells[cfg.key][id].counted);
         });
         return out;
       };
@@ -1675,6 +1730,7 @@
           min: mins.length ? Math.min.apply(null, mins) : null
         };
         result.partial = result.score !== null && list.some(function (r) { return !r || r.score === null || r.partial; });
+        addProv(result, list);
         return result;
       };
 
@@ -1693,15 +1749,19 @@
           var result = all[t.id] = V.tierScore(cfg, t.id);
           if (t.id === S.HEAD || t.role === 'gate') tier[t.id] = result;
           else {
-            tier[t.id] = result.total ? result : null;
-            var prov = V.provisionalScore(cfg, t.id);
+            tier[t.id] = result.total || result.prov ? result : null;
+            var prov = withProvisional ? { total: 0 } : V.provisionalScore(cfg, t.id);
             provisionalOf[t.id] = prov.total ? prov : null;
           }
           if (S.gateOf(t.id)) verdict[t.id] = gateVerdict(result, S.gateOf(t.id));
         });
         var ran = Object.keys(S.cells[cfg.key] || {}).some(function (id) { return taskIds[id]; });
+        // How many of the provisional tasks folded in this setup ran ("ran 3 of 6 provisional tasks")
+        var provisionalRan = withProvisional ? {
+          done: V.provisionalTasks.filter(function (t) { return V.meanOf(cfg, t.id) !== null; }).length, total: V.provisionalTasks.length
+        } : null;
         return (statsCache[ck] = {
-          cfg: cfg, local: cfg.local, ran: ran, tier: tier, verdict: verdict, provisional: provisionalOf,
+          cfg: cfg, local: cfg.local, ran: ran, tier: tier, verdict: verdict, provisional: provisionalOf, provisionalRan: provisionalRan,
           head: tier[S.HEAD], overall: V.aggregate(all, exclude), time: timeOf(runs), tps: tpsOf(runs), cost: costOf(cfg, runs), runs: runs.length,
           progress: progress, inProgress: !meets(progress.share, S.IN_PROGRESS_BELOW)
         });
@@ -1774,7 +1834,7 @@
       };
       V.areaResult = function (cfg, area) {
         var list = orderedTasks.filter(function (t) { return t.area === area.id; });
-        var means = list.map(function (t) { return S.countedMean(cfg, t.id); }).filter(function (v) { return v !== null; });
+        var means = list.map(function (t) { return V.meanOf(cfg, t.id); }).filter(function (v) { return v !== null; });
         return { tasks: list, n: means.length, score: mean(means) };
       };
 
@@ -1825,7 +1885,7 @@
         v = variantOf(v);
         if (!v) return null;
         if (variantCache[v.key]) return variantCache[v.key];
-        var meanOf = function (id) { return S.variantMean(v, id); };
+        var meanOf = function (id) { return provIds[id] ? provMean(S.variantCell(v, id)) : S.variantMean(v, id); };
         var active = orderedTasks.filter(function (t) { return t.status === 'active'; });
         var done = active.filter(function (t) { return meanOf(t.id) !== null; }).length;
         var progress = { done: done, total: active.length, share: active.length ? done / active.length : 0 };
@@ -1834,8 +1894,8 @@
           var result = all[t.id] = tierScoreBy(meanOf, t.id);
           if (t.id === S.HEAD || t.role === 'gate') tier[t.id] = result;
           else {
-            tier[t.id] = result.total ? result : null;
-            var list = S.tasks.filter(function (x) { return inMode(x) && x.tier === t.id && x.status === 'provisional'; });
+            tier[t.id] = result.total || result.prov ? result : null;
+            var list = withProvisional ? [] : S.tasks.filter(function (x) { return inMode(x) && x.tier === t.id && x.status === 'provisional'; });
             var scores = list.map(function (x) { var val = cellValue(S.variantCell(v, x.id)); return val && val.agg ? val.agg.mean : null; });
             provisionalOf[t.id] = list.length ? { score: mean(scores), scored: scores.filter(function (s) { return s !== null; }).length, total: list.length } : null;
           }

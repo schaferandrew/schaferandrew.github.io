@@ -838,6 +838,15 @@ $crucibleBlue: #1856a3;
   font-size: 11px;
 }
 
+// Provisional tasks folded into a score ("Include provisional tasks"): dashed, like a provisional cell
+.crucible-lb-note.is-provisional {
+  padding: 0 4px;
+  border: 1px dashed $gray;
+  border-radius: 3px;
+  color: $gray;
+  white-space: nowrap;
+}
+
 .crucible-lb-bar-cell {
   min-width: 136px;
   text-align: left;
@@ -1435,6 +1444,11 @@ $crucibleBlue: #1856a3;
   border-left: 3px solid $colorAccent;
 }
 
+// "Including N provisional tasks": the suite note's box, with a dashed edge like provisional cells
+.crucible-prov-note {
+  border-left-style: dashed;
+}
+
 // A name breaks only between its slug and "(reasoning ...)", never inside the slug
 .crucible-slug {
   white-space: nowrap;
@@ -1470,6 +1484,15 @@ $crucibleBlue: #1856a3;
   color: $gray;
   font-size: 12px;
   line-height: 1.35;
+}
+
+// "ran 3 of 6 provisional tasks", under a row's setup while provisional tasks are included
+.crucible-prov-ran {
+  display: block;
+  margin-top: 2px;
+  color: $gray;
+  font-size: 11px;
+  font-style: italic;
 }
 
 .crucible-config-actions {

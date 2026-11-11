@@ -50,9 +50,15 @@ permalink: /crucible/
           <select class="crucible-select" id="suite-select"></select>
           <span class="crucible-field-hint" id="suite-line"></span>
         </div>
+        <div class="crucible-field" id="prov-field" hidden>
+          <span class="crucible-field-label" id="prov-label">Include provisional tasks</span>
+          <div class="crucible-segmented" role="radiogroup" aria-labelledby="prov-label" id="prov-toggle"></div>
+          <span class="crucible-field-hint" id="prov-hint"></span>
+        </div>
         <button type="button" class="crucible-panel-more" id="panel-more" aria-expanded="false" aria-controls="panel-filters">Filters</button>
       </div>
       <p class="crucible-panel-note crucible-suite-note" id="suite-note" hidden></p>
+      <p class="crucible-panel-note crucible-suite-note crucible-prov-note" id="prov-note" role="status" hidden></p>
 
       <div class="crucible-panel-row crucible-panel-filters" id="panel-filters">
         <div class="crucible-field" id="agg-bar" hidden>

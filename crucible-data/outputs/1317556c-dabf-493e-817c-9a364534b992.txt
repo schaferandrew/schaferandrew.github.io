@@ -1,0 +1,20 @@
+
+
+Done. `slots.json` is written and verified:
+
+**Analysis**
+- Window: Mon 2026-08-31 09:00 → Mon 2026-09-07 17:00 (CDT, -05:00); 60-min meetings starting on the hour/half-hour, fully within 9:00–17:00.
+- Cross-checked both calendars' busy times; back-to-back is allowed, any overlap disqualifies.
+- **85 valid slots** total:
+  - 08-31 (Mon): 11:00, 11:30, 12:00, 15:30, 16:00
+  - 09-01 (Tue): 10:00–14:00 hourly (9 slots; 14:30 overlaps Alex's 15:00–16:30 call)
+  - 09-02 (Wed): 10:30–12:00, 14:00–16:00 (9 slots; 12:30 overlaps Jamie's budget meeting)
+  - 09-03 (Thu): 09:00, 09:30, 10:00, 12:00–14:00, 16:00 (9 slots; 14:30 overlaps Jamie's 15:00 review)
+  - 09-04 (Fri): 11:00–13:00, 15:00, 15:30, 16:00 (8 slots; 13:30 overlaps Alex's 14:00 review)
+  - 09-05 (Sat), 09-06 (Sun), 09-07 (Mon): fully open, 15 slots each
+- Verified with a script against the fixture: `valid_slots` matches exactly.
+
+**Top 3** (weekdays, mid-day, zero/minimal gaps to existing meetings)
+1. **2026-09-02T12:00** — Wednesday, ends back-to-back with Jamie's 13:00–14:00 Budget meeting; compact mid-day slot.
+2. **2026-09-04T13:00** — Friday, directly adjacent to Alex's 14:00–15:00 Project review, after Jamie's morning workshop.
+3. **2026-08-31T11:00** — Monday, starts exactly when Alex's standup ends (zero gap).

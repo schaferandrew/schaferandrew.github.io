@@ -1,0 +1,30 @@
+Done. Everything is green: **API 35/35** (including the unmodified `realworld.contract.test.ts`), **web 11/11**, typecheck clean.
+
+## What changed
+
+**Shared (`packages/shared/src/types.ts`)**
+- `ArticlesResponse` and `CommentsResponse` gain `nextCursor: string | null`; `ArticleListQuery` gains `cursor?: string`.
+
+**API**
+- New `apps/api/src/cursors.ts`: opaque cursors = base64url payload + HMAC-SHA256 signature (reusing `JWT_SECRET`). Payload carries the endpoint scope, a fingerprint of the query's filters, and the keyset position (`createdAt` ms + `id`). Decode verifies signature, scope, and fingerprint; anything malformed/tampered/mismatched throws `422 {errors:{cursor:[...]}}`.
+- `routes/pagination.ts`: `pageFrom(req, ctx)` now returns either `{limit, offset}` (legacy, unchanged) or `{limit, cursor}` (decoded). Cursor + `offset` together → 422. `commentPageFrom` treats `limit` as optional (no limit + no cursor = every comment); a cursor without `limit` uses the default page size.
+- Repositories got a keyset predicate ("strictly after the cursor position in the `createdAt desc, id desc` order") alongside the untouched `offset` path. `count` is computed over the whole filtered set before paging; `hasMore` is determined by whether anything remains beyond the page, so `nextCursor` is exact even if the page is short.
+- Services build `nextCursor` from the last row of the page (null on the last page); `articlesCount` still reflects the live total of matching items. Comments cursor is bound to the article's slug; articles cursors to `{tag, author, favorited}`; feed cursors to the feed scope only.
+
+**Web**
+- `ArticleList` now accumulates pages: loads page 1, then "Load more" appends the next page by `nextCursor`; the button disappears on the last page (and after a failed load, already-loaded articles stay on screen with an inline alert). `Pagination.tsx` deleted. `HomePage`/`ProfilePage` pass cursors through per-tab (tab `key` still resets the list).
+- `ArticlePage` comments load via "Load more comments" driven by `nextCursor`; without params the API still returns everything, so the button only appears when paging is active.
+- `client.ts`: `feed` and `comments` accept `{limit, cursor}`; `comments` returns the full `CommentsResponse`.
+
+**Tests**
+- `apps/api/test/cursor.pagination.test.ts`: full walks with stable totals, no-skip/no-repeat under mid-walk creates/deletes/favorites (articles, feed, comments), same-`createdAt` tie-breaking.
+- `apps/api/test/cursor.validation.test.ts`: malformed/tampered payload/tampered signature, cursor+offset, cross-filter reuse (tag/author/favorited), cross-endpoint reuse (articles↔feed↔comments, and one article's comment cursor on another), and `limit` validation alongside a cursor.
+- `apps/web/test/ArticleList.test.tsx` updated to cursor behavior + accumulation/last-page rules; new `ArticlePage.test.tsx` covers comments load-more.
+
+## Things I'd flag in code review
+
+- **Cursor secret is `JWT_SECRET`**: rotating it invalidates open cursors (clients get a clean 422 and can just restart from page 1). Worth separating if you rotate JWT secrets often.
+- **Cursors don't expire.** The signature never goes stale; if you want bounded validity, add an `exp` claim to the payload (cheap to do in `cursors.ts`).
+- **Live counts vs. stable window**: `articlesCount` is always the *current* match total, so it can move between pages (e.g., favoriting grows a `favorited=` query). The no-skip/no-repeat guarantee holds regardless — that's what the tests prove — but "count says 5, walk yields 6" is possible if the set changes mid-walk. If you'd rather pin the count, it would need to go inside the cursor.
+- **Comment cursors are slug-bound**, so renaming an article's title (which changes the slug) invalidates open comment cursors with a 422 rather than silently pointing somewhere else. Binding to `articleId` would survive renames if you prefer.
+- Same-`createdAt` ties fall back to `id desc`; since ids are monotonic, newly published articles always land on the *newer* side of an open cursor and never shift existing pages — that's the core of the stability argument.

@@ -1,0 +1,58 @@
+Done. Here's a summary of what changed and what I'd flag in code review.
+
+### Changes Made
+
+**Shared types** (`packages/shared/src/types.ts`)
+- Added `cursor?: string` to `ArticleListQuery`
+- Added `nextCursor?: string | null` to `ArticlesResponse`
+- Added `CommentsResponse` with `comments` and `nextCursor`
+
+**API cursor infrastructure**
+- New `apps/api/src/routes/cursor.ts`: HMAC-signed opaque cursors using Node `crypto` (secret generated once per module load). Cursors encode `kind`, query constraints, and positional data (`afterCreatedAt`, `afterId`).
+- New `apps/api/src/routes/pagination.ts`: `pageFrom` and `commentPageFrom` return a `PageInput` union. Cursor mode is triggered when `cursor` is sent or when `limit` is sent without `offset`; explicit `offset` keeps offset mode untouched. `"first-page"` is accepted as a sentinel to start from the beginning.
+
+**Repository layer**
+- `apps/api/src/repositories/articles.ts`: `listArticles` now supports cursor filtering (`createdAt < after OR (createdAt == after AND id < afterId)`). This handles deletions cleanly because it filters by comparison, not exact index.
+- `apps/api/src/repositories/comments.ts`: `commentsForArticle` gains the same cursor logic.
+
+**Service layer**
+- `apps/api/src/services/articles.ts`: `listArticlesForQuery` and `feed` return `nextCursor` (signed, query-scoped) when in cursor mode, and still compute `articlesCount` from the full filtered set.
+- `apps/api/src/services/comments.ts`: `listComments` now returns `CommentsResponse` with `nextCursor`.
+
+**Routes**
+- `apps/api/src/routes/articles.ts`: Validates cursors before use. Rejects with 422 (`{ errors: { cursor: [...] } }`) for:
+  - Cursor + offset together
+  - Malformed or tampered cursors
+  - Cursor used on a different endpoint (`kind` mismatch)
+  - Cursor used with different filters (e.g., tag, author, or favorited user changed)
+
+**Web app**
+- `apps/web/src/api/client.ts`: `articles`, `feed`, and `comments` accept `cursor`
+- `apps/web/src/components/ArticleList.tsx`: Replaced `<Pagination>` with a **"Load more"** button. Loaded articles stay on screen; button disappears when `nextCursor` is `null`.
+- `apps/web/src/pages/ArticlePage.tsx`: Comments now paginate the same way.
+- `apps/web/src/pages/HomePage.tsx` and `ProfilePage.tsx`: Updated `load` signatures to pass `cursor`.
+
+**Tests**
+- Updated `apps/web/test/ArticleList.test.tsx` and `apps/web/test/render.tsx` for the new load-more behavior.
+- Added `apps/api/test/cursor.test.ts` (14 tests) covering:
+  - Validation: malformed, tampered, cross-endpoint, cross-filter, cursor+offset
+  - Stability: article created between pages, article deleted between pages
+  - Feed and comment cursor pagination, including user/article-scoped rejection
+
+**Backward compatibility**
+- `apps/api/test/realworld.contract.test.ts` is **unmodified and still green**.
+- Offset requests (`?limit=X&offset=Y`) keep returning exactly the same shapes as before, just without `nextCursor`.
+
+### Code-Review Flags
+
+1. **The `"first-page"` sentinel**  
+   A client can send `cursor=first-page` to trigger cursor mode from the beginning. It’s harmless (no data leakage), but in a production system I’d prefer the first request to simply omit the cursor and have the backend infer first-page cursor mode from `limit` alone. I kept `"first-page"` as a minimal bridge so the route and service code can distinguish intent cleanly.
+
+2. **Module-level HMAC secret**  
+   `apps/api/src/routes/cursor.ts` generates `SECRET` at import time. For test isolation that’s fine (cursors are validated against query context, so cross-test replay is rejected). In production, it should come from an environment variable so server restarts don’t invalidate in-flight user cursors.
+
+3. **`nextCursor` in offset responses**  
+   I elected to include `nextCursor` only when the request is actually in cursor mode. The web app requests cursor mode by sending `limit` without `offset`. If an older client sends `?limit=20` expecting offset behavior, it gets cursor mode and a `nextCursor` field. Because the RealWorld spec allows extra fields, this is safe, but it’s worth calling out explicitly.
+
+4. **Unused `Pagination.tsx`**  
+   `apps/web/src/components/Pagination.tsx` is now orphaned. It’s harmless, but I’d remove it in a follow-up to avoid dead code.

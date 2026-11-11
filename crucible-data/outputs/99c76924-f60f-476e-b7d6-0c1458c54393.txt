@@ -1,0 +1,9 @@
+Migrated all pages and `/api/books` to root `app/` and removed `pages/`.
+
+- Preserved metadata, navigation, static rendering, per-request book views, and API validation/status codes.
+- Added API and navigation regression tests.
+- `npm test`: 24 tests pass.
+- `npm run build`: succeeds.
+- Dependencies and configuration are unchanged.
+
+Known difference: unknown book URLs return HTTP 404, but Next.js 14 renders their custom 404 content during hydration rather than in the initial HTML response.

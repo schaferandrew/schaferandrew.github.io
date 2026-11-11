@@ -1,0 +1,196 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "fd9609ec-cdef-4914-a68f-bae40cf01791",
+ "rubric_version": 1,
+ "rubric_hash": "9d8e0c84768c23b5",
+ "method": "checks",
+ "scored_at": "2026-11-11T05:20:01.075780+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 0,
+  "total": 12,
+  "unit": "points"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": 5,
+ "passed": false,
+ "items": [
+  {
+   "id": "flight",
+   "type": "items",
+   "group": "Best flight",
+   "label": "Flight is SL114 (cheapest that meets every constraint: NW201 departs 06:10, CJ550 has two stops, TA77 layover is 50 minutes, NW318 lands 12:30).",
+   "passed": false,
+   "detail": "no ANSWERS: block",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "flight",
+     "label": "Flight is SL114",
+     "passed": false,
+     "detail": "no answer block"
+    }
+   ]
+  },
+  {
+   "id": "total",
+   "type": "items",
+   "group": "Flight total",
+   "label": "Total is $279 (fare 279, first bag included).",
+   "passed": false,
+   "detail": "no ANSWERS: block",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "total",
+     "label": "Total is $279",
+     "passed": false,
+     "detail": "no answer block"
+    }
+   ]
+  },
+  {
+   "id": "restaurant",
+   "type": "items",
+   "group": "Allergy-safe restaurant",
+   "label": "Restaurant is Harbor Grill (the only peanut- and sesame-free kitchen within 1.5 miles on foot; Fennel & Fig is 1.9 on foot, Saffron Table and Tidewater Bistro have cross-contact).",
+   "passed": false,
+   "detail": "no ANSWERS: block",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "restaurant",
+     "label": "Restaurant is Harbor Grill",
+     "passed": false,
+     "detail": "no answer block"
+    }
+   ]
+  },
+  {
+   "id": "walk",
+   "type": "items",
+   "group": "Walking distance",
+   "label": "Walk is 1.3 miles.",
+   "passed": false,
+   "detail": "no ANSWERS: block",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "walk",
+     "label": "Walk is 1.3 miles",
+     "passed": false,
+     "detail": "no answer block"
+    }
+   ]
+  },
+  {
+   "id": "distance",
+   "type": "items",
+   "group": "Road distance",
+   "label": "Distance is 14.2 miles by road.",
+   "passed": false,
+   "detail": "no ANSWERS: block",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "distance",
+     "label": "Distance is 14.2 miles",
+     "passed": false,
+     "detail": "no answer block"
+    }
+   ]
+  },
+  {
+   "id": "taxi",
+   "type": "items",
+   "group": "Peak taxi time",
+   "label": "Taxi is 41 minutes (17:15 is peak traffic; off-peak is 26).",
+   "passed": false,
+   "detail": "no ANSWERS: block",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "taxi",
+     "label": "Taxi is 41 minutes",
+     "passed": false,
+     "detail": "no answer block"
+    }
+   ]
+  },
+  {
+   "id": "grounded",
+   "type": "tool_calls",
+   "group": "Grounded in the tools",
+   "label": "The run called search_flights, get_restaurant and get_travel_time (read from the session, not the reply).",
+   "passed": false,
+   "detail": "0/3 items; failed: flights (not called), menus (not called), time (not called)",
+   "share": 0.0,
+   "items": [
+    {
+     "id": "flights",
+     "label": "Called search_flights",
+     "passed": false,
+     "detail": "not called"
+    },
+    {
+     "id": "menus",
+     "label": "Called get_restaurant",
+     "passed": false,
+     "detail": "not called"
+    },
+    {
+     "id": "time",
+     "label": "Called get_travel_time",
+     "passed": false,
+     "detail": "not called"
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "Best flight",
+   "passed": 0.0,
+   "total": 3,
+   "detail": "no ANSWERS: block"
+  },
+  {
+   "id": "Flight total",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no ANSWERS: block"
+  },
+  {
+   "id": "Allergy-safe restaurant",
+   "passed": 0.0,
+   "total": 3,
+   "detail": "no ANSWERS: block"
+  },
+  {
+   "id": "Walking distance",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no ANSWERS: block"
+  },
+  {
+   "id": "Road distance",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "no ANSWERS: block"
+  },
+  {
+   "id": "Peak taxi time",
+   "passed": 0.0,
+   "total": 2,
+   "detail": "no ANSWERS: block"
+  },
+  {
+   "id": "Grounded in the tools",
+   "passed": 0.0,
+   "total": 1,
+   "detail": "0/3 items; failed: flights (not called), menus (not called), time (not called)"
+  }
+ ]
+}

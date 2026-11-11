@@ -1,0 +1,98 @@
+{
+ "record": "run",
+ "format_version": 3,
+ "run_uuid": "80af3c0f-0d9d-4a0f-b7c1-8ddb55d70452",
+ "run_path": "lmstudio_ornith-1.5-9b-6bit/logic-and-game-puzzles/20261111_050157",
+ "legacy_run_id": null,
+ "started_at": "2026-11-11T05:01:57.582539+00:00",
+ "ended_at": "2026-11-11T05:21:58.547062+00:00",
+ "elapsed_s": 1200.07,
+ "task": {
+  "id": "logic-and-game-puzzles",
+  "version": 1,
+  "rubric_version": 1,
+  "content_hash": "8104a48508bbe599",
+  "rubric_hash": "2502acca0cb631ef",
+  "alias": null
+ },
+ "harness": {
+  "id": "direct",
+  "version": null
+ },
+ "model": {
+  "id": "lmstudio/ornith-1.5-9b-6bit",
+  "base": "ornith-1.5-9b",
+  "publisher": "ornith-ai",
+  "artifact": "ornith-ai/Ornith-1.5-9B-GGUF/Ornith-1.5-9B-Q6_K.gguf",
+  "format": "gguf",
+  "quant": "Q6_K",
+  "reasoning": {
+   "requested": "default",
+   "resolved": null,
+   "resolved_source": "unknown"
+  },
+  "context_loaded": 100352,
+  "variant_key": "ornith-1.5-9b|ornith-ai|gguf|q6_k",
+  "display": "ornith-1.5-9b · Q6_K",
+  "origin": {
+   "maker": null,
+   "base_repo": null,
+   "params": null,
+   "active_params": null,
+   "source": "none"
+  }
+ },
+ "endpoint": {
+  "where": "local",
+  "provider": "lmstudio",
+  "app": null,
+  "served_via": "LM Link",
+  "device": "Duskfall",
+  "upstream": null,
+  "resolved_model": null
+ },
+ "hardware": {
+  "key": "m5-pro-48gb",
+  "class": "apple_silicon",
+  "accelerators": [],
+  "system_memory_gb": 48.0,
+  "cpu": "Apple M5 Pro",
+  "offload": null,
+  "label": "Duskfall"
+ },
+ "outcome": {
+  "status": "timeout",
+  "harness_status": "TIMEOUT",
+  "returncode": 1,
+  "timed_out": true,
+  "invalid": null,
+  "leaks": []
+ },
+ "metrics": {
+  "tests_passed": null,
+  "tests_failed": null,
+  "tool_calls": null,
+  "tokens_in": null,
+  "tokens_out": null,
+  "model_responses": 1,
+  "ttft_s": 1.665,
+  "ttft_avg_s": 1.665,
+  "response_time_avg_s": 1200.066,
+  "output_tokens_per_s": null,
+  "cost_usd": null,
+  "cost_source": null,
+  "reasoning_chars": 114587
+ },
+ "output_ref": null,
+ "provenance": {
+  "crucible_version": "2.2.0",
+  "crucible_commit": "6faa751",
+  "crucible_dirty": false,
+  "machine_id": "m_f554f42a74a5",
+  "machine_label": "Ironwood",
+  "source": "crucible-run",
+  "content_hash": "sha256:d8c197e4f85546469b369412c7e02a8a74299da81a23e865c53c57becb087b38",
+  "submitter": null,
+  "verification": null
+ }
+}

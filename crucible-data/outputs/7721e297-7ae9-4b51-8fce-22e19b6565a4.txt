@@ -1,0 +1,51 @@
+## Setting Up
+
+I'll track two things separately: **who sits where** (seating) and **each person's favorite color**.
+
+**Colors from the clues:**
+- Carol = yellow (clue 4)
+- Dave = red (clue 5)
+- Green belongs to someone in chair 1 (clue 3)
+- Blue is left for Alice or Bob.
+
+Since green and blue must go to two of {Alice, Bob}, one likes green and the other likes blue.
+
+## Reasoning
+
+**Clue 1:** "Alice sits immediately to the left of the person who likes blue." If Alice herself liked blue, she couldn't sit to her own left — impossible. So **Alice does not like blue**, meaning:
+- **Alice = green**
+- **Bob = blue**
+
+**Clue 3:** The green-lover (Alice) sits in chair 1 → **Chair 1: Alice**.
+
+**Clue 1 again:** Alice is immediately left of the blue-lover (Bob) → **Chair 2: Bob**.
+
+**Clue 4:** Carol likes yellow and sits to the right of the red-lover. The red-lover is Dave, so Carol must be seated *right* of Dave. That forces:
+- **Chair 3: Dave**
+- **Chair 4: Carol**
+
+**Clue 2 check:** Bob (chair 2) is not in chair 4 ✓ — consistent.
+
+## Verification
+
+| Chair | Person | Color |
+|-------|--------|-------|
+| 1 | Alice | green |
+| 2 | Bob | blue |
+| 3 | Dave | red |
+| 4 | Carol | yellow |
+
+- Clue 1: Alice (chair 1) is immediately left of Bob, who likes blue ✓
+- Clue 2: Bob not in chair 4 ✓
+- Clue 3: Green-lover (Alice) in chair 1 ✓
+- Clue 4: Carol likes yellow and sits right of red-lover Dave ✓
+- Clue 5: Dave likes red ✓
+
+All clues are satisfied with no ambiguity.
+
+Chair 1: Alice, green
+Chair 2: Bob, blue
+Chair 3: Dave, red
+Chair 4: Carol, yellow
+
+ANSWER: Dave

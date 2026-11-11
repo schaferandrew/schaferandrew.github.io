@@ -1,0 +1,20 @@
+
+
+## Emails
+- **Project update — Q3 review completed** (alex@example.com, Tue 10:30): The Q3 review is done and ahead of schedule; results will be discussed at your planning meeting today.
+- **Meeting notes from yesterday** (jamie@example.com, Tue 9:00): Notes from the 1-on-1 covering career goals, next-quarter priorities, and team building activities.
+- **Reminder: Q3 expense report due Wednesday 5 PM** (finance@example.com, Tue 2:15 PM): Your Q3 expense report is due today by 5:00 PM — miss the cutoff and it slips to next month's payroll.
+- **Question about the proposal timeline** (client@example.com, Tue 4:45 PM): The client needs confirmation before Friday's briefing whether the revised proposal can be delivered by Friday — a reply is requested.
+
+## Calendar
+Today, Wednesday, September 2, 2026 (America/Chicago):
+- **9:30–10:30 AM — Planning** (Room B, with alex@example.com)
+- **10:00–11:00 AM — Vendor demo** (Zoom, with alex@example.com and vendor@example.com) — ⚠️ overlaps with Planning from 10:00–10:30
+- **1:00–2:00 PM — Budget meeting** (Conference Room A, with jamie@example.com)
+
+## News
+- **Twin Cities Tech Conference Returns** (StarTribune, high importance): The annual conference is back in Minneapolis with 50+ speakers on AI, startup funding, and emerging tech; registration opens this Friday.
+- **Maplewood Park Renovation Complete** (Pioneer Press, medium importance): The renovation finished ahead of schedule, adding new walking trails and a children's playground; grand reopening is Saturday.
+
+## Spanish practice
+Hoy es miércoles y tienes un día bastante completo: empiezas a las 9:30 con la reunión de planificación en la sala B, luego tienes una demostración del proveedor en Zoom a las 10:00, que se solapa con el final de la planificación, así que es mejor que prepares las preguntas importantes antes. No olvides presentar el informe de gastos del tercer trimestre antes de las 5:00 de la tarde, porque si pierdes la fecha, el reembolso llegará el mes que viene. También debes contestar al cliente sobre el plazo de la propuesta revisada antes del viernes. Por la tarde tienes la reunión de presupuesto a la hora del almuerzo con Jamie. Ojalá puedas descansar el sábado, cuando se reabrirá el parque Maplewood con sus nuevos senderos y el área de juegos.

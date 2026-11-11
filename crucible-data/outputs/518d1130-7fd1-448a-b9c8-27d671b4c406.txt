@@ -1,0 +1,27 @@
+
+
+All 8 fixture cases pass (in-process and via the real CLI), plus every hand-checked edge case I probed. PHP wasn't installed, so the PHP sources + fixtures were the spec, read carefully.
+
+## Layout
+
+- **`app.rb`** — entry point, mirrors `app.php`: `handle(request)` dispatches one request, prints body + trailing newline, exits 0 for 2xx / 1 otherwise. Also defines `handle()` for the test runner (like the PHP test does).
+- **`lib/router.rb`** — port of `src/Router.php` (routes, check order in `/quote`, `roomSummary`, `report`, `bookings`).
+- **`lib/data_store.rb`** — port of `src/DataStore.php` (rooms.json via `JSON.parse`, CSV via a faithful `fgetcsv` reimplementation).
+- **`lib/pricing.rb`** — port of `src/Pricing.php`.
+- **`lib/dates.rb`** — port of `src/Dates.php` (regex gates + real-calendar validation, UTC `Date`s).
+- **`lib/php.rb`** — the PHP-semantics layer: numeric-string detection/type juggling, `round()` (half-away-from-zero on the binary value, always float), `(int)` cast, `empty()`, loose `==`/`<>/` (PHP 8 rules), `parse_str` (splits on `&` *and* `;`, `+`→space, `%XX`, nested `a[b]` keys, last-wins), `urldecode`, `fgetcsv`, `json_encode` (lists stay arrays, gapped arrays become objects, INF/NAN → null), `htmlspecialchars`, `number_format` with thousands commas.
+- **`test/run_tests.rb`** — port of `tests/run_tests.php`: same fixture file, JSON bodies compared as decoded values (PHP loose `==`), HTML compared as text, `FAIL`/`ok` output, `X/Y passed`, non-zero exit on failure; additionally runs each case through the real `ruby app.rb` CLI to verify exit status and stdout byte-for-byte.
+
+## PHP behaviours reproduced deliberately
+
+- **Type juggling everywhere**: `id=0101` finds room 101 (loose `==`); `nights=2.9` → 2; `guests` stays a string and is only `(int)`-cast in the response; `paid` `"0"`/`""` count as unpaid but `"no"` does not (PHP 8 string→bool).
+- **PHP 8 arithmetic**: `int / int` truncates (`/report` → `average_nights: 2.0` for 17/6, not 2.83); int/float kinds preserved so JSON shows `89.0` not `89`.
+- **`round()` is not banker's rounding** (Ruby's default) — done by hand, and INF/NAN pass through to JSON `null`.
+- **`json_encode` array-vs-object**: `?room=` filtered bookings keep their original keys, so `101` → `{"0":…,"5":…}` and `102` → `{"1":…,"3":…}`, while an empty match is `[]`.
+- **`strtotime` lies**: regex-accepted dates like `2024-02-31`, `02/30/2024`, `0000-…` must still be rejected as "Invalid check-in date"; US-style `9/5/2024` is May 9.
+- **`number_format` commas**: Lighthouse Cottage renders `$1,150.00` on the HTML page (byte-exact, incl. `&amp;`).
+- **`empty()` quirks**: `guests=0`, `coupon=` fall through to the defaults; room 201's `"0"` cleaning fee produces no Cleaning line.
+- **`parse_str` quirks**: `;` as separator, `+` in values, `=` with empty value, invalid chars in keys → `_`.
+- **Order of validation** in `/quote` (room → nights → guests → checkin) so the right 422 error wins, and check-then-cast order in `report`/`bookings`.
+
+`data/`, `tests/fixtures/`, and all PHP files are untouched; standard library only, verified on the installed `ruby 2.6.10`.

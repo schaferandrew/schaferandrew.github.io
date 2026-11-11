@@ -1,0 +1,44 @@
+Editorial review now works end to end in the API and the web app. All tests pass (API 47, web 16), the typecheck and web build are clean, and `realworld.contract.test.ts` is byte-for-byte unchanged (checksum matches). I also ran `server.ts` with `EDITORS="ada, grace"`: ada's review queue showed the seeded in-review article, and the public list and `/tags` didn't show the drafts.
+
+## What changed
+
+**Shared** (`packages/shared`)
+- Article JSON gains `status` and `reviewComment`.
+- Article creation accepts an optional `status: "draft"`. Any other value is a 422.
+- Added a schema for the reject body.
+
+**API**
+- **`services/access.ts`** is the one place that decides who sees what. Published articles are public; anything else is visible only to its author and the editors.
+- **`services/review.ts`** has submit, approve, reject, the review queue and `/user/articles`. Every transition checks in the same order: 404 if you can't see the article, 403 if you aren't allowed, 422 if it's in the wrong state.
+- **Repository:** `listArticles` now requires a status filter, so no code path can list articles without saying which statuses it wants. `/tags` only counts tags on published articles.
+- **Config:** `createApp(db, { editors })`, and `server.ts` reads `EDITORS` (parsed in a separate `config.ts` so tests can use it without starting a server).
+- **Seed:** now includes one article waiting for review and one sent back with feedback.
+
+**Web**
+- **Article page:** shows the status and editor feedback, a "Submit for review" button for the author, and Approve / "Send back" (feedback required) for editors on other people's work.
+- **Editor page:** has a "Save Draft" button.
+- **New pages:** My Articles (`/my-articles`, with status filter tabs) and Review Queue (`/review`).
+
+**Tests:** `apps/api/test/review.test.ts` and `apps/web/test/Review.test.tsx`. The main privacy test calls every public endpoint, signed out and as an unrelated user, and checks that no draft text appears in any response. It also checks that each per-article endpoint returns the same 404 body as a slug that doesn't exist.
+
+## Decisions where the brief conflicted with current behaviour
+
+1. **404 rather than 403 for people who can't see the article.** The brief says unauthorized callers get 403, but a 403 on a draft's slug would reveal that the draft exists. So: 404 if you can't see it, 403 only if you can see it but may not act (say, a non-editor approving a published article, or an editor approving their own).
+2. **Drafts get unguessable slugs.** Today a second "Same Title" becomes `same-title-2`. If drafts took readable slugs, anyone could detect a private draft by publishing the same title. Drafts now get `title-<random hex>`, and the readable slug is assigned on approval, so **the slug changes when an article is published**.
+3. **Comments and favorites only on published articles.** Comments left on a draft would become public on approval, which would leak private feedback. Trying to comment on or favorite an unpublished article you can see is a 422.
+4. **Public lists stay public, even for the author and editors.** The global list, the feed, `?author=` and `/tags` only show published work. People find their own drafts via `/user/articles`, and editors find submissions in the queue.
+5. **Articles can't be edited while in review.** Otherwise an author could change the text after the editor read it and get the new version published unreviewed. Editing an in-review article is a 422.
+6. **Editors can see drafts as well as in-review articles.** I treated editors as trusted staff, which keeps "this transition doesn't apply" a 422 for them, as the brief says. The review queue still excludes their own work.
+7. **Renames can't move editor rights.** Editors are identified by username, so renaming yourself to an editor's name would make you an editor. Renaming to an editor's username, or renaming an editor account, is now a 422.
+8. **The words "feed" and "review-queue" are never used as slugs.** An article titled "Review Queue" would otherwise be unreachable (this was already true for "Feed").
+
+## Flags for code review
+
+- **Default publishing still skips review.** As the brief specifies, creating an article without `status` publishes it immediately, and edits to published articles go live directly. Review is opt-in. If the intent is "nothing public without approval", that needs a product decision, and it would break existing RealWorld clients.
+- **Editors by username is fragile.** Anyone who registers a configured editor name before the real person does becomes an editor. Register editor accounts before enabling them, or better, move to user IDs or a role column.
+- **`createdAt` is when the draft was started, not when it was published.** An article approved today sorts by its draft date in public lists, and that date is itself a small leak from the unpublished work. A `publishedAt` field is the right fix.
+- **Only the latest rejection comment is kept.** There's no history and no way for the author to reply. It is cleared on approval.
+- **Real database:** the workflow checks status and then writes. That's safe with the in-memory store but would need a conditional update (or a transaction) against a real database.
+- **Reject validates the body first.** A badly formed body gets 422 before the permission check, following the existing `PUT` route's convention. This leaks nothing.
+- **How the web app knows who's an editor.** The RealWorld `User` shape is fixed, so the web app calls the review queue once after sign-in to find out. This only decides which buttons to show; the API enforces the rules.
+- **Smaller points:** authors can delete their own articles while in review. Removing someone from `EDITORS` doesn't undo what they already approved.

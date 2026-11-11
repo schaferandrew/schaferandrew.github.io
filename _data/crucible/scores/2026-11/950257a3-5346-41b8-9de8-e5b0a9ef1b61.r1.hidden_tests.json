@@ -1,0 +1,327 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "950257a3-5346-41b8-9de8-e5b0a9ef1b61",
+ "rubric_version": 1,
+ "rubric_hash": "3dfb5fb6eaa4964f",
+ "method": "hidden_tests",
+ "scored_at": "2026-11-11T05:19:44.490380+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 0,
+  "total": 35,
+  "unit": "tests"
+ },
+ "score": 0.0,
+ "scale": 10,
+ "capped_at": 6,
+ "passed": false,
+ "items": [
+  {
+   "id": "rows > test_one_new_row[pantry]",
+   "type": "hidden_test",
+   "group": "rows",
+   "label": "test_one_new_row[pantry]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:12: AssertionError"
+  },
+  {
+   "id": "rows > test_one_new_row[radio]",
+   "type": "hidden_test",
+   "group": "rows",
+   "label": "test_one_new_row[radio]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:12: AssertionError"
+  },
+  {
+   "id": "rows > test_one_new_row[church]",
+   "type": "hidden_test",
+   "group": "rows",
+   "label": "test_one_new_row[church]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:12: AssertionError"
+  },
+  {
+   "id": "rows > test_amount[pantry]",
+   "type": "hidden_test",
+   "group": "rows",
+   "label": "test_amount[pantry]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:12: AssertionError"
+  },
+  {
+   "id": "rows > test_amount[radio]",
+   "type": "hidden_test",
+   "group": "rows",
+   "label": "test_amount[radio]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:12: AssertionError"
+  },
+  {
+   "id": "rows > test_amount[church]",
+   "type": "hidden_test",
+   "group": "rows",
+   "label": "test_amount[church]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:12: AssertionError"
+  },
+  {
+   "id": "rows > test_method[pantry]",
+   "type": "hidden_test",
+   "group": "rows",
+   "label": "test_method[pantry]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:12: AssertionError"
+  },
+  {
+   "id": "rows > test_method[radio]",
+   "type": "hidden_test",
+   "group": "rows",
+   "label": "test_method[radio]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:12: AssertionError"
+  },
+  {
+   "id": "rows > test_method[church]",
+   "type": "hidden_test",
+   "group": "rows",
+   "label": "test_method[church]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:12: AssertionError"
+  },
+  {
+   "id": "dates > test_row_date_is_the_gift_date[pantry]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_row_date_is_the_gift_date[pantry]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:12: AssertionError"
+  },
+  {
+   "id": "dates > test_row_date_is_the_gift_date[radio]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_row_date_is_the_gift_date[radio]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:12: AssertionError"
+  },
+  {
+   "id": "dates > test_row_date_is_the_gift_date[church]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_row_date_is_the_gift_date[church]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:12: AssertionError"
+  },
+  {
+   "id": "dates > test_tax_year[pantry]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_tax_year[pantry]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:12: AssertionError"
+  },
+  {
+   "id": "dates > test_tax_year[radio]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_tax_year[radio]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:12: AssertionError"
+  },
+  {
+   "id": "dates > test_tax_year[church]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_tax_year[church]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:12: AssertionError"
+  },
+  {
+   "id": "dates > test_filed_in_the_gift_year_folder[pantry]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_filed_in_the_gift_year_folder[pantry]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:18: AssertionError"
+  },
+  {
+   "id": "dates > test_filed_in_the_gift_year_folder[radio]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_filed_in_the_gift_year_folder[radio]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:18: AssertionError"
+  },
+  {
+   "id": "dates > test_filed_in_the_gift_year_folder[church]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_filed_in_the_gift_year_folder[church]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:18: AssertionError"
+  },
+  {
+   "id": "dates > test_file_name_starts_with_the_gift_date[pantry]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_file_name_starts_with_the_gift_date[pantry]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:18: AssertionError"
+  },
+  {
+   "id": "dates > test_file_name_starts_with_the_gift_date[radio]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_file_name_starts_with_the_gift_date[radio]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:18: AssertionError"
+  },
+  {
+   "id": "dates > test_file_name_starts_with_the_gift_date[church]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_file_name_starts_with_the_gift_date[church]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:18: AssertionError"
+  },
+  {
+   "id": "filing > test_filed_once_as_a_pdf[pantry]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_filed_once_as_a_pdf[pantry]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:18: AssertionError"
+  },
+  {
+   "id": "filing > test_filed_once_as_a_pdf[radio]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_filed_once_as_a_pdf[radio]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:18: AssertionError"
+  },
+  {
+   "id": "filing > test_filed_once_as_a_pdf[church]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_filed_once_as_a_pdf[church]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:18: AssertionError"
+  },
+  {
+   "id": "filing > test_named_like_the_others[pantry]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_named_like_the_others[pantry]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:18: AssertionError"
+  },
+  {
+   "id": "filing > test_named_like_the_others[radio]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_named_like_the_others[radio]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:18: AssertionError"
+  },
+  {
+   "id": "filing > test_named_like_the_others[church]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_named_like_the_others[church]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:18: AssertionError"
+  },
+  {
+   "id": "filing > test_gone_from_the_inbox[pantry]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_gone_from_the_inbox[pantry]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:18: AssertionError"
+  },
+  {
+   "id": "filing > test_gone_from_the_inbox[radio]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_gone_from_the_inbox[radio]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:18: AssertionError"
+  },
+  {
+   "id": "filing > test_gone_from_the_inbox[church]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_gone_from_the_inbox[church]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:18: AssertionError"
+  },
+  {
+   "id": "filing > test_row_points_at_the_file[pantry]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_row_points_at_the_file[pantry]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:12: AssertionError"
+  },
+  {
+   "id": "filing > test_row_points_at_the_file[radio]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_row_points_at_the_file[radio]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:12: AssertionError"
+  },
+  {
+   "id": "filing > test_row_points_at_the_file[church]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_row_points_at_the_file[church]",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:12: AssertionError"
+  },
+  {
+   "id": "integrity > test_log_is_the_five_old_rows_plus_three_new",
+   "type": "hidden_test",
+   "group": "integrity",
+   "label": "test_log_is_the_five_old_rows_plus_three_new",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:94: AssertionError"
+  },
+  {
+   "id": "integrity > test_records_hold_the_five_old_pdfs_plus_three_new",
+   "type": "hidden_test",
+   "group": "integrity",
+   "label": "test_records_hold_the_five_old_pdfs_plus_three_new",
+   "passed": false,
+   "detail": "crucible_hidden/test_receipts.py:99: AssertionError"
+  }
+ ],
+ "groups": [
+  {
+   "id": "Log rows",
+   "passed": 0.0,
+   "total": 2.57,
+   "detail": "0/9 hidden tests pass"
+  },
+  {
+   "id": "Pays attention to the date",
+   "passed": 0.0,
+   "total": 3.43,
+   "detail": "0/12 hidden tests pass"
+  },
+  {
+   "id": "Filing",
+   "passed": 0.0,
+   "total": 3.43,
+   "detail": "0/12 hidden tests pass"
+  },
+  {
+   "id": "Nothing else disturbed",
+   "passed": 0.0,
+   "total": 0.57,
+   "detail": "0/2 hidden tests pass"
+  }
+ ]
+}

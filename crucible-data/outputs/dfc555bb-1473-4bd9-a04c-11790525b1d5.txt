@@ -1,0 +1,45 @@
+Everything is green: typecheck passes, the unmodified RealWorld contract suite passes (19 tests), and the new tests pass (10 API + 8 web). Here's the write-up.
+
+---
+
+## Write-up
+
+### Root cause
+
+Two separate bugs, both in the contributor-invite feature (CONTRIB-88), plus one gap Legal's requirements expose:
+
+1. **The rosa/tomek flashing loop.** `acceptInvite` set `passwordHash` and `termsAcceptedAt` but left `onboardingComplete: false`. After accepting, the web app navigated to `/editor`, where `RequireWriter` saw `onboardingComplete: false` and redirected to `/welcome`; `WelcomePage` saw `accountState: "invited"` and (via a `useEffect`) navigated back to `/editor`. Infinite client-side redirect loop.
+2. **The pending@example.com dead end.** `register` treated *any* existing email as "email has already been taken", including pending invited accounts (which have no password). The design doc explicitly says those signups should claim the invited account, so the editor's assigned work isn't lost. The web app then pointed them at "Sign in" — which they couldn't do, having no password.
+3. **Legal gap.** `WelcomePage` used to bounce *all* invited accounts to the editor without checking whether the terms were accepted, and `RequireWriter` never checked `termsAcceptedAt` at all.
+
+### Changes
+
+**API**
+- `services/invites.ts`: `acceptInvite` now sets `onboardingComplete: true` (the invite form already collected the terms acceptance, so per `docs/invites.md` they land in the editor, not the welcome screen). It also rejects acceptance when the account already has credentials, so a stale invite token can't be used to reset a claimed account's password.
+- `services/users.ts`:
+  - `register` claims a pending invited account (invited + no password + no terms + no onboarding) instead of erroring; only truly pending invites are claimable, and username collisions are still rejected. `termsAcceptedAt` stays `null` at claim time — Legal requires an actual acceptance before the editor.
+  - New `healLegacyInvitee`: an invited account with a password and `termsAcceptedAt` but `onboardingComplete: false` is completed on `login` and `GET /user`. This is a lazy data migration — rosa, tomek and anyone else already in the broken state recover on their next sign-in, with no hand-edited data.
+  - `completeOnboarding` already made bio optional; it now completes invited accounts' terms-only flow.
+
+**Web**
+- `WelcomePage`: removed the invited→editor redirect (the loop). Invited accounts see a **terms-only** screen (no bio — `docs/invites.md` says they're never asked for one); regular signups keep the bio+terms screen exactly as today.
+- `RequireWriter`: now blocks the editor unless `termsAcceptedAt` is set **and** onboarding is complete — implementing Legal's "accounts that haven't accepted must not be able to reach the editor" literally, not just transitively.
+- `api/client.ts`: `completeOnboarding` accepts an optional bio so the invited flow omits it.
+
+### Legal vs. design doc vs. current behavior
+
+- The design doc says invited contributors go straight to the editor and aren't asked for a bio; that's compatible with Legal *only because* the invite form collects the terms acceptance. I kept both: invite-acceptors skip onboarding; homepage-claimers get a terms-only screen first.
+- The design doc's `accountState` stays `"invited"` after acceptance — kept, so editors still see invite-sourced contributors.
+- One **known tension, flagged**: Legal says "every account that can publish must have accepted the terms." Enforcing that server-side on `POST /articles` would break the unmodifiable RealWorld contract suite, which registers users and posts articles without any onboarding step. So the acceptance gate is enforced in Conduit's own UI (`RequireWriter`) and in the onboarding/invite flows, while the public RealWorld API remains spec-compliant for third-party clients. A token-level distinction between "our frontend" and "contract clients" would be needed to close this fully — worth a product decision.
+
+### Tests
+
+- `apps/api/test/invites.test.ts` (new, 10 tests): reproduced both failures before fixing (7 red), now covers: editor reachable right after accepting, self-heal on login and on `GET /user` (legacy state simulated by resetting the row, asserting the heal persists), pending-invite login still 401, homepage signup claims the invited account (no duplicate row, terms still null), terms-only onboarding with no bio, username collision on claim, accepted-invite email still 422, stale token can't hijack a claimed account, and regular signup unchanged.
+- `apps/web/test/WelcomePage.test.tsx` (new, 8 tests): the loop scenario, terms-only vs. bio welcome, the accept→editor path, and `RequireWriter`'s terms gate.
+- `apps/api/test/realworld.contract.test.ts`: untouched and passing.
+
+### Code-review flags
+
+- `healLegacyInvitee` is intentionally conservative (requires password + terms + invited state) so it can't "heal" an account that never accepted the terms; it can be deleted once prod has cycled, like any one-off migration.
+- `findUserByEmail`/`findUserByUsername` are linear scans over the in-memory `Map` — fine at this scale, but the new claim path adds one more scan per signup.
+- `InvitePage` sends `acceptTerms: true` unconditionally and relies on the disabled submit button; harmless today, but worth tightening if the form grows.

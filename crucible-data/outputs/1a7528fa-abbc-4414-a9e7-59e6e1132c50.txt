@@ -1,0 +1,23 @@
+
+
+The `next-env.d.ts` diff is just the doc URL that Next.js itself rewrites on every build (the file says "should not be edited") — I'll leave it as generated. The migration is complete and verified.
+
+## Summary
+
+**What I changed:**
+
+- **Deleted `pages/`** and created the equivalent App Router tree under `app/`:
+  - `app/layout.tsx` — replaces `pages/_app.tsx` + `pages/_document.tsx`: `<html lang="en">`, imports `styles/globals.css`, wraps every page in the shared `Layout`.
+  - `app/page.tsx` — home, with `metadata` (title "Lantern Books" + description).
+  - `app/books/[slug]/page.tsx` — still server-rendered per request (`export const dynamic = "force-dynamic"`, matching the old `getServerSideProps`); unknown slugs call `notFound()` (404); the view counter is recorded per request; metadata comes from `generateMetadata`.
+  - `app/genres/[genre]/page.tsx` — still SSG: `generateStaticParams` builds all three shelves at build time, unknown genres call `notFound()` (404), matching `fallback: false`.
+  - `app/search/page.tsx` + `app/search/search-client.tsx` — the page stays pre-built; the client component keeps the exact same behaviour (fetches `/api/books` on mount, filters by title/author). The `?q=` param is read from `window.location.search` in an effect instead of `next/router`'s `router.query` (I avoided `useSearchParams` because in a static page it would force a `Suspense` boundary and change the pre-built HTML).
+  - `app/about/page.tsx` — static, with `metadata`.
+  - `app/not-found.tsx` — the custom 404, with its own title.
+  - `app/api/books/route.ts` — `GET` keeps 200 for all books / `?genre=<valid>` and 400 for an unknown genre (including repeated `?genre=` params, which the old route rejected too). All other methods (POST/PUT/DELETE/PATCH/OPTIONS/HEAD) return 405 with JSON `{"error":"Method not allowed"}` and `Allow: GET`, exactly like the old handler.
+- **`components/Layout.tsx`** — now a client component using `usePathname()` instead of `next/router`; the current-page marking logic (`aria-current="page"`) is unchanged.
+- **`components/ShareLink.tsx`** — takes `slug` as a prop instead of reading `useRouter().query` (which doesn't exist in the App Router).
+
+**Verification:** `npm test` passes (7/7), `npm run build` succeeds, and against the production server I confirmed: every URL returns the same content/titles/descriptions/active nav; unknown book, unknown genre, and unknown paths all return 404 with the custom page; the API returns 200/400/405 as before; book pages re-render on every request (view counter increments per request) while home/search/about/genre pages are served from build-time HTML — same static/dynamic split as before.
+
+**Behaves differently from before:** nothing user-facing. Only internal differences: `ShareLink` receives `slug` as a prop rather than reading the router, the search page reads `?q` from `window.location.search` on mount (and, unlike `router.query`, doesn't re-sync on client-side history changes — irrelevant here since no other route navigates to `/search?q=...`), and `next-env.d.ts` was auto-rewritten by Next's build (its generated doc link now points at the app-router docs).

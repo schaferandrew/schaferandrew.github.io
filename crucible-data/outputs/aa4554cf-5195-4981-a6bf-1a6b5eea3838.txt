@@ -1,0 +1,24 @@
+Done. Here's a summary of the debugging session:
+
+## Reproduction (real browser, headless Chrome via CDP)
+Logged in as `testuser` through the actual login UI, waited 35s (past the 30s session TTL), and reloaded `/dashboard.html`. Captured all console messages, page errors, and network responses.
+
+## Diagnosis
+- **No JS exception and no failing request** — the failing request was hiding in plain sight: `GET /api/dashboard` returned **HTTP 200 with `{user: null, dashboardMessage: ""}`** for an expired session.
+- Root cause, `server.js`: `/api/dashboard` masked no-cookie/stale/expired sessions as a successful "anonymous" 200 instead of signaling the auth failure.
+- Root cause, `public/dashboard.html`: the client rendered `user: null` as empty strings, producing a blank dashboard with no way back to login — "intermittent" because it only appeared once the 30s session had lapsed.
+
+## Fix
+- **`server.js`** — `/api/dashboard` now returns **401** with `{error: no_session | stale_session | expired_session}` for invalid sessions (still audited).
+- **`public/dashboard.html`** — `loadDashboard()` now treats a 401 as "session gone" and redirects to `/login.html?reason=session_expired` instead of blanking the page.
+
+## Verification (browser, after fix)
+- Expired session: `GET /api/dashboard → 401`, browser redirected to `/login.html?reason=session_expired` showing the login form. ✅
+- Fresh login → dashboard renders `User: testuser / Welcome to your dashboard!` normally. ✅
+- Control (immediate load) unaffected. ✅
+
+## Regression tests
+- **`server.test.js`** — 3 new tests: expired session (fake timers jump 31s) → 401 `expired_session`; unknown session cookie → 401; no cookie → 401.
+- **`dashboard.test.js`** (new, jsdom) — runs the real dashboard client script: on 401 it attempts navigation to the login page (regression for the blank state); on 200 it renders user + message.
+
+`npm test`: **12/12 passing**.

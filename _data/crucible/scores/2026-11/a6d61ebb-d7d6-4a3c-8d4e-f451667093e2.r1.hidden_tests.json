@@ -1,0 +1,327 @@
+{
+ "record": "score",
+ "format_version": 3,
+ "run_uuid": "a6d61ebb-d7d6-4a3c-8d4e-f451667093e2",
+ "rubric_version": 1,
+ "rubric_hash": "3dfb5fb6eaa4964f",
+ "method": "hidden_tests",
+ "scored_at": "2026-11-11T05:22:27.199594+00:00",
+ "crucible_version": "2.2.0",
+ "raw": {
+  "passed": 35,
+  "total": 35,
+  "unit": "tests"
+ },
+ "score": 10.0,
+ "scale": 10,
+ "capped_at": null,
+ "passed": true,
+ "items": [
+  {
+   "id": "rows > test_one_new_row[pantry]",
+   "type": "hidden_test",
+   "group": "rows",
+   "label": "test_one_new_row[pantry]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rows > test_one_new_row[radio]",
+   "type": "hidden_test",
+   "group": "rows",
+   "label": "test_one_new_row[radio]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rows > test_one_new_row[church]",
+   "type": "hidden_test",
+   "group": "rows",
+   "label": "test_one_new_row[church]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rows > test_amount[pantry]",
+   "type": "hidden_test",
+   "group": "rows",
+   "label": "test_amount[pantry]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rows > test_amount[radio]",
+   "type": "hidden_test",
+   "group": "rows",
+   "label": "test_amount[radio]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rows > test_amount[church]",
+   "type": "hidden_test",
+   "group": "rows",
+   "label": "test_amount[church]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rows > test_method[pantry]",
+   "type": "hidden_test",
+   "group": "rows",
+   "label": "test_method[pantry]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rows > test_method[radio]",
+   "type": "hidden_test",
+   "group": "rows",
+   "label": "test_method[radio]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "rows > test_method[church]",
+   "type": "hidden_test",
+   "group": "rows",
+   "label": "test_method[church]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "dates > test_row_date_is_the_gift_date[pantry]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_row_date_is_the_gift_date[pantry]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "dates > test_row_date_is_the_gift_date[radio]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_row_date_is_the_gift_date[radio]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "dates > test_row_date_is_the_gift_date[church]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_row_date_is_the_gift_date[church]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "dates > test_tax_year[pantry]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_tax_year[pantry]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "dates > test_tax_year[radio]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_tax_year[radio]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "dates > test_tax_year[church]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_tax_year[church]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "dates > test_filed_in_the_gift_year_folder[pantry]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_filed_in_the_gift_year_folder[pantry]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "dates > test_filed_in_the_gift_year_folder[radio]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_filed_in_the_gift_year_folder[radio]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "dates > test_filed_in_the_gift_year_folder[church]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_filed_in_the_gift_year_folder[church]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "dates > test_file_name_starts_with_the_gift_date[pantry]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_file_name_starts_with_the_gift_date[pantry]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "dates > test_file_name_starts_with_the_gift_date[radio]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_file_name_starts_with_the_gift_date[radio]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "dates > test_file_name_starts_with_the_gift_date[church]",
+   "type": "hidden_test",
+   "group": "dates",
+   "label": "test_file_name_starts_with_the_gift_date[church]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "filing > test_filed_once_as_a_pdf[pantry]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_filed_once_as_a_pdf[pantry]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "filing > test_filed_once_as_a_pdf[radio]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_filed_once_as_a_pdf[radio]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "filing > test_filed_once_as_a_pdf[church]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_filed_once_as_a_pdf[church]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "filing > test_named_like_the_others[pantry]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_named_like_the_others[pantry]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "filing > test_named_like_the_others[radio]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_named_like_the_others[radio]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "filing > test_named_like_the_others[church]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_named_like_the_others[church]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "filing > test_gone_from_the_inbox[pantry]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_gone_from_the_inbox[pantry]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "filing > test_gone_from_the_inbox[radio]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_gone_from_the_inbox[radio]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "filing > test_gone_from_the_inbox[church]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_gone_from_the_inbox[church]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "filing > test_row_points_at_the_file[pantry]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_row_points_at_the_file[pantry]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "filing > test_row_points_at_the_file[radio]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_row_points_at_the_file[radio]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "filing > test_row_points_at_the_file[church]",
+   "type": "hidden_test",
+   "group": "filing",
+   "label": "test_row_points_at_the_file[church]",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "integrity > test_log_is_the_five_old_rows_plus_three_new",
+   "type": "hidden_test",
+   "group": "integrity",
+   "label": "test_log_is_the_five_old_rows_plus_three_new",
+   "passed": true,
+   "detail": null
+  },
+  {
+   "id": "integrity > test_records_hold_the_five_old_pdfs_plus_three_new",
+   "type": "hidden_test",
+   "group": "integrity",
+   "label": "test_records_hold_the_five_old_pdfs_plus_three_new",
+   "passed": true,
+   "detail": null
+  }
+ ],
+ "groups": [
+  {
+   "id": "Log rows",
+   "passed": 2.57,
+   "total": 2.57,
+   "detail": "9/9 hidden tests pass"
+  },
+  {
+   "id": "Pays attention to the date",
+   "passed": 3.43,
+   "total": 3.43,
+   "detail": "12/12 hidden tests pass"
+  },
+  {
+   "id": "Filing",
+   "passed": 3.43,
+   "total": 3.43,
+   "detail": "12/12 hidden tests pass"
+  },
+  {
+   "id": "Nothing else disturbed",
+   "passed": 0.57,
+   "total": 0.57,
+   "detail": "2/2 hidden tests pass"
+  }
+ ]
+}

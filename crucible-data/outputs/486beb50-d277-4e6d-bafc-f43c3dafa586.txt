@@ -1,0 +1,19 @@
+
+
+Done. `npx tsc -p tsconfig.json` passes with zero errors and `npm test` passes 21/21. Only `src/` (six `.js` → six `.ts`, originals deleted) and the new `tsconfig.json` changed; `package.json`, lockfile, `test/`, and `data/` are untouched.
+
+## How it's typed
+
+- **`ToolStatus`** = `(typeof STATUSES)[number]` via `as const`; `Tool.status` is that union, and `borrower`, `dueDate`, `retiredReason`, `replacementCost` are `T | null`.
+- **`StoreEvent`** (in `tools.ts`) is a discriminated union on `type` — `added` / `loaned` / `returned` / `retired` — so the listener in `auditLines` narrows with plain `if/else` exactly as the JS did.
+- **Untrusted JSON**: `normalizeTool(raw: unknown)` narrows field by field (`typeof`, `isStatus`, `isIsoDate` as type predicates); `store.load()` parses into `ParsedData { tools?: unknown[]; nextId?: number }` and the ENOENT check narrows the caught `err` via `instanceof Error`.
+- `tsconfig.json`: `strict`, `module`/`moduleResolution: NodeNext` (keeps the `.js` import specifiers working), `noEmit`, include `src` only. No `any`, no `@ts-ignore`/`@ts-expect-error`/`@ts-nocheck`, no strict option weakened.
+
+## Places where the types were not obvious
+
+1. **Status-dependent fields aren't a discriminated union.** A loaned tool really has non-null `borrower`/`dueDate`, but `normalizeTool` builds the record dynamically from untrusted data, which a discriminated-union shape can't cleanly return. So `Tool` is a flat interface with nullable fields, and where code relies on the "loaned ⇒ string" invariant (`returnTool` reading `dueDate`/`borrower` before resetting them, `detail()` returning `retiredReason`) a narrow `as string` cast documents the invariant. The cast sites are provably safe at runtime: they're guarded by the same status checks as the JS.
+2. **`isIsoDate` takes `unknown`, not `string`.** Its only non-test caller passes `record.dueDate` straight out of JSON, and the JS relies on the internal `typeof` check to swallow non-strings. Typing it `text: unknown` (with a `text is string` predicate) keeps that behavior and lets it narrow `dueDate` in `normalizeTool`.
+3. **`findTools` status is `unknown`, not `ToolStatus`.** The function itself validates the filter with `isStatus` and reports bad values — the JS had no caller-side guarantee, and `cli` forwards a raw `Record<string, string | boolean>` flag straight through. After the guard, the `isStatus` predicate narrows it to `ToolStatus` for the comparison.
+4. **Flags are `string | boolean` and `cli` lies a little at the call site.** `parseArgs` stores bare `--flag`s as `true`, so `flags.search`/`flags.tag` are `string | boolean | undefined`. The JS passes them to `findTools` and would throw a `TypeError` on a boolean; the port keeps that byte-for-byte with `as string | undefined` casts rather than "fixing" it with `String()` (which would have changed the error behavior).
+5. **`err.message` in two catch blocks** (strict's `useUnknownInCatchVariables`): cast to `Error` to preserve the exact old output, including `error: undefined` for non-Error throws.
+6. **Nullable-field filters needed predicates**: `overdueTools` uses `tool is Tool & { dueDate: string }` and `summarize`'s `priced` uses `tool is Tool & { replacementCost: number }` so the `.sort`/`.reduce` bodies type-check without touching the arithmetic (the `Math.round(... * 100) / 100` rounding quirk is preserved as-is).

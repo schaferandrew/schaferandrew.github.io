@@ -1,0 +1,16 @@
+Everything is green: `npm test` → 50/50 passing, `npm run build` → success with `/contact` statically prerendered, and the full form (all `lead-*` ids) is in the server-rendered HTML. Only files under `app/` and `lib/` were touched.
+
+## What was wrong
+
+- **You couldn't type**: `LeadForm.tsx` stored values in a module-level mutable object with no `useState` — inputs were controlled but nothing ever re-rendered, so the fields froze. It also had no `"use client"` directive.
+- **No validation anywhere**: the form POSTed whatever it had, and `app/api/leads/route.ts` saved any body verbatim — no trimming, no email normalization, no 422 path, no error messages.
+- **No required/error/success UI**: no error elements, no `aria-invalid`, no focus management, no `lead-success`.
+
+## What I changed
+
+- **`lib/email.ts`** (new) — shared email logic: `normalizeEmail` (trim + lowercase) and `isValidEmail` (exactly one `@`, no spaces, nothing empty around a dot, RFC-ish local part, domain labels of letters/digits with inner hyphens only, TLD ≥ 2 letters). Accepts real-world input (plus addressing, dots, subdomains, hyphens, long/new TLDs) while rejecting malformed addresses.
+- **`lib/lead-validation.ts`** (new) — shared validation used by both client and server: trims every field, treats whitespace-only as empty, saves a missing company as `""`, returns either the cleaned lead or per-field error messages (the app's own, used everywhere).
+- **`app/contact/LeadForm.tsx`** — rewritten as a real client component: controlled state per field, shared validation on submit, per-field error paragraphs rendered only while that field has an error (cleared on edit), `aria-invalid="true"` + `aria-describedby`, focus moves to the first errored field, typed values always preserved, nothing sent on validation failure. On success it POSTs JSON to `/api/leads` and swaps the form for `<div id="lead-success">`; on a 422 it shows the server's errors and keeps the input. Form is `noValidate` so the browser never shows native popups; all element ids kept exactly as specified.
+- **`app/api/leads/route.ts`** — now the authority: validates via the shared module, answers `422 { errors }` and saves nothing on problems, otherwise `201 { lead }` with trimmed fields, a missing company as `""`, and the normalized email.
+- **`lib/leads.ts`** — `Lead` type now comes from `lead-validation.ts` (re-exported) so store and validation agree; store behavior unchanged.
+- **Tests** (all new): `lib/email.test.ts` (37 accept/reject cases), `lib/lead-validation.test.ts`, `app/api/leads/route.test.ts` (201/422 paths against a temp `LEADS_FILE`), and `app/contact/LeadForm.test.tsx` (SSR of the full form, typing, error a11y + focus + no-fetch on problems, Enter-to-submit, success swap, 422 keeps the form and values).

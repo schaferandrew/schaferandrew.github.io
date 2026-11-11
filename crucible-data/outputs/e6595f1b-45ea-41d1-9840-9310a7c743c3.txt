@@ -1,0 +1,20 @@
+
+
+I checked everything: today is **Wed Nov 10, 11:38 PM CST (America/Chicago)**.
+
+**What I found:**
+
+1. **Your team** is the 16-person "Platform" team: you (Alex Rivera) plus Jamie, Priya, Marcus, Dana, Theo, Lena, Omar, Chloe, Ravi, Sofia, Ben, Nina, Caleb, Mei, and Eli. (Jordan and Sam are on Design, and Atlas is a meeting room — excluded.)
+
+2. **Availability:** I pulled free/busy for all 16 calendars (15 teammates + your own) across the entire two-week window (Nov 11–24), in several overlapping slices. Every single calendar is completely empty — no busy blocks for anyone, in any part of the two weeks.
+
+3. **Time zone note:** DST ended on Nov 1, so Chicago is on **CDT (UTC-5)** right now — which makes Chicago and New York the *same* UTC offset this month. So Marcus (America/New_York) is at the same wall-clock time as everyone else, removing the usual 1-hour cross-time-zone headache. There is no timezone conflict at all.
+
+4. **Since everyone is free everywhere**, the ranking comes down to convenience: I favor mid-week, mid-morning slots (~10:00) that give notice before the meeting and land comfortably in working hours for both time zones. Earliest-with-good-notice comes first.
+
+Top three options (all 10:00 AM, same clock time for Marcus):
+
+OPTIONS:
+2026-11-16 10:00 CDT
+2026-11-18 10:00 CDT
+2026-11-19 10:00 CDT

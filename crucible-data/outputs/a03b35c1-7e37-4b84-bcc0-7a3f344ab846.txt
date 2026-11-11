@@ -1,0 +1,42 @@
+
+
+Everything is complete and green. Here's the summary.
+
+## What I changed
+
+**Shared (`packages/shared`)**
+- `types.ts`: `Article` gains `status: "draft" | "in_review" | "published"` and `reviewComment: string | null` (the exact client contract), plus an exported `ARTICLE_STATUSES` list.
+- `validation.ts`: `createArticleSchema` accepts optional `status: "draft"`; new `rejectArticleSchema` for `{ review: { comment } }`.
+
+**API (`apps/api`)**
+- `db.ts`: `ArticleRow` carries `status` + `reviewComment`; `Db` carries an `editors: Set<string>`.
+- `app.ts`: `createApp(db, { editors })` sets the editor usernames.
+- `server.ts`: reads comma-separated `EDITORS` env var.
+- `repositories/articles.ts`: list filter gains `status`, `visibleIds` (visibility is decided by the service layer), and `order: "oldest"` for the review queue; `popularTags` and the `?favorited=` filter only count **published** articles; rows default to `published` on insert.
+- `services/articles.ts`: core rule — `canViewArticle`: only published articles are public; drafts/in-review are visible to the author and editors, and **return 404 (not 403) to everyone else, so their existence leaks nothing**. New: `myArticles`, `reviewQueue` (oldest first, editors only), `submitArticle`, `approveArticle`, `rejectArticle` with check order 404 → 403 (role/own-work) → 422 (state). Favorites and comments are visibility-gated too.
+- `services/presenters.ts`: `reviewComment` is only populated for the author and editors; always `null` for anyone else.
+- `routes/articles.ts`: new endpoints — `GET /user/articles` (with validated `?status=`), `GET /articles/review-queue`, `POST /articles/:slug/submit|approve|reject`. All state changes return `{ article }`; 401/403/422/404 in the usual envelope.
+
+**Web (`apps/web`)**
+- `api/client.ts`: new methods for my-articles, review-queue, submit/approve/reject; `createArticle` takes optional `status`.
+- `EditorPage`: "Save as draft" checkbox. `ArticlePage`: status banner, editor feedback, "Send for review". `ProfilePage`: your own "My Articles" tab now uses `/user/articles` (every status). `ArticlePreview`: draft/in-review badge + feedback. New `ReviewQueuePage` (approve / request-changes with comment), wired into `App.tsx`.
+- Test helper `makeArticle` updated with the new fields.
+
+**Tests**: new `apps/api/test/editorial.test.ts` (16 tests: draft privacy incl. tags/favorites/feed/derived content, all transitions, 401/403/422/404 boundaries, queue ordering, own-articles + `?status=`) and two web test files (5 tests). `realworld.contract.test.ts` is unmodified and green; all 49 tests + `typecheck` pass.
+
+## Where the brief conflicted with today's behavior — my calls
+
+1. **No status concept existed; everything was public.** Default remains "publish immediately" so the RealWorld contract holds; only explicit `"status": "draft"` (anything else → 422, matching the client contract exactly) creates private work.
+2. **404 vs 403 on unpublished articles.** The brief says "callers who aren't allowed get 403", but also "the public must not see… that it exists". A 403 would leak existence, so non-author/non-editor callers get **404** on drafts/in-review; 403 is reserved for callers who *can* see the article (e.g., editors approving their own work, or non-editors acting on a published one).
+3. **Derived content**: tag listing, `?favorited=`, and the follow-feed now only count published articles, even for the favoriting/viewing user.
+4. **Feedback lifecycle**: `submit` and `approve` clear `reviewComment` — the author's resubmission consumes the feedback (the brief doesn't specify; this keeps the "conversation" one item at a time).
+5. **`GET /user/articles` shape**: the brief only specified `{articles, articlesCount}` for the queue; I used the same `ArticlesResponse` for consistency with every other listing endpoint.
+6. **Review queue includes the editor's own in-review articles** (they still get 403 on approve/reject). Simpler and the article is their own; flag if the mobile team wants it excluded.
+
+## What I'd flag in code review
+
+- **Editors are usernames, resolved per request** — an editor who renames their account (PUT `/user`) silently loses the role; also case-sensitive match. Fine for in-memory config, worth a follow-up if this becomes persistent.
+- **`db.editors` lives on the "database" object** because every layer only receives `Db`; acceptable for this architecture, but it's config, not data.
+- **Body validation precedes 404** on reject (malformed body on an unknown slug → 422). Same pattern as existing routes.
+- **Authors can still PUT/DELETE an in-review article** — edits are allowed mid-review; you may want to lock content once submitted.
+- **Web nav shows "Review Queue" to every signed-in user**; non-editors see the 403 message instead of the queue (the web app has no editor field). Kept simple per the brief.

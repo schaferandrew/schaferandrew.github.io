@@ -1,0 +1,7 @@
+Added three rows to `giving-log.csv` and filed:
+
+- **$250.00 — Maple Street Community Church**, gift dated November 17, 2024 → `records/2024/2024-11-17_Maple-Street-Community-Church.pdf`
+- **$180.00 — Hope Harbor Food Pantry**, gift dated December 31, 2025 → `records/2025/2025-12-31_Hope-Harbor-Food-Pantry.pdf`
+- **$60.00 — Riverbend Public Radio**, gift dated January 2, 2026 → `records/2026/2026-01-02_Riverbend-Public-Radio.pdf`
+
+Used the gift dates—not statement dates—for the tax years. `inbox/` is empty, and all existing rows and files are unchanged.

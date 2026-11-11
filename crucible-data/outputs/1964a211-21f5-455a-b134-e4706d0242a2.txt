@@ -1,0 +1,36 @@
+Done. Full suite green: 49 API tests (including the unmodified 19-test RealWorld contract suite) + 12 web tests, typecheck clean.
+
+## What I changed
+
+**Shared** (`packages/shared`)
+- `types.ts`: `ArticleStatus` type; `Article` gains `status` and `reviewComment` exactly per the client contract; `User` gains an `editor: boolean` flag (see judgment calls); `ArticleListQuery` gains `status`.
+- `validation.ts`: `createArticleSchema` accepts optional `"status": "draft"` **only** (so `"published"`/`"in_review"` can't be smuggled through create); new `rejectArticleSchema` for `{ review: { comment } }` (trimmed, non-empty, ≤2000).
+
+**API** (`apps/api`)
+- `db.ts`: `ArticleRow` gains `status`, `reviewComment`, `submittedAt` (drives queue ordering).
+- `services/editors.ts` (new): editors configured by username, resolved against the db at call time so late-registered editors work.
+- `services/articles.ts`: visibility rule (`canViewArticle`), the three transitions, `reviewQueue` (in_review, not your own, oldest submission first), `userArticles` (all statuses, newest first, optional status).
+- `repositories/articles.ts`: `statuses`/`excludeAuthorId` filters, `by`/`direction` sort options, and `popularTags` now counts published articles only.
+- `services/comments.ts` + presenters: comment threads on unapproved articles are hidden like the article itself; `presentArticle`/`presentUser` expose the new fields.
+- Routes: `POST /articles/:slug/submit|approve|reject`, `GET /articles/review-queue`, `GET /api/user/articles`. `app.ts` takes `{ editors: [...] }`; `server.ts` reads `EDITORS`.
+- Web: `ReviewQueuePage` (approve/reject with comment form), `MyArticlesPage` (status filter, feedback, submit), `EditorPage` gains Save Draft / Submit for Review and shows status + feedback, status badges on previews/article page, nav links (queue only shown to editors).
+
+## Judgment calls (where the brief met reality)
+
+1. **Hidden articles 404, not 403.** For viewing, an unauthorized caller gets 404 — a 403 would confirm the article exists. 403 is reserved for the transition endpoints, as the brief specifies.
+2. **Public endpoints show published only — even with filters.** `GET /api/articles?author=me` won't show your drafts; authors use `GET /api/user/articles`. This keeps the leak surface to a single, explicitly-authorized endpoint and doesn't change behavior for existing clients.
+3. **Derivatives are covered:** tags from drafts never appear in `/api/tags`; drafts' comments/favorites are 404 to outsiders; a followed author's drafts don't leak into the feed.
+4. **Editors can't review their own work** — the brief says "no one approves their own"; I extended that to reject, since rejecting is also reviewing. Editors *can* submit their own drafts.
+5. **Feedback lifecycle:** `reviewComment` is cleared on resubmit and on approve, so published articles never carry stale feedback and an in_review article doesn't show addressed feedback.
+6. **`User.editor` flag** is an extra field (allowed — the contract suite only checks required fields), because the web app needs to know whether to show the Review Queue link.
+7. **`server.ts` defaults `EDITORS` to `"ada"`** so the seeded demo instance has a working reviewer; set `EDITORS=""` for none.
+8. **Transitions don't require a body re-validation of the article** — approve/reject act on current state only; authors can still edit their own draft/in_review articles via PUT, which can't change `status`.
+
+## What I'd flag in code review
+
+- **`status` as a column vs. an append-only review log.** A single mutable status can't answer "who reviewed this and when" — a `reviews` table (reviewer, action, comment, at) would be better long-term; I kept the minimal shape the client contract dictates.
+- **`submittedAt` ordering** uses the db clock; in a real DB this would be a indexed timestamp and the queue a straightforward query.
+- **Editors are usernames, not roles** — renames silently drop editor access. An `is_editor` column or role table would be more robust.
+- **The author can still edit/delete an in_review article**, including while an editor is mid-review; if that's unwanted, gate PUT/DELETE by status.
+- **`GET /user/articles` lives in `usersRouter`** (path is `/api/user/...`) but the service is in `services/articles.ts` — slightly awkward split; acceptable, but worth an opinion.
+- **No persistence**: all in-memory, per the existing design; the transitions would want a transaction around status+comment updates in a real store.

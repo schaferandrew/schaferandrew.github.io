@@ -1,0 +1,11 @@
+
+
+**Reasoning:**
+
+- Current time: Tuesday, September 1, 2026, 11:20 AM (America/Chicago), so I checked **today, Tuesday, September 1, 2026, at 3:30 PM** on your calendar (alex@example.com).
+- You have one event that afternoon: **"Design review"** at Conference Room A, running from **2:00 PM to 3:30 PM**.
+- It ends exactly at 3:30 PM, so at the 3:30 moment it's over — and nothing else on your calendar overlaps that time slot.
+
+You're free at 3:30 PM today.
+
+ANSWER: free

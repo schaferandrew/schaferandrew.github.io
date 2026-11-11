@@ -1,0 +1,33 @@
+
+
+Done. All 50 tests pass (19 contract — file untouched, 15 new API, 16 web) and `npm run typecheck` is clean for both apps.
+
+## What changed
+
+**API (`apps/api`)**
+- New `src/pagination.ts` (replaces `routes/pagination.ts`): keyset paging over `(createdAt DESC, id DESC)`. Cursors are `base64url(JSON).base64url(HMAC-SHA256)` signed with the server secret (`SECRET` now exported from `auth/tokens.ts`). The payload embeds a **scope** (`kind` + filters / feed viewer / comment article slug), so `decodeCursor` 422s with `{ errors: { cursor: [...] } }` on: malformed input, signature mismatch (tamper/forge), scope mismatch (different filters, endpoint, or feed viewer), and `cursor`+`offset` both present. `limit` defaults/caps as before; `commentPageFrom` returns `limit = Infinity` when neither `limit` nor `cursor` is sent.
+- `repositories/articles.ts`: `listArticles` factored over `matchArticles`; new `listArticlesAfter` (strictly-older keyset filter) that **peeks one row past `limit`** so `nextCursor` is `null` even on an exactly-full last page. `articlesCount` stays the total matching the filters.
+- `repositories/comments.ts`: new `commentsForArticlePage` with the same keyset + peek.
+- `services/articles.ts` / `services/comments.ts`: build `nextCursor` from the last row's position when more exists; offset mode still uses `offset + rows.length < count`.
+- `routes/articles.ts`: passes query-bound scopes; comments route now returns the full `CommentsResponse`.
+
+**Web (`apps/web`)**
+- `ArticleList`: cursor-driven "Load more" (button disappears at `nextCursor === null`, appends pages, dedupes via key + server-side keyset, guards double-clicks and stale in-flight pages after a tab/slug change). Numbered `Pagination.tsx` deleted; `HomePage`/`ProfilePage` now pass `ArticlePageQuery`.
+- New `CommentList` component with the same Load-more behavior plus the comment form; `ArticlePage` delegates to it.
+- `client.ts`: `feed` takes `ArticlePageQuery`, `comments` takes a `CommentsQuery` and returns `CommentsResponse`.
+
+**Shared (`packages/shared`)**
+- `ArticlesResponse`/`CommentsResponse` gain `nextCursor: string | null`; `ArticleListQuery` gains `cursor`; new `ArticlePageQuery` and `CommentsQuery` types.
+
+**Tests**
+- `apps/api/test/cursor-pagination.test.ts` (new): full walks on `/articles` + feed (newest-first, `nextCursor` null on last page, position-bound cursors), no-skip/no-duplicate with creates **and** deletes interleaved between pages, shared-timestamp ties, mid-run favoriting into a filtered run, offset compatibility (incl. cursors issued by offset pages), and all 422 rules (malformed, tampered body/signature, filter/endpoint/viewer/offset mismatches).
+- Web tests: `ArticleList.test.tsx` rewritten around Load-more semantics (append + keep, hide on last page, disabled while in flight, error handling); new `CommentList.test.tsx`; `render.tsx` helpers updated for the new shapes.
+
+## Things I'd flag in code review
+
+1. **`nextCursor` from offset pages**: an offset request can mint a cursor; using it switches to keyset mode. Intentional (keeps the two modes interoperable) but worth a call-out — a client mixing modes gets correct results, just different `articlesCount`-relative positions.
+2. **HMAC secret reuse**: cursors are signed with the JWT secret. Fine here (one server), but a dedicated `CURSOR_SECRET` would let you rotate pagination signing without invalidating tokens — or vice versa.
+3. **Keyset `more` via peek**: correct on a static snapshot; under truly concurrent writes a peek can rarely say "no more" when a late-arriving older row appears, or "more" when the next page is empty (client gets `[]` + `null` — terminates cleanly). Both are standard keyset trade-offs, no duplicates ever.
+4. **In-memory `O(n log n)` per page**: the repos filter/sort the whole table each request. Fine for this store, but the peek means one extra row is materialized; if this ever moves to SQL, translate to `WHERE (createdAt, id) < (?, ?)` + `LIMIT n+1`.
+5. **Comments `offset` param**: only rejected when combined with `cursor`; a bare `?offset=` on comments is ignored (as before the change, since it was never honored) rather than 422.
+6. **Test flakiness guard**: `articleWithComments` fixes comment authorship to `users[i % 3]`; the delete-`Comment 1` test relies on that rotation — brittle if the helper changes.

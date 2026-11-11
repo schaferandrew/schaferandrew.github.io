@@ -1,0 +1,36 @@
+
+
+All green: 27 API tests (contract suite unmodified), 12 web tests, typecheck clean.
+
+## Write-up
+
+### Root cause
+
+Invited contributors are stuck in a `/welcome` ↔ `/editor` redirect loop, caused by two files disagreeing about what "ready to write" means:
+
+1. **The editor guard gated on the wrong flag.** `RequireWriter` (`apps/web/src/auth/RequireWriter.tsx`) bounced anyone with `onboardingComplete: false` to `/welcome`. But invited accounts *never* complete onboarding: `createInvite()` creates the account with `onboardingComplete: false` and `acceptInvite()` only sets the username/password/terms — by design, invited contributors skip the welcome screen (docs/invites.md: "their editor already set them up").
+2. **The welcome screen pushed invited users back to the editor** — but in a `useEffect` that runs *after* the form renders, so rosa saw "Welcome to Conduit" flash before each bounce.
+
+Result: accepted-invite accounts (rosa, tomek) cycle `/editor` → guard → `/welcome` → effect → `/editor` … forever (my repro recorded 625+ cycles in a test — matching "the page keeps flashing… the browser says the page isn't responding").
+
+A second, independent bug: `pending@example.com` hit what docs/invites.md describes but the API never implemented — `register()` unconditionally 422'd with "email has already been taken" for an invited email, and since invited accounts have no password, that person was permanently stuck (no sign-in, no usable invite link).
+
+### What I changed
+
+- **`apps/web/src/auth/RequireWriter.tsx`** — gate the editor on `termsAcceptedAt`, not `onboardingComplete`. This is where **Legal's requirements win over both the design doc and current behavior**: Legal says accepting the terms is required to reach the editor and filling in a profile is *not* — so `termsAcceptedAt` is the exact right flag. This single change repairs rosa's and tomek's accounts with **no data migration**: they already have `termsAcceptedAt` set, and `accountState` correctly stays `"invited"` per the design doc.
+- **`apps/web/src/pages/WelcomePage.tsx`** — invited accounts that have accepted terms are redirected to `/editor` at render time (removed the post-render `useEffect` that caused the flash). An invited account *without* terms (e.g. `pending@example.com` after adopting via sign-up) sees the welcome form and accepts the terms there — required by Legal, no exceptions.
+- **`apps/api/src/services/users.ts` + `repositories/users.ts`** — `register()` now adopts the invited account when the email has a **pending** (never-accepted) invite, per docs/invites.md: sets the chosen username/password on the existing account, keeps `accountState: "invited"`, and marks the invite accepted so the email link can't adopt the same account a second time with different credentials. Regular sign-ups (and sign-ups for already-accepted invites, or with a taken username) behave exactly as before.
+- **Tests** — `apps/api/test/invites.test.ts` (8 tests, incl. the 422 repro that failed before the fix) and `apps/web/test/invite-loop.test.tsx` (5 tests using a location probe — the loop test failed with `['/welcome', '/welcome', …(625)]` before the fix). `realworld.contract.test.ts` untouched and green — it actually caught an intermediate regression when the username-collision exemption leaked to normal duplicates.
+
+### Decisions & reasoning
+
+- **Terms, not onboarding, is the access gate** — Legal is the stated authority; it also matches the data (`acceptInvite` sets `termsAcceptedAt`, never `onboardingComplete`). `onboardingComplete` now only drives the `/welcome` → `/` redirect for regular users, which is unchanged.
+- **No server-side terms check on article creation** — RealWorld's contract suite (unmodifiable) creates articles with users who never accepted terms, and Legal's requirement is about *reaching the editor*, which is the web guard's job.
+- **Adoption marks the invite accepted** — prevents a late-arriving click on the email link from re-adopting the account under different credentials.
+- **Username-collision exemption applies only to adoption** — a user re-registering their own active email+username must still get the contract's 422.
+
+### Flag for code review
+
+- **Security trade-off in adoption:** knowing the invite email alone now lets anyone claim that invited account (the email is effectively the recovery key). The design doc mandates this behavior, and previously the account was simply unreachable — but consider sending a confirmation/verification email on adoption, or requiring the invite token, before this ships to real editors.
+- `markInviteAccepted` assumes a single invite per user; the schema currently guarantees that, but `findInviteByUserId` would return whichever wins iteration order if it ever doesn't.
+- The welcome screen still shows "Welcome to Conduit" with a bio field for adopted-invite users (it must, to collect Legal-required terms); a follow-up could retitle it for `accountState: "invited"` since they skipped the profile-setup pitch.

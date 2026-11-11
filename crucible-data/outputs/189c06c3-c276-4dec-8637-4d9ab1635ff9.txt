@@ -1,0 +1,36 @@
+ Done. Here's a summary of what was completed:
+
+### 1. Root cause confirmed in the logs
+The v1.8.0 deploy (2026-10-23 at 16:42:10 UTC) added an in-memory response cache (`src/middleware/responseCache.ts`) with a 60-second TTL. It caches `res.json()` outputs keyed only by `req.originalUrl`. Three problems result:
+
+- **Cross-user personalization leak:** `/api/articles/:slug`, `/api/articles?...`, and `/api/profiles/:username` return user-specific JSON (`favorited`, `following`). Because the cache key is only the URL, one user’s personalized view is served to the next requester of that same URL.
+- **No invalidation on writes:** `POST`/`PUT`/`DELETE` endpoints don’t evict cached GET entries, so edits and deletions remain visible for up to 60 seconds.
+- **Per-process cache on 4 instances:** Each instance maintains its own isolated cache, which perfectly explains “refreshing sometimes fixes it, sometimes makes it worse.”
+
+### 2. Fix
+- **`apps/api/src/middleware/responseCache.ts`**: added a `varyByAuth` option that prefixes the cache key with the `Authorization` header (or `_anon_` for unauthenticated requests). This isolates each user’s cached view. It now returns `{ middleware, invalidate }` so callers can evict entries. Bodies are deep-cloned before storing.
+- **`apps/api/src/app.ts`**: configured the cache with `varyByAuth: true`, and added a `res.on("finish", ...)` hook that invalidates all `/api/articles*` and `/api/profiles*` cache entries on successful mutations.
+
+`createApp(db, options)` and `server.ts` keep their current signatures and call patterns.
+
+### 3. Regression tests
+Five new tests were added to `apps/api/test/responseCache.test.ts`:
+- No cross-user leak for `favorited`
+- No cross-user leak for `following`
+- Cache invalidated after article update
+- Cache invalidated after article deletion
+- Article list cache invalidated after new article creation
+
+All existing tests pass, including `apps/api/test/realworld.contract.test.ts` (unmodified).
+
+### 4. Postmortem
+`incident/POSTMORTEM.md` was written with the required header:
+
+```
+Deploy: 16:42:10
+First affected request: 16:43:31
+First report: 18:06:01
+Affected users: 481
+```
+
+It includes a full timeline from the logs, the root cause, impact methodology, fix description, and follow-up actions.

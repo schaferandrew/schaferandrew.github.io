@@ -1,0 +1,32 @@
+Done. Here's the summary:
+
+## Root cause (single cause, two failure modes)
+
+The response cache added in **v1.8.0** (deployed 16:42:10, `PERF-212/219`) in `apps/api/src/middleware/responseCache.ts`:
+
+1. **Cache key ignored the viewer** — keyed on `req.originalUrl` only, ignoring `Authorization`. Article/profile responses embed viewer-dependent `favorited` / `author.following`, so responses built for user A were served to user B (and the regex also matched the auth-only `/articles/feed`).
+2. **No invalidation on writes** — PUT/DELETE/POST left stale entries for up to the 60 s TTL (stale edits, deleted articles still readable).
+
+Confirmed in the logs: first cross-user HIT at **16:44:00** (`user2294` served the `/api/tags` entry stored for `user0868`); first personalized leak at **16:44:15** (`user1287` served `user0638`'s article list); priya.writes' PUT at 18:57:21 followed by stale HITs at 18:57:26/33; tomasz's DELETE at 20:07:18 followed by HITs serving the deleted article at 20:07:29/39. All MISS→HIT gaps ≤ 59.97 s, matching the TTL.
+
+## Fix (intent kept, `createApp(db, options)` unchanged)
+
+- `middleware/auth.ts`: new `cacheIdentity(req)` → per-viewer key component (`anonymous` / `user:<id>`), `null` for unparseable tokens so those requests bypass the cache and still get 401 from route auth.
+- `middleware/responseCache.ts`: new `vary` option — key is now `<viewer> <url>`; successful mutations invalidate all entries (favorites/follows surface inside article lists).
+- `app.ts`: wires `vary: cacheIdentity`; `server.ts` untouched.
+
+## Tests
+
+- New `apps/api/test/responseCache.regression.test.ts` (10 tests): **8 fail before the fix, all pass after**; verified by stashing the fix and re-running.
+- Existing suites unmodified and green: contract 19, cache 2, web 7; `tsc --noEmit` clean.
+
+## Postmortem — `incident/POSTMORTEM.md`
+
+```
+Deploy: 16:42:10
+First affected request: 16:44:00
+First report: 18:06:01
+Affected users: 371
+```
+
+**371** = distinct signed-in users who received a personalized (`/api/articles*` / `/api/profiles/*`) response cached for a **different signed-in user** (427 responses), counted by pairing each `cache=HIT` with its storing `cache=MISS` and comparing `user=` fields (signed-in users only). Also stated: 143 additional users got anonymous-stored generic responses (481 combined), and `/api/tags` cross-user hits (no incorrect data) excluded. Follow-ups include cross-instance invalidation (4 instances share nothing in memory) and a cache-design review gate.

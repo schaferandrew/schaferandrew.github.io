@@ -1,0 +1,9 @@
+
+
+Done — all three inbox receipts are processed and inbox/ is now empty. What I filed:
+
+- **Maple Street Community Church — $250.00 by check, Nov 17, 2024 (Tax Year 2024)** → `records/2024/2024-11-17_Maple-Street-Community-Church.pdf` (reissued statement; the $500 pledge balance was not part of this gift)
+- **Hope Harbor Food Pantry — $180.00 by card, Dec 31, 2025 (Tax Year 2025)** → `records/2025/2025-12-31_Hope-Harbor-Food-Pantry.pdf` (letter dated Jan 4, 2026, but the gift was received/charged Dec 31, 2025)
+- **Riverbend Public Radio — $60.00 by card, Jan 2, 2026 (Tax Year 2026)** → `records/2026/2026-01-02_Riverbend-Public-Radio.pdf` (monthly sustainer charge; not the $660 annual total)
+
+Each row was added to `giving-log.csv` in date order, matching the existing format; no existing rows or files were touched.

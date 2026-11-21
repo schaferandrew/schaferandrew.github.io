@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Redirecting…</title>
+  <script>
+    (function () {
+      var base = "{{ page.redirect.to }}";
+      var search = location.search;
+      var hash = location.hash;
+      if (search) {
+        if (base.indexOf('?') === -1) { base += search; }
+        else { base += search.replace('?', '&'); }
+      }
+      if (hash) { base += hash; }
+      location.replace(base);
+    })();
+  </script>
+  <meta http-equiv="refresh" content="0; url={{ page.redirect.to }}">
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; padding: 2rem; text-align: center; color: #333; }
+    a { color: #1856a3; }
+  </style>
+</head>
+<body>
+  <p>This page has moved to <a href="{{ page.redirect.to }}">{{ page.redirect.to }}</a>.</p>
+</body>
+</html>

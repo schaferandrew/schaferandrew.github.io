@@ -59,4 +59,4 @@ I invite you to take a look at the results, play around with the dashboard, and 
 
 Reach out with questions. I hope soon to build the infrastructure to allow community-provided test results, but for now, I'd love to hear what your local models can do.
 
-[Check out the Crucible dashboard](/crucible/)
+[Check out the Crucible dashboard](/crucible-dashboard/)

@@ -8,10 +8,11 @@
                 <i></i><i></i><i></i>
             </button>
             <ul class="nav-menu" id="nav-menu">
-                {%- assign nav_links = "culture,technology,travel" | split: "," -%}
+                {%- assign nav_links = "culture,technology,travel,crucible-dashboard" | split: "," -%}
                 {%- for link in nav_links %}
                 {%- assign link_url = '/' | append: link -%}
-                <li><a class="nav-link" href="{{ link_url | relative_url }}" {% if page.url contains link_url %}aria-current="page"{% endif %}>{{ link }}</a></li>
+                {%- assign link_label = link | replace: '-dashboard', '' | capitalize -%}
+                <li><a class="nav-link" href="{{ link_url | relative_url }}" {% if page.url contains link_url %}aria-current="page"{% endif %}>{{ link_label }}</a></li>
                 {%- endfor %}
             </ul>
         </div>
